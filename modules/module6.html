@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 6: Game Theory Fundamentals | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html" class="active">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Module 6</div>
+    <h1>Game Theory Fundamentals</h1>
+    <p class="module-desc">
+      Strategic interaction formalized: payoff matrices, Nash equilibrium, dominant strategies,
+      mixed strategies, and the classic games that model cooperation, conflict, and social dilemmas.
+      This module bridges the mathematical foundations of Modules 1&ndash;5 with the evolutionary
+      game theory of Module 7.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module5.html">&larr; Module 5: Probability</a>
+    <a href="module7.html">Module 7: EGT &amp; Replicator &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>In This Module</h3>
+    <ol>
+      <li><a href="#what-is-a-game">What is a Game?</a></li>
+      <li><a href="#payoff-matrices">Payoff Matrices</a></li>
+      <li><a href="#classic-games">Classic Games and Social Dilemmas</a></li>
+      <li><a href="#dominant-strategies">Dominant Strategies</a></li>
+      <li><a href="#nash-equilibrium">Nash Equilibrium</a></li>
+      <li><a href="#mixed-strategies">Mixed Strategies</a></li>
+      <li><a href="#best-response">Best Response Functions</a></li>
+      <li><a href="#n-player-games">N-Player Games and Social Dilemmas</a></li>
+      <li><a href="#repeated-games">Repeated Games and Cooperation</a></li>
+      <li><a href="#interactive-nash">Interactive: Nash Equilibrium Finder</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: What is a Game? -->
+  <!-- ============================================================ -->
+  <div class="section" id="what-is-a-game">
+    <h2>1. What is a Game?</h2>
+
+    <p>
+      In everyday language, a "game" suggests recreation. In mathematics, a <strong>game</strong> is
+      any situation where the outcome for each participant depends not just on their own choices,
+      but on the choices of others. This is the essence of <em>strategic interaction</em>.
+    </p>
+
+    <p>
+      Game theory provides a rigorous mathematical framework for analyzing such interactions. It was
+      pioneered by John von Neumann and Oskar Morgenstern in their 1944 book <em>Theory of Games and
+      Economic Behavior</em>, and later profoundly developed by John Nash, who introduced the
+      equilibrium concept that bears his name.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Game (Strategic Form)</span>
+      <p>A <strong>game in strategic (normal) form</strong> consists of three elements:</p>
+      <ol>
+        <li><strong>Players:</strong> A finite set of decision-makers \( N = \{1, 2, \dots, n\} \).</li>
+        <li><strong>Strategies:</strong> For each player \( i \), a set of available actions \( S_i \). The element \( s_i \in S_i \) is a strategy for player \( i \).</li>
+        <li><strong>Payoffs:</strong> For each player \( i \), a payoff function \( u_i : S_1 \times S_2 \times \cdots \times S_n \to \mathbb{R} \) that assigns a numerical outcome to every combination of strategies.</li>
+      </ol>
+      <p>
+        A <strong>strategy profile</strong> is a tuple \( s = (s_1, s_2, \dots, s_n) \) specifying one
+        strategy for each player. We write \( s_{-i} \) for the strategies of all players except \( i \).
+      </p>
+    </div>
+
+    <h3>Strategic Form vs. Extensive Form</h3>
+
+    <p>
+      Games can be represented in two main ways:
+    </p>
+
+    <div class="two-col">
+      <div>
+        <h4>Strategic (Normal) Form</h4>
+        <p>
+          Players choose their strategies simultaneously (or without knowing the other's choice).
+          The game is represented as a <strong>payoff matrix</strong>. This is the form we focus on in
+          this module, and the one most relevant for evolutionary game theory.
+        </p>
+      </div>
+      <div>
+        <h4>Extensive Form</h4>
+        <p>
+          Players may move sequentially, with a tree structure showing the order of moves, information
+          sets, and decision nodes. Useful for modeling games where timing and information matter
+          (e.g., bargaining, chess). We mention this for completeness but will primarily work with
+          strategic form.
+        </p>
+      </div>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Why Game Theory Matters</span>
+      <p>
+        Game theory matters because the most important problems in social science, biology, and
+        economics involve <em>interdependent decision-making</em>. Should a nation arm or disarm?
+        Should a firm compete on price or quality? Should an organism fight or flee? Should a community
+        member contribute to a public good or free-ride?
+      </p>
+      <p>
+        In every case, the best choice depends on what others do. Game theory gives us the mathematical
+        tools to analyze these situations rigorously. For evolutionary game theory specifically, it
+        provides the strategic structures (games) whose dynamics we study when populations of
+        strategies evolve over time.
+      </p>
+    </div>
+
+    <h3>Key Assumptions in Classical Game Theory</h3>
+
+    <ul>
+      <li><strong>Rationality:</strong> Each player chooses the strategy that maximizes their payoff, given their beliefs about what others will do.</li>
+      <li><strong>Common knowledge of rationality:</strong> Each player knows that the others are rational, knows that they know, and so on.</li>
+      <li><strong>Complete information:</strong> (In the games we study here) all players know the payoff matrix.</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Note &mdash; Evolutionary Game Theory Relaxes These Assumptions</span>
+      <p>
+        In evolutionary game theory (Module 7), we drop the rationality assumption entirely. Players
+        are not assumed to "think" at all &mdash; strategies spread through a population based on
+        their <em>fitness</em> (success). This makes EGT applicable to biological populations,
+        cultural evolution, and boundedly rational agents. The mathematical structure of the game
+        remains the same; only the solution concept changes.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Payoff Matrices -->
+  <!-- ============================================================ -->
+  <div class="section" id="payoff-matrices">
+    <h2>2. Payoff Matrices</h2>
+
+    <p>
+      For two-player games with finite strategy sets, the most natural representation is a
+      <strong>payoff matrix</strong> (also called a <strong>bimatrix</strong>). This is the workhorse
+      representation for game theory, and you will use it constantly.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Payoff Matrix (Bimatrix)</span>
+      <p>
+        For a two-player game where Player 1 has \( m \) strategies and Player 2 has \( n \) strategies,
+        the payoff matrix is an \( m \times n \) table. Each cell \((i,j)\) contains a pair of payoffs
+        \((a_{ij},\, b_{ij})\), where:
+      </p>
+      <ul>
+        <li>\( a_{ij} \) = payoff to <strong>Player 1</strong> (the row player)</li>
+        <li>\( b_{ij} \) = payoff to <strong>Player 2</strong> (the column player)</li>
+      </ul>
+      <p>Equivalently, we can write the game as a pair of matrices \( (A, B) \) where \( A = [a_{ij}] \) and \( B = [b_{ij}] \).</p>
+    </div>
+
+    <h3>Reading a Payoff Matrix</h3>
+
+    <p>Consider the following 2&times;2 game:</p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Left</th>
+        <th>Right</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Up</td>
+        <td>(3, 2)</td>
+        <td>(1, 4)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Down</td>
+        <td>(0, 1)</td>
+        <td>(2, 3)</td>
+      </tr>
+    </table>
+
+    <p>Here is how to read it:</p>
+    <ul>
+      <li>If Player 1 plays <strong>Up</strong> and Player 2 plays <strong>Left</strong>: Player 1 gets 3, Player 2 gets 2.</li>
+      <li>If Player 1 plays <strong>Up</strong> and Player 2 plays <strong>Right</strong>: Player 1 gets 1, Player 2 gets 4.</li>
+      <li>If Player 1 plays <strong>Down</strong> and Player 2 plays <strong>Left</strong>: Player 1 gets 0, Player 2 gets 1.</li>
+      <li>If Player 1 plays <strong>Down</strong> and Player 2 plays <strong>Right</strong>: Player 1 gets 2, Player 2 gets 3.</li>
+    </ul>
+
+    <h3>Matrix Notation</h3>
+
+    <p>We can separate the game into two payoff matrices:</p>
+
+    <div class="math-display">
+      \[
+        A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}, \quad
+        B = \begin{pmatrix} 2 & 4 \\ 1 & 3 \end{pmatrix}
+      \]
+    </div>
+
+    <p>
+      The entry \( a_{ij} \) is Player 1's payoff when Player 1 uses row \( i \) and Player 2 uses
+      column \( j \). The entry \( b_{ij} \) is Player 2's payoff for the same strategy profile.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Convention Alert</span>
+      <p>
+        In <strong>symmetric games</strong> (where both players have the same strategy set and
+        \( b_{ij} = a_{ji} \)), we often write only one matrix \( A \), with the understanding that
+        Player 1's payoff is given by \( A \) and Player 2's payoff by \( A^T \). This is the
+        standard convention in evolutionary game theory: we write the payoff to a <em>row strategy</em>
+        against a <em>column strategy</em>.
+      </p>
+    </div>
+
+    <h3>Symmetric Games</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Symmetric Game</span>
+      <p>
+        A two-player game is <strong>symmetric</strong> if both players have the same strategy set
+        \( S_1 = S_2 = S \), and the payoffs depend only on the strategies played, not on which
+        player plays which. Formally, \( u_1(s_i, s_j) = u_2(s_j, s_i) \) for all \( s_i, s_j \in S \).
+      </p>
+      <p>
+        In matrix form, this means \( B = A^T \). We need only specify one matrix \( A \), where
+        \( a_{ij} \) is the payoff to a player using strategy \( i \) against an opponent using strategy \( j \).
+      </p>
+    </div>
+
+    <p>
+      Symmetric games are central to evolutionary game theory because they model interactions where
+      individuals are drawn from a single population and play the same roles. All the classic games
+      below can be stated in symmetric form.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Classic Games -->
+  <!-- ============================================================ -->
+  <div class="section" id="classic-games">
+    <h2>3. Classic Games and Social Dilemmas</h2>
+
+    <p>
+      Certain 2&times;2 games appear again and again across biology, economics, political science,
+      and social science because they capture fundamental strategic tensions. Each game below
+      represents a different type of social dilemma. Understanding these archetypes is essential
+      for evolutionary game theory and for Ostrom's institutional analysis.
+    </p>
+
+    <!-- Prisoner's Dilemma -->
+    <h3 id="prisoners-dilemma">3.1 The Prisoner's Dilemma</h3>
+
+    <p>
+      The most famous game in all of game theory. Two suspects are arrested and interrogated
+      separately. Each can <strong>Cooperate</strong> (stay silent) or <strong>Defect</strong>
+      (betray the other). The payoff structure creates a devastating tension between individual
+      rationality and collective welfare.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Cooperate</th>
+        <th>Defect</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Cooperate</td>
+        <td>(R, R)</td>
+        <td>(S, T)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Defect</td>
+        <td>(T, S)</td>
+        <td>(P, P)</td>
+      </tr>
+    </table>
+
+    <p>The defining condition is: \( T > R > P > S \), where:</p>
+    <ul>
+      <li>\( T \) = <strong>Temptation</strong> to defect (defecting while the other cooperates)</li>
+      <li>\( R \) = <strong>Reward</strong> for mutual cooperation</li>
+      <li>\( P \) = <strong>Punishment</strong> for mutual defection</li>
+      <li>\( S \) = <strong>Sucker's</strong> payoff (cooperating while the other defects)</li>
+    </ul>
+
+    <p>A standard numerical example:</p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Cooperate</th>
+        <th>Defect</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Cooperate</td>
+        <td>(3, 3)</td>
+        <td>(0, 5)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Defect</td>
+        <td>(5, 0)</td>
+        <td>(1, 1)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">The Dilemma</span>
+      <p>
+        No matter what the other player does, each player is better off defecting (5 &gt; 3 if the
+        other cooperates; 1 &gt; 0 if the other defects). So rational players both defect, yielding
+        (1, 1). But mutual cooperation would give (3, 3) &mdash; both players would be better off!
+        Individual rationality leads to a collectively suboptimal outcome. This is the fundamental
+        tension of social dilemmas.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connections to Real World and Ostrom</span>
+      <p>
+        The Prisoner's Dilemma models arms races, environmental pollution, tax evasion, and
+        <strong>common-pool resource overexploitation</strong>. Elinor Ostrom's life work challenged
+        the pessimistic conclusion that PD-like situations inevitably lead to defection. She showed
+        that communities can develop <em>institutions</em> &mdash; rules, norms, and monitoring
+        mechanisms &mdash; that change the effective payoff structure and sustain cooperation. We
+        return to this in Section 9 and Module 8.
+      </p>
+    </div>
+
+    <!-- Hawk-Dove -->
+    <h3 id="hawk-dove">3.2 The Hawk-Dove Game (Chicken)</h3>
+
+    <p>
+      Two players compete over a resource of value \( V \). Each can play <strong>Hawk</strong>
+      (fight aggressively) or <strong>Dove</strong> (share peacefully). If both play Hawk, they
+      fight and each pays a cost \( C \). The critical question is the relationship between \( V \)
+      and \( C \).
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Hawk</th>
+        <th>Dove</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Hawk</td>
+        <td>\(\left(\frac{V-C}{2},\, \frac{V-C}{2}\right)\)</td>
+        <td>\((V,\, 0)\)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Dove</td>
+        <td>\((0,\, V)\)</td>
+        <td>\(\left(\frac{V}{2},\, \frac{V}{2}\right)\)</td>
+      </tr>
+    </table>
+
+    <p>A numerical example with \( V = 4, C = 6 \) (so \( C > V \)):</p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Hawk</th>
+        <th>Dove</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Hawk</td>
+        <td>(&minus;1, &minus;1)</td>
+        <td>(4, 0)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Dove</td>
+        <td>(0, 4)</td>
+        <td>(2, 2)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">The Strategic Structure</span>
+      <p>
+        When \( C > V \), the best response to a Hawk is Dove, and the best response to a Dove is
+        Hawk. There is no dominant strategy. The game has two pure-strategy Nash equilibria
+        (Hawk-Dove and Dove-Hawk) plus a mixed equilibrium. This is the "anti-coordination" game:
+        players want to do the <em>opposite</em> of their opponent.
+      </p>
+      <p>
+        In the evolutionary context (Module 7), the Hawk-Dove game was the founding example of
+        evolutionary game theory, introduced by Maynard Smith and Price (1973). The mixed Nash
+        equilibrium corresponds to the Evolutionarily Stable Strategy (ESS).
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Real-World Connections</span>
+      <p>
+        The Hawk-Dove game models territorial disputes in biology, brinkmanship in international
+        relations ("Chicken"), and resource conflicts in commons. Ostrom noted that many
+        common-pool resource situations have Hawk-Dove-like payoff structures, where aggressive
+        extraction harms everyone but yields a short-term advantage against a passive neighbor.
+      </p>
+    </div>
+
+    <!-- Stag Hunt -->
+    <h3 id="stag-hunt">3.3 The Stag Hunt</h3>
+
+    <p>
+      Two hunters can each choose to hunt <strong>Stag</strong> (which requires both hunters to
+      succeed) or <strong>Hare</strong> (which can be caught alone but is less valuable). This
+      models <strong>coordination</strong> problems: mutual cooperation is the best outcome, but
+      cooperating is risky if your partner might not cooperate.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Stag</th>
+        <th>Hare</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Stag</td>
+        <td>(4, 4)</td>
+        <td>(0, 3)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Hare</td>
+        <td>(3, 0)</td>
+        <td>(2, 2)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Coordination and Trust</span>
+      <p>
+        Unlike the Prisoner's Dilemma, there is no dominant strategy here. Both (Stag, Stag) and
+        (Hare, Hare) are Nash equilibria. The former is <strong>payoff-dominant</strong> (better for
+        both), while the latter is <strong>risk-dominant</strong> (safer, since hunting Hare
+        guarantees at least 2 regardless of the other's choice).
+      </p>
+      <p>
+        The key tension is not selfishness vs. cooperation, but rather <em>trust</em> and
+        <em>assurance</em>. The dilemma is: "Will my partner cooperate? If I trust them and they
+        don't, I get nothing." This is why Ostrom's design principles emphasize communication,
+        monitoring, and graduated sanctions &mdash; they build the trust needed to reach the
+        payoff-dominant equilibrium.
+      </p>
+    </div>
+
+    <!-- Battle of the Sexes -->
+    <h3 id="battle-of-sexes">3.4 Battle of the Sexes</h3>
+
+    <p>
+      Two players want to coordinate their actions, but each prefers a different coordination point.
+      The classic story: one partner prefers the opera, the other prefers a football match, but both
+      prefer being together to being apart.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Opera</th>
+        <th>Football</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Opera</td>
+        <td>(3, 2)</td>
+        <td>(0, 0)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Football</td>
+        <td>(0, 0)</td>
+        <td>(2, 3)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Coordination with Conflict</span>
+      <p>
+        Like the Stag Hunt, this game has two pure Nash equilibria: (Opera, Opera) and
+        (Football, Football). But unlike the Stag Hunt, the players <em>disagree</em> on which
+        equilibrium is better. Player 1 prefers (Opera, Opera) while Player 2 prefers
+        (Football, Football). There is also a mixed equilibrium, but it yields a low expected payoff.
+      </p>
+      <p>
+        This game models social conventions, standards adoption, and institutional design where
+        coordination is valuable but parties differ on which rules to coordinate around &mdash; a
+        core concern in Ostrom's institutional analysis.
+      </p>
+    </div>
+
+    <!-- Matching Pennies -->
+    <h3 id="matching-pennies">3.5 Matching Pennies</h3>
+
+    <p>
+      A <strong>zero-sum</strong> game: one player wins exactly what the other loses. Each player
+      simultaneously shows Heads or Tails. Player 1 wins if they match; Player 2 wins if they
+      differ.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Player 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Heads</th>
+        <th>Tails</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Player 1</td>
+        <td class="row-header">Heads</td>
+        <td>(1, &minus;1)</td>
+        <td>(&minus;1, 1)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Tails</td>
+        <td>(&minus;1, 1)</td>
+        <td>(1, &minus;1)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Pure Conflict</span>
+      <p>
+        There is no pure-strategy Nash equilibrium. If Player 1 plays Heads, Player 2 wants Tails;
+        but then Player 1 wants Tails; but then Player 2 wants Heads... This cycling shows that
+        only a <strong>mixed strategy</strong> equilibrium exists: each player randomizes 50-50.
+      </p>
+      <p>
+        While pure conflict games may seem less relevant to social dilemmas, they model
+        predator-prey interactions, inspection games (tax audits), and competitive sports.
+        The concept of mixed strategies was developed precisely to handle such games.
+      </p>
+    </div>
+
+    <h3>Summary of Game Types</h3>
+
+    <table class="payoff-matrix" style="font-size: 0.85rem">
+      <tr>
+        <th>Game</th>
+        <th>Key Tension</th>
+        <th>Pure NE</th>
+        <th>Social Dilemma Type</th>
+      </tr>
+      <tr>
+        <td><strong>Prisoner's Dilemma</strong></td>
+        <td>Individual vs. collective rationality</td>
+        <td>1 (Defect, Defect)</td>
+        <td>Cooperation / public goods</td>
+      </tr>
+      <tr>
+        <td><strong>Hawk-Dove</strong></td>
+        <td>Aggression vs. sharing</td>
+        <td>2 (asymmetric)</td>
+        <td>Conflict / resource division</td>
+      </tr>
+      <tr>
+        <td><strong>Stag Hunt</strong></td>
+        <td>Safety vs. efficiency</td>
+        <td>2 (symmetric)</td>
+        <td>Coordination / trust</td>
+      </tr>
+      <tr>
+        <td><strong>Battle of the Sexes</strong></td>
+        <td>Coordination vs. preference</td>
+        <td>2 (asymmetric)</td>
+        <td>Convention / standards</td>
+      </tr>
+      <tr>
+        <td><strong>Matching Pennies</strong></td>
+        <td>Pure competition</td>
+        <td>0</td>
+        <td>Adversarial / zero-sum</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Dominant Strategies -->
+  <!-- ============================================================ -->
+  <div class="section" id="dominant-strategies">
+    <h2>4. Dominant Strategies</h2>
+
+    <p>
+      The simplest way to solve a game is to check whether any player has a strategy that is always
+      better than their alternatives, regardless of what the other player does. Such a strategy is
+      called <strong>dominant</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Strict Dominance</span>
+      <p>
+        Strategy \( s_i \) <strong>strictly dominates</strong> strategy \( s_i' \) for player \( i \) if:
+      </p>
+      <div class="math-display">
+        \[ u_i(s_i, s_{-i}) > u_i(s_i', s_{-i}) \quad \text{for all } s_{-i} \in S_{-i} \]
+      </div>
+      <p>
+        In words: \( s_i \) yields a strictly higher payoff than \( s_i' \) no matter what the
+        opponents do.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Weak Dominance</span>
+      <p>
+        Strategy \( s_i \) <strong>weakly dominates</strong> strategy \( s_i' \) if:
+      </p>
+      <div class="math-display">
+        \[ u_i(s_i, s_{-i}) \geq u_i(s_i', s_{-i}) \quad \text{for all } s_{-i} \in S_{-i} \]
+      </div>
+      <p>with strict inequality for <em>at least one</em> \( s_{-i} \).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Dominant Strategy in the Prisoner's Dilemma</span>
+      <p>Recall the Prisoner's Dilemma payoffs for Player 1:</p>
+      <ul>
+        <li>If Player 2 cooperates: Defect gives 5, Cooperate gives 3. So Defect &gt; Cooperate.</li>
+        <li>If Player 2 defects: Defect gives 1, Cooperate gives 0. So Defect &gt; Cooperate.</li>
+      </ul>
+      <p>
+        Defect strictly dominates Cooperate for Player 1. By symmetry, the same holds for Player 2.
+        So (Defect, Defect) is the outcome when both players use their strictly dominant strategies.
+      </p>
+    </div>
+
+    <h3>Iterated Elimination of Dominated Strategies (IEDS)</h3>
+
+    <p>
+      When no single strategy is dominant, we can still simplify games by iteratively removing
+      strategies that are dominated. The idea is that a rational player would never play a dominated
+      strategy, and if all players know this, some previously undominated strategies may become
+      dominated.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Iterated Elimination</span>
+      <p>Consider the following 3&times;3 game (payoffs shown for Player 1 only, for clarity):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>L</th>
+          <th>C</th>
+          <th>R</th>
+        </tr>
+        <tr>
+          <td class="row-header">T</td>
+          <td>3</td>
+          <td>0</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td class="row-header">M</td>
+          <td>1</td>
+          <td>2</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td class="row-header">B</td>
+          <td>0</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+      </table>
+      <p><strong>Step 1:</strong> B is dominated by M (1 &gt; 0, 2 &gt; 1, 4 &gt; 2). Eliminate B.</p>
+      <p>We are left with a 2&times;3 game. Now suppose Player 2's payoffs (not shown) make further
+        eliminations possible. The process continues until no more dominated strategies exist.</p>
+      <p>
+        The key insight: IEDS preserves all Nash equilibria (for strict dominance). Any Nash
+        equilibrium of the original game survives the elimination process.
+      </p>
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">Warning</span>
+      <p>
+        Most games do <em>not</em> have dominant strategies. The Prisoner's Dilemma is special in
+        this regard. In games like Hawk-Dove, Stag Hunt, and Battle of the Sexes, the best strategy
+        depends on what the opponent does. This is why we need the concept of Nash equilibrium.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: Nash Equilibrium -->
+  <!-- ============================================================ -->
+  <div class="section" id="nash-equilibrium">
+    <h2>5. Nash Equilibrium</h2>
+
+    <p>
+      The Nash equilibrium is the central solution concept in game theory. It describes a stable
+      state where no player has an incentive to unilaterally change their strategy &mdash; a point
+      of mutual best response.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Nash Equilibrium</span>
+      <p>
+        A strategy profile \( s^* = (s_1^*, s_2^*, \dots, s_n^*) \) is a <strong>Nash equilibrium</strong>
+        if, for every player \( i \):
+      </p>
+      <div class="math-display">
+        \[ u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \quad \text{for all } s_i \in S_i \]
+      </div>
+      <p>
+        Equivalently: no player can <em>unilaterally</em> improve their payoff by switching to a
+        different strategy, holding all other players' strategies fixed.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; "No Regrets"</span>
+      <p>
+        At a Nash equilibrium, if the strategy profile were announced publicly, no player would
+        want to change their strategy. Each player is already doing the best they can given what
+        the others are doing. It is a state of <em>mutual consistency</em>.
+      </p>
+      <p>
+        Note: a Nash equilibrium is not necessarily "good" for the players. The (Defect, Defect)
+        outcome in the Prisoner's Dilemma is a Nash equilibrium even though both players would
+        prefer (Cooperate, Cooperate).
+      </p>
+    </div>
+
+    <h3>Finding Nash Equilibria in 2&times;2 Games</h3>
+
+    <p>
+      For a general 2&times;2 game with payoff matrices:
+    </p>
+
+    <div class="math-display">
+      \[
+        A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}, \quad
+        B = \begin{pmatrix} b_{11} & b_{12} \\ b_{21} & b_{22} \end{pmatrix}
+      \]
+    </div>
+
+    <p>
+      we find pure-strategy Nash equilibria by checking each of the four cells \((i,j)\):
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Method &mdash; Checking Pure NE in a 2&times;2 Game</span>
+      <p>
+        A cell \((i, j)\) is a Nash equilibrium if and only if:
+      </p>
+      <ol>
+        <li>\( a_{ij} \geq a_{i'j} \) for all rows \( i' \) (Player 1 has no profitable deviation given column \( j \)), and</li>
+        <li>\( b_{ij} \geq b_{ij'} \) for all columns \( j' \) (Player 2 has no profitable deviation given row \( i \)).</li>
+      </ol>
+      <p>
+        Practically: underline Player 1's best payoff in each column, and underline Player 2's
+        best payoff in each row. Cells where <em>both</em> payoffs are underlined are Nash equilibria.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Finding NE in the Stag Hunt</span>
+
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Stag</th>
+          <th>Hare</th>
+        </tr>
+        <tr>
+          <td class="row-header">Player 1</td>
+          <td class="row-header">Stag</td>
+          <td>(4, 4)</td>
+          <td>(0, 3)</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="row-header">Hare</td>
+          <td>(3, 0)</td>
+          <td>(2, 2)</td>
+        </tr>
+      </table>
+
+      <p><strong>Player 1's best responses (check each column):</strong></p>
+      <ul>
+        <li>If P2 plays Stag: P1 gets 4 (Stag) vs. 3 (Hare). Best: <strong>Stag</strong>.</li>
+        <li>If P2 plays Hare: P1 gets 0 (Stag) vs. 2 (Hare). Best: <strong>Hare</strong>.</li>
+      </ul>
+
+      <p><strong>Player 2's best responses (check each row):</strong></p>
+      <ul>
+        <li>If P1 plays Stag: P2 gets 4 (Stag) vs. 3 (Hare). Best: <strong>Stag</strong>.</li>
+        <li>If P1 plays Hare: P2 gets 0 (Stag) vs. 2 (Hare). Best: <strong>Hare</strong>.</li>
+      </ul>
+
+      <p><strong>Nash equilibria:</strong> (Stag, Stag) with payoffs (4, 4) and (Hare, Hare) with payoffs (2, 2). Both are NE because at each, neither player wants to deviate.</p>
+    </div>
+
+    <h3>Multiple Equilibria and Equilibrium Selection</h3>
+
+    <p>
+      Many games have <strong>multiple Nash equilibria</strong>. This raises the
+      <em>equilibrium selection</em> problem: which equilibrium will the players actually reach?
+      Several refinement criteria exist:
+    </p>
+
+    <ul>
+      <li><strong>Payoff dominance:</strong> Prefer the equilibrium that gives higher payoffs to all players (e.g., (Stag, Stag) over (Hare, Hare)).</li>
+      <li><strong>Risk dominance:</strong> Prefer the equilibrium that is "safer" &mdash; less risky if the other player deviates (e.g., (Hare, Hare) in the Stag Hunt).</li>
+      <li><strong>Focal points (Schelling):</strong> Cultural, contextual, or salient features may coordinate expectations.</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Note &mdash; Nash's Existence Theorem</span>
+      <p>
+        <strong>Theorem (Nash, 1950):</strong> Every finite game (finite number of players, each
+        with a finite number of strategies) has at least one Nash equilibrium, possibly in mixed
+        strategies. This is a deep result proved using the Kakutani fixed-point theorem. It
+        guarantees that Nash equilibrium is a universally applicable solution concept.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: Mixed Strategies -->
+  <!-- ============================================================ -->
+  <div class="section" id="mixed-strategies">
+    <h2>6. Mixed Strategies</h2>
+
+    <p>
+      Some games (like Matching Pennies) have no Nash equilibrium in pure strategies. Others
+      (like Hawk-Dove) have pure equilibria but also an important mixed equilibrium. To find
+      all equilibria, we need the concept of <strong>mixed strategies</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Mixed Strategy</span>
+      <p>
+        A <strong>mixed strategy</strong> for player \( i \) is a probability distribution
+        \( \sigma_i \) over the set of pure strategies \( S_i \). If \( S_i = \{s_1, s_2, \dots, s_k\} \),
+        then:
+      </p>
+      <div class="math-display">
+        \[ \sigma_i = (p_1, p_2, \dots, p_k) \quad \text{where } p_j \geq 0 \text{ and } \sum_{j=1}^{k} p_j = 1 \]
+      </div>
+      <p>
+        Here \( p_j = \sigma_i(s_j) \) is the probability that player \( i \) plays strategy \( s_j \).
+        A pure strategy is a special case where one \( p_j = 1 \) and all others are 0.
+      </p>
+    </div>
+
+    <h3>Expected Payoff Under Mixed Strategies</h3>
+
+    <p>
+      When both players use mixed strategies, we compute payoffs as <strong>expected values</strong>
+      (drawing on Module 5). For a 2&times;2 game where Player 1 mixes with probability \( p \) on
+      Strategy 1 and \( (1-p) \) on Strategy 2, and Player 2 mixes with probability \( q \) on
+      Strategy 1 and \( (1-q) \) on Strategy 2:
+    </p>
+
+    <div class="math-display">
+      \[
+        E[u_1(p, q)] = p \cdot q \cdot a_{11} + p \cdot (1-q) \cdot a_{12} + (1-p) \cdot q \cdot a_{21} + (1-p) \cdot (1-q) \cdot a_{22}
+      \]
+    </div>
+
+    <p>Using matrix notation, if \( \mathbf{p} = (p, 1-p) \) and \( \mathbf{q} = (q, 1-q)^T \):</p>
+
+    <div class="math-display">
+      \[
+        E[u_1] = \mathbf{p} \cdot A \cdot \mathbf{q}^T, \quad E[u_2] = \mathbf{p} \cdot B \cdot \mathbf{q}^T
+      \]
+    </div>
+
+    <h3>Finding Mixed Nash Equilibria: The Indifference Principle</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; The Indifference Principle</span>
+      <p>
+        In a completely mixed Nash equilibrium (where both players randomize over all their strategies
+        with positive probability), each player's mixed strategy must make the <em>other</em> player
+        <strong>indifferent</strong> between all strategies that are played with positive probability.
+      </p>
+      <p>
+        Formally: if player \( j \) plays mixed strategy \( \sigma_j^* \), then for every pure
+        strategy \( s_i \) in the support of player \( i \)'s equilibrium mix:
+      </p>
+      <div class="math-display">
+        \[ E[u_i(s_i, \sigma_j^*)] = E[u_i(s_i', \sigma_j^*)] \quad \text{for all } s_i, s_i' \text{ in the support} \]
+      </div>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Why Indifference?</span>
+      <p>
+        Think about it: if Player 1 is supposed to randomize between strategies A and B at
+        equilibrium, they must be <em>willing</em> to play both. That means they must be
+        indifferent &mdash; both strategies must give the same expected payoff (given Player 2's mix).
+        If one were strictly better, Player 1 would play only that one, contradicting the assumption
+        of mixing.
+      </p>
+    </div>
+
+    <h3>Worked Example: Mixed NE in Matching Pennies</h3>
+
+    <div class="example-box">
+      <span class="box-title">Full Derivation &mdash; Mixed NE of Matching Pennies</span>
+
+      <p>Payoff matrices:</p>
+      <div class="math-display">
+        \[
+          A = \begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix}, \quad
+          B = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}
+        \]
+      </div>
+
+      <p>
+        Let Player 1 play Heads with probability \( p \) and Tails with probability \( (1-p) \).
+        Let Player 2 play Heads with probability \( q \) and Tails with probability \( (1-q) \).
+      </p>
+
+      <p><strong>Step 1: Make Player 1 indifferent.</strong></p>
+      <p>Player 2 must choose \( q \) so that Player 1's expected payoff is the same from Heads and Tails.</p>
+      <p>Player 1's expected payoff from Heads:</p>
+      <div class="math-display">
+        \[ E[u_1(\text{H})] = q \cdot 1 + (1-q) \cdot (-1) = 2q - 1 \]
+      </div>
+      <p>Player 1's expected payoff from Tails:</p>
+      <div class="math-display">
+        \[ E[u_1(\text{T})] = q \cdot (-1) + (1-q) \cdot 1 = 1 - 2q \]
+      </div>
+      <p>Setting them equal:</p>
+      <div class="math-display">
+        \[ 2q - 1 = 1 - 2q \implies 4q = 2 \implies q^* = \frac{1}{2} \]
+      </div>
+
+      <p><strong>Step 2: Make Player 2 indifferent.</strong></p>
+      <p>Player 1 must choose \( p \) so that Player 2's expected payoff is the same from Heads and Tails.</p>
+      <p>Player 2's expected payoff from Heads:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{H})] = p \cdot (-1) + (1-p) \cdot 1 = 1 - 2p \]
+      </div>
+      <p>Player 2's expected payoff from Tails:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{T})] = p \cdot 1 + (1-p) \cdot (-1) = 2p - 1 \]
+      </div>
+      <p>Setting them equal:</p>
+      <div class="math-display">
+        \[ 1 - 2p = 2p - 1 \implies 4p = 2 \implies p^* = \frac{1}{2} \]
+      </div>
+
+      <p><strong>Result:</strong> The unique Nash equilibrium is \( (p^*, q^*) = \left(\frac{1}{2}, \frac{1}{2}\right) \). Both players randomize 50-50.</p>
+      <p>
+        <strong>Expected payoff at equilibrium:</strong>
+        \( E[u_1] = \frac{1}{2} \cdot (2 \cdot \frac{1}{2} - 1) + \frac{1}{2} \cdot (1 - 2 \cdot \frac{1}{2}) = 0 \).
+        The game is fair.
+      </p>
+    </div>
+
+    <h3>Worked Example: Mixed NE in Hawk-Dove</h3>
+
+    <div class="example-box">
+      <span class="box-title">Full Derivation &mdash; Mixed NE of Hawk-Dove</span>
+
+      <p>Using the numerical Hawk-Dove game:</p>
+
+      <div class="math-display">
+        \[
+          A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}
+        \]
+      </div>
+
+      <p>
+        (Since this is a symmetric game with \( B = A^T \), we work with one matrix.)
+        Let Player 1 play Hawk with probability \( p \). We need Player 2 to be indifferent.
+      </p>
+
+      <p>Player 2's payoff from Hawk (against P1's mix):</p>
+      <div class="math-display">
+        \[ E[u_2(\text{Hawk})] = p \cdot (-1) + (1-p) \cdot 0 = -p \]
+      </div>
+      <p>Note: we use \( A^T \) column entries. Against P1 playing Hawk, P2 Hawk gets \(-1\); against P1 Dove, P2 Hawk gets \(V = 4\). Wait &mdash; let us be careful with the symmetric payoff matrix. In the symmetric formulation, \( a_{ij} \) is the payoff to the row player against the column player. So Player 2's payoff from playing Hawk against P1's mix is read from the <em>Hawk row</em> of \( A \):</p>
+      <div class="math-display">
+        \[ E[u_2(\text{Hawk})] = p \cdot a_{\text{HH}} + (1-p) \cdot a_{\text{HD}} = p(-1) + (1-p)(4) = 4 - 5p \]
+      </div>
+
+      <p>Player 2's payoff from Dove:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{Dove})] = p \cdot a_{\text{DH}} + (1-p) \cdot a_{\text{DD}} = p(0) + (1-p)(2) = 2 - 2p \]
+      </div>
+
+      <p>Setting equal for indifference:</p>
+      <div class="math-display">
+        \[ 4 - 5p = 2 - 2p \implies 2 = 3p \implies p^* = \frac{2}{3} \]
+      </div>
+
+      <p>By symmetry, \( q^* = \frac{2}{3} \) as well.</p>
+
+      <p>
+        <strong>Result:</strong> In the mixed NE, each player plays Hawk with probability \( \frac{2}{3} \)
+        and Dove with probability \( \frac{1}{3} \).
+      </p>
+      <p>
+        <strong>Expected payoff:</strong>
+        \( E[u] = \frac{2}{3}(4 - 5 \cdot \frac{2}{3}) + \frac{1}{3}(2 - 2 \cdot \frac{2}{3})
+        = \frac{2}{3} \cdot \frac{2}{3} + \frac{1}{3} \cdot \frac{2}{3} = \frac{4}{9} + \frac{2}{9} = \frac{2}{3} \).
+      </p>
+
+      <p>
+        In the evolutionary interpretation (Module 7), the mixed NE corresponds to a <em>polymorphic
+        population</em> where \( \frac{2}{3} \) of individuals play Hawk and \( \frac{1}{3} \) play Dove.
+      </p>
+    </div>
+
+    <h3>General Formula for 2&times;2 Symmetric Games</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Result &mdash; Mixed NE of a 2&times;2 Symmetric Game</span>
+      <p>For a symmetric 2&times;2 game with payoff matrix:</p>
+      <div class="math-display">
+        \[
+          A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+        \]
+      </div>
+      <p>
+        the interior mixed Nash equilibrium (if it exists) has each player playing Strategy 1
+        with probability:
+      </p>
+      <div class="math-display">
+        \[
+          p^* = \frac{d - b}{(a - b) + (d - c)} = \frac{d - b}{a - b - c + d}
+        \]
+      </div>
+      <p>
+        This equilibrium exists in the interior (i.e., \( 0 < p^* < 1 \)) when neither strategy
+        is dominant, which occurs when \( (a - c) \) and \( (d - b) \) have the same sign.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: Best Response Functions -->
+  <!-- ============================================================ -->
+  <div class="section" id="best-response">
+    <h2>7. Best Response Functions</h2>
+
+    <p>
+      The concept of a <strong>best response</strong> is fundamental: it tells us what a player
+      should do given a specific belief about the opponent's strategy.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Best Response</span>
+      <p>
+        For player \( i \), the <strong>best response correspondence</strong> to the other players'
+        strategy profile \( \sigma_{-i} \) is:
+      </p>
+      <div class="math-display">
+        \[ BR_i(\sigma_{-i}) = \arg\max_{s_i \in S_i} \, u_i(s_i, \sigma_{-i}) \]
+      </div>
+      <p>
+        That is, \( BR_i(\sigma_{-i}) \) is the set of strategies that maximize player \( i \)'s
+        payoff given \( \sigma_{-i} \). It is a <em>correspondence</em> (set-valued function)
+        because there may be ties.
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Nash Equilibrium as Mutual Best Response</span>
+      <p>
+        A strategy profile \( \sigma^* = (\sigma_1^*, \sigma_2^*, \dots, \sigma_n^*) \) is a
+        Nash equilibrium <strong>if and only if</strong> each player's strategy is a best response
+        to the others:
+      </p>
+      <div class="math-display">
+        \[ \sigma_i^* \in BR_i(\sigma_{-i}^*) \quad \text{for all } i \in N \]
+      </div>
+      <p>
+        Nash equilibrium is the <strong>fixed point</strong> of the joint best response
+        correspondence. This connects game theory to the fixed-point theory we developed in Module 4.
+      </p>
+    </div>
+
+    <h3>Best Responses in 2&times;2 Games</h3>
+
+    <p>
+      In a 2&times;2 game, Player 2's mixed strategy is characterized by a single parameter
+      \( q \in [0,1] \) (the probability of playing Strategy 1). Player 1's best response function
+      \( BR_1(q) \) maps each \( q \) to the set of optimal mixing probabilities \( p \).
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Best Responses in the Prisoner's Dilemma</span>
+      <p>With \( a_{11} = 3, a_{12} = 0, a_{21} = 5, a_{22} = 1 \):</p>
+      <p>Player 1's payoff from Cooperate (Strategy 1): \( E_1^C = 3q + 0(1-q) = 3q \)</p>
+      <p>Player 1's payoff from Defect (Strategy 2): \( E_1^D = 5q + 1(1-q) = 4q + 1 \)</p>
+      <p>Compare: \( E_1^D - E_1^C = (4q + 1) - 3q = q + 1 > 0 \) for all \( q \in [0,1] \).</p>
+      <p>
+        Defect is strictly better regardless of \( q \). So \( BR_1(q) = \{\text{Defect}\} \)
+        for all \( q \). The best response function is a horizontal line at \( p = 0 \) (playing
+        Strategy 1 = Cooperate with probability 0).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Best Responses in the Hawk-Dove Game</span>
+      <p>With the symmetric payoff matrix \( a_{11} = -1, a_{12} = 4, a_{21} = 0, a_{22} = 2 \):</p>
+      <p>Player 1's payoff from Hawk: \( E_1^H = (-1)q + 4(1-q) = 4 - 5q \)</p>
+      <p>Player 1's payoff from Dove: \( E_1^D = 0 \cdot q + 2(1-q) = 2 - 2q \)</p>
+      <p>Player 1 prefers Hawk when \( 4 - 5q > 2 - 2q \), i.e., \( 2 > 3q \), i.e., \( q < \frac{2}{3} \).</p>
+      <p>Player 1 prefers Dove when \( q > \frac{2}{3} \).</p>
+      <p>Player 1 is indifferent when \( q = \frac{2}{3} \).</p>
+      <p>So the best response function is:</p>
+      <div class="math-display">
+        \[
+          BR_1(q) = \begin{cases}
+            \{p = 1\} & \text{if } q < \frac{2}{3} \quad (\text{play Hawk}) \\[6pt]
+            [0,1] & \text{if } q = \frac{2}{3} \quad (\text{any mix}) \\[6pt]
+            \{p = 0\} & \text{if } q > \frac{2}{3} \quad (\text{play Dove})
+          \end{cases}
+        \]
+      </div>
+      <p>
+        By symmetry, \( BR_2(p) \) has the same structure. The best response correspondences
+        intersect at three points: \((1, 0)\), \((0, 1)\), and \((\frac{2}{3}, \frac{2}{3})\)
+        &mdash; the two pure NE and the mixed NE.
+      </p>
+    </div>
+
+    <h3>Graphical Representation</h3>
+
+    <p>
+      For 2&times;2 games, we can plot both best response functions on the same \((p, q)\) diagram
+      where \( p \) is Player 1's probability of Strategy 1 and \( q \) is Player 2's probability
+      of Strategy 1. Nash equilibria are the intersection points of the two best response correspondences.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Graphical Patterns</span>
+      <ul>
+        <li><strong>Prisoner's Dilemma:</strong> Both BR functions point to the same corner &rarr; one pure NE.</li>
+        <li><strong>Coordination games (Stag Hunt):</strong> BR functions are "staircase-shaped" and intersect at two corners and one interior point.</li>
+        <li><strong>Anti-coordination games (Hawk-Dove):</strong> BR functions cross at two opposite corners and one interior point.</li>
+        <li><strong>Zero-sum (Matching Pennies):</strong> BR functions cross only at the interior point.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: N-Player Games and Social Dilemmas -->
+  <!-- ============================================================ -->
+  <div class="section" id="n-player-games">
+    <h2>8. N-Player Games and Social Dilemmas</h2>
+
+    <p>
+      Real social dilemmas rarely involve just two players. Communities managing common-pool
+      resources, nations negotiating climate agreements, and teams producing public goods all
+      involve multiple actors. Extending game theory to \( N \) players is essential for
+      understanding these situations.
+    </p>
+
+    <h3>Public Goods Games</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Linear Public Goods Game</span>
+      <p>
+        There are \( N \) players. Each player \( i \) chooses a contribution \( c_i \in \{0, 1\} \)
+        (or more generally, \( c_i \in [0, e] \) where \( e \) is the player's endowment).
+        Contributions are multiplied by a factor \( r > 1 \) and shared equally. Player \( i \)'s payoff is:
+      </p>
+      <div class="math-display">
+        \[
+          u_i = e - c_i + \frac{r \sum_{j=1}^{N} c_j}{N}
+        \]
+      </div>
+      <p>
+        The dilemma arises when \( 1 < r < N \): the group benefits from contributions (since
+        \( r > 1 \)), but each individual's marginal return is \( r/N < 1 \), so each
+        individual is better off keeping their endowment. This is the N-player Prisoner's Dilemma.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; 4-Player Public Goods Game</span>
+      <p>
+        Let \( N = 4 \), \( e = 10 \), \( r = 2 \). Each player can contribute their full
+        endowment (\( c = 10 \)) or nothing (\( c = 0 \)).
+      </p>
+      <ul>
+        <li><strong>If all contribute:</strong> \( u_i = 10 - 10 + \frac{2 \cdot 40}{4} = 0 + 20 = 20 \). Everyone gets 20.</li>
+        <li><strong>If all free-ride:</strong> \( u_i = 10 - 0 + 0 = 10 \). Everyone gets 10.</li>
+        <li><strong>If you alone free-ride:</strong> \( u_i = 10 - 0 + \frac{2 \cdot 30}{4} = 10 + 15 = 25 \). You get 25 (more than 20!).</li>
+        <li><strong>If you alone contribute:</strong> \( u_i = 10 - 10 + \frac{2 \cdot 10}{4} = 0 + 5 = 5 \). You get only 5.</li>
+      </ul>
+      <p>
+        Free-riding is always individually rational (\( \frac{r}{N} = \frac{1}{2} < 1 \)), so the
+        Nash equilibrium is zero contribution, yielding payoff 10 for each. But full contribution
+        yields 20 &mdash; the social dilemma.
+      </p>
+    </div>
+
+    <h3>Common-Pool Resource Games</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Common-Pool Resource (CPR) Game</span>
+      <p>
+        A common-pool resource game models a shared resource (fishery, aquifer, forest) where each
+        of \( N \) players chooses an extraction level \( x_i \geq 0 \). The total extraction is
+        \( X = \sum_{i=1}^{N} x_i \). The per-unit value of the resource decreases with total
+        extraction (congestion/depletion), so player \( i \)'s payoff is:
+      </p>
+      <div class="math-display">
+        \[
+          u_i = x_i \cdot f(X) - c \cdot x_i
+        \]
+      </div>
+      <p>
+        where \( f(X) \) is the return per unit of extraction (decreasing in \( X \)) and \( c \) is
+        the per-unit cost of extraction.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Ostrom's Contribution</span>
+      <p>
+        Garrett Hardin's 1968 "Tragedy of the Commons" predicted that common-pool resources would
+        inevitably be overexploited, like a multi-player Prisoner's Dilemma. His proposed solutions
+        were privatization or government control.
+      </p>
+      <p>
+        Elinor Ostrom showed empirically and theoretically that this prediction was too pessimistic.
+        Communities around the world have developed <strong>institutional arrangements</strong> &mdash;
+        rules, monitoring systems, conflict resolution mechanisms &mdash; that successfully manage
+        common-pool resources. Her <strong>eight design principles</strong> describe the features
+        shared by successful self-governing institutions.
+      </p>
+      <p>
+        In game-theoretic terms, institutions change the payoff structure: monitoring creates the
+        possibility of punishment for defectors, communication enables coordination on efficient
+        equilibria, and graduated sanctions maintain incentives for cooperation. We explore this
+        connection fully in Module 8.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: Repeated Games -->
+  <!-- ============================================================ -->
+  <div class="section" id="repeated-games">
+    <h2>9. Repeated Games and Cooperation</h2>
+
+    <p>
+      The Prisoner's Dilemma has a depressing conclusion: rational players always defect. But
+      this assumes the game is played <strong>once</strong>. In reality, most social interactions
+      are <em>repeated</em>. What happens when the same players interact again and again?
+    </p>
+
+    <h3>The Repeated Prisoner's Dilemma</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Infinitely Repeated Game</span>
+      <p>
+        An <strong>infinitely repeated game</strong> consists of a stage game \( G \) played at
+        times \( t = 0, 1, 2, \dots \). After each round, both players observe the outcome. Players
+        discount future payoffs by a factor \( \delta \in (0,1) \), so the payoff from a stream of
+        stage payoffs \( \pi_0, \pi_1, \pi_2, \dots \) is:
+      </p>
+      <div class="math-display">
+        \[
+          U = \sum_{t=0}^{\infty} \delta^t \pi_t = \pi_0 + \delta \pi_1 + \delta^2 \pi_2 + \cdots
+        \]
+      </div>
+      <p>The discount factor \( \delta \) can represent patience, or the probability that the game continues.</p>
+    </div>
+
+    <h3>Strategies in Repeated Games</h3>
+
+    <p>
+      A strategy in a repeated game specifies what to do at <em>each period</em> as a function
+      of the entire history of play. Some famous strategies for the repeated Prisoner's Dilemma:
+    </p>
+
+    <ul>
+      <li><strong>Always Defect (ALLD):</strong> Defect every round regardless of history.</li>
+      <li><strong>Always Cooperate (ALLC):</strong> Cooperate every round regardless of history.</li>
+      <li><strong>Tit-for-Tat (TFT):</strong> Cooperate on the first round, then copy your opponent's previous action. (The strategy that won Axelrod's famous tournament.)</li>
+      <li><strong>Grim Trigger:</strong> Cooperate until the opponent defects, then defect forever.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Can Tit-for-Tat Sustain Cooperation?</span>
+      <p>Consider TFT vs. TFT in the repeated PD with payoffs \( T=5, R=3, P=1, S=0 \).</p>
+      <p>Both cooperate forever, yielding a per-round payoff of 3. The total discounted payoff is:</p>
+      <div class="math-display">
+        \[ U_{TFT} = 3 + 3\delta + 3\delta^2 + \cdots = \frac{3}{1-\delta} \]
+      </div>
+      <p>If a player deviates to Defect in the first round against TFT:</p>
+      <ul>
+        <li>Round 0: Gets \( T = 5 \) (defect while opponent cooperates)</li>
+        <li>Round 1: Gets \( P = 1 \) (opponent retaliates, both defect)</li>
+        <li>Thereafter: the pattern depends on the strategy, but if they revert to cooperate, TFT forgives, etc.</li>
+      </ul>
+      <p>For a one-shot deviation (defect once, then return to cooperating):</p>
+      <div class="math-display">
+        \[ U_{deviate} = 5 + 0\delta + 3\delta^2 + 3\delta^3 + \cdots = 5 + \frac{3\delta^2}{1-\delta} \]
+      </div>
+      <p>Cooperation is sustained when \( U_{TFT} \geq U_{deviate} \):</p>
+      <div class="math-display">
+        \[ \frac{3}{1-\delta} \geq 5 + \frac{3\delta^2}{1-\delta} \]
+      </div>
+      <div class="math-display">
+        \[ 3 \geq 5(1-\delta) + 3\delta^2 \implies 3 \geq 5 - 5\delta + 3\delta^2 \]
+      </div>
+      <p>
+        This simplifies to a condition on \( \delta \). Cooperation is sustainable when the discount
+        factor is sufficiently high &mdash; when players are patient enough and the future matters
+        enough.
+      </p>
+    </div>
+
+    <h3>The Folk Theorem</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Folk Theorem (Informal)</span>
+      <p>
+        In an infinitely repeated game with sufficiently patient players (\( \delta \) close enough
+        to 1), <strong>any</strong> payoff profile that gives each player more than their minimax
+        payoff can be sustained as a Nash equilibrium (or subgame-perfect equilibrium) of the
+        repeated game.
+      </p>
+      <p>
+        The set of achievable payoff profiles is called the <strong>feasible and individually
+        rational</strong> (FIR) set.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">What the Folk Theorem Means</span>
+      <p>
+        Repetition dramatically expands the set of equilibria. While the one-shot Prisoner's Dilemma
+        has only one Nash equilibrium (Defect, Defect), the repeated PD has <em>infinitely many</em>
+        equilibria for sufficiently patient players &mdash; including mutual cooperation!
+      </p>
+      <p>
+        This is both powerful and problematic. It tells us cooperation <em>can</em> emerge, but it
+        doesn't predict <em>which</em> equilibrium will emerge. This is where Ostrom's institutional
+        analysis becomes crucial: <strong>institutions</strong> are the mechanisms that select among
+        the many possible equilibria of repeated social dilemmas, steering communities toward
+        cooperative outcomes.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Ostrom's Design Principles</span>
+      <p>Several of Ostrom's design principles directly correspond to mechanisms that sustain cooperation in repeated games:</p>
+      <ul>
+        <li><strong>Monitoring:</strong> Cooperation strategies like TFT require knowing what the other player did. Without monitoring, conditional cooperation is impossible.</li>
+        <li><strong>Graduated sanctions:</strong> Mild initial punishments (like TFT's single-round retaliation) are more robust than harsh ones (like Grim Trigger's permanent defection).</li>
+        <li><strong>Conflict resolution:</strong> When errors occur, mechanisms for forgiveness prevent spiraling retaliation.</li>
+        <li><strong>Clear boundaries:</strong> Knowing who is "in the game" enables targeted reciprocity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: Interactive Nash Equilibrium Finder -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive-nash">
+    <h2>10. Interactive: Nash Equilibrium Finder</h2>
+
+    <div class="interactive-container">
+      <h3>Interactive: Nash Equilibrium Finder</h3>
+      <p>Enter payoffs for a 2&times;2 game. Each cell has two values: (Player 1 payoff, Player 2 payoff).</p>
+      <div id="nash-finder">
+        <table class="payoff-matrix">
+          <tr>
+            <th></th>
+            <th></th>
+            <th colspan="2">Player 2</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Strategy 1</th>
+            <th>Strategy 2</th>
+          </tr>
+          <tr>
+            <td class="row-header" rowspan="2">Player 1</td>
+            <td class="row-header">Strategy 1</td>
+            <td><input type="number" id="nash-a1" value="3" style="width:45px">, <input type="number" id="nash-a2" value="3" style="width:45px"></td>
+            <td><input type="number" id="nash-b1" value="0" style="width:45px">, <input type="number" id="nash-b2" value="5" style="width:45px"></td>
+          </tr>
+          <tr>
+            <td class="row-header">Strategy 2</td>
+            <td><input type="number" id="nash-c1" value="5" style="width:45px">, <input type="number" id="nash-c2" value="0" style="width:45px"></td>
+            <td><input type="number" id="nash-d1" value="1" style="width:45px">, <input type="number" id="nash-d2" value="1" style="width:45px"></td>
+          </tr>
+        </table>
+        <div style="margin-top:1rem">
+          <button class="btn btn-primary" onclick="findNash()">Find Nash Equilibria</button>
+        </div>
+        <div id="nash-result" style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:6px; min-height:60px">
+          Click "Find Nash Equilibria" to analyze the game.
+        </div>
+        <div style="margin-top:1rem">
+          <strong>Try these presets:</strong>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=3;document.getElementById('nash-a2').value=3;document.getElementById('nash-b1').value=0;document.getElementById('nash-b2').value=5;document.getElementById('nash-c1').value=5;document.getElementById('nash-c2').value=0;document.getElementById('nash-d1').value=1;document.getElementById('nash-d2').value=1;findNash()">Prisoner's Dilemma</button>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=-1;document.getElementById('nash-a2').value=-1;document.getElementById('nash-b1').value=3;document.getElementById('nash-b2').value=1;document.getElementById('nash-c1').value=1;document.getElementById('nash-c2').value=3;document.getElementById('nash-d1').value=2;document.getElementById('nash-d2').value=2;findNash()">Hawk-Dove</button>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=4;document.getElementById('nash-a2').value=4;document.getElementById('nash-b1').value=0;document.getElementById('nash-b2').value=3;document.getElementById('nash-c1').value=3;document.getElementById('nash-c2').value=0;document.getElementById('nash-d1').value=2;document.getElementById('nash-d2').value=2;findNash()">Stag Hunt</button>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=1;document.getElementById('nash-a2').value=-1;document.getElementById('nash-b1').value=-1;document.getElementById('nash-b2').value=1;document.getElementById('nash-c1').value=-1;document.getElementById('nash-c2').value=1;document.getElementById('nash-d1').value=1;document.getElementById('nash-d2').value=-1;findNash()">Matching Pennies</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 11: Exercises -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>Exercises</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 1: Reading Payoff Matrices</div>
+      <p>Consider the following game:</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>L</th>
+          <th>R</th>
+        </tr>
+        <tr>
+          <td class="row-header">U</td>
+          <td>(2, 4)</td>
+          <td>(5, 1)</td>
+        </tr>
+        <tr>
+          <td class="row-header">D</td>
+          <td>(3, 3)</td>
+          <td>(4, 2)</td>
+        </tr>
+      </table>
+      <p>(a) What is Player 1's payoff if P1 plays U and P2 plays R?</p>
+      <p>(b) What is Player 2's best response to U? To D?</p>
+      <p>(c) What is Player 1's best response to L? To R?</p>
+      <p>(d) Find all pure-strategy Nash equilibria.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>(a) Player 1's payoff at (U, R) is 5.</p>
+          <p>(b) If P1 plays U: P2 gets 4 from L, 1 from R. Best response: <strong>L</strong>. If P1 plays D: P2 gets 3 from L, 2 from R. Best response: <strong>L</strong>.</p>
+          <p>(c) If P2 plays L: P1 gets 2 from U, 3 from D. Best response: <strong>D</strong>. If P2 plays R: P1 gets 5 from U, 4 from D. Best response: <strong>U</strong>.</p>
+          <p>(d) Check each cell. (U, L): P1's BR to L is D (not U) &mdash; not NE. (U, R): P2's BR to U is L (not R) &mdash; not NE. (D, L): P1's BR to L is D (yes) and P2's BR to D is L (yes) &mdash; <strong>NE</strong>. (D, R): P1's BR to R is U (not D) &mdash; not NE.</p>
+          <p>The unique pure-strategy Nash equilibrium is <strong>(D, L)</strong> with payoffs (3, 3).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 2: Identifying Game Types</div>
+      <p>For each of the following payoff matrices, identify which classic game type it most closely resembles (PD, Hawk-Dove, Stag Hunt, BoS, or Matching Pennies) and justify your answer.</p>
+      <p>(a)</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th><th>C</th><th>D</th>
+        </tr>
+        <tr><td class="row-header">C</td><td>(5, 5)</td><td>(1, 4)</td></tr>
+        <tr><td class="row-header">D</td><td>(4, 1)</td><td>(3, 3)</td></tr>
+      </table>
+      <p>(b)</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th><th>C</th><th>D</th>
+        </tr>
+        <tr><td class="row-header">C</td><td>(4, 4)</td><td>(0, 6)</td></tr>
+        <tr><td class="row-header">D</td><td>(6, 0)</td><td>(1, 1)</td></tr>
+      </table>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Stag Hunt.</strong> Both (C, C) and (D, D) are Nash equilibria. Check: if P2 plays C, P1 prefers C (5 &gt; 4); if P2 plays D, P1 prefers D (3 &gt; 1). The payoff-dominant equilibrium (5,5) requires trust; the risk-dominant (3,3) is safe. This is the hallmark of the Stag Hunt.</p>
+          <p><strong>(b) Prisoner's Dilemma.</strong> We verify \( T > R > P > S \): \( 6 > 4 > 1 > 0 \). D strictly dominates C for both players: against C, D gives 6 &gt; 4; against D, D gives 1 &gt; 0. The unique NE is (D, D) with payoff (1, 1), even though (C, C) = (4, 4) is better for both.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 3: Finding Mixed Nash Equilibria</div>
+      <p>Find the mixed-strategy Nash equilibrium for the following symmetric game:</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>A</th>
+          <th>B</th>
+        </tr>
+        <tr>
+          <td class="row-header">A</td>
+          <td>(2, 2)</td>
+          <td>(0, 3)</td>
+        </tr>
+        <tr>
+          <td class="row-header">B</td>
+          <td>(3, 0)</td>
+          <td>(1, 1)</td>
+        </tr>
+      </table>
+      <p>(a) First find all pure-strategy Nash equilibria.</p>
+      <p>(b) Then find the mixed NE. What is the mixing probability? What is the expected payoff?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Pure NE:</strong> Check each cell.</p>
+          <ul>
+            <li>(A, A): P1's BR to A is B (3 &gt; 2). Not NE.</li>
+            <li>(A, B): P2's BR to A is B (3 &gt; 2). P1's BR to B is B (1 &gt; 0). Not NE (P1 deviates).</li>
+            <li>(B, A): Symmetric to above. P2 deviates. Not NE.</li>
+            <li>(B, B): P1's BR to B is B (1 &gt; 0). Yes. P2's BR to B is B (1 &gt; 0). Yes. <strong>NE</strong>.</li>
+          </ul>
+          <p>Wait &mdash; let us recheck (A,A). P1 BR to A: gets 2 (A) vs 3 (B), so BR = B. Not NE. And more carefully: this game has \(T = 3 > R = 2 > P = 1 > S = 0\). This is a Prisoner's Dilemma! Only (B, B) is a pure NE.</p>
+
+          <p><strong>(b) Mixed NE:</strong> Since B strictly dominates A (3 &gt; 2 and 1 &gt; 0), the only NE is \( p = 0 \) (always play B). There is <strong>no interior mixed NE</strong> because one strategy strictly dominates the other. The exercise reveals an important lesson: check for dominance before computing mixed equilibria!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 4: Mixed NE Computation</div>
+      <p>Find the mixed-strategy Nash equilibrium for this Battle of the Sexes game:</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Opera</th>
+          <th>Football</th>
+        </tr>
+        <tr>
+          <td class="row-header">Opera</td>
+          <td>(3, 2)</td>
+          <td>(0, 0)</td>
+        </tr>
+        <tr>
+          <td class="row-header">Football</td>
+          <td>(0, 0)</td>
+          <td>(2, 3)</td>
+        </tr>
+      </table>
+      <p>(a) What probability \( q \) must Player 2 place on Opera to make Player 1 indifferent?</p>
+      <p>(b) What probability \( p \) must Player 1 place on Opera to make Player 2 indifferent?</p>
+      <p>(c) What is the expected payoff to each player at the mixed NE?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Player 1's payoff from Opera: \( 3q + 0(1-q) = 3q \). Player 1's payoff from Football: \( 0 \cdot q + 2(1-q) = 2 - 2q \). Set equal: \( 3q = 2 - 2q \implies 5q = 2 \implies q^* = \frac{2}{5} \).</p>
+          <p><strong>(b)</strong> Player 2's payoff from Opera: \( 2p + 0(1-p) = 2p \). Player 2's payoff from Football: \( 0 \cdot p + 3(1-p) = 3 - 3p \). Set equal: \( 2p = 3 - 3p \implies 5p = 3 \implies p^* = \frac{3}{5} \).</p>
+          <p><strong>(c)</strong> Player 1's expected payoff: \( 3q^* = 3 \cdot \frac{2}{5} = \frac{6}{5} = 1.2 \). Player 2's expected payoff: \( 2p^* = 2 \cdot \frac{3}{5} = \frac{6}{5} = 1.2 \).</p>
+          <p>Note: the mixed NE payoff (1.2) is much worse than either pure NE (payoffs of 3,2 or 2,3). This is typical &mdash; the mixed NE in coordination games tends to be inefficient because miscoordination occurs with positive probability. This underscores the value of communication and norms (institutions) for coordination.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 5: Public Goods Game</div>
+      <p>
+        Consider a public goods game with \( N = 5 \) players, endowment \( e = 20 \), and
+        multiplication factor \( r = 3 \). Each player decides whether to contribute their full
+        endowment or nothing.
+      </p>
+      <p>(a) What is the payoff if all 5 contribute? If none contribute?</p>
+      <p>(b) What is the payoff to a free-rider when the other 4 contribute?</p>
+      <p>(c) What is the Nash equilibrium? Is it socially optimal?</p>
+      <p>(d) Describe an institutional mechanism (in the spirit of Ostrom) that might change the outcome.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> All contribute: \( u = 20 - 20 + \frac{3 \cdot 100}{5} = 0 + 60 = 60 \). None contribute: \( u = 20 - 0 + 0 = 20 \).</p>
+          <p><strong>(b)</strong> Free-rider (4 others contribute): \( u = 20 - 0 + \frac{3 \cdot 80}{5} = 20 + 48 = 68 \). The free-rider gets 68, more than the 60 from cooperating. This is the temptation to defect.</p>
+          <p><strong>(c)</strong> The marginal return from contributing is \( r/N = 3/5 = 0.6 < 1 \), so each player has a dominant strategy to free-ride. Nash equilibrium: zero contribution, payoff = 20 for each. This is not socially optimal &mdash; full contribution gives 60, three times as much.</p>
+          <p><strong>(d)</strong> Ostrom-inspired mechanisms: (i) Monitoring &mdash; make contributions observable so conditional cooperators can identify free-riders. (ii) Graduated sanctions &mdash; impose fines on non-contributors, starting small and increasing for repeat offenders. (iii) Collective-choice arrangements &mdash; let the group collectively decide contribution rules, increasing buy-in. For example, if the group imposes a fine \( F > e(1 - r/N) = 20 \cdot 0.4 = 8 \) on non-contributors, contributing becomes the dominant strategy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 6: Best Response Functions</div>
+      <p>For the Hawk-Dove game with \( V = 6, C = 10 \):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Hawk</th>
+          <th>Dove</th>
+        </tr>
+        <tr>
+          <td class="row-header">Hawk</td>
+          <td>(&minus;2, &minus;2)</td>
+          <td>(6, 0)</td>
+        </tr>
+        <tr>
+          <td class="row-header">Dove</td>
+          <td>(0, 6)</td>
+          <td>(3, 3)</td>
+        </tr>
+      </table>
+      <p>(a) Write Player 1's expected payoffs from Hawk and Dove as a function of \( q \) (P2's probability of playing Hawk).</p>
+      <p>(b) Find the threshold value of \( q \) where Player 1 is indifferent.</p>
+      <p>(c) Write the best response function \( BR_1(q) \).</p>
+      <p>(d) Find the mixed Nash equilibrium.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <p>\( E_1(\text{Hawk}) = (-2)q + 6(1-q) = 6 - 8q \)</p>
+          <p>\( E_1(\text{Dove}) = 0 \cdot q + 3(1-q) = 3 - 3q \)</p>
+          <p><strong>(b)</strong> Set equal: \( 6 - 8q = 3 - 3q \implies 3 = 5q \implies q^* = \frac{3}{5} \).</p>
+          <p><strong>(c)</strong></p>
+          <p>\( BR_1(q) = \begin{cases} \text{Hawk } (p=1) & \text{if } q < 3/5 \\ \text{any mix} & \text{if } q = 3/5 \\ \text{Dove } (p=0) & \text{if } q > 3/5 \end{cases} \)</p>
+          <p><strong>(d)</strong> By symmetry, \( p^* = q^* = \frac{3}{5} \). Each plays Hawk with probability 3/5 and Dove with probability 2/5. This can also be verified with the formula: \( p^* = \frac{d - b}{a - b - c + d} = \frac{3 - 6}{(-2) - 6 - 0 + 3} = \frac{-3}{-5} = \frac{3}{5} \).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7: Repeated PD and Cooperation</div>
+      <p>
+        In the repeated Prisoner's Dilemma with payoffs \( T=5, R=3, P=1, S=0 \) and discount
+        factor \( \delta \):
+      </p>
+      <p>(a) What is the discounted payoff from mutual cooperation forever?</p>
+      <p>(b) Consider a player facing Grim Trigger. The deviator gets \( T \) in round 0, then \( P \) forever after. What is the discounted payoff from deviating?</p>
+      <p>(c) For what values of \( \delta \) is cooperation sustainable via Grim Trigger?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \( U_{coop} = \sum_{t=0}^{\infty} \delta^t \cdot 3 = \frac{3}{1 - \delta} \).</p>
+          <p><strong>(b)</strong> \( U_{deviate} = 5 + \sum_{t=1}^{\infty} \delta^t \cdot 1 = 5 + \frac{\delta}{1 - \delta} \).</p>
+          <p><strong>(c)</strong> Cooperation is sustained when \( U_{coop} \geq U_{deviate} \):</p>
+          <p>\( \frac{3}{1-\delta} \geq 5 + \frac{\delta}{1-\delta} \)</p>
+          <p>\( \frac{3 - \delta}{1-\delta} \geq 5 \)</p>
+          <p>\( 3 - \delta \geq 5(1-\delta) = 5 - 5\delta \)</p>
+          <p>\( 4\delta \geq 2 \implies \delta \geq \frac{1}{2} \)</p>
+          <p>So cooperation via Grim Trigger is sustainable when \( \delta \geq \frac{1}{2} \). Players must value the future at least half as much as the present. In general, the threshold is \( \delta \geq \frac{T-R}{T-P} = \frac{5-3}{5-1} = \frac{1}{2} \).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module5.html">&larr; Module 5: Probability</a>
+    <a href="module7.html">Module 7: EGT &amp; Replicator &rarr;</a>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Module 6: Game Theory Fundamentals &mdash; Players, strategies, payoffs, Nash equilibrium, and social dilemmas.
+  </p>
+</footer>
+
+<!-- Scripts -->
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+
+<script>
+// Flag to prevent shared visualizations.js from double-initializing
+window._customVizInit = true;
+
+// =============================================
+// Nash Equilibrium Finder
+// =============================================
+function findNash() {
+  // Read payoffs from inputs
+  const a1 = parseFloat(document.getElementById('nash-a1').value);
+  const a2 = parseFloat(document.getElementById('nash-a2').value);
+  const b1 = parseFloat(document.getElementById('nash-b1').value);
+  const b2 = parseFloat(document.getElementById('nash-b2').value);
+  const c1 = parseFloat(document.getElementById('nash-c1').value);
+  const c2 = parseFloat(document.getElementById('nash-c2').value);
+  const d1 = parseFloat(document.getElementById('nash-d1').value);
+  const d2 = parseFloat(document.getElementById('nash-d2').value);
+
+  let results = [];
+  let pureNE = [];
+
+  // --- Check Pure Strategy Nash Equilibria ---
+  // Cell (S1, S1): P1 payoff = a1, P2 payoff = a2
+  // P1 BR: compare a1 vs c1 (given P2 plays S1)
+  // P2 BR: compare a2 vs b2 (given P1 plays S1)
+  if (a1 >= c1 && a2 >= b2) {
+    pureNE.push({ row: 'Strategy 1', col: 'Strategy 1', p1: a1, p2: a2 });
+  }
+
+  // Cell (S1, S2): P1 payoff = b1, P2 payoff = b2
+  // P1 BR: compare b1 vs d1 (given P2 plays S2)
+  // P2 BR: compare b2 vs a2 (given P1 plays S1)
+  if (b1 >= d1 && b2 >= a2) {
+    pureNE.push({ row: 'Strategy 1', col: 'Strategy 2', p1: b1, p2: b2 });
+  }
+
+  // Cell (S2, S1): P1 payoff = c1, P2 payoff = c2
+  // P1 BR: compare c1 vs a1 (given P2 plays S1)
+  // P2 BR: compare c2 vs d2 (given P1 plays S2)
+  if (c1 >= a1 && c2 >= d2) {
+    pureNE.push({ row: 'Strategy 2', col: 'Strategy 1', p1: c1, p2: c2 });
+  }
+
+  // Cell (S2, S2): P1 payoff = d1, P2 payoff = d2
+  // P1 BR: compare d1 vs b1 (given P2 plays S2)
+  // P2 BR: compare d2 vs c2 (given P1 plays S2)
+  if (d1 >= b1 && d2 >= c2) {
+    pureNE.push({ row: 'Strategy 2', col: 'Strategy 2', p1: d1, p2: d2 });
+  }
+
+  if (pureNE.length > 0) {
+    results.push('<strong>Pure Strategy Nash Equilibria:</strong>');
+    pureNE.forEach(ne => {
+      results.push('&bull; (' + ne.row + ', ' + ne.col + ') with payoffs (' + ne.p1 + ', ' + ne.p2 + ')');
+    });
+  } else {
+    results.push('<strong>No pure strategy Nash equilibria.</strong>');
+  }
+
+  // --- Check Mixed Strategy Nash Equilibrium ---
+  // Player 2 must make Player 1 indifferent:
+  // P1 payoff from S1: a1*q + b1*(1-q) = b1 + (a1-b1)*q
+  // P1 payoff from S2: c1*q + d1*(1-q) = d1 + (c1-d1)*q
+  // Set equal: b1 + (a1-b1)*q = d1 + (c1-d1)*q
+  // (a1-b1-c1+d1)*q = d1-b1
+  // q = (d1-b1) / (a1-b1-c1+d1)
+
+  // Player 1 must make Player 2 indifferent:
+  // P2 payoff from S1: a2*p + c2*(1-p) = c2 + (a2-c2)*p
+  // P2 payoff from S2: b2*p + d2*(1-p) = d2 + (b2-d2)*p
+  // Set equal: c2 + (a2-c2)*p = d2 + (b2-d2)*p
+  // (a2-c2-b2+d2)*p = d2-c2
+  // p = (d2-c2) / (a2-c2-b2+d2)
+
+  const denomQ = a1 - b1 - c1 + d1;
+  const denomP = a2 - c2 - b2 + d2;
+
+  results.push('');
+
+  if (Math.abs(denomQ) > 1e-10 && Math.abs(denomP) > 1e-10) {
+    const q = (d1 - b1) / denomQ;
+    const p = (d2 - c2) / denomP;
+
+    if (p > 0 && p < 1 && q > 0 && q < 1) {
+      // Compute expected payoffs at mixed NE
+      const eu1 = p * q * a1 + p * (1 - q) * b1 + (1 - p) * q * c1 + (1 - p) * (1 - q) * d1;
+      const eu2 = p * q * a2 + p * (1 - q) * b2 + (1 - p) * q * c2 + (1 - p) * (1 - q) * d2;
+
+      results.push('<strong>Mixed Strategy Nash Equilibrium:</strong>');
+      results.push('&bull; Player 1 plays Strategy 1 with probability p = ' + frac(p) + ' &asymp; ' + p.toFixed(4));
+      results.push('&bull; Player 2 plays Strategy 1 with probability q = ' + frac(q) + ' &asymp; ' + q.toFixed(4));
+      results.push('&bull; Expected payoffs: (' + eu1.toFixed(4) + ', ' + eu2.toFixed(4) + ')');
+    } else if ((p === 0 || p === 1) && (q === 0 || q === 1)) {
+      results.push('<strong>Mixed Strategy NE:</strong> Boundary solution coincides with pure NE.');
+    } else {
+      results.push('<strong>No interior mixed strategy Nash equilibrium</strong> (mixing probabilities fall outside (0,1)).');
+    }
+  } else {
+    results.push('<strong>No interior mixed strategy Nash equilibrium</strong> (degenerate case: a strategy is weakly dominated or payoffs are equal).');
+  }
+
+  // Game classification
+  results.push('');
+  results.push('<strong>Game Analysis:</strong>');
+
+  // Check for dominant strategies
+  let p1dom = '';
+  if (a1 > c1 && b1 > d1) p1dom = 'Strategy 1 strictly dominates Strategy 2 for Player 1.';
+  else if (c1 > a1 && d1 > b1) p1dom = 'Strategy 2 strictly dominates Strategy 1 for Player 1.';
+  else p1dom = 'Player 1 has no dominant strategy.';
+
+  let p2dom = '';
+  if (a2 > b2 && c2 > d2) p2dom = 'Strategy 1 strictly dominates Strategy 2 for Player 2.';
+  else if (b2 > a2 && d2 > c2) p2dom = 'Strategy 2 strictly dominates Strategy 1 for Player 2.';
+  else p2dom = 'Player 2 has no dominant strategy.';
+
+  results.push('&bull; ' + p1dom);
+  results.push('&bull; ' + p2dom);
+
+  // Check if zero-sum
+  if (Math.abs(a1 + a2) < 1e-10 && Math.abs(b1 + b2) < 1e-10 &&
+      Math.abs(c1 + c2) < 1e-10 && Math.abs(d1 + d2) < 1e-10) {
+    results.push('&bull; This is a <strong>zero-sum game</strong>.');
+  }
+
+  // Check if symmetric
+  if (Math.abs(a1 - a2) < 1e-10 && Math.abs(d1 - d2) < 1e-10 &&
+      Math.abs(b1 - c2) < 1e-10 && Math.abs(c1 - b2) < 1e-10) {
+    results.push('&bull; This is a <strong>symmetric game</strong>.');
+  }
+
+  document.getElementById('nash-result').innerHTML = results.join('<br>');
+}
+
+// Helper: try to express a decimal as a simple fraction
+function frac(x) {
+  if (Math.abs(x - Math.round(x)) < 1e-10) return Math.round(x).toString();
+  // Try denominators up to 20
+  for (let d = 2; d <= 20; d++) {
+    const n = Math.round(x * d);
+    if (Math.abs(x - n / d) < 1e-10) {
+      return n + '/' + d;
+    }
+  }
+  return x.toFixed(4);
+}
+</script>
+
+</body>
+</html>

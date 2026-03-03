@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4: Differential Equations & Dynamical Systems — Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html" class="active">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Module 4</div>
+    <h1>Differential Equations &amp; Dynamical Systems</h1>
+    <p class="module-desc">
+      How systems evolve over time. From single equations to systems of ODEs, fixed points,
+      stability analysis, and phase portraits &mdash; the mathematical framework that directly
+      becomes replicator dynamics.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module3.html">&larr; Module 3: Calculus</a>
+    <a href="module5.html">Module 5: Probability &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>In This Module</h3>
+    <ol>
+      <li><a href="#what-is-ode">What is a Differential Equation?</a></li>
+      <li><a href="#solving-odes">Solving Simple ODEs</a></li>
+      <li><a href="#systems">Systems of ODEs</a></li>
+      <li><a href="#fixed-points">Fixed Points (Equilibria)</a></li>
+      <li><a href="#stability">Stability Analysis</a></li>
+      <li><a href="#phase-portraits">Phase Portraits</a></li>
+      <li><a href="#logistic-preview">The Logistic Equation as a Preview of Replicator Dynamics</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+    </ol>
+  </div>
+
+  <!-- Why This Module Matters -->
+  <div class="intuition-box">
+    <span class="box-title">Why This Module Matters</span>
+    <p>
+      This is arguably the most important mathematical module in the entire course. The <strong>replicator equation</strong>
+      &mdash; the central equation of evolutionary game theory &mdash; <em>is</em> a differential equation. Everything
+      we study here applies directly: finding equilibria means finding equilibrium strategy mixes, stability analysis
+      determines whether an equilibrium is evolutionarily stable, and phase portraits show us how populations of
+      strategies evolve over time.
+    </p>
+    <p>
+      If you understand this module well, Module 7 (Replicator Dynamics) will feel like a natural continuation
+      rather than a leap.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: What is a Differential Equation? -->
+  <!-- ============================================================ -->
+  <div class="section" id="what-is-ode">
+    <h2>1. What is a Differential Equation?</h2>
+
+    <p>
+      In Module 3 (Calculus), we learned that a derivative \(\frac{dx}{dt}\) represents the rate of change
+      of \(x\) with respect to time \(t\). A <strong>differential equation</strong> is simply an equation that
+      tells us how this rate of change depends on the current state.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Ordinary Differential Equation (ODE)</span>
+      <p>
+        An <strong>ordinary differential equation</strong> (ODE) is an equation of the form:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = f(x, t)\]
+      </div>
+      <p>
+        It tells us: given the current value of \(x\) (and possibly the current time \(t\)),
+        what is the rate at which \(x\) is changing?
+      </p>
+    </div>
+
+    <p>
+      The word "ordinary" distinguishes these from <em>partial</em> differential equations, which
+      involve multiple independent variables. For evolutionary game theory, ordinary differential
+      equations are what we need.
+    </p>
+
+    <h3>The Key Idea: A Rule for Change</h3>
+    <p>
+      Think of a differential equation as a recipe: "Given where you are right now, here is how
+      fast you should move and in which direction." If you follow this recipe starting from some
+      initial position, you trace out a path through time &mdash; that path is the <strong>solution</strong>.
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Navigation Analogy</span>
+      <p>
+        Imagine you are in a river with a current. At every point in the river, the current has a
+        certain strength and direction. The differential equation is like a map of the current: it
+        tells you, at every position, which way and how fast the water pushes you. Your actual path
+        through the river &mdash; that depends on where you start (your <strong>initial condition</strong>).
+      </p>
+    </div>
+
+    <h3>Solutions Are Functions</h3>
+    <p>
+      Unlike algebraic equations where the solution is a number (e.g., \(x^2 = 4\) gives \(x = \pm 2\)),
+      the solution to a differential equation is a <strong>function</strong>. We seek \(x(t)\) &mdash;
+      a function that tells us the value of \(x\) at every time \(t\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Initial Value Problem (IVP)</span>
+      <p>
+        An <strong>initial value problem</strong> consists of a differential equation together with
+        an initial condition:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = f(x), \quad x(0) = x_0\]
+      </div>
+      <p>
+        The initial condition \(x(0) = x_0\) specifies where the system starts. Given a well-behaved
+        function \(f\), there is a unique solution \(x(t)\) for each choice of \(x_0\).
+      </p>
+    </div>
+
+    <h3>Example 1: Exponential Growth</h3>
+    <p>The simplest and most important differential equation:</p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Exponential Growth</span>
+      <div class="math-display">
+        \[\frac{dx}{dt} = rx\]
+      </div>
+      <p>
+        This says: "The rate of growth is proportional to the current size." The constant \(r\)
+        is the <strong>growth rate</strong>.
+      </p>
+      <ul>
+        <li>If \(r > 0\): the population grows &mdash; the bigger it is, the faster it grows.</li>
+        <li>If \(r < 0\): the population shrinks &mdash; exponential decay.</li>
+        <li>If \(r = 0\): no change &mdash; the population stays constant.</li>
+      </ul>
+      <p>The solution (which we will derive shortly) is:</p>
+      <div class="math-display">
+        \[x(t) = x_0 e^{rt}\]
+      </div>
+      <p>
+        where \(x_0 = x(0)\) is the initial population size.
+      </p>
+    </div>
+
+    <h3>Example 2: Logistic Growth</h3>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Logistic Growth</span>
+      <p>
+        Exponential growth cannot continue forever &mdash; resources are finite. The logistic equation
+        adds a correction term:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = rx\left(1 - \frac{x}{K}\right)\]
+      </div>
+      <p>where:</p>
+      <ul>
+        <li>\(r\) is the intrinsic growth rate</li>
+        <li>\(K\) is the <strong>carrying capacity</strong> &mdash; the maximum sustainable population</li>
+      </ul>
+      <p>When \(x\) is small compared to \(K\), the term \((1 - x/K) \approx 1\) and growth is
+        approximately exponential. As \(x\) approaches \(K\), the growth rate slows. At \(x = K\),
+        growth stops entirely.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to EGT</span>
+      <p>
+        The replicator equation from evolutionary game theory has the form:
+      </p>
+      <div class="math-display">
+        \[\frac{dx_i}{dt} = x_i \left( f_i(\mathbf{x}) - \bar{f}(\mathbf{x}) \right)\]
+      </div>
+      <p>
+        This is a differential equation! It says: the rate of change of strategy \(i\)'s frequency
+        is proportional to its current frequency times (its fitness minus the average fitness). We will
+        study this in detail in Module 7. For now, notice the structural similarity to the logistic
+        equation &mdash; both have the form "frequency times something."
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Solving Simple ODEs -->
+  <!-- ============================================================ -->
+  <div class="section" id="solving-odes">
+    <h2>2. Solving Simple ODEs</h2>
+
+    <p>
+      Not all differential equations can be solved analytically (i.e., with a formula). But many
+      important ones can, and the technique of <strong>separation of variables</strong> is the most
+      fundamental method.
+    </p>
+
+    <h3>Separation of Variables</h3>
+
+    <div class="def-box">
+      <span class="box-title">Method &mdash; Separation of Variables</span>
+      <p>
+        For an ODE of the form \(\frac{dx}{dt} = g(x) \cdot h(t)\), we can separate the variables:
+      </p>
+      <div class="math-display">
+        \[\frac{1}{g(x)}\,dx = h(t)\,dt\]
+      </div>
+      <p>
+        Then integrate both sides:
+      </p>
+      <div class="math-display">
+        \[\int \frac{1}{g(x)}\,dx = \int h(t)\,dt\]
+      </div>
+      <p>
+        The key idea: move all \(x\) terms to one side, all \(t\) terms to the other, then integrate.
+      </p>
+    </div>
+
+    <h3>Worked Example: Solving the Exponential Growth Equation</h3>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Solving \(\frac{dx}{dt} = rx\)</span>
+      <p><strong>Step 1:</strong> Separate variables. Divide both sides by \(x\):</p>
+      <div class="math-display">
+        \[\frac{1}{x}\frac{dx}{dt} = r\]
+      </div>
+      <p>Rewrite as:</p>
+      <div class="math-display">
+        \[\frac{1}{x}\,dx = r\,dt\]
+      </div>
+
+      <p><strong>Step 2:</strong> Integrate both sides:</p>
+      <div class="math-display">
+        \[\int \frac{1}{x}\,dx = \int r\,dt\]
+      </div>
+      <div class="math-display">
+        \[\ln|x| = rt + C\]
+      </div>
+      <p>where \(C\) is the constant of integration.</p>
+
+      <p><strong>Step 3:</strong> Solve for \(x\). Exponentiate both sides:</p>
+      <div class="math-display">
+        \[|x| = e^{rt + C} = e^C \cdot e^{rt}\]
+      </div>
+      <p>Let \(A = e^C\) (a positive constant):</p>
+      <div class="math-display">
+        \[x(t) = A e^{rt}\]
+      </div>
+
+      <p><strong>Step 4:</strong> Apply the initial condition \(x(0) = x_0\):</p>
+      <div class="math-display">
+        \[x(0) = A e^{0} = A = x_0\]
+      </div>
+
+      <p><strong>Solution:</strong></p>
+      <div class="math-display">
+        \[\boxed{x(t) = x_0 e^{rt}}\]
+      </div>
+    </div>
+
+    <h3>Worked Example: Solving the Logistic Equation</h3>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Solving \(\frac{dx}{dt} = rx\left(1 - \frac{x}{K}\right)\)</span>
+
+      <p><strong>Step 1:</strong> Separate variables:</p>
+      <div class="math-display">
+        \[\frac{dx}{x(1 - x/K)} = r\,dt\]
+      </div>
+
+      <p><strong>Step 2:</strong> Use partial fractions on the left side. Write:</p>
+      <div class="math-display">
+        \[\frac{1}{x(1 - x/K)} = \frac{1}{x} + \frac{1/K}{1 - x/K}\]
+      </div>
+      <p>You can verify this by combining the fractions on the right.</p>
+
+      <p><strong>Step 3:</strong> Integrate both sides:</p>
+      <div class="math-display">
+        \[\int\left(\frac{1}{x} + \frac{1/K}{1 - x/K}\right)dx = \int r\,dt\]
+      </div>
+      <div class="math-display">
+        \[\ln|x| - \ln|1 - x/K| = rt + C\]
+      </div>
+      <div class="math-display">
+        \[\ln\left|\frac{x}{1 - x/K}\right| = rt + C\]
+      </div>
+
+      <p><strong>Step 4:</strong> Exponentiate and solve for \(x(t)\). After applying the initial condition
+        \(x(0) = x_0\), we get:</p>
+      <div class="math-display">
+        \[\boxed{x(t) = \frac{K}{1 + \left(\frac{K - x_0}{x_0}\right) e^{-rt}}}\]
+      </div>
+
+      <p><strong>Behavior:</strong></p>
+      <ul>
+        <li>As \(t \to 0\): \(x(0) = x_0\) (initial condition satisfied).</li>
+        <li>As \(t \to \infty\): the exponential term \(e^{-rt} \to 0\), so \(x(t) \to K\) (approaches carrying capacity).</li>
+        <li>The solution traces out an S-shaped (sigmoid) curve.</li>
+      </ul>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Why Solutions Methods Matter for EGT</span>
+      <p>
+        In many cases, we will not solve the replicator equation exactly. Instead, we will study it
+        qualitatively &mdash; asking "where are the equilibria?" and "are they stable?" rather than
+        "what is the exact formula?" But understanding how solutions work (exponential growth,
+        sigmoidal saturation) gives us deep intuition about the dynamics. When we see eigenvalues
+        with negative real parts, we know the system decays exponentially toward the equilibrium &mdash;
+        because we understand the exponential solution.
+      </p>
+    </div>
+
+    <h3>A Note on Autonomous ODEs</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Autonomous ODE</span>
+      <p>
+        An ODE is called <strong>autonomous</strong> if the right-hand side does not depend
+        explicitly on time:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = f(x)\]
+      </div>
+      <p>
+        Compare this to \(\frac{dx}{dt} = f(x, t)\), where the rule for change itself changes
+        over time. Almost all equations in evolutionary game theory are autonomous &mdash; the rules
+        of the game do not change as time passes. This makes the analysis considerably simpler.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Systems of ODEs -->
+  <!-- ============================================================ -->
+  <div class="section" id="systems">
+    <h2>3. Systems of ODEs</h2>
+
+    <p>
+      So far, we have tracked a single quantity \(x(t)\). But in evolutionary game theory, we
+      typically track multiple strategy frequencies simultaneously. If there are \(n\) strategies,
+      we need \(n\) equations.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; System of ODEs</span>
+      <p>
+        A <strong>system of ordinary differential equations</strong> is a collection of coupled equations:
+      </p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \frac{dx}{dt} &= f(x, y) \\[6pt]
+        \frac{dy}{dt} &= g(x, y)
+        \end{aligned}\]
+      </div>
+      <p>
+        Here \(x\) and \(y\) change simultaneously, and the rate of change of each can depend on both
+        variables. The system is <strong>coupled</strong> because the equation for \(x\) involves \(y\)
+        and vice versa.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Why Systems?</span>
+      <p>
+        In a two-strategy game (e.g., Hawk vs. Dove), we need to track the fraction of Hawks
+        \(x\) and the fraction of Doves \(y = 1 - x\). In a three-strategy game (Rock-Paper-Scissors),
+        we need \(x_1, x_2, x_3\) with \(x_1 + x_2 + x_3 = 1\). The replicator dynamics for
+        \(n\) strategies is a system of \(n\) coupled ODEs.
+      </p>
+    </div>
+
+    <h3>Vector Notation</h3>
+    <p>
+      We can write a system compactly using vectors. Define:
+    </p>
+    <div class="math-display">
+      \[\mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix}, \quad
+      \mathbf{F}(\mathbf{x}) = \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix}\]
+    </div>
+    <p>Then the system becomes:</p>
+    <div class="math-display">
+      \[\frac{d\mathbf{x}}{dt} = \mathbf{F}(\mathbf{x})\]
+    </div>
+    <p>This is exactly the same as the single-variable case, just with bold vectors.</p>
+
+    <h3>Linear Systems</h3>
+    <p>
+      A particularly important class of systems is <strong>linear systems</strong>, where \(f\) and \(g\)
+      are linear functions of \(x\) and \(y\):
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Linear System</span>
+      <div class="math-display">
+        \[\frac{d\mathbf{x}}{dt} = A\mathbf{x}\]
+      </div>
+      <p>
+        where \(A\) is a constant matrix. Written out:
+      </p>
+      <div class="math-display">
+        \[\begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} =
+        \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+        \begin{pmatrix} x \\ y \end{pmatrix}\]
+      </div>
+      <p>
+        (Here we use the dot notation \(\dot{x} = \frac{dx}{dt}\) for brevity.)
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; A Linear System</span>
+      <p>Consider the system:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= -2x + y \\
+        \dot{y} &= x - 2y
+        \end{aligned}\]
+      </div>
+      <p>In matrix form: \(\dot{\mathbf{x}} = A\mathbf{x}\) where</p>
+      <div class="math-display">
+        \[A = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\]
+      </div>
+      <p>
+        The eigenvalues of \(A\) determine the qualitative behavior. Recall from Module 2 that
+        eigenvalues \(\lambda\) satisfy \(\det(A - \lambda I) = 0\):
+      </p>
+      <div class="math-display">
+        \[(-2 - \lambda)^2 - 1 = 0 \implies \lambda^2 + 4\lambda + 3 = 0 \implies \lambda = -1, -3\]
+      </div>
+      <p>
+        Both eigenvalues are negative, so the origin is a <strong>stable node</strong> &mdash; all
+        trajectories converge to \((0, 0)\). We will formalize this in Section 5.
+      </p>
+    </div>
+
+    <h3>The Solution of Linear Systems</h3>
+    <p>
+      For the linear system \(\dot{\mathbf{x}} = A\mathbf{x}\), if \(A\) has eigenvalues
+      \(\lambda_1, \lambda_2\) with corresponding eigenvectors \(\mathbf{v}_1, \mathbf{v}_2\),
+      the general solution is:
+    </p>
+    <div class="math-display">
+      \[\mathbf{x}(t) = c_1 e^{\lambda_1 t} \mathbf{v}_1 + c_2 e^{\lambda_2 t} \mathbf{v}_2\]
+    </div>
+    <p>
+      where \(c_1\) and \(c_2\) are constants determined by the initial conditions. Notice that
+      each term involves an exponential \(e^{\lambda t}\) &mdash; exactly the solution form we
+      found for the single-variable case! This is why eigenvalues control the behavior:
+    </p>
+    <ul>
+      <li>If \(\lambda < 0\): the term \(e^{\lambda t}\) decays to 0 &mdash; the component shrinks.</li>
+      <li>If \(\lambda > 0\): the term \(e^{\lambda t}\) grows &mdash; the component explodes.</li>
+      <li>If \(\lambda\) is complex: the exponential produces oscillations (spirals).</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Connection to EGT</span>
+      <p>
+        The multi-strategy replicator equation is a system of ODEs. Near an equilibrium, we can
+        approximate it as a linear system \(\dot{\mathbf{x}} \approx J\mathbf{x}\) where \(J\)
+        is the Jacobian matrix. The eigenvalues of \(J\) then tell us whether the equilibrium is
+        evolutionarily stable. This is the core technique we will use in Module 7.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Fixed Points (Equilibria) -->
+  <!-- ============================================================ -->
+  <div class="section" id="fixed-points">
+    <h2>4. Fixed Points (Equilibria)</h2>
+
+    <p>
+      A <strong>fixed point</strong> (also called an <strong>equilibrium</strong> or <strong>rest point</strong>)
+      is a state where the system stays put &mdash; nothing changes.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Fixed Point</span>
+      <p>
+        A point \(x^*\) is a <strong>fixed point</strong> of the ODE \(\frac{dx}{dt} = f(x)\) if:
+      </p>
+      <div class="math-display">
+        \[f(x^*) = 0\]
+      </div>
+      <p>
+        For a system \(\dot{\mathbf{x}} = \mathbf{F}(\mathbf{x})\), a fixed point \(\mathbf{x}^*\)
+        satisfies \(\mathbf{F}(\mathbf{x}^*) = \mathbf{0}\) &mdash; all components of the rate of
+        change are zero simultaneously.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Ball on a Landscape</span>
+      <p>
+        Think of a ball rolling on a hilly landscape. Fixed points are where the ball can sit without
+        moving: hilltops (unstable &mdash; any nudge sends it rolling away), valley bottoms (stable &mdash;
+        nudges lead to return), and saddle points (stable in one direction, unstable in another).
+      </p>
+    </div>
+
+    <h3>Finding Fixed Points: One Variable</h3>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Fixed Points of the Logistic Equation</span>
+      <p>Find the fixed points of \(\frac{dx}{dt} = rx(1 - x/K)\).</p>
+      <p><strong>Solution:</strong> Set \(f(x) = 0\):</p>
+      <div class="math-display">
+        \[rx\left(1 - \frac{x}{K}\right) = 0\]
+      </div>
+      <p>This is zero when:</p>
+      <ul>
+        <li>\(x^* = 0\) (extinction), or</li>
+        <li>\(1 - x^*/K = 0 \implies x^* = K\) (carrying capacity)</li>
+      </ul>
+      <p>
+        So there are two fixed points. Which one is stable? We will answer this in Section 5,
+        but intuitively: if you start with a small population, it grows toward \(K\); if you
+        start above \(K\), it decreases toward \(K\). So \(x^* = K\) is stable and \(x^* = 0\)
+        is unstable (for \(r > 0\)).
+      </p>
+    </div>
+
+    <h3>Finding Fixed Points: Two Variables</h3>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Fixed Points of a 2D System</span>
+      <p>Find the fixed points of the system:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= x(3 - x - 2y) \\
+        \dot{y} &= y(2 - x - y)
+        \end{aligned}\]
+      </div>
+      <p><strong>Solution:</strong> We need both \(\dot{x} = 0\) and \(\dot{y} = 0\) simultaneously.</p>
+      <p>From \(\dot{x} = 0\): either \(x = 0\) or \(3 - x - 2y = 0\).</p>
+      <p>From \(\dot{y} = 0\): either \(y = 0\) or \(2 - x - y = 0\).</p>
+
+      <p>Combining all cases:</p>
+
+      <p><strong>Case 1:</strong> \(x = 0\) and \(y = 0\): Fixed point \((0, 0)\).</p>
+
+      <p><strong>Case 2:</strong> \(x = 0\) and \(2 - 0 - y = 0\): Fixed point \((0, 2)\).</p>
+
+      <p><strong>Case 3:</strong> \(3 - x - 0 = 0\) and \(y = 0\): Fixed point \((3, 0)\).</p>
+
+      <p><strong>Case 4:</strong> \(3 - x - 2y = 0\) and \(2 - x - y = 0\). Subtracting:
+        \(1 - y = 0\), so \(y = 1\), then \(x = 1\). Fixed point \((1, 1)\).</p>
+
+      <p>The four fixed points are: \((0,0)\), \((0,2)\), \((3,0)\), and \((1,1)\).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to EGT</span>
+      <p>
+        In the replicator equation, fixed points correspond to <strong>equilibrium strategy distributions</strong>.
+        These include:
+      </p>
+      <ul>
+        <li><strong>Pure strategy equilibria</strong> (corners of the simplex): only one strategy survives.</li>
+        <li><strong>Mixed equilibria</strong> (interior of the simplex): multiple strategies coexist at specific frequencies.</li>
+        <li><strong>Edge equilibria</strong>: some strategies present, others extinct.</li>
+      </ul>
+      <p>
+        Finding fixed points of the replicator equation is equivalent to finding Nash equilibria
+        of the underlying game. This is one of the deep connections between dynamics and static
+        game theory.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: Stability Analysis -->
+  <!-- ============================================================ -->
+  <div class="section" id="stability">
+    <h2>5. Stability Analysis</h2>
+
+    <p>
+      Finding fixed points tells us <em>where</em> the system can rest. <strong>Stability analysis</strong>
+      tells us <em>whether</em> it actually will &mdash; do small perturbations die out (stable) or grow
+      (unstable)?
+    </p>
+
+    <h3>Stability in One Dimension</h3>
+    <p>
+      For a one-dimensional ODE \(\dot{x} = f(x)\), we can determine stability by looking at the
+      derivative \(f'(x)\) evaluated at the fixed point.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Stability Criterion (1D)</span>
+      <p>Let \(x^*\) be a fixed point of \(\dot{x} = f(x)\). Then:</p>
+      <ul>
+        <li>If \(f'(x^*) < 0\): \(x^*\) is <strong>stable</strong> (attracting).</li>
+        <li>If \(f'(x^*) > 0\): \(x^*\) is <strong>unstable</strong> (repelling).</li>
+        <li>If \(f'(x^*) = 0\): inconclusive (need higher-order analysis).</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Stability of Logistic Fixed Points</span>
+      <p>For \(f(x) = rx(1 - x/K)\), we found fixed points \(x^* = 0\) and \(x^* = K\).</p>
+      <p>Compute \(f'(x)\):</p>
+      <div class="math-display">
+        \[f'(x) = r - \frac{2rx}{K}\]
+      </div>
+      <p><strong>At \(x^* = 0\):</strong> \(f'(0) = r\).</p>
+      <ul>
+        <li>If \(r > 0\): \(f'(0) > 0\) &mdash; <strong>unstable</strong>. A small population will grow away from 0.</li>
+      </ul>
+      <p><strong>At \(x^* = K\):</strong> \(f'(K) = r - 2r = -r\).</p>
+      <ul>
+        <li>If \(r > 0\): \(f'(K) = -r < 0\) &mdash; <strong>stable</strong>. The population is attracted to \(K\).</li>
+      </ul>
+      <p>This confirms our intuition: populations grow toward the carrying capacity.</p>
+    </div>
+
+    <h3>Stability in Higher Dimensions: The Jacobian</h3>
+    <p>
+      For systems with multiple variables, we generalize the derivative \(f'(x^*)\) to the
+      <strong>Jacobian matrix</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Jacobian Matrix</span>
+      <p>
+        For a system \(\dot{x} = f(x,y)\), \(\dot{y} = g(x,y)\), the <strong>Jacobian matrix</strong>
+        at a point \((x_0, y_0)\) is:
+      </p>
+      <div class="math-display">
+        \[J = \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\[6pt]
+        \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{pmatrix}\Bigg|_{(x_0, y_0)}\]
+      </div>
+      <p>
+        The Jacobian captures how the system behaves for small perturbations around the point
+        \((x_0, y_0)\). It is the "best linear approximation" to the nonlinear system near that point.
+      </p>
+    </div>
+
+    <h3>Linearization</h3>
+    <p>
+      Near a fixed point \(\mathbf{x}^*\), let \(\boldsymbol{\xi} = \mathbf{x} - \mathbf{x}^*\)
+      be a small perturbation. Then:
+    </p>
+    <div class="math-display">
+      \[\frac{d\boldsymbol{\xi}}{dt} \approx J\big|_{\mathbf{x}^*} \boldsymbol{\xi}\]
+    </div>
+    <p>
+      This is a linear system! We have reduced the problem of understanding a nonlinear system
+      near its equilibrium to understanding a linear system. And we know how to analyze linear
+      systems: compute eigenvalues.
+    </p>
+
+    <h3>Eigenvalue Classification</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Stability via Eigenvalues (Hartman-Grobman)</span>
+      <p>
+        Let \(\lambda_1, \lambda_2\) be the eigenvalues of the Jacobian \(J\) at a fixed point
+        \(\mathbf{x}^*\). If no eigenvalue has zero real part, then the local behavior is determined
+        by the eigenvalues:
+      </p>
+      <table class="payoff-matrix" style="width:100%; text-align:left; margin-top:1rem;">
+        <tr>
+          <th>Eigenvalues</th>
+          <th>Type</th>
+          <th>Behavior</th>
+        </tr>
+        <tr>
+          <td>\(\lambda_1, \lambda_2 < 0\) (both real, negative)</td>
+          <td><strong>Stable node</strong></td>
+          <td>All trajectories approach \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\lambda_1, \lambda_2 > 0\) (both real, positive)</td>
+          <td><strong>Unstable node</strong></td>
+          <td>All trajectories move away from \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\lambda_1 < 0 < \lambda_2\) (real, opposite signs)</td>
+          <td><strong>Saddle point</strong></td>
+          <td>Attracts along one direction, repels along another</td>
+        </tr>
+        <tr>
+          <td>\(\alpha \pm i\beta\) with \(\alpha < 0\)</td>
+          <td><strong>Stable spiral</strong></td>
+          <td>Spirals inward toward \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\alpha \pm i\beta\) with \(\alpha > 0\)</td>
+          <td><strong>Unstable spiral</strong></td>
+          <td>Spirals outward away from \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\pm i\beta\) (purely imaginary)</td>
+          <td><strong>Center</strong></td>
+          <td>Closed orbits around \(\mathbf{x}^*\) (neutrally stable)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Classifying the Fixed Point (1,1)</span>
+      <p>Return to our earlier system:</p>
+      <div class="math-display">
+        \[\dot{x} = x(3 - x - 2y), \quad \dot{y} = y(2 - x - y)\]
+      </div>
+      <p>Compute the Jacobian. Let \(f = x(3 - x - 2y)\), \(g = y(2 - x - y)\):</p>
+      <div class="math-display">
+        \[J = \begin{pmatrix}
+        3 - 2x - 2y & -2x \\
+        -y & 2 - x - 2y
+        \end{pmatrix}\]
+      </div>
+      <p>At the fixed point \((1, 1)\):</p>
+      <div class="math-display">
+        \[J\big|_{(1,1)} = \begin{pmatrix}
+        3 - 2 - 2 & -2 \\
+        -1 & 2 - 1 - 2
+        \end{pmatrix} = \begin{pmatrix}
+        -1 & -2 \\
+        -1 & -1
+        \end{pmatrix}\]
+      </div>
+      <p>Find eigenvalues from \(\det(J - \lambda I) = 0\):</p>
+      <div class="math-display">
+        \[(-1 - \lambda)^2 - 2 = 0\]
+      </div>
+      <div class="math-display">
+        \[\lambda^2 + 2\lambda - 1 = 0 \implies \lambda = \frac{-2 \pm \sqrt{4 + 4}}{2} = -1 \pm \sqrt{2}\]
+      </div>
+      <p>So \(\lambda_1 = -1 + \sqrt{2} \approx 0.414\) and \(\lambda_2 = -1 - \sqrt{2} \approx -2.414\).</p>
+      <p>
+        One eigenvalue is positive and one is negative: the fixed point \((1, 1)\) is a <strong>saddle point</strong>.
+        It attracts trajectories from some directions and repels them in others.
+      </p>
+    </div>
+
+    <h3>Lyapunov Stability</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Lyapunov Stability</span>
+      <p>There are several levels of stability:</p>
+      <ul>
+        <li>
+          <strong>Lyapunov stable:</strong> trajectories starting near \(\mathbf{x}^*\) stay near
+          \(\mathbf{x}^*\) forever (they do not necessarily converge, just stay close).
+        </li>
+        <li>
+          <strong>Asymptotically stable:</strong> trajectories starting near \(\mathbf{x}^*\) converge
+          to \(\mathbf{x}^*\) as \(t \to \infty\). This is stronger than Lyapunov stability.
+        </li>
+        <li>
+          <strong>Unstable:</strong> there exist trajectories starting arbitrarily close to \(\mathbf{x}^*\)
+          that move far away.
+        </li>
+      </ul>
+    </div>
+
+    <p>A center (purely imaginary eigenvalues) is Lyapunov stable but not asymptotically stable &mdash;
+      orbits circle around the equilibrium forever without approaching it.</p>
+
+    <div class="note-box">
+      <span class="box-title">Connection to EGT</span>
+      <p>
+        In evolutionary game theory, <strong>asymptotic stability of a fixed point of the replicator equation</strong>
+        is closely related to the concept of an <strong>evolutionarily stable strategy (ESS)</strong>.
+        Specifically:
+      </p>
+      <ul>
+        <li>Every ESS is an asymptotically stable fixed point of the replicator dynamics.</li>
+        <li>A Nash equilibrium is a fixed point, but it may not be stable.</li>
+        <li>Saddle points correspond to equilibria that are evolutionarily unstable &mdash; the population
+            evolves away from them after any perturbation.</li>
+      </ul>
+      <p>
+        This is why stability analysis is so central: it is the mathematical mechanism that
+        distinguishes robust evolutionary outcomes from fragile ones.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: Phase Portraits -->
+  <!-- ============================================================ -->
+  <div class="section" id="phase-portraits">
+    <h2>6. Phase Portraits</h2>
+
+    <p>
+      A <strong>phase portrait</strong> is a visual representation of how a system evolves.
+      Instead of plotting \(x\) versus time, we plot the <em>state space</em> &mdash; the space
+      of all possible values of \((x, y)\) &mdash; and draw arrows showing the direction and speed
+      of change at each point.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Phase Portrait</span>
+      <p>
+        A <strong>phase portrait</strong> of the system \(\dot{x} = f(x,y)\), \(\dot{y} = g(x,y)\)
+        is a plot in the \((x, y)\)-plane showing:
+      </p>
+      <ul>
+        <li>
+          <strong>The vector field</strong>: arrows at each point showing the direction and magnitude
+          of \((f(x,y), g(x,y))\).
+        </li>
+        <li>
+          <strong>Trajectories</strong>: curves that solutions trace out from various initial conditions.
+        </li>
+        <li>
+          <strong>Fixed points</strong>: marked where the vector field vanishes.
+        </li>
+      </ul>
+    </div>
+
+    <h3>Types of Phase Portraits</h3>
+    <p>
+      The eigenvalue classification from the previous section determines the shape of the phase portrait
+      near each fixed point. Here is a summary of what each type looks like:
+    </p>
+
+    <div class="two-col">
+      <div>
+        <h4>Stable Node</h4>
+        <p>All trajectories flow straight toward the fixed point. If the eigenvalues have different
+          magnitudes, trajectories first align with the slower eigenvector, then approach along it.
+        </p>
+      </div>
+      <div>
+        <h4>Unstable Node</h4>
+        <p>The reverse of a stable node: all trajectories flow away from the fixed point. The
+          direction of the faster-growing eigenvector dominates at large distances.
+        </p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4>Saddle Point</h4>
+        <p>There are two special directions: the <strong>stable manifold</strong> (trajectories approach)
+          and the <strong>unstable manifold</strong> (trajectories depart). All other trajectories
+          approach along the stable manifold and then veer away along the unstable manifold.
+        </p>
+      </div>
+      <div>
+        <h4>Center</h4>
+        <p>Trajectories are closed loops (ellipses for linear systems) circling the fixed point forever.
+          The system is conservative &mdash; orbits neither grow nor shrink.
+        </p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4>Stable Spiral</h4>
+        <p>Trajectories spiral inward toward the fixed point. The rotation comes from the imaginary part
+          of the eigenvalues; the inward motion from the negative real part.
+        </p>
+      </div>
+      <div>
+        <h4>Unstable Spiral</h4>
+        <p>Trajectories spiral outward from the fixed point. Same rotation, but the positive real
+          part causes the spiral to expand.
+        </p>
+      </div>
+    </div>
+
+    <!-- Interactive Phase Portrait -->
+    <div class="interactive-container">
+      <h3>Interactive: Phase Portrait Explorer</h3>
+      <p>Select a system type to see its phase portrait. Click anywhere to add a trajectory from that starting point.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>System Type:</label>
+          <select id="system-select">
+            <option value="saddle">Saddle Point</option>
+            <option value="stable-node">Stable Node</option>
+            <option value="unstable-node">Unstable Node</option>
+            <option value="stable-spiral">Stable Spiral</option>
+            <option value="unstable-spiral">Unstable Spiral</option>
+            <option value="center">Center</option>
+            <option value="lotka-volterra">Lotka-Volterra (nonlinear)</option>
+          </select>
+        </div>
+      </div>
+      <canvas id="phase-canvas" class="viz-canvas" width="500" height="500"></canvas>
+      <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">Click on the canvas to add a trajectory from that initial condition.</p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Phase Portraits in EGT</span>
+      <p>
+        In evolutionary game theory, the state space is the <strong>simplex</strong> &mdash; the set
+        of all probability distributions over strategies. For two strategies, it is the interval \([0, 1]\).
+        For three strategies, it is a triangle. Phase portraits on the simplex show us the flow of
+        strategy evolution: which strategies grow, which shrink, and where the population ultimately
+        settles.
+      </p>
+      <p>
+        In Module 7, we will draw replicator dynamics phase portraits on the simplex. The concepts
+        you learn here &mdash; vector fields, trajectories, fixed points, stable and unstable
+        manifolds &mdash; carry over directly.
+      </p>
+    </div>
+
+    <h3>Nullclines</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Nullclines</span>
+      <p>The <strong>\(x\)-nullcline</strong> is the set of points where \(\dot{x} = 0\) (i.e., \(f(x,y) = 0\)).</p>
+      <p>The <strong>\(y\)-nullcline</strong> is the set of points where \(\dot{y} = 0\) (i.e., \(g(x,y) = 0\)).</p>
+      <p>Fixed points occur where nullclines <strong>intersect</strong> (both \(\dot{x} = 0\) and \(\dot{y} = 0\)).</p>
+    </div>
+
+    <p>
+      Nullclines are incredibly useful for sketching phase portraits by hand. On the \(x\)-nullcline,
+      the flow is purely vertical (only \(y\) changes). On the \(y\)-nullcline, the flow is purely
+      horizontal (only \(x\) changes). Between nullclines, you can determine the direction of flow
+      by checking the signs of \(\dot{x}\) and \(\dot{y}\).
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Nullclines for a Competitive System</span>
+      <p>For the system \(\dot{x} = x(3 - x - 2y)\), \(\dot{y} = y(2 - x - y)\):</p>
+      <p><strong>\(x\)-nullclines</strong> (\(\dot{x} = 0\)): \(x = 0\) or \(x + 2y = 3\).</p>
+      <p><strong>\(y\)-nullclines</strong> (\(\dot{y} = 0\)): \(y = 0\) or \(x + y = 2\).</p>
+      <p>The nullclines divide the first quadrant into regions. In each region, we can determine the
+        signs of \(\dot{x}\) and \(\dot{y}\), which tells us the qualitative direction of the flow.
+        Fixed points are where the nullcline curves cross: \((0,0)\), \((3,0)\), \((0,3/2)\), and
+        \((1,1)\).
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: The Logistic Equation as a Preview -->
+  <!-- ============================================================ -->
+  <div class="section" id="logistic-preview">
+    <h2>7. The Logistic Equation as a Preview of Replicator Dynamics</h2>
+
+    <p>
+      We now arrive at the conceptual bridge between this module and Module 7. The logistic-like
+      equation and the replicator equation share the same mathematical structure. Understanding
+      this connection will make the transition seamless.
+    </p>
+
+    <h3>The Replicator Form</h3>
+    <p>
+      Consider a population with two strategies. Let \(x\) be the frequency of strategy 1
+      (so \(1 - x\) is the frequency of strategy 2). Suppose strategy 1 has fitness \(a\) and
+      strategy 2 has fitness \(b\). The replicator equation says:
+    </p>
+    <div class="math-display">
+      \[\frac{dx}{dt} = x \left( f_1 - \bar{f} \right)\]
+    </div>
+    <p>
+      where \(f_1 = a\) is the fitness of strategy 1 and \(\bar{f} = xa + (1-x)b\) is the average
+      fitness. Substituting:
+    </p>
+    <div class="math-display">
+      \[\frac{dx}{dt} = x \Big( a - \big[xa + (1-x)b\big] \Big) = x \Big( a - xa - b + xb \Big)\]
+    </div>
+    <div class="math-display">
+      \[= x(a - b)(1 - x)\]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Key Result &mdash; The Two-Strategy Replicator Equation</span>
+      <p>
+        For two strategies with constant fitnesses \(a\) and \(b\), the replicator equation
+        reduces to:
+      </p>
+      <div class="math-display">
+        \[\boxed{\frac{dx}{dt} = x(1-x)(a-b)}\]
+      </div>
+      <p>
+        This is exactly a <strong>logistic equation</strong>! Compare with \(\dot{x} = rx(1 - x/K)\):
+        set \(K = 1\) and \(r = a - b\), and they are the same equation.
+      </p>
+    </div>
+
+    <h3>Analyzing the Structure</h3>
+    <p>Let us analyze \(\dot{x} = x(1-x)(a-b)\) using the tools from this module:</p>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Complete Analysis of \(\dot{x} = x(1-x)(a-b)\)</span>
+
+      <p><strong>Step 1: Find fixed points.</strong> Set \(\dot{x} = 0\):</p>
+      <div class="math-display">
+        \[x(1-x)(a-b) = 0\]
+      </div>
+      <p>This gives us: \(x^* = 0\) or \(x^* = 1\) (or \(a = b\), which is a degenerate case
+        where everything is a fixed point).</p>
+
+      <p><strong>Step 2: Determine stability.</strong> Let \(f(x) = x(1-x)(a-b)\). Then:</p>
+      <div class="math-display">
+        \[f'(x) = (1-x)(a-b) + x(-1)(a-b) = (a-b)(1 - 2x)\]
+      </div>
+
+      <p><strong>At \(x^* = 0\):</strong> \(f'(0) = (a - b)\).</p>
+      <ul>
+        <li>If \(a > b\): \(f'(0) > 0\) &mdash; <strong>unstable</strong>. Strategy 1 is fitter, so any small
+          amount of it will grow.</li>
+        <li>If \(a < b\): \(f'(0) < 0\) &mdash; <strong>stable</strong>. Strategy 2 dominates; strategy 1
+          goes extinct.</li>
+      </ul>
+
+      <p><strong>At \(x^* = 1\):</strong> \(f'(1) = -(a - b)\).</p>
+      <ul>
+        <li>If \(a > b\): \(f'(1) < 0\) &mdash; <strong>stable</strong>. Strategy 1 takes over.</li>
+        <li>If \(a < b\): \(f'(1) > 0\) &mdash; <strong>unstable</strong>. Strategy 1 does not survive.</li>
+      </ul>
+
+      <p><strong>Conclusion:</strong></p>
+      <ul>
+        <li>If \(a > b\): strategy 1 is fitter. \(x^* = 0\) is unstable, \(x^* = 1\) is stable.
+          The population evolves toward 100% strategy 1. Strategy 1 is the ESS.</li>
+        <li>If \(a < b\): strategy 2 is fitter. \(x^* = 0\) is stable, \(x^* = 1\) is unstable.
+          The population evolves toward 0% strategy 1 (100% strategy 2).</li>
+        <li>If \(a = b\): every point is a fixed point. No selection pressure.</li>
+      </ul>
+    </div>
+
+    <h3>When Fitness Depends on Frequency</h3>
+    <p>
+      The example above used constant fitnesses. In real evolutionary games, fitness depends on what
+      everyone else is doing (frequency-dependent selection). For example, in the Hawk-Dove game,
+      the fitness of Hawks depends on how many Hawks there are. This makes the equation:
+    </p>
+    <div class="math-display">
+      \[\frac{dx}{dt} = x(1-x)\big[f_1(x) - f_2(x)\big]\]
+    </div>
+    <p>
+      where the fitness functions \(f_1(x)\) and \(f_2(x)\) depend on \(x\). Now interior fixed
+      points (where \(0 < x^* < 1\)) become possible: they occur where \(f_1(x^*) = f_2(x^*)\)
+      &mdash; where both strategies have equal fitness. This is the heart of evolutionary game
+      theory, and we will explore it fully in Module 7.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">The Bridge to Module 7</span>
+      <p>
+        Everything in this module maps directly to the replicator dynamics:
+      </p>
+      <table class="payoff-matrix" style="width:100%; text-align:left;">
+        <tr>
+          <th>This Module</th>
+          <th>Module 7 (Replicator Dynamics)</th>
+        </tr>
+        <tr>
+          <td>Differential equation \(\dot{x} = f(x)\)</td>
+          <td>Replicator equation \(\dot{x}_i = x_i(f_i - \bar{f})\)</td>
+        </tr>
+        <tr>
+          <td>Fixed point \(f(x^*) = 0\)</td>
+          <td>Nash equilibrium strategy mix</td>
+        </tr>
+        <tr>
+          <td>Asymptotically stable fixed point</td>
+          <td>Evolutionarily stable strategy (ESS)</td>
+        </tr>
+        <tr>
+          <td>Jacobian eigenvalues</td>
+          <td>Invasion eigenvalues</td>
+        </tr>
+        <tr>
+          <td>Phase portrait</td>
+          <td>Dynamics on the simplex</td>
+        </tr>
+        <tr>
+          <td>Saddle point</td>
+          <td>Unstable polymorphism</td>
+        </tr>
+        <tr>
+          <td>Stable spiral</td>
+          <td>Cyclically stable coexistence (e.g., RPS)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: Exercises -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>Exercises</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 1: Solving an ODE</div>
+      <p>Solve the initial value problem:</p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = -3x, \quad x(0) = 5\]
+      </div>
+      <p>What is \(x(t)\)? What happens as \(t \to \infty\)?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p>Using separation of variables (or recognizing this as exponential decay with \(r = -3\)):</p>
+          <div class="math-display">
+            \[x(t) = 5e^{-3t}\]
+          </div>
+          <p>
+            As \(t \to \infty\): \(e^{-3t} \to 0\), so \(x(t) \to 0\). The solution decays
+            exponentially to zero. The fixed point \(x^* = 0\) is stable (since \(f'(0) = -3 < 0\)).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 2: Finding Fixed Points</div>
+      <p>Find all fixed points of the following ODE:</p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = x^2 - 4x + 3\]
+      </div>
+      <p>Determine the stability of each fixed point.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>Finding fixed points:</strong> Set \(x^2 - 4x + 3 = 0\):</p>
+          <div class="math-display">
+            \[(x - 1)(x - 3) = 0 \implies x^* = 1 \text{ or } x^* = 3\]
+          </div>
+          <p><strong>Stability:</strong> Compute \(f'(x) = 2x - 4\).</p>
+          <ul>
+            <li>At \(x^* = 1\): \(f'(1) = 2 - 4 = -2 < 0\) &mdash; <strong>stable</strong>.</li>
+            <li>At \(x^* = 3\): \(f'(3) = 6 - 4 = 2 > 0\) &mdash; <strong>unstable</strong>.</li>
+          </ul>
+          <p>Solutions starting between 1 and 3 converge to \(x^* = 1\). Solutions starting above 3
+            diverge to \(+\infty\). Solutions starting below 1 converge to \(x^* = 1\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 3: Jacobian and Eigenvalues</div>
+      <p>Consider the system:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= y \\
+        \dot{y} &= -x - 0.5y
+        \end{aligned}\]
+      </div>
+      <p>(a) Find the fixed point(s). (b) Compute the Jacobian. (c) Find the eigenvalues and classify
+        the fixed point.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Set \(\dot{x} = 0\) and \(\dot{y} = 0\):</p>
+          <div class="math-display">
+            \[y = 0 \quad \text{and} \quad -x - 0.5(0) = 0 \implies x = 0\]
+          </div>
+          <p>The only fixed point is \((0, 0)\).</p>
+
+          <p><strong>(b)</strong> The Jacobian is:</p>
+          <div class="math-display">
+            \[J = \begin{pmatrix} 0 & 1 \\ -1 & -0.5 \end{pmatrix}\]
+          </div>
+          <p>(This is already a linear system, so \(J\) is the same at every point.)</p>
+
+          <p><strong>(c)</strong> Eigenvalues: \(\det(J - \lambda I) = 0\):</p>
+          <div class="math-display">
+            \[-\lambda(-0.5 - \lambda) - (-1) = 0\]
+          </div>
+          <div class="math-display">
+            \[\lambda^2 + 0.5\lambda + 1 = 0\]
+          </div>
+          <div class="math-display">
+            \[\lambda = \frac{-0.5 \pm \sqrt{0.25 - 4}}{2} = \frac{-0.5 \pm \sqrt{-3.75}}{2} = -0.25 \pm i\frac{\sqrt{3.75}}{2}\]
+          </div>
+          <p>The eigenvalues are complex with negative real part \(\alpha = -0.25 < 0\).
+            The fixed point is a <strong>stable spiral</strong>. Trajectories spiral inward toward
+            the origin with damped oscillations.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 4: Two-Strategy Replicator Analysis</div>
+      <p>Two strategies have frequency-dependent fitnesses:</p>
+      <div class="math-display">
+        \[f_1(x) = 3 - 2x, \quad f_2(x) = 1 + x\]
+      </div>
+      <p>where \(x\) is the frequency of strategy 1.</p>
+      <p>(a) Write the replicator equation \(\dot{x} = x(1-x)[f_1(x) - f_2(x)]\).</p>
+      <p>(b) Find all fixed points (including interior ones).</p>
+      <p>(c) Determine the stability of each fixed point. Which strategy (or mix) is the ESS?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> The fitness difference is:</p>
+          <div class="math-display">
+            \[f_1(x) - f_2(x) = (3 - 2x) - (1 + x) = 2 - 3x\]
+          </div>
+          <p>So the replicator equation is:</p>
+          <div class="math-display">
+            \[\dot{x} = x(1-x)(2 - 3x)\]
+          </div>
+
+          <p><strong>(b)</strong> Fixed points: set \(\dot{x} = 0\):</p>
+          <ul>
+            <li>\(x^* = 0\) (all strategy 2)</li>
+            <li>\(x^* = 1\) (all strategy 1)</li>
+            <li>\(2 - 3x = 0 \implies x^* = 2/3\) (interior fixed point &mdash; mixed population)</li>
+          </ul>
+
+          <p><strong>(c)</strong> Let \(h(x) = x(1-x)(2-3x)\). Compute \(h'(x)\):</p>
+          <div class="math-display">
+            \[h(x) = (2x - 3x^2)(1-x)(2-3x) \text{ ... but it is easier to use the product rule carefully.}\]
+          </div>
+          <p>Actually, expand first: \(h(x) = x(1-x)(2-3x) = (x - x^2)(2-3x) = 2x - 3x^2 - 2x^2 + 3x^3 = 2x - 5x^2 + 3x^3\).</p>
+          <div class="math-display">
+            \[h'(x) = 2 - 10x + 9x^2\]
+          </div>
+          <ul>
+            <li>At \(x^* = 0\): \(h'(0) = 2 > 0\) &mdash; <strong>unstable</strong>.</li>
+            <li>At \(x^* = 1\): \(h'(1) = 2 - 10 + 9 = 1 > 0\) &mdash; <strong>unstable</strong>.</li>
+            <li>At \(x^* = 2/3\): \(h'(2/3) = 2 - 20/3 + 9(4/9) = 2 - 20/3 + 4 = 6 - 20/3 = -2/3 < 0\) &mdash; <strong>stable</strong>.</li>
+          </ul>
+          <p>
+            The interior fixed point \(x^* = 2/3\) is the <strong>ESS</strong>. The population evolves to a
+            mix of 2/3 strategy 1 and 1/3 strategy 2. At this mix, both strategies have equal
+            fitness: \(f_1(2/3) = 3 - 4/3 = 5/3\) and \(f_2(2/3) = 1 + 2/3 = 5/3\). This is a
+            stable polymorphism.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 5: Phase Portrait Sketching</div>
+      <p>Consider the linear system:</p>
+      <div class="math-display">
+        \[\dot{\mathbf{x}} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \mathbf{x}\]
+      </div>
+      <p>(a) Find the eigenvalues. (b) What type of fixed point is the origin? (c) Describe the
+        trajectories qualitatively. (d) This system models a famous physical system &mdash; which one?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Eigenvalues: \(\det(A - \lambda I) = -\lambda(-\lambda) - (-1) = \lambda^2 + 1 = 0\), so \(\lambda = \pm i\).</p>
+          <p><strong>(b)</strong> Purely imaginary eigenvalues: the origin is a <strong>center</strong>.</p>
+          <p><strong>(c)</strong> Trajectories are closed ellipses (in fact, circles) around the origin. The
+            system is:
+          </p>
+          <div class="math-display">
+            \[\dot{x} = y, \quad \dot{y} = -x\]
+          </div>
+          <p>which gives \(\ddot{x} = \dot{y} = -x\), i.e., \(\ddot{x} + x = 0\). The solution
+            is \(x(t) = A\cos(t + \phi)\) &mdash; simple harmonic oscillation.</p>
+          <p><strong>(d)</strong> This is the <strong>simple harmonic oscillator</strong> (undamped spring,
+            frictionless pendulum for small angles). In EGT, centers arise in games like
+            Rock-Paper-Scissors under the replicator dynamics, producing cyclic oscillations
+            in strategy frequencies.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 6: Nullclines and Qualitative Analysis</div>
+      <p>For the Lotka-Volterra predator-prey system:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= x(2 - y) \\
+        \dot{y} &= y(x - 1)
+        \end{aligned}\]
+      </div>
+      <p>
+        (a) Find the nullclines. (b) Find the fixed points. (c) Compute the Jacobian at the
+        interior fixed point and find the eigenvalues. (d) What is the behavior near this fixed point?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Nullclines:</strong></p>
+          <ul>
+            <li>\(x\)-nullclines: \(x = 0\) or \(y = 2\).</li>
+            <li>\(y\)-nullclines: \(y = 0\) or \(x = 1\).</li>
+          </ul>
+
+          <p><strong>(b) Fixed points</strong> (intersections of nullclines):</p>
+          <ul>
+            <li>\((0, 0)\): trivial (no prey, no predator).</li>
+            <li>\((1, 2)\): interior fixed point (coexistence).</li>
+          </ul>
+
+          <p><strong>(c)</strong> Jacobian:</p>
+          <div class="math-display">
+            \[J = \begin{pmatrix} 2 - y & -x \\ y & x - 1 \end{pmatrix}\]
+          </div>
+          <p>At \((1, 2)\):</p>
+          <div class="math-display">
+            \[J\big|_{(1,2)} = \begin{pmatrix} 0 & -1 \\ 2 & 0 \end{pmatrix}\]
+          </div>
+          <p>Eigenvalues: \(\lambda^2 + 2 = 0\), so \(\lambda = \pm i\sqrt{2}\).</p>
+
+          <p><strong>(d)</strong> Purely imaginary eigenvalues: the interior fixed point is a <strong>center</strong>.
+            Trajectories form closed loops around \((1, 2)\) &mdash; the predator and prey populations
+            oscillate forever without damping. This is the classic Lotka-Volterra cycle.
+          </p>
+          <p>
+            In EGT, similar cyclic dynamics appear in Rock-Paper-Scissors games under the replicator
+            equation.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7: From Payoff Matrix to Replicator Equation</div>
+      <p>Consider a symmetric two-player game with payoff matrix:</p>
+      <div class="math-display">
+        \[A = \begin{pmatrix} 2 & 4 \\ 1 & 3 \end{pmatrix}\]
+      </div>
+      <p>
+        Strategy 1's fitness against a population with frequency \(x\) of strategy 1 is
+        \(f_1(x) = 2x + 4(1-x)\) and strategy 2's fitness is \(f_2(x) = 1 \cdot x + 3(1-x)\).
+      </p>
+      <p>
+        (a) Simplify \(f_1(x)\) and \(f_2(x)\).
+        (b) Write the replicator equation \(\dot{x} = x(1-x)(f_1 - f_2)\).
+        (c) Find and classify all fixed points.
+        (d) Interpret the result: which strategy wins?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <div class="math-display">
+            \[f_1(x) = 2x + 4(1-x) = 4 - 2x\]
+          </div>
+          <div class="math-display">
+            \[f_2(x) = x + 3(1-x) = 3 - 2x\]
+          </div>
+
+          <p><strong>(b)</strong> Fitness difference: \(f_1 - f_2 = (4 - 2x) - (3 - 2x) = 1\). So:</p>
+          <div class="math-display">
+            \[\dot{x} = x(1-x)(1) = x(1-x)\]
+          </div>
+
+          <p><strong>(c)</strong> Fixed points: \(x^* = 0\) and \(x^* = 1\). No interior fixed point (since
+            \(f_1 - f_2 = 1 \neq 0\) for all \(x\)).</p>
+          <p>Let \(h(x) = x(1-x) = x - x^2\). Then \(h'(x) = 1 - 2x\).</p>
+          <ul>
+            <li>At \(x^* = 0\): \(h'(0) = 1 > 0\) &mdash; <strong>unstable</strong>.</li>
+            <li>At \(x^* = 1\): \(h'(1) = -1 < 0\) &mdash; <strong>stable</strong>.</li>
+          </ul>
+
+          <p><strong>(d)</strong> Strategy 1 <strong>always</strong> has higher fitness than strategy 2 (the
+            difference is a constant 1, independent of \(x\)). Strategy 1 is <strong>strictly dominant</strong>.
+            No matter the initial mix, the population evolves to 100% strategy 1. Strategy 1 is the ESS.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <h2>Module Summary</h2>
+    <p>In this module, you learned:</p>
+    <ol>
+      <li><strong>Differential equations</strong> describe how systems change over time via \(\dot{x} = f(x)\).</li>
+      <li><strong>Separation of variables</strong> solves equations like \(\dot{x} = rx\) to give \(x(t) = x_0 e^{rt}\).</li>
+      <li><strong>Systems of ODEs</strong> track multiple interacting quantities; linear systems have the form \(\dot{\mathbf{x}} = A\mathbf{x}\).</li>
+      <li><strong>Fixed points</strong> are where \(f(x^*) = 0\) &mdash; the system is at rest. These correspond to equilibrium strategies in EGT.</li>
+      <li><strong>Stability analysis</strong> uses the Jacobian and its eigenvalues to classify fixed points as stable nodes, unstable nodes, saddle points, spirals, or centers.</li>
+      <li><strong>Phase portraits</strong> visualize the dynamics: vector fields, trajectories, and the qualitative behavior of solutions.</li>
+      <li><strong>The logistic/replicator connection</strong>: the two-strategy replicator equation \(\dot{x} = x(1-x)(a-b)\) is a logistic equation, providing a direct bridge to Module 7.</li>
+    </ol>
+
+    <div class="intuition-box">
+      <span class="box-title">Looking Ahead</span>
+      <p>
+        In <strong>Module 5 (Probability)</strong>, we will develop the tools for analyzing mixed
+        strategies and stochastic dynamics. Then in <strong>Module 6 (Game Theory)</strong>, we will
+        set up the strategic frameworks. Finally, in <strong>Module 7</strong>, everything comes
+        together: the differential equations from this module become the replicator equation, the
+        fixed points become Nash equilibria, and stability analysis identifies evolutionarily stable
+        strategies.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module3.html">&larr; Module 3: Calculus</a>
+    <a href="module5.html">Module 5: Probability &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Content covers mathematical foundations through EGT applications in social science.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematics for Evolutionary Game Theory</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .prereq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .prereq-item {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .prereq-item .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .prereq-item h4 { margin: 0.5rem 0 0.25rem; font-size: 0.95rem; }
+    .prereq-item p { font-size: 0.85rem; color: #666; margin: 0; }
+    .roadmap { margin: 2rem 0; }
+    .roadmap-phase {
+      display: flex;
+      align-items: stretch;
+      margin-bottom: 0.5rem;
+    }
+    .phase-marker {
+      width: 120px;
+      flex-shrink: 0;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px 0 0 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    .phase-modules {
+      flex: 1;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: #f8f9fa;
+      border-radius: 0 8px 8px 0;
+      flex-wrap: wrap;
+    }
+    .phase-modules a {
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .phase-modules a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Math → EGT</a>
+    <button class="hamburger" aria-label="Menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="modules/module1.html">1. Foundations</a></li>
+      <li><a href="modules/module2.html">2. Linear Algebra</a></li>
+      <li><a href="modules/module3.html">3. Calculus</a></li>
+      <li><a href="modules/module4.html">4. Diff. Equations</a></li>
+      <li><a href="modules/module5.html">5. Probability</a></li>
+      <li><a href="modules/module6.html">6. Game Theory</a></li>
+      <li><a href="modules/module7.html">7. EGT & Replicator</a></li>
+      <li><a href="modules/module8.html">8. Applications</a></li>
+      <li><a href="modules/module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Mathematics for Evolutionary Game Theory</h1>
+  <p class="subtitle">
+    A comprehensive course building from mathematical foundations to evolutionary game theory,
+    replicator dynamics, social value orientations, and Ostrom's institutional analysis.
+  </p>
+  <a href="modules/module1.html" class="cta-btn">Start Learning →</a>
+</section>
+
+<div class="container">
+
+  <!-- Why this course -->
+  <div class="section">
+    <h2>Why This Course?</h2>
+    <p>
+      Evolutionary game theory (EGT) and replicator dynamics are powerful frameworks for understanding
+      how strategies evolve in populations — from biological organisms to human institutions. But these
+      frameworks require mathematical tools that aren't always taught together in one place.
+    </p>
+    <p>
+      This course is designed for researchers and students interested in <strong>social value orientations</strong>
+      and <strong>Elinor Ostrom's institutional analysis</strong> who want to build the mathematical
+      fluency needed to engage deeply with evolutionary game theory. We start from the very basics and
+      build systematically toward the mathematics of cooperation, institutions, and social dynamics.
+    </p>
+    <div class="prereq-grid">
+      <div class="prereq-item">
+        <div class="icon">📐</div>
+        <h4>No Prerequisites</h4>
+        <p>We start from basic algebra and build up</p>
+      </div>
+      <div class="prereq-item">
+        <div class="icon">🔬</div>
+        <h4>Interactive</h4>
+        <p>Every module has hands-on simulations</p>
+      </div>
+      <div class="prereq-item">
+        <div class="icon">🎯</div>
+        <h4>Goal-Oriented</h4>
+        <p>Every topic connects to EGT applications</p>
+      </div>
+      <div class="prereq-item">
+        <div class="icon">🏗️</div>
+        <h4>Applied</h4>
+        <p>Culminates in SVO and Ostrom analysis</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Roadmap -->
+  <div class="section">
+    <h2>Learning Roadmap</h2>
+    <p>The course is structured in three phases. Each module builds on the previous ones.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-phase">
+        <div class="phase-marker">Phase 1<br>Foundations</div>
+        <div class="phase-modules">
+          <a href="modules/module1.html">1. Math Foundations</a>
+          <a href="modules/module2.html">2. Linear Algebra</a>
+          <a href="modules/module3.html">3. Calculus</a>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-marker">Phase 2<br>Core Tools</div>
+        <div class="phase-modules">
+          <a href="modules/module4.html">4. Differential Equations</a>
+          <a href="modules/module5.html">5. Probability</a>
+          <a href="modules/module6.html">6. Game Theory</a>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-marker">Phase 3<br>Synthesis</div>
+        <div class="phase-modules">
+          <a href="modules/module7.html">7. EGT & Replicator Dynamics</a>
+          <a href="modules/module8.html">8. SVO, Ostrom & Institutions</a>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-marker">Phase 4<br>Frontiers</div>
+        <div class="phase-modules">
+          <a href="modules/module9.html">9. Digital Commons & Anti-Rivalry</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Cards -->
+  <div class="section">
+    <h2>Course Modules</h2>
+
+    <div class="module-grid">
+
+      <a href="modules/module1.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 1</div>
+          <div class="card-title">Mathematical Foundations</div>
+          <div class="card-desc">
+            Numbers, variables, equations, functions, and graphs — the building blocks for everything that follows.
+          </div>
+          <div class="card-topics">
+            <span>Algebra</span><span>Functions</span><span>Graphs</span><span>Notation</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module2.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 2</div>
+          <div class="card-title">Vectors, Matrices & Linear Algebra</div>
+          <div class="card-desc">
+            The mathematics of payoff matrices, strategy spaces, and transformations. Essential for game theory.
+          </div>
+          <div class="card-topics">
+            <span>Vectors</span><span>Matrices</span><span>Eigenvalues</span><span>Systems</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module3.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 3</div>
+          <div class="card-title">Calculus: Rates of Change</div>
+          <div class="card-desc">
+            Derivatives and integrals — how things change over time. The language of dynamics and optimization.
+          </div>
+          <div class="card-topics">
+            <span>Derivatives</span><span>Integrals</span><span>Optimization</span><span>Change</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module4.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 4</div>
+          <div class="card-title">Differential Equations & Dynamical Systems</div>
+          <div class="card-desc">
+            How systems evolve over time. Fixed points, stability, and phase portraits — the framework for replicator dynamics.
+          </div>
+          <div class="card-topics">
+            <span>ODEs</span><span>Fixed Points</span><span>Stability</span><span>Phase Space</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module5.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 5</div>
+          <div class="card-title">Probability & Expected Value</div>
+          <div class="card-desc">
+            Randomness, distributions, and expected outcomes — crucial for mixed strategies and stochastic models.
+          </div>
+          <div class="card-topics">
+            <span>Probability</span><span>Distributions</span><span>Expected Value</span><span>Variance</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module6.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 6</div>
+          <div class="card-title">Game Theory Fundamentals</div>
+          <div class="card-desc">
+            Strategic interaction: payoff matrices, Nash equilibrium, dominant strategies, and the games that model social dilemmas.
+          </div>
+          <div class="card-topics">
+            <span>Nash Eq.</span><span>Dominance</span><span>Mixed Strategies</span><span>Dilemmas</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module7.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 7</div>
+          <div class="card-title">Evolutionary Game Theory & Replicator Dynamics</div>
+          <div class="card-desc">
+            The core destination: ESS, fitness landscapes, the replicator equation, and how populations of strategies evolve.
+          </div>
+          <div class="card-topics">
+            <span>ESS</span><span>Replicator Eq.</span><span>Fitness</span><span>Simplex</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module8.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Module 8</div>
+          <div class="card-title">Applications: SVO, Ostrom & Institutions</div>
+          <div class="card-desc">
+            Connecting the mathematics to social value orientations, common-pool resources, and institutional analysis.
+          </div>
+          <div class="card-topics">
+            <span>SVO</span><span>CPR</span><span>Ostrom</span><span>Institutions</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module9.html" class="module-card">
+        <div class="card-accent" style="background:#16a085"></div>
+        <div class="card-body">
+          <div class="card-number">Module 9</div>
+          <div class="card-title">Digital Commons, Knowledge Commons & Anti-Rivalry</div>
+          <div class="card-desc">
+            How EGT models apply to open-source software, Wikipedia, and knowledge commons where the resource is non-rivalrous — or even anti-rivalrous.
+          </div>
+          <div class="card-topics">
+            <span>Open Source</span><span>Anti-Rivalry</span><span>Network Effects</span><span>Knowledge Commons</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Key connections -->
+  <div class="section">
+    <h2>How the Math Connects</h2>
+    <p>Here's how each mathematical topic feeds into evolutionary game theory and institutional analysis:</p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th style="width:30%">Mathematical Tool</th>
+        <th>Used In EGT / Institutional Analysis For...</th>
+      </tr>
+      <tr>
+        <td><strong>Functions & Algebra</strong></td>
+        <td>Expressing payoff functions, fitness functions, utility functions</td>
+      </tr>
+      <tr>
+        <td><strong>Matrices</strong></td>
+        <td>Payoff matrices, transition matrices, strategy interaction tables</td>
+      </tr>
+      <tr>
+        <td><strong>Eigenvalues</strong></td>
+        <td>Stability analysis of equilibria, classifying fixed points</td>
+      </tr>
+      <tr>
+        <td><strong>Derivatives</strong></td>
+        <td>Rate of change of strategy frequencies, optimization conditions</td>
+      </tr>
+      <tr>
+        <td><strong>Differential Equations</strong></td>
+        <td>The replicator equation itself, population dynamics models</td>
+      </tr>
+      <tr>
+        <td><strong>Fixed Points & Stability</strong></td>
+        <td>Finding equilibrium strategy mixes, determining if they're stable (ESS)</td>
+      </tr>
+      <tr>
+        <td><strong>Probability</strong></td>
+        <td>Mixed strategies, stochastic dynamics, finite populations</td>
+      </tr>
+      <tr>
+        <td><strong>Expected Value</strong></td>
+        <td>Computing average fitness/payoff under mixed strategies</td>
+      </tr>
+      <tr>
+        <td><strong>Non-Rivalry & Anti-Rivalry</strong></td>
+        <td>Digital commons dynamics, network effects, how value increases with use in knowledge commons</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Recommended reading -->
+  <div class="section">
+    <h2>Recommended Further Reading</h2>
+    <ul>
+      <li><strong>Nowak, M.A.</strong> (2006). <em>Evolutionary Dynamics: Exploring the Equations of Life</em>. Harvard University Press.</li>
+      <li><strong>Hofbauer, J. & Sigmund, K.</strong> (1998). <em>Evolutionary Games and Population Dynamics</em>. Cambridge University Press.</li>
+      <li><strong>Ostrom, E.</strong> (1990). <em>Governing the Commons: The Evolution of Institutions for Collective Action</em>. Cambridge University Press.</li>
+      <li><strong>Ostrom, E.</strong> (2005). <em>Understanding Institutional Diversity</em>. Princeton University Press.</li>
+      <li><strong>Murphy, R.O. & Ackermann, K.A.</strong> (2014). Social Value Orientation: Theoretical and measurement issues. <em>Personality and Individual Differences</em>, 69, 187-192.</li>
+      <li><strong>Sandholm, W.H.</strong> (2010). <em>Population Games and Evolutionary Dynamics</em>. MIT Press.</li>
+      <li><strong>Maynard Smith, J.</strong> (1982). <em>Evolution and the Theory of Games</em>. Cambridge University Press.</li>
+      <li><strong>Hess, C. & Ostrom, E.</strong> (2007). <em>Understanding Knowledge as a Commons</em>. MIT Press.</li>
+      <li><strong>Benkler, Y.</strong> (2006). <em>The Wealth of Networks: How Social Production Transforms Markets and Freedom</em>. Yale University Press.</li>
+      <li><strong>Weber, S.</strong> (2004). <em>The Success of Open Source</em>. Harvard University Press.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory — An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Content covers mathematical foundations through EGT applications in social science.
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

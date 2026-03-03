@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 8: Applications — SVO, Ostrom & Institutions | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html" class="active">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Module 8</div>
+    <h1>Applications: Social Value Orientations, Ostrom &amp; Institutional Analysis</h1>
+    <p class="module-desc">
+      The capstone module. We bring together every mathematical tool from the course &mdash;
+      game theory, replicator dynamics, differential equations, and stability analysis &mdash;
+      and apply them to real-world problems of cooperation, resource management, and institutional design.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module7.html">&larr; Module 7: EGT &amp; Replicator Dynamics</a>
+    <a href="module9.html">Next: Digital Commons &amp; Anti-Rivalry &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ol>
+      <li><a href="#svo">Social Value Orientations (SVO)</a></li>
+      <li><a href="#svo-egt">SVO and Evolutionary Game Theory</a></li>
+      <li><a href="#iad">Ostrom's Institutional Analysis and Development (IAD) Framework</a></li>
+      <li><a href="#cpr">Common-Pool Resource (CPR) Problems</a></li>
+      <li><a href="#design-principles">Ostrom's Design Principles as Game Modifications</a></li>
+      <li><a href="#institutional-evolution">Evolutionary Models of Institutional Formation</a></li>
+      <li><a href="#public-goods-punishment">Public Goods Games with Punishment</a></li>
+      <li><a href="#synthesis">Bringing It All Together</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: Social Value Orientations -->
+  <!-- ================================================================== -->
+  <div class="section" id="svo">
+    <h2>1. Social Value Orientations (SVO)</h2>
+
+    <p>
+      Throughout this course, we have assumed that players maximize their own payoff \(\pi_{\text{self}}\).
+      But decades of experimental research show that people systematically differ in how much weight they
+      place on their own versus others' outcomes. The <strong>Social Value Orientation</strong> (SVO) framework
+      captures this heterogeneity mathematically.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Social Value Orientation</span>
+      <p>
+        A player's <strong>Social Value Orientation</strong> is a stable preference for particular distributions
+        of outcomes between self and others. It characterizes how an individual weighs their own payoff relative
+        to the payoff of interaction partners.
+      </p>
+    </div>
+
+    <h3>1.1 The SVO Framework (Van Lange, Murphy &amp; Ackermann)</h3>
+
+    <p>
+      The SVO framework, developed by Van Lange (1999) and refined by Murphy &amp; Ackermann (2014),
+      identifies four primary orientation types based on how a person allocates resources between
+      themselves and another person:
+    </p>
+
+    <div class="two-col">
+      <div class="def-box">
+        <span class="box-title">Altruistic</span>
+        <p>
+          Maximizes the <em>other's</em> payoff, even at cost to self. Willing to sacrifice own outcomes
+          to benefit others.
+        </p>
+      </div>
+      <div class="def-box">
+        <span class="box-title">Prosocial</span>
+        <p>
+          Maximizes <em>joint</em> payoff (self + other) and seeks <em>equality</em>. The most common
+          orientation, found in roughly 60% of participants.
+        </p>
+      </div>
+      <div class="def-box">
+        <span class="box-title">Individualistic</span>
+        <p>
+          Maximizes <em>own</em> payoff with no regard for the other. This is the "rational actor"
+          assumption of classical game theory.
+        </p>
+      </div>
+      <div class="def-box">
+        <span class="box-title">Competitive</span>
+        <p>
+          Maximizes the <em>difference</em> between own and other's payoff. Wants to "win" relative
+          to the other person.
+        </p>
+      </div>
+    </div>
+
+    <h3>1.2 The SVO Ring Measure</h3>
+
+    <p>
+      The SVO Slider Measure (Murphy, Ackermann &amp; Handgraaf, 2011) asks participants to make
+      a series of resource allocation decisions. Each choice corresponds to a point on a circle
+      centered at (50, 50) in payoff space, where the x-axis represents payoff to self and the
+      y-axis represents payoff to other. The participant's choices trace out an angle on this ring.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">The SVO Angle</span>
+      <p>
+        Given a person's mean allocation \((\bar{A}_s, \bar{A}_o)\), where \(\bar{A}_s\) is the
+        average payoff to self and \(\bar{A}_o\) is the average payoff to other across their choices,
+        the <strong>SVO angle</strong> is:
+      </p>
+      <p>
+        \[
+          \theta = \arctan\!\left(\frac{\bar{A}_o - 50}{\bar{A}_s - 50}\right)
+        \]
+      </p>
+      <p>The four SVO types correspond to angle ranges:</p>
+      <ul>
+        <li><strong>Altruistic:</strong> \(\theta > 57.15^\circ\)</li>
+        <li><strong>Prosocial:</strong> \(22.45^\circ < \theta \leq 57.15^\circ\)</li>
+        <li><strong>Individualistic:</strong> \(-12.04^\circ < \theta \leq 22.45^\circ\)</li>
+        <li><strong>Competitive:</strong> \(\theta \leq -12.04^\circ\)</li>
+      </ul>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition</span>
+      <p>
+        Think of the SVO angle as the direction you "lean" in payoff space. At \(\theta = 0^\circ\),
+        you move purely along the self-payoff axis (individualistic). At \(\theta = 45^\circ\),
+        you move equally in both directions (prosocial). At \(\theta = 90^\circ\), you move purely
+        along the other-payoff axis (altruistic). At negative angles, increasing your own payoff
+        comes with decreasing the other's (competitive).
+      </p>
+    </div>
+
+    <h3>1.3 Mathematical Formalization: The SVO Utility Function</h3>
+
+    <p>
+      The key insight is that we can formalize SVO as a <strong>transformation of the utility function</strong>.
+      Rather than each player simply maximizing \(\pi_{\text{self}}\), a player with SVO angle \(\theta\)
+      maximizes:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">SVO-Weighted Utility Function</span>
+      <p>
+        \[
+          U_i(\theta_i) = \cos(\theta_i) \cdot \pi_i + \sin(\theta_i) \cdot \pi_j
+        \]
+      </p>
+      <p>
+        where \(\pi_i\) is player \(i\)'s material payoff, \(\pi_j\) is the other player's material payoff,
+        and \(\theta_i\) is player \(i\)'s SVO angle.
+      </p>
+    </div>
+
+    <p>Let us verify this formula captures the four SVO types correctly:</p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Checking the SVO Utility Function</span>
+      <ul>
+        <li>
+          <strong>Individualistic (\(\theta = 0^\circ\)):</strong>
+          \(U = \cos(0)\cdot\pi_i + \sin(0)\cdot\pi_j = 1\cdot\pi_i + 0\cdot\pi_j = \pi_i\).
+          Pure self-interest.
+        </li>
+        <li>
+          <strong>Prosocial (\(\theta = 45^\circ\)):</strong>
+          \(U = \cos(45^\circ)\cdot\pi_i + \sin(45^\circ)\cdot\pi_j = \frac{1}{\sqrt{2}}(\pi_i + \pi_j)\).
+          Maximizes joint payoff.
+        </li>
+        <li>
+          <strong>Altruistic (\(\theta = 90^\circ\)):</strong>
+          \(U = \cos(90^\circ)\cdot\pi_i + \sin(90^\circ)\cdot\pi_j = 0\cdot\pi_i + 1\cdot\pi_j = \pi_j\).
+          Pure other-regard.
+        </li>
+        <li>
+          <strong>Competitive (\(\theta = -45^\circ\)):</strong>
+          \(U = \cos(-45^\circ)\cdot\pi_i + \sin(-45^\circ)\cdot\pi_j = \frac{1}{\sqrt{2}}(\pi_i - \pi_j)\).
+          Maximizes relative advantage.
+        </li>
+      </ul>
+    </div>
+
+    <h3>1.4 How SVO Transforms the Payoff Matrix</h3>
+
+    <p>
+      Consider a standard Prisoner's Dilemma with material payoff matrix:
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th>Cooperate</th>
+        <th>Defect</th>
+      </tr>
+      <tr>
+        <td class="row-header">Cooperate</td>
+        <td>3, 3</td>
+        <td>0, 5</td>
+      </tr>
+      <tr>
+        <td class="row-header">Defect</td>
+        <td>5, 0</td>
+        <td>1, 1</td>
+      </tr>
+    </table>
+
+    <p>
+      For an individualistic player (\(\theta = 0^\circ\)), this is the standard PD and defection dominates.
+      But for a prosocial player (\(\theta = 45^\circ\)), the <em>perceived</em> payoffs transform:
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Prosocial Transformation of the Prisoner's Dilemma</span>
+      <p>
+        Using \(U = \frac{1}{\sqrt{2}}(\pi_{\text{self}} + \pi_{\text{other}})\), the row player's transformed
+        payoff matrix becomes:
+      </p>
+      <table class="payoff-matrix" style="margin:1rem auto">
+        <tr>
+          <th></th>
+          <th>C</th>
+          <th>D</th>
+        </tr>
+        <tr>
+          <td class="row-header">C</td>
+          <td>\(\frac{3+3}{\sqrt{2}} = \frac{6}{\sqrt{2}} \approx 4.24\)</td>
+          <td>\(\frac{0+5}{\sqrt{2}} = \frac{5}{\sqrt{2}} \approx 3.54\)</td>
+        </tr>
+        <tr>
+          <td class="row-header">D</td>
+          <td>\(\frac{5+0}{\sqrt{2}} = \frac{5}{\sqrt{2}} \approx 3.54\)</td>
+          <td>\(\frac{1+1}{\sqrt{2}} = \frac{2}{\sqrt{2}} \approx 1.41\)</td>
+        </tr>
+      </table>
+      <p>
+        Now cooperation is the best response to cooperation (\(4.24 > 3.54\)), and defection is the best
+        response to defection (\(1.41 < 3.54\)). The game has been transformed from a Prisoner's Dilemma
+        into an <strong>Assurance Game</strong> (Stag Hunt), where mutual cooperation is a Nash equilibrium.
+      </p>
+      <p>
+        This is a profound result: <strong>social preferences can solve social dilemmas</strong>.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Key Insight</span>
+      <p>
+        The SVO framework shows that whether a game is a "dilemma" depends not just on the material payoff
+        structure, but on the psychological orientations of the players. The same material payoff matrix can
+        represent entirely different strategic situations for players with different SVO angles.
+      </p>
+    </div>
+
+    <!-- SVO Ring Interactive -->
+    <div class="interactive-container">
+      <h3>Interactive: Social Value Orientation Ring</h3>
+      <p>Adjust the SVO angle to see how different orientations weight self vs. other payoffs.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>SVO Angle (&theta;):</label>
+          <input type="range" id="svo-angle" min="-90" max="90" step="1" value="45">
+          <span class="control-value" id="svo-angle-val">45.0&deg;</span>
+        </div>
+        <div class="control-group">
+          <label>Type:</label>
+          <span id="svo-type" style="font-weight:bold; color:#2980b9">Prosocial</span>
+        </div>
+      </div>
+      <canvas id="svo-canvas" class="viz-canvas" width="450" height="450"></canvas>
+    </div>
+
+    <!-- Exercise -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.1 &mdash; SVO and the Hawk-Dove Game</div>
+      <p>
+        Consider the Hawk-Dove game with payoffs: H vs H yields \((V-C)/2\) each, H vs D yields \(V\) for Hawk
+        and \(0\) for Dove, and D vs D yields \(V/2\) each. Let \(V = 4\) and \(C = 6\).
+      </p>
+      <p>
+        (a) Write the material payoff matrix. (b) For a prosocial player (\(\theta = 45^\circ\)),
+        compute the transformed payoff matrix. (c) Does the SVO transformation change the Nash equilibrium?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Material payoff matrix:</strong></p>
+          <table class="payoff-matrix">
+            <tr><th></th><th>Hawk</th><th>Dove</th></tr>
+            <tr><td class="row-header">Hawk</td><td>\(-1, -1\)</td><td>\(4, 0\)</td></tr>
+            <tr><td class="row-header">Dove</td><td>\(0, 4\)</td><td>\(2, 2\)</td></tr>
+          </table>
+          <p><strong>(b) Prosocial transformation</strong> using \(U = \frac{1}{\sqrt{2}}(\pi_i + \pi_j)\):</p>
+          <table class="payoff-matrix">
+            <tr><th></th><th>Hawk</th><th>Dove</th></tr>
+            <tr><td class="row-header">Hawk</td><td>\(\frac{-2}{\sqrt{2}} \approx -1.41\)</td><td>\(\frac{4}{\sqrt{2}} \approx 2.83\)</td></tr>
+            <tr><td class="row-header">Dove</td><td>\(\frac{4}{\sqrt{2}} \approx 2.83\)</td><td>\(\frac{4}{\sqrt{2}} \approx 2.83\)</td></tr>
+          </table>
+          <p>
+            <strong>(c)</strong> In the original game, the mixed NE has each player play Hawk with
+            probability \(p^* = V/C = 2/3\). In the transformed game, Dove weakly dominates: the
+            prosocial player gets \(\approx 2.83\) from Dove regardless of the opponent's action, but
+            risks \(-1.41\) from Hawk vs Hawk. The prosocial player strictly prefers Dove. The SVO
+            transformation eliminates the aggressive equilibrium component.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: SVO and Evolutionary Game Theory -->
+  <!-- ================================================================== -->
+  <div class="section" id="svo-egt">
+    <h2>2. SVO and Evolutionary Game Theory</h2>
+
+    <p>
+      Now we connect SVO to the evolutionary framework from Module 7. The central question becomes:
+      <em>if people have different social value orientations, which orientations survive and spread
+      through evolutionary dynamics?</em>
+    </p>
+
+    <h3>2.1 SVO Types as Strategies</h3>
+
+    <p>
+      In a standard evolutionary model, strategies are actions (Cooperate, Defect). In an SVO-evolutionary
+      model, the "strategy" is the player's <em>orientation</em> &mdash; their SVO angle \(\theta\). Two
+      players with different SVO angles facing the same material game will behave differently because they
+      perceive different payoff matrices.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; SVO-Conditional Strategy</span>
+      <p>
+        A player with SVO angle \(\theta\) plays the <strong>best response in the transformed game</strong>.
+        Given material payoff matrix \(A\), the player perceives the game with payoff matrix:
+      </p>
+      <p>
+        \[
+          A^{(\theta)} = \cos(\theta) \cdot A + \sin(\theta) \cdot A^T
+        \]
+      </p>
+      <p>
+        where \(A^T\) is the transpose of \(A\) (the opponent's payoff matrix in a symmetric game).
+      </p>
+    </div>
+
+    <h3>2.2 Replicator Dynamics with SVO-Dependent Payoffs</h3>
+
+    <p>
+      Consider a population with \(k\) distinct SVO types, each with angle \(\theta_1, \theta_2, \ldots, \theta_k\)
+      and frequency \(x_1, x_2, \ldots, x_k\) where \(\sum x_i = 1\). Each type plays their best response
+      in their perceived game.
+    </p>
+
+    <p>
+      The fitness of type \(i\) when interacting with a random opponent is:
+    </p>
+
+    <p>
+      \[
+        f_i = \sum_{j=1}^{k} x_j \cdot \pi\!\left(s^*(\theta_i),\, s^*(\theta_j)\right)
+      \]
+    </p>
+
+    <p>
+      where \(s^*(\theta_i)\) is the best-response strategy of an individual with SVO angle \(\theta_i\),
+      and \(\pi(\cdot, \cdot)\) gives the <strong>material</strong> payoff (since evolutionary fitness
+      depends on material outcomes, not subjective utility).
+    </p>
+
+    <div class="warning-box">
+      <span class="box-title">Critical Distinction</span>
+      <p>
+        SVO determines <em>behavior</em> (which action is chosen), but <em>evolutionary fitness</em> depends
+        on <em>material</em> payoffs. A prosocial player cooperates because they value joint outcomes, but their
+        reproductive fitness depends on actual resources obtained, not on subjective satisfaction.
+      </p>
+    </div>
+
+    <h3>2.3 When Do Prosocial Types Survive?</h3>
+
+    <p>
+      Consider a simplified model with two SVO types in a Prisoner's Dilemma (with payoffs
+      \(T > R > P > S\)):
+    </p>
+
+    <ul>
+      <li><strong>Individualistic</strong> (\(\theta = 0^\circ\)): always defects (since D dominates in the standard PD)</li>
+      <li><strong>Prosocial</strong> (\(\theta = 45^\circ\)): cooperates if the perceived game makes C a best response</li>
+    </ul>
+
+    <p>
+      If prosocial types cooperate with everyone and individualistic types defect with everyone,
+      the fitness matrix for material payoffs is:
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th>Prosocial (C)</th>
+        <th>Individualist (D)</th>
+      </tr>
+      <tr>
+        <td class="row-header">Prosocial (C)</td>
+        <td>\(R\)</td>
+        <td>\(S\)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Individualist (D)</td>
+        <td>\(T\)</td>
+        <td>\(P\)</td>
+      </tr>
+    </table>
+
+    <p>
+      This is just the original Prisoner's Dilemma at the population level. By the replicator dynamics
+      analysis from Module 7, defection (individualism) is the only ESS. <em>Prosocial types go extinct.</em>
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Conditions for Prosocial Survival</span>
+      <p>
+        Prosocial types can survive under the replicator dynamics if one or more of the following conditions hold:
+      </p>
+      <ol>
+        <li><strong>Assortative matching:</strong> prosocial types are more likely to interact with other
+        prosocial types (e.g., through network structure, group selection, or tag-based recognition).</li>
+        <li><strong>Conditional strategies:</strong> prosocial types cooperate only with other cooperators
+        (transforming the game from PD to an assurance game at the population level).</li>
+        <li><strong>Institutional mechanisms:</strong> punishment, monitoring, or reputation systems change
+        the effective payoff matrix (Ostrom's contribution, which we develop below).</li>
+        <li><strong>Group selection:</strong> groups with more prosocial types outcompete groups with
+        fewer (Boyd &amp; Richerson's model, Section 6).</li>
+      </ol>
+    </div>
+
+    <h3>2.4 Assortative Matching: The Mathematical Rescue of Cooperation</h3>
+
+    <p>
+      Let \(r\) be the <strong>coefficient of assortment</strong>: the probability that a prosocial type
+      interacts with another prosocial type, <em>above and beyond</em> what random matching would predict.
+      With assortative matching, the fitness of a cooperator (prosocial) in a population where cooperators
+      have frequency \(x\) is:
+    </p>
+
+    <p>
+      \[
+        f_C = \bigl[x + r(1-x)\bigr] \cdot R + \bigl[(1-x)(1-r)\bigr] \cdot S
+      \]
+    </p>
+
+    <p>
+      \[
+        f_D = \bigl[x(1-r)\bigr] \cdot T + \bigl[(1-x) + rx\bigr] \cdot P
+      \]
+    </p>
+
+    <p>
+      Cooperation is favored when \(f_C > f_D\). At the boundary \(x = 0\) (cooperation can invade),
+      this simplifies to:
+    </p>
+
+    <p>
+      \[
+        r \cdot R + (1 - r) \cdot S > (1-r) \cdot T + r \cdot P
+      \]
+    </p>
+
+    <p>
+      Solving for \(r\):
+    </p>
+
+    <p>
+      \[
+        r > \frac{T - S}{(T - S) + (R - P)} = \frac{T - S}{T + R - S - P}
+      \]
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Critical Assortment in the PD</span>
+      <p>
+        Using \(T = 5, R = 3, P = 1, S = 0\):
+      </p>
+      <p>
+        \[
+          r > \frac{5 - 0}{5 + 3 - 0 - 1} = \frac{5}{7} \approx 0.714
+        \]
+      </p>
+      <p>
+        Prosocial types need a fairly high degree of assortment to invade &mdash; they must interact with
+        fellow prosocials at least 71.4% more often than random matching would predict. This is a
+        quantitative prediction that connects SVO theory to population structure.
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.2 &mdash; SVO Replicator Dynamics</div>
+      <p>
+        Consider a population with three SVO types: Prosocial (C always), Individualist (D always),
+        and Conditional Cooperator (C if opponent is prosocial, D otherwise). With material PD payoffs
+        \(T=5, R=3, P=1, S=0\), write the \(3 \times 3\) fitness matrix and find all fixed points of
+        the replicator dynamics. Which fixed points are stable?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            Let P = Prosocial, I = Individualist, CC = Conditional Cooperator.
+            The material fitness matrix (row player's payoff against column player's type):
+          </p>
+          <table class="payoff-matrix">
+            <tr><th></th><th>P</th><th>I</th><th>CC</th></tr>
+            <tr><td class="row-header">P</td><td>3</td><td>0</td><td>3</td></tr>
+            <tr><td class="row-header">I</td><td>5</td><td>1</td><td>1</td></tr>
+            <tr><td class="row-header">CC</td><td>3</td><td>1</td><td>3</td></tr>
+          </table>
+          <p>
+            Fixed points of the replicator dynamics include the three vertices (all-P, all-I, all-CC)
+            and any interior points where all fitnesses are equal.
+          </p>
+          <p>
+            <strong>All-P</strong> (\(x_P = 1\)): Fitness of P is 3, but an invading I gets 5. Unstable.
+          </p>
+          <p>
+            <strong>All-I</strong> (\(x_I = 1\)): Fitness of I is 1. Invading P gets 0 (fails), invading CC
+            gets 1 (neutral). Stable against P, neutral against CC.
+          </p>
+          <p>
+            <strong>All-CC</strong> (\(x_{CC} = 1\)): Fitness of CC is 3. Invading I gets 1 (fails),
+            invading P gets 3 (neutral). <strong>Stable</strong> &mdash; CC is an ESS-like state.
+          </p>
+          <p>
+            The key result: conditional cooperators can resist invasion by defectors while matching
+            the payoff of unconditional cooperators. This is why reciprocity-based norms stabilize cooperation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: Ostrom's IAD Framework -->
+  <!-- ================================================================== -->
+  <div class="section" id="iad">
+    <h2>3. Ostrom's Institutional Analysis and Development (IAD) Framework</h2>
+
+    <p>
+      Elinor Ostrom (Nobel Prize in Economics, 2009) showed that real communities often <em>solve</em>
+      commons dilemmas without privatization or state control &mdash; through <strong>self-organized
+      institutions</strong>. Her Institutional Analysis and Development (IAD) framework provides a
+      systematic way to analyze how institutional rules modify the structure of strategic interaction.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; The IAD Framework</span>
+      <p>
+        The IAD framework identifies three categories of exogenous variables that shape an <strong>action arena</strong>
+        (the situation where actors interact):
+      </p>
+      <ol>
+        <li><strong>Biophysical conditions:</strong> the nature of the resource or good (rivalrous? excludable? regenerative?)</li>
+        <li><strong>Community attributes:</strong> norms, trust, shared knowledge, SVO distribution</li>
+        <li><strong>Rules-in-use:</strong> the actual operating rules that participants follow (which may differ from formal laws)</li>
+      </ol>
+      <p>
+        These three factors jointly determine the <strong>action situation</strong>: who participates, what
+        actions are available, what information is available, how actions map to outcomes, and how
+        outcomes map to payoffs.
+      </p>
+    </div>
+
+    <h3>3.1 Formalizing the IAD: Institutions as Game Modifiers</h3>
+
+    <p>
+      From a game-theoretic perspective, each element of the IAD framework corresponds to a
+      formal component of a game:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th style="width:35%">IAD Component</th>
+        <th>Game-Theoretic Formalization</th>
+      </tr>
+      <tr>
+        <td><strong>Biophysical conditions</strong></td>
+        <td>Determines the payoff function \(\pi(a_1, \ldots, a_n; \mathbf{R})\) where \(\mathbf{R}\) is the resource state</td>
+      </tr>
+      <tr>
+        <td><strong>Community attributes (norms, SVO)</strong></td>
+        <td>Determines the utility transformation \(U_i = \cos(\theta_i)\pi_i + \sin(\theta_i)\pi_j\)</td>
+      </tr>
+      <tr>
+        <td><strong>Rules: Boundary</strong></td>
+        <td>Defines the player set \(N = \{1, 2, \ldots, n\}\)</td>
+      </tr>
+      <tr>
+        <td><strong>Rules: Choice</strong></td>
+        <td>Defines the strategy space \(S_i\) for each player</td>
+      </tr>
+      <tr>
+        <td><strong>Rules: Information</strong></td>
+        <td>Defines the information partition (who knows what before choosing)</td>
+      </tr>
+      <tr>
+        <td><strong>Rules: Payoff</strong></td>
+        <td>Modifies the payoff function (e.g., adding fines, rewards)</td>
+      </tr>
+      <tr>
+        <td><strong>Rules: Scope</strong></td>
+        <td>Constrains the set of allowable outcomes</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition</span>
+      <p>
+        Ostrom's fundamental insight, in mathematical terms, is this: when a game has a socially undesirable
+        equilibrium (like mutual defection in a commons), you don't need to change the <em>players</em> &mdash;
+        you can change the <em>game</em>. Institutions are rules that transform the game \(\Gamma\) into a
+        new game \(\Gamma'\) with a better equilibrium. The mathematical question becomes: <em>which
+        rule changes transform the payoff matrix in a way that makes cooperation an equilibrium?</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: Common-Pool Resource Problems -->
+  <!-- ================================================================== -->
+  <div class="section" id="cpr">
+    <h2>4. Common-Pool Resource (CPR) Problems</h2>
+
+    <p>
+      A common-pool resource is one that is <strong>rivalrous</strong> (one person's use diminishes availability
+      for others) but <strong>non-excludable</strong> (it is difficult to prevent access). Fisheries, forests,
+      groundwater, and shared irrigation systems are classic examples. We now build a complete mathematical
+      model of a CPR game.
+    </p>
+
+    <h3>4.1 The Mathematical Model</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; CPR Game Setup</span>
+      <p>
+        <strong>Players:</strong> \(n\) harvesters, indexed \(i = 1, \ldots, n\).
+      </p>
+      <p>
+        <strong>Resource:</strong> A shared resource stock of size \(R\), with maximum carrying capacity \(K\).
+      </p>
+      <p>
+        <strong>Actions:</strong> Each player \(i\) chooses harvest level \(h_i \geq 0\).
+        Total harvest \(H = \sum_{i=1}^{n} h_i\).
+      </p>
+      <p>
+        <strong>Yield function:</strong> The per-unit value of harvest depends on total extraction.
+        A common specification:
+      </p>
+      <p>
+        \[
+          v(H) = a - bH
+        \]
+      </p>
+      <p>
+        where \(a > 0\) is the base value and \(b > 0\) captures congestion/depletion effects.
+        Player \(i\)'s payoff is:
+      </p>
+      <p>
+        \[
+          \pi_i(h_i, H_{-i}) = h_i \cdot v(H) = h_i(a - b(h_i + H_{-i}))
+        \]
+      </p>
+      <p>
+        where \(H_{-i} = \sum_{j \neq i} h_j\) is the total harvest of all other players.
+      </p>
+    </div>
+
+    <h3>4.2 Resource Dynamics</h3>
+
+    <p>
+      In a dynamic (multi-period) model, the resource stock evolves according to:
+    </p>
+
+    <p>
+      \[
+        \frac{dR}{dt} = g(R) - H
+      \]
+    </p>
+
+    <p>
+      where \(g(R)\) is the natural growth function. The standard logistic growth model gives:
+    </p>
+
+    <p>
+      \[
+        g(R) = rR\!\left(1 - \frac{R}{K}\right)
+      \]
+    </p>
+
+    <p>
+      This is precisely the kind of differential equation we studied in Module 4. The resource is
+      sustainable when \(H \leq g(R)\), i.e., harvest does not exceed natural regeneration.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 4</span>
+      <p>
+        The equation \(\frac{dR}{dt} = rR(1 - R/K) - H\) is a modified logistic equation with a
+        constant harvesting term. From our dynamical systems analysis, we know this has fixed points
+        where \(g(R^*) = H\), and these fixed points may or may not be stable. If \(H\) exceeds the
+        maximum sustainable yield \(g_{\max} = rK/4\), no stable positive equilibrium exists &mdash;
+        the resource collapses to zero.
+      </p>
+    </div>
+
+    <h3>4.3 The Tragedy of the Commons: Nash Equilibrium Analysis</h3>
+
+    <p>
+      Using the static CPR game, we find the Nash equilibrium by computing each player's best response.
+      Player \(i\) maximizes:
+    </p>
+
+    <p>
+      \[
+        \pi_i = h_i(a - b(h_i + H_{-i}))
+      \]
+    </p>
+
+    <p>
+      Taking the first-order condition (Module 3):
+    </p>
+
+    <p>
+      \[
+        \frac{\partial \pi_i}{\partial h_i} = a - 2bh_i - bH_{-i} = 0
+      \]
+    </p>
+
+    <p>
+      Solving for \(h_i\):
+    </p>
+
+    <p>
+      \[
+        h_i^* = \frac{a - bH_{-i}}{2b}
+      \]
+    </p>
+
+    <p>
+      By symmetry in Nash equilibrium, all players harvest the same amount \(h^*\), so
+      \(H_{-i} = (n-1)h^*\):
+    </p>
+
+    <p>
+      \[
+        h^* = \frac{a - b(n-1)h^*}{2b}
+      \]
+    </p>
+
+    <p>
+      \[
+        2bh^* = a - b(n-1)h^*
+      \]
+    </p>
+
+    <p>
+      \[
+        h^*(2b + b(n-1)) = a
+      \]
+    </p>
+
+    <p>
+      \[
+        h^* = \frac{a}{b(n+1)}
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Nash Equilibrium of the CPR Game</span>
+      <p>
+        In the symmetric CPR game with \(n\) players and payoff \(\pi_i = h_i(a - bH)\), the
+        symmetric Nash equilibrium harvest is:
+      </p>
+      <p>
+        \[
+          h^*_{\text{Nash}} = \frac{a}{b(n+1)}, \qquad H^*_{\text{Nash}} = \frac{na}{b(n+1)}
+        \]
+      </p>
+      <p>
+        Each player's equilibrium payoff is:
+      </p>
+      <p>
+        \[
+          \pi^*_{\text{Nash}} = \frac{a^2}{b(n+1)^2}
+        \]
+      </p>
+    </div>
+
+    <h3>4.4 Social Optimum vs. Nash Equilibrium</h3>
+
+    <p>
+      The <strong>social optimum</strong> maximizes total payoff \(\Pi = \sum_i \pi_i = H(a - bH)\):
+    </p>
+
+    <p>
+      \[
+        \frac{d\Pi}{dH} = a - 2bH = 0 \implies H^*_{\text{social}} = \frac{a}{2b}
+      \]
+    </p>
+
+    <p>
+      By symmetry, each player should harvest \(h^*_{\text{social}} = \frac{a}{2bn}\), giving each player:
+    </p>
+
+    <p>
+      \[
+        \pi^*_{\text{social}} = \frac{a}{2bn} \cdot \frac{a}{2} = \frac{a^2}{4bn}
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; The Mathematics of Overexploitation</span>
+      <p>
+        Comparing Nash and social optimum:
+      </p>
+      <p>
+        \[
+          \frac{H^*_{\text{Nash}}}{H^*_{\text{social}}} = \frac{na/(b(n+1))}{a/(2b)} = \frac{2n}{n+1}
+        \]
+      </p>
+      <p>
+        As \(n \to \infty\), this ratio approaches \(2\): the Nash equilibrium harvests approximately
+        <strong>twice</strong> the socially optimal amount.
+      </p>
+      <p>
+        The ratio of individual payoffs:
+      </p>
+      <p>
+        \[
+          \frac{\pi^*_{\text{Nash}}}{\pi^*_{\text{social}}} = \frac{a^2/(b(n+1)^2)}{a^2/(4bn)} = \frac{4n}{(n+1)^2}
+        \]
+      </p>
+      <p>
+        For large \(n\), this approaches \(4/n\) &mdash; each player earns a vanishing fraction of
+        what they could earn under optimal management. <strong>This is the tragedy of the commons,
+        made precise.</strong>
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Numerical CPR Calculation</span>
+      <p>
+        Let \(a = 120\), \(b = 1\), \(n = 5\):
+      </p>
+      <ul>
+        <li>\(h^*_{\text{Nash}} = 120 / (1 \cdot 6) = 20\), so \(H^*_{\text{Nash}} = 100\)</li>
+        <li>\(h^*_{\text{social}} = 120 / (2 \cdot 1 \cdot 5) = 12\), so \(H^*_{\text{social}} = 60\)</li>
+        <li>\(\pi^*_{\text{Nash}} = 20 \cdot (120 - 100) = 400\) per player</li>
+        <li>\(\pi^*_{\text{social}} = 12 \cdot (120 - 60) = 720\) per player</li>
+      </ul>
+      <p>
+        Each player gets only \(400/720 \approx 55.6\%\) of their optimal payoff in the Nash equilibrium.
+        Collectively, the group loses \(5 \times (720 - 400) = 1600\) units of value due to overexploitation.
+      </p>
+    </div>
+
+    <!-- CPR Interactive Game -->
+    <div class="interactive-container">
+      <h3>Interactive: Common-Pool Resource Game</h3>
+      <p>You are one of 5 harvesters sharing a renewable resource (max capacity: 100). How much will you take each round? The resource regrows by 30% of what remains.</p>
+      <div class="controls" id="cpr-game">
+        <div class="control-group">
+          <label>Your harvest amount:</label>
+          <input type="number" id="cpr-harvest" value="10" min="0" max="20" step="1" style="width:80px">
+        </div>
+        <button class="btn btn-primary" onclick="cprHarvest()">Harvest</button>
+        <button class="btn btn-outline" onclick="cprReset()">Reset Game</button>
+      </div>
+      <div id="cpr-result" style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:6px; min-height:60px">
+        Start harvesting to begin the simulation.
+      </div>
+      <div id="cpr-history" style="margin-top:1rem; overflow-x:auto;"></div>
+      <div class="note-box" style="margin-top:1rem">
+        <span class="box-title">Think About It</span>
+        <p>What happens if you harvest the maximum amount each round? What if you harvest sustainably? This is the essence of the commons dilemma that Ostrom studied.</p>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.3 &mdash; CPR with Heterogeneous Costs</div>
+      <p>
+        Suppose \(n = 3\) harvesters face a CPR with \(a = 60\), \(b = 1\), but player 1 has harvesting
+        cost \(c_1 = 2\) per unit while players 2 and 3 have \(c_2 = c_3 = 0\). Payoffs become
+        \(\pi_i = h_i(a - bH) - c_i h_i\). Find the Nash equilibrium harvest for each player.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            Player \(i\)'s FOC: \(\frac{\partial \pi_i}{\partial h_i} = (a - c_i) - 2bh_i - bH_{-i} = 0\).
+          </p>
+          <p>
+            So \(h_i = \frac{(a - c_i) - bH_{-i}}{2b}\).
+          </p>
+          <p>
+            For player 1: \(h_1 = \frac{58 - (h_2 + h_3)}{2}\).
+          </p>
+          <p>
+            For players 2, 3 (symmetric): \(h_2 = h_3 = \frac{60 - h_1 - h_j}{2}\) where \(j\) is the other
+            low-cost player.
+          </p>
+          <p>
+            By symmetry \(h_2 = h_3 = h\). From player 2's FOC: \(h = \frac{60 - h_1 - h}{2}\), so \(3h = 60 - h_1\), giving \(h = \frac{60 - h_1}{3}\).
+          </p>
+          <p>
+            Substituting into player 1's FOC: \(h_1 = \frac{58 - 2 \cdot \frac{60 - h_1}{3}}{2} = \frac{58 - \frac{120 - 2h_1}{3}}{2} = \frac{\frac{174 - 120 + 2h_1}{3}}{2} = \frac{54 + 2h_1}{6}\).
+          </p>
+          <p>
+            So \(6h_1 = 54 + 2h_1\), giving \(h_1 = 13.5\) and \(h = \frac{60 - 13.5}{3} = 15.5\).
+          </p>
+          <p>
+            The higher-cost player harvests less. Total harvest: \(H = 13.5 + 2(15.5) = 44.5\).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: Ostrom's Design Principles -->
+  <!-- ================================================================== -->
+  <div class="section" id="design-principles">
+    <h2>5. Ostrom's Design Principles as Game Modifications</h2>
+
+    <p>
+      Ostrom identified eight "design principles" characteristic of long-enduring common-pool resource
+      institutions, based on comparative case studies spanning centuries and continents. We now show
+      how each principle can be understood as a specific <em>modification to the game structure</em>.
+    </p>
+
+    <h3>5.1 The Eight Principles, Formalized</h3>
+
+    <h4>Principle 1: Clearly Defined Boundaries</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Defining the Player Set</span>
+      <p>
+        <strong>Qualitative:</strong> Who has the right to withdraw resource units must be clearly defined,
+        as must the boundaries of the resource itself.
+      </p>
+      <p>
+        <strong>Formal:</strong> Defines the player set \(N = \{1, \ldots, n\}\) and establishes
+        excludability. Without clear boundaries, the game has \(n \to \infty\), and from our CPR analysis,
+        the overexploitation ratio \(\frac{2n}{n+1} \to 2\) and per-person payoff ratio \(\frac{4n}{(n+1)^2} \to 0\).
+        Bounding \(n\) is a necessary condition for efficiency.
+      </p>
+    </div>
+
+    <h4>Principle 2: Proportional Equivalence Between Benefits and Costs</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Payoff Structure</span>
+      <p>
+        <strong>Qualitative:</strong> Rules should ensure that contributions to maintaining the resource
+        are proportional to benefits received.
+      </p>
+      <p>
+        <strong>Formal:</strong> Modifies the payoff function from \(\pi_i = h_i \cdot v(H)\) to
+        \(\pi_i = h_i \cdot v(H) - c(h_i)\) where cost \(c(h_i)\) is proportional to harvest \(h_i\).
+        This shifts the best-response function inward, reducing the Nash equilibrium harvest toward
+        the social optimum.
+      </p>
+    </div>
+
+    <h4>Principle 3: Collective-Choice Arrangements</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Endogenous Rule Formation</span>
+      <p>
+        <strong>Qualitative:</strong> Most individuals affected by the operational rules can participate
+        in modifying them.
+      </p>
+      <p>
+        <strong>Formal:</strong> Introduces a <strong>constitutional-level game</strong> \(\Gamma^C\)
+        in which players choose the rules of the operational game \(\Gamma^O\). This is a
+        <strong>two-level game</strong>: players first choose rules, then play the resource game under
+        those rules. The constitutional game can select payoff-dominant equilibria of the resulting
+        operational game.
+      </p>
+    </div>
+
+    <h4>Principle 4: Monitoring</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Information Structure</span>
+      <p>
+        <strong>Qualitative:</strong> Monitors who actively audit CPR conditions and appropriator behavior
+        are at least partially accountable to the appropriators.
+      </p>
+      <p>
+        <strong>Formal:</strong> Transforms the game from <em>imperfect information</em> (where deviations
+        are unobserved) to <em>perfect monitoring</em> (where actions are observed with probability \(p\)).
+        This enables conditional strategies. Without monitoring, punishment is impossible; with monitoring,
+        trigger strategies and graduated sanctions become feasible.
+      </p>
+    </div>
+
+    <h4>Principle 5: Graduated Sanctions</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Punishment Payoffs</span>
+      <p>
+        <strong>Qualitative:</strong> Appropriators who violate operational rules are likely to be assessed
+        graduated sanctions by other appropriators or by officials accountable to the appropriators.
+      </p>
+      <p>
+        <strong>Formal:</strong> Adds a punishment function \(F(h_i)\) to the payoff:
+        \(\pi_i^{\text{new}} = \pi_i^{\text{old}} - F(h_i)\) where \(F(h_i) = 0\) if \(h_i \leq \bar{h}\)
+        (the agreed-upon limit) and \(F(h_i) = \beta(h_i - \bar{h})^\alpha\) for \(h_i > \bar{h}\),
+        with \(\alpha \geq 1\) capturing the graduated nature of sanctions.
+      </p>
+    </div>
+
+    <h4>Principle 6: Conflict-Resolution Mechanisms</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Meta-Game</span>
+      <p>
+        <strong>Qualitative:</strong> Rapid access to low-cost local arenas to resolve disputes.
+      </p>
+      <p>
+        <strong>Formal:</strong> When a rule violation is contested, the dispute enters a
+        <strong>meta-game</strong> &mdash; a game about interpreting the rules of the game. Low-cost
+        conflict resolution reduces the transaction costs of enforcement, making punishment credible
+        by reducing the cost parameter \(\gamma\) for enforcers.
+      </p>
+    </div>
+
+    <h4>Principle 7: Minimal Recognition of Rights to Organize</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; External Enforcement</span>
+      <p>
+        <strong>Qualitative:</strong> External governmental authorities do not challenge the rights of
+        appropriators to devise their own institutions.
+      </p>
+      <p>
+        <strong>Formal:</strong> Ensures that the two-level game (constitutional + operational) is
+        <em>binding</em>: the rules chosen at the constitutional level are enforceable and not overridden
+        by external players. Formally, the strategy space of external authorities is constrained:
+        \(S_{\text{ext}} \subseteq \{s : s \text{ does not override local rules}\}\).
+      </p>
+    </div>
+
+    <h4>Principle 8: Nested Enterprises</h4>
+    <div class="def-box">
+      <span class="box-title">Game Modification &mdash; Multi-Level Games</span>
+      <p>
+        <strong>Qualitative:</strong> Governance activities are organized in multiple layers of nested enterprises.
+      </p>
+      <p>
+        <strong>Formal:</strong> The overall game is decomposed into a hierarchy of games:
+        \(\Gamma = \Gamma^1 \times \Gamma^2 \times \cdots \times \Gamma^L\) where each level
+        \(\Gamma^\ell\) governs the rules of level \(\ell - 1\). This hierarchical structure allows
+        for specialization and economies of scale in governance.
+      </p>
+    </div>
+
+    <h3>5.2 Mathematical Analysis: Monitoring + Graduated Sanctions</h3>
+
+    <p>
+      We now show rigorously how Principles 4 and 5 (monitoring and graduated sanctions)
+      together change the Nash equilibrium and replicator dynamics.
+    </p>
+
+    <p>
+      Consider the CPR game with an institutional rule: each player should harvest no more than
+      \(\bar{h} = h^*_{\text{social}} = \frac{a}{2bn}\). Violations are detected with probability \(p\)
+      (monitoring) and punished with fine \(\beta\) per unit of over-harvest (graduated sanctions).
+    </p>
+
+    <p>
+      The modified payoff function for player \(i\) becomes:
+    </p>
+
+    <p>
+      \[
+        \pi_i^{\text{inst}} = h_i(a - bH) - p \cdot \beta \cdot \max(0, h_i - \bar{h})
+      \]
+    </p>
+
+    <p>
+      The first-order condition for \(h_i > \bar{h}\):
+    </p>
+
+    <p>
+      \[
+        \frac{\partial \pi_i^{\text{inst}}}{\partial h_i} = a - 2bh_i - bH_{-i} - p\beta = 0
+      \]
+    </p>
+
+    <p>
+      Solving with symmetry (\(h_i = h^*\) for all \(i\)):
+    </p>
+
+    <p>
+      \[
+        h^*_{\text{inst}} = \frac{a - p\beta}{b(n+1)}
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Institutions Shift Nash Equilibrium Toward Social Optimum</span>
+      <p>
+        With monitoring probability \(p\) and fine \(\beta\), compliance with the social optimum
+        becomes a Nash equilibrium when the expected fine makes over-harvesting unprofitable.
+        This requires:
+      </p>
+      <p>
+        \[
+          p\beta \geq a - \frac{a(n+1)}{2n} = \frac{a(n-1)}{2n}
+        \]
+      </p>
+      <p>
+        That is, the expected fine \(p\beta\) must be at least \(\frac{a(n-1)}{2n}\). As the
+        number of players grows, the required deterrent approaches \(\frac{a}{2}\), but for
+        small groups the requirement is modest.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Required Monitoring for Cooperation</span>
+      <p>
+        Using \(a = 120\), \(b = 1\), \(n = 5\):
+      </p>
+      <p>
+        Required: \(p\beta \geq \frac{120 \cdot 4}{10} = 48\).
+      </p>
+      <p>
+        With monitoring probability \(p = 0.8\), the required fine is \(\beta \geq 60\). With \(p = 0.5\),
+        the required fine is \(\beta \geq 96\).
+      </p>
+      <p>
+        This gives Ostrom's qualitative insight quantitative content: higher monitoring reduces the
+        sanctions needed, and vice versa. Communities can trade off between monitoring intensity and
+        punishment severity.
+      </p>
+    </div>
+
+    <h3>5.3 Replicator Dynamics with Institutions</h3>
+
+    <p>
+      Now consider an evolutionary model where some agents follow the institutional rules (Compliers, C)
+      and others do not (Free-riders, F). The material payoffs depend on the proportion \(x\) of compliers:
+    </p>
+
+    <p>
+      <strong>Without institutions:</strong> this is equivalent to a Prisoner's Dilemma. Free-riders
+      always have higher fitness, and compliance goes extinct.
+    </p>
+
+    <p>
+      <strong>With monitoring and sanctions:</strong> Let \(p\) be the probability of detecting a free-rider
+      and \(\beta\) the fine. The modified fitness functions become:
+    </p>
+
+    <p>
+      \[
+        f_C(x) = R_C(x) \quad \text{(complier's material payoff)}
+      \]
+    </p>
+    <p>
+      \[
+        f_F(x) = R_F(x) - p\beta \quad \text{(free-rider's material payoff minus expected fine)}
+      \]
+    </p>
+
+    <p>
+      The replicator equation for complier frequency \(x\) becomes:
+    </p>
+
+    <p>
+      \[
+        \dot{x} = x(1 - x)\bigl[f_C(x) - f_F(x)\bigr] = x(1 - x)\bigl[R_C(x) - R_F(x) + p\beta\bigr]
+      \]
+    </p>
+
+    <p>
+      If \(p\beta\) is large enough that \(R_C(x) - R_F(x) + p\beta > 0\) for all \(x\), then
+      \(\dot{x} > 0\) whenever \(0 < x < 1\), and full compliance (\(x = 1\)) is the only stable
+      equilibrium. Monitoring and sanctions transform the dynamics from convergence to all-defection
+      to convergence to all-cooperation.
+    </p>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.4 &mdash; Optimal Monitoring</div>
+      <p>
+        Monitoring is costly: it costs the community \(c_m \cdot p\) to maintain monitoring at level \(p\).
+        The community's net benefit from institutions is the gain from cooperation minus monitoring costs.
+        For the CPR game with \(a = 120\), \(b = 1\), \(n = 5\), and fine \(\beta = 100\):
+      </p>
+      <p>
+        (a) What is the minimum monitoring level \(p_{\min}\) that sustains cooperation?
+        (b) If monitoring costs \(c_m = 200\) per unit of monitoring probability, what is the net benefit
+        of institutions at \(p = p_{\min}\)?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            <strong>(a)</strong> We need \(p\beta \geq \frac{a(n-1)}{2n} = \frac{120 \cdot 4}{10} = 48\).
+          </p>
+          <p>
+            With \(\beta = 100\): \(p_{\min} = 48/100 = 0.48\).
+          </p>
+          <p>
+            <strong>(b)</strong> Gain from cooperation: per-player payoff increases from
+            \(\pi_{\text{Nash}} = 400\) to \(\pi_{\text{social}} = 720\), a gain of \(320\) per player,
+            or \(5 \times 320 = 1600\) total.
+          </p>
+          <p>
+            Monitoring cost: \(c_m \cdot p = 200 \times 0.48 = 96\).
+          </p>
+          <p>
+            Net benefit: \(1600 - 96 = 1504\). Institutions are highly worthwhile &mdash; the gains
+            from cooperation far exceed monitoring costs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: Evolutionary Models of Institutional Formation -->
+  <!-- ================================================================== -->
+  <div class="section" id="institutional-evolution">
+    <h2>6. Evolutionary Models of Institutional Formation</h2>
+
+    <p>
+      We have shown that institutions <em>can</em> sustain cooperation, but how do institutions <em>emerge</em>
+      in the first place? This is where evolutionary models of cultural evolution, developed by
+      Boyd &amp; Richerson and others, become essential.
+    </p>
+
+    <h3>6.1 Boyd &amp; Richerson's Cultural Group Selection</h3>
+
+    <p>
+      Boyd &amp; Richerson (1985, 2005) proposed that human cooperation evolved through a process of
+      <strong>cultural group selection</strong>: groups with cooperative norms outcompete groups without them,
+      even if cooperation is not individually advantageous within a group.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Cultural Group Selection Model</span>
+      <p>
+        Consider \(m\) groups, each of size \(n\). Within each group, a fraction \(x_k\) are cooperators
+        and \(1 - x_k\) are defectors. The model has two levels:
+      </p>
+      <ol>
+        <li><strong>Within-group selection:</strong> Defectors have higher fitness within each group
+        (since cooperation is a PD). \(x_k\) decreases over time within each group.</li>
+        <li><strong>Between-group selection:</strong> Groups with more cooperators are more productive
+        and grow faster, or are imitated by other groups. Groups with higher \(x_k\) spread.</li>
+      </ol>
+      <p>
+        Cooperation persists when between-group selection is strong enough to counteract within-group selection.
+      </p>
+    </div>
+
+    <p>
+      Formally, the change in the global frequency of cooperation \(\bar{x}\) across all groups is given
+      by the <strong>Price equation</strong> (from Module 5's probability theory):
+    </p>
+
+    <p>
+      \[
+        \Delta\bar{x} = \underbrace{\text{Cov}(w_k, x_k)}_{\text{between-group selection}} + \underbrace{E[w_k \Delta x_k]}_{\text{within-group selection}}
+      \]
+    </p>
+
+    <p>
+      where \(w_k\) is group \(k\)'s relative fitness and \(\Delta x_k\) is the change in cooperator
+      frequency within group \(k\). The first term is positive (groups with more cooperators grow faster),
+      and the second is negative (cooperators decline within each group). Cooperation increases globally
+      when the first term dominates.
+    </p>
+
+    <h3>6.2 Punishment and the Second-Order Free Rider Problem</h3>
+
+    <p>
+      A key mechanism for sustaining cooperation is <strong>punishment</strong>: individuals who detect
+      defectors impose costs on them. But punishment is itself costly to the punisher, creating a
+      <strong>second-order free rider problem</strong>: why pay the cost of punishing when others can do it?
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Second-Order Free Rider Problem</span>
+      <p>
+        In a population with three types &mdash; Cooperators (C), Defectors (D), and Punishers (P, who
+        cooperate and also punish defectors) &mdash; punishers bear an extra cost \(\gamma\) for each
+        defector they punish, while cooperators who don't punish benefit from the deterrence without
+        paying the cost. Non-punishing cooperators free-ride on punishers' enforcement effort.
+      </p>
+    </div>
+
+    <h3>6.3 Replicator Dynamics with Cooperators, Defectors, and Punishers</h3>
+
+    <p>
+      Consider a public goods game in a group of \(n\) players. Each type's behavior:
+    </p>
+    <ul>
+      <li><strong>Cooperator (C):</strong> Contributes \(c\) to the public good, does not punish.</li>
+      <li><strong>Defector (D):</strong> Does not contribute, does not punish.</li>
+      <li><strong>Punisher (P):</strong> Contributes \(c\) to the public good, and pays cost \(\gamma\)
+      to impose fine \(\beta\) on each detected defector.</li>
+    </ul>
+
+    <p>
+      Let \(x_C, x_D, x_P\) be the frequencies of each type (\(x_C + x_D + x_P = 1\)). In a well-mixed
+      population where a random group of \(n\) is formed, the expected payoffs are approximately:
+    </p>
+
+    <p>
+      \[
+        f_C = \frac{rc(x_C + x_P)n}{n} - c = rc(x_C + x_P) - c
+      \]
+    </p>
+    <p>
+      \[
+        f_D = rc(x_C + x_P) - \beta \cdot x_P \cdot n
+      \]
+    </p>
+    <p>
+      \[
+        f_P = rc(x_C + x_P) - c - \gamma \cdot x_D \cdot n
+      \]
+    </p>
+
+    <p>
+      where \(r\) is the multiplication factor of the public good. The replicator equations are:
+    </p>
+
+    <p>
+      \[
+        \dot{x}_C = x_C\bigl(f_C - \bar{f}\bigr), \quad
+        \dot{x}_D = x_D\bigl(f_D - \bar{f}\bigr), \quad
+        \dot{x}_P = x_P\bigl(f_P - \bar{f}\bigr)
+      \]
+    </p>
+
+    <p>
+      where \(\bar{f} = x_C f_C + x_D f_D + x_P f_P\) is the average fitness.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Key Result &mdash; Dynamics of Punishment</span>
+      <p>
+        The pairwise fitness differences reveal the dynamics:
+      </p>
+      <p>
+        \[
+          f_P - f_D = -c + \beta x_P n - \gamma x_D n + \beta x_P n = -c + \beta x_P n(1) + ...
+        \]
+      </p>
+      <p>
+        More precisely:
+      </p>
+      <p>
+        \[
+          f_C - f_D = -c + \beta x_P n \quad \text{(cooperators vs defectors)}
+        \]
+      </p>
+      <p>
+        \[
+          f_P - f_D = -c + \beta x_P n - \gamma x_D n + \beta x_P n
+        \]
+      </p>
+      <p>
+        Wait &mdash; let us be more careful. Computing differences directly:
+      </p>
+      <p>
+        \[
+          f_C - f_D = -c + \beta x_P n
+        \]
+      </p>
+      <p>
+        \[
+          f_P - f_C = -\gamma x_D n
+        \]
+      </p>
+      <p>
+        \[
+          f_P - f_D = -c + \beta x_P n - \gamma x_D n
+        \]
+      </p>
+      <p>
+        From these, the dynamics work in stages:
+      </p>
+      <ol>
+        <li>When punishers are common (\(x_P\) large), \(f_C - f_D > 0\): cooperating is better than defecting
+        because defectors get punished.</li>
+        <li>But \(f_P - f_C = -\gamma x_D n < 0\) always: cooperators who don't punish always outperform
+        punishers (the second-order free rider problem).</li>
+        <li>Once defectors are eliminated (\(x_D = 0\)), \(f_P = f_C\): punishers and cooperators are
+        selectively neutral. Drift can then erode the punisher population, eventually allowing defectors
+        to reinvade.</li>
+      </ol>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; The Cycle of Punishment</span>
+      <p>
+        Punishment faces a fundamental challenge: it works too well. Once punishers eliminate defectors,
+        there's no one left to punish, so the cost of being a punisher is zero &mdash; but so is the
+        benefit. Non-punishing cooperators drift into the population. As the fraction of punishers declines,
+        the deterrent weakens, and defectors can reinvade. This creates a cyclic dynamic in finite populations.
+      </p>
+      <p>
+        Ostrom's insight: real institutions solve this through <em>cheap punishment</em> (graduated
+        sanctions reduce \(\gamma\)), <em>role-based monitoring</em> (not everyone needs to punish),
+        and <em>intrinsic motivation</em> (prosocial SVO types may punish even without a material incentive).
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.5 &mdash; Punisher Invasion</div>
+      <p>
+        In the C-D-P model above, let \(n = 10\), \(c = 2\), \(r = 3\), \(\beta = 4\), \(\gamma = 1\).
+        Can punishers invade a population of all-defectors? Find the condition on initial punisher frequency
+        \(x_P\) needed for punishers to have higher fitness than defectors.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            In a population of mostly defectors (\(x_D \approx 1 - x_P\), \(x_C = 0\)):
+          </p>
+          <p>
+            \(f_P - f_D = -c + \beta x_P n - \gamma x_D n = -2 + 4 \cdot 10 \cdot x_P - 1 \cdot 10 \cdot (1 - x_P)\)
+          </p>
+          <p>
+            \(= -2 + 40x_P - 10 + 10x_P = -12 + 50x_P\)
+          </p>
+          <p>
+            For punishers to have higher fitness: \(-12 + 50x_P > 0\), so \(x_P > 12/50 = 0.24\).
+          </p>
+          <p>
+            Punishers need at least 24% of the population to successfully invade. A lone mutant punisher
+            cannot invade &mdash; this requires <strong>group invasion</strong>, which is where cultural
+            group selection plays a role: if a group of punishers migrates together, they can establish
+            a beachhead large enough to tip the dynamics in favor of cooperation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: Public Goods Games with Punishment -->
+  <!-- ================================================================== -->
+  <div class="section" id="public-goods-punishment">
+    <h2>7. Public Goods Games with Punishment</h2>
+
+    <p>
+      The public goods game (PGG) with punishment has become one of the most important models in the
+      study of human cooperation. We now develop the full mathematical framework.
+    </p>
+
+    <h3>7.1 The Standard Public Goods Game</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Public Goods Game</span>
+      <p>
+        <strong>Players:</strong> \(n\) individuals.
+      </p>
+      <p>
+        <strong>Endowment:</strong> Each player has endowment \(e\).
+      </p>
+      <p>
+        <strong>Action:</strong> Each player \(i\) chooses contribution \(g_i \in [0, e]\).
+      </p>
+      <p>
+        <strong>Public good:</strong> Total contributions are multiplied by \(r > 1\) and divided equally:
+      </p>
+      <p>
+        \[
+          \pi_i = (e - g_i) + \frac{r \sum_{j=1}^n g_j}{n}
+        \]
+      </p>
+      <p>
+        The social dilemma arises when \(1 < r < n\): contributing benefits the group (\(r > 1\))
+        but costs the individual more than their share of the return (\(r/n < 1\)).
+      </p>
+    </div>
+
+    <p>
+      In the standard PGG with \(r < n\), the dominant strategy is \(g_i = 0\) (contribute nothing),
+      since \(\frac{\partial \pi_i}{\partial g_i} = -1 + r/n < 0\). The Nash equilibrium is zero
+      contributions, even though the social optimum is full contribution.
+    </p>
+
+    <h3>7.2 Adding Punishment</h3>
+
+    <p>
+      After contributions are observed, each player can punish other players. The extended game has
+      two stages:
+    </p>
+
+    <ol>
+      <li><strong>Contribution stage:</strong> Player \(i\) contributes \(g_i\).</li>
+      <li><strong>Punishment stage:</strong> Player \(i\) can spend cost \(\gamma\) per punishment point
+      to impose fine \(\beta\) per punishment point on any other player.</li>
+    </ol>
+
+    <p>
+      With three strategies (Cooperator, Defector, Punisher as defined in Section 6), the payoff
+      functions in a well-mixed population with frequencies \((x_C, x_D, x_P)\) are:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Payoff Functions in the PGG with Punishment</span>
+      <p>
+        For a randomly formed group of size \(n\) from a large population:
+      </p>
+      <p>
+        \[
+          f_C = e - c + \frac{rc(x_C + x_P)(n-1) + rc}{n} \approx e - c + rc(x_C + x_P)
+        \]
+      </p>
+      <p>
+        \[
+          f_D = e + \frac{rc(x_C + x_P)(n-1)}{n} - \beta(n-1)x_P \approx e + rc(x_C + x_P) \cdot\frac{n-1}{n} - \beta(n-1)x_P
+        \]
+      </p>
+      <p>
+        \[
+          f_P = e - c + \frac{rc(x_C + x_P)(n-1) + rc}{n} - \gamma(n-1)x_D \approx e - c + rc(x_C + x_P) - \gamma(n-1)x_D
+        \]
+      </p>
+      <p>
+        where we use the approximation for large populations. We set \(e = 0\) without loss of
+        generality (shifting all payoffs by a constant doesn't affect replicator dynamics).
+      </p>
+    </div>
+
+    <h3>7.3 Analysis of the Replicator Dynamics</h3>
+
+    <p>
+      Setting \(e = 0\) and writing \(x_C + x_P = 1 - x_D\), the simplified pairwise fitness
+      differences are:
+    </p>
+
+    <p>
+      \[
+        f_C - f_D = -c + \beta(n-1)x_P + \frac{rc}{n}
+      \]
+    </p>
+
+    <p>
+      For cooperation to be favored over defection, we need:
+    </p>
+
+    <p>
+      \[
+        x_P > \frac{c(1 - r/n)}{\beta(n-1)} = \frac{c(n - r)}{\beta n(n-1)}
+      \]
+    </p>
+
+    <p>
+      And the second-order free rider problem:
+    </p>
+
+    <p>
+      \[
+        f_C - f_P = \gamma(n-1)x_D \geq 0
+      \]
+    </p>
+
+    <p>
+      This is always non-negative: cooperators who don't punish always weakly outperform punishers
+      (strictly so when defectors exist).
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; When Punishment Sustains Cooperation</span>
+      <p>
+        In the PGG with punishment, the all-cooperator-and-punisher state (\(x_D = 0\), arbitrary mix of
+        C and P) is <strong>stable against invasion by defectors</strong> if and only if:
+      </p>
+      <p>
+        \[
+          \beta(n-1)x_P > c\!\left(1 - \frac{r}{n}\right)
+        \]
+      </p>
+      <p>
+        However, this state is <strong>not stable against drift between C and P</strong> when \(x_D = 0\),
+        since cooperators and punishers earn the same payoff when there are no defectors to punish.
+      </p>
+      <p>
+        Full cooperation is stabilized when:
+      </p>
+      <ol>
+        <li>The fine-to-cost ratio \(\beta/\gamma\) is sufficiently large (punishment is efficient)</li>
+        <li>Group size \(n\) is not too large (punishment is more effective in smaller groups)</li>
+        <li>Some mechanism prevents drift from eroding the punisher population (e.g., cultural
+        transmission, institutional roles, or SVO-based intrinsic motivation to punish)</li>
+      </ol>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; PGG with Punishment Equilibrium</span>
+      <p>
+        Let \(n = 5\), \(c = 2\), \(r = 3\), \(\beta = 3\), \(\gamma = 1\).
+      </p>
+      <p>
+        <strong>Without punishment</strong> (C vs D only): \(f_C - f_D = -c + rc/n = -2 + 6/5 = -0.8 < 0\).
+        Defection dominates. The replicator dynamics drive cooperation to extinction.
+      </p>
+      <p>
+        <strong>With punishment</strong>: For a population of only P and D, \(f_P - f_D\) becomes:
+      </p>
+      <p>
+        \(f_P - f_D = -c + rc/n + \beta(n-1)x_P - \gamma(n-1)x_D\)
+      </p>
+      <p>
+        \(= -0.8 + 3 \cdot 4 \cdot x_P - 1 \cdot 4 \cdot (1-x_P) = -0.8 + 12x_P - 4 + 4x_P = -4.8 + 16x_P\)
+      </p>
+      <p>
+        Setting \(f_P = f_D\): \(x_P^* = 4.8/16 = 0.3\). This is an interior fixed point.
+      </p>
+      <p>
+        For \(x_P > 0.3\), punishers grow; for \(x_P < 0.3\), defectors grow.
+        So \(x_P = 1\) (all-punisher) is stable, and \(x_P = 0.3\) is an unstable threshold.
+        Punishment can sustain cooperation, but punishers must start above 30% of the population.
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.6 &mdash; The Effectiveness Ratio</div>
+      <p>
+        Define the "punishment effectiveness ratio" as \(\rho = \beta / \gamma\) (fine imposed per unit
+        cost to the punisher). Show that in the two-type (P vs D) model, the critical punisher frequency
+        for invasion decreases as \(\rho\) increases. What happens in the limit \(\rho \to \infty\)
+        (costless punishment)?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            The condition \(f_P > f_D\) gives us (with \(x_C = 0\), so \(x_D = 1 - x_P\)):
+          </p>
+          <p>
+            \(-c + rc/n + \beta(n-1)x_P - \gamma(n-1)(1-x_P) > 0\)
+          </p>
+          <p>
+            \(-c(1-r/n) + (n-1)x_P(\beta + \gamma) - \gamma(n-1) > 0\)
+          </p>
+          <p>
+            \(x_P > \frac{c(1-r/n) + \gamma(n-1)}{(n-1)(\beta + \gamma)} = \frac{c(1-r/n)/\!\left((n-1)\right) + \gamma}{\beta + \gamma}\)
+          </p>
+          <p>
+            Dividing numerator and denominator by \(\gamma\):
+          </p>
+          <p>
+            \(x_P^* = \frac{c(1-r/n)/\!\left(\gamma(n-1)\right) + 1}{\rho + 1}\)
+          </p>
+          <p>
+            As \(\rho \to \infty\): \(x_P^* \to 0\). With costless punishment, even a tiny fraction of
+            punishers can deter defection. This is why institutional punishment (which leverages
+            collective resources, reducing the per-capita cost \(\gamma\)) is so powerful.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 8: Bringing It All Together -->
+  <!-- ================================================================== -->
+  <div class="section" id="synthesis">
+    <h2>8. Bringing It All Together</h2>
+
+    <p>
+      This capstone section integrates the three main threads of this module &mdash; Social Value
+      Orientations, Evolutionary Game Theory, and Ostrom's Institutional Analysis &mdash; into a
+      unified mathematical framework.
+    </p>
+
+    <h3>8.1 The Integrated Model</h3>
+
+    <p>
+      Consider a population of agents who differ along two dimensions:
+    </p>
+
+    <ol>
+      <li><strong>SVO type</strong> (their angle \(\theta\)): determines how they weigh self vs. other payoffs</li>
+      <li><strong>Institutional strategy</strong> (comply or free-ride): determines their behavior in a CPR game</li>
+    </ol>
+
+    <p>
+      The key insight is that <strong>SVO affects the threshold for institutional compliance</strong>.
+      A prosocial agent (\(\theta = 45^\circ\)) requires a smaller expected punishment to comply,
+      because cooperation already has subjective value for them:
+    </p>
+
+    <p>
+      \[
+        U_i^{\text{comply}} = \cos(\theta_i)\cdot\pi_i^{\text{comply}} + \sin(\theta_i)\cdot\pi_{-i}^{\text{comply}}
+      \]
+    </p>
+
+    <p>
+      \[
+        U_i^{\text{free-ride}} = \cos(\theta_i)\cdot\left(\pi_i^{\text{free-ride}} - p\beta\right) + \sin(\theta_i)\cdot\pi_{-i}^{\text{free-ride}}
+      \]
+    </p>
+
+    <p>
+      Agent \(i\) complies when \(U_i^{\text{comply}} > U_i^{\text{free-ride}}\):
+    </p>
+
+    <p>
+      \[
+        \cos(\theta_i)\left(\pi_i^C - \pi_i^F + p\beta\right) + \sin(\theta_i)\left(\pi_{-i}^C - \pi_{-i}^F\right) > 0
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; SVO-Dependent Compliance Threshold</span>
+      <p>
+        An agent with SVO angle \(\theta\) complies with institutional rules even when the expected
+        punishment alone is insufficient (\(p\beta < \pi_i^F - \pi_i^C\)) if:
+      </p>
+      <p>
+        \[
+          \tan(\theta) > \frac{\pi_i^F - \pi_i^C - p\beta}{\pi_{-i}^C - \pi_{-i}^F}
+        \]
+      </p>
+      <p>
+        Since \(\pi_{-i}^C > \pi_{-i}^F\) (others benefit from compliance) and \(\tan(\theta) > 0\)
+        for prosocial types, there is a range of punishment levels that are insufficient for
+        individualists but sufficient for prosocials. This means:
+      </p>
+      <ol>
+        <li>Communities with more prosocial members need less institutional enforcement</li>
+        <li>SVO and institutions are <strong>complements</strong>, not substitutes</li>
+        <li>The evolutionary viability of prosocial types depends on the institutional environment</li>
+      </ol>
+    </div>
+
+    <h3>8.2 Co-evolution of SVO and Institutions</h3>
+
+    <p>
+      In the most general model, both SVO types and institutional rules evolve simultaneously:
+    </p>
+
+    <ul>
+      <li><strong>Fast dynamics:</strong> Given a fixed SVO distribution and institutional rules, the
+      population plays the CPR/PGG game and strategy frequencies evolve via replicator dynamics
+      (behavioral dynamics).</li>
+      <li><strong>Medium dynamics:</strong> SVO types evolve through cultural learning and socialization.
+      In populations where prosocial behavior is rewarded (due to institutions), prosocial SVO spreads.</li>
+      <li><strong>Slow dynamics:</strong> Institutional rules evolve through collective choice (Principle 3).
+      Groups with better institutions outcompete groups with worse ones (cultural group selection).</li>
+    </ul>
+
+    <p>
+      This multi-timescale system uses all the mathematical tools from the course:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Course Module</th>
+        <th>Mathematical Tool</th>
+        <th>Application Here</th>
+      </tr>
+      <tr>
+        <td>Module 1: Foundations</td>
+        <td>Functions, notation</td>
+        <td>Payoff functions \(\pi(h, H)\), utility \(U(\theta)\)</td>
+      </tr>
+      <tr>
+        <td>Module 2: Linear Algebra</td>
+        <td>Matrices, eigenvalues</td>
+        <td>Payoff matrices, Jacobian stability analysis</td>
+      </tr>
+      <tr>
+        <td>Module 3: Calculus</td>
+        <td>Optimization</td>
+        <td>FOCs for Nash equilibrium, social optimum</td>
+      </tr>
+      <tr>
+        <td>Module 4: Diff. Equations</td>
+        <td>Dynamical systems</td>
+        <td>Replicator dynamics, resource dynamics \(dR/dt\)</td>
+      </tr>
+      <tr>
+        <td>Module 5: Probability</td>
+        <td>Expected value, Price eq.</td>
+        <td>Expected fitness, group selection models</td>
+      </tr>
+      <tr>
+        <td>Module 6: Game Theory</td>
+        <td>Nash eq., strategic form</td>
+        <td>CPR game, PGG, institutional games</td>
+      </tr>
+      <tr>
+        <td>Module 7: EGT</td>
+        <td>Replicator eq., ESS</td>
+        <td>Evolution of SVO types, punisher dynamics</td>
+      </tr>
+    </table>
+
+    <h3>8.3 Future Directions and Open Questions</h3>
+
+    <p>
+      The integration of SVO, EGT, and institutional analysis opens many research frontiers:
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Open Research Questions</span>
+      <ol>
+        <li><strong>Endogenous SVO:</strong> Can SVO itself evolve through cultural or genetic evolution?
+        What fitness landscapes favor prosociality?</li>
+        <li><strong>Institutional diversity:</strong> Why do different communities develop different
+        institutional solutions to the same dilemma? Can we predict institutional forms from game structure?</li>
+        <li><strong>Network effects:</strong> How does population structure (social networks) interact
+        with SVO and institutions? (Extension of the assortment analysis from Section 2.4.)</li>
+        <li><strong>Scale transitions:</strong> How do institutions that work for small groups scale to
+        larger populations? (Related to Ostrom's Principle 8 on nested enterprises.)</li>
+        <li><strong>Climate commons:</strong> Can the CPR framework be applied to global commons like
+        the atmosphere? What are the mathematical barriers to cooperation at global scale?</li>
+        <li><strong>Digital commons:</strong> How do these models apply to open-source software,
+        Wikipedia, and other knowledge commons where the resource is non-rivalrous?</li>
+      </ol>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">The Big Picture</span>
+      <p>
+        Ostrom's lasting contribution was showing that the "tragedy of the commons" is not inevitable.
+        Communities can and do craft institutions that solve social dilemmas. The mathematics of
+        evolutionary game theory explains <em>when</em> and <em>how</em>: institutions work by modifying
+        the payoff matrix, changing the information structure, and altering the dynamics of cultural
+        evolution. Social value orientations provide the individual-level foundation: people are not
+        purely self-interested, and this heterogeneity is precisely what allows institutional
+        entrepreneurs to build cooperative norms.
+      </p>
+      <p>
+        The mathematical toolkit you have built in this course &mdash; from algebra through differential
+        equations, from Nash equilibria through replicator dynamics &mdash; is exactly what is needed
+        to formalize these insights and push them further. The equations are not just abstract exercises;
+        they are lenses for understanding how cooperation and institutions work in the real world.
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8.7 &mdash; Capstone Problem</div>
+      <p>
+        Consider a community of \(n = 10\) fishers sharing a fishery modeled as a CPR game with
+        \(a = 100\), \(b = 1\). The community has 60% prosocial (\(\theta = 45^\circ\)) and 40%
+        individualistic (\(\theta = 0^\circ\)) members. They are considering an institution with
+        monitoring probability \(p = 0.5\) and fine \(\beta\).
+      </p>
+      <p>
+        (a) Calculate the Nash equilibrium harvest and social optimum without institutions.<br>
+        (b) Find the minimum fine \(\beta\) needed to make individualistic types comply.<br>
+        (c) Do prosocial types need any fine at all to cooperate? Explain using the SVO utility function.<br>
+        (d) What is the net gain to the community from the institution (assuming compliance)?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            <strong>(a)</strong> Nash: \(h^*_N = \frac{100}{11} \approx 9.09\), \(H^*_N = \frac{1000}{11} \approx 90.9\).
+            Social optimum: \(h^*_S = \frac{100}{20} = 5\), \(H^*_S = 50\).
+          </p>
+          <p>
+            \(\pi^*_N = 9.09 \times (100 - 90.9) \approx 82.6\) per player.
+            \(\pi^*_S = 5 \times 50 = 250\) per player.
+          </p>
+          <p>
+            <strong>(b)</strong> For individualistic types (\(\theta = 0\)), compliance requires
+            the fine to make over-harvesting unprofitable. The gain from deviating (harvesting
+            \(h^*_N\) instead of \(h^*_S = 5\)) when others comply is:
+          </p>
+          <p>
+            Best-response to \(H_{-i} = 9 \times 5 = 45\): \(h_i^{BR} = \frac{100 - 45}{2} = 27.5\).
+            Payoff from deviating: \(27.5 \times (100 - 72.5) = 756.25\).
+            Payoff from complying: \(5 \times (100 - 50) = 250\).
+          </p>
+          <p>
+            Expected fine needed: \(p \cdot \beta \cdot (h^{BR} - \bar{h}) \geq 756.25 - 250\).
+            \(0.5 \cdot \beta \cdot 22.5 \geq 506.25\), so \(\beta \geq 44.96 \approx 45\).
+          </p>
+          <p>
+            <strong>(c)</strong> Prosocial types (\(\theta = 45^\circ\)) evaluate:
+            \(U = \frac{1}{\sqrt{2}}(\pi_i + \pi_{-i})\). When they comply and others comply:
+            \(U^C = \frac{1}{\sqrt{2}}(250 + 9 \times 250/9) = \frac{500}{\sqrt{2}} \approx 353.6\).
+          </p>
+          <p>
+            If they deviate: \(\pi_i = 756.25\) but \(\pi_{-i}\) drops because total harvest
+            increases. With \(H = 72.5\), each other player gets \(5 \times (100 - 72.5) = 137.5\),
+            so total others' payoff \(= 9 \times 137.5 = 1237.5\).
+            \(U^D = \frac{1}{\sqrt{2}}(756.25 + 1237.5/9 \times ...) \) &mdash; more carefully:
+            \(U^D = \frac{1}{\sqrt{2}}(756.25 + \bar{\pi}_{-i})\) where we use the average other's payoff \(= 137.5\).
+            So \(U^D = \frac{1}{\sqrt{2}}(756.25 + 137.5) = \frac{893.75}{\sqrt{2}} \approx 632.0\).
+          </p>
+          <p>
+            Hmm, the deviation is still profitable for the prosocial type in this case (632 > 354),
+            but the <em>temptation</em> is reduced. With the fine: \(U^D = \frac{1}{\sqrt{2}}(756.25 - p\beta(22.5) + 137.5)\).
+            The prosocial type needs a fine \(p\beta \cdot 22.5 > 893.75 - 500 = 393.75\), so
+            \(\beta > 393.75 / (0.5 \times 22.5) = 35\). Lower than the 45 needed for individualists.
+          </p>
+          <p>
+            <strong>(d)</strong> Without institutions: total payoff = \(10 \times 82.6 = 826\).
+            With institutions: total payoff = \(10 \times 250 = 2500\).
+            Net gain: \(2500 - 826 = 1674\).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- FINAL: Course Summary -->
+  <!-- ================================================================== -->
+  <div class="section">
+    <h2>Course Summary</h2>
+
+    <p>
+      Congratulations. You have completed the full course on Mathematics for Evolutionary Game Theory.
+      Let us briefly review what you have learned:
+    </p>
+
+    <ol>
+      <li><strong>Module 1:</strong> Mathematical foundations &mdash; the language of functions, equations, and proofs.</li>
+      <li><strong>Module 2:</strong> Linear algebra &mdash; vectors, matrices, and eigenvalues for representing games and analyzing stability.</li>
+      <li><strong>Module 3:</strong> Calculus &mdash; derivatives and optimization for finding equilibria.</li>
+      <li><strong>Module 4:</strong> Differential equations &mdash; dynamical systems, fixed points, and stability for modeling evolutionary dynamics.</li>
+      <li><strong>Module 5:</strong> Probability &mdash; expected values and distributions for mixed strategies and stochastic models.</li>
+      <li><strong>Module 6:</strong> Game theory &mdash; strategic form games, Nash equilibrium, and social dilemmas.</li>
+      <li><strong>Module 7:</strong> Evolutionary game theory &mdash; the replicator equation, ESS, and population dynamics on the simplex.</li>
+      <li><strong>Module 8:</strong> Applications &mdash; SVO, Ostrom's institutions, CPR problems, punishment, and the co-evolution of preferences and institutions.</li>
+    </ol>
+
+    <p>
+      You now have the mathematical toolkit to read and contribute to the research literature on
+      evolutionary game theory, institutional analysis, and the mathematical modeling of human cooperation.
+    </p>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module7.html">&larr; Module 7: EGT &amp; Replicator Dynamics</a>
+    <a href="module9.html">Next: Digital Commons &amp; Anti-Rivalry &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Module 8: Applications &mdash; Social Value Orientations, Ostrom &amp; Institutional Analysis
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

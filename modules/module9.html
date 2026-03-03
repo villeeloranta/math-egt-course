@@ -1,0 +1,3375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 9: Digital Commons, Knowledge Commons &amp; Anti-Rivalry | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html" class="active">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Module 9</div>
+    <h1>Digital Commons, Knowledge Commons &amp; Anti-Rivalry</h1>
+    <p class="module-desc">
+      The new capstone. We extend the mathematical framework of the entire course into the domain
+      of digital and knowledge commons &mdash; goods that defy classical economic assumptions.
+      We formalize the concept of <strong>anti-rivalry</strong>, where use <em>increases</em> value,
+      and show how it fundamentally transforms game-theoretic dynamics, replicator equations,
+      and institutional design.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module8.html">&larr; Module 8: Applications</a>
+    <a href="../index.html">Back to Course Home &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ol>
+      <li><a href="#rivalrous">From Rivalrous to Non-Rivalrous Goods</a></li>
+      <li><a href="#digital-commons-game">The Digital Commons as a Game</a></li>
+      <li><a href="#evo-dynamics">Evolutionary Dynamics of Contribution</a></li>
+      <li><a href="#network-effects">Network Effects and Increasing Returns</a></li>
+      <li><a href="#anti-rivalry">Anti-Rivalry &mdash; The Radical Concept</a>
+        <ol>
+          <li><a href="#ar-what">What is Anti-Rivalry?</a></li>
+          <li><a href="#ar-formal">Mathematical Formalization</a></li>
+          <li><a href="#ar-game-theory">Anti-Rivalry in Game Theory</a></li>
+          <li><a href="#ar-replicator">Replicator Dynamics with Anti-Rivalry</a></li>
+          <li><a href="#ar-examples">Examples in Practice</a></li>
+          <li><a href="#ar-spectrum">The Anti-Rivalry Spectrum</a></li>
+        </ol>
+      </li>
+      <li><a href="#institutional-design">Institutional Design for Digital Commons</a></li>
+      <li><a href="#synthesis">Synthesis &mdash; Digital Commons Through the EGT Lens</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+      <li><a href="#reading">Recommended Reading</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: From Rivalrous to Non-Rivalrous Goods -->
+  <!-- ================================================================== -->
+  <div class="section" id="rivalrous">
+    <h2>1. From Rivalrous to Non-Rivalrous Goods</h2>
+
+    <p>
+      Throughout this course, we have studied games where agents compete over scarce resources.
+      In Module 6, we analyzed the Prisoner&rsquo;s Dilemma and public goods problems.
+      In Module 8, we studied common-pool resources (CPR) and Ostrom&rsquo;s institutional design
+      principles for managing them. All of those models rested on a fundamental economic
+      assumption: <strong>rivalry in consumption</strong>. In this module, we challenge that
+      assumption and explore what happens when goods are non-rivalrous &mdash; or even
+      <em>anti-rivalrous</em>.
+    </p>
+
+    <h3>1.1 The Classical Taxonomy of Goods</h3>
+
+    <p>
+      Economists classify goods along two independent dimensions:
+    </p>
+
+    <ul>
+      <li><strong>Rivalry:</strong> Does one person&rsquo;s consumption reduce the amount available to others?</li>
+      <li><strong>Excludability:</strong> Can non-payers be prevented from accessing the good?</li>
+    </ul>
+
+    <p>
+      These two binary distinctions produce the classic 2&times;2 matrix of good types:
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">The 2&times;2 Taxonomy of Goods</span>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; text-align:center;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Excludable</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Non-excludable</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Rivalrous</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Private goods</strong><br>(food, clothing, fuel)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Common-pool resources</strong><br>(fisheries, forests, groundwater)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Non-rivalrous</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Club goods</strong><br>(cable TV, toll roads, patented drugs)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Public goods</strong><br>(national defense, street lighting, knowledge)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 8</span>
+      <p>
+        In Module 8, we studied common-pool resources (CPR) &mdash; the upper-right cell. Ostrom&rsquo;s
+        design principles addressed the challenge of governing rivalrous, non-excludable goods. The
+        mathematics assumed that total extraction must satisfy \(\sum_{i=1}^n c_i \leq R\), where
+        \(R\) is the finite resource stock. This entire module asks: what happens when we remove
+        or reverse that constraint?
+      </p>
+    </div>
+
+    <h3>1.2 Mathematical Formalization of Rivalry</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Rivalrous Good</span>
+      <p>
+        A good is <strong>rivalrous</strong> if it has a finite stock \(R > 0\) and the consumption
+        amounts \(c_1, c_2, \ldots, c_n\) by \(n\) agents must satisfy the <strong>resource constraint</strong>:
+      </p>
+      \[
+        \sum_{i=1}^{n} c_i \leq R.
+      \]
+      <p>
+        The amount available to agent \(i\) when all others have consumed is at most
+        \(R - \sum_{j \neq i} c_j\). Each unit consumed by one agent is a unit unavailable to others.
+      </p>
+    </div>
+
+    <p>
+      Under rivalry, agent \(i\)&rsquo;s utility from consumption is:
+    </p>
+
+    \[
+      u_i = v(c_i) \quad \text{subject to} \quad c_i \leq R - \sum_{j \neq i} c_j,
+    \]
+
+    <p>
+      where \(v(\cdot)\) is an increasing, concave value function (e.g., \(v(c) = c^\alpha\) for \(0 < \alpha < 1\),
+      as in Module 3). The critical feature is that the <em>feasible set</em> for each agent shrinks as
+      others consume more. This creates the strategic tension at the heart of CPR problems.
+    </p>
+
+    <h3>1.3 Non-Rivalrous Goods: Removing the Constraint</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Non-Rivalrous Good</span>
+      <p>
+        A good is <strong>non-rivalrous</strong> if one agent&rsquo;s consumption does not reduce the
+        amount available to any other agent. Formally, each agent can consume the full good:
+      </p>
+      \[
+        c_i = R \quad \text{for all } i \in \{1, 2, \ldots, n\},
+      \]
+      <p>
+        regardless of what other agents do. There is no resource constraint linking the agents&rsquo; consumption.
+      </p>
+    </div>
+
+    <p>
+      The canonical examples of non-rivalrous goods are <strong>information goods</strong>:
+    </p>
+
+    <ul>
+      <li>A mathematical theorem: my knowing the Pythagorean theorem does not prevent you from knowing it.</li>
+      <li>A piece of software: copying a program does not degrade the original.</li>
+      <li>A musical recording (once digitized): the file can be replicated at near-zero marginal cost.</li>
+      <li>A scientific paper: reading it does not consume it.</li>
+    </ul>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Why Non-Rivalry Changes Everything</span>
+      <p>
+        In the CPR models of Module 8, the fundamental problem was <em>overuse</em>: each agent had
+        an incentive to extract more than the socially optimal amount because they captured all the
+        benefit of their extraction but shared the cost (resource depletion) with everyone.
+        The tragedy of the commons arises from the negative externality of rivalry.
+      </p>
+      <p>
+        With non-rivalrous goods, there is no overuse problem &mdash; you literally cannot
+        &ldquo;overuse&rdquo; an idea. Instead, the problem shifts to <strong>underprovision</strong>:
+        who will bear the cost of <em>creating</em> the good in the first place, knowing that once
+        created, everyone can use it for free?
+      </p>
+    </div>
+
+    <h3>1.4 The Game-Theoretic Implications</h3>
+
+    <p>
+      Let us contrast the payoff structures. In a rivalrous CPR game with \(n\) agents extracting
+      from a common pool of size \(R\), the payoff for agent \(i\) choosing extraction level \(e_i\) is
+      (recall Module 8):
+    </p>
+
+    \[
+      \pi_i^{\text{CPR}} = p \cdot e_i \cdot \frac{R - \sum_{j=1}^n e_j}{R} - w \cdot e_i,
+    \]
+
+    <p>
+      where \(p\) is the price per unit of harvest and \(w\) is the cost per unit of effort.
+      The key term is \(\frac{R - \sum_j e_j}{R}\): total effort by all agents degrades the
+      resource, reducing everyone&rsquo;s return. This creates a negative externality &mdash;
+      more extraction by others hurts you.
+    </p>
+
+    <p>
+      For a non-rivalrous public good, the payoff structure is fundamentally different.
+      Agent \(i\) choosing contribution level \(e_i\) receives:
+    </p>
+
+    \[
+      \pi_i^{\text{PG}} = b \cdot f\!\left(\sum_{j=1}^n e_j\right) - c \cdot e_i,
+    \]
+
+    <p>
+      where \(b\) is the marginal benefit of the public good, \(f(\cdot)\) is a production function,
+      and \(c\) is the marginal cost of contributing. Notice: there is no term that degrades with
+      total usage. Everyone benefits from the total contributions \(\sum_j e_j\). The problem is
+      not overuse but free-riding: each agent wants to enjoy \(b \cdot f(\sum_j e_j)\) while
+      minimizing their own cost \(c \cdot e_i\).
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 6</span>
+      <p>
+        The public goods game is a generalized \(n\)-player Prisoner&rsquo;s Dilemma. As we showed
+        in Module 6, the dominant strategy is to contribute nothing (\(e_i = 0\)), even though
+        everyone contributing a positive amount would make all players better off. The Nash
+        equilibrium is Pareto-dominated by the social optimum. This is the classic underprovision
+        problem for public goods.
+      </p>
+    </div>
+
+    <p>
+      The question that will drive this entire module is: <em>given that digital goods are
+      non-rivalrous, why are open-source software, Wikipedia, and other digital commons so
+      successful?</em> Standard theory predicts underprovision. Reality shows abundance. Resolving
+      this puzzle requires new mathematical tools &mdash; and the concept of anti-rivalry.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: The Digital Commons as a Game -->
+  <!-- ================================================================== -->
+  <div class="section" id="digital-commons-game">
+    <h2>2. The Digital Commons as a Game</h2>
+
+    <p>
+      A <strong>digital commons</strong> is a shared resource of information or software that is
+      collectively created, maintained, and governed by a community. Key examples include:
+    </p>
+
+    <ul>
+      <li><strong>Open-source software:</strong> Linux, Python, Apache, Firefox, TensorFlow.</li>
+      <li><strong>Collaborative knowledge:</strong> Wikipedia, OpenStreetMap, Stack Overflow.</li>
+      <li><strong>Creative Commons content:</strong> open textbooks, open access journals, public domain works.</li>
+      <li><strong>Open data:</strong> government datasets, scientific repositories, genomic databases.</li>
+      <li><strong>Open educational resources:</strong> MIT OpenCourseWare, Khan Academy materials, this very course.</li>
+    </ul>
+
+    <p>
+      What unites these is that they are <em>non-rivalrous</em> (copying costs essentially zero),
+      <em>non-excludable by design</em> (open licenses ensure access), and
+      <em>collectively produced</em> (many contributors, often volunteers).
+    </p>
+
+    <h3>2.1 The Contribution Game</h3>
+
+    <p>
+      Consider a community of \(n\) agents who can contribute to a digital commons. Each agent
+      \(i\) chooses an effort level \(e_i \geq 0\). The total quality of the commons is determined
+      by a production function applied to total effort:
+    </p>
+
+    \[
+      Q = f\!\left(\sum_{j=1}^{n} e_j\right),
+    \]
+
+    <p>
+      where \(f\) is increasing and typically concave (diminishing returns to additional contributions).
+      A natural choice is \(f(E) = E^\alpha\) for \(0 < \alpha \leq 1\), where \(E = \sum_j e_j\)
+      is total effort.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Digital Commons Contribution Game</span>
+      <p>
+        The <strong>digital commons contribution game</strong> is an \(n\)-player simultaneous game where:
+      </p>
+      <ul>
+        <li><strong>Players:</strong> \(N = \{1, 2, \ldots, n\}\)</li>
+        <li><strong>Strategies:</strong> Each player chooses effort \(e_i \in [0, \bar{e}]\)</li>
+        <li><strong>Payoffs:</strong>
+          \[
+            \pi_i = b \cdot f\!\left(\sum_{j=1}^{n} e_j\right) - c(e_i)
+          \]
+          where \(b > 0\) is the benefit parameter, \(f\) is the production function, and \(c(e_i)\)
+          is the cost of contributing effort \(e_i\).
+        </li>
+      </ul>
+      <p>
+        The critical feature: the benefit term \(b \cdot f(\sum_j e_j)\) is the <em>same for every
+        player</em>, regardless of their individual contribution. This is because the good is
+        non-rivalrous &mdash; everyone gets the full benefit of the commons.
+      </p>
+    </div>
+
+    <h3>2.2 Key Properties of the Digital Commons Game</h3>
+
+    <p>
+      The digital commons contribution game differs from classical public goods games in several
+      important ways:
+    </p>
+
+    <p>
+      <strong>Persistence of contributions.</strong> In a one-shot public goods experiment, contributions
+      are consumed. In a digital commons, contributions <em>accumulate</em>. Code committed to a
+      repository stays there. A Wikipedia article, once written, persists. Mathematically, in a
+      repeated version of the game, the quality at time \(t\) is:
+    </p>
+
+    \[
+      Q_t = f\!\left(\sum_{\tau=1}^{t} \sum_{j=1}^{n} e_j^{(\tau)}\right) = f(E_t),
+    \]
+
+    <p>
+      where \(E_t\) is the cumulative total effort up to time \(t\). This is unlike a CPR where
+      the stock \(R_t\) <em>decreases</em> with extraction: \(R_t = R_0 - \sum_{\tau=1}^{t} \sum_j c_j^{(\tau)}\).
+    </p>
+
+    <p>
+      <strong>Heterogeneous contributions.</strong> Not all contributions are equal. A core developer
+      might contribute a critical feature; a casual user might fix a typo. We can model this by
+      making the production function sensitive to contribution quality:
+      \(Q = f(\sum_j \omega_j e_j)\), where \(\omega_j\) is the skill or quality weight of agent \(j\).
+    </p>
+
+    <p>
+      <strong>Modular structure.</strong> Large digital commons projects break work into small,
+      independent modules. This dramatically reduces the cost of any individual contribution.
+      Writing one function for Linux is far less costly than building an entire operating system.
+      Mathematically, modularity means \(c(e_i)\) can be very small for each contribution.
+    </p>
+
+    <h3>2.3 Nash Equilibrium Analysis</h3>
+
+    <p>
+      Let us analyze the Nash equilibrium of the contribution game with linear costs: \(c(e_i) = c \cdot e_i\)
+      and concave production: \(f(E) = E^\alpha\) for \(0 < \alpha < 1\).
+    </p>
+
+    <p>
+      Agent \(i\) maximizes:
+    </p>
+
+    \[
+      \pi_i = b \cdot \left(\sum_{j=1}^{n} e_j\right)^\alpha - c \cdot e_i.
+    \]
+
+    <p>
+      Taking the first-order condition (Module 3):
+    </p>
+
+    \[
+      \frac{\partial \pi_i}{\partial e_i} = b \cdot \alpha \cdot \left(\sum_{j=1}^{n} e_j\right)^{\alpha - 1} - c = 0.
+    \]
+
+    <p>
+      At a symmetric Nash equilibrium, \(e_i = e^*\) for all \(i\), so \(\sum_j e_j = n \cdot e^*\). Substituting:
+    </p>
+
+    \[
+      b \cdot \alpha \cdot (n \cdot e^*)^{\alpha - 1} = c
+      \quad \Longrightarrow \quad
+      e^* = \frac{1}{n} \left(\frac{b \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+    \]
+
+    <p>
+      Total equilibrium effort is:
+    </p>
+
+    \[
+      E^{\text{NE}} = n \cdot e^* = \left(\frac{b \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Underprovision in the Digital Commons</span>
+      <p>
+        The socially optimal total effort \(E^{\text{SO}}\) satisfies:
+      </p>
+      \[
+        E^{\text{SO}} = \left(\frac{n \cdot b \cdot \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+      \]
+      <p>
+        Therefore:
+      </p>
+      \[
+        \frac{E^{\text{NE}}}{E^{\text{SO}}} = \frac{1}{n^{1/(1-\alpha)}} < 1 \quad \text{for } n \geq 2.
+      \]
+      <p>
+        The Nash equilibrium total effort is strictly less than the social optimum by a factor
+        that <em>decreases</em> as the group gets larger. Larger communities underprovide <em>more</em>
+        relative to the optimum.
+      </p>
+    </div>
+
+    <details>
+      <summary>Proof</summary>
+      <div class="proof-content">
+        <p>
+          The social planner maximizes total welfare \(W = n \cdot b \cdot E^\alpha - c \cdot E\)
+          (since costs are borne by agents contributing total effort \(E\), and each of the \(n\)
+          agents benefits from the commons). The first-order condition is:
+        </p>
+        \[
+          \frac{dW}{dE} = n \cdot b \cdot \alpha \cdot E^{\alpha - 1} - c = 0
+          \quad \Longrightarrow \quad
+          E^{\text{SO}} = \left(\frac{n \cdot b \cdot \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+        \]
+        <p>
+          Comparing with \(E^{\text{NE}} = (b\alpha/c)^{1/(1-\alpha)}\):
+        </p>
+        \[
+          \frac{E^{\text{NE}}}{E^{\text{SO}}} = \left(\frac{b\alpha/c}{n \cdot b\alpha/c}\right)^{\frac{1}{1-\alpha}} = \left(\frac{1}{n}\right)^{\frac{1}{1-\alpha}} = n^{-\frac{1}{1-\alpha}}.
+        \]
+        <p>
+          For \(n \geq 2\) and \(0 < \alpha < 1\), this ratio is strictly less than 1, and it
+          decreases as \(n\) grows. &#9632;
+        </p>
+      </div>
+    </details>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; The Free-Rider Problem in Digital Commons</span>
+      <p>
+        Each individual captures only \(\frac{1}{n}\) of the social benefit of their contribution
+        (they get benefit \(b\), but the total social benefit is \(n \cdot b\) since all \(n\)
+        agents benefit from the non-rivalrous good). So each individual&rsquo;s private incentive
+        to contribute is only \(\frac{1}{n}\) of the social incentive. This gap between private
+        and social incentives grows with group size &mdash; hence the worsening underprovision.
+      </p>
+      <p>
+        Yet Wikipedia has over 60 million articles across 300+ languages, and Linux runs on
+        virtually every server on the internet. Something beyond the basic model must be at work.
+        That is what we explore next.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; A Small Open-Source Project</span>
+      <p>
+        Consider \(n = 20\) potential contributors, with \(b = 10\), \(c = 2\), and \(\alpha = 0.5\).
+      </p>
+      <p>
+        The Nash equilibrium total effort is:
+        \[
+          E^{\text{NE}} = \left(\frac{10 \cdot 0.5}{2}\right)^{\frac{1}{0.5}} = (2.5)^2 = 6.25.
+        \]
+      </p>
+      <p>
+        The socially optimal total effort is:
+        \[
+          E^{\text{SO}} = \left(\frac{20 \cdot 10 \cdot 0.5}{2}\right)^{2} = (50)^2 = 2500.
+        \]
+      </p>
+      <p>
+        The ratio is \(6.25 / 2500 = 0.0025\). The Nash equilibrium provides only 0.25% of the
+        socially optimal effort. The underprovision problem is severe.
+      </p>
+      <p>
+        The Nash equilibrium quality is \(Q^{\text{NE}} = 6.25^{0.5} = 2.5\), while the
+        socially optimal quality is \(Q^{\text{SO}} = 2500^{0.5} = 50\). The commons would be
+        20 times better under the social optimum.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: Evolutionary Dynamics of Contribution -->
+  <!-- ================================================================== -->
+  <div class="section" id="evo-dynamics">
+    <h2>3. Evolutionary Dynamics of Contribution</h2>
+
+    <p>
+      The Nash equilibrium analysis above treats agents as perfectly rational optimizers who
+      play once. But real digital commons involve large populations interacting repeatedly over
+      time, with strategies spreading through imitation and social learning. This is exactly the
+      setting where evolutionary game theory (Module 7) applies.
+    </p>
+
+    <h3>3.1 Contributors vs. Free-Riders: The Binary Model</h3>
+
+    <p>
+      We simplify the continuous-effort model to a binary choice. Each agent is either a
+      <strong>Contributor</strong> (C) who exerts effort \(e > 0\) at cost \(c\), or a
+      <strong>Free-Rider</strong> (F) who exerts no effort and pays no cost. Let \(x\) denote the
+      fraction of Contributors in the population.
+    </p>
+
+    <p>
+      In a population of size \(n\), the number of contributors is approximately \(k = xn\).
+      The quality of the commons is \(Q = f(k \cdot e) = f(xne)\). Since the good is non-rivalrous,
+      all agents enjoy the same benefit \(b \cdot Q\). The payoffs are:
+    </p>
+
+    \[
+      \pi_C = b \cdot f(x n e) - c, \qquad \pi_F = b \cdot f(x n e).
+    \]
+
+    <p>
+      The fitness difference is:
+    </p>
+
+    \[
+      \pi_C - \pi_F = -c < 0.
+    \]
+
+    <div class="warning-box">
+      <span class="box-title">Warning &mdash; The Dominance of Free-Riding</span>
+      <p>
+        Under the basic model, free-riding is a <strong>strictly dominant strategy</strong>. The
+        payoff to Contributors is always exactly \(c\) less than the payoff to Free-Riders,
+        regardless of the population composition \(x\). The replicator dynamics (Module 7) give:
+      </p>
+      \[
+        \dot{x} = x(1-x)(\pi_C - \pi_F) = x(1-x)(-c) = -cx(1-x) < 0 \quad \text{for } x \in (0,1).
+      \]
+      <p>
+        The fraction of Contributors monotonically decreases to zero. Free-riders always win.
+        This is the evolutionary analogue of the underprovision result.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 7</span>
+      <p>
+        Recall from Module 7 that when one strategy strictly dominates another, the dominated
+        strategy goes extinct under replicator dynamics. The boundary \(x = 0\) (all Free-Riders)
+        is a globally asymptotically stable equilibrium, while \(x = 1\) (all Contributors) is
+        unstable. This is analogous to the Prisoner&rsquo;s Dilemma dynamics.
+      </p>
+    </div>
+
+    <p>
+      Yet open-source software thrives. Wikipedia grows. Something is missing from our model.
+      Let us now introduce the mechanisms that sustain contribution in practice.
+    </p>
+
+    <h3>3.2 Mechanism 1: Reputation and Signaling</h3>
+
+    <p>
+      Contributors to open-source projects and Wikipedia gain visible, verifiable reputations.
+      GitHub profiles show contribution histories. Wikipedia user pages document editing records.
+      This reputation has tangible value &mdash; it can lead to job offers, consulting opportunities,
+      and social status within the community.
+    </p>
+
+    <p>
+      We model reputation as an additional payoff \(r > 0\) that contributors receive:
+    </p>
+
+    \[
+      \pi_C = b \cdot f(xne) - c + r, \qquad \pi_F = b \cdot f(xne).
+    \]
+
+    <p>
+      The fitness difference becomes:
+    </p>
+
+    \[
+      \pi_C - \pi_F = r - c.
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Proposition &mdash; Reputation Sustains Contribution</span>
+      <p>
+        If the reputation benefit exceeds the cost of contributing (\(r > c\)), then Contributing
+        becomes the dominant strategy. The replicator dynamics become:
+      </p>
+      \[
+        \dot{x} = x(1-x)(r - c) > 0 \quad \text{for } x \in (0,1),
+      \]
+      <p>
+        and the population converges to \(x = 1\) (all Contributors). The threshold
+        \(r^* = c\) is the critical reputation level for sustaining contribution.
+      </p>
+    </div>
+
+    <p>
+      However, this result gives us only two possibilities: all contribute or all free-ride. We
+      cannot explain the commonly observed coexistence of contributors and free-riders. For richer
+      dynamics, we need reputation to depend on the state of the commons.
+    </p>
+
+    <h3>3.3 Mechanism 2: Intrinsic Motivation (Warm Glow)</h3>
+
+    <p>
+      Many contributors to digital commons report that they contribute because they <em>enjoy</em>
+      the work, feel satisfaction from helping others, or derive pleasure from solving problems.
+      Economists call this &ldquo;warm glow&rdquo; utility. We model it as a term proportional to
+      effort:
+    </p>
+
+    \[
+      U_i = \pi_i + w \cdot e_i,
+    \]
+
+    <p>
+      where \(w > 0\) is the warm glow parameter. For contributors with \(e_i = e\):
+    </p>
+
+    \[
+      U_C = b \cdot f(xne) - c + w \cdot e = b \cdot f(xne) - (c - we).
+    \]
+
+    <p>
+      This effectively reduces the cost from \(c\) to \(c - we\). If \(we > c\), contributing
+      is dominant even without reputation. The warm glow model can explain contribution but,
+      like constant reputation, does not generate frequency-dependent dynamics on its own.
+    </p>
+
+    <h3>3.4 Mechanism 3: Network Effects and Complementarities</h3>
+
+    <p>
+      In many digital commons, your contribution becomes <em>more valuable</em> when others also
+      contribute. A Python library you write becomes more useful when there are thousands of other
+      Python libraries to complement it. Your Wikipedia article is more valuable in an encyclopedia
+      with millions of other articles to cross-reference. This is the feature of
+      <strong>strategic complementarity</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Supermodular Game (Strategic Complements)</span>
+      <p>
+        A game has <strong>strategic complementarities</strong> (is <strong>supermodular</strong>)
+        if each player&rsquo;s marginal benefit of increasing their action is increasing in the
+        actions of other players. Formally:
+      </p>
+      \[
+        \frac{\partial^2 \pi_i}{\partial e_i \, \partial e_j} \geq 0 \quad \text{for all } i \neq j.
+      \]
+      <p>
+        When others contribute more, the incentive for you to contribute also increases.
+      </p>
+    </div>
+
+    <p>
+      We model this by making the reputation benefit proportional to the quality of the commons:
+    </p>
+
+    \[
+      \pi_C = b \cdot Q - c + r \cdot Q, \qquad \pi_F = b \cdot Q,
+    \]
+
+    <p>
+      where \(Q = f(xne)\) depends on the fraction of contributors. Now the fitness difference is:
+    </p>
+
+    \[
+      \pi_C - \pi_F = r \cdot Q - c = r \cdot f(xne) - c.
+    \]
+
+    <p>
+      This is <strong>frequency-dependent</strong>: as the fraction of contributors \(x\) increases,
+      \(Q\) increases, so the advantage of contributing grows. This creates much richer dynamics.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Interior Equilibrium with Strategic Complementarities</span>
+      <p>
+        With reputation proportional to commons quality and production function \(f(E) = E^\alpha\),
+        the replicator equation is:
+      </p>
+      \[
+        \dot{x} = x(1-x)\bigl[r \cdot (xne)^\alpha - c\bigr].
+      \]
+      <p>
+        There exists an interior equilibrium at:
+      </p>
+      \[
+        x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}.
+      \]
+      <p>
+        This equilibrium is <strong>unstable</strong> (a threshold). For \(x > x^*\), the
+        population converges to \(x = 1\) (all contribute). For \(x < x^*\), it converges to
+        \(x = 0\) (all free-ride). The game is a <strong>coordination game</strong>.
+      </p>
+    </div>
+
+    <details>
+      <summary>Proof</summary>
+      <div class="proof-content">
+        <p>
+          At an interior equilibrium, \(\pi_C - \pi_F = 0\):
+        </p>
+        \[
+          r \cdot (x^* n e)^\alpha = c \quad \Longrightarrow \quad x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}.
+        \]
+        <p>
+          For stability, we check the derivative of the fitness function \(g(x) = r(xne)^\alpha - c\)
+          with respect to \(x\):
+        </p>
+        \[
+          g'(x) = r \cdot \alpha \cdot (ne)^\alpha \cdot x^{\alpha - 1} > 0 \quad \text{for } x > 0.
+        \]
+        <p>
+          Since \(g'(x) > 0\), the fitness of contributing <em>increases</em> with \(x\). This means:
+        </p>
+        <ul>
+          <li>For \(x < x^*\): \(g(x) < 0\), so \(\dot{x} < 0\) (contributors shrink).</li>
+          <li>For \(x > x^*\): \(g(x) > 0\), so \(\dot{x} > 0\) (contributors grow).</li>
+        </ul>
+        <p>
+          Therefore \(x^*\) is unstable, and the system is bistable with two stable equilibria:
+          \(x = 0\) and \(x = 1\). &#9632;
+        </p>
+      </div>
+    </details>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Critical Mass and Tipping Points</span>
+      <p>
+        This result explains a commonly observed pattern: digital commons projects either
+        <em>take off</em> and become self-sustaining, or they <em>die</em>. If the initial
+        community is large enough (above the threshold \(x^*\)), the project enters a virtuous
+        cycle where contributions make the commons more valuable, which attracts more contributions.
+        Below the threshold, the opposite vicious cycle leads to project abandonment.
+      </p>
+      <p>
+        This is precisely the <strong>coordination game</strong> dynamics from Module 6 (Stag Hunt),
+        now arising endogenously from the structure of digital commons with network effects.
+      </p>
+    </div>
+
+    <h3>3.5 Mechanism 4: Low Costs Through Modularity</h3>
+
+    <p>
+      Open-source projects and wikis decompose large tasks into small, independent modules.
+      Fixing a bug might take 30 minutes. Adding a missing Wikipedia sentence takes a few minutes.
+      If the cost \(c\) is sufficiently small, the threshold \(x^*\) falls, making it easier for
+      the commons to reach critical mass:
+    </p>
+
+    \[
+      x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha} \xrightarrow{c \to 0} 0.
+    \]
+
+    <p>
+      In the limit of zero cost, <em>any</em> positive initial fraction of contributors leads to
+      a thriving commons. This is a key insight: the design of digital collaboration tools
+      (version control, wikis, package managers) that lower \(c\) is as important as the incentive
+      structure.
+    </p>
+
+    <h3>3.6 Mechanism 5: Selective Incentives</h3>
+
+    <p>
+      Some contributors receive direct economic benefits that are conditional on contributing.
+      Open-source developers get hired by companies that use their software. Academic researchers
+      gain citations and career advancement from publishing open data. These <strong>selective
+      incentives</strong> (in Olson&rsquo;s terminology) create a subpopulation for whom \(r > c\)
+      even without intrinsic motivation.
+    </p>
+
+    <p>
+      If a fraction \(\phi\) of the population has access to selective incentives with value \(s > c\),
+      while the remaining \((1-\phi)\) fraction has no such incentives, the equilibrium analysis
+      becomes richer. The population stratifies: the &ldquo;incentivized&rdquo; fraction always
+      contributes, while the unincentivized fraction free-rides. The equilibrium contributor fraction
+      is at least \(\phi\), regardless of the dynamics. If \(\phi > x^*\), the project takes off
+      even if the general public free-rides.
+    </p>
+
+    <h3>3.7 Ostrom&rsquo;s Design Principles in Digital Commons</h3>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 8</span>
+      <p>
+        Ostrom&rsquo;s eight design principles for governing commons were developed for
+        rivalrous common-pool resources. How do they map to digital commons?
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Ostrom&rsquo;s Principles Applied to Linux Kernel Governance</span>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Ostrom&rsquo;s Principle</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>CPR Context (Module 8)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Linux Kernel</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">1. Clear boundaries</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Who can access the resource</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Anyone can read/use; commit access is earned through meritocracy</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">2. Congruence with local conditions</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Rules match resource characteristics</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Subsystem maintainers manage their areas of expertise</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">3. Collective-choice arrangements</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Users participate in rule-making</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Mailing-list discussions, RFCs, patch review</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">4. Monitoring</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Observe resource use</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Git log, code review, automated testing (CI/CD)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">5. Graduated sanctions</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Penalties increase for repeat violations</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Patch rejection, flame mail, ban from mailing list</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">6. Conflict resolution</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Accessible dispute mechanisms</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Subsystem maintainer hierarchy, ultimately BDFL (Linus Torvalds)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">7. Recognition of rights</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Government respects local governance</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">GPL license provides legal framework; Linux Foundation provides organizational support</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">8. Nested enterprises</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Multi-level governance</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Individual developer &rarr; subsystem maintainer &rarr; Linus &rarr; Linux Foundation</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: Network Effects and Increasing Returns -->
+  <!-- ================================================================== -->
+  <div class="section" id="network-effects">
+    <h2>4. Network Effects and Increasing Returns</h2>
+
+    <p>
+      Before we introduce anti-rivalry (the key concept of this module), we need to formalize
+      <strong>network effects</strong> &mdash; the idea that the value of some goods increases with
+      the number of users. Network effects are a precursor to, and distinct from, anti-rivalry,
+      and understanding the distinction is important.
+    </p>
+
+    <h3>4.1 Direct and Indirect Network Effects</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Network Effects</span>
+      <p>
+        A good exhibits <strong>direct network effects</strong> if the value to each user
+        increases with the total number of users. Formally, if \(V_i(n)\) is the value of the
+        good to user \(i\) when there are \(n\) total users:
+      </p>
+      \[
+        \frac{dV_i}{dn} > 0.
+      \]
+      <p>
+        A good exhibits <strong>indirect network effects</strong> if the number of users drives
+        the production of complementary goods, which in turn increases the value of the original good.
+      </p>
+    </div>
+
+    <p>
+      Examples of direct network effects: telephones (more users = more people to call), social
+      networks (more users = more content to consume), messaging apps. Examples of indirect
+      network effects: operating systems (more users &rarr; more application developers &rarr;
+      more apps &rarr; more valuable OS), game consoles, credit card networks.
+    </p>
+
+    <h3>4.2 Metcalfe&rsquo;s Law and Its Refinements</h3>
+
+    <p>
+      The most famous model of network value is <strong>Metcalfe&rsquo;s Law</strong>:
+    </p>
+
+    \[
+      V(n) = \kappa \cdot n^2,
+    \]
+
+    <p>
+      where \(\kappa > 0\) is a constant. The justification is that in a network of \(n\) users,
+      the number of possible pairwise connections is \(\binom{n}{2} = \frac{n(n-1)}{2} \approx \frac{n^2}{2}\)
+      for large \(n\). If each connection has equal value, total network value grows quadratically.
+    </p>
+
+    <p>
+      However, Metcalfe&rsquo;s Law is widely regarded as an overestimate. Not all connections are
+      equally valuable &mdash; your 500th Facebook friend adds less value than your 5th.
+      More realistic models include:
+    </p>
+
+    <ul>
+      <li><strong>Odlyzko-Tilly model:</strong> \(V(n) = n \cdot \ln(n)\), reflecting Zipf-like
+        diminishing value of additional connections.</li>
+      <li><strong>Power-law model:</strong> \(V(n) = \kappa \cdot n^\gamma\) for \(1 < \gamma < 2\),
+        a parameterized family between linear growth and Metcalfe&rsquo;s Law.</li>
+      <li><strong>Reed&rsquo;s Law:</strong> For networks that support group formation, \(V(n) = 2^n\),
+        counting the number of possible subgroups. This is generally too aggressive but may apply
+        to some platform dynamics.</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 3</span>
+      <p>
+        Analyzing these value functions uses the calculus tools from Module 3. The marginal value
+        of an additional user is \(V'(n)\): for Metcalfe&rsquo;s Law, \(V'(n) = 2\kappa n\)
+        (increasing &mdash; each additional user is <em>more</em> valuable); for the log model,
+        \(V'(n) = \ln(n) + 1\) (still increasing, but slowly); for the power-law model,
+        \(V'(n) = \kappa \gamma n^{\gamma-1}\).
+      </p>
+    </div>
+
+    <h3>4.3 Network Effects and Adoption Dynamics</h3>
+
+    <p>
+      Network effects create a natural connection to evolutionary game theory. Consider a
+      population where each agent chooses whether to <strong>Adopt</strong> (A) a network good
+      or <strong>Not Adopt</strong> (N). Let \(x\) be the fraction of adopters.
+    </p>
+
+    <p>
+      The payoff to adopting is:
+    </p>
+
+    \[
+      \pi_A(x) = V(xN) - p,
+    \]
+
+    <p>
+      where \(V(xN)\) is the value with \(xN\) users out of a population \(N\), and \(p\) is
+      the cost (price, learning effort). The payoff to not adopting is \(\pi_N = 0\) (or some
+      outside option value).
+    </p>
+
+    <p>
+      With Metcalfe&rsquo;s Law, \(V(xN) = \kappa(xN)^2\), so the payoff difference is:
+    </p>
+
+    \[
+      \pi_A - \pi_N = \kappa N^2 x^2 - p.
+    \]
+
+    <p>
+      The replicator dynamics give:
+    </p>
+
+    \[
+      \dot{x} = x(1-x)(\kappa N^2 x^2 - p).
+    \]
+
+    <p>
+      Setting \(\pi_A - \pi_N = 0\), the interior equilibrium is:
+    </p>
+
+    \[
+      x^* = \sqrt{\frac{p}{\kappa N^2}} = \frac{1}{N}\sqrt{\frac{p}{\kappa}}.
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Tipping Point Dynamics with Network Effects</span>
+      <p>
+        Under network effects with value function \(V(xN) = \kappa(xN)^\gamma\) for \(\gamma > 1\):
+      </p>
+      <ol>
+        <li>There exists an unstable interior equilibrium (tipping point) at
+          \(x^* = \frac{1}{N}\left(\frac{p}{\kappa}\right)^{1/\gamma}\).</li>
+        <li>For \(x < x^*\): adoption decreases toward \(x = 0\) (the good fails).</li>
+        <li>For \(x > x^*\): adoption increases toward \(x = 1\) (universal adoption).</li>
+      </ol>
+      <p>
+        This is a <strong>coordination game</strong> with two stable equilibria (no adoption and
+        full adoption) separated by an unstable tipping point.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 4</span>
+      <p>
+        The tipping point \(x^*\) is an <em>unstable fixed point</em> of the differential
+        equation \(\dot{x} = x(1-x)[\kappa(xN)^\gamma - p]\). Using the stability analysis
+        tools from Module 4, we can verify that the eigenvalue (derivative of the right-hand
+        side) at \(x^*\) is positive, confirming instability. Small perturbations away from
+        \(x^*\) are amplified, pushing the system to one of the two stable states.
+      </p>
+    </div>
+
+    <h3>4.4 Critical Mass and the Chicken-and-Egg Problem</h3>
+
+    <p>
+      The tipping point result explains a key challenge for new digital commons: the
+      <strong>chicken-and-egg problem</strong>. A new open-source project needs contributors to
+      become valuable, but contributors are attracted by valuable projects. A new social platform
+      needs users to be useful, but users join useful platforms.
+    </p>
+
+    <p>
+      Strategies to overcome the tipping point include:
+    </p>
+
+    <ul>
+      <li><strong>Subsidized early adoption:</strong> Reduce \(p\) (or even make it negative through
+        payment) to lower \(x^*\). Venture-capital-funded startups often give away services to build
+        the user base.</li>
+      <li><strong>Seeding with a core community:</strong> Start with a committed group of early
+        contributors who ensure \(x > x^*\). Linux began with Linus Torvalds and a small group of
+        kernel hackers. Wikipedia was seeded with content from Nupedia.</li>
+      <li><strong>Compatibility with existing systems:</strong> Reduce the effective cost of
+        switching, lowering \(p\).</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Wikipedia&rsquo;s Growth Dynamics</span>
+      <p>
+        When Wikipedia launched in January 2001, it had a tiny community of contributors.
+        The project grew slowly at first (below the tipping point for broad adoption).
+        But several factors lowered the threshold:
+      </p>
+      <ul>
+        <li>Extremely low contribution cost \(c\): anyone could edit, no credentials required.</li>
+        <li>Seeding from existing open content (Nupedia, public domain encyclopedias).</li>
+        <li>The wiki technology made the barrier to contribution nearly zero.</li>
+      </ul>
+      <p>
+        By late 2001, Wikipedia had crossed a critical mass. The positive feedback loop of
+        more content &rarr; more readers &rarr; more editors &rarr; more content accelerated growth.
+        By 2005, it had over 750,000 English articles and had become self-sustaining.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: Anti-Rivalry -->
+  <!-- ================================================================== -->
+  <div class="section" id="anti-rivalry">
+    <h2>5. Anti-Rivalry &mdash; The Radical Concept</h2>
+
+    <p>
+      We now arrive at the central concept of this module. Standard economics recognizes two
+      categories: <strong>rivalrous</strong> goods (your use reduces mine) and
+      <strong>non-rivalrous</strong> goods (your use does not affect mine). We introduce a third
+      category that fundamentally transforms the economics and game theory of digital commons:
+      <strong>anti-rivalrous</strong> goods, where your use <em>increases</em> the value for me.
+    </p>
+
+    <!-- 5.1 What is Anti-Rivalry? -->
+    <div id="ar-what">
+      <h3>5.1 What is Anti-Rivalry?</h3>
+
+      <p>
+        The concept of anti-rivalry was articulated by Steven Weber in his 2004 book
+        <em>The Success of Open Source</em> and has been further developed by scholars studying
+        knowledge commons, open-source ecosystems, and digital infrastructure. The core insight
+        is that some goods become <em>more valuable</em> precisely because more people use them.
+      </p>
+
+      <div class="def-box">
+        <span class="box-title">Definition &mdash; Anti-Rivalrous Good</span>
+        <p>
+          A good is <strong>anti-rivalrous</strong> if the value of the good to each user
+          increases with the number of users. Formally, letting \(V_i(n)\) denote the value of
+          the good to user \(i\) when there are \(n\) total users:
+        </p>
+        \[
+          \frac{\partial V_i}{\partial n} > 0 \quad \text{for all } i.
+        \]
+        <p>
+          A good exhibits <strong>strong anti-rivalry</strong> (increasing returns to use) if additionally:
+        </p>
+        \[
+          \frac{\partial^2 V_i}{\partial n^2} > 0,
+        \]
+        <p>
+          meaning each additional user adds <em>more</em> value than the previous one (at least
+          over some range of \(n\)).
+        </p>
+      </div>
+
+      <p>
+        It is essential to distinguish anti-rivalry from mere network effects:
+      </p>
+
+      <ul>
+        <li><strong>Network effects</strong> refer to the value of <em>being connected</em> to other
+          users. The telephone is more valuable when more people have phones, but phone calls
+          do not improve the telephone network itself.</li>
+        <li><strong>Anti-rivalry</strong> means that the <em>good itself improves</em> through use.
+          When more people use and contribute to Linux, the software gets better &mdash; more bugs
+          are found and fixed, more features are added, more hardware is supported. The good
+          is not just more valuable because of connectivity; it is <em>qualitatively better</em>.</li>
+      </ul>
+
+      <div class="intuition-box">
+        <span class="box-title">Intuition &mdash; The Three Regimes</span>
+        <p>
+          Think of three different goods and what happens as the number of users grows:
+        </p>
+        <ul>
+          <li><strong>Fish in a lake (rivalrous):</strong> More fishers &rarr; fewer fish per fisher.
+            Your gain is my loss. This is the Module 8 CPR problem.</li>
+          <li><strong>A recorded song (non-rivalrous):</strong> More listeners &rarr; no change in
+            quality. My listening to Mozart does not degrade or improve your experience of Mozart.</li>
+          <li><strong>The Python programming language (anti-rivalrous):</strong> More users &rarr;
+            more packages on PyPI &rarr; better documentation &rarr; more Stack Overflow answers
+            &rarr; more jobs for Python developers &rarr; more people learning Python. My use of
+            Python <em>improves</em> your experience of Python.</li>
+        </ul>
+      </div>
+
+      <p>
+        The mechanism behind anti-rivalry typically involves some combination of:
+      </p>
+
+      <ol>
+        <li><strong>User-as-contributor:</strong> Users are not passive consumers. They file bug
+          reports, write documentation, create tutorials, answer questions, and develop extensions.
+          Use generates contributions.</li>
+        <li><strong>Collective quality improvement:</strong> More users means more diverse testing
+          environments, more edge cases discovered, more errors corrected.</li>
+        <li><strong>Ecosystem growth:</strong> More users attract more developers of complementary
+          tools, creating a richer ecosystem.</li>
+        <li><strong>Knowledge accumulation:</strong> More users generate more shared knowledge
+          (tutorials, Q&amp;A, best practices) that benefits all users.</li>
+      </ol>
+    </div>
+
+    <!-- 5.2 Mathematical Formalization -->
+    <div id="ar-formal">
+      <h3>5.2 Mathematical Formalization of Anti-Rivalry</h3>
+
+      <p>
+        Let us develop a rigorous mathematical framework for anti-rivalry that contrasts it with
+        rivalry and non-rivalry. We define a <strong>value function</strong> \(V(n)\) that gives
+        the per-user value of a good when there are \(n\) users.
+      </p>
+
+      <div class="def-box">
+        <span class="box-title">Definition &mdash; The Rivalry Classification by Value Function</span>
+        <p>
+          Let \(V(n)\) be the per-user value when there are \(n \geq 1\) users.
+        </p>
+        <ul>
+          <li><strong>Rivalrous:</strong> \(V'(n) < 0\). Value per user decreases with the
+            number of users. Prototypical form: \(V(n) = \frac{R}{n}\) (fixed resource divided
+            equally).</li>
+          <li><strong>Non-rivalrous:</strong> \(V'(n) = 0\). Value per user is constant regardless
+            of the number of users. Form: \(V(n) = V_0\).</li>
+          <li><strong>Anti-rivalrous:</strong> \(V'(n) > 0\). Value per user increases with the
+            number of users. The good gets <em>better</em> the more people use it.</li>
+        </ul>
+      </div>
+
+      <h4>5.2.1 A Unified Framework</h4>
+
+      <p>
+        We can capture all three regimes with a single parameterized family. Define:
+      </p>
+
+      \[
+        V(n) = V_0 \cdot g(n),
+      \]
+
+      <p>
+        where \(V_0 > 0\) is the base value (value with a single user) and \(g(n)\) is a
+        <strong>rivalry multiplier</strong> with \(g(1) = 1\). The behavior of \(g\) determines
+        the regime:
+      </p>
+
+      <ul>
+        <li>Rivalrous: \(g'(n) < 0\), so \(g(n) < 1\) for \(n > 1\).</li>
+        <li>Non-rivalrous: \(g'(n) = 0\), so \(g(n) = 1\) for all \(n\).</li>
+        <li>Anti-rivalrous: \(g'(n) > 0\), so \(g(n) > 1\) for \(n > 1\).</li>
+      </ul>
+
+      <h4>5.2.2 Functional Forms for the Rivalry Multiplier</h4>
+
+      <p>
+        Several natural choices for \(g(n)\) capture different patterns of anti-rivalry:
+      </p>
+
+      <div class="example-box">
+        <span class="box-title">Functional Forms for \(g(n)\)</span>
+
+        <p><strong>1. Power law:</strong></p>
+        \[
+          g(n) = n^{\beta}, \quad \beta \in \mathbb{R}.
+        \]
+        <p>
+          This is the simplest and most elegant unification. When \(\beta < 0\), the good is
+          rivalrous (\(g(n)\) decreasing); \(\beta = 0\) gives non-rivalry (\(g(n) = 1\));
+          \(\beta > 0\) gives anti-rivalry (\(g(n)\) increasing). The case \(\beta = -1\) gives
+          the classic rivalrous \(V = V_0/n\). We will use this form extensively.
+        </p>
+
+        <p><strong>2. Linear:</strong></p>
+        \[
+          g(n) = 1 + \alpha(n - 1), \quad \alpha \in \mathbb{R}.
+        \]
+        <p>
+          Each additional user adds a constant increment \(\alpha\) to the value multiplier.
+          This is analytically tractable but allows unbounded growth (or, for \(\alpha < 0\),
+          negative values for large \(n\)).
+        </p>
+
+        <p><strong>3. Logarithmic:</strong></p>
+        \[
+          g(n) = 1 + \alpha \cdot \ln(n), \quad \alpha > 0.
+        \]
+        <p>
+          Anti-rivalry with diminishing returns. Each new user adds value, but the marginal
+          addition decreases. This may be realistic for mature commons where the easy improvements
+          have been made.
+        </p>
+
+        <p><strong>4. Logistic (bounded anti-rivalry):</strong></p>
+        \[
+          g(n) = \frac{K}{1 + (K-1)e^{-\alpha(n-1)}}, \quad \alpha > 0, \; K > 1.
+        \]
+        <p>
+          The value multiplier grows sigmoidally from \(g(1) = 1\) toward an upper bound \(K\).
+          This models <em>bounded anti-rivalry</em>: the good improves with use but cannot
+          improve beyond some maximum quality. For large \(n\), \(g(n) \to K\) and the good
+          effectively becomes non-rivalrous.
+        </p>
+      </div>
+
+      <h4>5.2.3 Total Value and Social Welfare</h4>
+
+      <p>
+        The <strong>total value</strong> (social welfare from the good) is the per-user value
+        times the number of users:
+      </p>
+
+      \[
+        W(n) = n \cdot V(n) = n \cdot V_0 \cdot g(n).
+      \]
+
+      <p>
+        The behavior of total value under the three regimes is strikingly different:
+      </p>
+
+      <ul>
+        <li><strong>Rivalrous</strong> (e.g., \(g(n) = n^{-1}\)):
+          \(W(n) = n \cdot V_0 \cdot n^{-1} = V_0\). Total value is <em>constant</em>. This
+          is a zero-sum (or fixed-sum) setting: adding users redistributes but does not create value.</li>
+        <li><strong>Non-rivalrous</strong> (\(g(n) = 1\)):
+          \(W(n) = n \cdot V_0\). Total value grows <em>linearly</em> with users. Each new user
+          captures the full value without diminishing others. This is positive-sum.</li>
+        <li><strong>Anti-rivalrous</strong> (e.g., \(g(n) = n^{\beta}\) with \(\beta > 0\)):
+          \(W(n) = n^{1+\beta} \cdot V_0\). Total value grows <em>superlinearly</em>. Each new
+          user not only captures value but creates value for existing users. This is
+          <em>increasingly positive-sum</em>.</li>
+      </ul>
+
+      <div class="theorem-box">
+        <span class="box-title">Theorem &mdash; Welfare Properties of Anti-Rivalrous Goods</span>
+        <p>
+          For a good with value function \(V(n) = V_0 \cdot n^\beta\):
+        </p>
+        <ol>
+          <li>The total social value is \(W(n) = V_0 \cdot n^{1+\beta}\).</li>
+          <li>The marginal social value of an additional user is
+            \(W'(n) = V_0(1+\beta)n^\beta\).</li>
+          <li>If \(\beta > 0\) (anti-rivalry), then \(W'(n)\) is <em>increasing in \(n\)</em>,
+            meaning there are increasing returns to adoption. The social planner always wants
+            more users.</li>
+          <li>If \(\beta < 0\) (rivalry), then \(W'(n)\) is <em>decreasing in \(n\)</em>, and
+            for \(\beta < -1\), \(W'(n) < 0\) &mdash; more users actually <em>reduce</em> total welfare
+            (overcrowding).</li>
+        </ol>
+      </div>
+
+      <details>
+        <summary>Proof</summary>
+        <div class="proof-content">
+          <p>
+            (1) and (2) follow by direct computation:
+            \(W(n) = nV_0 n^\beta = V_0 n^{1+\beta}\), and
+            \(W'(n) = V_0(1+\beta)n^\beta\).
+          </p>
+          <p>
+            (3) For \(\beta > 0\): \(W''(n) = V_0(1+\beta)\beta n^{\beta-1} > 0\) since
+            \(\beta > 0\) and \(1+\beta > 0\). So \(W'\) is increasing &mdash; increasing
+            returns to adoption.
+          </p>
+          <p>
+            (4) For \(\beta < 0\): \(W'(n) = V_0(1+\beta)n^\beta\). The sign of \(W'(n)\)
+            depends on \(1+\beta\): if \(\beta > -1\), \(W'(n) > 0\) but decreasing; if
+            \(\beta < -1\), \(W'(n) < 0\), meaning additional users reduce total welfare. &#9632;
+          </p>
+        </div>
+      </details>
+
+      <div class="intuition-box">
+        <span class="box-title">Intuition &mdash; Why Anti-Rivalry is Economically Revolutionary</span>
+        <p>
+          Classical economics is built on the premise of scarcity: resources are limited, and
+          the central problem is allocation. For rivalrous goods, this is correct &mdash;
+          efficient allocation is paramount because waste means someone else goes without.
+        </p>
+        <p>
+          For non-rivalrous goods, the allocative problem disappears (everyone can have the
+          full good), but the production problem remains (who pays the fixed cost of creating it?).
+        </p>
+        <p>
+          For anti-rivalrous goods, even the production problem is transformed: the good
+          <em>improves through use</em>. The scarce resource is not the good itself but
+          <em>attention and participation</em>. The optimal policy is not to restrict access
+          (as with rivalrous goods) nor to subsidize production (as with standard public goods),
+          but to <strong>maximize adoption</strong>. Every barrier to use &mdash; including
+          intellectual property restrictions &mdash; is not just a deadweight loss (as with
+          non-rivalrous goods) but actively <em>degrades</em> the good for existing users.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Example &mdash; Calculating Anti-Rivalry Multipliers</span>
+        <p>
+          Consider a programming language ecosystem with base value \(V_0 = 10\) utility units
+          (the value of the language to a single user with no community). Suppose the value
+          follows a power law with \(\beta = 0.3\).
+        </p>
+        <p>With \(n = 10\) users: \(V(10) = 10 \cdot 10^{0.3} = 10 \cdot 2.00 = 20.0\).</p>
+        <p>With \(n = 100\) users: \(V(100) = 10 \cdot 100^{0.3} = 10 \cdot 3.98 = 39.8\).</p>
+        <p>With \(n = 1{,}000\) users: \(V(1000) = 10 \cdot 1000^{0.3} = 10 \cdot 7.94 = 79.4\).</p>
+        <p>With \(n = 1{,}000{,}000\) users: \(V(10^6) = 10 \cdot (10^6)^{0.3} = 10 \cdot 63.1 = 631\).</p>
+        <p>
+          The value to each user has increased by a factor of 63 as the community grew from 1 to
+          1 million. The total social value went from \(10\) to \(631{,}000{,}000\) &mdash; an
+          increase of over 63 million times. This is the power of anti-rivalry.
+        </p>
+      </div>
+    </div>
+  </div>
+
+    <!-- 5.3 Anti-Rivalry in Game Theory -->
+    <div id="ar-game-theory">
+      <h3>5.3 Anti-Rivalry in Game Theory</h3>
+
+      <p>
+        Anti-rivalry fundamentally transforms the strategic structure of contribution games.
+        To see why, let us contrast the payoff structures under the three rivalry regimes.
+      </p>
+
+      <h4>5.3.1 The Standard Public Goods Payoff</h4>
+
+      <p>
+        In the standard (non-rivalrous) public goods game from Section 2, the payoff to agent \(i\)
+        choosing whether to contribute is:
+      </p>
+
+      \[
+        \pi_i^{\text{PG}} = b \cdot Q - c \cdot e_i,
+      \]
+
+      <p>
+        where \(Q = f(\sum_j e_j)\) is the quality of the public good and \(b\) is the per-unit
+        benefit. The value \(b \cdot Q\) is independent of the number of users &mdash; this is what
+        non-rivalry means in payoff terms.
+      </p>
+
+      <h4>5.3.2 The Anti-Rivalrous Payoff</h4>
+
+      <p>
+        Under anti-rivalry, the value of the commons to each user depends on <em>both</em> the
+        quality \(Q\) (determined by contributions) <em>and</em> the number of active users \(n\).
+        We write:
+      </p>
+
+      \[
+        \pi_i^{\text{AR}} = b \cdot Q \cdot g(n) - c \cdot e_i,
+      \]
+
+      <p>
+        where \(g(n)\) is the anti-rivalry multiplier from Section 5.2. There are now two
+        channels through which value increases:
+      </p>
+
+      <ul>
+        <li>The <strong>quality channel:</strong> more contributions increase \(Q\).</li>
+        <li>The <strong>anti-rivalry channel:</strong> more users increase \(g(n)\), amplifying
+          the value of <em>any given quality level</em>.</li>
+      </ul>
+
+      <p>
+        In our evolutionary model with contributors (fraction \(x\)) and free-riders (fraction
+        \(1 - x\)), we model the interaction between these channels. Let the total population be
+        \(N\). The quality of the commons depends on the fraction of contributors: \(Q(x) = (xN)^\alpha\)
+        for some \(0 < \alpha \leq 1\). The number of <em>active users</em> is \(N\) (everyone uses
+        the commons, since it is non-excludable and valuable).
+      </p>
+
+      <p>
+        The crucial modeling choice is that contributors get an <em>enhanced</em> benefit from the
+        anti-rivalry effect, because their engagement with the good is deeper. A contributor who
+        writes Python code benefits from the ecosystem more than a passive user. We model this as:
+      </p>
+
+      \[
+        \pi_C(x) = V(x) \cdot (1 + r) - c, \qquad \pi_F(x) = V(x),
+      \]
+
+      <p>
+        where \(V(x) = b \cdot (1 + \beta x)\) captures the value of the commons that increases
+        with the fraction of contributors (\(\beta\) is the anti-rivalry parameter), and \(r > 0\)
+        captures the enhanced benefit to contributors (reputation, deeper engagement, skill building).
+        The cost of contributing is \(c > 0\).
+      </p>
+
+      <p>
+        The fitness difference is:
+      </p>
+
+      \[
+        \Delta\pi(x) = \pi_C(x) - \pi_F(x) = r \cdot V(x) - c = r(1 + \beta x) \cdot b - c.
+      \]
+
+      <p>
+        Expanding:
+      </p>
+
+      \[
+        \Delta\pi(x) = rb + rb\beta x - c = (rb - c) + rb\beta x.
+      \]
+
+      <div class="theorem-box">
+        <span class="box-title">Theorem &mdash; Game Structure Transformation Under Anti-Rivalry</span>
+        <p>
+          Consider the digital commons game with fitness difference
+          \(\Delta\pi(x) = (rb - c) + rb\beta x\). The structure of the evolutionary game
+          depends on the parameters as follows:
+        </p>
+        <ol>
+          <li><strong>If \(rb > c\) and \(\beta \geq 0\):</strong> \(\Delta\pi(x) > 0\) for all
+            \(x \in [0,1]\). Contributing is dominant &mdash; the game is a <strong>Harmony game</strong>.
+            The unique stable equilibrium is \(x^* = 1\).</li>
+          <li><strong>If \(rb < c\) and \(rb(1 + \beta) > c\):</strong> \(\Delta\pi(0) < 0\)
+            but \(\Delta\pi(1) > 0\). There is an interior equilibrium at
+            \(x^* = \frac{c - rb}{rb\beta}\), and the game is a <strong>Coordination game</strong>
+            (bistable dynamics with a tipping point).</li>
+          <li><strong>If \(rb(1 + \beta) < c\) and \(\beta > 0\):</strong> \(\Delta\pi(x) < 0\) for all
+            \(x \in [0,1]\). Free-riding is dominant &mdash; the game is a <strong>Prisoner&rsquo;s Dilemma</strong>.
+            Anti-rivalry exists but is too weak to sustain contribution.</li>
+          <li><strong>If \(\beta \leq 0\) and \(rb < c\):</strong> \(\Delta\pi(x) < 0\) for all
+            \(x \in [0,1]\). The standard underprovision result. Rivalry (\(\beta < 0\)) makes it
+            even worse.</li>
+        </ol>
+      </div>
+
+      <details>
+        <summary>Proof</summary>
+        <div class="proof-content">
+          <p>
+            Since \(\Delta\pi(x) = (rb - c) + rb\beta x\) is linear in \(x\), it suffices to
+            check its sign at the endpoints \(x = 0\) and \(x = 1\):
+          </p>
+          <ul>
+            <li>\(\Delta\pi(0) = rb - c\)</li>
+            <li>\(\Delta\pi(1) = rb - c + rb\beta = rb(1 + \beta) - c\)</li>
+          </ul>
+          <p>
+            Case 1: \(\Delta\pi(0) > 0\) and \(\beta \geq 0\) implies
+            \(\Delta\pi(x) \geq \Delta\pi(0) > 0\) for all \(x\). Dominant strategy to contribute.
+          </p>
+          <p>
+            Case 2: \(\Delta\pi(0) < 0\) and \(\Delta\pi(1) > 0\). By the intermediate value theorem,
+            there exists a unique \(x^* \in (0,1)\) where \(\Delta\pi(x^*) = 0\). Solving:
+            \((rb - c) + rb\beta x^* = 0\), giving \(x^* = (c - rb)/(rb\beta)\). Since
+            \(\Delta\pi'(x) = rb\beta > 0\) (assuming \(\beta > 0\)), the fitness of contributing
+            is increasing in \(x\). So for \(x < x^*\), free-riding wins; for \(x > x^*\),
+            contributing wins. This is bistable (coordination game). The interior \(x^*\) is unstable.
+          </p>
+          <p>
+            Case 3: Both \(\Delta\pi(0) < 0\) and \(\Delta\pi(1) < 0\). Since \(\Delta\pi\)
+            is linear with positive slope (\(\beta > 0\)), \(\Delta\pi(x) < 0\) for all
+            \(x \in [0,1]\). Free-riding dominates. &#9632;
+          </p>
+        </div>
+      </details>
+
+      <div class="intuition-box">
+        <span class="box-title">Intuition &mdash; Anti-Rivalry as a Game Transformer</span>
+        <p>
+          The beauty of this result is that increasing the anti-rivalry parameter \(\beta\)
+          can qualitatively transform the game:
+        </p>
+        <ul>
+          <li>At \(\beta = 0\) (non-rivalrous): the game is a pure Prisoner&rsquo;s Dilemma
+            whenever \(rb < c\). Free-riding dominates.</li>
+          <li>At some critical \(\beta^* = \frac{c - rb}{rb}\): the game transitions from
+            PD to a Coordination game. A tipping point emerges.</li>
+          <li>At \(\beta^{**} = \frac{c}{rb} - 1\) (which is the same as \(\beta^*\) when
+            evaluated at \(x = 0\)): but as \(\beta\) increases further, \(x^*\) decreases,
+            making the tipping point easier to reach.</li>
+          <li>At \(\beta \to \infty\) (or \(rb > c\)): the game becomes a Harmony game where
+            contribution is dominant regardless of what others do.</li>
+        </ul>
+        <p>
+          Anti-rivalry literally transforms social dilemmas into coordination problems, and
+          strong enough anti-rivalry eliminates the dilemma entirely.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Example &mdash; Finding the Critical Anti-Rivalry Threshold</span>
+        <p>
+          Suppose a digital commons has parameters \(b = 5\) (base benefit), \(r = 0.3\)
+          (reputation factor), and \(c = 2\) (contribution cost).
+        </p>
+        <p>
+          Without anti-rivalry (\(\beta = 0\)): \(\Delta\pi = rb - c = 0.3 \times 5 - 2 = -0.5 < 0\).
+          Free-riding dominates. The commons will not be sustained.
+        </p>
+        <p>
+          The game becomes a Coordination game when \(\Delta\pi(1) > 0\):
+          \[
+            rb(1 + \beta) > c \quad \Longrightarrow \quad \beta > \frac{c}{rb} - 1 = \frac{2}{1.5} - 1 = \frac{1}{3} \approx 0.33.
+          \]
+        </p>
+        <p>
+          At \(\beta = 0.5\): the tipping point is at
+          \(x^* = \frac{c - rb}{rb\beta} = \frac{2 - 1.5}{1.5 \times 0.5} = \frac{0.5}{0.75} = 0.67\).
+          If more than 67% of the population contributes, the commons is self-sustaining.
+        </p>
+        <p>
+          At \(\beta = 1.0\): \(x^* = \frac{0.5}{1.5} = 0.33\). Now only 33% initial contributors
+          are needed. Stronger anti-rivalry lowers the threshold.
+        </p>
+        <p>
+          At \(\beta = 2.0\): \(x^* = \frac{0.5}{3.0} = 0.17\). Just 17% is enough.
+        </p>
+        <p>
+          When \(rb(1 + \beta) \gg c\), the tipping point approaches zero, and any positive
+          fraction of contributors is sufficient. This matches the observation that highly
+          anti-rivalrous commons (like popular programming languages) seem almost impossible to kill.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5.4 Replicator Dynamics with Anti-Rivalry -->
+    <div id="ar-replicator">
+      <h3>5.4 Replicator Dynamics with Anti-Rivalry</h3>
+
+      <p>
+        We now write the full replicator equation for the digital commons game and analyze
+        its dynamics using the tools from Modules 4 and 7.
+      </p>
+
+      <p>
+        Using the payoff functions from Section 5.3:
+      </p>
+
+      \[
+        \pi_C(x) = b(1 + \beta x)(1 + r) - c, \qquad \pi_F(x) = b(1 + \beta x),
+      \]
+
+      <p>
+        the replicator equation (Module 7) is:
+      </p>
+
+      \[
+        \dot{x} = x(1-x)\bigl[\pi_C(x) - \pi_F(x)\bigr] = x(1-x)\bigl[rb(1 + \beta x) - c\bigr].
+      \]
+
+      <div class="def-box">
+        <span class="box-title">Definition &mdash; The Anti-Rivalry Replicator Equation</span>
+        <p>
+          The replicator dynamics for the digital commons with anti-rivalry parameter \(\beta\) are:
+        </p>
+        \[
+          \dot{x} = x(1-x)\bigl[(rb - c) + rb\beta x\bigr].
+        \]
+        <p>
+          This is a cubic ODE in \(x\) (the \(x(1-x)\) factor is quadratic, multiplied by the
+          linear factor in brackets).
+        </p>
+      </div>
+
+      <h4>5.4.1 Fixed Points and Stability</h4>
+
+      <p>
+        The fixed points are:
+      </p>
+
+      <ul>
+        <li>\(x = 0\) (all free-riders)</li>
+        <li>\(x = 1\) (all contributors)</li>
+        <li>\(x^* = \frac{c - rb}{rb\beta}\) (interior, exists when \(0 < x^* < 1\))</li>
+      </ul>
+
+      <p>
+        To determine stability, we compute the derivative of the right-hand side \(F(x) = x(1-x)[(rb-c) + rb\beta x]\):
+      </p>
+
+      \[
+        F'(x) = (1-2x)[(rb-c) + rb\beta x] + x(1-x) \cdot rb\beta.
+      \]
+
+      <p>
+        Evaluating at each fixed point:
+      </p>
+
+      <div class="theorem-box">
+        <span class="box-title">Stability Analysis of the Anti-Rivalry Replicator</span>
+        <p><strong>At \(x = 0\):</strong></p>
+        \[
+          F'(0) = rb - c.
+        \]
+        <p>
+          Stable if \(rb < c\) (free-riding dominates at low contributor fraction).
+          Unstable if \(rb > c\).
+        </p>
+
+        <p><strong>At \(x = 1\):</strong></p>
+        \[
+          F'(1) = -(rb - c + rb\beta) = c - rb(1 + \beta).
+        \]
+        <p>
+          Stable if \(rb(1 + \beta) > c\) (contributing dominates at high contributor fraction).
+          Unstable if \(rb(1 + \beta) < c\).
+        </p>
+
+        <p><strong>At \(x^*\) (when it exists in \((0,1)\)):</strong></p>
+        \[
+          F'(x^*) = x^*(1 - x^*) \cdot rb\beta > 0 \quad (\text{since } \beta > 0).
+        \]
+        <p>
+          The interior equilibrium is always <strong>unstable</strong> when \(\beta > 0\)
+          (anti-rivalry). It serves as a tipping point separating the basins of attraction
+          of the two boundary equilibria.
+        </p>
+      </div>
+
+      <h4>5.4.2 Phase Portraits for Different Anti-Rivalry Strengths</h4>
+
+      <p>
+        Let us fix \(b = 5\), \(r = 0.3\), \(c = 2\) (so \(rb = 1.5\)) and vary \(\beta\):
+      </p>
+
+      <div class="example-box">
+        <span class="box-title">Phase Portrait Analysis</span>
+
+        <p><strong>Case 1: \(\beta = 0\) (non-rivalrous, standard public good)</strong></p>
+        <p>
+          \(\Delta\pi(x) = 1.5 - 2 = -0.5 < 0\) for all \(x\).
+          The flow is always toward \(x = 0\). Free-riding wins unconditionally.
+          This is the Prisoner&rsquo;s Dilemma regime.
+        </p>
+
+        <p><strong>Case 2: \(\beta = 0.5\) (moderate anti-rivalry)</strong></p>
+        <p>
+          \(\Delta\pi(x) = -0.5 + 0.75x\). Zero at \(x^* = 0.5/0.75 = 0.667\).
+          \(\Delta\pi(0) = -0.5 < 0\), \(\Delta\pi(1) = 0.25 > 0\).
+          This is a Coordination game. Below \(x^* = 0.667\), the commons collapses;
+          above it, the commons thrives.
+        </p>
+
+        <p><strong>Case 3: \(\beta = 1.0\) (strong anti-rivalry)</strong></p>
+        <p>
+          \(\Delta\pi(x) = -0.5 + 1.5x\). Zero at \(x^* = 0.333\).
+          The tipping point is much lower. Only one-third of the population needs to contribute
+          initially for the commons to become self-sustaining.
+        </p>
+
+        <p><strong>Case 4: \(\beta = 2.0\) (very strong anti-rivalry)</strong></p>
+        <p>
+          \(\Delta\pi(x) = -0.5 + 3.0x\). Zero at \(x^* = 0.167\).
+          The tipping point is now just one-sixth. Digital commons with very strong anti-rivalry
+          (like programming language ecosystems) can bootstrap from small communities.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="box-title">Connection to Module 4</span>
+        <p>
+          The replicator equation \(\dot{x} = x(1-x)[(rb-c) + rb\beta x]\) is a one-dimensional
+          ODE whose solution can be analyzed with the phase-line methods from Module 4. The
+          direction of flow at each point is determined by the sign of \(F(x)\). The fixed points
+          partition \([0,1]\) into intervals with consistent flow direction. The unstable interior
+          fixed point \(x^*\) acts as a <em>separatrix</em> dividing the basins of attraction.
+        </p>
+      </div>
+
+      <h4>5.4.3 Comparison with CPR Dynamics</h4>
+
+      <p>
+        It is instructive to contrast the anti-rivalry replicator dynamics with the CPR dynamics
+        from Module 8. In the CPR game, increasing the number of extractors (cooperators who
+        restrain harvesting vs. defectors who over-harvest) creates <em>negative</em>
+        frequency dependence: more defectors degrade the resource, making cooperation less
+        attractive. The CPR replicator often has a stable interior equilibrium.
+      </p>
+
+      <p>
+        Under anti-rivalry, we see the opposite: <em>positive</em> frequency dependence.
+        More contributors make contributing more attractive (because the commons becomes more
+        valuable, amplifying the benefits of deeper engagement). This leads to unstable interior
+        equilibria and bistable dynamics. The two systems are mirror images:
+      </p>
+
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; text-align:center; font-size:0.92rem;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Feature</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>CPR (Module 8)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Digital Commons (Anti-Rivalry)</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Resource dynamics</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Depleted by use</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Enhanced by use</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Frequency dependence</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Negative (more defectors &rarr; less incentive to cooperate)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Positive (more contributors &rarr; more incentive to contribute)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Interior equilibrium</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Often stable (coexistence)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Unstable (tipping point)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Long-run outcome</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Mixed population or tragedy</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">All contribute or all free-ride</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Policy challenge</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Prevent overuse</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Achieve critical mass</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 5.5 Examples of Anti-Rivalry in Practice -->
+    <div id="ar-examples">
+      <h3>5.5 Examples of Anti-Rivalry in Practice</h3>
+
+      <p>
+        Let us examine concrete examples of anti-rivalrous goods and verify that they fit our
+        mathematical framework.
+      </p>
+
+      <div class="example-box">
+        <span class="box-title">Example &mdash; Open-Source Software (Linux, Python, Firefox)</span>
+        <p>
+          <strong>Mechanism:</strong> Each new user of Linux is a potential contributor of bug
+          reports, documentation, translations, and code. Each new contributor improves the
+          software for all users. The kernel&rsquo;s stability, hardware support, and feature
+          set have grown monotonically with the contributor base.
+        </p>
+        <p>
+          <strong>Anti-rivalry fit:</strong> Let \(n\) be the number of active Linux users. The
+          quality of the kernel (driver support, bug fixes, security patches) is an increasing
+          function of \(n\). Linus&rsquo;s Law states: &ldquo;Given enough eyeballs, all bugs
+          are shallow.&rdquo; Formally, the bug-detection rate scales as \(\lambda(n) = \lambda_0 \cdot n^\gamma\)
+          for some \(\gamma > 0\), meaning the software quality \(Q = Q_{\max}(1 - e^{-\lambda(n) t})\)
+          improves faster with more users.
+        </p>
+        <p>
+          <strong>Estimated \(\beta\):</strong> Moderate to strong (\(\beta \approx 0.3\text{--}0.7\)).
+          The ecosystem is highly anti-rivalrous because of the diversity of use cases driving
+          comprehensive testing and feature development.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Example &mdash; Wikipedia</span>
+        <p>
+          <strong>Mechanism:</strong> Each reader is a potential editor. More editors produce more
+          articles, which attract more readers, who become editors. More editors also improve
+          quality through cross-referencing, fact-checking, and filling gaps.
+        </p>
+        <p>
+          <strong>Anti-rivalry fit:</strong> The value of any given Wikipedia article increases
+          when related articles are created (because of internal links, context, and the network
+          effect of knowledge). More users also generate more language translations, making
+          knowledge accessible globally.
+        </p>
+        <p>
+          <strong>Estimated \(\beta\):</strong> Moderate (\(\beta \approx 0.2\text{--}0.5\)).
+          The anti-rivalry effect is bounded &mdash; beyond a certain number of editors, the
+          marginal improvement per additional editor diminishes (logistic model is appropriate).
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Example &mdash; Programming Languages (Python, JavaScript, R)</span>
+        <p>
+          <strong>Mechanism:</strong> More users of Python &rarr; more packages on PyPI &rarr;
+          better documentation on Stack Overflow &rarr; more tutorials and courses &rarr; more
+          employer demand &rarr; more people learning Python &rarr; even more users. This is
+          the strongest anti-rivalry feedback loop in the digital economy.
+        </p>
+        <p>
+          <strong>Anti-rivalry fit:</strong> The value function \(V(n) = V_0 \cdot n^\beta\) with
+          \(\beta > 0\) applies well. The number of available packages grows roughly as a power
+          of the user base, and each package increases the utility for all users.
+        </p>
+        <p>
+          <strong>Estimated \(\beta\):</strong> Strong (\(\beta \approx 0.5\text{--}1.0\)).
+          Programming language ecosystems exhibit some of the strongest anti-rivalry of any good.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Example &mdash; Standards and Protocols (TCP/IP, HTML, Unicode)</span>
+        <p>
+          <strong>Mechanism:</strong> The value of the TCP/IP protocol suite increases with every
+          device connected to the internet. HTML becomes more valuable as more content is created
+          in HTML. Unicode becomes more useful as more software supports it.
+        </p>
+        <p>
+          <strong>Anti-rivalry fit:</strong> Standards exhibit very strong anti-rivalry because
+          adoption drives compatibility, which is the primary source of value. The more devices
+          speak TCP/IP, the more valuable it is for every device.
+        </p>
+        <p>
+          <strong>Estimated \(\beta\):</strong> Very strong (\(\beta \approx 0.7\text{--}1.5\)).
+          However, much of this is network effects (connectivity value) rather than pure
+          anti-rivalry (the standard itself does not improve with use; it improves through
+          deliberate revision processes).
+        </p>
+      </div>
+
+      <div class="warning-box">
+        <span class="box-title">Non-Example &mdash; A Movie File (Non-Rivalrous but NOT Anti-Rivalrous)</span>
+        <p>
+          A digital movie file is perfectly non-rivalrous: copying it costs nothing, and one
+          person watching does not degrade another&rsquo;s experience. However, it is <em>not</em>
+          anti-rivalrous: 10 million people watching a movie does not make the movie any better.
+          The content is fixed at creation time. More viewers do not improve the film.
+        </p>
+        <p>
+          This distinction is critical: <strong>non-rivalry (\(\beta = 0\)) is not the same as
+          anti-rivalry (\(\beta > 0\))</strong>. Anti-rivalry requires that <em>use itself</em>
+          generates value improvements, not merely that use is non-depleting.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5.6 The Anti-Rivalry Spectrum -->
+    <div id="ar-spectrum">
+      <h3>5.6 The Anti-Rivalry Spectrum</h3>
+
+      <p>
+        Rather than a binary classification (rivalrous vs. non-rivalrous), we propose a
+        <strong>continuous spectrum</strong> parameterized by \(\beta\):
+      </p>
+
+      \[
+        V_i(n) = V_0 \cdot n^{\beta}, \qquad \beta \in \mathbb{R}.
+      \]
+
+      <div class="def-box">
+        <span class="box-title">Definition &mdash; The Rivalry Spectrum</span>
+        <p>
+          The <strong>rivalry parameter</strong> \(\beta\) places a good on a continuous spectrum:
+        </p>
+        <ul>
+          <li>\(\beta \ll 0\): <strong>Strongly rivalrous.</strong> Example: fish in a finite lake
+            (\(\beta \approx -1\)). The CPR problem of Module 8.</li>
+          <li>\(\beta \lesssim 0\): <strong>Weakly rivalrous.</strong> Example: a highway subject to
+            congestion. More users reduce value, but not in proportion.</li>
+          <li>\(\beta = 0\): <strong>Non-rivalrous.</strong> Example: a recorded song, a movie
+            file, a published theorem.</li>
+          <li>\(0 < \beta \lesssim 0.5\): <strong>Weakly anti-rivalrous.</strong> Example: a social
+            media platform, a modest open-data project.</li>
+          <li>\(\beta \gtrsim 0.5\): <strong>Strongly anti-rivalrous.</strong> Example: an
+            open-source programming language ecosystem, a major collaborative knowledge base like Wikipedia.</li>
+        </ul>
+      </div>
+
+      <h4>5.6.1 Phase Transitions in Game Structure</h4>
+
+      <p>
+        The most profound implication of the rivalry spectrum is that as \(\beta\) moves from
+        negative to positive, the game-theoretic structure undergoes <strong>qualitative phase
+        transitions</strong>. Using our model with \(\Delta\pi(x) = (rb - c) + rb\beta x\):
+      </p>
+
+      <div class="theorem-box">
+        <span class="box-title">Theorem &mdash; Phase Transitions Along the Rivalry Spectrum</span>
+        <p>
+          Fix \(r, b, c > 0\) with \(rb < c\) (so that contributing is not trivially dominant).
+          As \(\beta\) increases through the rivalry spectrum:
+        </p>
+        <ol>
+          <li><strong>Phase I (\(\beta < 0\), rivalry):</strong> \(\Delta\pi(x) < 0\) for all
+            \(x \in [0,1]\) (since both the constant term and the slope are negative).
+            Free-riding is dominant. The game is a <strong>Prisoner&rsquo;s Dilemma</strong>.
+            This is the tragedy of the commons.</li>
+          <li><strong>Phase II (\(0 \leq \beta < \beta^*\), weak anti-rivalry):</strong>
+            where \(\beta^* = \frac{c - rb}{rb}\). Still \(\Delta\pi(x) < 0\) for all
+            \(x \in [0,1]\) because the slope is positive but too gentle to make
+            \(\Delta\pi(1) > 0\). Free-riding still dominates. The anti-rivalry is too weak to
+            help.</li>
+          <li><strong>Phase III (\(\beta = \beta^*\), critical point):</strong>
+            \(\Delta\pi(1) = 0\). The game is at the boundary between PD and Coordination.
+            The boundary \(x = 1\) becomes a non-hyperbolic (marginally stable) fixed point.</li>
+          <li><strong>Phase IV (\(\beta > \beta^*\), strong anti-rivalry):</strong>
+            \(\Delta\pi(0) < 0\) but \(\Delta\pi(1) > 0\). The game is a
+            <strong>Coordination game</strong> with tipping point
+            \(x^* = \frac{c - rb}{rb\beta} \in (0,1)\). The tipping point decreases as
+            \(\beta\) increases.</li>
+          <li><strong>Phase V (\(\beta \to \infty\) or \(rb > c\)):</strong> The tipping point
+            \(x^* \to 0\). The game approaches a <strong>Harmony game</strong> where contributing
+            is dominant for almost any initial condition.</li>
+        </ol>
+      </div>
+
+      <p>
+        This theorem shows that the rivalry parameter \(\beta\) acts as a <em>bifurcation
+        parameter</em> for the evolutionary dynamics. At \(\beta = \beta^*\), the system
+        undergoes a <strong>transcritical bifurcation</strong>: the stable boundary equilibrium
+        \(x = 1\) exchanges stability with the interior equilibrium \(x^*\) as \(x^*\) enters
+        the interval \([0,1]\) from above.
+      </p>
+
+      <div class="note-box">
+        <span class="box-title">Connection to Module 4</span>
+        <p>
+          The transcritical bifurcation is one of the canonical bifurcation types studied in
+          dynamical systems theory (Module 4). As the parameter \(\beta\) passes through
+          \(\beta^*\), two fixed points (the boundary \(x = 1\) and the interior \(x^*\))
+          collide and exchange their stability. This is a standard result in bifurcation
+          theory, now given a novel economic interpretation: the rivalry parameter determines
+          whether the digital commons can sustain itself.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: Institutional Design for Digital Commons -->
+  <!-- ================================================================== -->
+  <div class="section" id="institutional-design">
+    <h2>6. Institutional Design for Digital Commons</h2>
+
+    <p>
+      Ostrom&rsquo;s design principles (Module 8) were developed for rivalrous common-pool resources.
+      Digital commons are non-rivalrous or anti-rivalrous, requiring significant adaptation of
+      institutional design theory. In this section, we analyze how governance structures for
+      digital commons differ from CPR governance, and develop game-theoretic models of key
+      institutional choices.
+    </p>
+
+    <h3>6.1 The Fundamental Paradox</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; From Preventing Overuse to Encouraging Contribution</span>
+      <p>
+        Ostrom&rsquo;s CPR framework addresses the problem of <em>overuse</em>: too many
+        fishers depleting the fishery, too many herders overgrazing the commons. The design
+        principles create institutions that <em>restrict</em> access, <em>monitor</em> extraction,
+        and <em>punish</em> overuse.
+      </p>
+      <p>
+        For digital commons, the resource <em>grows</em> with use. The design challenge flips:
+        instead of preventing overuse, the institution must <em>encourage contribution</em>,
+        <em>maintain quality</em> (against spam and vandalism), and <em>govern</em> the direction
+        of development. The scarce resource is not the commons itself but the <em>attention,
+        effort, and coordination capacity</em> of the community.
+      </p>
+    </div>
+
+    <h3>6.2 Governance Models</h3>
+
+    <p>
+      Successful digital commons have converged on several governance models, each with distinct
+      game-theoretic properties:
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Governance Archetypes for Digital Commons</span>
+      <ul>
+        <li><strong>BDFL (Benevolent Dictator for Life):</strong> One person has final authority
+          over all decisions. Examples: Linux (Linus Torvalds, until 2018), Python (Guido van
+          Rossum, until 2018). Game-theoretically: a dictator game where the BDFL&rsquo;s credibility
+          comes from the community&rsquo;s <em>exit option</em> (forking).</li>
+        <li><strong>Meritocracy:</strong> Authority is earned through demonstrated contribution.
+          Example: Apache Software Foundation. Contributors become committers, then PMC members,
+          then Foundation members. Game-theoretically: a tournament/signaling game where effort
+          is rewarded with governance power.</li>
+        <li><strong>Democratic/Consensus:</strong> Decisions are made by community vote or rough
+          consensus. Example: IETF (&ldquo;rough consensus and running code&rdquo;), Debian.
+          Game-theoretically: a voting game subject to Arrow&rsquo;s impossibility theorem
+          and Condorcet cycling.</li>
+        <li><strong>Corporate-backed:</strong> A company sponsors and controls the project while
+          keeping it nominally open. Examples: Android (Google), React (Meta), VS Code (Microsoft).
+          Game-theoretically: a principal-agent problem where the sponsoring corporation is the
+          principal.</li>
+      </ul>
+    </div>
+
+    <h3>6.3 Licensing as a Game</h3>
+
+    <p>
+      One of the most consequential institutional choices for a digital commons is the
+      <strong>license</strong>. In the open-source world, two broad categories exist:
+    </p>
+
+    <ul>
+      <li><strong>Copyleft (e.g., GPL):</strong> Any derivative work must also be open-source
+        under the same license. This is a &ldquo;viral&rdquo; or &ldquo;reciprocal&rdquo; license.</li>
+      <li><strong>Permissive (e.g., MIT, Apache, BSD):</strong> Derivative works can be
+        proprietary. Users can incorporate the code into closed-source products.</li>
+    </ul>
+
+    <p>
+      We can model the licensing choice as a game. Consider two firms that each produce software
+      that can be open-sourced or kept proprietary. Each firm chooses a strategy:
+      <strong>Copyleft (CL)</strong> or <strong>Permissive (P)</strong>.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; The Licensing Game</span>
+      <p>
+        Consider the payoff matrix where firms benefit from shared code but also from
+        proprietary advantage:
+      </p>
+      <table style="width:80%; border-collapse:collapse; margin:1rem auto; text-align:center;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Firm 2: Copyleft</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Firm 2: Permissive</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Firm 1: Copyleft</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s + a, \; s + a)\)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s, \; s + d)\)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Firm 1: Permissive</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s + d, \; s)\)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s + d/2, \; s + d/2)\)</td>
+        </tr>
+      </table>
+      <p>
+        Here \(s\) is the base value of the shared code, \(a\) is the anti-rivalry benefit
+        when both use copyleft (contributions must flow back), and \(d\) is the proprietary
+        advantage from incorporating open code into closed products.
+      </p>
+      <p>
+        If \(a > d\): (Copyleft, Copyleft) is the dominant strategy equilibrium. The anti-rivalry
+        benefit of mandatory sharing exceeds the proprietary advantage. This explains why the
+        Linux kernel ecosystem coalesced around the GPL.
+      </p>
+      <p>
+        If \(a < d\): (Permissive, Permissive) dominates. The proprietary advantage exceeds
+        the commons benefit. This explains why many corporate-backed projects use MIT/Apache licenses.
+      </p>
+      <p>
+        If \(d/2 < a < d\): The game is a Prisoner&rsquo;s Dilemma where (Copyleft, Copyleft)
+        is Pareto-optimal but (Permissive, Permissive) is the Nash equilibrium.
+      </p>
+    </div>
+
+    <h3>6.4 Forking as Credible Exit</h3>
+
+    <p>
+      A unique feature of open-source governance is the <strong>fork</strong>: any community
+      member can copy the entire codebase and start an independent project. This is the
+      ultimate <em>exit option</em> in Hirschman&rsquo;s Exit-Voice-Loyalty framework.
+    </p>
+
+    <p>
+      Game-theoretically, the credible threat of forking disciplines governance. If a BDFL
+      or a corporate sponsor makes decisions that harm the community, contributors can fork.
+      The <em>cost of forking</em> includes:
+    </p>
+
+    <ul>
+      <li>Loss of the unified community (network effects and anti-rivalry are split between forks).</li>
+      <li>Duplication of effort (both forks must maintain parallel codebases).</li>
+      <li>Brand confusion and loss of trust.</li>
+    </ul>
+
+    <p>
+      The <em>benefit of forking</em> is escaping bad governance. Let \(G\) be the governance
+      quality (higher is better), \(F\) be the cost of forking, and \(A(\beta, n)\) be the
+      anti-rivalry value lost by splitting the community. The fork occurs when:
+    </p>
+
+    \[
+      \text{Value under bad governance} < \text{Value of fork} - F - A(\beta, n).
+    \]
+
+    <p>
+      Interestingly, <strong>anti-rivalry makes forking more costly</strong> (because splitting
+      the user base destroys anti-rivalry value), which paradoxically <em>increases</em> the
+      power of bad governors. This creates a tension: anti-rivalry both increases the value of
+      the commons and increases the community&rsquo;s vulnerability to governance capture.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 6</span>
+      <p>
+        The forking game is structurally similar to the Ultimatum Game from Module 6. The
+        governor (proposer) chooses a governance policy. The community (responder) can accept
+        or &ldquo;reject&rdquo; by forking. Rational proposers anticipate the fork threat and
+        moderate their governance. The result is a subgame-perfect equilibrium where governance
+        quality is bounded below by the fork threshold.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: Synthesis -->
+  <!-- ================================================================== -->
+  <div class="section" id="synthesis">
+    <h2>7. Synthesis &mdash; Digital Commons Through the EGT Lens</h2>
+
+    <p>
+      This module has applied the full mathematical toolkit of the course to understand digital
+      commons and anti-rivalry. Let us synthesize the connections.
+    </p>
+
+    <h3>7.1 How Each Module Contributes</h3>
+
+    <div class="example-box">
+      <span class="box-title">Course Toolkit Applied to Digital Commons</span>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.9rem;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Module</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Mathematical Tool</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Application in This Module</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">1. Foundations</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Functions, sets, logic</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Formalizing goods classifications; defining value functions \(V(n)\)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">2. Linear Algebra</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Matrices, eigenvectors</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Payoff matrices for licensing games; network adjacency matrices</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">3. Calculus</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Derivatives, optimization</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">FOCs for Nash equilibrium; marginal analysis of value functions; characterizing rivalry via \(V'(n)\)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">4. Diff. Equations</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">ODEs, stability, bifurcation</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Replicator dynamics; phase portraits; transcritical bifurcation at \(\beta^*\)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">5. Probability</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Expected value, distributions</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Stochastic contribution decisions; mixed strategy equilibria in licensing games</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">6. Game Theory</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Nash equilibrium, dominance, game types</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Classifying the game (PD, Coordination, Harmony); Nash analysis of contribution; licensing game; fork game</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">7. EGT &amp; Replicator</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Replicator equation, ESS</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Evolution of contributors vs free-riders; frequency-dependent selection; tipping points</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">8. Applications</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">SVO, Ostrom, CPR, punishment</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Adapting Ostrom&rsquo;s principles; contrast with CPR dynamics; institutional analysis of governance</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>7.2 Open Research Questions</h3>
+
+    <p>
+      The study of digital commons and anti-rivalry is an active and rapidly evolving research
+      area. Several open questions are at the frontier:
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Open Questions at the Frontier</span>
+      <ol>
+        <li>
+          <strong>AI and the Digital Commons.</strong> Large language models are trained on vast
+          quantities of commons data (Wikipedia, open-source code, Stack Overflow). Do they
+          contribute back to the commons, or do they extract value without replenishing?
+          Game-theoretically, AI systems may be the ultimate free-riders: they consume the
+          commons at massive scale but (currently) contribute nothing back. How does this
+          affect the sustainability of anti-rivalrous commons?
+        </li>
+        <li>
+          <strong>Platform Capture.</strong> Anti-rivalrous commons can be &ldquo;captured&rdquo;
+          by platforms that build proprietary services on top of open resources. GitHub (owned
+          by Microsoft) hosts most open-source code. Google dominates access to the open web.
+          Amazon uses open-source to power AWS. When \(\beta\) is high, the commons is very
+          valuable &mdash; making it a target for enclosure. What institutional designs resist
+          capture?
+        </li>
+        <li>
+          <strong>Sustainability.</strong> Many digital commons rely on volunteer labor. Wikipedia
+          has a declining editor base. Open-source maintainers report burnout. Is the anti-rivalry
+          positive feedback loop sufficient for long-run sustainability, or are additional
+          institutional supports needed?
+        </li>
+        <li>
+          <strong>Anti-Rivalry as Economic Foundation.</strong> If an increasing fraction of
+          economic value comes from anti-rivalrous goods (software, data, knowledge, AI models),
+          what are the implications for economic theory built on the assumption of scarcity?
+          Does the rivalry parameter \(\beta\) need to become a standard input to economic models,
+          alongside traditional factors?
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- INTERACTIVE ELEMENTS -->
+  <!-- ================================================================== -->
+  <div class="section" id="interactive">
+    <h2>Interactive Explorations</h2>
+
+    <!-- Interactive 1: Digital Commons Contribution Game -->
+    <div class="interactive-container">
+      <h3>Interactive: Digital Commons Dynamics</h3>
+      <p>Explore how different parameters affect the evolution of contributors vs free-riders in a digital commons. Adjust the anti-rivalry strength to see how it transforms the game.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Anti-rivalry strength (&beta;):</label>
+          <input type="range" id="dc-beta" min="-1" max="2" step="0.05" value="0">
+          <span class="control-value" id="dc-beta-val">0.00</span>
+        </div>
+        <div class="control-group">
+          <label>Contribution cost (c):</label>
+          <input type="range" id="dc-cost" min="0.1" max="3" step="0.1" value="1">
+          <span class="control-value" id="dc-cost-val">1.0</span>
+        </div>
+        <div class="control-group">
+          <label>Reputation benefit (r):</label>
+          <input type="range" id="dc-rep" min="0" max="2" step="0.1" value="0">
+          <span class="control-value" id="dc-rep-val">0.0</span>
+        </div>
+        <div class="control-group">
+          <label>Initial contributors (x&#x2080;):</label>
+          <input type="range" id="dc-x0" min="0.01" max="0.99" step="0.01" value="0.3">
+          <span class="control-value" id="dc-x0-val">0.30</span>
+        </div>
+        <button class="btn btn-primary" id="dc-play">Play</button>
+        <button class="btn btn-outline" id="dc-reset">Reset</button>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+        <canvas id="dc-time-canvas" class="viz-canvas" width="550" height="300"></canvas>
+        <div id="dc-info" style="flex:1; min-width:200px; padding:1rem; background:#f8f9fa; border-radius:6px; font-size:0.9rem;">
+          <strong>Game Analysis:</strong><br>
+          <span id="dc-game-type">&mdash;</span><br><br>
+          <strong>Equilibria:</strong><br>
+          <span id="dc-equilibria">&mdash;</span><br><br>
+          <strong>Regime:</strong><br>
+          <span id="dc-regime">&mdash;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive 2: Anti-Rivalry Spectrum Visualizer -->
+    <div class="interactive-container">
+      <h3>Interactive: The Rivalry Spectrum</h3>
+      <p>See how per-user value changes with the number of users across the rivalry spectrum.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Rivalry parameter (&beta;):</label>
+          <input type="range" id="spectrum-beta" min="-1" max="1.5" step="0.05" value="0">
+          <span class="control-value" id="spectrum-beta-val">0.00</span>
+        </div>
+        <div class="control-group">
+          <label>Base value (V&#x2080;):</label>
+          <input type="range" id="spectrum-v0" min="1" max="10" step="0.5" value="5">
+          <span class="control-value" id="spectrum-v0-val">5.0</span>
+        </div>
+      </div>
+      <canvas id="spectrum-canvas" class="viz-canvas" width="600" height="350"></canvas>
+      <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">
+        &beta; &lt; 0: Rivalrous (value decreases with users) | &beta; = 0: Non-rivalrous (constant value) | &beta; &gt; 0: Anti-rivalrous (value increases with users)
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- EXERCISES -->
+  <!-- ================================================================== -->
+  <div class="section" id="exercises">
+    <h2>Exercises</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 1 &mdash; Classifying Goods on the Rivalry Spectrum</span>
+      <p>
+        For each of the following goods, estimate the rivalry parameter \(\beta\) and justify your reasoning:
+      </p>
+      <ol type="a">
+        <li>A community vegetable garden (shared plot, limited space)</li>
+        <li>A published mathematical proof</li>
+        <li>The Rust programming language ecosystem</li>
+        <li>A shared highway during rush hour</li>
+        <li>A Creative Commons textbook with a community errata page</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Community vegetable garden: \(\beta \approx -0.8\). Strongly
+            rivalrous &mdash; space and soil nutrients are limited. More gardeners means less
+            produce per person. Close to the classic CPR.
+          </p>
+          <p>
+            <strong>(b)</strong> Published mathematical proof: \(\beta = 0\). Non-rivalrous.
+            The proof is unchanged regardless of how many people read it. However, if people
+            build on the proof, extend it, find new applications, one might argue for weak
+            anti-rivalry (\(\beta \approx 0.1\)).
+          </p>
+          <p>
+            <strong>(c)</strong> Rust programming language: \(\beta \approx 0.5\text{--}0.8\).
+            Strongly anti-rivalrous. More users means more crates (packages), better tooling,
+            more learning resources, better compiler development, more job opportunities.
+            Each new user-contributor makes the ecosystem more valuable for all.
+          </p>
+          <p>
+            <strong>(d)</strong> Shared highway during rush hour: \(\beta \approx -0.5\). Rivalrous
+            due to congestion, but not as extreme as \(\beta = -1\) because the road is not
+            &ldquo;consumed&rdquo; in the same way as fish. Congestion reduces speed (value)
+            but the road remains.
+          </p>
+          <p>
+            <strong>(e)</strong> Creative Commons textbook with errata page: \(\beta \approx 0.2\text{--}0.3\).
+            Weakly anti-rivalrous. The textbook itself is non-rivalrous (\(\beta = 0\)), but
+            the community errata page means more readers find and report errors, improving
+            the text for future readers. The anti-rivalry is moderate because not all readers
+            contribute errata.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 2 &mdash; Nash Equilibrium of a Digital Commons</span>
+      <p>
+        Consider a digital commons with \(n = 50\) potential contributors, benefit parameter
+        \(b = 8\), cost parameter \(c = 3\), and production function \(f(E) = E^{0.4}\).
+      </p>
+      <ol type="a">
+        <li>Compute the symmetric Nash equilibrium effort \(e^*\) and total effort \(E^{\text{NE}}\).</li>
+        <li>Compute the socially optimal total effort \(E^{\text{SO}}\).</li>
+        <li>What is the ratio \(E^{\text{NE}} / E^{\text{SO}}\)? Interpret the result.</li>
+        <li>How does the ratio change if \(n\) increases to 500?</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> From the Nash equilibrium formula:
+            \[
+              E^{\text{NE}} = \left(\frac{b\alpha}{c}\right)^{1/(1-\alpha)} = \left(\frac{8 \times 0.4}{3}\right)^{1/0.6} = \left(\frac{3.2}{3}\right)^{5/3} = (1.0\overline{6})^{5/3}.
+            \]
+            Computing: \(1.0\overline{6}^{5/3} = e^{(5/3)\ln(1.0\overline{6})} = e^{(5/3)(0.0645)} = e^{0.1076} \approx 1.114\).
+            So \(E^{\text{NE}} \approx 1.114\) and \(e^* = E^{\text{NE}}/50 \approx 0.0223\).
+          </p>
+          <p>
+            <strong>(b)</strong> Social optimum:
+            \[
+              E^{\text{SO}} = \left(\frac{nb\alpha}{c}\right)^{1/(1-\alpha)} = \left(\frac{50 \times 3.2}{3}\right)^{5/3} = \left(\frac{160}{3}\right)^{5/3} = (53.\overline{3})^{5/3}.
+            \]
+            Computing: \(53.\overline{3}^{5/3} = e^{(5/3)\ln(53.33)} = e^{(5/3)(3.976)} = e^{6.627} \approx 756.8\).
+            So \(E^{\text{SO}} \approx 756.8\).
+          </p>
+          <p>
+            <strong>(c)</strong> Ratio:
+            \[
+              \frac{E^{\text{NE}}}{E^{\text{SO}}} = n^{-1/(1-\alpha)} = 50^{-5/3} = \frac{1}{50^{5/3}} \approx \frac{1}{679.6} \approx 0.00147.
+            \]
+            The Nash equilibrium provides only about 0.15% of the socially optimal effort.
+            The underprovision is extreme.
+          </p>
+          <p>
+            <strong>(d)</strong> With \(n = 500\):
+            \[
+              \frac{E^{\text{NE}}}{E^{\text{SO}}} = 500^{-5/3} = \frac{1}{500^{5/3}} \approx \frac{1}{31{,}498} \approx 0.0000317.
+            \]
+            With a 10&times; larger community, the underprovision ratio decreased by a factor of
+            about 46. Larger communities underprovide proportionally more.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 3 &mdash; Conditions for Contributor Survival</span>
+      <p>
+        In the binary contributor/free-rider model with reputation proportional to commons quality,
+        payoffs are \(\pi_C = b \cdot (xne)^\alpha - c + r \cdot (xne)^\alpha\) and
+        \(\pi_F = b \cdot (xne)^\alpha\).
+      </p>
+      <ol type="a">
+        <li>Show that the interior equilibrium is \(x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}\).</li>
+        <li>For \(n = 100\), \(e = 1\), \(\alpha = 0.5\), \(c = 4\), find the minimum reputation
+          benefit \(r\) for which an interior equilibrium exists in \((0,1)\).</li>
+        <li>Is this interior equilibrium stable or unstable? What does this mean for the long-run
+          outcome of the commons?</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> At the interior equilibrium, \(\pi_C - \pi_F = 0\):
+            \[
+              r \cdot (x^* ne)^\alpha = c \implies (x^* ne)^\alpha = \frac{c}{r} \implies x^* ne = \left(\frac{c}{r}\right)^{1/\alpha} \implies x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}.
+            \]
+          </p>
+          <p>
+            <strong>(b)</strong> For an interior equilibrium to exist in \((0,1)\), we need \(0 < x^* < 1\):
+            \[
+              0 < \frac{1}{100}\left(\frac{4}{r}\right)^{2} < 1 \implies \left(\frac{4}{r}\right)^2 < 100 \implies \frac{4}{r} < 10 \implies r > 0.4.
+            \]
+            Also \(x^* > 0\) requires \(r > 0\), which is always satisfied. So the minimum
+            reputation benefit is \(r_{\min} = 0.4\).
+          </p>
+          <p>
+            At \(r = 0.4\): \(x^* = \frac{1}{100}(10)^2 = 1\), which is the boundary. For
+            \(r\) strictly greater than 0.4, \(x^*\) drops below 1.
+          </p>
+          <p>
+            For example, at \(r = 1\): \(x^* = \frac{1}{100}(4)^2 = 0.16\).
+            At \(r = 2\): \(x^* = \frac{1}{100}(2)^2 = 0.04\).
+          </p>
+          <p>
+            <strong>(c)</strong> The interior equilibrium is <strong>unstable</strong> (as proved in
+            Theorem 3.4 of the module). It acts as a tipping point. Below \(x^*\), the commons
+            collapses to \(x = 0\); above \(x^*\), it grows to \(x = 1\). The long-run outcome
+            is binary: either the commons thrives with full contribution, or it dies with full
+            free-riding. There is no stable coexistence.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 4 &mdash; Anti-Rivalry Parameter from Empirical Data</span>
+      <p>
+        A research team measures the per-user value of an open data platform at different user counts:
+      </p>
+      <table style="border-collapse:collapse; margin:0.5rem 0;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;"><strong>Users \(n\)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">10</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">100</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">1,000</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">10,000</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;"><strong>Value \(V(n)\)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">12</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">22</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">40</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">75</td>
+        </tr>
+      </table>
+      <ol type="a">
+        <li>Assuming the power-law model \(V(n) = V_0 \cdot n^\beta\), estimate \(\beta\) and \(V_0\) using
+          the data at \(n = 10\) and \(n = 10{,}000\).</li>
+        <li>Verify your estimates against the intermediate data points.</li>
+        <li>Is this good rivalrous, non-rivalrous, or anti-rivalrous? How strong is the effect?</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> From \(V(n) = V_0 n^\beta\):
+            \[
+              V(10) = V_0 \cdot 10^\beta = 12, \qquad V(10{,}000) = V_0 \cdot 10{,}000^\beta = 75.
+            \]
+            Dividing: \(\frac{75}{12} = \frac{10{,}000^\beta}{10^\beta} = 1000^\beta\).
+            So \(1000^\beta = 6.25\). Taking logarithms:
+            \(\beta = \frac{\ln(6.25)}{\ln(1000)} = \frac{1.8326}{6.9078} \approx 0.265\).
+          </p>
+          <p>
+            From \(V_0 \cdot 10^{0.265} = 12\): \(10^{0.265} = e^{0.265 \ln 10} = e^{0.610} \approx 1.841\).
+            So \(V_0 = 12/1.841 \approx 6.52\).
+          </p>
+          <p>
+            <strong>(b)</strong> Checking intermediate points:
+          </p>
+          <ul>
+            <li>\(V(100) = 6.52 \times 100^{0.265} = 6.52 \times 3.388 = 22.1\). Data: 22. Excellent fit.</li>
+            <li>\(V(1000) = 6.52 \times 1000^{0.265} = 6.52 \times 6.237 = 40.7\). Data: 40. Good fit.</li>
+          </ul>
+          <p>
+            <strong>(c)</strong> Since \(\beta \approx 0.265 > 0\), the good is <strong>anti-rivalrous</strong>.
+            The effect is moderate &mdash; roughly in the range of a collaborative knowledge base
+            (like Wikipedia) where more users improve quality but with diminishing returns. It is
+            not as strongly anti-rivalrous as a programming language ecosystem (\(\beta > 0.5\))
+            but clearly more than a passive non-rivalrous good (\(\beta = 0\)).
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 5 &mdash; CPR vs Digital Commons Dynamics</span>
+      <p>
+        Compare two communities, each with 100 members:
+      </p>
+      <ul>
+        <li><strong>Community A</strong> manages a fishery (CPR) with replicator dynamics
+          \(\dot{x} = x(1-x)[2 - 3x]\), where \(x\) is the fraction of &ldquo;sustainable harvesters.&rdquo;</li>
+        <li><strong>Community B</strong> manages an open-source project with replicator dynamics
+          \(\dot{x} = x(1-x)[-0.5 + 1.5x]\), where \(x\) is the fraction of contributors.</li>
+      </ul>
+      <ol type="a">
+        <li>Find all fixed points for both systems and determine their stability.</li>
+        <li>Sketch the phase lines for both systems on \([0,1]\).</li>
+        <li>Starting at \(x_0 = 0.5\), what is the long-run outcome for each community?</li>
+        <li>Explain the qualitative difference between the two systems in terms of rivalry vs anti-rivalry.</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p><strong>Community A (CPR):</strong></p>
+          <p>
+            Fixed points: \(x = 0\), \(x = 1\), and \(x^* = 2/3\) (from \(2 - 3x = 0\)).
+          </p>
+          <p>
+            Stability: \(g(x) = 2 - 3x\), \(g'(x) = -3 < 0\). So \(g\) is decreasing.
+            For \(x < 2/3\): \(g(x) > 0\), \(\dot{x} > 0\) (sustainable harvesters grow).
+            For \(x > 2/3\): \(g(x) < 0\), \(\dot{x} < 0\) (sustainable harvesters decline).
+            Therefore \(x^* = 2/3\) is <strong>stable</strong>. Also \(x = 0\) is unstable,
+            \(x = 1\) is unstable. The system converges to the interior equilibrium.
+          </p>
+          <p><strong>Community B (Digital Commons):</strong></p>
+          <p>
+            Fixed points: \(x = 0\), \(x = 1\), and \(x^* = 0.5/1.5 = 1/3\) (from \(-0.5 + 1.5x = 0\)).
+          </p>
+          <p>
+            Stability: \(g(x) = -0.5 + 1.5x\), \(g'(x) = 1.5 > 0\). So \(g\) is increasing.
+            For \(x < 1/3\): \(g(x) < 0\), \(\dot{x} < 0\) (contributors shrink).
+            For \(x > 1/3\): \(g(x) > 0\), \(\dot{x} > 0\) (contributors grow).
+            Therefore \(x^* = 1/3\) is <strong>unstable</strong>. \(x = 0\) is stable, \(x = 1\) is stable.
+            Bistable dynamics with tipping point.
+          </p>
+          <p>
+            <strong>(b)</strong> Phase lines:
+          </p>
+          <ul>
+            <li>Community A: \(0 \xrightarrow{\rightarrow} 2/3 \xleftarrow{\leftarrow} 1\). Arrows point toward \(2/3\) from both sides.</li>
+            <li>Community B: \(0 \xleftarrow{\leftarrow} 1/3 \xrightarrow{\rightarrow} 1\). Arrows point away from \(1/3\).</li>
+          </ul>
+          <p>
+            <strong>(c)</strong> Starting at \(x_0 = 0.5\):
+          </p>
+          <ul>
+            <li>Community A: \(0.5 < 2/3\), so \(\dot{x} > 0\). The system converges to \(x^* = 2/3\).
+              Two-thirds of the community practices sustainable harvesting; one-third over-harvests.
+              A stable but imperfect outcome.</li>
+            <li>Community B: \(0.5 > 1/3\), so \(\dot{x} > 0\). The system converges to \(x = 1\).
+              All community members become contributors. The commons thrives.</li>
+          </ul>
+          <p>
+            <strong>(d)</strong> The CPR system has <em>negative</em> frequency dependence: the
+            fitness of sustainable harvesting decreases as more people do it (because the
+            resource is less threatened, reducing the relative advantage of restraint). This
+            creates a stable interior equilibrium &mdash; coexistence.
+          </p>
+          <p>
+            The digital commons has <em>positive</em> frequency dependence (anti-rivalry): the
+            fitness of contributing increases as more people contribute (because the commons
+            becomes more valuable). This creates an unstable interior equilibrium &mdash; a
+            tipping point. The outcome is all-or-nothing. This qualitative difference arises
+            directly from the sign of the rivalry parameter \(\beta\).
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 6 &mdash; Anti-Rivalry Transforms PD into Harmony</span>
+      <p>
+        Consider the digital commons game with payoffs:
+      </p>
+      \[
+        \pi_C(x) = b(1 + \beta x)(1 + r) - c, \qquad \pi_F(x) = b(1 + \beta x).
+      \]
+      <p>
+        Let \(b = 4\), \(r = 0.4\), \(c = 2\).
+      </p>
+      <ol type="a">
+        <li>Show that at \(\beta = 0\), the game is a Prisoner&rsquo;s Dilemma (free-riding dominates).</li>
+        <li>Find the critical \(\beta^*\) at which the game transitions from PD to a Coordination game.</li>
+        <li>Find the value of \(\beta\) at which the game becomes a Harmony game (contributing dominates).</li>
+        <li>Prove that for any \(b, r, c\) with \(rb < c\), there always exists a finite \(\beta^*\) that
+          transforms the PD into a Coordination game, provided \(r > 0\).</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> At \(\beta = 0\):
+            \(\Delta\pi = rb - c = 0.4 \times 4 - 2 = 1.6 - 2 = -0.4 < 0\).
+            The fitness difference is negative for all \(x\). Free-riding dominates.
+            This is a Prisoner&rsquo;s Dilemma.
+          </p>
+          <p>
+            <strong>(b)</strong> The game becomes a Coordination game when \(\Delta\pi(1) > 0\):
+            \[
+              rb(1 + \beta) - c > 0 \implies 1.6(1 + \beta) > 2 \implies 1 + \beta > 1.25 \implies \beta > 0.25.
+            \]
+            So \(\beta^* = 0.25\). At \(\beta = 0.25\), the tipping point is at
+            \(x^* = \frac{c - rb}{rb\beta} = \frac{0.4}{1.6 \times 0.25} = \frac{0.4}{0.4} = 1\)
+            (right at the boundary). For \(\beta\) slightly above 0.25, the tipping point enters \((0,1)\).
+          </p>
+          <p>
+            <strong>(c)</strong> The game becomes a Harmony game when \(\Delta\pi(0) > 0\):
+            \[
+              rb - c > 0 \implies 1.6 > 2.
+            \]
+            This does not depend on \(\beta\)! With \(rb < c\), the game can never be a Harmony
+            game in our linear model (since \(\Delta\pi(0) = rb - c\) is independent of \(\beta\)).
+          </p>
+          <p>
+            However, as \(\beta \to \infty\), the tipping point \(x^* = \frac{c - rb}{rb\beta} \to 0\).
+            The basin of attraction for \(x = 1\) covers almost all of \((0,1)\), so the game is
+            &ldquo;effectively&rdquo; a Harmony game (any positive initial contributor fraction
+            leads to full contribution). Formally, there is no finite \(\beta\) that makes it a
+            true Harmony game in this model, but the practical difference vanishes.
+          </p>
+          <p>
+            <strong>(d)</strong> For general \(b, r, c\) with \(rb < c\) and \(r > 0\):
+            The transition to Coordination requires \(rb(1 + \beta^*) = c\), giving
+            \[
+              \beta^* = \frac{c - rb}{rb} = \frac{c}{rb} - 1.
+            \]
+            Since \(rb < c\), we have \(\beta^* > 0\). Since \(r > 0\) and \(b > 0\),
+            \(\beta^*\) is finite. Therefore, for any parameter values where the standard game
+            is a PD, there exists a finite anti-rivalry strength that transforms it into a
+            Coordination game. &#9632;
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 7 &mdash; Ostrom&rsquo;s Principles Adapted for Wikipedia</span>
+      <p>
+        For each of Ostrom&rsquo;s eight design principles (see Module 8):
+      </p>
+      <ol type="a">
+        <li>Identify how Wikipedia implements (or fails to implement) the principle.</li>
+        <li>Explain whether the principle needs modification for a non-rivalrous, anti-rivalrous
+          digital commons.</li>
+        <li>For the principles that need modification, propose an adapted version suitable for
+          digital commons governance.</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p><strong>Principle 1 (Clear boundaries):</strong></p>
+          <p>
+            Wikipedia implementation: Reading is open to all; editing is open to anyone with an
+            account (or even without). Boundaries are very loose by design. This is the opposite
+            of CPR boundaries, where the goal is to restrict access.
+          </p>
+          <p>
+            Adaptation needed: Yes. For digital commons, boundaries should be about
+            <em>write access quality control</em> rather than access restriction. Wikipedia&rsquo;s
+            system of autoconfirmed users, extended confirmed users, and administrators creates
+            graduated write-access boundaries.
+          </p>
+          <p>
+            Adapted principle: &ldquo;Clear quality boundaries &mdash; define who can contribute
+            at each level, with minimal barriers to initial participation.&rdquo;
+          </p>
+
+          <p><strong>Principle 2 (Congruence with local conditions):</strong></p>
+          <p>
+            Wikipedia: Different language editions have different policies reflecting cultural
+            norms. English Wikipedia has strict notability requirements; other editions may be
+            more permissive. Individual WikiProjects set specialized guidelines.
+          </p>
+          <p>
+            Adaptation: Minimal change needed. This principle translates well to digital commons.
+          </p>
+
+          <p><strong>Principle 3 (Collective-choice arrangements):</strong></p>
+          <p>
+            Wikipedia: Policies are determined by community consensus through discussion pages,
+            RfCs (Requests for Comment), and community votes. Any registered user can participate.
+          </p>
+          <p>
+            Adaptation: Works well for digital commons. The low cost of participation in online
+            discussion makes collective choice easier than in physical CPR settings.
+          </p>
+
+          <p><strong>Principle 4 (Monitoring):</strong></p>
+          <p>
+            Wikipedia: Every edit is logged. Watchlists, recent changes patrol, and bot monitoring
+            (ClueBot NG for vandalism). This is far more comprehensive than physical CPR monitoring.
+          </p>
+          <p>
+            Adaptation: Digital commons have a huge advantage here &mdash; all actions are
+            automatically logged. Monitoring is nearly costless. Adapted principle: &ldquo;Leverage
+            digital transparency &mdash; all contributions and modifications should be automatically
+            tracked and publicly visible.&rdquo;
+          </p>
+
+          <p><strong>Principle 5 (Graduated sanctions):</strong></p>
+          <p>
+            Wikipedia: Warning templates, blocks of increasing duration, topic bans, site bans.
+            Very well-developed graduated sanction system.
+          </p>
+          <p>
+            Adaptation: The key difference is that sanctions in digital commons primarily address
+            <em>quality degradation</em> (vandalism, misinformation) rather than <em>overuse</em>.
+            Adapted principle: &ldquo;Graduated sanctions for quality violations, not for use.&rdquo;
+          </p>
+
+          <p><strong>Principle 6 (Conflict resolution):</strong></p>
+          <p>
+            Wikipedia: Talk pages, mediation, arbitration committee (ArbCom). Multi-tiered
+            dispute resolution.
+          </p>
+          <p>
+            Adaptation: Translates well. Digital commons may need additional mechanisms for
+            content disputes (which are unique to knowledge commons).
+          </p>
+
+          <p><strong>Principle 7 (Recognition of rights to organize):</strong></p>
+          <p>
+            Wikipedia: The Wikimedia Foundation provides legal protection and infrastructure but
+            does not dictate editorial policy. Community self-governance is respected.
+          </p>
+          <p>
+            Adaptation: For digital commons, this principle extends to <em>license choice</em> &mdash;
+            the legal framework (Creative Commons, GPL, etc.) that protects the commons from
+            enclosure.
+          </p>
+
+          <p><strong>Principle 8 (Nested enterprises):</strong></p>
+          <p>
+            Wikipedia: Individual editors &rarr; WikiProjects &rarr; language editions &rarr;
+            Wikimedia Foundation. Well-developed nested governance.
+          </p>
+          <p>
+            Adaptation: Translates directly. Digital commons often have natural nesting
+            (subsystems, subprojects, umbrella organizations).
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Exercise 8 -->
+    <div class="exercise-box">
+      <span class="box-title">Exercise 8 &mdash; Network Effects and Tipping Points</span>
+      <p>
+        A new open-source project has a total potential user base of \(N = 1000\). The adoption
+        dynamics follow the replicator equation with Metcalfe-like network effects:
+      </p>
+      \[
+        \dot{x} = x(1-x)\left[\kappa (xN)^{1.5} - p\right],
+      \]
+      <p>
+        where \(\kappa = 0.001\) and \(p = 10\) (cost of adoption).
+      </p>
+      <ol type="a">
+        <li>Find the tipping point \(x^*\).</li>
+        <li>If the project starts with 50 users (\(x_0 = 0.05\)), will it succeed or fail?</li>
+        <li>What is the minimum number of &ldquo;seed users&rdquo; needed for the project to take off?</li>
+        <li>If the project reduces adoption cost to \(p = 5\) (e.g., through better documentation),
+          how does the tipping point change?</li>
+      </ol>
+      <details>
+        <summary>Solution</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Setting the bracket to zero:
+            \[
+              \kappa(x^* N)^{1.5} = p \implies x^* = \frac{1}{N}\left(\frac{p}{\kappa}\right)^{1/1.5} = \frac{1}{1000}\left(\frac{10}{0.001}\right)^{2/3} = \frac{1}{1000}(10{,}000)^{2/3}.
+            \]
+            \((10{,}000)^{2/3} = (10^4)^{2/3} = 10^{8/3} \approx 10^{2.667} \approx 464.2\).
+            So \(x^* = 464.2/1000 = 0.464\).
+          </p>
+          <p>
+            <strong>(b)</strong> Starting at \(x_0 = 0.05 < 0.464 = x^*\). Since \(x_0 < x^*\),
+            the project is below the tipping point. The dynamics push \(x\) toward 0. The project
+            <strong>fails</strong>.
+          </p>
+          <p>
+            <strong>(c)</strong> The minimum number of seed users is \(x^* \times N = 0.464 \times 1000 = 464\).
+            At least 465 initial users are needed for the project to tip into self-sustaining growth.
+          </p>
+          <p>
+            <strong>(d)</strong> With \(p = 5\):
+            \[
+              x^* = \frac{1}{1000}\left(\frac{5}{0.001}\right)^{2/3} = \frac{1}{1000}(5000)^{2/3}.
+            \]
+            \((5000)^{2/3} = e^{(2/3)\ln 5000} = e^{(2/3)(8.517)} = e^{5.678} \approx 292.4\).
+            So \(x^* = 292.4/1000 = 0.292\), requiring about 293 seed users.
+          </p>
+          <p>
+            Halving the adoption cost reduced the required critical mass from 465 to 293 &mdash;
+            a 37% reduction. This shows why investing in documentation, tutorials, and easy
+            installation is a high-leverage strategy for bootstrapping digital commons.
+          </p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- RECOMMENDED READING -->
+  <!-- ================================================================== -->
+  <div class="section" id="reading">
+    <h2>Recommended Reading</h2>
+
+    <div class="def-box">
+      <span class="box-title">Core References</span>
+      <ul style="list-style:none; padding-left:0;">
+        <li style="margin-bottom:0.8rem;">
+          <strong>Weber, S.</strong> (2004). <em>The Success of Open Source.</em> Harvard University Press.
+          &mdash; The foundational work introducing anti-rivalry in the context of open-source software.
+          Weber argues that the &ldquo;problem&rdquo; of open source is not the traditional public goods
+          problem of free-riding, but rather a problem of coordination.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Hess, C. &amp; Ostrom, E.</strong> (2007). <em>Understanding Knowledge as a Commons:
+          From Theory to Practice.</em> MIT Press. &mdash; Extends Ostrom&rsquo;s commons framework to
+          knowledge and information goods. Essential for understanding how institutional analysis
+          applies to non-rivalrous resources.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Benkler, Y.</strong> (2006). <em>The Wealth of Networks: How Social Production
+          Transforms Markets and Freedom.</em> Yale University Press. &mdash; A comprehensive analysis
+          of how networked information production (peer production) creates value outside traditional
+          market and state structures.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Lessig, L.</strong> (2001). <em>The Future of Ideas: The Fate of the Commons in a
+          Connected World.</em> Random House. &mdash; Argues that the internet&rsquo;s innovation
+          commons is threatened by the expansion of intellectual property rights, and that openness
+          is essential for progress.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Rifkin, J.</strong> (2014). <em>The Zero Marginal Cost Society: The Internet of Things,
+          the Collaborative Commons, and the Eclipse of Capitalism.</em> Palgrave Macmillan.
+          &mdash; Explores how near-zero marginal costs for information goods are transforming economic
+          structures and giving rise to the collaborative commons.
+        </li>
+      </ul>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Further Reading</span>
+      <ul style="list-style:none; padding-left:0;">
+        <li style="margin-bottom:0.8rem;">
+          <strong>Ostrom, E.</strong> (1990). <em>Governing the Commons.</em> Cambridge University Press.
+          &mdash; The foundational text on commons governance (see Module 8). Essential background
+          for understanding how this module extends Ostrom&rsquo;s framework.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Benkler, Y.</strong> (2002). &ldquo;Coase&rsquo;s Penguin, or, Linux and the Nature of the Firm.&rdquo;
+          <em>Yale Law Journal</em>, 112(3), 369&ndash;446. &mdash; A game-theoretic analysis of
+          why peer production can outperform both markets and firms for certain classes of goods.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Schweik, C. M. &amp; English, R. C.</strong> (2012). <em>Internet Success: A Study of
+          Open-Source Software Commons.</em> MIT Press. &mdash; Empirical analysis of open-source
+          project success and failure using Ostrom&rsquo;s IAD framework.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Shapiro, C. &amp; Varian, H. R.</strong> (1999). <em>Information Rules: A Strategic
+          Guide to the Network Economy.</em> Harvard Business School Press. &mdash; The classic
+          treatment of network effects and information goods from a strategic perspective.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module8.html">&larr; Module 8: Applications</a>
+    <a href="../index.html">Back to Course Home &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Module 9: Digital Commons, Knowledge Commons &amp; Anti-Rivalry
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+<script>
+// Prevent shared visualizations.js from interfering
+window._customVizInit = true;
+
+(function() {
+  'use strict';
+
+  // ====================================================================
+  // INTERACTIVE 1: Digital Commons Dynamics
+  // ====================================================================
+  const dcBeta = document.getElementById('dc-beta');
+  const dcCost = document.getElementById('dc-cost');
+  const dcRep = document.getElementById('dc-rep');
+  const dcX0 = document.getElementById('dc-x0');
+  const dcBetaVal = document.getElementById('dc-beta-val');
+  const dcCostVal = document.getElementById('dc-cost-val');
+  const dcRepVal = document.getElementById('dc-rep-val');
+  const dcX0Val = document.getElementById('dc-x0-val');
+  const dcPlayBtn = document.getElementById('dc-play');
+  const dcResetBtn = document.getElementById('dc-reset');
+  const dcCanvas = document.getElementById('dc-time-canvas');
+  const dcCtx = dcCanvas.getContext('2d');
+  const dcGameType = document.getElementById('dc-game-type');
+  const dcEquilibria = document.getElementById('dc-equilibria');
+  const dcRegime = document.getElementById('dc-regime');
+
+  const b_val = 5; // fixed base benefit
+
+  let dcAnimId = null;
+  let dcData = [];
+  let dcAnimFrame = 0;
+
+  function updateDcLabels() {
+    dcBetaVal.textContent = parseFloat(dcBeta.value).toFixed(2);
+    dcCostVal.textContent = parseFloat(dcCost.value).toFixed(1);
+    dcRepVal.textContent = parseFloat(dcRep.value).toFixed(1);
+    dcX0Val.textContent = parseFloat(dcX0.value).toFixed(2);
+    analyzeDcGame();
+  }
+
+  function analyzeDcGame() {
+    const beta = parseFloat(dcBeta.value);
+    const c = parseFloat(dcCost.value);
+    const r = parseFloat(dcRep.value);
+    const rb = r * b_val;
+
+    const delta0 = rb - c;
+    const delta1 = rb * (1 + beta) - c;
+
+    let gameType = '';
+    let equilibria = '';
+    let regime = '';
+
+    if (delta0 >= 0) {
+      gameType = 'Harmony Game (contributing is dominant)';
+      equilibria = 'x = 1 (stable), x = 0 (unstable)';
+      regime = 'Full contribution regardless of initial state.';
+    } else if (delta1 > 0) {
+      const xStar = (c - rb) / (rb * beta);
+      gameType = 'Coordination Game (bistable, tipping point)';
+      equilibria = 'x = 0 (stable), x* = ' + xStar.toFixed(3) + ' (unstable), x = 1 (stable)';
+      regime = 'Below x* = ' + xStar.toFixed(3) + ': collapse. Above: thriving commons.';
+    } else {
+      gameType = "Prisoner's Dilemma (free-riding dominates)";
+      equilibria = 'x = 0 (stable), x = 1 (unstable)';
+      regime = 'Commons collapses regardless of initial state.';
+    }
+
+    dcGameType.innerHTML = gameType;
+    dcEquilibria.innerHTML = equilibria;
+    dcRegime.innerHTML = regime;
+  }
+
+  function simulateDc() {
+    const beta = parseFloat(dcBeta.value);
+    const c = parseFloat(dcCost.value);
+    const r = parseFloat(dcRep.value);
+    const x0 = parseFloat(dcX0.value);
+    const rb = r * b_val;
+
+    const dt = 0.05;
+    const steps = 400;
+    dcData = [x0];
+    let x = x0;
+
+    for (let i = 0; i < steps; i++) {
+      const fitnessDiff = (rb - c) + rb * beta * x;
+      const dxdt = x * (1 - x) * fitnessDiff;
+      x = x + dxdt * dt;
+      x = Math.max(0.0001, Math.min(0.9999, x));
+      dcData.push(x);
+    }
+  }
+
+  function drawDcFrame(frameCount) {
+    const W = dcCanvas.width;
+    const H = dcCanvas.height;
+    const pad = { top: 30, right: 20, bottom: 40, left: 55 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    dcCtx.clearRect(0, 0, W, H);
+
+    // Background
+    dcCtx.fillStyle = '#fafbfc';
+    dcCtx.fillRect(pad.left, pad.top, plotW, plotH);
+
+    // Grid
+    dcCtx.strokeStyle = '#e8e8e8';
+    dcCtx.lineWidth = 0.5;
+    for (let i = 0; i <= 10; i++) {
+      const y = pad.top + (plotH * i / 10);
+      dcCtx.beginPath();
+      dcCtx.moveTo(pad.left, y);
+      dcCtx.lineTo(pad.left + plotW, y);
+      dcCtx.stroke();
+    }
+
+    // Axes
+    dcCtx.strokeStyle = '#333';
+    dcCtx.lineWidth = 1.5;
+    dcCtx.beginPath();
+    dcCtx.moveTo(pad.left, pad.top);
+    dcCtx.lineTo(pad.left, pad.top + plotH);
+    dcCtx.lineTo(pad.left + plotW, pad.top + plotH);
+    dcCtx.stroke();
+
+    // Y-axis labels
+    dcCtx.fillStyle = '#555';
+    dcCtx.font = '11px sans-serif';
+    dcCtx.textAlign = 'right';
+    for (let i = 0; i <= 10; i += 2) {
+      const val = i / 10;
+      const y = pad.top + plotH - (plotH * val);
+      dcCtx.fillText(val.toFixed(1), pad.left - 8, y + 4);
+    }
+
+    // X-axis labels
+    dcCtx.textAlign = 'center';
+    const totalTime = dcData.length * 0.05;
+    for (let i = 0; i <= 4; i++) {
+      const frac = i / 4;
+      const x = pad.left + plotW * frac;
+      dcCtx.fillText((totalTime * frac).toFixed(0), x, pad.top + plotH + 20);
+    }
+
+    // Axis titles
+    dcCtx.fillStyle = '#333';
+    dcCtx.font = '12px sans-serif';
+    dcCtx.textAlign = 'center';
+    dcCtx.fillText('Time', pad.left + plotW / 2, pad.top + plotH + 36);
+
+    dcCtx.save();
+    dcCtx.translate(14, pad.top + plotH / 2);
+    dcCtx.rotate(-Math.PI / 2);
+    dcCtx.fillText('Fraction of Contributors (x)', 0, 0);
+    dcCtx.restore();
+
+    // Draw equilibrium lines
+    const beta = parseFloat(dcBeta.value);
+    const c = parseFloat(dcCost.value);
+    const r = parseFloat(dcRep.value);
+    const rb = r * b_val;
+    const delta0 = rb - c;
+    const delta1 = rb * (1 + beta) - c;
+
+    if (delta0 < 0 && delta1 > 0 && beta > 0) {
+      const xStar = (c - rb) / (rb * beta);
+      if (xStar > 0 && xStar < 1) {
+        const yStar = pad.top + plotH - plotH * xStar;
+        dcCtx.setLineDash([5, 5]);
+        dcCtx.strokeStyle = '#e74c3c';
+        dcCtx.lineWidth = 1;
+        dcCtx.beginPath();
+        dcCtx.moveTo(pad.left, yStar);
+        dcCtx.lineTo(pad.left + plotW, yStar);
+        dcCtx.stroke();
+        dcCtx.setLineDash([]);
+        dcCtx.fillStyle = '#e74c3c';
+        dcCtx.font = '10px sans-serif';
+        dcCtx.textAlign = 'left';
+        dcCtx.fillText('x* = ' + xStar.toFixed(2) + ' (tipping point)', pad.left + plotW - 140, yStar - 5);
+      }
+    }
+
+    // Draw data
+    const n = Math.min(frameCount, dcData.length);
+    if (n < 2) return;
+
+    dcCtx.strokeStyle = '#2563eb';
+    dcCtx.lineWidth = 2.5;
+    dcCtx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const px = pad.left + (i / (dcData.length - 1)) * plotW;
+      const py = pad.top + plotH - plotH * dcData[i];
+      if (i === 0) dcCtx.moveTo(px, py);
+      else dcCtx.lineTo(px, py);
+    }
+    dcCtx.stroke();
+
+    // Current value label
+    if (n > 0) {
+      const lastVal = dcData[n - 1];
+      const lx = pad.left + ((n - 1) / (dcData.length - 1)) * plotW;
+      const ly = pad.top + plotH - plotH * lastVal;
+      dcCtx.fillStyle = '#2563eb';
+      dcCtx.beginPath();
+      dcCtx.arc(lx, ly, 4, 0, Math.PI * 2);
+      dcCtx.fill();
+      dcCtx.fillStyle = '#2563eb';
+      dcCtx.font = 'bold 11px sans-serif';
+      dcCtx.textAlign = 'left';
+      dcCtx.fillText('x = ' + lastVal.toFixed(3), lx + 8, ly - 6);
+    }
+
+    // Title
+    dcCtx.fillStyle = '#333';
+    dcCtx.font = 'bold 13px sans-serif';
+    dcCtx.textAlign = 'center';
+    dcCtx.fillText('Contributor Fraction Over Time', pad.left + plotW / 2, pad.top - 10);
+  }
+
+  function dcAnimate() {
+    dcAnimFrame += 3;
+    drawDcFrame(dcAnimFrame);
+    if (dcAnimFrame < dcData.length) {
+      dcAnimId = requestAnimationFrame(dcAnimate);
+    }
+  }
+
+  dcPlayBtn.addEventListener('click', function() {
+    if (dcAnimId) cancelAnimationFrame(dcAnimId);
+    simulateDc();
+    dcAnimFrame = 0;
+    dcAnimate();
+  });
+
+  dcResetBtn.addEventListener('click', function() {
+    if (dcAnimId) cancelAnimationFrame(dcAnimId);
+    dcAnimId = null;
+    dcData = [];
+    dcAnimFrame = 0;
+    const W = dcCanvas.width;
+    const H = dcCanvas.height;
+    dcCtx.clearRect(0, 0, W, H);
+    dcCtx.fillStyle = '#f0f0f0';
+    dcCtx.fillRect(0, 0, W, H);
+    dcCtx.fillStyle = '#999';
+    dcCtx.font = '14px sans-serif';
+    dcCtx.textAlign = 'center';
+    dcCtx.fillText('Press Play to start simulation', W / 2, H / 2);
+    analyzeDcGame();
+  });
+
+  [dcBeta, dcCost, dcRep, dcX0].forEach(function(el) {
+    el.addEventListener('input', updateDcLabels);
+  });
+
+  // Initial state
+  updateDcLabels();
+  dcResetBtn.click();
+
+  // ====================================================================
+  // INTERACTIVE 2: Rivalry Spectrum Visualizer
+  // ====================================================================
+  const specBeta = document.getElementById('spectrum-beta');
+  const specV0 = document.getElementById('spectrum-v0');
+  const specBetaVal = document.getElementById('spectrum-beta-val');
+  const specV0Val = document.getElementById('spectrum-v0-val');
+  const specCanvas = document.getElementById('spectrum-canvas');
+  const specCtx = specCanvas.getContext('2d');
+
+  function drawSpectrum() {
+    const beta = parseFloat(specBeta.value);
+    const V0 = parseFloat(specV0.value);
+    const W = specCanvas.width;
+    const H = specCanvas.height;
+    const pad = { top: 35, right: 25, bottom: 45, left: 60 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    specCtx.clearRect(0, 0, W, H);
+
+    // Background
+    specCtx.fillStyle = '#fafbfc';
+    specCtx.fillRect(pad.left, pad.top, plotW, plotH);
+
+    // Compute data
+    const nMax = 100;
+    const points = [];
+    let maxV = 0;
+    for (let n = 1; n <= nMax; n++) {
+      const v = V0 * Math.pow(n, beta);
+      points.push({ n: n, v: v });
+      if (v > maxV) maxV = v;
+    }
+    // Ensure sensible yMax
+    let yMax = Math.max(maxV * 1.1, V0 * 1.5);
+    if (!isFinite(yMax) || yMax <= 0) yMax = V0 * 2;
+
+    // Grid
+    specCtx.strokeStyle = '#e8e8e8';
+    specCtx.lineWidth = 0.5;
+    for (let i = 0; i <= 5; i++) {
+      const y = pad.top + plotH * i / 5;
+      specCtx.beginPath();
+      specCtx.moveTo(pad.left, y);
+      specCtx.lineTo(pad.left + plotW, y);
+      specCtx.stroke();
+    }
+
+    // Axes
+    specCtx.strokeStyle = '#333';
+    specCtx.lineWidth = 1.5;
+    specCtx.beginPath();
+    specCtx.moveTo(pad.left, pad.top);
+    specCtx.lineTo(pad.left, pad.top + plotH);
+    specCtx.lineTo(pad.left + plotW, pad.top + plotH);
+    specCtx.stroke();
+
+    // Y-axis labels
+    specCtx.fillStyle = '#555';
+    specCtx.font = '11px sans-serif';
+    specCtx.textAlign = 'right';
+    for (let i = 0; i <= 5; i++) {
+      const val = yMax * (5 - i) / 5;
+      const y = pad.top + plotH * i / 5;
+      specCtx.fillText(val.toFixed(1), pad.left - 8, y + 4);
+    }
+
+    // X-axis labels
+    specCtx.textAlign = 'center';
+    for (let n = 0; n <= nMax; n += 20) {
+      const x = pad.left + (n / nMax) * plotW;
+      specCtx.fillText(n.toString(), x, pad.top + plotH + 18);
+    }
+
+    // Axis titles
+    specCtx.fillStyle = '#333';
+    specCtx.font = '12px sans-serif';
+    specCtx.textAlign = 'center';
+    specCtx.fillText('Number of Users (n)', pad.left + plotW / 2, pad.top + plotH + 38);
+
+    specCtx.save();
+    specCtx.translate(16, pad.top + plotH / 2);
+    specCtx.rotate(-Math.PI / 2);
+    specCtx.fillText('Per-User Value V(n)', 0, 0);
+    specCtx.restore();
+
+    // Non-rivalry reference line (beta = 0)
+    specCtx.setLineDash([4, 4]);
+    specCtx.strokeStyle = '#aaa';
+    specCtx.lineWidth = 1;
+    const refY = pad.top + plotH - (V0 / yMax) * plotH;
+    specCtx.beginPath();
+    specCtx.moveTo(pad.left, refY);
+    specCtx.lineTo(pad.left + plotW, refY);
+    specCtx.stroke();
+    specCtx.setLineDash([]);
+    specCtx.fillStyle = '#999';
+    specCtx.font = '10px sans-serif';
+    specCtx.textAlign = 'right';
+    specCtx.fillText('V\u2080 (non-rivalrous reference)', pad.left + plotW - 5, refY - 5);
+
+    // Choose color based on regime
+    let lineColor;
+    let regimeLabel;
+    if (beta < -0.01) {
+      lineColor = '#e74c3c'; // red for rivalrous
+      regimeLabel = 'Rivalrous (\u03B2 = ' + beta.toFixed(2) + ')';
+    } else if (beta > 0.01) {
+      lineColor = '#27ae60'; // green for anti-rivalrous
+      regimeLabel = 'Anti-rivalrous (\u03B2 = ' + beta.toFixed(2) + ')';
+    } else {
+      lineColor = '#3498db'; // blue for non-rivalrous
+      regimeLabel = 'Non-rivalrous (\u03B2 \u2248 0)';
+    }
+
+    // Draw curve
+    specCtx.strokeStyle = lineColor;
+    specCtx.lineWidth = 2.5;
+    specCtx.beginPath();
+    let started = false;
+    for (let i = 0; i < points.length; i++) {
+      const px = pad.left + (points[i].n / nMax) * plotW;
+      const py = pad.top + plotH - (points[i].v / yMax) * plotH;
+      const clampedY = Math.max(pad.top, Math.min(pad.top + plotH, py));
+      if (!started) {
+        specCtx.moveTo(px, clampedY);
+        started = true;
+      } else {
+        specCtx.lineTo(px, clampedY);
+      }
+    }
+    specCtx.stroke();
+
+    // Fill area under curve lightly
+    specCtx.globalAlpha = 0.1;
+    specCtx.fillStyle = lineColor;
+    specCtx.lineTo(pad.left + plotW, pad.top + plotH);
+    specCtx.lineTo(pad.left, pad.top + plotH);
+    specCtx.closePath();
+    specCtx.fill();
+    specCtx.globalAlpha = 1.0;
+
+    // Title
+    specCtx.fillStyle = lineColor;
+    specCtx.font = 'bold 13px sans-serif';
+    specCtx.textAlign = 'center';
+    specCtx.fillText(regimeLabel, pad.left + plotW / 2, pad.top - 10);
+
+    // Show V(100) value
+    const v100 = V0 * Math.pow(nMax, beta);
+    specCtx.fillStyle = '#555';
+    specCtx.font = '11px sans-serif';
+    specCtx.textAlign = 'left';
+    specCtx.fillText('V(1) = ' + V0.toFixed(1) + ',  V(100) = ' + v100.toFixed(1),
+      pad.left + 10, pad.top + 18);
+  }
+
+  specBeta.addEventListener('input', function() {
+    specBetaVal.textContent = parseFloat(specBeta.value).toFixed(2);
+    drawSpectrum();
+  });
+
+  specV0.addEventListener('input', function() {
+    specV0Val.textContent = parseFloat(specV0.value).toFixed(1);
+    drawSpectrum();
+  });
+
+  // Initial draw
+  specBetaVal.textContent = parseFloat(specBeta.value).toFixed(2);
+  specV0Val.textContent = parseFloat(specV0.value).toFixed(1);
+  drawSpectrum();
+
+})();
+</script>
+</body>
+</html>

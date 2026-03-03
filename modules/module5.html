@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 5: Probability & Expected Value — Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html" class="active">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Module 5</div>
+    <h1>Probability &amp; Expected Value</h1>
+    <p class="module-desc">
+      Randomness, distributions, and expected outcomes &mdash; the mathematical language of
+      mixed strategies, stochastic interactions, and average fitness in evolving populations.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module4.html">&larr; Module 4: Differential Equations</a>
+    <a href="module6.html">Module 6: Game Theory &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#basic-probability">Basic Probability</a></li>
+      <li><a href="#discrete-random-variables">Discrete Random Variables</a></li>
+      <li><a href="#expected-value">Expected Value</a></li>
+      <li><a href="#variance-std">Variance and Standard Deviation</a></li>
+      <li><a href="#conditional-expectation">Conditional Expectation &amp; Bayes' Theorem</a></li>
+      <li><a href="#law-large-numbers">The Law of Large Numbers</a></li>
+      <li><a href="#connecting-game-theory">Connecting to Game Theory</a></li>
+      <li><a href="#interactive-viz">Interactive: Binomial Distribution Explorer</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 1: BASIC PROBABILITY                                 -->
+  <!-- ============================================================ -->
+  <div class="section" id="basic-probability">
+    <h2>1. Basic Probability</h2>
+
+    <p>
+      Probability is the mathematical framework for reasoning about uncertainty. In evolutionary
+      game theory, uncertainty arises constantly: which opponent will a player encounter? What
+      action will a player choose under a mixed strategy? How many cooperators are in a randomly
+      sampled group? Probability theory gives us the precise language to answer these questions.
+    </p>
+
+    <h3>1.1 Sample Spaces and Events</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Sample Space</span>
+      <p>
+        The <strong>sample space</strong> \(\Omega\) is the set of all possible outcomes of a
+        random experiment. An <strong>event</strong> \(A\) is any subset of the sample space:
+        \(A \subseteq \Omega\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Coin Flip</span>
+      <p>
+        Flip a fair coin: \(\Omega = \{H, T\}\). The event "heads" is \(A = \{H\}\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Random Opponent</span>
+      <p>
+        A player is matched against a randomly chosen member of a population that uses
+        one of three strategies: Cooperate (C), Defect (D), or Tit-for-Tat (T). Then
+        \(\Omega = \{C, D, T\}\). The event "opponent cooperates" is \(A = \{C\}\),
+        while "opponent does not defect" is \(B = \{C, T\}\).
+      </p>
+    </div>
+
+    <h3>1.2 Probability Axioms</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Kolmogorov Axioms</span>
+      <p>
+        A <strong>probability function</strong> \(P\) assigns a real number \(P(A)\) to each
+        event \(A \subseteq \Omega\), satisfying:
+      </p>
+      <ol>
+        <li><strong>Non-negativity:</strong> \(P(A) \geq 0\) for all events \(A\).</li>
+        <li><strong>Normalization:</strong> \(P(\Omega) = 1\).</li>
+        <li><strong>Additivity:</strong> If \(A\) and \(B\) are mutually exclusive (\(A \cap B = \emptyset\)), then
+          \(P(A \cup B) = P(A) + P(B)\).</li>
+      </ol>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Why This Matters for EGT</span>
+      <p>
+        A <strong>mixed strategy</strong> is exactly a probability distribution over a player's
+        available pure strategies. If a player can choose Cooperate or Defect, a mixed strategy assigns
+        probabilities \(p\) and \(1-p\) to these actions. The axioms guarantee that these probabilities
+        are non-negative and sum to 1 &mdash; precisely the conditions that define a valid strategy.
+      </p>
+    </div>
+
+    <h3>1.3 Set Operations on Events</h3>
+
+    <p>
+      Events combine using set operations, and probability respects these operations through
+      well-defined rules.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Union, Intersection, Complement</span>
+      <ul>
+        <li><strong>Union</strong> \(A \cup B\): the event that \(A\) or \(B\) (or both) occurs.</li>
+        <li><strong>Intersection</strong> \(A \cap B\): the event that both \(A\) and \(B\) occur.</li>
+        <li><strong>Complement</strong> \(A^c\): the event that \(A\) does not occur.</li>
+      </ul>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Inclusion-Exclusion</span>
+      <p>For any two events \(A\) and \(B\):</p>
+      \[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]
+      <p>The complement rule is:</p>
+      \[P(A^c) = 1 - P(A)\]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Meeting a Cooperator or a Reciprocator</span>
+      <p>
+        In a population, 40% are Cooperators (C), 30% are Reciprocators (R), and 10% use both
+        strategies situationally (C and R overlap). What is the probability of meeting someone
+        who cooperates or reciprocates?
+      </p>
+      \[P(C \cup R) = P(C) + P(R) - P(C \cap R) = 0.4 + 0.3 - 0.1 = 0.6\]
+    </div>
+
+    <h3>1.4 Conditional Probability</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Conditional Probability</span>
+      <p>
+        The <strong>conditional probability</strong> of \(A\) given \(B\) is:
+      </p>
+      \[P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{provided } P(B) > 0.\]
+    </div>
+
+    <p>
+      Conditional probability captures how our assessment of an event changes when we have
+      partial information. In game theory, this arises when a player observes a signal about
+      an opponent's type or past behavior.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Opponent's Strategy Given Past Behavior</span>
+      <p>
+        Suppose 60% of a population are Cooperators and 40% are Defectors. Cooperators
+        cooperate 90% of the time, while Defectors cooperate 20% of the time (to disguise themselves).
+        If your opponent cooperated in the last round, what is the probability they are a Cooperator?
+      </p>
+      <p>Let \(C\) = "opponent is a Cooperator" and \(K\) = "opponent cooperated last round."</p>
+      \[P(K) = P(K \mid C) P(C) + P(K \mid C^c) P(C^c) = 0.9 \times 0.6 + 0.2 \times 0.4 = 0.54 + 0.08 = 0.62\]
+      \[P(C \mid K) = \frac{P(K \mid C) P(C)}{P(K)} = \frac{0.9 \times 0.6}{0.62} = \frac{0.54}{0.62} \approx 0.871\]
+      <p>
+        After observing cooperation, we update our belief from 60% to about 87%.
+      </p>
+    </div>
+
+    <h3>1.5 Independence</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Independence</span>
+      <p>
+        Two events \(A\) and \(B\) are <strong>independent</strong> if:
+      </p>
+      \[P(A \cap B) = P(A) \cdot P(B)\]
+      <p>
+        Equivalently, \(P(A \mid B) = P(A)\) &mdash; knowing that \(B\) occurred does not
+        change the probability of \(A\).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Independence in Random Matching</span>
+      <p>
+        In many EGT models, players are randomly matched from a large population. The strategy
+        of the opponent you meet in round 5 is independent of the opponent you met in round 3 (assuming
+        the population is large and well-mixed). This independence assumption is what makes
+        the mathematics tractable and leads to the replicator equation.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 2: DISCRETE RANDOM VARIABLES                        -->
+  <!-- ============================================================ -->
+  <div class="section" id="discrete-random-variables">
+    <h2>2. Discrete Random Variables</h2>
+
+    <p>
+      A random variable gives us a way to assign numerical values to outcomes, which is
+      essential for computing payoffs, counting cooperators, and measuring fitness.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Discrete Random Variable</span>
+      <p>
+        A <strong>discrete random variable</strong> \(X\) is a function
+        \(X : \Omega \to \mathbb{R}\) that maps each outcome in the sample space to a real
+        number, taking on a finite or countably infinite set of values.
+      </p>
+    </div>
+
+    <h3>2.1 Probability Mass Function (PMF)</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; PMF</span>
+      <p>
+        The <strong>probability mass function</strong> of a discrete random variable \(X\) is:
+      </p>
+      \[p_X(x) = P(X = x)\]
+      <p>
+        It satisfies \(p_X(x) \geq 0\) for all \(x\), and \(\displaystyle\sum_{\text{all } x} p_X(x) = 1\).
+      </p>
+    </div>
+
+    <h3>2.2 Cumulative Distribution Function (CDF)</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; CDF</span>
+      <p>
+        The <strong>cumulative distribution function</strong> of \(X\) is:
+      </p>
+      \[F_X(x) = P(X \leq x) = \sum_{x_i \leq x} p_X(x_i)\]
+    </div>
+
+    <h3>2.3 The Bernoulli Distribution</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Bernoulli Random Variable</span>
+      <p>
+        A <strong>Bernoulli random variable</strong> \(X \sim \text{Bernoulli}(p)\) takes the
+        value 1 with probability \(p\) and the value 0 with probability \(1-p\):
+      </p>
+      \[P(X = 1) = p, \qquad P(X = 0) = 1 - p\]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Bernoulli in EGT</span>
+      <p>
+        A Bernoulli random variable models a single encounter: does the opponent cooperate
+        (\(X=1\)) or defect (\(X=0\))? If the population fraction of cooperators is \(p\),
+        then a random encounter is \(X \sim \text{Bernoulli}(p)\).
+      </p>
+    </div>
+
+    <h3>2.4 The Binomial Distribution</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Binomial Distribution</span>
+      <p>
+        If \(X\) is the number of successes in \(n\) independent Bernoulli trials, each with
+        success probability \(p\), then \(X \sim \text{Binomial}(n, p)\) with PMF:
+      </p>
+      \[P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, \ldots, n\]
+      <p>where \(\displaystyle\binom{n}{k} = \frac{n!}{k!(n-k)!}\) is the binomial coefficient.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Cooperators in a Group</span>
+      <p>
+        Suppose 30% of a population are Cooperators. A group of \(n = 5\) players is randomly
+        assembled. What is the probability that exactly 2 of them are Cooperators?
+      </p>
+      <p>
+        Let \(X \sim \text{Binomial}(5, 0.3)\). Then:
+      </p>
+      \[P(X = 2) = \binom{5}{2} (0.3)^2 (0.7)^3 = 10 \times 0.09 \times 0.343 = 0.3087\]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Public Goods Game</span>
+      <p>
+        In a public goods game, each of \(n\) players independently contributes with
+        probability \(p\). The number of contributors \(X \sim \text{Binomial}(n, p)\). The
+        collective benefit depends on \(X\), so the binomial distribution is fundamental to
+        analyzing group-level interactions in EGT.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Note &mdash; Key Properties</span>
+      <p>For \(X \sim \text{Binomial}(n, p)\):</p>
+      <ul>
+        <li>Mean: \(E[X] = np\)</li>
+        <li>Variance: \(\text{Var}(X) = np(1-p)\)</li>
+        <li>The distribution is symmetric when \(p = 0.5\), skewed right when \(p < 0.5\),
+            and skewed left when \(p > 0.5\).</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 3: EXPECTED VALUE                                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="expected-value">
+    <h2>3. Expected Value</h2>
+
+    <p>
+      Expected value is arguably <em>the</em> central concept connecting probability to game
+      theory. The entire framework of mixed strategies, fitness calculations, and replicator
+      dynamics rests on computing expected payoffs.
+    </p>
+
+    <h3>3.1 Definition</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Expected Value</span>
+      <p>
+        The <strong>expected value</strong> (or <strong>expectation</strong>) of a discrete
+        random variable \(X\) that takes values \(x_1, x_2, \ldots\) with probabilities
+        \(p(x_1), p(x_2), \ldots\) is:
+      </p>
+      \[E[X] = \sum_{i} x_i \, p(x_i)\]
+      <p>
+        The expected value is a weighted average of the possible values, weighted by their
+        probabilities.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Simple Payoff</span>
+      <p>
+        A player receives payoff 3 with probability 0.4 and payoff 1 with probability 0.6.
+        The expected payoff is:
+      </p>
+      \[E[X] = 3 \times 0.4 + 1 \times 0.6 = 1.2 + 0.6 = 1.8\]
+    </div>
+
+    <h3>3.2 Linearity of Expectation</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Linearity of Expectation</span>
+      <p>
+        For any random variables \(X\) and \(Y\) and constants \(a, b \in \mathbb{R}\):
+      </p>
+      \[E[aX + bY] = a \, E[X] + b \, E[Y]\]
+      <p>
+        This holds <strong>regardless of whether \(X\) and \(Y\) are independent</strong>.
+        Linearity is one of the most powerful and frequently used properties in probability.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Total Payoff from Multiple Rounds</span>
+      <p>
+        A player plays 10 rounds against random opponents. In each round, the expected payoff
+        is 2.5. By linearity, the expected total payoff across all 10 rounds is:
+      </p>
+      \[E[\text{Total}] = E[X_1 + X_2 + \cdots + X_{10}] = 10 \times 2.5 = 25\]
+    </div>
+
+    <h3>3.3 Expected Payoff Under Mixed Strategies</h3>
+
+    <p>
+      This is where expected value meets game theory directly. Consider a two-player game
+      where Player 1 has \(m\) strategies and Player 2 has \(n\) strategies. The payoff to
+      Player 1 when they play pure strategy \(i\) and Player 2 plays pure strategy \(j\) is
+      \(a_{ij}\), forming the <strong>payoff matrix</strong> \(A = [a_{ij}]\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Mixed Strategy</span>
+      <p>
+        A <strong>mixed strategy</strong> for Player 1 is a probability distribution
+        \(\mathbf{x} = (x_1, x_2, \ldots, x_m)\) over their pure strategies, where:
+      </p>
+      \[x_i \geq 0 \quad \text{for all } i, \qquad \sum_{i=1}^{m} x_i = 1\]
+      <p>
+        Similarly, Player 2's mixed strategy is
+        \(\mathbf{y} = (y_1, y_2, \ldots, y_n)\).
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Expected Payoff Under Mixed Strategies</span>
+      <p>
+        When Player 1 plays mixed strategy \(\mathbf{x}\) and Player 2 plays mixed strategy
+        \(\mathbf{y}\), the <strong>expected payoff</strong> to Player 1 is:
+      </p>
+      \[E[\text{payoff}] = \sum_{i=1}^{m} \sum_{j=1}^{n} x_i \, y_j \, a_{ij}\]
+      <p>In matrix notation, this is compactly written as:</p>
+      \[\boxed{E[\text{payoff}] = \mathbf{x}^\top A \, \mathbf{y}}\]
+    </div>
+
+    <p>Let us derive this step by step.</p>
+
+    <div class="example-box">
+      <span class="box-title">Derivation &mdash; From Probabilities to Matrix Form</span>
+      <p>
+        Player 1 chooses strategy \(i\) with probability \(x_i\). Independently, Player 2
+        chooses strategy \(j\) with probability \(y_j\). The probability that the strategy
+        pair \((i, j)\) is played is \(x_i y_j\) (by independence). The payoff for this pair
+        is \(a_{ij}\). Therefore, by the definition of expected value:
+      </p>
+      \[
+      E[\text{payoff}] = \sum_{i} \sum_{j} P(\text{pair } (i,j)) \times \text{payoff}(i,j)
+      = \sum_{i=1}^{m} \sum_{j=1}^{n} x_i \, y_j \, a_{ij}
+      \]
+      <p>Now observe the inner sum:</p>
+      \[\sum_{j=1}^{n} a_{ij} \, y_j = (A \mathbf{y})_i\]
+      <p>This is the \(i\)-th component of the matrix-vector product \(A\mathbf{y}\). Then:</p>
+      \[E[\text{payoff}] = \sum_{i=1}^{m} x_i (A\mathbf{y})_i = \mathbf{x}^\top (A\mathbf{y}) = \mathbf{x}^\top A \mathbf{y}\]
+    </div>
+
+    <h3>3.4 Worked Example: Hawk-Dove Game</h3>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Expected Payoff in Hawk-Dove</span>
+      <p>Consider the Hawk-Dove game with payoff matrix (payoffs to the row player):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Hawk</th>
+          <th>Dove</th>
+        </tr>
+        <tr>
+          <td class="row-header">Hawk</td>
+          <td>\(\frac{V-C}{2}\)</td>
+          <td>\(V\)</td>
+        </tr>
+        <tr>
+          <td class="row-header">Dove</td>
+          <td>\(0\)</td>
+          <td>\(\frac{V}{2}\)</td>
+        </tr>
+      </table>
+      <p>
+        With \(V = 4\) and \(C = 6\), the matrix becomes:
+      </p>
+      \[A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\]
+      <p>
+        Suppose Player 1 plays Hawk with probability \(x\) and Dove with probability \(1-x\),
+        while Player 2 plays Hawk with probability \(y\) and Dove with probability \(1-y\).
+        Then \(\mathbf{x} = (x, 1-x)^\top\) and \(\mathbf{y} = (y, 1-y)^\top\).
+      </p>
+      <p>First, compute \(A\mathbf{y}\):</p>
+      \[
+      A\mathbf{y} = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix} \begin{pmatrix} y \\ 1-y \end{pmatrix}
+      = \begin{pmatrix} -y + 4(1-y) \\ 0 + 2(1-y) \end{pmatrix}
+      = \begin{pmatrix} 4 - 5y \\ 2 - 2y \end{pmatrix}
+      \]
+      <p>Then:</p>
+      \[
+      E[\text{payoff}] = \mathbf{x}^\top A \mathbf{y} = x(4 - 5y) + (1-x)(2 - 2y)
+      \]
+      \[= 4x - 5xy + 2 - 2y - 2x + 2xy = 2 + 2x - 2y - 3xy\]
+      <p>
+        For the specific case \(x = 1/3\), \(y = 1/3\) (the mixed Nash equilibrium when \(V/C = 2/3\)):
+      </p>
+      \[E[\text{payoff}] = 2 + \frac{2}{3} - \frac{2}{3} - 3 \cdot \frac{1}{9} = 2 - \frac{1}{3} = \frac{5}{3} \approx 1.67\]
+    </div>
+
+    <h3>3.5 Expected Payoff Against a Population</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Fitness as Expected Payoff</span>
+      <p>
+        In evolutionary game theory, a strategy's <strong>fitness</strong> is its expected payoff
+        when played against the current population. If the population state is
+        \(\mathbf{y} = (y_1, \ldots, y_n)\) (fraction of the population playing each strategy),
+        then the fitness of pure strategy \(i\) is:
+      </p>
+      \[f_i(\mathbf{y}) = (A\mathbf{y})_i = \sum_{j=1}^{n} a_{ij} \, y_j\]
+      <p>
+        And the <strong>average fitness</strong> of the population is:
+      </p>
+      \[\bar{f}(\mathbf{y}) = \mathbf{y}^\top A \mathbf{y} = \sum_{i} \sum_{j} y_i \, y_j \, a_{ij}\]
+      <p>
+        The replicator equation from Module 4 uses exactly this:
+        \(\dot{y}_i = y_i \big( f_i(\mathbf{y}) - \bar{f}(\mathbf{y}) \big)\).
+      </p>
+    </div>
+
+    <h3>3.6 Expected Value of a Function</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Law of the Unconscious Statistician (LOTUS)</span>
+      <p>
+        If \(X\) is a discrete random variable and \(g\) is any function, then:
+      </p>
+      \[E[g(X)] = \sum_{i} g(x_i) \, p(x_i)\]
+      <p>
+        This lets us compute the expected value of a transformed variable directly from the
+        original distribution, without first finding the distribution of \(g(X)\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Nonlinear Payoff</span>
+      <p>
+        Suppose the benefit from a public goods game with \(X\) cooperators in a group
+        of 5 is \(g(X) = \sqrt{X}\) (diminishing returns). With \(p = 0.4\) for cooperation:
+      </p>
+      \[E[\sqrt{X}] = \sum_{k=0}^{5} \sqrt{k} \cdot \binom{5}{k} (0.4)^k (0.6)^{5-k}\]
+      \[= \sqrt{0} \cdot 0.07776 + \sqrt{1} \cdot 0.2592 + \sqrt{2} \cdot 0.3456 + \sqrt{3} \cdot 0.2304 + \sqrt{4} \cdot 0.0768 + \sqrt{5} \cdot 0.01024\]
+      \[\approx 0 + 0.2592 + 0.4886 + 0.3991 + 0.1536 + 0.0229 = 1.3234\]
+      <p>
+        Note this is <em>less than</em> \(\sqrt{E[X]} = \sqrt{2} \approx 1.414\), illustrating
+        Jensen's inequality for concave functions.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 4: VARIANCE AND STANDARD DEVIATION                   -->
+  <!-- ============================================================ -->
+  <div class="section" id="variance-std">
+    <h2>4. Variance and Standard Deviation</h2>
+
+    <p>
+      While expected value tells us the "center" of a distribution, variance measures how
+      spread out the values are. In strategic interactions, variance captures the
+      <strong>risk</strong> associated with a strategy.
+    </p>
+
+    <h3>4.1 Definitions</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Variance</span>
+      <p>
+        The <strong>variance</strong> of a random variable \(X\) is:
+      </p>
+      \[\text{Var}(X) = E\big[(X - E[X])^2\big] = \sum_{i} (x_i - \mu)^2 \, p(x_i)\]
+      <p>where \(\mu = E[X]\).</p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Computational Formula</span>
+      <p>An equivalent and often more convenient formula:</p>
+      \[\text{Var}(X) = E[X^2] - (E[X])^2\]
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Standard Deviation</span>
+      <p>
+        The <strong>standard deviation</strong> is:
+      </p>
+      \[\sigma_X = \sqrt{\text{Var}(X)}\]
+      <p>
+        It has the same units as \(X\), making it more interpretable than variance.
+      </p>
+    </div>
+
+    <h3>4.2 Properties of Variance</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Variance Properties</span>
+      <ol>
+        <li>\(\text{Var}(aX + b) = a^2 \, \text{Var}(X)\) (constants shift the mean but scaling squares)</li>
+        <li>If \(X\) and \(Y\) are <strong>independent</strong>:
+          \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\)</li>
+        <li>\(\text{Var}(X) \geq 0\), with equality if and only if \(X\) is constant.</li>
+      </ol>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Variance of a Mixed Strategy Payoff</span>
+      <p>
+        In a game, playing strategy A yields payoff 5 with probability 0.5 and payoff 1 with
+        probability 0.5. Playing strategy B yields payoff 3 with certainty.
+      </p>
+      <p>Both strategies have the same expected payoff:</p>
+      \[E[A] = 5 \times 0.5 + 1 \times 0.5 = 3, \qquad E[B] = 3\]
+      <p>But their variances differ:</p>
+      \[\text{Var}(A) = (5-3)^2 \times 0.5 + (1-3)^2 \times 0.5 = 4 \times 0.5 + 4 \times 0.5 = 4\]
+      \[\text{Var}(B) = 0\]
+      <p>
+        Strategy A is <strong>riskier</strong>. A risk-averse player might prefer B even though
+        they have the same expected payoff. In finite populations (as opposed to infinite population
+        EGT models), variance matters because a string of low payoffs can lead to extinction.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Risk in Evolutionary Dynamics</span>
+      <p>
+        In infinite-population models (standard replicator dynamics), only expected fitness
+        matters. But in <strong>finite populations</strong> (e.g., Moran process, Wright-Fisher
+        models), variance plays a crucial role. A strategy with high expected payoff but high
+        variance can still go extinct due to random fluctuations &mdash; a phenomenon known as
+        <strong>stochastic extinction</strong>. This is why understanding variance is important
+        even in evolutionary game theory.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 5: CONDITIONAL EXPECTATION & BAYES                   -->
+  <!-- ============================================================ -->
+  <div class="section" id="conditional-expectation">
+    <h2>5. Conditional Expectation &amp; Bayes' Theorem</h2>
+
+    <h3>5.1 Conditional Expectation</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Conditional Expectation</span>
+      <p>
+        The <strong>conditional expectation</strong> of \(X\) given the event \(Y = y\) is:
+      </p>
+      \[E[X \mid Y = y] = \sum_{x} x \, P(X = x \mid Y = y)\]
+      <p>
+        It is the expected value of \(X\) computed using the conditional distribution
+        of \(X\) given \(Y = y\).
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Law of Total Expectation</span>
+      <p>
+        For any random variables \(X\) and \(Y\):
+      </p>
+      \[E[X] = \sum_{y} E[X \mid Y = y] \, P(Y = y) = E\big[E[X \mid Y]\big]\]
+      <p>
+        The overall expectation is the weighted average of the conditional expectations.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Payoff Depending on Opponent Type</span>
+      <p>
+        Your payoff depends on whether your opponent is a Hawk (probability 0.4) or a Dove
+        (probability 0.6). Against a Hawk, your expected payoff is 1. Against a Dove, your
+        expected payoff is 4. What is your overall expected payoff?
+      </p>
+      \[E[\text{payoff}] = E[\text{payoff} \mid \text{Hawk}] \cdot P(\text{Hawk}) + E[\text{payoff} \mid \text{Dove}] \cdot P(\text{Dove})\]
+      \[= 1 \times 0.4 + 4 \times 0.6 = 0.4 + 2.4 = 2.8\]
+    </div>
+
+    <h3>5.2 Bayes' Theorem</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Bayes' Theorem</span>
+      <p>
+        For events \(A\) and \(B\) with \(P(B) > 0\):
+      </p>
+      \[P(A \mid B) = \frac{P(B \mid A) \, P(A)}{P(B)}\]
+      <p>
+        More generally, if \(\{A_1, A_2, \ldots, A_k\}\) partition the sample space:
+      </p>
+      \[P(A_i \mid B) = \frac{P(B \mid A_i) \, P(A_i)}{\sum_{j=1}^{k} P(B \mid A_j) \, P(A_j)}\]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Bayesian Games</span>
+      <p>
+        Bayes' theorem is the foundation of <strong>Bayesian games</strong> (games of incomplete
+        information). In such games, players do not know the "type" of their opponent but can
+        form beliefs and update them based on observed actions. This is precisely what Bayes'
+        theorem does: it converts <em>prior beliefs</em> \(P(A)\) into <em>posterior beliefs</em>
+        \(P(A \mid B)\) after observing evidence \(B\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Inferring Strategy from Behavior</span>
+      <p>
+        In a population, 70% of players use Tit-for-Tat (TFT) and 30% use Always-Defect (AD).
+        In a given round, TFT cooperates with probability 0.8 (they cooperate if the opponent
+        cooperated last round), while AD cooperates with probability 0. You observe your opponent
+        cooperating. What is the posterior probability they are TFT?
+      </p>
+      \[P(\text{TFT} \mid \text{Coop}) = \frac{P(\text{Coop} \mid \text{TFT}) \, P(\text{TFT})}{P(\text{Coop})}\]
+      \[P(\text{Coop}) = 0.8 \times 0.7 + 0 \times 0.3 = 0.56\]
+      \[P(\text{TFT} \mid \text{Coop}) = \frac{0.8 \times 0.7}{0.56} = \frac{0.56}{0.56} = 1\]
+      <p>
+        Since AD <em>never</em> cooperates, observing cooperation provides certainty that
+        the opponent is TFT. This illustrates how behavior can perfectly reveal type when
+        strategies have non-overlapping action profiles.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 6: LAW OF LARGE NUMBERS                              -->
+  <!-- ============================================================ -->
+  <div class="section" id="law-large-numbers">
+    <h2>6. The Law of Large Numbers</h2>
+
+    <p>
+      The Law of Large Numbers (LLN) is one of the most important results in probability theory
+      and provides the theoretical justification for using expected values to model the long-run
+      behavior of populations.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Weak Law of Large Numbers</span>
+      <p>
+        Let \(X_1, X_2, \ldots, X_n\) be independent and identically distributed (i.i.d.)
+        random variables with mean \(\mu = E[X_i]\). The <strong>sample average</strong>
+        \(\overline{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i\) converges in probability to \(\mu\):
+      </p>
+      \[\overline{X}_n \xrightarrow{P} \mu \quad \text{as } n \to \infty\]
+      <p>
+        Formally, for any \(\varepsilon > 0\):
+      </p>
+      \[\lim_{n \to \infty} P\!\left( |\overline{X}_n - \mu| > \varepsilon \right) = 0\]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Why LLN Justifies the Replicator Equation</span>
+      <p>
+        The replicator equation models strategy dynamics in <strong>infinite populations</strong>
+        using expected fitness. Why is this valid? Because the Law of Large Numbers guarantees
+        that in a sufficiently large population, the <em>actual average payoff</em> of a strategy
+        converges to its <em>expected payoff</em>. The randomness washes out, and deterministic
+        dynamics emerge.
+      </p>
+      <p>
+        Specifically, if a strategy \(i\) with frequency \(y_i\) is played by \(N y_i\)
+        individuals, each earning random payoffs with expectation \(f_i\), then by LLN their
+        average payoff converges to \(f_i\) as \(N \to \infty\). This is why we can write the
+        replicator equation \(\dot{y}_i = y_i(f_i - \bar{f})\) as a <em>deterministic</em>
+        ODE despite the underlying interactions being random.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Convergence of Average Payoff</span>
+      <p>
+        A Cooperator's payoff per round is a random variable with \(\mu = 2.5\) and
+        \(\sigma = 1.5\). After \(n = 100\) rounds, the sample average payoff satisfies:
+      </p>
+      \[E[\overline{X}_{100}] = 2.5, \qquad \text{Var}(\overline{X}_{100}) = \frac{1.5^2}{100} = 0.0225\]
+      \[\sigma_{\overline{X}_{100}} = 0.15\]
+      <p>
+        The standard deviation of the average has shrunk from 1.5 to 0.15 &mdash; the average
+        payoff is now tightly concentrated around the expected value. After \(n = 10{,}000\)
+        rounds, \(\sigma_{\overline{X}} = 0.015\). The convergence is at rate \(1/\sqrt{n}\).
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Note &mdash; Finite vs. Infinite Populations</span>
+      <p>
+        The LLN tells us that deterministic models (replicator dynamics) are good approximations
+        when population sizes are large. For <strong>small populations</strong>, randomness
+        does not average out, and we need stochastic models (Moran process, stochastic
+        differential equations). The gap between these regimes is a major research area in
+        evolutionary game theory.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 7: CONNECTING TO GAME THEORY                        -->
+  <!-- ============================================================ -->
+  <div class="section" id="connecting-game-theory">
+    <h2>7. Connecting to Game Theory</h2>
+
+    <p>
+      Let us bring together all the probability concepts and show exactly how they form
+      the mathematical backbone of game theory and evolutionary dynamics.
+    </p>
+
+    <h3>7.1 Mixed Strategy as a Probability Distribution</h3>
+
+    <p>
+      A mixed strategy is nothing more than a probability distribution over pure strategies.
+      This means everything we have learned about probability applies directly.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Simplex of Mixed Strategies</span>
+      <p>
+        For a player with \(n\) pure strategies, the set of all mixed strategies is the
+        <strong>probability simplex</strong>:
+      </p>
+      \[\Delta_n = \left\{ \mathbf{x} \in \mathbb{R}^n \;\Big|\; x_i \geq 0 \text{ for all } i, \;\; \sum_{i=1}^{n} x_i = 1 \right\}\]
+      <p>
+        Each point in \(\Delta_n\) is a valid probability distribution, hence a valid mixed strategy.
+      </p>
+    </div>
+
+    <h3>7.2 The Expected Payoff Formula in Full</h3>
+
+    <p>
+      Consider a symmetric two-player game with payoff matrix \(A \in \mathbb{R}^{n \times n}\).
+      We summarize the key expected payoff calculations:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Summary &mdash; Expected Payoff Formulas</span>
+      <ol>
+        <li><strong>Pure vs. Pure:</strong> Strategy \(i\) against strategy \(j\) yields payoff \(a_{ij}\).</li>
+        <li><strong>Pure vs. Mixed:</strong> Strategy \(i\) against mixed strategy \(\mathbf{y}\) yields expected payoff:
+          \[f_i(\mathbf{y}) = (A\mathbf{y})_i = \sum_{j=1}^{n} a_{ij} \, y_j\]
+        </li>
+        <li><strong>Mixed vs. Mixed:</strong> Mixed strategy \(\mathbf{x}\) against \(\mathbf{y}\) yields:
+          \[E[\text{payoff}] = \mathbf{x}^\top A \mathbf{y} = \sum_{i=1}^{n} x_i \, f_i(\mathbf{y}) = \sum_{i=1}^{n} \sum_{j=1}^{n} x_i \, a_{ij} \, y_j\]
+        </li>
+        <li><strong>Average Population Fitness:</strong> When the population state is \(\mathbf{y}\):
+          \[\bar{f} = \mathbf{y}^\top A \mathbf{y}\]
+        </li>
+      </ol>
+    </div>
+
+    <h3>7.3 Full Worked Example: Prisoner's Dilemma</h3>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Expected Payoffs in the Prisoner's Dilemma</span>
+      <p>
+        Consider the Prisoner's Dilemma with payoff matrix (payoffs to the row player):
+      </p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Cooperate</th>
+          <th>Defect</th>
+        </tr>
+        <tr>
+          <td class="row-header">Cooperate</td>
+          <td>3</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td class="row-header">Defect</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+      </table>
+      <p>So \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\).</p>
+
+      <p>
+        Let Player 1 cooperate with probability \(x\) and Player 2 cooperate with probability
+        \(y\). Then \(\mathbf{x} = (x, 1-x)^\top\), \(\mathbf{y} = (y, 1-y)^\top\).
+      </p>
+
+      <p><strong>Step 1:</strong> Compute \(A\mathbf{y}\) (fitness of each pure strategy against \(\mathbf{y}\)):</p>
+      \[
+      A\mathbf{y} = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix} \begin{pmatrix} y \\ 1-y \end{pmatrix}
+      = \begin{pmatrix} 3y \\ 5y + (1-y) \end{pmatrix}
+      = \begin{pmatrix} 3y \\ 1 + 4y \end{pmatrix}
+      \]
+      <ul>
+        <li>Fitness of Cooperate: \(f_C = 3y\)</li>
+        <li>Fitness of Defect: \(f_D = 1 + 4y\)</li>
+      </ul>
+
+      <p><strong>Step 2:</strong> Observe that \(f_D > f_C\) for all \(y \in [0,1]\):</p>
+      \[f_D - f_C = 1 + 4y - 3y = 1 + y > 0\]
+      <p>
+        Defect always has higher expected fitness &mdash; it is a <strong>dominant strategy</strong>.
+        This is the fundamental tension of the Prisoner's Dilemma.
+      </p>
+
+      <p><strong>Step 3:</strong> Compute the expected payoff for a mixed strategy:</p>
+      \[E[\text{payoff}] = \mathbf{x}^\top A \mathbf{y} = x \cdot 3y + (1-x)(1 + 4y)\]
+      \[= 3xy + 1 + 4y - x - 4xy = 1 + 4y - x - xy\]
+
+      <p><strong>Step 4:</strong> Average population fitness when the fraction of cooperators is \(y\):</p>
+      \[\bar{f} = \mathbf{y}^\top A \mathbf{y} = y \cdot 3y + (1-y)(1 + 4y) = 3y^2 + 1 + 4y - y - 4y^2 = 1 + 3y - y^2\]
+
+      <p>
+        At \(y = 0\) (all Defectors): \(\bar{f} = 1\). At \(y = 1\) (all Cooperators):
+        \(\bar{f} = 3\). The paradox: everyone is better off when all cooperate, but
+        individual selection drives the population to all-defect.
+      </p>
+    </div>
+
+    <h3>7.4 Indifference and Nash Equilibrium</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Indifference Principle</span>
+      <p>
+        At a <strong>completely mixed Nash equilibrium</strong>, each player must be
+        <em>indifferent</em> among all strategies played with positive probability. That is,
+        if Player 2 plays \(\mathbf{y}^*\), then for all strategies \(i\) in the support of
+        Player 1's equilibrium mix:
+      </p>
+      \[f_i(\mathbf{y}^*) = f_j(\mathbf{y}^*) \quad \text{for all } i, j \text{ in the support}\]
+      <p>
+        This condition comes directly from expected payoff calculations: if one strategy had
+        strictly higher expected payoff, a rational player would shift all probability to it.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Finding the Mixed Nash Equilibrium</span>
+      <p>
+        Consider a symmetric game with payoff matrix:
+      </p>
+      \[A = \begin{pmatrix} 2 & 0 \\ 3 & 1 \end{pmatrix}\]
+      <p>
+        (This is a variant of Hawk-Dove.) We find the mixed equilibrium \(\mathbf{y}^* = (y^*, 1-y^*)^\top\)
+        by setting the fitness of both strategies equal:
+      </p>
+      \[f_1 = f_2 \implies 2y^* + 0(1-y^*) = 3y^* + 1(1-y^*)\]
+      \[2y^* = 3y^* + 1 - y^* = 2y^* + 1\]
+      \[0 = 1\]
+      <p>
+        There is no solution! This means the game has no completely mixed Nash equilibrium.
+        Indeed, strategy 2 dominates strategy 1 (since \(3 > 2\) and \(1 > 0\)), so the
+        unique Nash equilibrium is the pure strategy \(\mathbf{y}^* = (0, 1)^\top\).
+      </p>
+      <p>
+        This example illustrates how expected payoff calculations can reveal whether a mixed
+        equilibrium exists.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Hawk-Dove Mixed Equilibrium (Revisited)</span>
+      <p>For the Hawk-Dove game with \(V = 4, C = 6\):</p>
+      \[A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\]
+      <p>Setting \(f_H = f_D\):</p>
+      \[-y + 4(1-y) = 0 \cdot y + 2(1-y)\]
+      \[4 - 5y = 2 - 2y \implies 2 = 3y \implies y^* = \frac{2}{3}\]
+      <p>
+        The mixed Nash equilibrium has each player (or the population) playing Hawk with
+        probability \(2/3\) and Dove with probability \(1/3\). This is also the evolutionarily
+        stable state under the replicator dynamics.
+      </p>
+    </div>
+
+    <h3>7.5 From Expected Payoff to Replicator Dynamics</h3>
+
+    <div class="note-box">
+      <span class="box-title">The Bridge to Module 7</span>
+      <p>
+        Everything comes together in the <strong>replicator equation</strong>. With the
+        notation from this module:
+      </p>
+      \[\dot{y}_i = y_i \Big( \underbrace{(A\mathbf{y})_i}_{\text{fitness of strategy } i} - \underbrace{\mathbf{y}^\top A \mathbf{y}}_{\text{average fitness}} \Big)\]
+      <p>
+        Every term in this equation is an expected value. The fitness \((A\mathbf{y})_i\) is
+        the expected payoff of strategy \(i\) against the population. The average fitness
+        \(\mathbf{y}^\top A \mathbf{y}\) is the expected payoff of a randomly chosen individual.
+        Strategy \(i\) grows when its expected payoff exceeds the population average &mdash;
+        a principle that is entirely built on the probability theory we have developed.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 8: INTERACTIVE VISUALIZATION                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive-viz">
+    <h2>Interactive: Binomial Distribution Explorer</h2>
+
+    <div class="interactive-container">
+      <h3>Interactive: Binomial Distribution Explorer</h3>
+      <p>Explore how the binomial distribution changes with n (number of trials) and p (probability of success). Click "Simulate" to overlay results from 1000 random experiments.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>n (trials):</label>
+          <input type="range" id="prob-n" min="1" max="50" value="10" step="1">
+          <span class="control-value" id="prob-n-val">10</span>
+        </div>
+        <div class="control-group">
+          <label>p (probability):</label>
+          <input type="range" id="prob-p" min="0.01" max="0.99" value="0.5" step="0.01">
+          <span class="control-value" id="prob-p-val">0.50</span>
+        </div>
+        <button class="btn btn-accent" id="prob-roll">Simulate 1000 runs</button>
+      </div>
+      <canvas id="prob-canvas" class="viz-canvas" width="600" height="350"></canvas>
+    </div>
+
+    <p>
+      <strong>What to try:</strong>
+    </p>
+    <ul>
+      <li>Set \(p = 0.5\) and increase \(n\). Notice how the distribution becomes more
+        symmetric and bell-shaped (approaching the normal distribution).</li>
+      <li>Set \(n = 20\) and vary \(p\). When \(p\) is small, the distribution is right-skewed;
+        when \(p\) is large, it is left-skewed.</li>
+      <li>Click "Simulate 1000 runs" to see how empirical frequencies (from actual random
+        experiments) compare to the theoretical PMF. This is the Law of Large Numbers in action.</li>
+      <li>Think of \(n\) as the group size and \(p\) as the fraction of cooperators. The
+        distribution shows how many cooperators you would expect to find in a randomly sampled group.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 9: EXERCISES                                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>Exercises</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 1: Basic Probability</div>
+      <p>
+        In a well-mixed population, 50% play Rock, 30% play Paper, and 20% play Scissors.
+      </p>
+      <ol type="a">
+        <li>What is the probability of encountering a Rock or Paper player?</li>
+        <li>What is the probability of <em>not</em> encountering a Scissors player?</li>
+        <li>Are the events "encounter Rock" and "encounter Paper" mutually exclusive? Independent?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Since Rock and Paper are mutually exclusive:</p>
+          \[P(\text{Rock} \cup \text{Paper}) = P(\text{Rock}) + P(\text{Paper}) = 0.5 + 0.3 = 0.8\]
+          <p><strong>(b)</strong> By the complement rule:</p>
+          \[P(\text{not Scissors}) = 1 - P(\text{Scissors}) = 1 - 0.2 = 0.8\]
+          <p>
+            Note this equals part (a), since "not Scissors" = "Rock or Paper."
+          </p>
+          <p>
+            <strong>(c)</strong> They are <strong>mutually exclusive</strong> (you cannot
+            encounter Rock and Paper simultaneously in a single encounter, so
+            \(P(R \cap P) = 0\)).
+          </p>
+          <p>
+            They are <strong>not independent</strong>. If they were independent, we would need
+            \(P(R \cap P) = P(R) \cdot P(P) = 0.5 \times 0.3 = 0.15\). But
+            \(P(R \cap P) = 0 \neq 0.15\). In fact, mutually exclusive events with positive
+            probability are <em>never</em> independent.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 2: Binomial Distribution</div>
+      <p>
+        In a group of \(n = 8\) players drawn from a population where 25% are Cooperators:
+      </p>
+      <ol type="a">
+        <li>What is the probability that exactly 3 are Cooperators?</li>
+        <li>What is the expected number of Cooperators?</li>
+        <li>What is the variance in the number of Cooperators?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>Let \(X \sim \text{Binomial}(8, 0.25)\).</p>
+          <p><strong>(a)</strong></p>
+          \[P(X = 3) = \binom{8}{3} (0.25)^3 (0.75)^5 = 56 \times 0.015625 \times 0.2373 \approx 0.2076\]
+          <p><strong>(b)</strong></p>
+          \[E[X] = np = 8 \times 0.25 = 2\]
+          <p><strong>(c)</strong></p>
+          \[\text{Var}(X) = np(1-p) = 8 \times 0.25 \times 0.75 = 1.5\]
+          <p>So \(\sigma = \sqrt{1.5} \approx 1.22\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 3: Expected Payoff Calculation</div>
+      <p>
+        Consider the game with payoff matrix:
+      </p>
+      \[A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}\]
+      <p>
+        Player 1 plays strategy 1 with probability \(x = 0.6\) and Player 2 plays strategy 1
+        with probability \(y = 0.3\).
+      </p>
+      <ol type="a">
+        <li>Compute the fitness of each pure strategy against Player 2's mix.</li>
+        <li>Compute \(E[\text{payoff}] = \mathbf{x}^\top A \mathbf{y}\).</li>
+        <li>Is Player 1's mix a best response to Player 2's mix?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(\mathbf{y} = (0.3, 0.7)^\top\).</p>
+          \[f_1 = 4(0.3) + 1(0.7) = 1.2 + 0.7 = 1.9\]
+          \[f_2 = 2(0.3) + 3(0.7) = 0.6 + 2.1 = 2.7\]
+
+          <p><strong>(b)</strong> \(\mathbf{x} = (0.6, 0.4)^\top\).</p>
+          \[E[\text{payoff}] = 0.6 \times 1.9 + 0.4 \times 2.7 = 1.14 + 1.08 = 2.22\]
+          <p>Equivalently: \(\mathbf{x}^\top A \mathbf{y} = 2.22\).</p>
+
+          <p>
+            <strong>(c)</strong> No. Since \(f_2 = 2.7 > f_1 = 1.9\), strategy 2 has strictly
+            higher expected payoff. The best response is the pure strategy \(\mathbf{x} = (0, 1)^\top\),
+            which would yield payoff 2.7. Player 1's current mix \((0.6, 0.4)\) is not a best
+            response because it places positive weight on the inferior strategy.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 4: Finding Mixed Equilibrium</div>
+      <p>
+        For the game:
+      </p>
+      \[A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\]
+      <p>
+        (Prisoner's Dilemma) Show that no completely mixed Nash equilibrium exists by
+        attempting the indifference condition.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            Set \(f_C = f_D\) where \(\mathbf{y} = (y, 1-y)^\top\):
+          </p>
+          \[f_C = 3y + 0(1-y) = 3y\]
+          \[f_D = 5y + 1(1-y) = 4y + 1\]
+          \[3y = 4y + 1 \implies -y = 1 \implies y = -1\]
+          <p>
+            Since \(y = -1 \notin [0, 1]\), there is no valid mixed equilibrium. The only
+            Nash equilibrium is mutual defection (\(y = 0\)), where both players defect.
+            This confirms Defect is a dominant strategy: \(f_D - f_C = y + 1 > 0\) for all
+            \(y \geq 0\).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 5: Bayes' Theorem Application</div>
+      <p>
+        A population consists of 40% Hawks and 60% Doves. In a round, Hawks escalate
+        (fight) with probability 0.9 and display (bluff) with probability 0.1. Doves
+        escalate with probability 0.1 and display with probability 0.9.
+      </p>
+      <ol type="a">
+        <li>You observe your opponent escalating. What is the posterior probability they are a Hawk?</li>
+        <li>You observe your opponent displaying. What is the posterior probability they are a Dove?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Let \(H\) = Hawk, \(E\) = escalate.</p>
+          \[P(E) = P(E \mid H)P(H) + P(E \mid D)P(D) = 0.9 \times 0.4 + 0.1 \times 0.6 = 0.36 + 0.06 = 0.42\]
+          \[P(H \mid E) = \frac{P(E \mid H)P(H)}{P(E)} = \frac{0.36}{0.42} = \frac{6}{7} \approx 0.857\]
+
+          <p><strong>(b)</strong> Let \(D\) = Dove, \(Disp\) = display.</p>
+          \[P(Disp) = P(Disp \mid H)P(H) + P(Disp \mid D)P(D) = 0.1 \times 0.4 + 0.9 \times 0.6 = 0.04 + 0.54 = 0.58\]
+          \[P(D \mid Disp) = \frac{P(Disp \mid D)P(D)}{P(Disp)} = \frac{0.54}{0.58} = \frac{27}{29} \approx 0.931\]
+
+          <p>
+            Observing escalation strongly suggests a Hawk (86%), and observing display strongly
+            suggests a Dove (93%). The asymmetry arises because the prior already favors Doves,
+            so display is even more indicative.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 6: Variance and Risk</div>
+      <p>
+        Two strategies in an evolutionary setting have the following payoff distributions:
+      </p>
+      <ul>
+        <li>Strategy A: payoff 10 with probability 0.5, payoff 0 with probability 0.5.</li>
+        <li>Strategy B: payoff 6 with probability 0.8, payoff 2 with probability 0.2.</li>
+      </ul>
+      <ol type="a">
+        <li>Compute \(E[A]\), \(E[B]\), \(\text{Var}(A)\), and \(\text{Var}(B)\).</li>
+        <li>Which strategy would dominate in an infinite-population replicator model?</li>
+        <li>Which strategy might be favored in a small population? Why?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          \[E[A] = 10(0.5) + 0(0.5) = 5\]
+          \[E[B] = 6(0.8) + 2(0.2) = 4.8 + 0.4 = 5.2\]
+          \[\text{Var}(A) = (10-5)^2(0.5) + (0-5)^2(0.5) = 25(0.5) + 25(0.5) = 25\]
+          \[\text{Var}(B) = (6-5.2)^2(0.8) + (2-5.2)^2(0.2) = 0.512 + 2.048 = 2.56\]
+
+          <p>
+            <strong>(b)</strong> In an infinite-population replicator model, only expected
+            fitness matters. Strategy B has \(E[B] = 5.2 > E[A] = 5\), so B would dominate
+            and A would be driven to extinction.
+          </p>
+
+          <p>
+            <strong>(c)</strong> In a small population, Strategy B might be even more strongly
+            favored. Its low variance (\(\text{Var}(B) = 2.56\) vs. \(\text{Var}(A) = 25\))
+            means it delivers consistent payoffs. Strategy A's high variance means A-players
+            sometimes get 0, which in a small population could lead to local extinction
+            through a run of bad luck, even in scenarios where A's expected payoff were
+            slightly higher.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7: Law of Large Numbers</div>
+      <p>
+        A strategy earns payoffs drawn i.i.d. with mean 3 and standard deviation 2. How many
+        rounds \(n\) are needed so that the standard deviation of the sample average payoff
+        is less than 0.1?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>The standard deviation of the sample average is:</p>
+          \[\sigma_{\overline{X}_n} = \frac{\sigma}{\sqrt{n}} = \frac{2}{\sqrt{n}}\]
+          <p>We need:</p>
+          \[\frac{2}{\sqrt{n}} < 0.1 \implies \sqrt{n} > 20 \implies n > 400\]
+          <p>
+            So at least \(n = 401\) rounds are needed. This illustrates the \(1/\sqrt{n}\)
+            convergence rate: to reduce the uncertainty by a factor of 10, we need 100 times
+            as many observations.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 8 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8: Population Fitness</div>
+      <p>
+        For the Hawk-Dove game with \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\)
+        and population state \(\mathbf{y} = (y, 1-y)^\top\):
+      </p>
+      <ol type="a">
+        <li>Write out the fitness \(f_H(y)\) and \(f_D(y)\) as functions of \(y\).</li>
+        <li>Write out the average population fitness \(\bar{f}(y) = \mathbf{y}^\top A \mathbf{y}\).</li>
+        <li>Write the replicator equation \(\dot{y} = y(f_H - \bar{f})\) and verify that
+            \(y^* = 2/3\) is a fixed point.</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          \[f_H = -1 \cdot y + 4(1-y) = 4 - 5y\]
+          \[f_D = 0 \cdot y + 2(1-y) = 2 - 2y\]
+
+          <p><strong>(b)</strong></p>
+          \[\bar{f} = y \cdot f_H + (1-y) \cdot f_D = y(4-5y) + (1-y)(2-2y)\]
+          \[= 4y - 5y^2 + 2 - 2y - 2y + 2y^2 = 2 - 3y^2\]
+
+          <p>
+            (Alternatively, \(\bar{f} = \mathbf{y}^\top A \mathbf{y}\) expanded directly gives the same result.)
+          </p>
+
+          <p><strong>(c)</strong> The replicator equation for Hawks:</p>
+          \[\dot{y} = y(f_H - \bar{f}) = y\big((4-5y) - (2-3y^2+\text{...})\big)\]
+          <p>Let us use the simpler form. Since there are only two strategies:</p>
+          \[\dot{y} = y(1-y)(f_H - f_D)\]
+          \[f_H - f_D = (4-5y) - (2-2y) = 2 - 3y\]
+          \[\dot{y} = y(1-y)(2-3y)\]
+          <p>
+            Fixed points: \(y = 0\), \(y = 1\), and \(2 - 3y = 0 \implies y^* = 2/3\).
+          </p>
+          <p>
+            At \(y^* = 2/3\): \(\dot{y} = \frac{2}{3} \cdot \frac{1}{3} \cdot (2 - 2) = 0\).
+            Confirmed as a fixed point.
+          </p>
+          <p>
+            Stability: For \(y < 2/3\), we have \(2 - 3y > 0\), so \(\dot{y} > 0\) (Hawks increase).
+            For \(y > 2/3\), \(\dot{y} < 0\) (Hawks decrease). Therefore \(y^* = 2/3\) is
+            <strong>asymptotically stable</strong> &mdash; it is the ESS.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module4.html">&larr; Module 4: Differential Equations</a>
+    <a href="module6.html">Module 6: Game Theory &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Content covers mathematical foundations through EGT applications in social science.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

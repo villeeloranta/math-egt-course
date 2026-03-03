@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Mathematical Foundations | Math for Evolutionary Game Theory</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+
+    <nav class="main-nav">
+        <a href="../index.html" class="nav-home">Math for EGT</a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="module1.html" class="active">1: Foundations</a>
+            <a href="module2.html">2: Linear Algebra</a>
+            <a href="module3.html">3: Calculus</a>
+            <a href="module4.html">4: Probability</a>
+            <a href="module5.html">5: ODEs</a>
+            <a href="module6.html">6: Dynamic Systems</a>
+            <a href="module7.html">7: Game Theory</a>
+            <a href="module8.html">8: EGTtic Models</a>
+            <a href="module9.html">9: Digital Commons</a>
+        </div>
+    </nav>
+
+    <main class="module-content">
+        <div class="module-header">
+            <span class="module-number">Module 1</span>
+            <h1>Mathematical Foundations</h1>
+            <p class="module-subtitle">The building blocks of mathematical reasoning for evolutionary game theory</p>
+        </div>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+                <li><a href="#numbers">Numbers and Number Systems</a></li>
+                <li><a href="#variables">Variables and Expressions</a></li>
+                <li><a href="#equations">Equations and Inequalities</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#graphs">Graphs and Coordinate Systems</a></li>
+                <li><a href="#summation">Summation and Product Notation</a></li>
+                <li><a href="#sets">Sets and Set Notation</a></li>
+                <li><a href="#interactive">Interactive: Function Explorer</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ol>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 1: Numbers and Number Systems                        -->
+        <!-- ============================================================ -->
+        <div class="section" id="numbers">
+            <h2>1. Numbers and Number Systems</h2>
+
+            <p>Before we can analyze the strategies of evolving populations, we need to be comfortable with the different kinds of numbers that appear in mathematical models. Each number system was invented (or discovered, depending on your philosophy) to solve problems that the previous system could not handle. In evolutionary game theory, all of these number systems play essential roles.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>natural numbers</strong> are the counting numbers:</p>
+                \[ \mathbb{N} = \{0, 1, 2, 3, 4, \ldots\} \]
+                <p>(Some authors exclude 0; in this course we include it.)</p>
+            </div>
+
+            <p>Natural numbers are the most intuitive: they count discrete things. In game theory, we use them to count <em>players</em>, <em>rounds</em>, <em>strategies</em>, and <em>populations</em>. If a game has \( n \) players each choosing from \( k \) possible strategies, both \( n \) and \( k \) are natural numbers.</p>
+
+            <p>But natural numbers have a limitation: you cannot always subtract. What is \( 3 - 5 \)? To handle this, we extend to the integers.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>integers</strong> include all natural numbers and their negatives:</p>
+                \[ \mathbb{Z} = \{\ldots, -3, -2, -1, 0, 1, 2, 3, \ldots\} \]
+            </div>
+
+            <p>In game theory, payoffs can be negative. Consider the Prisoner's Dilemma: a player who cooperates while the other defects might receive a payoff of \( -1 \) (a loss), while mutual cooperation yields \( +3 \). The integers let us represent gains and losses.</p>
+
+            <p>But integers still have a limitation: you cannot always divide evenly. What is \( 1 \div 3 \)? For this, we need rational numbers.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>rational numbers</strong> are all numbers that can be expressed as a fraction \( \frac{p}{q} \) where \( p \in \mathbb{Z} \) and \( q \in \mathbb{Z} \), with \( q \neq 0 \):</p>
+                \[ \mathbb{Q} = \left\{ \frac{p}{q} \;\middle|\; p, q \in \mathbb{Z},\ q \neq 0 \right\} \]
+            </div>
+
+            <p>Rational numbers appear constantly in game theory. When we say a player uses a <strong>mixed strategy</strong>, playing strategy A with probability \( \frac{1}{3} \) and strategy B with probability \( \frac{2}{3} \), these fractions are rational numbers. Average payoffs, expected values, and proportions of a population all typically involve rationals.</p>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In a population of 60 organisms, suppose 20 play strategy "Hawk" and 40 play strategy "Dove." The proportion of Hawks is:</p>
+                \[ \frac{20}{60} = \frac{1}{3} \approx 0.333\ldots \]
+                <p>This is a rational number. It has a repeating decimal expansion, which is a hallmark of rational numbers.</p>
+            </div>
+
+            <p>Yet even the rationals are not enough. There are "gaps" in the rational number line. The number \( \sqrt{2} \), for instance, cannot be written as any fraction (this was proved by the ancient Greeks, reportedly causing a philosophical crisis in the Pythagorean school). To fill in these gaps, we need the real numbers.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>real numbers</strong> \( \mathbb{R} \) include all rational numbers together with all irrational numbers (numbers that cannot be written as fractions). The real numbers form a <em>complete</em>, <em>ordered</em> field and can be visualized as every point on an infinite number line.</p>
+            </div>
+
+            <p>Important irrational numbers that appear frequently in our work include:</p>
+            <ul>
+                <li>\( \sqrt{2} \approx 1.41421\ldots \) &mdash; arises in geometric and optimization contexts</li>
+                <li>\( \pi \approx 3.14159\ldots \) &mdash; the ratio of a circle's circumference to its diameter; appears in periodic phenomena and trigonometric functions</li>
+                <li>\( e \approx 2.71828\ldots \) &mdash; <strong>Euler's number</strong>, the base of the natural logarithm. This is arguably the most important constant in evolutionary dynamics, as it governs exponential growth and the logistic equation.</li>
+            </ul>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>In evolutionary game theory, the <strong>proportion of a population playing a given strategy</strong> is a real number between 0 and 1. The state of a population with two strategies can be described by a single real number \( x \in [0, 1] \), the fraction playing strategy A, with \( 1 - x \) playing strategy B. The <strong>replicator equation</strong> &mdash; the central dynamical equation of EGT &mdash; is defined over the real numbers. Evolution does not jump between rational fractions; it flows continuously through the reals.</p>
+            </div>
+
+            <div class="intuition-box">
+                <span class="box-title">Intuition</span>
+                <p>Think of the number systems as nested:</p>
+                \[ \mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \]
+                <p>Each extension solves a problem the previous system could not: subtraction, division, and limits (convergence of sequences), respectively. In EGT, we typically work in \( \mathbb{R} \) because population dynamics are modeled as continuous processes.</p>
+            </div>
+
+            <h3>Intervals of Real Numbers</h3>
+
+            <p>Since proportions and probabilities always lie between 0 and 1, we frequently need to describe subsets of \( \mathbb{R} \). The most common way is with <strong>interval notation</strong>:</p>
+
+            <ul>
+                <li><strong>Closed interval:</strong> \( [a, b] = \{ x \in \mathbb{R} \mid a \leq x \leq b \} \) &mdash; includes both endpoints</li>
+                <li><strong>Open interval:</strong> \( (a, b) = \{ x \in \mathbb{R} \mid a < x < b \} \) &mdash; excludes both endpoints</li>
+                <li><strong>Half-open intervals:</strong> \( [a, b) \) or \( (a, b] \) &mdash; includes one endpoint but not the other</li>
+                <li><strong>Unbounded intervals:</strong> \( [a, \infty) = \{ x \in \mathbb{R} \mid x \geq a \} \), \( (-\infty, b] \), etc.</li>
+            </ul>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>A probability must lie in \( [0, 1] \). A population proportion also lies in \( [0, 1] \). The interior of the simplex (where all strategies are present in nonzero proportion) uses the open interval \( (0, 1) \). Time in a dynamical system typically lies in \( [0, \infty) \).</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: Variables and Expressions                         -->
+        <!-- ============================================================ -->
+        <div class="section" id="variables">
+            <h2>2. Variables and Expressions</h2>
+
+            <p>Mathematics gains its power from <strong>abstraction</strong>: instead of saying "if 30 out of 100 organisms play Hawk," we write "let \( x \) be the fraction of Hawks." This single move &mdash; replacing a specific number with a letter &mdash; lets us derive results that hold for <em>any</em> value of \( x \), not just \( x = 0.3 \).</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>A <strong>variable</strong> is a symbol (typically a letter) that represents a quantity that can take on different values. A <strong>constant</strong> is a symbol whose value is fixed. An <strong>algebraic expression</strong> is a combination of variables, constants, and operations (addition, subtraction, multiplication, division, exponentiation).</p>
+            </div>
+
+            <h3>Common Variable Conventions in EGT</h3>
+
+            <p>Throughout this course, you will encounter certain letters used consistently:</p>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Typical Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>\( x, y, z \)</td><td>Population proportions (fractions of a population using a strategy)</td></tr>
+                    <tr><td>\( n \)</td><td>Number of players or population size</td></tr>
+                    <tr><td>\( t \)</td><td>Time</td></tr>
+                    <tr><td>\( p, q \)</td><td>Probabilities or mixed strategy components</td></tr>
+                    <tr><td>\( a, b, c, d \)</td><td>Payoff values in a game matrix</td></tr>
+                    <tr><td>\( \pi \) (or \( u \))</td><td>Payoff function (not the number 3.14...)</td></tr>
+                    <tr><td>\( f \) or \( w \)</td><td>Fitness</td></tr>
+                    <tr><td>\( \dot{x} \)</td><td>Rate of change of \( x \) with respect to time</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Building Expressions</h3>
+
+            <p>An algebraic expression is built from variables and constants using the basic operations. Here are expressions of increasing complexity:</p>
+
+            <ul>
+                <li><strong>Linear:</strong> \( 3x + 2 \) &mdash; the simplest nontrivial expressions, involving only multiplication by constants and addition.</li>
+                <li><strong>Quadratic:</strong> \( x^2 - 4x + 3 \) &mdash; involves a squared term.</li>
+                <li><strong>Rational:</strong> \( \dfrac{x}{1 + x} \) &mdash; a ratio of two expressions. These appear when computing average payoffs.</li>
+                <li><strong>Exponential:</strong> \( e^{-2t} \) &mdash; an expression where the variable is in the exponent. These model growth and decay.</li>
+            </ul>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In the Hawk-Dove game, suppose Hawks get payoff \( \frac{V - C}{2} \) against other Hawks and \( V \) against Doves, while Doves get \( 0 \) against Hawks and \( \frac{V}{2} \) against Doves. If the proportion of Hawks in the population is \( x \), the expected payoff to a Hawk is:</p>
+                \[ \pi_H(x) = x \cdot \frac{V - C}{2} + (1 - x) \cdot V \]
+                <p>This is an algebraic expression in the variable \( x \), with constants \( V \) (value of the resource) and \( C \) (cost of fighting). Expanding:</p>
+                \[ \pi_H(x) = \frac{(V - C)x}{2} + V - Vx = V - Vx + \frac{Vx - Cx}{2} = V - \frac{Vx}{2} - \frac{Cx}{2} \]
+                \[ = V - \frac{(V + C)x}{2} \]
+                <p>This is a <em>linear</em> expression in \( x \): as the proportion of Hawks increases, the payoff to each Hawk decreases (because Hawks fight each other more often).</p>
+            </div>
+
+            <h3>Simplifying Expressions</h3>
+
+            <p>The key algebraic skills are:</p>
+            <ul>
+                <li><strong>Combining like terms:</strong> \( 3x + 5x = 8x \), \( 2x^2 - x^2 = x^2 \)</li>
+                <li><strong>Distributing:</strong> \( a(b + c) = ab + ac \)</li>
+                <li><strong>Factoring:</strong> \( x^2 - 4 = (x - 2)(x + 2) \), \( x^2 + 5x + 6 = (x + 2)(x + 3) \)</li>
+            </ul>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>Simplify the expression \( x(a - b) + b - x \cdot b + x \cdot b \):</p>
+                \[ x(a - b) + b - xb + xb = xa - xb + b - xb + xb = xa - xb + b \]
+                \[ = xa + b(1 - x) \]
+                <p>This form reveals structure: it is the payoff \( a \) weighted by proportion \( x \), plus payoff \( b \) weighted by proportion \( (1 - x) \) &mdash; precisely an expected payoff calculation.</p>
+            </div>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>Every payoff function, fitness function, and dynamical equation in EGT is an algebraic expression. The ability to manipulate these expressions &mdash; expand, factor, simplify, substitute &mdash; is the single most important skill for this course. When we derive the replicator equation, we will need to take an expression for expected payoff, subtract the average payoff, and multiply by a population proportion. Each of these steps is pure algebra.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: Equations and Inequalities                        -->
+        <!-- ============================================================ -->
+        <div class="section" id="equations">
+            <h2>3. Equations and Inequalities</h2>
+
+            <p>If expressions are the nouns of mathematics, equations are the sentences. An <strong>equation</strong> asserts that two expressions are equal, and <strong>solving</strong> an equation means finding the values of the variable(s) that make the assertion true.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>An <strong>equation</strong> is a statement of the form \( \text{expression}_1 = \text{expression}_2 \). A <strong>solution</strong> (or <strong>root</strong>) is a value of the variable that makes the equation true.</p>
+            </div>
+
+            <h3>Linear Equations</h3>
+
+            <p>A <strong>linear equation</strong> in one variable has the form \( ax + b = 0 \), where \( a \neq 0 \). The solution is immediate:</p>
+
+            \[ ax + b = 0 \implies ax = -b \implies x = -\frac{b}{a} \]
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>Find the proportion \( x \) at which Hawks and Doves have equal payoff. Using our earlier expressions:</p>
+                \[ \pi_H(x) = \pi_D(x) \]
+                \[ V - \frac{(V + C)x}{2} = \frac{V(1 - x)}{2} \]
+                <p>Multiply both sides by 2:</p>
+                \[ 2V - (V + C)x = V(1 - x) = V - Vx \]
+                \[ 2V - Vx - Cx = V - Vx \]
+                <p>The \( -Vx \) terms cancel:</p>
+                \[ 2V - Cx = V \]
+                \[ -Cx = V - 2V = -V \]
+                \[ x = \frac{V}{C} \]
+                <p>So when \( V < C \) (the cost of fighting exceeds the value of the resource), the equilibrium proportion of Hawks is \( x^* = V/C \), which lies strictly between 0 and 1. This is the famous <strong>mixed ESS</strong> of the Hawk-Dove game.</p>
+            </div>
+
+            <h3>Systems of Linear Equations</h3>
+
+            <p>When there are multiple unknowns, we need multiple equations. A system of two linear equations in two unknowns:</p>
+            \[ \begin{cases} a_1 x + b_1 y = c_1 \\ a_2 x + b_2 y = c_2 \end{cases} \]
+
+            <p>This can be solved by <strong>substitution</strong> (solve one equation for one variable, plug into the other) or <strong>elimination</strong> (add/subtract equations to cancel a variable). We will study these methods in far greater detail in Module 2 (Linear Algebra), where we handle systems of arbitrary size using matrices.</p>
+
+            <h3>Quadratic Equations</h3>
+
+            <p>A <strong>quadratic equation</strong> has the form \( ax^2 + bx + c = 0 \) with \( a \neq 0 \). Unlike linear equations, these can have 0, 1, or 2 real solutions.</p>
+
+            <div class="theorem-box">
+                <span class="box-title">Theorem</span>
+                <p><strong>The Quadratic Formula.</strong> The solutions to \( ax^2 + bx + c = 0 \) are:</p>
+                \[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
+                <p>The quantity \( \Delta = b^2 - 4ac \) is called the <strong>discriminant</strong>:</p>
+                <ul>
+                    <li>If \( \Delta > 0 \): two distinct real solutions</li>
+                    <li>If \( \Delta = 0 \): exactly one real solution (a repeated root)</li>
+                    <li>If \( \Delta < 0 \): no real solutions (two complex conjugate solutions)</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>Solve \( x^2 - 5x + 6 = 0 \).</p>
+                <p>Here \( a = 1 \), \( b = -5 \), \( c = 6 \). The discriminant is:</p>
+                \[ \Delta = (-5)^2 - 4(1)(6) = 25 - 24 = 1 > 0 \]
+                <p>So there are two real solutions:</p>
+                \[ x = \frac{5 \pm \sqrt{1}}{2} = \frac{5 \pm 1}{2} \]
+                \[ x = 3 \quad \text{or} \quad x = 2 \]
+                <p>We can verify by factoring: \( x^2 - 5x + 6 = (x - 2)(x - 3) \).</p>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In a game with payoff function \( \pi(x) = -2x^2 + 3x - 1 \), find the strategy proportions where the payoff is zero:</p>
+                \[ -2x^2 + 3x - 1 = 0 \]
+                <p>Multiply by \( -1 \): \( 2x^2 - 3x + 1 = 0 \).</p>
+                \[ x = \frac{3 \pm \sqrt{9 - 8}}{4} = \frac{3 \pm 1}{4} \]
+                \[ x = 1 \quad \text{or} \quad x = \frac{1}{2} \]
+                <p>Both solutions lie in \( [0, 1] \), so both are valid population proportions.</p>
+            </div>
+
+            <h3>Inequalities</h3>
+
+            <p>An <strong>inequality</strong> uses \( < \), \( > \), \( \leq \), or \( \geq \) instead of \( = \). Solving inequalities follows the same algebraic rules as equations, with one critical difference:</p>
+
+            <div class="theorem-box">
+                <span class="box-title">Theorem</span>
+                <p><strong>Multiplying or dividing both sides of an inequality by a negative number reverses the direction of the inequality.</strong></p>
+                <p>For example, if \( -2x > 6 \), then dividing by \( -2 \) gives \( x < -3 \).</p>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>When does strategy A have a <em>higher</em> payoff than strategy B? Suppose \( \pi_A(x) = 3 - 2x \) and \( \pi_B(x) = 1 + x \). We need:</p>
+                \[ \pi_A(x) > \pi_B(x) \]
+                \[ 3 - 2x > 1 + x \]
+                \[ 2 > 3x \]
+                \[ x < \frac{2}{3} \]
+                <p>So strategy A outperforms B whenever the population proportion \( x \) is below \( \frac{2}{3} \). This is exactly the kind of inequality analysis we use to determine the direction of evolutionary dynamics: the strategy with the higher payoff grows in frequency.</p>
+            </div>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>Finding an <strong>equilibrium</strong> in a game means solving an equation: set payoffs equal, or set the rate of change to zero. Determining the <strong>stability</strong> of that equilibrium means solving an inequality: does a small perturbation push the system back toward equilibrium or away from it? The interplay between equations (finding equilibria) and inequalities (checking stability) is the heartbeat of evolutionary game theory.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: Functions                                         -->
+        <!-- ============================================================ -->
+        <div class="section" id="functions">
+            <h2>4. Functions</h2>
+
+            <p>A function is the mathematical way of expressing a deterministic relationship: given an input, there is exactly one output. Functions are the primary language for describing how payoffs depend on strategies, how fitness depends on population composition, and how populations change over time.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>A <strong>function</strong> \( f \) from a set \( A \) to a set \( B \), written \( f : A \to B \), is a rule that assigns to each element \( x \in A \) exactly one element \( f(x) \in B \). The set \( A \) is the <strong>domain</strong>, and the set \( B \) is the <strong>codomain</strong>. The <strong>range</strong> (or image) is the set of all actual output values: \( \{ f(x) \mid x \in A \} \subseteq B \).</p>
+            </div>
+
+            <div class="intuition-box">
+                <span class="box-title">Intuition</span>
+                <p>Think of a function as a machine: you feed it an input, it does something deterministic, and it produces an output. The crucial requirement is that the <em>same input always produces the same output</em>. A payoff function \( \pi(x) \) takes a population state \( x \) and returns a number: the payoff. Different states may yield different payoffs, but a given state always yields the same payoff.</p>
+            </div>
+
+            <h3>Function Notation</h3>
+
+            <p>The notation \( f(x) = 2x + 1 \) tells us three things:</p>
+            <ol>
+                <li>The function's name is \( f \)</li>
+                <li>Its input variable is \( x \)</li>
+                <li>Its rule is "double the input and add 1"</li>
+            </ol>
+            <p>To evaluate the function at a specific input, we substitute: \( f(3) = 2(3) + 1 = 7 \). We can also compose functions: if \( g(x) = x^2 \), then \( f(g(2)) = f(4) = 2(4) + 1 = 9 \).</p>
+
+            <h3>Linear Functions</h3>
+
+            <p>A <strong>linear function</strong> has the form \( f(x) = mx + b \), where \( m \) is the <strong>slope</strong> (rate of change) and \( b \) is the <strong>y-intercept</strong> (value when \( x = 0 \)).</p>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>If the payoff to cooperators in a population is \( \pi_C(x) = 3 - 2x \), where \( x \) is the frequency of defectors, then:</p>
+                <ul>
+                    <li>Slope \( m = -2 \): each unit increase in defector frequency reduces the cooperator payoff by 2</li>
+                    <li>Intercept \( b = 3 \): when there are no defectors (\( x = 0 \)), cooperators get payoff 3</li>
+                </ul>
+                <p>The negative slope reflects a hostile environment: more defectors means worse outcomes for cooperators.</p>
+            </div>
+
+            <h3>Quadratic Functions</h3>
+
+            <p>A <strong>quadratic function</strong> has the form \( f(x) = ax^2 + bx + c \). Its graph is a <strong>parabola</strong> &mdash; opening upward if \( a > 0 \), downward if \( a < 0 \). The vertex (peak or trough) occurs at \( x = -b/(2a) \).</p>
+
+            <p>Quadratic payoff functions arise in games where the benefit or cost of a strategy has a nonlinear dependence on population composition. For instance, a strategy might perform well at intermediate frequencies but poorly when too rare or too common.</p>
+
+            <h3>Exponential Functions</h3>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>An <strong>exponential function</strong> has the form \( f(t) = a \cdot e^{kt} \), where \( a \) is the initial value and \( k \) is the growth rate.</p>
+                <ul>
+                    <li>If \( k > 0 \): exponential <strong>growth</strong></li>
+                    <li>If \( k < 0 \): exponential <strong>decay</strong></li>
+                </ul>
+            </div>
+
+            <p>Exponential growth is the default model for an unconstrained population: each organism produces offspring at a constant rate, so the population multiplies. If a population of bacteria doubles every hour, starting from 100 cells:</p>
+            \[ N(t) = 100 \cdot 2^t = 100 \cdot e^{t \ln 2} \]
+
+            <p>After 10 hours: \( N(10) = 100 \cdot 2^{10} = 102{,}400 \) cells. This explosive growth is why real populations must eventually face resource constraints, leading to logistic models.</p>
+
+            <h3>Logarithmic Functions</h3>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>natural logarithm</strong> \( \ln(x) \) is the inverse of the exponential function: if \( e^y = x \), then \( y = \ln(x) \). It is defined for \( x > 0 \).</p>
+                <p>Key properties:</p>
+                <ul>
+                    <li>\( \ln(1) = 0 \)</li>
+                    <li>\( \ln(e) = 1 \)</li>
+                    <li>\( \ln(ab) = \ln(a) + \ln(b) \)</li>
+                    <li>\( \ln(a^k) = k \ln(a) \)</li>
+                </ul>
+            </div>
+
+            <p>Logarithms appear in information theory (entropy), in the analysis of how long it takes for a strategy to reach a certain frequency, and in transforming multiplicative fitness into additive fitness.</p>
+
+            <h3>The Sigmoid (Logistic) Function</h3>
+
+            <p>One of the most important functions in all of mathematical biology:</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>sigmoid function</strong> (also called the <strong>logistic function</strong> or <strong>standard logistic function</strong>) is:</p>
+                \[ \sigma(x) = \frac{1}{1 + e^{-x}} \]
+                <p>It maps any real number to the interval \( (0, 1) \), with \( \sigma(0) = \frac{1}{2} \). It is an S-shaped curve that transitions smoothly from near 0 to near 1.</p>
+            </div>
+
+            <p>The sigmoid has remarkable properties:</p>
+            <ul>
+                <li><strong>Symmetry:</strong> \( \sigma(-x) = 1 - \sigma(x) \)</li>
+                <li><strong>Derivative:</strong> \( \sigma'(x) = \sigma(x)(1 - \sigma(x)) \) &mdash; its rate of change depends on its own value!</li>
+                <li><strong>Limits:</strong> \( \lim_{x \to -\infty} \sigma(x) = 0 \) and \( \lim_{x \to \infty} \sigma(x) = 1 \)</li>
+            </ul>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In population dynamics, the logistic growth model describes a population that grows exponentially at first but levels off as it approaches a carrying capacity \( K \):</p>
+                \[ N(t) = \frac{K}{1 + \left(\frac{K - N_0}{N_0}\right) e^{-rt}} \]
+                <p>This is a rescaled sigmoid. It starts near \( N_0 \), grows roughly exponentially when \( N \ll K \), and saturates at \( K \). The same S-curve describes how a beneficial strategy spreads through a population: slow at first (when rare), fast in the middle, and slow again as it approaches fixation.</p>
+            </div>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>Payoff functions \( \pi_i(x) \) map population states to payoffs. Fitness functions \( f_i(x) \) map states to reproductive success. The replicator equation itself is a function that maps the current state to the rate of change. Being comfortable with the concept of a function &mdash; its domain, its range, how to evaluate it, how to compose functions &mdash; is essential for everything that follows. The sigmoid function in particular describes how strategies spread through populations, making it one of the most fundamental curves in evolutionary biology.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 5: Graphs and Coordinate Systems                     -->
+        <!-- ============================================================ -->
+        <div class="section" id="graphs">
+            <h2>5. Graphs and Coordinate Systems</h2>
+
+            <p>A graph is a visual representation of a function. While algebra gives us precision, graphs give us intuition. The ability to read, draw, and interpret graphs is essential for understanding evolutionary dynamics.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>Cartesian coordinate system</strong> (or rectangular coordinate system) consists of two perpendicular number lines (axes) meeting at the <strong>origin</strong> \( (0, 0) \). The horizontal axis is typically the \( x \)-axis (independent variable), and the vertical axis is the \( y \)-axis (dependent variable). A point \( (a, b) \) in the plane represents the location \( a \) units along the \( x \)-axis and \( b \) units along the \( y \)-axis.</p>
+            </div>
+
+            <h3>The Graph of a Function</h3>
+
+            <p>The <strong>graph</strong> of a function \( f \) is the set of all points \( (x, f(x)) \) as \( x \) ranges over the domain. For a linear function \( f(x) = 2x + 1 \), the graph is a straight line with slope 2, crossing the \( y \)-axis at 1.</p>
+
+            <h3>Key Features to Read from a Graph</h3>
+
+            <ul>
+                <li><strong>Intercepts:</strong> Where does the curve cross the axes? The \( x \)-intercepts (roots) are where \( f(x) = 0 \); the \( y \)-intercept is \( f(0) \).</li>
+                <li><strong>Increasing/Decreasing:</strong> Where does the function go up (positive slope) and where does it go down (negative slope)?</li>
+                <li><strong>Maximum/Minimum:</strong> Where does the function reach its highest or lowest value? These are critical points.</li>
+                <li><strong>Concavity:</strong> Does the curve bend upward (like a cup, concave up) or downward (like a hill, concave down)?</li>
+                <li><strong>Asymptotes:</strong> Does the function approach but never reach a particular value? The sigmoid approaches 0 and 1 but never reaches them.</li>
+            </ul>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>Consider the graph of the two payoff functions from the Hawk-Dove game:</p>
+                <ul>
+                    <li>\( \pi_H(x) = V - \frac{(V+C)}{2}x \) &mdash; a decreasing line</li>
+                    <li>\( \pi_D(x) = \frac{V}{2}(1 - x) \) &mdash; also a decreasing line</li>
+                </ul>
+                <p>Plotting both on the same axes (with \( x \) on the horizontal axis and payoff on the vertical axis), the equilibrium is the point where the two lines cross. To the left of the crossing point, \( \pi_H > \pi_D \) (Hawks do better, so their frequency increases). To the right, \( \pi_D > \pi_H \) (Doves do better). The crossing point is a stable equilibrium: deviations in either direction are self-correcting.</p>
+            </div>
+
+            <div class="intuition-box">
+                <span class="box-title">Intuition</span>
+                <p>In EGT, we often plot the <strong>difference</strong> in payoffs \( \pi_A(x) - \pi_B(x) \) as a function of population state \( x \). Where this difference is positive, strategy A is favored; where negative, strategy B is favored. The equilibrium is where the difference crosses zero. The <em>slope</em> at the crossing determines stability: a downward crossing (negative slope) means the equilibrium is stable, because the favored strategy always pushes toward equilibrium.</p>
+            </div>
+
+            <h3>Phase Line Diagrams</h3>
+
+            <p>A particularly useful type of graph in dynamics is the <strong>phase line</strong>: a single number line (representing the population state \( x \in [0,1] \)) with arrows indicating the direction of change. An arrow pointing right at a state means \( x \) is increasing there; an arrow pointing left means \( x \) is decreasing. Fixed points are where the arrows converge (stable) or diverge (unstable).</p>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>You will spend much of this course analyzing graphs: payoff functions plotted against population proportions, trajectories of dynamical systems, phase portraits showing the flow of populations through state space. Developing the skill of reading qualitative behavior from a graph &mdash; without computing exact numbers &mdash; is one of the most valuable things you can learn. A single well-drawn graph can convey more insight than pages of algebra.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 6: Summation and Product Notation                    -->
+        <!-- ============================================================ -->
+        <div class="section" id="summation">
+            <h2>6. Summation and Product Notation</h2>
+
+            <p>When we move from two-strategy games to games with many strategies, we need a compact notation for adding up or multiplying many terms. This is where sigma (\( \Sigma \)) and pi (\( \Pi \)) notation come in.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p><strong>Sigma notation</strong> (summation):</p>
+                \[ \sum_{i=1}^{n} a_i = a_1 + a_2 + a_3 + \cdots + a_n \]
+                <p>The variable \( i \) is the <strong>index</strong> of summation, running from the <strong>lower limit</strong> (1) to the <strong>upper limit</strong> (\( n \)). For each value of \( i \), we compute \( a_i \) and add it to the running total.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>The sum of the first 5 squares:</p>
+                \[ \sum_{i=1}^{5} i^2 = 1^2 + 2^2 + 3^2 + 4^2 + 5^2 = 1 + 4 + 9 + 16 + 25 = 55 \]
+            </div>
+
+            <h3>Key Summation Properties</h3>
+
+            <div class="theorem-box">
+                <span class="box-title">Theorem</span>
+                <p><strong>Linearity of summation:</strong></p>
+                <ul>
+                    <li>\( \displaystyle\sum_{i=1}^{n} (a_i + b_i) = \sum_{i=1}^{n} a_i + \sum_{i=1}^{n} b_i \)</li>
+                    <li>\( \displaystyle\sum_{i=1}^{n} c \cdot a_i = c \cdot \sum_{i=1}^{n} a_i \) for any constant \( c \)</li>
+                    <li>\( \displaystyle\sum_{i=1}^{n} c = nc \) (summing a constant \( n \) times)</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In a game with \( n \) strategies, if \( x_i \) is the proportion of the population using strategy \( i \), then the proportions must sum to 1:</p>
+                \[ \sum_{i=1}^{n} x_i = 1 \]
+                <p>The <strong>average payoff</strong> in the population is the weighted average of individual strategy payoffs:</p>
+                \[ \bar{\pi} = \sum_{i=1}^{n} x_i \, \pi_i \]
+                <p>where \( \pi_i \) is the payoff to strategy \( i \). This is one of the most important formulas in EGT.</p>
+            </div>
+
+            <h3>Double Summation</h3>
+
+            <p>When computing expected payoffs in a game with many strategies, we often need double sums. If \( a_{ij} \) is the payoff to strategy \( i \) when meeting strategy \( j \), the expected payoff to strategy \( i \) is:</p>
+            \[ \pi_i = \sum_{j=1}^{n} x_j \, a_{ij} \]
+            <p>and the overall average payoff is:</p>
+            \[ \bar{\pi} = \sum_{i=1}^{n} \sum_{j=1}^{n} x_i \, x_j \, a_{ij} \]
+            <p>Read this as: "for each pair of strategies \( (i, j) \), multiply the frequency of \( i \) by the frequency of \( j \) by the payoff when \( i \) meets \( j \), then add everything up."</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p><strong>Pi notation</strong> (product):</p>
+                \[ \prod_{i=1}^{n} a_i = a_1 \cdot a_2 \cdot a_3 \cdots a_n \]
+                <p>This is the multiplicative analogue of summation.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>The factorial function can be written using product notation:</p>
+                \[ n! = \prod_{i=1}^{n} i = 1 \cdot 2 \cdot 3 \cdots n \]
+                <p>For instance, \( 5! = 1 \cdot 2 \cdot 3 \cdot 4 \cdot 5 = 120 \).</p>
+                <p>Factorials appear in combinatorics, which in turn appears when counting the number of possible strategies, matchups, or tournament outcomes.</p>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In probability, if events \( A_1, A_2, \ldots, A_n \) are independent, then the probability that they all occur is the product of their individual probabilities:</p>
+                \[ P(A_1 \cap A_2 \cap \cdots \cap A_n) = \prod_{i=1}^{n} P(A_i) \]
+            </div>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>The replicator equation for strategy \( i \) in an \( n \)-strategy game is:</p>
+                \[ \dot{x}_i = x_i \left( \pi_i - \bar{\pi} \right) = x_i \left( \sum_{j=1}^{n} a_{ij} x_j - \sum_{k=1}^{n} x_k \sum_{j=1}^{n} a_{kj} x_j \right) \]
+                <p>Without summation notation, writing this out for even 4 strategies would fill a page. Sigma notation is not mere shorthand &mdash; it is essential for thinking about and manipulating these expressions. You must be comfortable reading, writing, and manipulating sums to follow the derivations in later modules.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 7: Sets and Set Notation                             -->
+        <!-- ============================================================ -->
+        <div class="section" id="sets">
+            <h2>7. Sets and Set Notation</h2>
+
+            <p>A <strong>set</strong> is a collection of distinct objects, considered as a single entity. Sets are the foundation of modern mathematics, and in game theory, they provide the language for describing strategy spaces, player groups, and outcome possibilities.</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>A <strong>set</strong> is an unordered collection of distinct elements. We write sets using curly braces:</p>
+                \[ S = \{a, b, c\} \]
+                <p>The notation \( x \in S \) means "\( x \) is an element of \( S \)," and \( x \notin S \) means "\( x \) is not an element of \( S \)."</p>
+            </div>
+
+            <h3>Specifying Sets</h3>
+
+            <p>There are two common ways to specify a set:</p>
+
+            <ul>
+                <li><strong>Roster (listing):</strong> \( S = \{1, 2, 3, 4, 5\} \)</li>
+                <li><strong>Set-builder notation:</strong> \( S = \{ x \in \mathbb{R} \mid x^2 < 9 \} = (-3, 3) \)</li>
+            </ul>
+
+            <p>The vertical bar \( \mid \) is read "such that." So \( \{ x \in \mathbb{R} \mid x^2 < 9 \} \) reads "the set of all real numbers \( x \) such that \( x^2 \) is less than 9."</p>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In the Hawk-Dove game, the <strong>strategy set</strong> is:</p>
+                \[ S = \{\text{Hawk}, \text{Dove}\} \]
+                <p>In Rock-Paper-Scissors:</p>
+                \[ S = \{\text{Rock}, \text{Paper}, \text{Scissors}\} \]
+                <p>The number of elements in a set is its <strong>cardinality</strong>, written \( |S| \). Here \( |S| = 2 \) for Hawk-Dove and \( |S| = 3 \) for RPS.</p>
+            </div>
+
+            <h3>Set Operations</h3>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>For sets \( A \) and \( B \):</p>
+                <ul>
+                    <li><strong>Union:</strong> \( A \cup B = \{ x \mid x \in A \text{ or } x \in B \} \)</li>
+                    <li><strong>Intersection:</strong> \( A \cap B = \{ x \mid x \in A \text{ and } x \in B \} \)</li>
+                    <li><strong>Difference:</strong> \( A \setminus B = \{ x \mid x \in A \text{ and } x \notin B \} \)</li>
+                    <li><strong>Subset:</strong> \( A \subseteq B \) means every element of \( A \) is also in \( B \)</li>
+                    <li><strong>Empty set:</strong> \( \emptyset = \{ \} \), the set with no elements</li>
+                </ul>
+            </div>
+
+            <h3>The Simplex: Where Strategy Proportions Live</h3>
+
+            <p>One of the most important sets in EGT is the <strong>simplex</strong>:</p>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>\( (n-1) \)-dimensional simplex</strong> is the set of all probability distributions over \( n \) outcomes:</p>
+                \[ \Delta^{n-1} = \left\{ (x_1, x_2, \ldots, x_n) \in \mathbb{R}^n \;\middle|\; x_i \geq 0 \text{ for all } i, \text{ and } \sum_{i=1}^{n} x_i = 1 \right\} \]
+            </div>
+
+            <p>For two strategies, the simplex is \( \Delta^1 \), which is just the line segment from \( (1, 0) \) to \( (0, 1) \) &mdash; parameterized by a single number \( x \in [0, 1] \). For three strategies, \( \Delta^2 \) is an equilateral triangle in 3D space, with each vertex representing a pure strategy. The interior of this triangle represents all possible mixed populations.</p>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>In a three-strategy game (like Rock-Paper-Scissors), a population state is a point \( (x_1, x_2, x_3) \in \Delta^2 \) where \( x_1 + x_2 + x_3 = 1 \). The point \( (1/3, 1/3, 1/3) \) represents a population evenly split among all three strategies. The vertex \( (1, 0, 0) \) represents a population playing pure Rock. The edge between \( (1, 0, 0) \) and \( (0, 1, 0) \) represents populations using only Rock and Paper.</p>
+            </div>
+
+            <h3>Cartesian Products</h3>
+
+            <div class="def-box">
+                <span class="box-title">Definition</span>
+                <p>The <strong>Cartesian product</strong> of sets \( A \) and \( B \) is:</p>
+                \[ A \times B = \{ (a, b) \mid a \in A, \, b \in B \} \]
+                <p>This is the set of all ordered pairs with the first element from \( A \) and the second from \( B \).</p>
+            </div>
+
+            <div class="example-box">
+                <span class="box-title">Example</span>
+                <p>If two players each choose from strategy set \( S = \{C, D\} \) (Cooperate or Defect), the set of all possible strategy profiles is:</p>
+                \[ S \times S = \{(C, C),\, (C, D),\, (D, C),\, (D, D)\} \]
+                <p>A payoff function assigns a real-valued payoff to each of these profiles for each player. The familiar \( 2 \times 2 \) payoff matrix is just a tabular representation of this function defined on \( S \times S \).</p>
+            </div>
+
+            <div class="note-box">
+                <span class="box-title">Why This Matters for EGT</span>
+                <p>Set notation gives us the vocabulary to precisely describe the structure of a game: the strategy set \( S \), the set of mixed strategies (the simplex \( \Delta^{|S|-1} \)), the set of possible outcomes \( S \times S \) (or \( S^n \) for \( n \) players), and the support of a mixed strategy (the set of pure strategies played with positive probability). Without this vocabulary, even stating the theorems of game theory would be impossible.</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 8: Interactive Function Explorer                     -->
+        <!-- ============================================================ -->
+        <div class="section" id="interactive">
+            <h2>Interactive Exploration</h2>
+
+            <div class="interactive-container">
+                <h3>Interactive: Function Explorer</h3>
+                <p>Select a function from the dropdown to see its graph. Observe how different functions have different shapes, domains, and behaviors. Pay particular attention to the sigmoid &mdash; its S-shaped curve is ubiquitous in evolutionary dynamics.</p>
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Function:</label>
+                        <select id="func-select">
+                            <option value="x^2">f(x) = x&sup2;</option>
+                            <option value="2x + 1">f(x) = 2x + 1</option>
+                            <option value="sin(x)">f(x) = sin(x)</option>
+                            <option value="e^x">f(x) = e&#739;</option>
+                            <option value="ln(x)">f(x) = ln(x)</option>
+                            <option value="1/(1+e^(-x))">f(x) = &sigma;(x) (sigmoid)</option>
+                            <option value="x^3 - 3x">f(x) = x&sup3; - 3x</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="func-plotter" class="viz-canvas" width="600" height="400"></canvas>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 9: Exercises                                         -->
+        <!-- ============================================================ -->
+        <div class="section" id="exercises">
+            <h2>Exercises</h2>
+
+            <p>Work through these exercises to solidify your understanding. Each exercise connects back to ideas that will be important in later modules.</p>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 1</div>
+                <p>Classify each of the following numbers as natural, integer, rational, or irrational (choose the most specific category):</p>
+                <ol type="a">
+                    <li>\( 7 \)</li>
+                    <li>\( -3 \)</li>
+                    <li>\( \frac{22}{7} \)</li>
+                    <li>\( \pi \)</li>
+                    <li>\( \sqrt{16} \)</li>
+                    <li>\( \sqrt{2} \)</li>
+                    <li>\( 0.\overline{142857} \) (repeating decimal)</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <ol type="a">
+                            <li>\( 7 \in \mathbb{N} \) &mdash; natural number</li>
+                            <li>\( -3 \in \mathbb{Z} \) &mdash; integer (not natural, since it is negative)</li>
+                            <li>\( \frac{22}{7} \in \mathbb{Q} \) &mdash; rational (note: \( 22/7 \neq \pi \), it is just an approximation)</li>
+                            <li>\( \pi \) is irrational &mdash; it cannot be expressed as a fraction of integers</li>
+                            <li>\( \sqrt{16} = 4 \in \mathbb{N} \) &mdash; natural number</li>
+                            <li>\( \sqrt{2} \) is irrational</li>
+                            <li>\( 0.\overline{142857} = \frac{1}{7} \in \mathbb{Q} \) &mdash; rational (every repeating decimal is rational)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 2</div>
+                <p>In a game, the payoff to strategy A is \( \pi_A(x) = 4 - 3x \) and the payoff to strategy B is \( \pi_B(x) = 1 + 2x \), where \( x \in [0, 1] \) is the proportion of the population playing A.</p>
+                <ol type="a">
+                    <li>Find the value of \( x \) where both strategies have equal payoff.</li>
+                    <li>For what values of \( x \) does strategy A outperform strategy B?</li>
+                    <li>Is the equilibrium you found in (a) stable? (Hint: think about which strategy is favored on each side of the equilibrium.)</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong> Set \( \pi_A = \pi_B \):</p>
+                        \[ 4 - 3x = 1 + 2x \]
+                        \[ 3 = 5x \]
+                        \[ x^* = \frac{3}{5} = 0.6 \]
+
+                        <p><strong>(b)</strong> Strategy A outperforms B when \( \pi_A(x) > \pi_B(x) \):</p>
+                        \[ 4 - 3x > 1 + 2x \]
+                        \[ 3 > 5x \]
+                        \[ x < \frac{3}{5} \]
+                        <p>So A outperforms B when \( x < 0.6 \).</p>
+
+                        <p><strong>(c)</strong> When \( x < 3/5 \), strategy A does better, so more individuals adopt A, pushing \( x \) up toward \( 3/5 \). When \( x > 3/5 \), strategy B does better, so individuals switch to B, pushing \( x \) down toward \( 3/5 \). Deviations in either direction are corrected, so \( x^* = 3/5 \) is <strong>stable</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 3</div>
+                <p>Use the quadratic formula to solve \( 2x^2 - 7x + 3 = 0 \). Which solution(s), if any, are valid as population proportions (i.e., lie in \( [0, 1] \))?</p>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p>Here \( a = 2 \), \( b = -7 \), \( c = 3 \). The discriminant is:</p>
+                        \[ \Delta = (-7)^2 - 4(2)(3) = 49 - 24 = 25 \]
+                        \[ x = \frac{7 \pm \sqrt{25}}{4} = \frac{7 \pm 5}{4} \]
+                        \[ x = \frac{12}{4} = 3 \quad \text{or} \quad x = \frac{2}{4} = \frac{1}{2} \]
+                        <p>Only \( x = \frac{1}{2} \) lies in \( [0, 1] \), so it is the only valid population proportion. The solution \( x = 3 \) is mathematically valid but biologically meaningless (you cannot have 300% of a population playing one strategy).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 4</div>
+                <p>Let \( f(x) = x^2 - 4 \) and \( g(x) = 2x + 1 \). Compute:</p>
+                <ol type="a">
+                    <li>\( f(3) \)</li>
+                    <li>\( g(-2) \)</li>
+                    <li>\( f(g(1)) \)</li>
+                    <li>\( g(f(1)) \)</li>
+                    <li>Solve \( f(x) = g(x) \)</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong> \( f(3) = 3^2 - 4 = 9 - 4 = 5 \)</p>
+                        <p><strong>(b)</strong> \( g(-2) = 2(-2) + 1 = -4 + 1 = -3 \)</p>
+                        <p><strong>(c)</strong> First compute \( g(1) = 2(1) + 1 = 3 \), then \( f(g(1)) = f(3) = 5 \)</p>
+                        <p><strong>(d)</strong> First compute \( f(1) = 1 - 4 = -3 \), then \( g(f(1)) = g(-3) = 2(-3) + 1 = -5 \)</p>
+                        <p>Note: \( f(g(1)) \neq g(f(1)) \) in general &mdash; function composition is not commutative.</p>
+                        <p><strong>(e)</strong> Set \( x^2 - 4 = 2x + 1 \):</p>
+                        \[ x^2 - 2x - 5 = 0 \]
+                        \[ x = \frac{2 \pm \sqrt{4 + 20}}{2} = \frac{2 \pm \sqrt{24}}{2} = \frac{2 \pm 2\sqrt{6}}{2} = 1 \pm \sqrt{6} \]
+                        <p>So \( x = 1 + \sqrt{6} \approx 3.449 \) or \( x = 1 - \sqrt{6} \approx -1.449 \).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 5</div>
+                <p>Evaluate the sigmoid function \( \sigma(x) = \frac{1}{1 + e^{-x}} \) at \( x = -2, -1, 0, 1, 2 \). Verify that \( \sigma(-x) = 1 - \sigma(x) \) for each value. (Use \( e \approx 2.718 \).)</p>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <ul>
+                            <li>\( \sigma(0) = \frac{1}{1 + e^0} = \frac{1}{1 + 1} = 0.5 \)</li>
+                            <li>\( \sigma(1) = \frac{1}{1 + e^{-1}} = \frac{1}{1 + 0.368} \approx \frac{1}{1.368} \approx 0.731 \)</li>
+                            <li>\( \sigma(-1) = \frac{1}{1 + e^{1}} = \frac{1}{1 + 2.718} \approx \frac{1}{3.718} \approx 0.269 \)</li>
+                            <li>\( \sigma(2) = \frac{1}{1 + e^{-2}} = \frac{1}{1 + 0.135} \approx \frac{1}{1.135} \approx 0.881 \)</li>
+                            <li>\( \sigma(-2) = \frac{1}{1 + e^{2}} = \frac{1}{1 + 7.389} \approx \frac{1}{8.389} \approx 0.119 \)</li>
+                        </ul>
+                        <p>Checking symmetry: \( \sigma(1) + \sigma(-1) \approx 0.731 + 0.269 = 1.000 \). Similarly, \( \sigma(2) + \sigma(-2) \approx 0.881 + 0.119 = 1.000 \). And \( \sigma(0) + \sigma(0) = 0.5 + 0.5 = 1.0 \). The symmetry property holds.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 6</div>
+                <p>Compute the following sums:</p>
+                <ol type="a">
+                    <li>\( \displaystyle\sum_{i=1}^{4} (2i - 1) \)</li>
+                    <li>\( \displaystyle\sum_{k=0}^{3} 2^k \)</li>
+                    <li>If \( x_1 = 0.3 \), \( x_2 = 0.5 \), \( x_3 = 0.2 \), and payoffs are \( \pi_1 = 4 \), \( \pi_2 = 2 \), \( \pi_3 = 6 \), compute the average payoff \( \bar{\pi} = \displaystyle\sum_{i=1}^{3} x_i \pi_i \).</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong></p>
+                        \[ \sum_{i=1}^{4} (2i - 1) = (2 \cdot 1 - 1) + (2 \cdot 2 - 1) + (2 \cdot 3 - 1) + (2 \cdot 4 - 1) = 1 + 3 + 5 + 7 = 16 \]
+                        <p>(This is the sum of the first 4 odd numbers, which equals \( 4^2 = 16 \) &mdash; a well-known identity.)</p>
+
+                        <p><strong>(b)</strong></p>
+                        \[ \sum_{k=0}^{3} 2^k = 2^0 + 2^1 + 2^2 + 2^3 = 1 + 2 + 4 + 8 = 15 \]
+                        <p>(This equals \( 2^4 - 1 \), illustrating the geometric sum formula \( \sum_{k=0}^{n-1} r^k = \frac{r^n - 1}{r - 1} \).)</p>
+
+                        <p><strong>(c)</strong></p>
+                        \[ \bar{\pi} = (0.3)(4) + (0.5)(2) + (0.2)(6) = 1.2 + 1.0 + 1.2 = 3.4 \]
+                        <p>The average payoff in this population is 3.4. Note that this is indeed between the minimum payoff (2) and the maximum payoff (6), as any weighted average must be.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 7</div>
+                <p>Let \( S = \{R, P, S\} \) be the strategy set for Rock-Paper-Scissors.</p>
+                <ol type="a">
+                    <li>Write out all elements of \( S \times S \) (the set of all strategy profiles for two players).</li>
+                    <li>How many elements does \( S \times S \) have? How does this relate to \( |S| \)?</li>
+                    <li>A population state in this game is a triple \( (x_R, x_P, x_S) \in \Delta^2 \). Write the constraints that define \( \Delta^2 \).</li>
+                    <li>Is the point \( (0.5, 0.3, 0.3) \) in \( \Delta^2 \)? What about \( (0.5, 0.3, 0.2) \)?</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong></p>
+                        \[ S \times S = \{(R,R), (R,P), (R,S), (P,R), (P,P), (P,S), (S,R), (S,P), (S,S)\} \]
+
+                        <p><strong>(b)</strong> \( |S \times S| = 9 = 3^2 = |S|^2 \). In general, \( |A \times B| = |A| \cdot |B| \).</p>
+
+                        <p><strong>(c)</strong> The constraints are:</p>
+                        \[ x_R \geq 0, \quad x_P \geq 0, \quad x_S \geq 0, \quad x_R + x_P + x_S = 1 \]
+
+                        <p><strong>(d)</strong> Check \( (0.5, 0.3, 0.3) \): Sum = \( 0.5 + 0.3 + 0.3 = 1.1 \neq 1 \). <strong>Not</strong> in \( \Delta^2 \).</p>
+                        <p>Check \( (0.5, 0.3, 0.2) \): Sum = \( 0.5 + 0.3 + 0.2 = 1.0 \), and all components are non-negative. <strong>Yes</strong>, this is in \( \Delta^2 \).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 8</div>
+                <p>A population of size \( N_0 = 50 \) grows according to the exponential model \( N(t) = N_0 \cdot e^{rt} \) with growth rate \( r = 0.1 \) per time unit.</p>
+                <ol type="a">
+                    <li>What is the population after \( t = 10 \) time units?</li>
+                    <li>How long does it take for the population to double? (Solve \( 2N_0 = N_0 e^{rt} \) for \( t \).)</li>
+                    <li>Why is exponential growth unsustainable in real populations?</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong> \( N(10) = 50 \cdot e^{0.1 \times 10} = 50 \cdot e^1 = 50 \cdot 2.718 \approx 135.9 \).</p>
+
+                        <p><strong>(b)</strong> Solve \( 2N_0 = N_0 e^{rt} \). Cancel \( N_0 \):</p>
+                        \[ 2 = e^{0.1t} \]
+                        <p>Take the natural logarithm:</p>
+                        \[ \ln 2 = 0.1t \]
+                        \[ t = \frac{\ln 2}{0.1} = \frac{0.693}{0.1} = 6.93 \text{ time units} \]
+                        <p>The <strong>doubling time</strong> is \( \frac{\ln 2}{r} \), a formula worth remembering.</p>
+
+                        <p><strong>(c)</strong> Exponential growth assumes unlimited resources. In reality, resources are finite: food, space, mates, etc. As the population grows, individuals compete for scarce resources, which reduces the per-capita growth rate. This is why realistic models use logistic growth (with a carrying capacity \( K \)) rather than pure exponential growth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 9</div>
+                <p>In a three-strategy game, the payoff matrix is:</p>
+                \[ A = \begin{pmatrix} 3 & 0 & 5 \\ 5 & 3 & 0 \\ 0 & 5 & 3 \end{pmatrix} \]
+                <p>where entry \( a_{ij} \) is the payoff to strategy \( i \) against strategy \( j \). If the population state is \( \mathbf{x} = (1/3, 1/3, 1/3) \), compute:</p>
+                <ol type="a">
+                    <li>The expected payoff \( \pi_1 = \displaystyle\sum_{j=1}^{3} a_{1j} x_j \) for strategy 1</li>
+                    <li>The expected payoff for strategy 2 and strategy 3</li>
+                    <li>The average payoff \( \bar{\pi} = \displaystyle\sum_{i=1}^{3} x_i \pi_i \)</li>
+                    <li>What do you notice about the relationship between the three payoffs? What does this suggest about the dynamics?</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong></p>
+                        \[ \pi_1 = 3 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} + 5 \cdot \frac{1}{3} = \frac{3 + 0 + 5}{3} = \frac{8}{3} \]
+
+                        <p><strong>(b)</strong></p>
+                        \[ \pi_2 = 5 \cdot \frac{1}{3} + 3 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} = \frac{5 + 3 + 0}{3} = \frac{8}{3} \]
+                        \[ \pi_3 = 0 \cdot \frac{1}{3} + 5 \cdot \frac{1}{3} + 3 \cdot \frac{1}{3} = \frac{0 + 5 + 3}{3} = \frac{8}{3} \]
+
+                        <p><strong>(c)</strong></p>
+                        \[ \bar{\pi} = \frac{1}{3} \cdot \frac{8}{3} + \frac{1}{3} \cdot \frac{8}{3} + \frac{1}{3} \cdot \frac{8}{3} = \frac{8}{3} \]
+
+                        <p><strong>(d)</strong> All three strategies have the same payoff (\( 8/3 \)), which also equals the average payoff. This means no strategy has a selective advantage &mdash; the state \( (1/3, 1/3, 1/3) \) is a <strong>Nash equilibrium</strong>. This is the symmetric equilibrium of a Rock-Paper-Scissors-like game (each row of the payoff matrix is a cyclic permutation of the others). Whether this equilibrium is <em>stable</em> is a deeper question that requires the tools from Module 6 (Dynamical Systems).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-title">Exercise 10</div>
+                <p>Write the following in summation or product notation:</p>
+                <ol type="a">
+                    <li>\( 1 + 4 + 9 + 16 + 25 + 36 \)</li>
+                    <li>\( 2 \cdot 4 \cdot 6 \cdot 8 \cdot 10 \)</li>
+                    <li>\( x_1 a_{11} + x_2 a_{12} + x_3 a_{13} + \cdots + x_n a_{1n} \)</li>
+                </ol>
+                <div class="spoiler">
+                    <button class="spoiler-toggle">Show Solution</button>
+                    <div class="spoiler-content">
+                        <p><strong>(a)</strong> These are the squares of 1 through 6:</p>
+                        \[ \sum_{i=1}^{6} i^2 \]
+
+                        <p><strong>(b)</strong> These are the even numbers from 2 to 10, i.e., \( 2i \) for \( i = 1, \ldots, 5 \):</p>
+                        \[ \prod_{i=1}^{5} (2i) \]
+                        <p>(This also equals \( 2^5 \cdot 5! = 32 \cdot 120 = 3840 \).)</p>
+
+                        <p><strong>(c)</strong> This sums over the second index \( j \) with the first index fixed at 1:</p>
+                        \[ \sum_{j=1}^{n} x_j \, a_{1j} \]
+                        <p>This is the expected payoff to strategy 1 in a game with \( n \) strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- Module Navigation                                            -->
+        <!-- ============================================================ -->
+        <div class="module-nav-strip">
+            <span></span>
+            <a href="module2.html">Next: Linear Algebra &rarr;</a>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Mathematics for Evolutionary Game Theory &mdash; An Interactive Course</p>
+            <p>Built for learners seeking a rigorous yet accessible path into EGT</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/visualizations.js"></script>
+</body>
+</html>

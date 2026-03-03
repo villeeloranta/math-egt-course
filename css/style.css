@@ -1,0 +1,926 @@
+/* ========================================
+   Mathematics for Evolutionary Game Theory
+   Course Stylesheet
+   ======================================== */
+
+/* --- CSS Variables --- */
+:root {
+  --primary: #2c3e50;
+  --primary-light: #34495e;
+  --accent: #e74c3c;
+  --accent-hover: #c0392b;
+  --success: #27ae60;
+  --info: #2980b9;
+  --warning: #f39c12;
+  --bg: #fafafa;
+  --bg-white: #ffffff;
+  --bg-code: #f4f4f4;
+  --text: #333333;
+  --text-light: #666666;
+  --text-muted: #999999;
+  --border: #e0e0e0;
+  --shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.15);
+  --radius: 8px;
+  --radius-sm: 4px;
+  --transition: 0.3s ease;
+  --max-width: 960px;
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-mono: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  --font-heading: 'Georgia', 'Times New Roman', serif;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* --- Navigation --- */
+nav.main-nav {
+  background: var(--primary);
+  color: white;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+}
+
+nav.main-nav .nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+nav.main-nav .logo {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1rem 0;
+  text-decoration: none;
+  color: white;
+}
+
+nav.main-nav .logo:hover {
+  color: #ecf0f1;
+}
+
+nav.main-nav .nav-links {
+  display: flex;
+  list-style: none;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+nav.main-nav .nav-links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  padding: 1rem 0.75rem;
+  display: block;
+  font-size: 0.9rem;
+  transition: color var(--transition), background var(--transition);
+  border-bottom: 3px solid transparent;
+}
+
+nav.main-nav .nav-links a:hover,
+nav.main-nav .nav-links a.active {
+  color: white;
+  background: rgba(255,255,255,0.1);
+  border-bottom-color: var(--accent);
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--info) 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero .subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.hero .cta-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.hero .cta-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* --- Page Container --- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* --- Module Header --- */
+.module-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--info) 100%);
+  color: white;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.module-header .container {
+  padding: 0;
+}
+
+.module-header .module-number {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.module-header h1 {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.module-header .module-desc {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 700px;
+}
+
+.module-nav-strip {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 2rem;
+  padding: 0;
+}
+
+.module-nav-strip a {
+  color: var(--info);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.module-nav-strip a:hover {
+  background: rgba(41, 128, 185, 0.1);
+}
+
+/* --- Section Styling --- */
+.section {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--info);
+}
+
+.section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.section h3 {
+  font-size: 1.25rem;
+  color: var(--primary-light);
+  margin: 1.5rem 0 0.75rem;
+}
+
+.section h4 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin: 1.2rem 0 0.5rem;
+}
+
+.section p {
+  margin-bottom: 1rem;
+}
+
+.section ul, .section ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.section li {
+  margin-bottom: 0.4rem;
+}
+
+/* --- Definition / Theorem / Example Boxes --- */
+.def-box, .theorem-box, .example-box, .note-box, .warning-box, .intuition-box {
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.def-box {
+  background: #eaf2f8;
+  border-left: 4px solid var(--info);
+}
+
+.theorem-box {
+  background: #fdf2e9;
+  border-left: 4px solid var(--warning);
+}
+
+.example-box {
+  background: #eafaf1;
+  border-left: 4px solid var(--success);
+}
+
+.note-box {
+  background: #f4f6f7;
+  border-left: 4px solid var(--text-muted);
+}
+
+.warning-box {
+  background: #fdedec;
+  border-left: 4px solid var(--accent);
+}
+
+.intuition-box {
+  background: #f5eef8;
+  border-left: 4px solid #8e44ad;
+}
+
+.box-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.def-box .box-title { color: var(--info); }
+.theorem-box .box-title { color: #e67e22; }
+.example-box .box-title { color: var(--success); }
+.note-box .box-title { color: var(--text-muted); }
+.warning-box .box-title { color: var(--accent); }
+.intuition-box .box-title { color: #8e44ad; }
+
+/* --- Interactive Elements --- */
+.interactive-container {
+  background: var(--bg-white);
+  border: 2px solid var(--info);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.interactive-container h3 {
+  color: var(--info);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.interactive-container h3::before {
+  content: "\25B6";
+  font-size: 0.8em;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.control-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.control-group input[type="range"] {
+  width: 150px;
+  accent-color: var(--info);
+}
+
+.control-group input[type="number"] {
+  width: 80px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.control-group select {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: white;
+}
+
+.control-value {
+  font-size: 0.85rem;
+  color: var(--info);
+  font-weight: 600;
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+canvas.viz-canvas {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: white;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--info);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2471a3;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-accent:hover {
+  background: var(--accent-hover);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-success:hover {
+  background: #229954;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--info);
+  color: var(--info);
+}
+
+.btn-outline:hover {
+  background: var(--info);
+  color: white;
+}
+
+/* --- Payoff Matrix Table --- */
+.payoff-matrix {
+  border-collapse: collapse;
+  margin: 1rem auto;
+  font-size: 0.95rem;
+}
+
+.payoff-matrix th, .payoff-matrix td {
+  border: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  text-align: center;
+}
+
+.payoff-matrix th {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.payoff-matrix td {
+  background: white;
+}
+
+.payoff-matrix td.highlight {
+  background: #eaf2f8;
+  font-weight: 600;
+}
+
+.payoff-matrix .row-header {
+  background: var(--primary-light);
+  color: white;
+  font-weight: 600;
+}
+
+/* --- Exercise / Spoiler --- */
+.exercise {
+  background: #fff9e6;
+  border: 2px dashed var(--warning);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.exercise .exercise-title {
+  font-weight: 700;
+  color: #d68910;
+  margin-bottom: 0.5rem;
+}
+
+.spoiler {
+  margin-top: 1rem;
+}
+
+.spoiler-toggle {
+  background: var(--warning);
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+
+.spoiler-toggle:hover {
+  background: #e67e22;
+}
+
+.spoiler-content {
+  display: none;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: white;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.spoiler-content.show {
+  display: block;
+}
+
+/* --- Module Cards (for index page) --- */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.module-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.module-card .card-accent {
+  height: 6px;
+}
+
+.module-card:nth-child(1) .card-accent { background: #3498db; }
+.module-card:nth-child(2) .card-accent { background: #2ecc71; }
+.module-card:nth-child(3) .card-accent { background: #e74c3c; }
+.module-card:nth-child(4) .card-accent { background: #f39c12; }
+.module-card:nth-child(5) .card-accent { background: #9b59b6; }
+.module-card:nth-child(6) .card-accent { background: #1abc9c; }
+.module-card:nth-child(7) .card-accent { background: #e67e22; }
+.module-card:nth-child(8) .card-accent { background: #2c3e50; }
+.module-card:nth-child(9) .card-accent { background: #16a085; }
+
+.module-card .card-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.module-card .card-number {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.module-card .card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.module-card .card-desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  flex: 1;
+}
+
+.module-card .card-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
+
+.module-card .card-topics span {
+  background: #eaf2f8;
+  color: var(--info);
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --- Learning Path --- */
+.learning-path {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.path-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.path-step .step-marker {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--info);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.path-step .step-line {
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  width: 2px;
+  height: calc(100% - 10px);
+  background: var(--border);
+}
+
+.path-step:last-child .step-line {
+  display: none;
+}
+
+.path-step .step-content {
+  margin-left: 1rem;
+  padding-bottom: 1rem;
+}
+
+.path-step .step-content h4 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.path-step .step-content p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+/* --- Code blocks --- */
+pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-code);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* --- Footer --- */
+footer {
+  background: var(--primary);
+  color: #bdc3c7;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #ecf0f1;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- Progress indicator --- */
+.progress-bar {
+  height: 4px;
+  background: var(--border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+}
+
+.progress-bar .progress-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 0;
+  transition: width 0.2s ease;
+}
+
+/* --- MathJax adjustments --- */
+.MathJax {
+  font-size: 1.05em !important;
+}
+
+.math-display {
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+/* --- Grid helpers --- */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .hero .subtitle { font-size: 1.1rem; }
+  .module-header h1 { font-size: 1.6rem; }
+  .section { padding: 1.25rem; }
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .module-grid { grid-template-columns: 1fr; }
+
+  nav.main-nav .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--primary);
+  }
+
+  nav.main-nav .nav-links.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .control-group input[type="range"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.6rem; }
+  .container { padding: 1rem; }
+  .section { padding: 1rem; }
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* --- Tab system for interactive content --- */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.tab-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all var(--transition);
+}
+
+.tab-btn:hover {
+  color: var(--primary);
+}
+
+.tab-btn.active {
+  color: var(--info);
+  border-bottom-color: var(--info);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* --- Simplex triangle canvas --- */
+.simplex-container {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* --- Slider output display --- */
+.slider-output {
+  display: inline-block;
+  min-width: 3rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--info);
+}
+
+/* --- Table of contents for module pages --- */
+.toc {
+  background: #f8f9fa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.toc h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.toc li {
+  margin-bottom: 0.3rem;
+}
+
+.toc a {
+  color: var(--info);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+/* --- Equation numbering --- */
+.eq-numbered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.eq-number {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* --- SVG diagrams --- */
+svg.diagram {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* --- Print styles --- */
+@media print {
+  nav.main-nav, .progress-bar, .hamburger, .interactive-container .controls, .spoiler-toggle { display: none; }
+  .section { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  .spoiler-content { display: block !important; }
+  body { background: white; }
+}

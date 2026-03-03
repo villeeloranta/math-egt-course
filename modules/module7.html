@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 7: Evolutionary Game Theory &amp; Replicator Dynamics</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html" class="active">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Module 7 &mdash; The Core Destination</div>
+    <h1>Evolutionary Game Theory &amp; Replicator Dynamics</h1>
+    <p class="module-desc">
+      Where everything comes together. We abandon the assumption of rational players and instead ask:
+      what happens when strategies <em>evolve</em>? The replicator equation &mdash; the central equation
+      of evolutionary game theory &mdash; emerges from a beautifully simple principle: strategies that
+      perform better than average grow; those that perform worse decline.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module6.html">&larr; Module 6: Game Theory</a>
+    <a href="module8.html">Module 8: Applications &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>In This Module</h3>
+    <ol>
+      <li><a href="#sec-classical-to-evo">From Classical to Evolutionary Game Theory</a></li>
+      <li><a href="#sec-populations">Populations and Strategy Frequencies</a></li>
+      <li><a href="#sec-fitness">Fitness and Expected Payoff</a></li>
+      <li><a href="#sec-ess">Evolutionarily Stable Strategy (ESS)</a></li>
+      <li><a href="#sec-replicator">The Replicator Equation</a></li>
+      <li><a href="#sec-2strategy">2-Strategy Replicator Dynamics</a></li>
+      <li><a href="#sec-multi">Multi-Strategy Replicator Dynamics</a></li>
+      <li><a href="#sec-ess-replicator">Connection Between ESS and Replicator Dynamics</a></li>
+      <li><a href="#sec-stability">Stability Analysis in Replicator Dynamics</a></li>
+      <li><a href="#sec-extensions">Extensions and Generalizations</a></li>
+      <li><a href="#sec-viz1">Interactive: 2-Strategy Simulator</a></li>
+      <li><a href="#sec-viz2">Interactive: 3-Strategy Simplex</a></li>
+      <li><a href="#sec-exercises">Exercises</a></li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: From Classical to Evolutionary Game Theory         -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-classical-to-evo">
+    <h2>1. From Classical to Evolutionary Game Theory</h2>
+
+    <p>
+      In Module 6, we studied classical game theory: rational players, perfect information, utility
+      maximization. Nash equilibrium answered the question <em>"If everyone is perfectly rational,
+      what strategies are self-consistent?"</em> But this framework has a deep limitation: it requires
+      players to <strong>reason</strong> their way to equilibrium. In many biological, social, and
+      institutional settings, that assumption is unrealistic.
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">The Key Paradigm Shift</span>
+      <p>
+        Classical game theory asks: <em>"What should a rational player do?"</em><br>
+        Evolutionary game theory asks: <em>"What strategies survive and spread in a population?"</em>
+      </p>
+      <p>
+        Players don't need to be rational &mdash; or even conscious. Strategies that happen to produce
+        higher payoffs leave more copies of themselves in the next generation. This is <strong>selection</strong>,
+        not calculation.
+      </p>
+    </div>
+
+    <p>
+      The evolutionary approach was pioneered by <strong>John Maynard Smith</strong> and
+      <strong>George R. Price</strong> in the early 1970s, originally for biological applications.
+      But the framework is far more general. Whenever you have:
+    </p>
+
+    <ul>
+      <li>A <strong>population</strong> of agents (organisms, firms, people, norms, institutions)</li>
+      <li>Each agent uses a <strong>strategy</strong> (behavioral rule, phenotype, convention)</li>
+      <li>Agents interact and receive <strong>payoffs</strong> (fitness, profit, reproductive success)</li>
+      <li>Strategies that earn higher payoffs <strong>spread</strong> (through reproduction, imitation, learning)</li>
+    </ul>
+
+    <p>you are in the domain of evolutionary game theory.</p>
+
+    <h3>Vocabulary Translation</h3>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th style="width:35%">Classical Game Theory</th>
+        <th>Evolutionary Game Theory</th>
+      </tr>
+      <tr><td>Utility / Payoff</td><td><strong>Fitness</strong></td></tr>
+      <tr><td>Rational player chooses strategy</td><td><strong>Population fraction</strong> using each strategy</td></tr>
+      <tr><td>Nash Equilibrium</td><td><strong>Evolutionarily Stable Strategy (ESS)</strong></td></tr>
+      <tr><td>Best response reasoning</td><td><strong>Natural selection / imitation / learning</strong></td></tr>
+      <tr><td>Mixed strategy of one player</td><td><strong>Population state</strong> (fraction playing each pure strategy)</td></tr>
+      <tr><td>Static equilibrium concept</td><td><strong>Dynamic process</strong> (replicator equation)</td></tr>
+    </table>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for Social Science</span>
+      <p>
+        In Ostrom's analysis of institutions (Module 8), communities don't arrive at cooperative
+        norms through perfect rationality. Norms evolve over time: successful conventions spread
+        through imitation and cultural learning, while unsuccessful ones fade. Evolutionary game
+        theory provides the mathematical framework to model this process rigorously.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Populations and Strategy Frequencies               -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-populations">
+    <h2>2. Populations and Strategy Frequencies</h2>
+
+    <p>
+      Instead of a single player choosing a mixed strategy, we now think about a large population
+      where different individuals use different <em>pure</em> strategies. The <strong>population state</strong>
+      describes how common each strategy is.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Population State</span>
+      <p>
+        Suppose there are \(n\) pure strategies available. The <strong>population state</strong> is a vector
+      </p>
+      \[
+        \mathbf{x} = (x_1, x_2, \ldots, x_n)
+      \]
+      <p>
+        where \(x_i\) is the fraction (proportion) of the population using strategy \(i\). These
+        fractions must satisfy:
+      </p>
+      \[
+        \sum_{i=1}^{n} x_i = 1, \qquad x_i \geq 0 \quad \text{for all } i.
+      \]
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; The Simplex</span>
+      <p>
+        The set of all valid population states forms the <strong>\((n{-}1)\)-dimensional simplex</strong>:
+      </p>
+      \[
+        \Delta^{n-1} = \left\{ \mathbf{x} \in \mathbb{R}^n \;\Big|\; \sum_{i=1}^n x_i = 1, \; x_i \geq 0 \;\text{for all } i \right\}.
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Visualizing the Simplex</span>
+      <p><strong>2 strategies (\(n = 2\)):</strong> The simplex is a line segment from \((1, 0)\) to \((0, 1)\).
+        A single number \(x_1 \in [0, 1]\) describes the entire population state (since \(x_2 = 1 - x_1\)).</p>
+      <p><strong>3 strategies (\(n = 3\)):</strong> The simplex is a triangle with vertices at \((1,0,0)\), \((0,1,0)\),
+        and \((0,0,1)\). Each point inside the triangle represents a population mix of all three strategies.
+        The vertices are monomorphic states (everyone plays the same strategy), edges are states where one
+        strategy is absent.</p>
+      <p><strong>General \(n\):</strong> An \((n{-}1)\)-dimensional geometric object. The vertices are the \(n\)
+        monomorphic populations.</p>
+    </div>
+
+    <h3>Interior vs. Boundary</h3>
+
+    <p>
+      Points on the <strong>interior</strong> of the simplex have \(x_i > 0\) for all \(i\) &mdash; every
+      strategy is present. Points on the <strong>boundary</strong> have at least one \(x_i = 0\) &mdash;
+      at least one strategy is absent. As we will see, the replicator dynamics preserve this distinction:
+      extinct strategies stay extinct.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Hawk-Dove Population</span>
+      <p>
+        Consider a population with two strategies: Hawk (\(H\)) and Dove (\(D\)). The state
+        \(\mathbf{x} = (0.3, 0.7)\) means 30% of the population plays Hawk and 70% plays Dove.
+        The simplex is the interval \([0, 1]\), parameterized by \(x_H\) with \(x_D = 1 - x_H\).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Fitness and Expected Payoff                       -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-fitness">
+    <h2>3. Fitness and Expected Payoff</h2>
+
+    <p>
+      In evolutionary game theory, the payoff matrix \(A\) from classical game theory is reinterpreted:
+      entry \(a_{ij}\) is the <strong>fitness gain</strong> to an individual playing strategy \(i\) when
+      it encounters an opponent playing strategy \(j\). Since opponents are drawn randomly from the
+      population, we compute expected fitness.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Fitness of Strategy \(i\)</span>
+      <p>
+        Given payoff matrix \(A = (a_{ij})\) and population state \(\mathbf{x}\), the <strong>fitness</strong>
+        (expected payoff) of strategy \(i\) is:
+      </p>
+      \[
+        f_i(\mathbf{x}) = \sum_{j=1}^{n} a_{ij} x_j = (A\mathbf{x})_i
+      \]
+      <p>
+        This is the \(i\)-th component of the matrix-vector product \(A\mathbf{x}\). In compact notation,
+        the fitness vector is:
+      </p>
+      \[
+        \mathbf{f}(\mathbf{x}) = A\mathbf{x}
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Why Matrix Multiplication?</span>
+      <p>
+        An individual playing strategy \(i\) faces opponents at random. With probability \(x_j\),
+        the opponent uses strategy \(j\), yielding payoff \(a_{ij}\). So the expected payoff is the
+        weighted average \(\sum_j a_{ij} x_j\) &mdash; exactly the \(i\)-th row of \(A\) dotted with
+        \(\mathbf{x}\). This is precisely what matrix multiplication computes. The linear algebra from
+        Module 2 now shows its purpose.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Average Population Fitness</span>
+      <p>
+        The <strong>average fitness</strong> of the entire population is the weighted average of
+        individual strategy fitnesses:
+      </p>
+      \[
+        \bar{f}(\mathbf{x}) = \sum_{i=1}^{n} x_i f_i(\mathbf{x}) = \sum_{i=1}^{n} x_i \sum_{j=1}^{n} a_{ij} x_j = \mathbf{x}^{\!\top} A \mathbf{x}
+      \]
+      <p>
+        This is a <strong>quadratic form</strong> (Module 2) &mdash; a single number summarizing
+        overall population performance.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Hawk-Dove Fitness Calculation</span>
+      <p>
+        Consider the Hawk-Dove game with payoff matrix (where \(V = 4\), \(C = 6\)):
+      </p>
+      \[
+        A = \begin{pmatrix} \frac{V - C}{2} & V \\ 0 & \frac{V}{2} \end{pmatrix}
+        = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}
+      \]
+      <p>
+        Rows/columns: strategy 1 = Hawk, strategy 2 = Dove. Let \(x\) be the fraction of Hawks, so
+        \(\mathbf{x} = (x, 1 - x)\).
+      </p>
+      <p><strong>Fitness of Hawks:</strong></p>
+      \[
+        f_H(x) = a_{11} x + a_{12}(1 - x) = -1 \cdot x + 4(1 - x) = 4 - 5x
+      \]
+      <p><strong>Fitness of Doves:</strong></p>
+      \[
+        f_D(x) = a_{21} x + a_{22}(1 - x) = 0 \cdot x + 2(1 - x) = 2 - 2x
+      \]
+      <p><strong>Average population fitness:</strong></p>
+      \[
+        \bar{f}(x) = x \cdot f_H(x) + (1 - x) \cdot f_D(x) = x(4 - 5x) + (1 - x)(2 - 2x)
+      \]
+      \[
+        = 4x - 5x^2 + 2 - 2x - 2x + 2x^2 = 2 - 3x^2
+      \]
+      <p>
+        At \(x = 0\) (all Doves): \(\bar{f} = 2\). At \(x = 1\) (all Hawks): \(\bar{f} = -1\).
+        The population does worst when everyone is aggressive &mdash; a social dilemma emerges!
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Connection to Module 5</span>
+      <p>
+        The fitness \(f_i(\mathbf{x}) = \sum_j a_{ij} x_j\) is literally an <strong>expected value</strong>.
+        The random variable is "payoff when meeting a random opponent," and the probabilities are the
+        population frequencies \(x_j\). Everything we learned about expected value in Module 5 applies directly.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Evolutionarily Stable Strategy                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-ess">
+    <h2>4. Evolutionarily Stable Strategy (ESS)</h2>
+
+    <p>
+      The concept of an <strong>Evolutionarily Stable Strategy</strong> (ESS) is one of the most
+      important ideas in evolutionary biology and social science. It was introduced by
+      <strong>Maynard Smith and Price (1973)</strong> to answer a fundamental question: which strategies
+      can resist invasion by mutants?
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">The Invasion Thought Experiment</span>
+      <p>
+        Imagine a population where everyone uses strategy \(\sigma^*\). Now a small group of
+        <em>mutants</em> using a different strategy \(\sigma\) appears. The mutants are rare, so
+        they mostly interact with the residents (\(\sigma^*\)-players). The question is:
+        <strong>Can the mutants grow, or will they be driven to extinction?</strong>
+      </p>
+      <p>
+        If no mutant strategy can invade, then \(\sigma^*\) is evolutionarily stable &mdash; it is
+        a strategy that, once established, will persist under evolutionary dynamics.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Evolutionarily Stable Strategy (ESS)</span>
+      <p>
+        A strategy \(\sigma^*\) is an <strong>Evolutionarily Stable Strategy</strong> if for every
+        mutant strategy \(\sigma \neq \sigma^*\), at least one of the following holds:
+      </p>
+      <ol>
+        <li>
+          <strong>Strict Nash condition:</strong>
+          \[
+            E(\sigma^*, \sigma^*) > E(\sigma, \sigma^*)
+          \]
+          The resident does strictly better against residents than the mutant does against residents.
+        </li>
+        <li>
+          <strong>Stability condition:</strong> If \(E(\sigma^*, \sigma^*) = E(\sigma, \sigma^*)\), then
+          \[
+            E(\sigma^*, \sigma) > E(\sigma, \sigma)
+          \]
+          When the mutant does equally well against residents, the <em>resident</em> must do strictly better
+          against <em>mutants</em> than mutants do against themselves.
+        </li>
+      </ol>
+      <p>More compactly: \(\sigma^*\) is an ESS if it is a <strong>Nash equilibrium</strong> that satisfies
+        the additional <strong>stability condition</strong> whenever the Nash inequality is not strict.</p>
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">ESS is Stronger Than Nash Equilibrium</span>
+      <p>
+        Every ESS is a Nash equilibrium, but <strong>not every Nash equilibrium is an ESS</strong>.
+        The stability condition is the extra requirement. In fact, an ESS must be a
+        <em>symmetric</em> Nash equilibrium that satisfies this invasion-resistance property.
+      </p>
+    </div>
+
+    <h3>ESS for 2-Strategy Games: The Matrix Test</h3>
+
+    <p>
+      For a 2-strategy symmetric game with payoff matrix
+      \[
+        A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+      \]
+      we can characterize ESS explicitly:
+    </p>
+
+    <ul>
+      <li><strong>Pure strategy 1 is ESS</strong> if \(a > c\), OR if \(a = c\) and \(b > d\).</li>
+      <li><strong>Pure strategy 2 is ESS</strong> if \(d > b\), OR if \(d = b\) and \(c > a\).</li>
+      <li><strong>Mixed ESS at \(x^*\)</strong> may exist when \(a &lt; c\) and \(d &lt; b\) (the
+        "Hawk-Dove" case). The ESS mix is:
+        \[
+          x^* = \frac{d - b}{(a - c) + (d - b)}
+        \]
+      </li>
+    </ul>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example &mdash; Finding the ESS of Hawk-Dove</span>
+      <p>
+        With our Hawk-Dove matrix \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\):
+      </p>
+      <p><strong>Step 1: Is pure Hawk an ESS?</strong></p>
+      <p>Check \(a > c\): Is \(-1 > 0\)? No. So pure Hawk is <em>not</em> an ESS.</p>
+      <p><strong>Step 2: Is pure Dove an ESS?</strong></p>
+      <p>Check \(d > b\): Is \(2 > 4\)? No. So pure Dove is <em>not</em> an ESS.</p>
+      <p><strong>Step 3: Mixed ESS?</strong></p>
+      <p>
+        Since \(a = -1 < 0 = c\) and \(d = 2 < 4 = b\), the conditions for a mixed ESS are met.
+        The ESS frequency of Hawks is:
+      </p>
+      \[
+        x^* = \frac{d - b}{(a - c) + (d - b)} = \frac{2 - 4}{(-1 - 0) + (2 - 4)} = \frac{-2}{-1 + (-2)} = \frac{-2}{-3} = \frac{2}{3}
+      \]
+      <p>
+        So the ESS is a population with \(\frac{2}{3}\) Hawks and \(\frac{1}{3}\) Doves.
+      </p>
+      <p><strong>Verification:</strong> At \(x^* = 2/3\):</p>
+      \[
+        f_H = 4 - 5 \cdot \tfrac{2}{3} = 4 - \tfrac{10}{3} = \tfrac{2}{3}, \qquad
+        f_D = 2 - 2 \cdot \tfrac{2}{3} = 2 - \tfrac{4}{3} = \tfrac{2}{3}.
+      \]
+      <p>
+        Both strategies have equal fitness at the ESS &mdash; as they must at any interior equilibrium.
+        Neither strategy has a fitness advantage, so neither can invade.
+      </p>
+    </div>
+
+    <h3>The Bishop-Cannings Theorem</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Bishop-Cannings (1978)</span>
+      <p>
+        If \(\sigma^*\) is a mixed ESS with support \(S = \{i : \sigma^*_i > 0\}\), then every
+        pure strategy in the support has <strong>equal fitness</strong> against \(\sigma^*\):
+      </p>
+      \[
+        f_i(\sigma^*) = f_j(\sigma^*) = \bar{f}(\sigma^*) \qquad \text{for all } i, j \in S.
+      \]
+      <p>
+        Furthermore, any pure strategy <em>not</em> in the support must have strictly lower fitness:
+      </p>
+      \[
+        f_k(\sigma^*) < \bar{f}(\sigma^*) \qquad \text{for all } k \notin S.
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Why Equal Fitness?</span>
+      <p>
+        If one strategy in the mix had higher fitness, selection would increase its frequency and
+        decrease the others. The mix could only be stable if there is no fitness advantage to any
+        component &mdash; they all perform equally. This is the <em>indifference principle</em>, the
+        same logic behind mixed Nash equilibria in classical game theory (Module 6), but now with an
+        evolutionary interpretation.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: The Replicator Equation                           -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-replicator">
+    <h2>5. The Replicator Equation</h2>
+
+    <p>
+      We now arrive at the <strong>central equation of evolutionary game theory</strong>. The ESS is
+      a <em>static</em> concept &mdash; it tells us what might be stable, but not <em>how</em> we get
+      there. The <strong>replicator equation</strong> provides the dynamics: it tells us exactly how
+      strategy frequencies change over time.
+    </p>
+
+    <h3>Derivation from First Principles</h3>
+
+    <p>
+      Consider a large population of size \(N\). Let \(n_i\) be the number of individuals using
+      strategy \(i\), so \(x_i = n_i / N\). Each individual reproduces (or is imitated) at a rate
+      proportional to its fitness \(f_i(\mathbf{x})\).
+    </p>
+
+    <p><strong>Step 1: Growth of strategy \(i\).</strong></p>
+    <p>
+      The number of strategy-\(i\) individuals grows according to:
+    </p>
+    \[
+      \dot{n}_i = f_i(\mathbf{x}) \cdot n_i
+    \]
+    <p>
+      This says that the rate of increase is proportional to both the current number \(n_i\) and
+      the fitness \(f_i\) &mdash; the hallmark of exponential-type growth (Module 4).
+    </p>
+
+    <p><strong>Step 2: Total population growth.</strong></p>
+    <p>
+      The total population \(N = \sum_i n_i\) grows as:
+    </p>
+    \[
+      \dot{N} = \sum_{i=1}^{n} \dot{n}_i = \sum_{i=1}^{n} f_i(\mathbf{x}) \cdot n_i = N \sum_{i=1}^{n} f_i(\mathbf{x}) \cdot x_i = N \bar{f}(\mathbf{x})
+    \]
+
+    <p><strong>Step 3: Derive the frequency dynamics.</strong></p>
+    <p>
+      Since \(x_i = n_i / N\), we use the quotient rule (Module 3):
+    </p>
+    \[
+      \dot{x}_i = \frac{d}{dt}\left(\frac{n_i}{N}\right) = \frac{\dot{n}_i \cdot N - n_i \cdot \dot{N}}{N^2}
+    \]
+    \[
+      = \frac{f_i n_i \cdot N - n_i \cdot N\bar{f}}{N^2} = \frac{n_i}{N}\big(f_i - \bar{f}\big) = x_i\big(f_i(\mathbf{x}) - \bar{f}(\mathbf{x})\big)
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">The Replicator Equation</span>
+      <p>
+        The <strong>replicator equation</strong> governs the evolution of strategy frequencies:
+      </p>
+      <div class="eq-numbered">
+        \[
+          \boxed{\dot{x}_i = x_i \Big[ f_i(\mathbf{x}) - \bar{f}(\mathbf{x}) \Big]}
+        \]
+        <span class="eq-number">(R)</span>
+      </div>
+      <p>
+        where \(f_i(\mathbf{x}) = (A\mathbf{x})_i\) is the fitness of strategy \(i\) and
+        \(\bar{f}(\mathbf{x}) = \mathbf{x}^\top A \mathbf{x}\) is the average population fitness.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Reading the Replicator Equation</span>
+      <p>
+        The equation says: <em>the rate of change of \(x_i\) equals \(x_i\) times the
+        <strong>excess fitness</strong> of strategy \(i\) over the population average.</em>
+      </p>
+      <ul>
+        <li>If \(f_i > \bar{f}\): strategy \(i\) does better than average &rarr; \(\dot{x}_i > 0\) &rarr; frequency <strong>grows</strong>.</li>
+        <li>If \(f_i < \bar{f}\): strategy \(i\) does worse than average &rarr; \(\dot{x}_i < 0\) &rarr; frequency <strong>shrinks</strong>.</li>
+        <li>If \(f_i = \bar{f}\): strategy \(i\) is exactly average &rarr; \(\dot{x}_i = 0\) &rarr; frequency is <strong>stationary</strong>.</li>
+        <li>If \(x_i = 0\): strategy \(i\) is absent &rarr; \(\dot{x}_i = 0\) &rarr; <strong>extinct strategies stay extinct</strong>.</li>
+      </ul>
+    </div>
+
+    <h3>Fundamental Properties</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Properties of the Replicator Equation</span>
+      <ol>
+        <li>
+          <strong>Simplex invariance:</strong> If \(\mathbf{x}(0) \in \Delta^{n-1}\), then
+          \(\mathbf{x}(t) \in \Delta^{n-1}\) for all \(t \geq 0\). Proof: \(\sum_i \dot{x}_i = \sum_i x_i(f_i - \bar{f}) = \bar{f} - \bar{f} = 0\).
+        </li>
+        <li>
+          <strong>Boundary invariance:</strong> If \(x_i(0) = 0\), then \(x_i(t) = 0\) for all \(t\).
+          Once a strategy goes extinct, it cannot reappear (there is no mutation in the basic model).
+        </li>
+        <li>
+          <strong>Interior invariance:</strong> If \(x_i(0) > 0\) for all \(i\), then \(x_i(t) > 0\) for all
+          \(i\) and all \(t\). Strategies present at the start remain present (though they may approach zero
+          asymptotically).
+        </li>
+        <li>
+          <strong>Fixed points:</strong> \(\mathbf{x}^*\) is a fixed point if and only if for every \(i\):
+          either \(x_i^* = 0\) or \(f_i(\mathbf{x}^*) = \bar{f}(\mathbf{x}^*)\). Interior fixed points
+          require all strategies to have equal fitness.
+        </li>
+      </ol>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Where Did All the Math Come Together?</span>
+      <p>
+        The replicator equation uses almost everything from the earlier modules:
+      </p>
+      <ul>
+        <li><strong>Module 1:</strong> Functions and algebraic manipulation.</li>
+        <li><strong>Module 2:</strong> Matrix-vector products for computing \(f_i = (Ax)_i\), quadratic forms for \(\bar{f} = \mathbf{x}^\top A \mathbf{x}\).</li>
+        <li><strong>Module 3:</strong> The quotient rule in the derivation, derivatives for rates of change.</li>
+        <li><strong>Module 4:</strong> This <em>is</em> a system of differential equations &mdash; fixed points, stability, phase portraits all apply.</li>
+        <li><strong>Module 5:</strong> The fitness function is an expected value; the population state is a probability distribution.</li>
+        <li><strong>Module 6:</strong> The payoff matrix, Nash equilibrium as a special case of fixed points.</li>
+      </ul>
+    </div>
+
+    <h3>The 2-Strategy Simplification</h3>
+
+    <p>
+      For two strategies, let \(x = x_1\) (so \(x_2 = 1 - x\)). The replicator equation simplifies to
+      a single ODE:
+    </p>
+    \[
+      \dot{x} = x(1 - x)\big[f_1(\mathbf{x}) - f_2(\mathbf{x})\big]
+    \]
+
+    <p><strong>Derivation:</strong></p>
+    \[
+      \dot{x}_1 = x_1\big[f_1 - \bar{f}\big] = x_1\big[f_1 - x_1 f_1 - x_2 f_2\big]
+      = x_1\big[(1 - x_1)f_1 - x_2 f_2\big]
+      = x_1\big[x_2 f_1 - x_2 f_2\big]
+      = x_1 x_2 (f_1 - f_2)
+    \]
+    <p>
+      Since \(x_2 = 1 - x_1\), this gives \(\dot{x} = x(1-x)(f_1 - f_2)\).
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Structure of the 2-Strategy Equation</span>
+      <p>
+        The factor \(x(1-x)\) ensures that \(x = 0\) and \(x = 1\) are always fixed points
+        (boundary invariance). Interior dynamics are governed entirely by the sign of \(f_1 - f_2\):
+        which strategy has higher fitness. The factor \(x(1-x)\) means changes are fastest at
+        intermediate frequencies and slow near the boundaries &mdash; a logistic-type growth pattern
+        (Module 4).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: 2-Strategy Replicator Dynamics                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-2strategy">
+    <h2>6. 2-Strategy Replicator Dynamics</h2>
+
+    <p>
+      Let us now analyze the replicator dynamics for all major types of 2&times;2 symmetric games.
+      With payoff matrix
+      \[
+        A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+      \]
+      and \(x\) = fraction playing strategy 1, the fitnesses are:
+    </p>
+    \[
+      f_1(x) = ax + b(1 - x) = b + (a - b)x
+    \]
+    \[
+      f_2(x) = cx + d(1 - x) = d + (c - d)x
+    \]
+    <p>
+      The fitness difference is:
+    </p>
+    \[
+      f_1 - f_2 = (b - d) + \big[(a - b) - (c - d)\big]x = (b - d) + (a - b - c + d)x
+    \]
+
+    <p>
+      The replicator equation \(\dot{x} = x(1-x)(f_1 - f_2)\) always has fixed points at
+      \(x = 0\) and \(x = 1\). An interior fixed point \(x^* \in (0, 1)\) exists when
+      \(f_1(x^*) = f_2(x^*)\), giving:
+    </p>
+    \[
+      x^* = \frac{d - b}{(a - c) + (d - b)} = \frac{d - b}{a - b - c + d}
+    \]
+    <p>
+      (provided the denominator is nonzero and \(x^* \in (0, 1)\)).
+    </p>
+
+    <h3>Case 1: Prisoner's Dilemma &mdash; Defection Dominates</h3>
+
+    <div class="example-box">
+      <span class="box-title">Prisoner's Dilemma: \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\)</span>
+      <p>
+        Strategy 1 = Cooperate, Strategy 2 = Defect. Here \(c = 5 > a = 3\) and \(d = 1 > b = 0\),
+        so Defect strictly dominates Cooperate.
+      </p>
+      <p><strong>Fitness difference:</strong></p>
+      \[
+        f_C - f_D = (0 - 1) + (3 - 0 - 5 + 1)x = -1 - x
+      \]
+      <p>
+        Since \(-1 - x < 0\) for all \(x \in [0, 1]\), cooperators <em>always</em> have lower fitness.
+      </p>
+      <p><strong>Dynamics:</strong> \(\dot{x} = x(1-x)(-1-x) < 0\) for all \(x \in (0, 1)\).</p>
+      <p>
+        <strong>Result:</strong> \(x \to 0\). Cooperation goes extinct. The only stable equilibrium is
+        \(x = 0\) (all Defect). This is the evolutionary tragedy &mdash; the population evolves to
+        universal defection even though mutual cooperation (\(a = 3\)) gives a higher payoff than mutual
+        defection (\(d = 1\)).
+      </p>
+    </div>
+
+    <h3>Case 2: Hawk-Dove &mdash; Polymorphic Coexistence</h3>
+
+    <div class="example-box">
+      <span class="box-title">Hawk-Dove: \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\)</span>
+      <p>
+        Strategy 1 = Hawk, Strategy 2 = Dove. Here \(c = 0 > a = -1\) and \(b = 4 > d = 2\).
+        Neither strategy dominates: Hawk beats Dove, but Dove beats Hawk (in a sense).
+      </p>
+      <p><strong>Fitness difference:</strong></p>
+      \[
+        f_H - f_D = (4 - 2) + (-1 - 4 - 0 + 2)x = 2 - 3x
+      \]
+      <p><strong>Interior fixed point:</strong></p>
+      \[
+        f_H = f_D \implies 2 - 3x^* = 0 \implies x^* = \frac{2}{3}
+      \]
+      <p><strong>Stability analysis:</strong></p>
+      <ul>
+        <li>For \(x < 2/3\): \(f_H - f_D = 2 - 3x > 0\), so \(\dot{x} > 0\) (Hawks increase).</li>
+        <li>For \(x > 2/3\): \(f_H - f_D = 2 - 3x < 0\), so \(\dot{x} < 0\) (Hawks decrease).</li>
+      </ul>
+      <p>
+        <strong>Result:</strong> \(x \to 2/3\) from any interior initial condition. The population
+        converges to a <strong>stable polymorphism</strong> with 2/3 Hawks and 1/3 Doves. Both strategies
+        coexist at equilibrium, and this is the ESS we calculated earlier.
+      </p>
+    </div>
+
+    <h3>Case 3: Coordination Game &mdash; Bistability</h3>
+
+    <div class="example-box">
+      <span class="box-title">Coordination: \(A = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}\)</span>
+      <p>
+        Strategy 1 and 2 are two conventions (e.g., driving on the left vs. right). Players get
+        positive payoff only when they coordinate on the <em>same</em> convention.
+        Here \(a = 3 > c = 0\) and \(d = 2 > b = 0\).
+      </p>
+      <p><strong>Fitness difference:</strong></p>
+      \[
+        f_1 - f_2 = (0 - 2) + (3 - 0 - 0 + 2)x = -2 + 5x
+      \]
+      <p><strong>Interior fixed point:</strong></p>
+      \[
+        f_1 = f_2 \implies -2 + 5x^* = 0 \implies x^* = \frac{2}{5} = 0.4
+      \]
+      <p><strong>Stability analysis:</strong></p>
+      <ul>
+        <li>For \(x < 2/5\): \(f_1 - f_2 < 0\), so \(\dot{x} < 0\) &rarr; \(x \to 0\).</li>
+        <li>For \(x > 2/5\): \(f_1 - f_2 > 0\), so \(\dot{x} > 0\) &rarr; \(x \to 1\).</li>
+      </ul>
+      <p>
+        <strong>Result:</strong> The interior fixed point \(x^* = 2/5\) is <strong>unstable</strong>.
+        It acts as a <em>basin boundary</em>. If the initial frequency of strategy 1 is above 2/5,
+        the population converges to all-strategy-1. If below 2/5, it converges to all-strategy-2.
+        This is <strong>bistability</strong> &mdash; history (initial conditions) determines the outcome.
+      </p>
+    </div>
+
+    <h3>Summary: Classification of 2&times;2 Games</h3>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Condition</th>
+        <th>Game Type</th>
+        <th>Dynamics</th>
+        <th>Stable Outcomes</th>
+      </tr>
+      <tr>
+        <td>\(a > c, d > b\)</td>
+        <td>Coordination</td>
+        <td>Bistable</td>
+        <td>\(x = 0\) and \(x = 1\) stable; interior unstable</td>
+      </tr>
+      <tr>
+        <td>\(a < c, d < b\)</td>
+        <td>Hawk-Dove / Anti-coordination</td>
+        <td>Coexistence</td>
+        <td>Interior \(x^*\) stable; boundaries unstable</td>
+      </tr>
+      <tr>
+        <td>\(a > c, b > d\)</td>
+        <td>Dominance (S1 dominates)</td>
+        <td>\(x \to 1\)</td>
+        <td>\(x = 1\) globally stable</td>
+      </tr>
+      <tr>
+        <td>\(a < c, b < d\)</td>
+        <td>Dominance (S2 dominates)</td>
+        <td>\(x \to 0\)</td>
+        <td>\(x = 0\) globally stable</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">A Unifying Perspective</span>
+      <p>
+        All four cases arise from one equation: \(\dot{x} = x(1-x)(f_1 - f_2)\). The <em>only</em>
+        thing that differs is the sign pattern of \(f_1 - f_2\). When \(f_1 - f_2\) is always positive,
+        strategy 1 dominates. When it's always negative, strategy 2 dominates. When it changes sign,
+        there's an interior fixed point, and whether that fixed point is stable or unstable gives us
+        the Hawk-Dove or coordination cases. The mathematics of Module 4 (fixed points and stability)
+        is doing all the work.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: Multi-Strategy Replicator Dynamics                -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-multi">
+    <h2>7. Multi-Strategy Replicator Dynamics</h2>
+
+    <p>
+      With three or more strategies, the dynamics become richer &mdash; and more interesting. The population
+      state lives on the simplex \(\Delta^{n-1}\), and we can observe phenomena impossible in 2-strategy
+      games: <strong>cycles</strong>, <strong>heteroclinic orbits</strong>, and <strong>chaos</strong>
+      (for \(n \geq 4\)).
+    </p>
+
+    <h3>The 3-Strategy Case: Rock-Paper-Scissors</h3>
+
+    <p>
+      The most famous 3-strategy game is Rock-Paper-Scissors (RPS), with payoff matrix:
+    </p>
+    \[
+      A = \begin{pmatrix} 0 & -1 & 1 \\ 1 & 0 & -1 \\ -1 & 1 & 0 \end{pmatrix}
+    \]
+    <p>
+      where rows/columns represent R, P, S respectively. Each strategy beats one other
+      (\(+1\)), loses to another (\(-1\)), and ties with itself (\(0\)).
+    </p>
+
+    <p>
+      Let \(\mathbf{x} = (x_R, x_P, x_S)\) with \(x_R + x_P + x_S = 1\). The fitnesses are:
+    </p>
+    \[
+      f_R = -x_P + x_S, \qquad f_P = x_R - x_S, \qquad f_S = -x_R + x_P
+    \]
+
+    <p><strong>Average fitness:</strong></p>
+    \[
+      \bar{f} = x_R f_R + x_P f_P + x_S f_S = x_R(-x_P + x_S) + x_P(x_R - x_S) + x_S(-x_R + x_P)
+    \]
+    \[
+      = -x_R x_P + x_R x_S + x_P x_R - x_P x_S - x_S x_R + x_S x_P = 0
+    \]
+    <p>
+      The average fitness is zero for all population states &mdash; this is because \(A\) is an
+      <strong>antisymmetric</strong> (skew-symmetric) matrix (\(a_{ij} = -a_{ji}\)), so
+      \(\mathbf{x}^\top A \mathbf{x} = 0\).
+    </p>
+
+    <p>
+      The replicator equations simplify to:
+    </p>
+    \[
+      \dot{x}_R = x_R(-x_P + x_S), \qquad \dot{x}_P = x_P(x_R - x_S), \qquad \dot{x}_S = x_S(-x_R + x_P)
+    \]
+
+    <p><strong>Interior fixed point:</strong> Setting all excess fitnesses to zero:</p>
+    \[
+      -x_P + x_S = 0, \quad x_R - x_S = 0, \quad -x_R + x_P = 0
+    \]
+    <p>
+      This gives \(x_R = x_P = x_S = 1/3\) &mdash; the center of the simplex.
+    </p>
+
+    <h3>Cyclic Dynamics and the Conserved Quantity</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Conserved Quantity for Standard RPS</span>
+      <p>
+        For the standard Rock-Paper-Scissors game with antisymmetric payoffs, the function
+      </p>
+      \[
+        H(\mathbf{x}) = x_R \cdot x_P \cdot x_S
+      \]
+      <p>
+        is a <strong>constant of motion</strong> (conserved quantity) along trajectories of the
+        replicator dynamics. That is, \(\frac{d}{dt}H(\mathbf{x}(t)) = 0\).
+      </p>
+    </div>
+
+    <p><strong>Proof sketch:</strong></p>
+    \[
+      \frac{dH}{dt} = \dot{x}_R x_P x_S + x_R \dot{x}_P x_S + x_R x_P \dot{x}_S
+    \]
+    \[
+      = x_R x_P x_S \big[(-x_P + x_S) + (x_R - x_S) + (-x_R + x_P)\big] = x_R x_P x_S \cdot 0 = 0 \qquad \square
+    \]
+
+    <div class="intuition-box">
+      <span class="box-title">What Does This Mean?</span>
+      <p>
+        Because \(H = x_R x_P x_S\) is conserved, trajectories are <strong>closed orbits</strong>
+        around the center \((1/3, 1/3, 1/3)\). The system cycles endlessly: Rock increases, then
+        Paper takes over, then Scissors, then Rock again. The interior fixed point is <strong>neutrally
+        stable</strong> (Lyapunov stable but not asymptotically stable) &mdash; trajectories orbit
+        it but never converge to it.
+      </p>
+      <p>
+        This is fundamentally different from 2-strategy games, where interior fixed points are
+        either attracting or repelling. With 3+ strategies, new dynamical possibilities emerge.
+      </p>
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">Asymmetric RPS: Spiraling In or Out</span>
+      <p>
+        The closed orbits of standard RPS are structurally unstable &mdash; they rely on exact
+        symmetry. If we perturb the payoffs even slightly (e.g., making winning as Rock worth 1.1
+        instead of 1), the conserved quantity is destroyed. Depending on the perturbation,
+        trajectories either <strong>spiral inward</strong> to the interior fixed point (stable focus)
+        or <strong>spiral outward</strong> toward the boundary (unstable focus, leading to extinction
+        of strategies). This sensitivity is ecologically important: in biological RPS-type systems,
+        small asymmetries determine whether species coexist or go extinct.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: ESS and Replicator Dynamics Connection            -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-ess-replicator">
+    <h2>8. Connection Between ESS and Replicator Dynamics</h2>
+
+    <p>
+      We now have two central concepts &mdash; the ESS (a static invasion-resistance concept) and
+      the replicator dynamics (a dynamical system). How do they relate? The answer is one of the
+      most elegant results in evolutionary game theory.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; The Folk Theorem of Evolutionary Game Theory</span>
+      <p>The following implications hold:</p>
+      <ol>
+        <li>
+          <strong>ESS \(\Rightarrow\) Asymptotically Stable.</strong>
+          If \(\mathbf{x}^*\) is an ESS, then it is an <strong>asymptotically stable</strong> fixed
+          point of the replicator dynamics. That is, nearby trajectories converge to \(\mathbf{x}^*\).
+        </li>
+        <li>
+          <strong>Asymptotically Stable \(\not\Rightarrow\) ESS.</strong>
+          The converse is false: there exist asymptotically stable states in the replicator dynamics
+          that are <em>not</em> ESS.
+        </li>
+        <li>
+          <strong>Nash Equilibrium \(\Leftarrow\) Fixed Point (in interior).</strong>
+          Every interior fixed point of the replicator dynamics corresponds to a (symmetric) Nash
+          equilibrium. But not every Nash equilibrium is a rest point of the replicator dynamics
+          (boundary Nash equilibria may not satisfy the replicator fixed-point condition in the
+          required way).
+        </li>
+        <li>
+          <strong>Strict Nash \(\Rightarrow\) Asymptotically Stable.</strong>
+          Every strict Nash equilibrium (which must be a pure strategy) is asymptotically stable in
+          the replicator dynamics.
+        </li>
+      </ol>
+    </div>
+
+    <p>We can summarize the relationship as a chain of implications:</p>
+
+    \[
+      \text{ESS} \;\Longrightarrow\; \text{Asymptotically Stable} \;\Longrightarrow\; \text{Lyapunov Stable} \;\Longrightarrow\; \text{Nash Equilibrium}
+    \]
+
+    <p>
+      None of these arrows reverse in general. Each level is strictly stronger than the next.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Stable but Not ESS</span>
+      <p>
+        Consider a 3-strategy game where strategies 1 and 2 have identical payoffs against everything,
+        and both dominate strategy 3. The state \((1/2, 1/2, 0)\) can be asymptotically stable in the
+        replicator dynamics (strategy 3 dies out, and 1 and 2 coexist neutrally on the boundary), but
+        it fails the ESS stability condition because strategy 1 cannot "beat" a mutant of strategy 2
+        in the second condition &mdash; they are identical.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Why the Gap?</span>
+      <p>
+        ESS requires resistance to <em>all</em> possible mutant invasions, including strategies
+        not currently present. Replicator dynamics only tracks strategies that already exist in the
+        population. A state can be dynamically stable (nearby perturbations are corrected) without
+        being invasion-proof against novel strategies from outside the current population. This
+        distinction matters enormously in biology (novel mutations) and social science (novel
+        institutional innovations).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: Stability Analysis                                -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-stability">
+    <h2>9. Stability Analysis in Replicator Dynamics</h2>
+
+    <p>
+      To rigorously determine stability of fixed points, we use the techniques from Module 4:
+      <strong>linearization</strong> (Jacobian), <strong>eigenvalue analysis</strong>, and
+      <strong>Lyapunov functions</strong>.
+    </p>
+
+    <h3>Jacobian of the Replicator Equation</h3>
+
+    <p>
+      For the replicator equation \(\dot{x}_i = x_i[f_i(\mathbf{x}) - \bar{f}(\mathbf{x})]\),
+      the Jacobian matrix \(J\) has entries:
+    </p>
+    \[
+      J_{ij} = \frac{\partial \dot{x}_i}{\partial x_j}
+    \]
+
+    <p>
+      For the linear fitness case \(f_i = (A\mathbf{x})_i\), computing the partial derivatives yields:
+    </p>
+    \[
+      J_{ij} = \begin{cases}
+        x_i\Big[a_{ij} - \sum_k x_k a_{kj} - (A\mathbf{x})_j\Big] & \text{if } i \neq j \\[6pt]
+        (f_i - \bar{f}) + x_i\Big[a_{ii} - \sum_k x_k a_{ki} - (A\mathbf{x})_i\Big] & \text{if } i = j
+      \end{cases}
+    \]
+
+    <p>
+      In practice, for 2-strategy games we can avoid the full Jacobian. But for 3+ strategies,
+      it becomes essential. Let us work through a complete example.
+    </p>
+
+    <h3>Worked Example: Stability of the Hawk-Dove Interior Fixed Point</h3>
+
+    <div class="example-box">
+      <span class="box-title">Jacobian Analysis for Hawk-Dove</span>
+      <p>
+        For the 2-strategy case with \(\dot{x} = x(1-x)(f_1 - f_2)\), let \(g(x) = f_1(x) - f_2(x)\).
+        Then \(\dot{x} = x(1-x)g(x)\), and the derivative is:
+      </p>
+      \[
+        \frac{d\dot{x}}{dx} = (1 - 2x)g(x) + x(1-x)g'(x)
+      \]
+      <p>
+        For Hawk-Dove: \(g(x) = 2 - 3x\) and \(g'(x) = -3\). At the interior fixed point \(x^* = 2/3\)
+        where \(g(x^*) = 0\):
+      </p>
+      \[
+        \left.\frac{d\dot{x}}{dx}\right|_{x^*} = (1 - 2 \cdot \tfrac{2}{3}) \cdot 0 + \tfrac{2}{3} \cdot \tfrac{1}{3} \cdot (-3) = -\frac{2}{3} < 0
+      \]
+      <p>
+        The derivative is <strong>negative</strong>, confirming that \(x^* = 2/3\) is
+        <strong>asymptotically stable</strong>. (This is the 1D version of eigenvalue analysis:
+        a negative "eigenvalue" means the fixed point attracts.)
+      </p>
+    </div>
+
+    <h3>Lyapunov Functions for the Replicator Equation</h3>
+
+    <p>
+      A <strong>Lyapunov function</strong> (Module 4) is a function that decreases along trajectories,
+      proving stability without computing eigenvalues. For the replicator equation, several natural
+      Lyapunov functions exist.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Lyapunov Function for ESS</span>
+      <p>
+        If \(\mathbf{x}^*\) is an ESS, then the function
+      </p>
+      \[
+        V(\mathbf{x}) = -\sum_{i=1}^{n} x_i^* \ln x_i
+      \]
+      <p>
+        is a <strong>Lyapunov function</strong> for the replicator dynamics in a neighborhood of
+        \(\mathbf{x}^*\). That is, \(\dot{V} \leq 0\) along trajectories, with equality only at
+        \(\mathbf{x}^*\).
+      </p>
+    </div>
+
+    <p>
+      This function comes from information theory &mdash; it is related to the
+      <strong>Kullback-Leibler divergence</strong> (relative entropy) from \(\mathbf{x}\) to
+      \(\mathbf{x}^*\). Its derivative along replicator trajectories is:
+    </p>
+    \[
+      \dot{V} = -\sum_i x_i^* \frac{\dot{x}_i}{x_i} = -\sum_i x_i^*\big[f_i(\mathbf{x}) - \bar{f}(\mathbf{x})\big]
+      = -\left[\sum_i x_i^* f_i(\mathbf{x}) - \bar{f}(\mathbf{x})\right]
+    \]
+    \[
+      = -\big[(\mathbf{x}^*)^\top A\mathbf{x} - \mathbf{x}^\top A\mathbf{x}\big]
+      = -(\mathbf{x}^* - \mathbf{x})^\top A\mathbf{x}
+    \]
+
+    <p>
+      The ESS condition guarantees that this is negative near \(\mathbf{x}^*\), completing the proof.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Practical Tip</span>
+      <p>
+        For 2-strategy games, eigenvalue (derivative) analysis is simplest. For 3+ strategies,
+        Lyapunov functions are often more powerful than direct Jacobian computation, especially
+        when exact eigenvalues are hard to compute. The choice of method depends on the problem.
+      </p>
+    </div>
+
+    <h3>Linearization at the RPS Interior Fixed Point</h3>
+
+    <div class="example-box">
+      <span class="box-title">Eigenvalue Analysis for Rock-Paper-Scissors</span>
+      <p>
+        At the fixed point \(\mathbf{x}^* = (1/3, 1/3, 1/3)\), we can compute the Jacobian of the
+        replicator dynamics restricted to the simplex (which reduces to a 2D system). After eliminating
+        one variable using \(x_S = 1 - x_R - x_P\), the 2D Jacobian at the fixed point has eigenvalues:
+      </p>
+      \[
+        \lambda_{1,2} = \pm \frac{i}{\sqrt{3}}
+      \]
+      <p>
+        These are <strong>purely imaginary</strong> eigenvalues, confirming that the fixed point is a
+        <strong>center</strong>: trajectories orbit it in closed curves. The linearization correctly
+        predicts the cyclic behavior we deduced from the conserved quantity \(H = x_R x_P x_S\).
+      </p>
+      <p>
+        For asymmetric RPS (e.g., slightly perturbed payoffs), the eigenvalues acquire nonzero real
+        parts, turning the center into a stable or unstable spiral.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: Extensions                                       -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-extensions">
+    <h2>10. Extensions and Generalizations</h2>
+
+    <h3>Selection-Mutation Dynamics</h3>
+
+    <p>
+      The basic replicator equation has a limitation: extinct strategies stay extinct. In reality,
+      new strategies can appear through <strong>mutation</strong> (in biology) or
+      <strong>experimentation</strong> (in social systems). The <strong>replicator-mutator equation</strong>
+      incorporates this:
+    </p>
+    \[
+      \dot{x}_i = \sum_{j=1}^{n} x_j f_j(\mathbf{x}) \, Q_{ji} - x_i \bar{f}(\mathbf{x})
+    \]
+    <p>
+      where \(Q_{ji}\) is the probability that an offspring of a type-\(j\) individual becomes type \(i\)
+      (the mutation matrix). When \(Q = I\) (identity, no mutation), this reduces to the standard
+      replicator equation.
+    </p>
+
+    <p>
+      With mutation, the boundary is no longer invariant &mdash; extinct strategies can reappear. This
+      typically shifts fixed points slightly into the interior and can change stability properties.
+      Small mutation rates produce dynamics close to the replicator equation but with regularizing effects.
+    </p>
+
+    <h3>Finite Populations and Stochastic Effects</h3>
+
+    <p>
+      The replicator equation assumes an <strong>infinite</strong> (or very large) population. In finite
+      populations, <strong>random drift</strong> plays an important role:
+    </p>
+
+    <ul>
+      <li>
+        <strong>Moran process:</strong> A stochastic model where at each time step, one individual is
+        chosen to reproduce (proportional to fitness) and one dies randomly. The population size stays
+        constant. Strategy frequencies perform a random walk with a drift determined by fitness differences.
+      </li>
+      <li>
+        <strong>Fixation probability:</strong> In a population of size \(N\), the probability that a
+        single mutant eventually takes over the whole population. For a neutral mutant, this is \(1/N\).
+        For a mutant with fitness advantage, the Moran process gives:
+        \[
+          \rho = \frac{1 - 1/r}{1 - 1/r^N}
+        \]
+        where \(r\) is the relative fitness of the mutant.
+      </li>
+      <li>
+        <strong>Drift vs. selection:</strong> When population size \(N\) is small, random drift can
+        overpower selection. A strategy that is slightly fitter may still go extinct by chance. As
+        \(N \to \infty\), the stochastic dynamics converge to the deterministic replicator equation.
+      </li>
+    </ul>
+
+    <div class="intuition-box">
+      <span class="box-title">Why Finite Populations Matter</span>
+      <p>
+        Ostrom's institutional analysis (Module 8) often involves <em>small</em> communities &mdash;
+        a few dozen to a few hundred individuals. In these settings, the deterministic replicator
+        equation is only an approximation. Stochastic effects can lead to the extinction of cooperative
+        strategies that would survive in larger populations. Understanding this tension between
+        deterministic and stochastic dynamics is crucial for institutional design.
+      </p>
+    </div>
+
+    <h3>Spatial and Network Games</h3>
+
+    <p>
+      The standard replicator equation assumes <strong>well-mixed</strong> populations: any individual
+      can interact with any other. In reality, interactions are often <strong>local</strong> &mdash;
+      individuals interact primarily with neighbors on a spatial lattice or social network.
+    </p>
+
+    <p>
+      Spatial structure can dramatically change evolutionary outcomes. Most famously,
+      <strong>Nowak and May (1992)</strong> showed that cooperation can survive in spatial Prisoner's
+      Dilemma games even though it is doomed in well-mixed populations. Cooperators can form clusters
+      that protect each other. This is one of the "five rules for the evolution of cooperation"
+      (Nowak, 2006): <em>spatial selection</em>.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Where This Leads</span>
+      <p>
+        These extensions &mdash; mutation, finite populations, spatial structure &mdash; are active
+        research areas. In Module 8, we will see how Ostrom's design principles for successful
+        institutions relate to these mathematical frameworks, providing concrete mechanisms that
+        enable cooperation in real-world settings where the basic theory predicts it should fail.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- VISUALIZATION 1: 2-Strategy Replicator Dynamics Simulator    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-viz1">
+    <h2>Interactive Simulations</h2>
+
+    <div class="interactive-container">
+      <h3>Interactive: 2-Strategy Replicator Dynamics</h3>
+      <p>Set the 2&times;2 payoff matrix and initial population mix, then watch strategies evolve over time.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Preset:</label>
+          <select id="rep-preset">
+            <option value="pd">Prisoner's Dilemma</option>
+            <option value="hawk-dove">Hawk-Dove</option>
+            <option value="coordination">Coordination Game</option>
+            <option value="rps-like">Battle (asymmetric)</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin:1rem 0">
+        <strong>Payoff Matrix A:</strong>
+        <table class="payoff-matrix" style="margin:0.5rem 0">
+          <tr><th></th><th>S&#x2081;</th><th>S&#x2082;</th></tr>
+          <tr><td class="row-header">S&#x2081;</td><td><input type="number" id="rep-a" value="3" style="width:55px"></td><td><input type="number" id="rep-b" value="0" style="width:55px"></td></tr>
+          <tr><td class="row-header">S&#x2082;</td><td><input type="number" id="rep-c" value="5" style="width:55px"></td><td><input type="number" id="rep-d" value="1" style="width:55px"></td></tr>
+        </table>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Initial x&#x2080; (proportion of S&#x2081;):</label>
+          <input type="range" id="rep-x0" min="0.01" max="0.99" step="0.01" value="0.5">
+          <span class="control-value" id="rep-x0-val">0.50</span>
+        </div>
+        <button class="btn btn-primary" id="rep-play">Play</button>
+        <button class="btn btn-outline" id="rep-reset">Reset</button>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+        <canvas id="rep-bar-canvas" class="viz-canvas" width="250" height="300"></canvas>
+        <canvas id="rep-time-canvas" class="viz-canvas" width="450" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- VISUALIZATION 2: 3-Strategy Simplex Plot                     -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-viz2">
+
+    <div class="interactive-container">
+      <h3>Interactive: 3-Strategy Replicator Dynamics on the Simplex</h3>
+      <p>Visualize replicator dynamics for 3-strategy games on the probability simplex. Click to add trajectories.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Game:</label>
+          <select id="simplex-preset">
+            <option value="rps">Rock-Paper-Scissors</option>
+            <option value="rps-asym">Asymmetric RPS</option>
+            <option value="coord3">3-Strategy Coordination</option>
+            <option value="dom">Dominant Strategy</option>
+          </select>
+        </div>
+        <button class="btn btn-outline" id="simplex-clear">Clear Trajectories</button>
+      </div>
+      <canvas id="simplex-canvas" class="viz-canvas" width="500" height="450"></canvas>
+      <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">Click on the simplex to add a trajectory from that starting point (green dot = start).</p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- EXERCISES                                                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-exercises">
+    <h2>Exercises</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7.1 &mdash; Fitness Calculation</div>
+      <p>
+        Consider a 2-strategy game with payoff matrix
+        \(A = \begin{pmatrix} 2 & 6 \\ 3 & 1 \end{pmatrix}\)
+        and population state \(x = 0.4\) (40% play strategy 1).
+      </p>
+      <p>(a) Compute \(f_1(x)\), \(f_2(x)\), and \(\bar{f}(x)\).</p>
+      <p>(b) Which strategy is currently fitter? Is \(x\) increasing or decreasing?</p>
+      <p>(c) Find the interior fixed point \(x^*\). Classify the game type.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <p>
+            \(f_1 = 2(0.4) + 6(0.6) = 0.8 + 3.6 = 4.4\)<br>
+            \(f_2 = 3(0.4) + 1(0.6) = 1.2 + 0.6 = 1.8\)<br>
+            \(\bar{f} = 0.4(4.4) + 0.6(1.8) = 1.76 + 1.08 = 2.84\)
+          </p>
+          <p><strong>(b)</strong></p>
+          <p>
+            \(f_1 = 4.4 > 1.8 = f_2\), so strategy 1 is fitter. Since \(f_1 > \bar{f}\),
+            \(\dot{x} > 0\), so \(x\) is increasing &mdash; strategy 1 is growing.
+          </p>
+          <p><strong>(c)</strong></p>
+          <p>
+            \(f_1 = f_2\): \(2x + 6(1-x) = 3x + 1(1-x)\) gives \(6 - 4x = 1 + 2x\), so \(5 = 6x\),
+            hence \(x^* = 5/6 \approx 0.833\).
+          </p>
+          <p>
+            Since \(a = 2 < 3 = c\) and \(d = 1 < 6 = b\), this is a <strong>Hawk-Dove</strong>
+            (anti-coordination) type game. The interior fixed point \(x^* = 5/6\) is stable.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7.2 &mdash; ESS Determination</div>
+      <p>
+        For each payoff matrix, determine all ESS:
+      </p>
+      <p>
+        (a) \(A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}\)
+      </p>
+      <p>
+        (b) \(A = \begin{pmatrix} 1 & 3 \\ 2 & 0 \end{pmatrix}\)
+      </p>
+      <p>
+        (c) \(A = \begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix}\)
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(a = 4 > 2 = c\) and \(d = 3 > 1 = b\). Both pure strategies
+            satisfy the strict Nash condition: strategy 1 is ESS (since \(4 > 2\)) and strategy 2
+            is ESS (since \(3 > 1\)). This is a <strong>coordination game</strong> with two pure ESS.
+            There is an unstable interior fixed point at \(x^* = (3-1)/((4-2)+(3-1)) = 2/4 = 1/2\).
+          </p>
+          <p><strong>(b)</strong> \(a = 1 < 2 = c\) and \(d = 0 < 3 = b\). Anti-coordination
+            (Hawk-Dove type). Mixed ESS at \(x^* = (0-3)/((1-2)+(0-3)) = -3/(-1-3) = -3/-4 = 3/4\).
+            The unique ESS is the mixed strategy \((3/4, 1/4)\).
+          </p>
+          <p><strong>(c)</strong> All payoffs are equal, so every strategy has equal fitness
+            regardless of population state. No strategy can strictly outperform any other, so the
+            ESS conditions are never strictly satisfied. <strong>No ESS exists</strong> &mdash;
+            every population state is a fixed point but none is invasion-resistant.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7.3 &mdash; Replicator Dynamics Derivation</div>
+      <p>
+        For the game with payoff matrix \(A = \begin{pmatrix} 0 & 3 \\ 1 & 1 \end{pmatrix}\):
+      </p>
+      <p>(a) Write out the full replicator equation \(\dot{x} = x(1-x)(f_1 - f_2)\) as a function of \(x\) alone.</p>
+      <p>(b) Find all fixed points.</p>
+      <p>(c) Determine the stability of each fixed point by evaluating \(\frac{d\dot{x}}{dx}\).</p>
+      <p>(d) Sketch the phase portrait on \([0, 1]\) and describe the long-term behavior.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <p>
+            \(f_1 = 0 \cdot x + 3(1-x) = 3 - 3x\)<br>
+            \(f_2 = 1 \cdot x + 1(1-x) = 1\)<br>
+            \(f_1 - f_2 = 3 - 3x - 1 = 2 - 3x\)<br>
+            \(\dot{x} = x(1-x)(2 - 3x)\)
+          </p>
+          <p><strong>(b)</strong> Fixed points: \(x = 0\), \(x = 1\), and \(x^* = 2/3\).</p>
+          <p><strong>(c)</strong> Let \(h(x) = x(1-x)(2-3x) = x(2 - 3x - 2x + 3x^2) = x(2 - 5x + 3x^2)\).</p>
+          <p>
+            \(h'(x) = (1-2x)(2-3x) + x(1-x)(-3) = (1-2x)(2-3x) - 3x(1-x)\).
+          </p>
+          <p>
+            At \(x=0\): \(h'(0) = 1 \cdot 2 - 0 = 2 > 0\) &rarr; <strong>unstable</strong>.<br>
+            At \(x=1\): \(h'(1) = (1-2)(2-3) - 3(0) = (-1)(-1) = 1 > 0\) &rarr; <strong>unstable</strong>.<br>
+            At \(x=2/3\): \(h'(2/3) = (1-4/3)(0) - 3(2/3)(1/3) = 0 - 2/3 = -2/3 < 0\) &rarr; <strong>stable</strong>.
+          </p>
+          <p><strong>(d)</strong> This is an anti-coordination game. From any interior starting point,
+            the population converges to \(x^* = 2/3\). The boundaries repel: if nearly everyone uses
+            one strategy, the other strategy is fitter and grows. The ESS is the polymorphic state
+            \((2/3, 1/3)\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7.4 &mdash; RPS Conserved Quantity</div>
+      <p>
+        For the Rock-Paper-Scissors game with payoff matrix
+        \(A = \begin{pmatrix} 0 & -1 & 1 \\ 1 & 0 & -1 \\ -1 & 1 & 0 \end{pmatrix}\),
+        verify that \(H(\mathbf{x}) = x_R x_P x_S\) is conserved by computing
+        \(\frac{dH}{dt}\) directly. (You may use the replicator equations
+        \(\dot{x}_R = x_R(x_S - x_P)\), \(\dot{x}_P = x_P(x_R - x_S)\),
+        \(\dot{x}_S = x_S(x_P - x_R)\).)
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>By the product rule:</p>
+          \[
+            \frac{dH}{dt} = \dot{x}_R x_P x_S + x_R \dot{x}_P x_S + x_R x_P \dot{x}_S
+          \]
+          <p>Substituting:</p>
+          \[
+            = x_R(x_S - x_P) \cdot x_P x_S + x_R \cdot x_P(x_R - x_S) \cdot x_S + x_R x_P \cdot x_S(x_P - x_R)
+          \]
+          \[
+            = x_R x_P x_S \Big[(x_S - x_P) + (x_R - x_S) + (x_P - x_R)\Big]
+          \]
+          \[
+            = x_R x_P x_S \cdot 0 = 0
+          \]
+          <p>
+            The terms in the bracket cancel: \(x_S - x_P + x_R - x_S + x_P - x_R = 0\).
+            Therefore \(H\) is constant along every trajectory.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7.5 &mdash; From Replicator to ESS</div>
+      <p>
+        True or false? Justify each answer.
+      </p>
+      <p>(a) Every ESS is a Nash equilibrium.</p>
+      <p>(b) Every Nash equilibrium is an ESS.</p>
+      <p>(c) If \(\mathbf{x}^*\) is asymptotically stable in the replicator dynamics, then it is an ESS.</p>
+      <p>(d) If \(\mathbf{x}^*\) is an ESS, then it is asymptotically stable in the replicator dynamics.</p>
+      <p>(e) In a 2-strategy game with a dominant strategy, the dominant strategy is always an ESS.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a) True.</strong> The first condition of the ESS definition (\(E(\sigma^*, \sigma^*) \geq E(\sigma, \sigma^*)\)) is exactly the Nash equilibrium condition.</p>
+          <p><strong>(b) False.</strong> A Nash equilibrium can fail the stability condition. For example, in a game where all payoffs are equal, every strategy is a Nash equilibrium but none is an ESS.</p>
+          <p><strong>(c) False.</strong> Asymptotic stability in the replicator dynamics does not imply ESS. There are counterexamples in games with 3+ strategies (see Section 8).</p>
+          <p><strong>(d) True.</strong> This is the key implication of the folk theorem: ESS implies asymptotic stability in the replicator dynamics.</p>
+          <p><strong>(e) True.</strong> If strategy 1 dominates (\(a > c\) and \(b > d\)), then \(E(1, 1) = a > c = E(2, 1)\), satisfying the strict Nash condition. Since this holds strictly, the stability condition is not needed. So strategy 1 is ESS.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7.6 &mdash; Institutional Evolution (Conceptual)</div>
+      <p>
+        Consider a community managing a shared resource (like a fishery). Members can adopt one of two
+        norms: "Sustainable Harvest" (S) or "Overexploit" (O). When both use S, both get payoff 4.
+        When one uses S and the other O, the overexploiter gets 5 and the sustainable harvester gets 1.
+        When both overexploit, both get 2.
+      </p>
+      <p>(a) Write the payoff matrix.</p>
+      <p>(b) What type of game is this? Find all fixed points of the replicator dynamics.</p>
+      <p>(c) In the absence of institutions, what does the replicator equation predict will happen?</p>
+      <p>(d) How might Ostrom's design principles change the payoff matrix to support cooperation? (Preview of Module 8.)</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(A = \begin{pmatrix} 4 & 1 \\ 5 & 2 \end{pmatrix}\) where row 1 = Sustainable, row 2 = Overexploit.</p>
+          <p><strong>(b)</strong> Since \(c = 5 > a = 4\) and \(d = 2 > b = 1\), Overexploit dominates Sustainable. This is a <strong>Prisoner's Dilemma</strong>. Fixed points: \(x = 0\) (all Overexploit, stable), \(x = 1\) (all Sustainable, unstable). No interior fixed point.</p>
+          <p><strong>(c)</strong> The replicator equation predicts \(x \to 0\): the community evolves toward universal overexploitation, a tragedy of the commons.</p>
+          <p><strong>(d)</strong> Ostrom's principles suggest: (i) monitoring and sanctioning can reduce the payoff of overexploitation (lowering \(c\) and \(d\)), (ii) collective-choice arrangements can increase the payoff of mutual cooperation (raising \(a\)). If sanctions are strong enough that \(a > c\), the payoff matrix changes to a coordination game or dominance of cooperation, and the replicator dynamics can now support sustainable harvesting.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Module Navigation (bottom) -->
+  <div class="module-nav-strip">
+    <a href="module6.html">&larr; Module 6: Game Theory</a>
+    <a href="module8.html">Module 8: Applications &rarr;</a>
+  </div>
+
+</div><!-- end container -->
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Module 7: Evolutionary Game Theory &amp; Replicator Dynamics
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+
+<script>
+// Flag to prevent shared visualizations.js from double-initializing
+window._customVizInit = true;
+
+// =====================================================================
+// MODULE 7 INTERACTIVE VISUALIZATIONS
+// =====================================================================
+
+// =====================================================
+// VISUALIZATION 1: 2-Strategy Replicator Dynamics
+// =====================================================
+(function() {
+  const presetSelect = document.getElementById('rep-preset');
+  const inputA = document.getElementById('rep-a');
+  const inputB = document.getElementById('rep-b');
+  const inputC = document.getElementById('rep-c');
+  const inputD = document.getElementById('rep-d');
+  const sliderX0 = document.getElementById('rep-x0');
+  const x0ValSpan = document.getElementById('rep-x0-val');
+  const playBtn = document.getElementById('rep-play');
+  const resetBtn = document.getElementById('rep-reset');
+  const barCanvas = document.getElementById('rep-bar-canvas');
+  const timeCanvas = document.getElementById('rep-time-canvas');
+
+  if (!barCanvas || !timeCanvas) return;
+
+  const barCtx = barCanvas.getContext('2d');
+  const timeCtx = timeCanvas.getContext('2d');
+  const BW = barCanvas.width, BH = barCanvas.height;
+  const TW = timeCanvas.width, TH = timeCanvas.height;
+
+  const presets = {
+    'pd':          { a: 3, b: 0, c: 5, d: 1, label: "Prisoner's Dilemma" },
+    'hawk-dove':   { a: -1, b: 4, c: 0, d: 2, label: "Hawk-Dove" },
+    'coordination':{ a: 3, b: 0, c: 0, d: 2, label: "Coordination" },
+    'rps-like':    { a: 0, b: 3, c: 1, d: 0, label: "Battle" }
+  };
+
+  let animId = null;
+  let t = 0;
+  let x = 0.5;
+  let history = [];
+  const dt = 0.02;
+  const maxT = 15;
+
+  presetSelect.addEventListener('change', () => {
+    const p = presets[presetSelect.value];
+    if (p) {
+      inputA.value = p.a;
+      inputB.value = p.b;
+      inputC.value = p.c;
+      inputD.value = p.d;
+    }
+    doReset();
+  });
+
+  sliderX0.addEventListener('input', () => {
+    x0ValSpan.textContent = parseFloat(sliderX0.value).toFixed(2);
+    doReset();
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (animId) { cancelAnimationFrame(animId); animId = null; playBtn.textContent = 'Play'; return; }
+    playBtn.textContent = 'Pause';
+    animate();
+  });
+
+  resetBtn.addEventListener('click', doReset);
+
+  function doReset() {
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    playBtn.textContent = 'Play';
+    t = 0;
+    x = parseFloat(sliderX0.value);
+    history = [{ t: 0, x: x }];
+    drawBar(x);
+    drawTimeSeries(history);
+  }
+
+  function getMatrix() {
+    return {
+      a: parseFloat(inputA.value) || 0,
+      b: parseFloat(inputB.value) || 0,
+      c: parseFloat(inputC.value) || 0,
+      d: parseFloat(inputD.value) || 0
+    };
+  }
+
+  function replicatorStep(x, m, dt) {
+    const f1 = m.a * x + m.b * (1 - x);
+    const f2 = m.c * x + m.d * (1 - x);
+    const dx = x * (1 - x) * (f1 - f2);
+    let xNew = x + dx * dt;
+    if (xNew < 1e-12) xNew = 0;
+    if (xNew > 1 - 1e-12) xNew = 1;
+    return Math.max(0, Math.min(1, xNew));
+  }
+
+  function animate() {
+    const m = getMatrix();
+    // take multiple sub-steps per frame for smoothness
+    for (let i = 0; i < 3; i++) {
+      if (t >= maxT) { playBtn.textContent = 'Play'; animId = null; return; }
+      x = replicatorStep(x, m, dt);
+      t += dt;
+      history.push({ t: t, x: x });
+    }
+    drawBar(x);
+    drawTimeSeries(history);
+    animId = requestAnimationFrame(animate);
+  }
+
+  function drawBar(x) {
+    barCtx.clearRect(0, 0, BW, BH);
+    barCtx.fillStyle = '#fff';
+    barCtx.fillRect(0, 0, BW, BH);
+
+    const pad = 40;
+    const barW = 60;
+    const maxBarH = BH - 2 * pad - 20;
+
+    // S1 bar
+    const s1H = x * maxBarH;
+    barCtx.fillStyle = '#2980b9';
+    barCtx.fillRect(pad + 20, pad + maxBarH - s1H, barW, s1H);
+    barCtx.strokeStyle = '#2471a3';
+    barCtx.lineWidth = 1;
+    barCtx.strokeRect(pad + 20, pad + maxBarH - s1H, barW, s1H);
+
+    // S2 bar
+    const s2H = (1 - x) * maxBarH;
+    barCtx.fillStyle = '#e74c3c';
+    barCtx.fillRect(pad + 110, pad + maxBarH - s2H, barW, s2H);
+    barCtx.strokeStyle = '#c0392b';
+    barCtx.strokeRect(pad + 110, pad + maxBarH - s2H, barW, s2H);
+
+    // labels
+    barCtx.fillStyle = '#333';
+    barCtx.font = '13px sans-serif';
+    barCtx.textAlign = 'center';
+    barCtx.fillText('S\u2081', pad + 50, BH - 10);
+    barCtx.fillText('S\u2082', pad + 140, BH - 10);
+
+    // values on top
+    barCtx.font = 'bold 13px sans-serif';
+    barCtx.fillStyle = '#2980b9';
+    barCtx.fillText(x.toFixed(3), pad + 50, pad + maxBarH - s1H - 6);
+    barCtx.fillStyle = '#e74c3c';
+    barCtx.fillText((1 - x).toFixed(3), pad + 140, pad + maxBarH - s2H - 6);
+
+    // title
+    barCtx.fillStyle = '#333';
+    barCtx.font = 'bold 14px sans-serif';
+    barCtx.fillText('Population', BW / 2, 18);
+  }
+
+  function drawTimeSeries(hist) {
+    timeCtx.clearRect(0, 0, TW, TH);
+    timeCtx.fillStyle = '#fff';
+    timeCtx.fillRect(0, 0, TW, TH);
+
+    const pad = { l: 50, r: 20, t: 30, b: 40 };
+    const plotW = TW - pad.l - pad.r;
+    const plotH = TH - pad.t - pad.b;
+
+    // axes
+    timeCtx.strokeStyle = '#333';
+    timeCtx.lineWidth = 1.5;
+    timeCtx.beginPath();
+    timeCtx.moveTo(pad.l, pad.t);
+    timeCtx.lineTo(pad.l, pad.t + plotH);
+    timeCtx.lineTo(pad.l + plotW, pad.t + plotH);
+    timeCtx.stroke();
+
+    // axis labels
+    timeCtx.fillStyle = '#333';
+    timeCtx.font = '12px sans-serif';
+    timeCtx.textAlign = 'center';
+    timeCtx.fillText('Time', pad.l + plotW / 2, TH - 5);
+    timeCtx.save();
+    timeCtx.translate(14, pad.t + plotH / 2);
+    timeCtx.rotate(-Math.PI / 2);
+    timeCtx.fillText('Frequency', 0, 0);
+    timeCtx.restore();
+
+    // y ticks
+    timeCtx.font = '11px sans-serif';
+    timeCtx.textAlign = 'right';
+    for (let v = 0; v <= 1; v += 0.25) {
+      const y = pad.t + plotH * (1 - v);
+      timeCtx.fillStyle = '#999';
+      timeCtx.fillText(v.toFixed(2), pad.l - 5, y + 4);
+      timeCtx.strokeStyle = '#eee';
+      timeCtx.lineWidth = 0.5;
+      timeCtx.beginPath();
+      timeCtx.moveTo(pad.l, y);
+      timeCtx.lineTo(pad.l + plotW, y);
+      timeCtx.stroke();
+    }
+
+    // x ticks
+    timeCtx.textAlign = 'center';
+    const tMax = Math.max(maxT, hist.length > 0 ? hist[hist.length - 1].t : maxT);
+    for (let tv = 0; tv <= maxT; tv += 3) {
+      const xp = pad.l + (tv / maxT) * plotW;
+      timeCtx.fillStyle = '#999';
+      timeCtx.fillText(tv.toFixed(0), xp, pad.t + plotH + 18);
+    }
+
+    if (hist.length < 2) return;
+
+    // find interior equilibrium if exists
+    const m = getMatrix();
+    const denom = (m.a - m.b) - (m.c - m.d);
+    if (Math.abs(denom) > 1e-9) {
+      const xStar = (m.d - m.b) / ((m.a - m.c) + (m.d - m.b));
+      if (xStar > 0.01 && xStar < 0.99) {
+        const yEq = pad.t + plotH * (1 - xStar);
+        timeCtx.setLineDash([5, 5]);
+        timeCtx.strokeStyle = '#999';
+        timeCtx.lineWidth = 1;
+        timeCtx.beginPath();
+        timeCtx.moveTo(pad.l, yEq);
+        timeCtx.lineTo(pad.l + plotW, yEq);
+        timeCtx.stroke();
+        timeCtx.setLineDash([]);
+        timeCtx.fillStyle = '#999';
+        timeCtx.font = '11px sans-serif';
+        timeCtx.textAlign = 'left';
+        timeCtx.fillText('x*=' + xStar.toFixed(3), pad.l + plotW - 60, yEq - 5);
+      }
+    }
+
+    // S1 line
+    timeCtx.strokeStyle = '#2980b9';
+    timeCtx.lineWidth = 2.5;
+    timeCtx.beginPath();
+    for (let i = 0; i < hist.length; i++) {
+      const px = pad.l + (hist[i].t / maxT) * plotW;
+      const py = pad.t + plotH * (1 - hist[i].x);
+      if (i === 0) timeCtx.moveTo(px, py); else timeCtx.lineTo(px, py);
+    }
+    timeCtx.stroke();
+
+    // S2 line
+    timeCtx.strokeStyle = '#e74c3c';
+    timeCtx.lineWidth = 2.5;
+    timeCtx.beginPath();
+    for (let i = 0; i < hist.length; i++) {
+      const px = pad.l + (hist[i].t / maxT) * plotW;
+      const py = pad.t + plotH * (1 - (1 - hist[i].x));
+      if (i === 0) timeCtx.moveTo(px, py); else timeCtx.lineTo(px, py);
+    }
+    timeCtx.stroke();
+
+    // legend
+    timeCtx.font = 'bold 12px sans-serif';
+    timeCtx.textAlign = 'left';
+    timeCtx.fillStyle = '#2980b9';
+    timeCtx.fillText('S\u2081', pad.l + 10, pad.t + 16);
+    timeCtx.fillStyle = '#e74c3c';
+    timeCtx.fillText('S\u2082', pad.l + 40, pad.t + 16);
+
+    // title
+    timeCtx.fillStyle = '#333';
+    timeCtx.font = 'bold 14px sans-serif';
+    timeCtx.textAlign = 'center';
+    timeCtx.fillText('Strategy Frequencies Over Time', pad.l + plotW / 2, 16);
+  }
+
+  // Initialize
+  doReset();
+})();
+
+
+// =====================================================
+// VISUALIZATION 2: 3-Strategy Simplex Plot
+// =====================================================
+(function() {
+  const canvas = document.getElementById('simplex-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  const presetSelect = document.getElementById('simplex-preset');
+  const clearBtn = document.getElementById('simplex-clear');
+
+  const presets = {
+    'rps': {
+      label: 'Rock-Paper-Scissors',
+      A: [[0, -1, 1], [1, 0, -1], [-1, 1, 0]],
+      labels: ['R', 'P', 'S']
+    },
+    'rps-asym': {
+      label: 'Asymmetric RPS',
+      A: [[0, -1, 1.5], [1, 0, -1], [-1.5, 1, 0]],
+      labels: ['R', 'P', 'S']
+    },
+    'coord3': {
+      label: '3-Strategy Coordination',
+      A: [[3, 0, 0], [0, 2, 0], [0, 0, 1]],
+      labels: ['A', 'B', 'C']
+    },
+    'dom': {
+      label: 'Dominant Strategy',
+      A: [[3, 3, 3], [1, 1, 1], [0, 0, 0]],
+      labels: ['Dom', 'Mid', 'Low']
+    }
+  };
+
+  let currentPreset = 'rps';
+  let trajectories = [];
+
+  // Simplex geometry: equilateral triangle
+  // Vertices: strategy 1 = top, strategy 2 = bottom-left, strategy 3 = bottom-right
+  const margin = 50;
+  const triH = H - 2 * margin;
+  const triW = triH * 2 / Math.sqrt(3);
+  const cx = W / 2;
+  const topY = margin;
+
+  // Vertices in pixel coordinates
+  const v1 = { x: cx, y: topY };                           // strategy 1 (top)
+  const v2 = { x: cx - triW / 2, y: topY + triH };         // strategy 2 (bottom-left)
+  const v3 = { x: cx + triW / 2, y: topY + triH };         // strategy 3 (bottom-right)
+
+  function baryToPixel(x1, x2, x3) {
+    return {
+      x: x1 * v1.x + x2 * v2.x + x3 * v3.x,
+      y: x1 * v1.y + x2 * v2.y + x3 * v3.y
+    };
+  }
+
+  function pixelToBary(px, py) {
+    // Solve for barycentric coordinates
+    const d = (v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y);
+    const x1 = ((v2.y - v3.y) * (px - v3.x) + (v3.x - v2.x) * (py - v3.y)) / d;
+    const x2 = ((v3.y - v1.y) * (px - v3.x) + (v1.x - v3.x) * (py - v3.y)) / d;
+    const x3 = 1 - x1 - x2;
+    return { x1, x2, x3 };
+  }
+
+  function computeTrajectory(x1_0, x2_0, x3_0, A, steps, dt) {
+    let x = [x1_0, x2_0, x3_0];
+    const path = [{ x1: x[0], x2: x[1], x3: x[2] }];
+
+    for (let s = 0; s < steps; s++) {
+      // fitness
+      const f = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          f[i] += A[i][j] * x[j];
+        }
+      }
+      const fbar = x[0] * f[0] + x[1] * f[1] + x[2] * f[2];
+
+      // replicator step (RK2 midpoint method for better accuracy)
+      const dx = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        dx[i] = x[i] * (f[i] - fbar);
+      }
+
+      // midpoint
+      const xm = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        xm[i] = Math.max(0, x[i] + 0.5 * dt * dx[i]);
+      }
+      const summ = xm[0] + xm[1] + xm[2];
+      for (let i = 0; i < 3; i++) xm[i] /= summ;
+
+      const fm = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          fm[i] += A[i][j] * xm[j];
+        }
+      }
+      const fbarm = xm[0] * fm[0] + xm[1] * fm[1] + xm[2] * fm[2];
+      const dxm = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        dxm[i] = xm[i] * (fm[i] - fbarm);
+      }
+
+      for (let i = 0; i < 3; i++) {
+        x[i] = Math.max(0, x[i] + dt * dxm[i]);
+      }
+      const sum = x[0] + x[1] + x[2];
+      for (let i = 0; i < 3; i++) x[i] /= sum;
+
+      path.push({ x1: x[0], x2: x[1], x3: x[2] });
+
+      // early stop if converged to boundary or fixed point
+      if (x[0] < 1e-10 && x[1] < 1e-10) break;
+      if (x[0] < 1e-10 && x[2] < 1e-10) break;
+      if (x[1] < 1e-10 && x[2] < 1e-10) break;
+    }
+    return path;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, W, H);
+
+    const preset = presets[currentPreset];
+    const A = preset.A;
+
+    // Draw simplex triangle
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(v1.x, v1.y);
+    ctx.lineTo(v2.x, v2.y);
+    ctx.lineTo(v3.x, v3.y);
+    ctx.closePath();
+    ctx.fillStyle = '#f9f9f9';
+    ctx.fill();
+    ctx.stroke();
+
+    // Grid lines on simplex
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 0.5;
+    for (let k = 1; k <= 4; k++) {
+      const t = k / 5;
+      // lines parallel to each edge
+      const p1a = baryToPixel(t, 1 - t, 0);
+      const p1b = baryToPixel(t, 0, 1 - t);
+      ctx.beginPath(); ctx.moveTo(p1a.x, p1a.y); ctx.lineTo(p1b.x, p1b.y); ctx.stroke();
+
+      const p2a = baryToPixel(0, t, 1 - t);
+      const p2b = baryToPixel(1 - t, t, 0);
+      ctx.beginPath(); ctx.moveTo(p2a.x, p2a.y); ctx.lineTo(p2b.x, p2b.y); ctx.stroke();
+
+      const p3a = baryToPixel(1 - t, 0, t);
+      const p3b = baryToPixel(0, 1 - t, t);
+      ctx.beginPath(); ctx.moveTo(p3a.x, p3a.y); ctx.lineTo(p3b.x, p3b.y); ctx.stroke();
+    }
+
+    // Draw flow field (small arrows)
+    ctx.globalAlpha = 0.3;
+    const steps = 12;
+    for (let i = 1; i < steps; i++) {
+      for (let j = 1; j < steps - i; j++) {
+        const k = steps - i - j;
+        const x1 = i / steps;
+        const x2 = j / steps;
+        const x3 = k / steps;
+
+        // fitness
+        const f = [0, 0, 0];
+        for (let a = 0; a < 3; a++) {
+          for (let b = 0; b < 3; b++) {
+            f[a] += A[a][b] * [x1, x2, x3][b];
+          }
+        }
+        const fbar = x1 * f[0] + x2 * f[1] + x3 * f[2];
+
+        const dx = [
+          x1 * (f[0] - fbar),
+          x2 * (f[1] - fbar),
+          x3 * (f[2] - fbar)
+        ];
+
+        const p = baryToPixel(x1, x2, x3);
+        const scale = 2.5;
+        const pEnd = baryToPixel(x1 + dx[0] * scale, x2 + dx[1] * scale, x3 + dx[2] * scale);
+
+        const arrowLen = Math.sqrt((pEnd.x - p.x) ** 2 + (pEnd.y - p.y) ** 2);
+        if (arrowLen < 0.5) continue;
+
+        // Draw arrow
+        ctx.strokeStyle = '#555';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+
+        // arrowhead
+        const angle = Math.atan2(pEnd.y - p.y, pEnd.x - p.x);
+        const headLen = Math.min(4, arrowLen * 0.4);
+        ctx.beginPath();
+        ctx.moveTo(pEnd.x, pEnd.y);
+        ctx.lineTo(pEnd.x - headLen * Math.cos(angle - 0.4), pEnd.y - headLen * Math.sin(angle - 0.4));
+        ctx.moveTo(pEnd.x, pEnd.y);
+        ctx.lineTo(pEnd.x - headLen * Math.cos(angle + 0.4), pEnd.y - headLen * Math.sin(angle + 0.4));
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1.0;
+
+    // Draw trajectories
+    const colors = ['#2980b9', '#e74c3c', '#27ae60', '#8e44ad', '#f39c12', '#1abc9c', '#d35400', '#2c3e50'];
+    trajectories.forEach((traj, idx) => {
+      const color = colors[idx % colors.length];
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let i = 0; i < traj.length; i++) {
+        const p = baryToPixel(traj[i].x1, traj[i].x2, traj[i].x3);
+        if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+
+      // start point (green)
+      const start = baryToPixel(traj[0].x1, traj[0].x2, traj[0].x3);
+      ctx.fillStyle = '#27ae60';
+      ctx.beginPath();
+      ctx.arc(start.x, start.y, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // end point (red)
+      const end = baryToPixel(traj[traj.length - 1].x1, traj[traj.length - 1].x2, traj[traj.length - 1].x3);
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(end.x, end.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Interior fixed point marker (if applicable)
+    const center = baryToPixel(1 / 3, 1 / 3, 1 / 3);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Vertex labels
+    ctx.fillStyle = '#333';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(preset.labels[0], v1.x, v1.y - 10);
+    ctx.fillText(preset.labels[1], v2.x - 12, v2.y + 18);
+    ctx.fillText(preset.labels[2], v3.x + 12, v3.y + 18);
+
+    // Title
+    ctx.fillStyle = '#333';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText(preset.label, W / 2, H - 8);
+  }
+
+  // Click handler: add trajectory from clicked point
+  canvas.addEventListener('click', function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W / rect.width);
+    const py = (e.clientY - rect.top) * (H / rect.height);
+    const bary = pixelToBary(px, py);
+
+    // Check if inside simplex
+    if (bary.x1 < 0.01 || bary.x2 < 0.01 || bary.x3 < 0.01) return;
+    if (bary.x1 > 0.99 || bary.x2 > 0.99 || bary.x3 > 0.99) return;
+
+    const preset = presets[currentPreset];
+    const traj = computeTrajectory(bary.x1, bary.x2, bary.x3, preset.A, 5000, 0.01);
+    trajectories.push(traj);
+    draw();
+  });
+
+  presetSelect.addEventListener('change', () => {
+    currentPreset = presetSelect.value;
+    trajectories = [];
+    draw();
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      trajectories = [];
+      draw();
+    });
+  }
+
+  // Initial draw
+  draw();
+})();
+</script>
+
+</body>
+</html>

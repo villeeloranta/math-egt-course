@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2: Vectors, Matrices & Linear Algebra | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html" class="active">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Module 2</div>
+    <h1>Vectors, Matrices &amp; Linear Algebra</h1>
+    <p class="module-desc">
+      The mathematics of payoff matrices, strategy spaces, and stability analysis.
+      Linear algebra is the language in which game theory is written.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>In This Module</h3>
+    <ol>
+      <li><a href="#vectors">Vectors: Direction, Magnitude &amp; Strategy Profiles</a></li>
+      <li><a href="#matrices">Matrices: Tables of Numbers That Transform the World</a></li>
+      <li><a href="#matrix-operations">Matrix Operations</a></li>
+      <li><a href="#systems">Systems of Linear Equations</a></li>
+      <li><a href="#determinants">Determinants</a></li>
+      <li><a href="#eigenvalues">Eigenvalues &amp; Eigenvectors</a></li>
+      <li><a href="#game-theory-connection">Connecting to Game Theory</a></li>
+      <li><a href="#interactive-calculator">Interactive: Matrix Calculator</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: VECTORS -->
+  <!-- ============================================================ -->
+  <div class="section" id="vectors">
+    <h2>1. Vectors: Direction, Magnitude &amp; Strategy Profiles</h2>
+
+    <h3>What Is a Vector?</h3>
+    <p>
+      A <strong>vector</strong> is an ordered list of numbers. While that sounds simple, vectors are
+      one of the most versatile objects in all of mathematics. They can represent a point in space,
+      a direction, a velocity, or -- most importantly for us -- a <em>strategy profile</em> in a game.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: Vector</span>
+      <p>
+        A <strong>vector</strong> in \(\mathbb{R}^n\) is an ordered \(n\)-tuple of real numbers:
+      </p>
+      \[
+        \mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix}
+      \]
+      <p>
+        Each \(v_i\) is called a <strong>component</strong> (or entry) of the vector.
+        The number \(n\) is the <strong>dimension</strong> of the vector.
+      </p>
+    </div>
+
+    <p>
+      We write vectors as bold lowercase letters (\(\mathbf{v}\)) or with an arrow (\(\vec{v}\)).
+      A vector with 2 components lives in \(\mathbb{R}^2\) (the plane), one with 3 components lives
+      in \(\mathbb{R}^3\) (3D space), and so on.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example: Vectors in the Plane</span>
+      <p>The vector \(\mathbf{v} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}\) represents a point
+      (or an arrow from the origin to the point) at position \((3, 2)\) in the plane.</p>
+      <p>The vector \(\mathbf{w} = \begin{pmatrix} -1 \\ 4 \end{pmatrix}\) points to \((-1, 4)\).</p>
+    </div>
+
+    <h3>Strategy Profiles as Vectors</h3>
+    <p>
+      In game theory, a <strong>mixed strategy</strong> is a probability distribution over a player's
+      available actions. If a player has \(n\) possible actions, their mixed strategy is a vector
+      \(\mathbf{x} \in \mathbb{R}^n\) where each component \(x_i\) gives the probability of
+      choosing action \(i\).
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        In evolutionary game theory, a population state is described by a vector
+        \(\mathbf{x} = (x_1, x_2, \ldots, x_n)\) where \(x_i\) is the <em>fraction</em> of
+        the population playing strategy \(i\). This vector must satisfy:
+      </p>
+      <ul>
+        <li>Each \(x_i \geq 0\) (no negative fractions)</li>
+        <li>\(x_1 + x_2 + \cdots + x_n = 1\) (fractions sum to one)</li>
+      </ul>
+      <p>The set of all such vectors forms the <strong>simplex</strong>, which is the strategy space of evolutionary dynamics.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example: Mixed Strategy in Rock-Paper-Scissors</span>
+      <p>
+        A player who plays Rock with probability \(\frac{1}{3}\), Paper with probability
+        \(\frac{1}{3}\), and Scissors with probability \(\frac{1}{3}\) has the mixed strategy vector:
+      </p>
+      \[
+        \mathbf{x} = \begin{pmatrix} 1/3 \\ 1/3 \\ 1/3 \end{pmatrix}
+      \]
+      <p>A player who always plays Rock has the <strong>pure strategy</strong> vector:</p>
+      \[
+        \mathbf{x} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+      \]
+    </div>
+
+    <h3>Vector Addition</h3>
+    <p>To add two vectors, add their corresponding components:</p>
+    \[
+      \mathbf{u} + \mathbf{v} =
+      \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} + \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+      = \begin{pmatrix} u_1 + v_1 \\ u_2 + v_2 \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Example: Adding Vectors</span>
+      \[
+        \begin{pmatrix} 3 \\ 1 \end{pmatrix} + \begin{pmatrix} -1 \\ 4 \end{pmatrix}
+        = \begin{pmatrix} 3 + (-1) \\ 1 + 4 \end{pmatrix}
+        = \begin{pmatrix} 2 \\ 5 \end{pmatrix}
+      \]
+      <p>Geometrically, this is the "tip-to-tail" rule: place the tail of \(\mathbf{v}\) at the tip of \(\mathbf{u}\) and draw a new arrow from the origin to the result.</p>
+    </div>
+
+    <h3>Scalar Multiplication</h3>
+    <p>To multiply a vector by a number (a <em>scalar</em>), multiply each component:</p>
+    \[
+      c \, \mathbf{v} = c \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+      = \begin{pmatrix} c \cdot v_1 \\ c \cdot v_2 \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Example: Scalar Multiplication</span>
+      \[
+        3 \begin{pmatrix} 2 \\ -1 \end{pmatrix} = \begin{pmatrix} 6 \\ -3 \end{pmatrix}
+      \]
+      <p>
+        Multiplying by a positive scalar \(c > 1\) stretches the vector. Multiplying by \(0 < c < 1\)
+        shrinks it. Multiplying by a negative number reverses its direction.
+      </p>
+    </div>
+
+    <h3>The Dot Product</h3>
+    <p>
+      The <strong>dot product</strong> (or <em>inner product</em>) takes two vectors of the same
+      dimension and produces a single number:
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: Dot Product</span>
+      \[
+        \mathbf{u} \cdot \mathbf{v} = u_1 v_1 + u_2 v_2 + \cdots + u_n v_n = \sum_{i=1}^{n} u_i v_i
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example: Computing a Dot Product</span>
+      \[
+        \begin{pmatrix} 3 \\ 1 \\ -2 \end{pmatrix} \cdot \begin{pmatrix} 2 \\ 0 \\ 4 \end{pmatrix}
+        = (3)(2) + (1)(0) + (-2)(4) = 6 + 0 - 8 = -2
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition: What Does the Dot Product Mean?</span>
+      <p>The dot product has several key interpretations:</p>
+      <ul>
+        <li><strong>Geometric:</strong> \(\mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \, \|\mathbf{v}\| \cos\theta\), where \(\theta\) is the angle between the vectors. If \(\mathbf{u} \cdot \mathbf{v} = 0\), the vectors are <em>perpendicular</em> (orthogonal).</li>
+        <li><strong>Weighted sum:</strong> The dot product computes a <em>weighted sum</em> -- each component of one vector is weighted by the corresponding component of the other.</li>
+        <li><strong>Expected payoff:</strong> In game theory, if \(\mathbf{x}\) is a probability vector (mixed strategy) and \(\mathbf{p}\) is a payoff vector, then \(\mathbf{x} \cdot \mathbf{p}\) is the <em>expected payoff</em>.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        Suppose a player has three strategies with payoffs \(\mathbf{p} = (5, 2, 8)\)
+        and plays mixed strategy \(\mathbf{x} = (0.3, 0.5, 0.2)\). Their expected payoff is:
+      </p>
+      \[
+        \mathbf{x} \cdot \mathbf{p} = (0.3)(5) + (0.5)(2) + (0.2)(8) = 1.5 + 1.0 + 1.6 = 4.1
+      \]
+      <p>
+        This is exactly the dot product. Computing expected payoffs -- the heart of game theory
+        -- is just taking dot products.
+      </p>
+    </div>
+
+    <h3>Vector Length (Norm)</h3>
+    <p>The <strong>length</strong> (or <em>norm</em>) of a vector is:</p>
+    \[
+      \|\mathbf{v}\| = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2} = \sqrt{\mathbf{v} \cdot \mathbf{v}}
+    \]
+    <p>
+      A vector with \(\|\mathbf{v}\| = 1\) is called a <strong>unit vector</strong>.
+      You can normalize any nonzero vector to a unit vector by dividing by its norm:
+      \(\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}\).
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: MATRICES -->
+  <!-- ============================================================ -->
+  <div class="section" id="matrices">
+    <h2>2. Matrices: Tables of Numbers That Transform the World</h2>
+
+    <h3>What Is a Matrix?</h3>
+    <p>
+      A <strong>matrix</strong> is a rectangular array of numbers arranged in rows and columns.
+      If a matrix has \(m\) rows and \(n\) columns, we say it is an \(m \times n\) matrix
+      (read "\(m\) by \(n\)").
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: Matrix</span>
+      <p>An \(m \times n\) matrix \(A\) is written as:</p>
+      \[
+        A = \begin{pmatrix}
+          a_{11} & a_{12} & \cdots & a_{1n} \\
+          a_{21} & a_{22} & \cdots & a_{2n} \\
+          \vdots & \vdots & \ddots & \vdots \\
+          a_{m1} & a_{m2} & \cdots & a_{mn}
+        \end{pmatrix}
+      \]
+      <p>
+        The entry in row \(i\) and column \(j\) is denoted \(a_{ij}\) (or \([A]_{ij}\)).
+        We write \(A \in \mathbb{R}^{m \times n}\) to indicate \(A\) is an \(m \times n\)
+        matrix of real numbers.
+      </p>
+    </div>
+
+    <h3>Payoff Matrices: The Core Example</h3>
+    <p>
+      In game theory, the <strong>payoff matrix</strong> is the fundamental object. For a two-player
+      game where Player 1 has \(m\) strategies and Player 2 has \(n\) strategies, the payoff matrix
+      for Player 1 is an \(m \times n\) matrix \(A\) where \(a_{ij}\) is the payoff to Player 1 when
+      Player 1 plays strategy \(i\) and Player 2 plays strategy \(j\).
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example: Prisoner's Dilemma Payoff Matrix</span>
+      <p>Consider the classic Prisoner's Dilemma with strategies Cooperate (C) and Defect (D):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>C</th>
+          <th>D</th>
+        </tr>
+        <tr>
+          <td class="row-header">C</td>
+          <td>3</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td class="row-header">D</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+      </table>
+      <p>As a matrix, Player 1's payoffs are:</p>
+      \[
+        A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}
+      \]
+      <p>
+        Here \(a_{11} = 3\) means "if both cooperate, Player 1 gets 3,"
+        \(a_{12} = 0\) means "if Player 1 cooperates while Player 2 defects, Player 1 gets 0," and so on.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example: Hawk-Dove Game</span>
+      <p>The Hawk-Dove game, fundamental to evolutionary game theory, has the payoff matrix:</p>
+      \[
+        A = \begin{pmatrix} \frac{V - C}{2} & V \\ 0 & \frac{V}{2} \end{pmatrix}
+      \]
+      <p>
+        where \(V\) is the value of a contested resource and \(C\) is the cost of fighting.
+        With \(V = 4\) and \(C = 6\):
+      </p>
+      \[
+        A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}
+      \]
+    </div>
+
+    <h3>Special Matrices</h3>
+    <p>Several types of matrices appear frequently:</p>
+    <ul>
+      <li><strong>Square matrix:</strong> \(m = n\) (same number of rows and columns). All game payoff matrices for symmetric games are square.</li>
+      <li><strong>Identity matrix:</strong> A square matrix with 1s on the diagonal and 0s elsewhere:
+      \[
+        I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \quad \text{or} \quad
+        I = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+      \]
+      It acts like the number 1: \(AI = IA = A\).</li>
+      <li><strong>Zero matrix:</strong> All entries are 0. It acts like the number 0.</li>
+      <li><strong>Symmetric matrix:</strong> \(A = A^T\) (equal to its transpose). The entry in row \(i\), column \(j\) equals the entry in row \(j\), column \(i\).</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: MATRIX OPERATIONS -->
+  <!-- ============================================================ -->
+  <div class="section" id="matrix-operations">
+    <h2>3. Matrix Operations</h2>
+
+    <h3>Matrix Addition</h3>
+    <p>
+      To add two matrices of the <em>same dimensions</em>, add corresponding entries:
+    </p>
+    \[
+      A + B = \begin{pmatrix} a_{11} + b_{11} & a_{12} + b_{12} \\ a_{21} + b_{21} & a_{22} + b_{22} \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Example: Adding Payoff Matrices</span>
+      <p>If Player 1's payoffs are \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\) and Player 2's payoffs are \(B = \begin{pmatrix} 3 & 5 \\ 0 & 1 \end{pmatrix}\), then the total social welfare matrix is:</p>
+      \[
+        A + B = \begin{pmatrix} 3+3 & 0+5 \\ 5+0 & 1+1 \end{pmatrix} = \begin{pmatrix} 6 & 5 \\ 5 & 2 \end{pmatrix}
+      \]
+      <p>Notice that mutual cooperation (6) produces the highest total payoff.</p>
+    </div>
+
+    <h3>Scalar Multiplication</h3>
+    <p>To multiply a matrix by a scalar, multiply every entry:</p>
+    \[
+      cA = \begin{pmatrix} c \cdot a_{11} & c \cdot a_{12} \\ c \cdot a_{21} & c \cdot a_{22} \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Example</span>
+      \[
+        2 \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix} = \begin{pmatrix} 6 & 0 \\ 10 & 2 \end{pmatrix}
+      \]
+      <p>In game theory, scaling a payoff matrix by a positive constant does not change the strategic structure of the game -- the same strategies remain dominant, and the same equilibria persist.</p>
+    </div>
+
+    <h3>The Transpose</h3>
+    <p>
+      The <strong>transpose</strong> of a matrix \(A\), written \(A^T\), swaps rows and columns:
+      the entry in row \(i\), column \(j\) of \(A^T\) is the entry in row \(j\), column \(i\) of \(A\).
+    </p>
+    \[
+      A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix} \implies
+      A^T = \begin{pmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{pmatrix}
+    \]
+    <p>
+      For a \(2 \times 2\) matrix:
+      \(\begin{pmatrix} a & b \\ c & d \end{pmatrix}^T = \begin{pmatrix} a & c \\ b & d \end{pmatrix}\).
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        In a symmetric two-player game, if \(A\) is the payoff matrix for the row player,
+        then \(A^T\) is the payoff matrix for the column player.
+        The expected payoff formula \(\mathbf{x}^T A \mathbf{y}\) uses the transpose
+        to turn a column vector into a row vector for multiplication.
+      </p>
+    </div>
+
+    <h3>Matrix-Vector Multiplication</h3>
+    <p>
+      This is where the magic happens. Multiplying an \(m \times n\) matrix \(A\) by an
+      \(n \times 1\) column vector \(\mathbf{v}\) produces an \(m \times 1\) column vector.
+      Each entry of the result is the <em>dot product</em> of a row of \(A\) with \(\mathbf{v}\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: Matrix-Vector Product</span>
+      \[
+        A\mathbf{v} = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}
+        \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+        = \begin{pmatrix} a_{11}v_1 + a_{12}v_2 \\ a_{21}v_1 + a_{22}v_2 \end{pmatrix}
+      \]
+      <p>
+        The \(i\)-th entry of \(A\mathbf{v}\) is the dot product of row \(i\) of \(A\) with \(\mathbf{v}\).
+        The result is a vector: each entry is the expected payoff of strategy \(i\) against the opponent's mixed strategy.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example: Expected Payoffs in the Prisoner's Dilemma</span>
+      <p>
+        Let the payoff matrix be \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\) and suppose
+        the opponent plays Cooperate with probability \(0.6\) and Defect with probability \(0.4\):
+        \(\mathbf{y} = \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}\).
+      </p>
+      <p>The expected payoff vector for each of Player 1's pure strategies is:</p>
+      \[
+        A\mathbf{y} = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}
+        \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}
+        = \begin{pmatrix} 3(0.6) + 0(0.4) \\ 5(0.6) + 1(0.4) \end{pmatrix}
+        = \begin{pmatrix} 1.8 \\ 3.4 \end{pmatrix}
+      \]
+      <p>
+        Reading the result: if Player 1 cooperates, they expect payoff \(1.8\). If they defect, they expect
+        \(3.4\). Since \(3.4 > 1.8\), defection is the better response (as expected in a Prisoner's Dilemma).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition: Matrix-Vector Product as "What Are My Options Worth?"</span>
+      <p>
+        When you multiply a payoff matrix \(A\) by the opponent's strategy vector \(\mathbf{y}\),
+        you get a vector that tells you the <em>expected payoff of each of your strategies</em>
+        against that opponent. The \(i\)-th entry of \(A\mathbf{y}\) answers: "If I play pure
+        strategy \(i\), what payoff should I expect on average?"
+      </p>
+      <p>
+        This is fundamental: rational players and evolutionary dynamics both use this computation
+        to determine which strategies perform best.
+      </p>
+    </div>
+
+    <h3>Matrix-Matrix Multiplication</h3>
+    <p>
+      For two matrices \(A\) (\(m \times n\)) and \(B\) (\(n \times p\)), the product \(AB\) is an
+      \(m \times p\) matrix. The entry in row \(i\), column \(j\) of \(AB\) is the dot product of
+      row \(i\) of \(A\) with column \(j\) of \(B\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: Matrix Multiplication</span>
+      \[
+        [AB]_{ij} = \sum_{k=1}^{n} a_{ik} \, b_{kj}
+      \]
+      <p><strong>Key requirement:</strong> The number of <em>columns</em> in \(A\) must equal the number of <em>rows</em> in \(B\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example: 2x2 Matrix Multiplication</span>
+      \[
+        \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}
+        \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}
+        = \begin{pmatrix}
+          3 \cdot 1 + 0 \cdot 0 & 3 \cdot 2 + 0 \cdot 1 \\
+          5 \cdot 1 + 1 \cdot 0 & 5 \cdot 2 + 1 \cdot 1
+        \end{pmatrix}
+        = \begin{pmatrix} 3 & 6 \\ 5 & 11 \end{pmatrix}
+      \]
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">Warning: Matrix Multiplication Is Not Commutative</span>
+      <p>
+        In general, \(AB \neq BA\). The order of multiplication matters!
+        This is different from ordinary number multiplication, where \(3 \times 5 = 5 \times 3\).
+      </p>
+    </div>
+
+    <h3>Properties of Matrix Operations</h3>
+    <p>Matrix operations obey many (but not all) of the familiar algebraic rules:</p>
+    <ul>
+      <li>\(A + B = B + A\) (addition is commutative)</li>
+      <li>\((AB)C = A(BC)\) (multiplication is associative)</li>
+      <li>\(A(B + C) = AB + AC\) (distributive law)</li>
+      <li>\((AB)^T = B^T A^T\) (transpose of a product reverses order)</li>
+      <li>\(AI = IA = A\) (identity matrix)</li>
+      <li>But: \(AB \neq BA\) in general (not commutative)</li>
+      <li>And: \(AB = 0\) does <em>not</em> imply \(A = 0\) or \(B = 0\)</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: SYSTEMS OF LINEAR EQUATIONS -->
+  <!-- ============================================================ -->
+  <div class="section" id="systems">
+    <h2>4. Systems of Linear Equations</h2>
+
+    <h3>What Is a System of Linear Equations?</h3>
+    <p>
+      A <strong>system of linear equations</strong> is a set of equations where each equation is
+      linear (no variables raised to powers, no products of variables). We need to find values
+      of the variables that satisfy <em>all</em> equations simultaneously.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: System in Matrix Form</span>
+      <p>A system of \(m\) linear equations in \(n\) unknowns can be written as:</p>
+      \[
+        A\mathbf{x} = \mathbf{b}
+      \]
+      <p>where \(A\) is the \(m \times n\) coefficient matrix, \(\mathbf{x}\) is the vector of unknowns, and \(\mathbf{b}\) is the right-hand side vector.</p>
+      <p>For example, the system:</p>
+      \[
+        \begin{cases}
+          2x + 3y = 7 \\
+          x - y = 1
+        \end{cases}
+        \quad \longleftrightarrow \quad
+        \begin{pmatrix} 2 & 3 \\ 1 & -1 \end{pmatrix}
+        \begin{pmatrix} x \\ y \end{pmatrix}
+        = \begin{pmatrix} 7 \\ 1 \end{pmatrix}
+      \]
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        Finding <strong>mixed strategy Nash equilibria</strong> requires solving systems of linear
+        equations. At a mixed equilibrium, a player must be indifferent between all strategies
+        they play with positive probability. This indifference condition gives us a system
+        of linear equations to solve.
+      </p>
+    </div>
+
+    <h3>Solving 2x2 Systems</h3>
+    <p>For a \(2 \times 2\) system, we can use substitution, elimination, or a direct formula.</p>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: Solving by Elimination</span>
+      <p>Solve the system:</p>
+      \[
+        \begin{cases}
+          2x + 3y = 7 \\
+          x - y = 1
+        \end{cases}
+      \]
+      <p><strong>Step 1:</strong> From equation 2, express \(x = 1 + y\).</p>
+      <p><strong>Step 2:</strong> Substitute into equation 1:</p>
+      \[
+        2(1 + y) + 3y = 7 \implies 2 + 2y + 3y = 7 \implies 5y = 5 \implies y = 1
+      \]
+      <p><strong>Step 3:</strong> Back-substitute: \(x = 1 + 1 = 2\).</p>
+      <p><strong>Solution:</strong> \(x = 2, \; y = 1\).</p>
+      <p><strong>Verify:</strong> \(2(2) + 3(1) = 7\) and \(2 - 1 = 1\). Both check out.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: Finding a Mixed Nash Equilibrium</span>
+      <p>Consider the Hawk-Dove game with payoff matrix \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\).</p>
+      <p>
+        At a mixed equilibrium, the opponent plays Hawk with probability \(q\) and Dove with
+        probability \(1 - q\), and the row player must be <em>indifferent</em> between Hawk and
+        Dove. This means the expected payoff of Hawk equals the expected payoff of Dove:
+      </p>
+      \[
+        \underbrace{-1 \cdot q + 4 \cdot (1-q)}_{\text{payoff of Hawk}} = \underbrace{0 \cdot q + 2 \cdot (1-q)}_{\text{payoff of Dove}}
+      \]
+      \[
+        -q + 4 - 4q = 2 - 2q
+      \]
+      \[
+        4 - 5q = 2 - 2q \implies 2 = 3q \implies q = \frac{2}{3}
+      \]
+      <p>
+        So at the mixed equilibrium, each player plays Hawk with probability \(\frac{2}{3}\) and Dove
+        with probability \(\frac{1}{3}\).
+      </p>
+    </div>
+
+    <h3>Solving 3x3 Systems</h3>
+    <p>
+      For three equations in three unknowns, we use <strong>Gaussian elimination</strong>: systematically
+      use one equation to eliminate a variable from the others, reducing the system to simpler form.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: 3x3 System</span>
+      <p>Solve:</p>
+      \[
+        \begin{cases}
+          x + y + z = 6 \\
+          2x - y + z = 3 \\
+          x + 2y - z = 3
+        \end{cases}
+      \]
+      <p><strong>Step 1:</strong> Subtract 2 times equation 1 from equation 2, and subtract equation 1 from equation 3:</p>
+      \[
+        \begin{cases}
+          x + y + z = 6 \\
+          (2x - y + z) - 2(x + y + z) = 3 - 12 \implies -3y - z = -9 \\
+          (x + 2y - z) - (x + y + z) = 3 - 6 \implies y - 2z = -3
+        \end{cases}
+      \]
+      <p><strong>Step 2:</strong> From the new equation 2: \(-3y - z = -9 \implies 3y + z = 9\).</p>
+      <p>From the new equation 3: \(y - 2z = -3 \implies y = 2z - 3\).</p>
+      <p><strong>Step 3:</strong> Substitute into \(3y + z = 9\):</p>
+      \[
+        3(2z - 3) + z = 9 \implies 6z - 9 + z = 9 \implies 7z = 18 \implies z = \frac{18}{7}
+      \]
+      <p>Then \(y = 2 \cdot \frac{18}{7} - 3 = \frac{36}{7} - \frac{21}{7} = \frac{15}{7}\) and \(x = 6 - y - z = 6 - \frac{15}{7} - \frac{18}{7} = \frac{42 - 15 - 18}{7} = \frac{9}{7}\).</p>
+      <p><strong>Solution:</strong> \(x = \frac{9}{7}, \; y = \frac{15}{7}, \; z = \frac{18}{7}\).</p>
+    </div>
+
+    <h3>When Systems Have No Solution or Infinitely Many Solutions</h3>
+    <p>A system of linear equations can have:</p>
+    <ul>
+      <li><strong>Exactly one solution:</strong> The equations determine a unique point. (The determinant of the coefficient matrix is nonzero.)</li>
+      <li><strong>No solution:</strong> The equations are contradictory (e.g., \(x + y = 3\) and \(x + y = 5\)).</li>
+      <li><strong>Infinitely many solutions:</strong> The equations are redundant -- some are multiples or combinations of others.</li>
+    </ul>
+    <p>The determinant (covered next) is the key tool for distinguishing these cases.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: DETERMINANTS -->
+  <!-- ============================================================ -->
+  <div class="section" id="determinants">
+    <h2>5. Determinants</h2>
+
+    <h3>The 2x2 Determinant</h3>
+    <p>
+      The <strong>determinant</strong> of a \(2 \times 2\) matrix is a single number that encodes
+      crucial information about the matrix.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: 2x2 Determinant</span>
+      \[
+        \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc
+      \]
+      <p>This is sometimes written as \(\begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example</span>
+      \[
+        \det\begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix} = (3)(1) - (0)(5) = 3 - 0 = 3
+      \]
+      \[
+        \det\begin{pmatrix} 2 & 4 \\ 1 & 2 \end{pmatrix} = (2)(2) - (4)(1) = 4 - 4 = 0
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition: What Does the Determinant Mean?</span>
+      <p>The determinant has several powerful interpretations:</p>
+      <ul>
+        <li><strong>Area scaling:</strong> If you apply the matrix as a transformation, the determinant tells you how much areas are scaled. \(|\det(A)| = 2\) means areas double.</li>
+        <li><strong>Orientation:</strong> If \(\det(A) > 0\), the transformation preserves orientation. If \(\det(A) < 0\), it flips orientation (like a mirror).</li>
+        <li><strong>Invertibility:</strong> \(\det(A) = 0\) means the matrix "squishes" space into a lower dimension -- the matrix has no inverse, and the system \(A\mathbf{x} = \mathbf{b}\) may have no unique solution.</li>
+      </ul>
+    </div>
+
+    <h3>The 3x3 Determinant</h3>
+    <p>For a \(3 \times 3\) matrix, expand along the first row:</p>
+    <div class="def-box">
+      <span class="box-title">Definition: 3x3 Determinant (Cofactor Expansion)</span>
+      \[
+        \det\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}
+        = a(ei - fh) - b(di - fg) + c(dh - eg)
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: 3x3 Determinant</span>
+      \[
+        \det\begin{pmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 1 & 0 & 6 \end{pmatrix}
+      \]
+      <p>Expanding along the first row:</p>
+      \[
+        = 1 \cdot \det\begin{pmatrix} 4 & 5 \\ 0 & 6 \end{pmatrix}
+        - 2 \cdot \det\begin{pmatrix} 0 & 5 \\ 1 & 6 \end{pmatrix}
+        + 3 \cdot \det\begin{pmatrix} 0 & 4 \\ 1 & 0 \end{pmatrix}
+      \]
+      \[
+        = 1(24 - 0) - 2(0 - 5) + 3(0 - 4)
+      \]
+      \[
+        = 24 + 10 - 12 = 22
+      \]
+    </div>
+
+    <h3>When Systems Have Unique Solutions</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem: Invertibility and Determinants</span>
+      <p>For a square matrix \(A\):</p>
+      <ul>
+        <li>If \(\det(A) \neq 0\), then \(A\) is <strong>invertible</strong>, and the system \(A\mathbf{x} = \mathbf{b}\) has <em>exactly one solution</em> for every \(\mathbf{b}\).</li>
+        <li>If \(\det(A) = 0\), then \(A\) is <strong>singular</strong> (not invertible), and the system has either no solution or infinitely many solutions.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        When we set up the indifference conditions for a mixed Nash equilibrium, we get a system
+        \(A\mathbf{x} = \mathbf{b}\). The determinant tells us whether a unique mixed equilibrium
+        exists. If \(\det(A) = 0\), the game may have a continuum of equilibria or the system
+        structure is degenerate -- both cases require special analysis.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: EIGENVALUES AND EIGENVECTORS -->
+  <!-- ============================================================ -->
+  <div class="section" id="eigenvalues">
+    <h2>6. Eigenvalues and Eigenvectors</h2>
+
+    <p>
+      Eigenvalues and eigenvectors are perhaps the most important concept in linear algebra for
+      understanding <em>dynamical systems</em> -- and therefore for understanding evolutionary game
+      theory. They tell us about the <strong>stability</strong> of equilibria.
+    </p>
+
+    <h3>The Big Idea</h3>
+    <p>
+      Most vectors change direction when you multiply them by a matrix. But some special vectors
+      only get <em>stretched or shrunk</em> -- they keep pointing in the same direction. These are
+      the eigenvectors.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition: Eigenvalue and Eigenvector</span>
+      <p>
+        Let \(A\) be an \(n \times n\) matrix. A nonzero vector \(\mathbf{v}\) is an
+        <strong>eigenvector</strong> of \(A\) if:
+      </p>
+      \[
+        A\mathbf{v} = \lambda \mathbf{v}
+      \]
+      <p>
+        for some scalar \(\lambda\). The scalar \(\lambda\) is the corresponding
+        <strong>eigenvalue</strong>.
+      </p>
+      <p>
+        In words: applying \(A\) to \(\mathbf{v}\) just scales \(\mathbf{v}\) by the factor \(\lambda\).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition: Eigenvectors as "Natural Directions"</span>
+      <p>
+        Think of a matrix as a transformation that stretches, rotates, and shears space.
+        Eigenvectors are the special directions along which the transformation acts as pure
+        stretching (or compression). The eigenvalue tells you by how much.
+      </p>
+      <ul>
+        <li>\(\lambda > 1\): stretching (growing)</li>
+        <li>\(0 < \lambda < 1\): compression (shrinking)</li>
+        <li>\(\lambda < 0\): flipping direction and scaling</li>
+        <li>\(\lambda = 0\): collapsing to zero</li>
+      </ul>
+    </div>
+
+    <h3>Finding Eigenvalues: The Characteristic Equation</h3>
+    <p>
+      Rearranging \(A\mathbf{v} = \lambda \mathbf{v}\) gives \((A - \lambda I)\mathbf{v} = \mathbf{0}\).
+      For a nonzero solution \(\mathbf{v}\) to exist, the matrix \(A - \lambda I\) must be singular:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem: Characteristic Equation</span>
+      <p>The eigenvalues of \(A\) are the solutions to:</p>
+      \[
+        \det(A - \lambda I) = 0
+      \]
+      <p>This is called the <strong>characteristic equation</strong>. For an \(n \times n\) matrix, it is a polynomial of degree \(n\) in \(\lambda\).</p>
+    </div>
+
+    <h3>Computing Eigenvalues for 2x2 Matrices</h3>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: Eigenvalues of a 2x2 Matrix</span>
+      <p>Find the eigenvalues of \(A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}\).</p>
+      <p><strong>Step 1:</strong> Write the characteristic equation:</p>
+      \[
+        \det(A - \lambda I) = \det\begin{pmatrix} 4 - \lambda & 1 \\ 2 & 3 - \lambda \end{pmatrix} = 0
+      \]
+      <p><strong>Step 2:</strong> Compute the determinant:</p>
+      \[
+        (4 - \lambda)(3 - \lambda) - (1)(2) = 0
+      \]
+      \[
+        12 - 4\lambda - 3\lambda + \lambda^2 - 2 = 0
+      \]
+      \[
+        \lambda^2 - 7\lambda + 10 = 0
+      \]
+      <p><strong>Step 3:</strong> Factor or use the quadratic formula:</p>
+      \[
+        (\lambda - 5)(\lambda - 2) = 0
+      \]
+      <p>So \(\lambda_1 = 5\) and \(\lambda_2 = 2\).</p>
+      <p><strong>Step 4:</strong> Find eigenvectors. For \(\lambda_1 = 5\):</p>
+      \[
+        (A - 5I)\mathbf{v} = \begin{pmatrix} -1 & 1 \\ 2 & -2 \end{pmatrix}\mathbf{v} = \mathbf{0}
+      \]
+      <p>This gives \(-v_1 + v_2 = 0\), so \(v_2 = v_1\). An eigenvector is \(\mathbf{v}_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\).</p>
+      <p>For \(\lambda_2 = 2\):</p>
+      \[
+        (A - 2I)\mathbf{v} = \begin{pmatrix} 2 & 1 \\ 2 & 1 \end{pmatrix}\mathbf{v} = \mathbf{0}
+      \]
+      <p>This gives \(2v_1 + v_2 = 0\), so \(v_2 = -2v_1\). An eigenvector is \(\mathbf{v}_2 = \begin{pmatrix} 1 \\ -2 \end{pmatrix}\).</p>
+    </div>
+
+    <h3>A Shortcut for 2x2 Matrices</h3>
+    <p>
+      For a \(2 \times 2\) matrix \(A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\), the
+      characteristic equation is always:
+    </p>
+    \[
+      \lambda^2 - \underbrace{(a + d)}_{\text{trace}} \lambda + \underbrace{(ad - bc)}_{\text{det}} = 0
+    \]
+    <p>
+      where the <strong>trace</strong> \(\text{tr}(A) = a + d\) is the sum of diagonal entries.
+      The eigenvalues are:
+    </p>
+    \[
+      \lambda = \frac{\text{tr}(A) \pm \sqrt{\text{tr}(A)^2 - 4\det(A)}}{2}
+    \]
+
+    <h3>Eigenvalues and Stability of Equilibria</h3>
+    <p>
+      This is where eigenvalues become essential for evolutionary game theory. When we study
+      the <strong>replicator equation</strong> (Module 7), we analyze fixed points (equilibria)
+      by computing the eigenvalues of the <strong>Jacobian matrix</strong> at each fixed point.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem: Stability Classification via Eigenvalues</span>
+      <p>
+        For a dynamical system \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\) with a fixed point at
+        \(\mathbf{x}^*\), compute the eigenvalues of the Jacobian matrix \(J\) evaluated at
+        \(\mathbf{x}^*\). Then:
+      </p>
+      <ul>
+        <li><strong>Stable (attracting):</strong> All eigenvalues have <em>negative real parts</em> (\(\text{Re}(\lambda_i) < 0\) for all \(i\)). Nearby trajectories converge to the equilibrium.</li>
+        <li><strong>Unstable (repelling):</strong> At least one eigenvalue has a <em>positive real part</em>. Nearby trajectories diverge from the equilibrium.</li>
+        <li><strong>Saddle point:</strong> Some eigenvalues have positive real parts and some have negative real parts. Trajectories approach along some directions and diverge along others.</li>
+        <li><strong>Center (neutrally stable):</strong> All eigenvalues are purely imaginary (\(\text{Re}(\lambda_i) = 0\)). Trajectories orbit the equilibrium.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        In evolutionary game theory, the key question is not just "what are the equilibria?" but
+        "are the equilibria <strong>stable</strong>?" A strategy mix is an <strong>Evolutionarily
+        Stable Strategy (ESS)</strong> only if it is stable against invasion by mutant strategies.
+        Eigenvalue analysis is the mathematical tool that answers this question rigorously.
+      </p>
+      <p>
+        When all eigenvalues of the Jacobian at a fixed point of the replicator dynamics have
+        negative real parts, the equilibrium is asymptotically stable -- small perturbations
+        die out and the system returns to equilibrium. This is the mathematical signature of
+        evolutionary stability.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: Stability in the Hawk-Dove Game</span>
+      <p>
+        The Hawk-Dove game with \(V = 4, C = 6\) has a mixed equilibrium at
+        \(x^* = \frac{2}{3}\) (fraction playing Hawk). The replicator dynamics near this
+        equilibrium can be linearized, yielding a Jacobian with eigenvalue:
+      </p>
+      \[
+        \lambda = -\frac{2}{3} \cdot \frac{1}{3} \cdot (C - V) = -\frac{2}{3} \cdot \frac{1}{3} \cdot 2 = -\frac{4}{9}
+      \]
+      <p>
+        Since \(\lambda = -\frac{4}{9} < 0\), the mixed equilibrium is <strong>stable</strong>.
+        If the population is perturbed slightly away from the \(\frac{2}{3}\) Hawk / \(\frac{1}{3}\) Dove
+        mix, it will return to that equilibrium over time. This is exactly what we expect for an ESS.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: Stability Analysis of a 2D System</span>
+      <p>Consider a system with Jacobian matrix at a fixed point:</p>
+      \[
+        J = \begin{pmatrix} -3 & 1 \\ 0 & -2 \end{pmatrix}
+      \]
+      <p>
+        The eigenvalues are found from:
+        \(\det(J - \lambda I) = (-3 - \lambda)(-2 - \lambda) - 0 = 0\)
+      </p>
+      \[
+        \lambda^2 + 5\lambda + 6 = 0 \implies (\lambda + 3)(\lambda + 2) = 0
+      \]
+      <p>So \(\lambda_1 = -3\) and \(\lambda_2 = -2\). Both are negative, so the fixed point is <strong>asymptotically stable</strong> (a stable node). All nearby trajectories converge to this equilibrium.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: An Unstable Equilibrium</span>
+      <p>Now consider a Jacobian:</p>
+      \[
+        J = \begin{pmatrix} 1 & 0 \\ 0 & -2 \end{pmatrix}
+      \]
+      <p>The eigenvalues are \(\lambda_1 = 1\) and \(\lambda_2 = -2\). Since one eigenvalue is positive and one is negative, this is a <strong>saddle point</strong> -- unstable. Trajectories approach along the direction of the negative eigenvalue but diverge along the direction of the positive eigenvalue.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: CONNECTING TO GAME THEORY -->
+  <!-- ============================================================ -->
+  <div class="section" id="game-theory-connection">
+    <h2>7. Connecting to Game Theory</h2>
+
+    <h3>Payoff Matrices Encode Strategic Interactions</h3>
+    <p>
+      The payoff matrix is the complete description of a game. Every strategic interaction -- every
+      combination of choices and their consequences -- is captured in this single mathematical object.
+    </p>
+    <p>
+      For a two-player game, we need <em>two</em> payoff matrices: \(A\) for Player 1 (the row player)
+      and \(B\) for Player 2 (the column player). In a <strong>symmetric game</strong>
+      (the kind most common in evolutionary game theory), \(B = A^T\), so a single matrix suffices.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example: Reading a Payoff Matrix</span>
+      <p>Consider a three-strategy game among cooperators (C), defectors (D), and punishers (P):</p>
+      \[
+        A = \begin{pmatrix}
+          3 & 0 & 3 \\
+          5 & 1 & 0 \\
+          3 & 2 & 2
+        \end{pmatrix}
+      \]
+      <p>Reading this matrix:</p>
+      <ul>
+        <li>\(a_{11} = 3\): When a cooperator meets a cooperator, payoff is 3.</li>
+        <li>\(a_{12} = 0\): When a cooperator meets a defector, payoff is 0.</li>
+        <li>\(a_{21} = 5\): When a defector meets a cooperator, payoff is 5 (exploitation).</li>
+        <li>\(a_{32} = 2\): When a punisher meets a defector, payoff is 2 (punishment is costly but less than being exploited).</li>
+      </ul>
+    </div>
+
+    <h3>The Strategy Space as a Simplex</h3>
+    <p>
+      When a population has \(n\) strategies, the possible population states form the
+      <strong>\((n-1)\)-simplex</strong>:
+    </p>
+    \[
+      \Delta_n = \left\{ \mathbf{x} \in \mathbb{R}^n \;\middle|\; x_i \geq 0 \text{ for all } i, \;\; \sum_{i=1}^n x_i = 1 \right\}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Example: The Simplex for Different Numbers of Strategies</span>
+      <ul>
+        <li><strong>2 strategies:</strong> \(\Delta_2 = \{(x, 1-x) : 0 \leq x \leq 1\}\) -- this is just a line segment from \((0,1)\) to \((1,0)\).</li>
+        <li><strong>3 strategies:</strong> \(\Delta_3\) is a triangle with vertices at \((1,0,0)\), \((0,1,0)\), and \((0,0,1)\). Each vertex is a pure strategy; interior points are mixed strategies.</li>
+        <li><strong>4 strategies:</strong> \(\Delta_4\) is a tetrahedron.</li>
+      </ul>
+      <p>
+        The vertices of the simplex are the <em>pure strategies</em>. A point in the interior
+        represents a population where all strategies are present. The edges and faces represent
+        populations where some strategies have gone extinct.
+      </p>
+    </div>
+
+    <h3>Expected Payoff as a Matrix-Vector Product</h3>
+    <p>
+      Here is where all the pieces come together. If Player 1 plays mixed strategy
+      \(\mathbf{x}\) and Player 2 plays mixed strategy \(\mathbf{y}\), the
+      <strong>expected payoff</strong> to Player 1 is:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem: Expected Payoff Formula</span>
+      \[
+        E[\text{payoff to Player 1}] = \mathbf{x}^T A \mathbf{y}
+      \]
+      <p>where \(\mathbf{x}^T\) is the transpose of \(\mathbf{x}\) (a row vector), \(A\) is the payoff matrix, and \(\mathbf{y}\) is the opponent's strategy (a column vector).</p>
+    </div>
+
+    <p>Let us unpack this formula step by step.</p>
+
+    <div class="example-box">
+      <span class="box-title">Worked Example: Expected Payoff Calculation</span>
+      <p>
+        In the Prisoner's Dilemma with
+        \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\),
+        suppose Player 1 plays C with probability 0.7 and D with probability 0.3
+        (\(\mathbf{x} = \begin{pmatrix} 0.7 \\ 0.3 \end{pmatrix}\)),
+        and Player 2 plays C with probability 0.4 and D with probability 0.6
+        (\(\mathbf{y} = \begin{pmatrix} 0.4 \\ 0.6 \end{pmatrix}\)).
+      </p>
+      <p><strong>Step 1:</strong> Compute \(A\mathbf{y}\) (expected payoff of each pure strategy against \(\mathbf{y}\)):</p>
+      \[
+        A\mathbf{y} = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\begin{pmatrix} 0.4 \\ 0.6 \end{pmatrix}
+        = \begin{pmatrix} 1.2 \\ 2.6 \end{pmatrix}
+      \]
+      <p>
+        So cooperating yields expected payoff \(1.2\) and defecting yields \(2.6\) against this opponent.
+      </p>
+      <p><strong>Step 2:</strong> Compute \(\mathbf{x}^T (A\mathbf{y})\) (average over Player 1's mixture):</p>
+      \[
+        \mathbf{x}^T A \mathbf{y} = \begin{pmatrix} 0.7 & 0.3 \end{pmatrix}\begin{pmatrix} 1.2 \\ 2.6 \end{pmatrix}
+        = 0.7 \times 1.2 + 0.3 \times 2.6 = 0.84 + 0.78 = 1.62
+      \]
+      <p>Player 1's expected payoff is \(1.62\).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        In evolutionary game theory, the expected payoff formula takes a specific and crucial form.
+        If the population state is \(\mathbf{x}\) and the payoff matrix is \(A\), then:
+      </p>
+      <ul>
+        <li>The <strong>fitness of strategy \(i\)</strong> is: \(f_i(\mathbf{x}) = (A\mathbf{x})_i = \sum_j a_{ij} x_j\)</li>
+        <li>The <strong>average fitness</strong> of the population is: \(\bar{f}(\mathbf{x}) = \mathbf{x}^T A \mathbf{x}\)</li>
+        <li>The <strong>replicator equation</strong> is: \(\dot{x}_i = x_i \left[ (A\mathbf{x})_i - \mathbf{x}^T A \mathbf{x} \right]\)</li>
+      </ul>
+      <p>
+        The entire replicator equation is built from the matrix-vector product \(A\mathbf{x}\) and
+        the quadratic form \(\mathbf{x}^T A \mathbf{x}\). This is why linear algebra is the
+        essential prerequisite for understanding evolutionary dynamics.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: INTERACTIVE CALCULATOR -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive-calculator">
+    <h2>8. Interactive: Matrix Calculator</h2>
+    <p>
+      Use this calculator to experiment with matrix operations. Enter values for two
+      \(2 \times 2\) matrices and explore addition, multiplication, determinants, and eigenvalues.
+    </p>
+
+    <div class="interactive-container">
+      <h3>Interactive: Matrix Calculator</h3>
+      <div class="controls" id="matrix-calc">
+        <div>
+          <strong>Matrix A:</strong><br>
+          <input type="number" id="a00" value="3" style="width:60px"> <input type="number" id="a01" value="0" style="width:60px"><br>
+          <input type="number" id="a10" value="5" style="width:60px"> <input type="number" id="a11" value="1" style="width:60px">
+        </div>
+        <div>
+          <strong>Matrix B:</strong><br>
+          <input type="number" id="b00" value="1" style="width:60px"> <input type="number" id="b01" value="2" style="width:60px"><br>
+          <input type="number" id="b10" value="0" style="width:60px"> <input type="number" id="b11" value="1" style="width:60px">
+        </div>
+      </div>
+      <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="matrixAdd()">A + B</button>
+        <button class="btn btn-primary" onclick="matrixMul()">A &times; B</button>
+        <button class="btn btn-accent" onclick="matrixDet()">det(A)</button>
+        <button class="btn btn-success" onclick="matrixEigen()">Eigenvalues of A</button>
+      </div>
+      <div id="matrix-result" style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:6px; min-height:60px"></div>
+    </div>
+
+    <script>
+    function getMatrix(prefix) {
+      return [
+        [parseFloat(document.getElementById(prefix + '00').value) || 0,
+         parseFloat(document.getElementById(prefix + '01').value) || 0],
+        [parseFloat(document.getElementById(prefix + '10').value) || 0,
+         parseFloat(document.getElementById(prefix + '11').value) || 0]
+      ];
+    }
+
+    function showResult(html) {
+      document.getElementById('matrix-result').innerHTML = html;
+      if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+        MathJax.typesetPromise([document.getElementById('matrix-result')]);
+      }
+    }
+
+    function matrixAdd() {
+      const A = getMatrix('a'), B = getMatrix('b');
+      const C = [
+        [A[0][0] + B[0][0], A[0][1] + B[0][1]],
+        [A[1][0] + B[1][0], A[1][1] + B[1][1]]
+      ];
+      showResult(`<strong>A + B =</strong> \\[\\begin{pmatrix} ${C[0][0]} & ${C[0][1]} \\\\ ${C[1][0]} & ${C[1][1]} \\end{pmatrix}\\]`);
+    }
+
+    function matrixMul() {
+      const A = getMatrix('a'), B = getMatrix('b');
+      const C = [
+        [A[0][0]*B[0][0] + A[0][1]*B[1][0], A[0][0]*B[0][1] + A[0][1]*B[1][1]],
+        [A[1][0]*B[0][0] + A[1][1]*B[1][0], A[1][0]*B[0][1] + A[1][1]*B[1][1]]
+      ];
+      showResult(`<strong>A &times; B =</strong> \\[\\begin{pmatrix} ${C[0][0]} & ${C[0][1]} \\\\ ${C[1][0]} & ${C[1][1]} \\end{pmatrix}\\]`);
+    }
+
+    function matrixDet() {
+      const A = getMatrix('a');
+      const det = A[0][0]*A[1][1] - A[0][1]*A[1][0];
+      let interpretation = '';
+      if (det === 0) {
+        interpretation = '<br><em>The determinant is zero, so this matrix is <strong>singular</strong> (not invertible). The system Ax = b may have no unique solution.</em>';
+      } else {
+        interpretation = `<br><em>The determinant is nonzero, so this matrix is <strong>invertible</strong>. The system Ax = b has a unique solution for any b.</em>`;
+      }
+      showResult(`<strong>det(A)</strong> = (${A[0][0]})(${A[1][1]}) &minus; (${A[0][1]})(${A[1][0]}) = <strong>${det}</strong>${interpretation}`);
+    }
+
+    function matrixEigen() {
+      const A = getMatrix('a');
+      const trace = A[0][0] + A[1][1];
+      const det = A[0][0]*A[1][1] - A[0][1]*A[1][0];
+      const discriminant = trace * trace - 4 * det;
+
+      let result = `<strong>Eigenvalues of A</strong><br>`;
+      result += `Trace = ${trace}, &ensp; Det = ${det}<br>`;
+      result += `Characteristic equation: &lambda;&sup2; &minus; ${trace}&lambda; + ${det} = 0<br>`;
+      result += `Discriminant = ${trace}&sup2; &minus; 4(${det}) = ${discriminant.toFixed(4)}<br><br>`;
+
+      if (discriminant > 0) {
+        const l1 = (trace + Math.sqrt(discriminant)) / 2;
+        const l2 = (trace - Math.sqrt(discriminant)) / 2;
+        result += `&lambda;<sub>1</sub> = <strong>${l1.toFixed(4)}</strong>, &ensp; &lambda;<sub>2</sub> = <strong>${l2.toFixed(4)}</strong><br><br>`;
+        if (l1 < 0 && l2 < 0) {
+          result += `<em>Both eigenvalues are negative &rarr; <strong>Stable</strong> equilibrium (stable node). All nearby trajectories converge.</em>`;
+        } else if (l1 > 0 && l2 > 0) {
+          result += `<em>Both eigenvalues are positive &rarr; <strong>Unstable</strong> equilibrium (unstable node). All nearby trajectories diverge.</em>`;
+        } else {
+          result += `<em>Eigenvalues have different signs &rarr; <strong>Saddle point</strong> (unstable). Trajectories converge in one direction but diverge in another.</em>`;
+        }
+      } else if (discriminant === 0) {
+        const l = trace / 2;
+        result += `&lambda;<sub>1</sub> = &lambda;<sub>2</sub> = <strong>${l.toFixed(4)}</strong> (repeated eigenvalue)<br><br>`;
+        if (l < 0) {
+          result += `<em>Repeated negative eigenvalue &rarr; <strong>Stable</strong> (degenerate node).</em>`;
+        } else if (l > 0) {
+          result += `<em>Repeated positive eigenvalue &rarr; <strong>Unstable</strong> (degenerate node).</em>`;
+        } else {
+          result += `<em>Eigenvalue is zero &rarr; Non-isolated fixed point.</em>`;
+        }
+      } else {
+        const real = trace / 2;
+        const imag = Math.sqrt(-discriminant) / 2;
+        result += `&lambda; = <strong>${real.toFixed(4)} &pm; ${imag.toFixed(4)}i</strong> (complex conjugate pair)<br><br>`;
+        if (real < 0) {
+          result += `<em>Negative real part &rarr; <strong>Stable spiral</strong>. Trajectories spiral inward toward the equilibrium.</em>`;
+        } else if (real > 0) {
+          result += `<em>Positive real part &rarr; <strong>Unstable spiral</strong>. Trajectories spiral outward away from the equilibrium.</em>`;
+        } else {
+          result += `<em>Zero real part &rarr; <strong>Center</strong>. Trajectories orbit the equilibrium in closed loops (neutrally stable).</em>`;
+        }
+      }
+
+      showResult(result);
+    }
+    </script>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: EXERCISES -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>9. Exercises</h2>
+    <p>Test your understanding with these problems. Try each one before revealing the solution.</p>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 1: Vector Operations</div>
+      <p>Let \(\mathbf{u} = \begin{pmatrix} 2 \\ -1 \\ 3 \end{pmatrix}\) and \(\mathbf{v} = \begin{pmatrix} 1 \\ 4 \\ -2 \end{pmatrix}\).</p>
+      <p>Compute: (a) \(\mathbf{u} + \mathbf{v}\), (b) \(3\mathbf{u} - 2\mathbf{v}\), (c) \(\mathbf{u} \cdot \mathbf{v}\), (d) \(\|\mathbf{u}\|\).</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(\mathbf{u} + \mathbf{v} = \begin{pmatrix} 2+1 \\ -1+4 \\ 3+(-2) \end{pmatrix} = \begin{pmatrix} 3 \\ 3 \\ 1 \end{pmatrix}\)</p>
+          <p><strong>(b)</strong> \(3\mathbf{u} - 2\mathbf{v} = \begin{pmatrix} 6 \\ -3 \\ 9 \end{pmatrix} - \begin{pmatrix} 2 \\ 8 \\ -4 \end{pmatrix} = \begin{pmatrix} 4 \\ -11 \\ 13 \end{pmatrix}\)</p>
+          <p><strong>(c)</strong> \(\mathbf{u} \cdot \mathbf{v} = (2)(1) + (-1)(4) + (3)(-2) = 2 - 4 - 6 = -8\)</p>
+          <p><strong>(d)</strong> \(\|\mathbf{u}\| = \sqrt{4 + 1 + 9} = \sqrt{14} \approx 3.742\)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 2: Expected Payoff</div>
+      <p>
+        A player in a 3-strategy game has payoffs \((4, 1, 7)\) when facing an opponent. The player
+        uses mixed strategy \(\mathbf{x} = (0.5, 0.3, 0.2)\). What is the expected payoff?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>The expected payoff is the dot product:</p>
+          \[
+            \mathbf{x} \cdot \mathbf{p} = (0.5)(4) + (0.3)(1) + (0.2)(7) = 2.0 + 0.3 + 1.4 = 3.7
+          \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 3: Matrix-Vector Multiplication</div>
+      <p>
+        For the Hawk-Dove game with \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\),
+        compute \(A\mathbf{y}\) when the opponent plays Hawk with probability \(q = 0.5\), i.e.,
+        \(\mathbf{y} = \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}\). Which pure strategy is best
+        against this opponent?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          \[
+            A\mathbf{y} = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}
+            = \begin{pmatrix} -0.5 + 2.0 \\ 0 + 1.0 \end{pmatrix}
+            = \begin{pmatrix} 1.5 \\ 1.0 \end{pmatrix}
+          \]
+          <p>Hawk yields expected payoff \(1.5\) while Dove yields \(1.0\). Hawk is the best response when the opponent plays each strategy with equal probability.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 4: Matrix Multiplication</div>
+      <p>Compute the product \(AB\) where
+        \(A = \begin{pmatrix} 2 & 1 \\ 0 & 3 \end{pmatrix}\) and
+        \(B = \begin{pmatrix} 1 & -1 \\ 2 & 4 \end{pmatrix}\).
+        Then verify that \(AB \neq BA\).
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          \[
+            AB = \begin{pmatrix} 2(1)+1(2) & 2(-1)+1(4) \\ 0(1)+3(2) & 0(-1)+3(4) \end{pmatrix}
+            = \begin{pmatrix} 4 & 2 \\ 6 & 12 \end{pmatrix}
+          \]
+          \[
+            BA = \begin{pmatrix} 1(2)+(-1)(0) & 1(1)+(-1)(3) \\ 2(2)+4(0) & 2(1)+4(3) \end{pmatrix}
+            = \begin{pmatrix} 2 & -2 \\ 4 & 14 \end{pmatrix}
+          \]
+          <p>Indeed \(AB \neq BA\). Matrix multiplication is <em>not</em> commutative.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 5: Solving a System</div>
+      <p>Solve the system of equations:</p>
+      \[
+        \begin{cases}
+          3x + 2y = 12 \\
+          x - y = 1
+        \end{cases}
+      \]
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>From equation 2: \(x = 1 + y\). Substituting into equation 1:</p>
+          \[
+            3(1 + y) + 2y = 12 \implies 3 + 3y + 2y = 12 \implies 5y = 9 \implies y = \frac{9}{5}
+          \]
+          <p>Then \(x = 1 + \frac{9}{5} = \frac{14}{5}\).</p>
+          <p><strong>Solution:</strong> \(x = \frac{14}{5} = 2.8\), \(y = \frac{9}{5} = 1.8\).</p>
+          <p>Verify: \(3(2.8) + 2(1.8) = 8.4 + 3.6 = 12\) and \(2.8 - 1.8 = 1\). Correct.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 6: Determinant</div>
+      <p>Compute the determinant of the payoff matrix for the coordination game:
+        \(A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}\).
+        Is this matrix invertible?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          \[
+            \det(A) = (2)(1) - (0)(0) = 2
+          \]
+          <p>Since \(\det(A) = 2 \neq 0\), the matrix is invertible.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7: Eigenvalues and Stability</div>
+      <p>Find the eigenvalues of \(A = \begin{pmatrix} -1 & 2 \\ 0 & -3 \end{pmatrix}\). Classify the stability of the corresponding fixed point.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>Since this is a triangular matrix, the eigenvalues are the diagonal entries:</p>
+          \[
+            \lambda_1 = -1, \quad \lambda_2 = -3
+          \]
+          <p>
+            (To verify: \(\det(A - \lambda I) = (-1 - \lambda)(-3 - \lambda) - (2)(0) = (\lambda + 1)(\lambda + 3) = 0\),
+            giving \(\lambda = -1\) or \(\lambda = -3\).)
+          </p>
+          <p>
+            Both eigenvalues are <strong>negative</strong>, so the fixed point is
+            <strong>asymptotically stable</strong> (a stable node). Nearby trajectories converge to
+            this equilibrium -- it is stable in the evolutionary dynamics sense.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 8 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8: Mixed Equilibrium via Linear Algebra</div>
+      <p>
+        Consider the game with payoff matrix
+        \(A = \begin{pmatrix} 2 & 0 \\ 3 & 1 \end{pmatrix}\).
+        Find the mixed strategy Nash equilibrium by setting up and solving the indifference condition.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p>
+            At a mixed equilibrium, the opponent (column player) chooses probabilities \(q\) and \(1-q\) such
+            that the row player is indifferent between their two strategies:
+          </p>
+          \[
+            2q + 0(1-q) = 3q + 1(1-q)
+          \]
+          \[
+            2q = 3q + 1 - q = 2q + 1
+          \]
+          \[
+            0 = 1
+          \]
+          <p>
+            This equation has no solution! The row player is <em>never</em> indifferent -- strategy 2
+            always weakly dominates strategy 1 (it gives at least as much payoff in all cases and strictly more when the opponent
+            plays strategy 2). Therefore, there is <strong>no fully mixed Nash equilibrium</strong>.
+          </p>
+          <p>
+            The pure strategy Nash equilibrium is for the row player to always play strategy 2 (Defect).
+            This illustrates that not every game has a mixed equilibrium -- linear algebra tells us when
+            the indifference system has no solution.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 9 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 9: Expected Payoff with the Full Formula</div>
+      <p>
+        For the game \(A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}\), compute
+        \(\mathbf{x}^T A \mathbf{y}\) when \(\mathbf{x} = \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}\)
+        and \(\mathbf{y} = \begin{pmatrix} 0.3 \\ 0.7 \end{pmatrix}\).
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>Step 1:</strong> Compute \(A\mathbf{y}\):</p>
+          \[
+            A\mathbf{y} = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}\begin{pmatrix} 0.3 \\ 0.7 \end{pmatrix}
+            = \begin{pmatrix} 0.9 + 0.7 \\ 0 + 1.4 \end{pmatrix} = \begin{pmatrix} 1.6 \\ 1.4 \end{pmatrix}
+          \]
+          <p><strong>Step 2:</strong> Compute \(\mathbf{x}^T (A\mathbf{y})\):</p>
+          \[
+            \mathbf{x}^T A \mathbf{y} = (0.6)(1.6) + (0.4)(1.4) = 0.96 + 0.56 = 1.52
+          \]
+          <p>The expected payoff to Player 1 is \(1.52\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 10 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 10: Complete Eigenvalue Analysis</div>
+      <p>
+        The Jacobian of a replicator system at a fixed point is
+        \(J = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\).
+        Find the eigenvalues, find the eigenvectors, and determine the stability of the fixed point.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>Eigenvalues:</strong></p>
+          <p>Trace = \(-2 + (-2) = -4\), Det = \((-2)(-2) - (1)(1) = 4 - 1 = 3\).</p>
+          \[
+            \lambda^2 + 4\lambda + 3 = 0 \implies (\lambda + 1)(\lambda + 3) = 0
+          \]
+          <p>So \(\lambda_1 = -1\) and \(\lambda_2 = -3\).</p>
+          <p><strong>Eigenvectors:</strong></p>
+          <p>For \(\lambda_1 = -1\): \((J + I)\mathbf{v} = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}\mathbf{v} = 0\), giving \(v_1 = v_2\). Eigenvector: \(\begin{pmatrix} 1 \\ 1 \end{pmatrix}\).</p>
+          <p>For \(\lambda_2 = -3\): \((J + 3I)\mathbf{v} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}\mathbf{v} = 0\), giving \(v_1 = -v_2\). Eigenvector: \(\begin{pmatrix} 1 \\ -1 \end{pmatrix}\).</p>
+          <p><strong>Stability:</strong> Both eigenvalues (\(-1\) and \(-3\)) are negative, so the fixed point is <strong>asymptotically stable</strong> -- it is a stable node. This equilibrium is an attractor of the replicator dynamics.</p>
+          <p>The decay is faster along the \(\begin{pmatrix} 1 \\ -1 \end{pmatrix}\) direction (eigenvalue \(-3\)) than along the \(\begin{pmatrix} 1 \\ 1 \end{pmatrix}\) direction (eigenvalue \(-1\)).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODULE NAVIGATION -->
+  <!-- ============================================================ -->
+  <div class="module-nav-strip">
+    <a href="module1.html">&larr; Module 1: Mathematical Foundations</a>
+    <a href="module3.html">Module 3: Calculus &rarr;</a>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Content covers mathematical foundations through EGT applications in social science.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

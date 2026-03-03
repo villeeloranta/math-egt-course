@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 3: Calculus — Rates of Change | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html" class="active">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Module 3 of 8</div>
+    <h1>Calculus: Rates of Change</h1>
+    <p class="module-desc">
+      Derivatives and integrals &mdash; the mathematics of change, optimization, and accumulation.
+      These are the essential tools for understanding how strategy frequencies evolve over time in
+      evolutionary game theory.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>In This Module</h3>
+    <ol>
+      <li><a href="#limits">The Idea of a Limit</a></li>
+      <li><a href="#derivatives">Derivatives: The Rate of Change</a></li>
+      <li><a href="#higher-derivatives">Higher Derivatives</a></li>
+      <li><a href="#partial-derivatives">Partial Derivatives</a></li>
+      <li><a href="#optimization">Optimization</a></li>
+      <li><a href="#integration">Integration Basics</a></li>
+      <li><a href="#chain-rule-detail">The Chain Rule in Detail</a></li>
+      <li><a href="#interactive">Interactive: Derivative Explorer</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: LIMITS -->
+  <!-- ================================================================== -->
+  <div class="section" id="limits">
+    <h2>1. The Idea of a Limit</h2>
+
+    <p>
+      Before we can talk about rates of change, we need to understand one of the most fundamental
+      ideas in mathematics: the <strong>limit</strong>. Every definition in calculus &mdash;
+      derivatives, integrals, continuity &mdash; is built on limits. But the core idea is
+      surprisingly intuitive.
+    </p>
+
+    <h3>Approaching a Value</h3>
+
+    <p>
+      Imagine you are walking toward a wall. At each step, you cover half the remaining distance.
+      You get closer and closer: 1 meter away, then 0.5 meters, then 0.25, then 0.125... You never
+      quite reach the wall in a finite number of steps, but you can get <em>as close as you want</em>.
+      The wall is your <strong>limit</strong>.
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition</span>
+      <p>
+        A <strong>limit</strong> describes what value a function <em>approaches</em> as its input
+        approaches some target. We don't need the function to actually equal that value at the
+        target &mdash; only that it gets arbitrarily close.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Limit (Informal)</span>
+      <p>
+        We write
+        \[ \lim_{x \to a} f(x) = L \]
+        and say "the limit of \(f(x)\) as \(x\) approaches \(a\) is \(L\)" if we can make
+        \(f(x)\) as close to \(L\) as we wish by taking \(x\) sufficiently close to \(a\)
+        (but not equal to \(a\)).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; A Simple Limit</span>
+      <p>Consider \(f(x) = 2x + 1\). What is \(\lim_{x \to 3} f(x)\)?</p>
+      <p>
+        As \(x\) gets closer and closer to 3, \(f(x)\) gets closer and closer to \(2(3) + 1 = 7\).
+        There is no surprise here &mdash; for continuous functions, the limit is simply the function
+        value:
+      </p>
+      \[ \lim_{x \to 3}(2x + 1) = 7 \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; A More Interesting Limit</span>
+      <p>Consider \(f(x) = \dfrac{x^2 - 4}{x - 2}\). What is \(\lim_{x \to 2} f(x)\)?</p>
+      <p>
+        Notice that plugging in \(x = 2\) gives \(\frac{0}{0}\), which is undefined. But the
+        limit asks what happens as we <em>approach</em> 2, not what happens <em>at</em> 2.
+        We can factor:
+      </p>
+      \[ \frac{x^2 - 4}{x - 2} = \frac{(x-2)(x+2)}{x-2} = x + 2 \quad \text{(when } x \neq 2\text{)} \]
+      <p>So \(\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = 2 + 2 = 4\).</p>
+      <p>
+        The function has a "hole" at \(x = 2\), but the limit tells us where the function is
+        <em>heading</em>.
+      </p>
+    </div>
+
+    <h3>The Formal Definition (Epsilon-Delta)</h3>
+
+    <p>
+      The informal definition is enough for most of our work, but the rigorous version gives
+      calculus its logical foundation.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Limit (Formal, Epsilon-Delta)</span>
+      <p>
+        We say \(\lim_{x \to a} f(x) = L\) if for every \(\varepsilon > 0\), there exists a
+        \(\delta > 0\) such that whenever \(0 < |x - a| < \delta\), we have \(|f(x) - L| < \varepsilon\).
+      </p>
+      <p>
+        In words: no matter how tight a tolerance \(\varepsilon\) someone demands around \(L\),
+        we can always find a sufficiently small neighborhood \(\delta\) around \(a\) such that
+        all function values in that neighborhood fall within the tolerance.
+      </p>
+    </div>
+
+    <h3>Important Limit Laws</h3>
+
+    <p>Limits obey natural algebraic rules. If \(\lim_{x \to a} f(x) = L\) and \(\lim_{x \to a} g(x) = M\), then:</p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Limit Laws</span>
+      <ul>
+        <li><strong>Sum:</strong> \(\lim_{x \to a} [f(x) + g(x)] = L + M\)</li>
+        <li><strong>Product:</strong> \(\lim_{x \to a} [f(x) \cdot g(x)] = L \cdot M\)</li>
+        <li><strong>Quotient:</strong> \(\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}\), provided \(M \neq 0\)</li>
+        <li><strong>Scalar:</strong> \(\lim_{x \to a} [c \cdot f(x)] = c \cdot L\) for any constant \(c\)</li>
+        <li><strong>Power:</strong> \(\lim_{x \to a} [f(x)]^n = L^n\) for any positive integer \(n\)</li>
+      </ul>
+    </div>
+
+    <h3>A Crucial Limit for Calculus</h3>
+
+    <p>One limit appears over and over in calculus. It is the foundation of the derivative:</p>
+
+    \[ \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \]
+
+    <p>
+      This is the <em>difference quotient</em>. It measures the average rate of change of \(f\)
+      over a tiny interval of width \(h\), and asks what happens as that interval shrinks to zero.
+      We will explore this fully in the next section.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        The replicator equation \(\dot{x}_i = x_i(f_i - \bar{f})\) is written in terms of
+        \(\dot{x}_i = \frac{dx_i}{dt}\), which is a derivative &mdash; defined as a limit of a
+        difference quotient. Without limits, we cannot rigorously define what "rate of change of
+        strategy frequency" means.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: DERIVATIVES -->
+  <!-- ================================================================== -->
+  <div class="section" id="derivatives">
+    <h2>2. Derivatives: The Rate of Change</h2>
+
+    <p>
+      The derivative is arguably the single most important concept in this entire course. It tells
+      us <em>how fast</em> a quantity is changing at any given instant. In evolutionary game theory,
+      the quantity we most care about is the frequency of a strategy in a population, and the
+      derivative tells us whether that strategy is growing, shrinking, or at equilibrium.
+    </p>
+
+    <h3>The Difference Quotient and the Definition of the Derivative</h3>
+
+    <p>
+      Consider a function \(f(x)\). The <strong>average rate of change</strong> between
+      \(x = a\) and \(x = a + h\) is:
+    </p>
+
+    \[ \text{Average rate of change} = \frac{f(a + h) - f(a)}{h} \]
+
+    <p>
+      Geometrically, this is the slope of the <strong>secant line</strong> connecting the points
+      \((a, f(a))\) and \((a+h, f(a+h))\). As \(h\) gets smaller and smaller, this secant line
+      rotates toward the <strong>tangent line</strong> at \(x = a\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; The Derivative</span>
+      <p>
+        The <strong>derivative</strong> of \(f\) at \(x = a\) is:
+      </p>
+      \[ f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \]
+      <p>
+        provided this limit exists. We also write \(\frac{df}{dx}\Big|_{x=a}\) or \(\frac{d}{dx}f(x)\Big|_{x=a}\).
+      </p>
+      <p>
+        When we want the derivative as a <em>function</em> (not just at one point), we write:
+      </p>
+      \[ f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Derivative from the Definition</span>
+      <p>Let \(f(x) = x^2\). Compute \(f'(x)\) from the definition.</p>
+      \[
+      \begin{aligned}
+      f'(x) &= \lim_{h \to 0} \frac{(x + h)^2 - x^2}{h} \\
+             &= \lim_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h} \\
+             &= \lim_{h \to 0} \frac{2xh + h^2}{h} \\
+             &= \lim_{h \to 0} (2x + h) \\
+             &= 2x
+      \end{aligned}
+      \]
+      <p>
+        So the derivative of \(x^2\) is \(2x\). At \(x = 3\), the slope of the tangent line is
+        \(f'(3) = 6\). At \(x = -1\), the slope is \(f'(-1) = -2\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Another from the Definition</span>
+      <p>Let \(f(x) = 3x + 5\). Compute \(f'(x)\).</p>
+      \[
+      f'(x) = \lim_{h \to 0} \frac{[3(x+h) + 5] - [3x + 5]}{h}
+            = \lim_{h \to 0} \frac{3h}{h}
+            = \lim_{h \to 0} 3 = 3
+      \]
+      <p>
+        The derivative of a linear function \(mx + b\) is the constant \(m\) &mdash; its slope.
+        This makes perfect sense: a straight line has the same steepness everywhere.
+      </p>
+    </div>
+
+    <h3>Geometric Meaning: The Slope of the Tangent Line</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition</span>
+      <p>
+        The derivative \(f'(a)\) is the <strong>slope of the tangent line</strong> to the curve
+        \(y = f(x)\) at the point \((a, f(a))\). A positive derivative means the function is
+        increasing; a negative derivative means it is decreasing; a zero derivative means the
+        function is momentarily flat (a potential maximum, minimum, or inflection point).
+      </p>
+    </div>
+
+    <h3>Derivative Rules</h3>
+
+    <p>
+      Computing derivatives from the definition every time would be tedious. Fortunately, we have
+      powerful rules that let us differentiate almost any function quickly.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Power Rule</span>
+      <p>If \(f(x) = x^n\) for any real number \(n\), then:</p>
+      \[ f'(x) = nx^{n-1} \]
+      <p>
+        <strong>Examples:</strong>
+        \(\frac{d}{dx}x^3 = 3x^2\), &ensp;
+        \(\frac{d}{dx}x^{-1} = -x^{-2}\), &ensp;
+        \(\frac{d}{dx}\sqrt{x} = \frac{d}{dx}x^{1/2} = \frac{1}{2}x^{-1/2}\).
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Constant Multiple Rule</span>
+      <p>If \(c\) is a constant, then:</p>
+      \[ \frac{d}{dx}[c \cdot f(x)] = c \cdot f'(x) \]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Sum Rule</span>
+      <p>The derivative of a sum is the sum of the derivatives:</p>
+      \[ \frac{d}{dx}[f(x) + g(x)] = f'(x) + g'(x) \]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Product Rule</span>
+      <p>For two functions multiplied together:</p>
+      \[ \frac{d}{dx}[f(x) \cdot g(x)] = f'(x) \cdot g(x) + f(x) \cdot g'(x) \]
+      <p>Mnemonic: "derivative of the first times the second, plus the first times the derivative of the second."</p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Quotient Rule</span>
+      <p>For a ratio of two functions:</p>
+      \[ \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{[g(x)]^2} \]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Chain Rule</span>
+      <p>For composed functions \(f(g(x))\):</p>
+      \[ \frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x) \]
+      <p>In Leibniz notation: if \(y = f(u)\) and \(u = g(x)\), then \(\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Using the Rules</span>
+      <p>Differentiate \(f(x) = 5x^3 - 2x^2 + 7x - 4\).</p>
+      <p>Applying the power rule, constant multiple rule, and sum rule term by term:</p>
+      \[
+      f'(x) = 5 \cdot 3x^2 - 2 \cdot 2x + 7 \cdot 1 - 0 = 15x^2 - 4x + 7
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Product Rule</span>
+      <p>Differentiate \(f(x) = x^2 \cdot e^x\).</p>
+      <p>Let \(u = x^2\) and \(v = e^x\). Then \(u' = 2x\) and \(v' = e^x\).</p>
+      \[
+      f'(x) = u'v + uv' = 2x \cdot e^x + x^2 \cdot e^x = e^x(2x + x^2) = e^x \cdot x(2 + x)
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Chain Rule</span>
+      <p>Differentiate \(f(x) = (3x + 1)^5\).</p>
+      <p>
+        The outer function is \(u^5\) and the inner function is \(u = 3x + 1\). The chain rule
+        gives:
+      </p>
+      \[
+      f'(x) = 5(3x + 1)^4 \cdot 3 = 15(3x + 1)^4
+      \]
+    </div>
+
+    <h3>Derivatives of Common Functions</h3>
+
+    <p>Here is a reference table of derivatives you will use frequently:</p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left; margin: 1.5rem 0;">
+      <tr>
+        <th style="width:40%">Function \(f(x)\)</th>
+        <th>Derivative \(f'(x)\)</th>
+      </tr>
+      <tr><td>\(c\) (constant)</td><td>\(0\)</td></tr>
+      <tr><td>\(x^n\)</td><td>\(nx^{n-1}\)</td></tr>
+      <tr><td>\(e^x\)</td><td>\(e^x\)</td></tr>
+      <tr><td>\(a^x\)</td><td>\(a^x \ln a\)</td></tr>
+      <tr><td>\(\ln x\)</td><td>\(\dfrac{1}{x}\)</td></tr>
+      <tr><td>\(\log_a x\)</td><td>\(\dfrac{1}{x \ln a}\)</td></tr>
+      <tr><td>\(\sin x\)</td><td>\(\cos x\)</td></tr>
+      <tr><td>\(\cos x\)</td><td>\(-\sin x\)</td></tr>
+      <tr><td>\(\tan x\)</td><td>\(\sec^2 x\)</td></tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Why \(e^x\) is Special</span>
+      <p>
+        The exponential function \(e^x\) is its own derivative: \(\frac{d}{dx}e^x = e^x\). This
+        means \(e^x\) grows at a rate equal to its current value &mdash; the hallmark of
+        exponential growth. In EGT, exponential functions arise naturally when modeling populations
+        with constant per-capita growth rates.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        The replicator dynamics equation is:
+      </p>
+      \[ \dot{x}_i = \frac{dx_i}{dt} = x_i \big( f_i(\mathbf{x}) - \bar{f}(\mathbf{x}) \big) \]
+      <p>
+        This is a derivative &mdash; the rate of change of the frequency \(x_i\) of strategy \(i\).
+        The right-hand side says the growth rate is proportional to how much better strategy \(i\)
+        performs than the population average. Understanding derivatives lets us read this equation:
+        positive derivative means the strategy is spreading; negative means it is declining;
+        zero means the strategy frequency is at an equilibrium.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: HIGHER DERIVATIVES -->
+  <!-- ================================================================== -->
+  <div class="section" id="higher-derivatives">
+    <h2>3. Higher Derivatives</h2>
+
+    <p>
+      If we can differentiate a function once to get the rate of change, we can differentiate again
+      to get the <em>rate of change of the rate of change</em>. This is the second derivative, and
+      it tells us about the <strong>curvature</strong> of a function.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Second Derivative</span>
+      <p>The <strong>second derivative</strong> of \(f\) is the derivative of the first derivative:</p>
+      \[ f''(x) = \frac{d^2 f}{dx^2} = \frac{d}{dx}\left[\frac{df}{dx}\right] \]
+      <p>
+        Similarly, the third derivative is \(f'''(x)\) or \(\frac{d^3 f}{dx^3}\), and so on. The
+        \(n\)-th derivative is written \(f^{(n)}(x)\) or \(\frac{d^n f}{dx^n}\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Computing Higher Derivatives</span>
+      <p>Let \(f(x) = x^4 - 3x^2 + 2x\).</p>
+      \[
+      \begin{aligned}
+      f'(x) &= 4x^3 - 6x + 2 \\
+      f''(x) &= 12x^2 - 6 \\
+      f'''(x) &= 24x \\
+      f^{(4)}(x) &= 24 \\
+      f^{(5)}(x) &= 0
+      \end{aligned}
+      \]
+    </div>
+
+    <h3>Concavity and the Second Derivative</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition</span>
+      <p>
+        The first derivative tells us <em>direction</em> (increasing or decreasing). The second
+        derivative tells us <em>shape</em>:
+      </p>
+      <ul>
+        <li>\(f''(x) > 0\): the graph is <strong>concave up</strong> (curves upward like a cup). The slope is increasing.</li>
+        <li>\(f''(x) < 0\): the graph is <strong>concave down</strong> (curves downward like a frown). The slope is decreasing.</li>
+        <li>\(f''(x) = 0\): possible <strong>inflection point</strong> where concavity changes.</li>
+      </ul>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Inflection Point</span>
+      <p>
+        An <strong>inflection point</strong> is a point where the concavity of \(f\) changes &mdash;
+        that is, where \(f''(x)\) changes sign. At an inflection point, \(f''(x) = 0\) (or is
+        undefined), but not every point where \(f''(x) = 0\) is necessarily an inflection point.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Concavity Analysis</span>
+      <p>Let \(f(x) = x^3 - 3x\). Find the concavity and any inflection points.</p>
+      \[
+      f'(x) = 3x^2 - 3, \quad f''(x) = 6x
+      \]
+      <ul>
+        <li>\(f''(x) = 0\) when \(x = 0\).</li>
+        <li>For \(x < 0\): \(f''(x) < 0\), so the function is concave down.</li>
+        <li>For \(x > 0\): \(f''(x) > 0\), so the function is concave up.</li>
+      </ul>
+      <p>
+        Since \(f''\) changes sign at \(x = 0\), the point \((0, 0)\) is an inflection point.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        Concavity is central to <strong>stability analysis</strong>. When we study whether an
+        equilibrium is stable under the replicator dynamics, we often need to check whether a
+        fitness function is concave or convex. A concave fitness function (negative second
+        derivative) can indicate a stable interior equilibrium, while a convex one (positive
+        second derivative) may indicate instability. The second-derivative test (discussed in the
+        Optimization section) is directly used to classify equilibria.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: PARTIAL DERIVATIVES -->
+  <!-- ================================================================== -->
+  <div class="section" id="partial-derivatives">
+    <h2>4. Partial Derivatives</h2>
+
+    <p>
+      So far, our functions have had a single input variable. But in evolutionary game theory,
+      fitness typically depends on <em>multiple</em> strategy frequencies. If there are three
+      strategies with frequencies \(x_1, x_2, x_3\), then the fitness of each strategy is a
+      function of all three variables. We need a way to measure how the output changes when we
+      change <em>one</em> input while holding the others fixed. This is the partial derivative.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Partial Derivative</span>
+      <p>
+        Given a function \(f(x, y)\) of two variables, the <strong>partial derivative with respect
+        to \(x\)</strong> is:
+      </p>
+      \[ \frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x + h, y) - f(x, y)}{h} \]
+      <p>
+        We differentiate with respect to \(x\) while treating \(y\) as a constant. Similarly:
+      </p>
+      \[ \frac{\partial f}{\partial y} = \lim_{h \to 0} \frac{f(x, y + h) - f(x, y)}{h} \]
+      <p>Alternative notations: \(f_x\), \(\partial_x f\), or \(D_x f\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Computing Partial Derivatives</span>
+      <p>Let \(f(x, y) = 3x^2 y + 2xy^3 - 5y + 7\).</p>
+      <p>
+        <strong>Partial with respect to \(x\)</strong> (treat \(y\) as a constant):
+      </p>
+      \[ \frac{\partial f}{\partial x} = 6xy + 2y^3 \]
+      <p>
+        <strong>Partial with respect to \(y\)</strong> (treat \(x\) as a constant):
+      </p>
+      \[ \frac{\partial f}{\partial y} = 3x^2 + 6xy^2 - 5 \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Fitness Function</span>
+      <p>
+        Suppose the fitness of strategy A in a two-strategy game is:
+      </p>
+      \[ f_A(x, y) = 3x + 2y \]
+      <p>where \(x\) is the frequency of strategy A and \(y\) is the frequency of strategy B. Then:</p>
+      \[
+      \frac{\partial f_A}{\partial x} = 3, \quad \frac{\partial f_A}{\partial y} = 2
+      \]
+      <p>
+        This tells us: increasing the frequency of A by a small amount raises A's fitness by 3 units
+        per unit change; increasing B's frequency raises A's fitness by 2 units per unit change.
+      </p>
+    </div>
+
+    <h3>The Gradient Vector</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Gradient</span>
+      <p>
+        The <strong>gradient</strong> of a function \(f(x_1, x_2, \ldots, x_n)\) is the vector of
+        all its partial derivatives:
+      </p>
+      \[ \nabla f = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n} \right) \]
+      <p>
+        The gradient points in the direction of <strong>steepest ascent</strong> of \(f\). Its
+        magnitude \(\|\nabla f\|\) tells us how steeply \(f\) is increasing in that direction.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Gradient Computation</span>
+      <p>Let \(f(x, y) = x^2 + 3xy + y^2\). The gradient is:</p>
+      \[ \nabla f = \left( 2x + 3y, \; 3x + 2y \right) \]
+      <p>At the point \((1, 2)\):</p>
+      \[ \nabla f(1, 2) = (2 + 6, \; 3 + 4) = (8, 7) \]
+      <p>The function increases most steeply in the direction of the vector \((8, 7)\).</p>
+    </div>
+
+    <h3>Second-Order Partial Derivatives</h3>
+
+    <p>
+      We can take partial derivatives of partial derivatives. For a function \(f(x,y)\):
+    </p>
+    <ul>
+      <li>\(f_{xx} = \frac{\partial^2 f}{\partial x^2}\): differentiate twice with respect to \(x\).</li>
+      <li>\(f_{yy} = \frac{\partial^2 f}{\partial y^2}\): differentiate twice with respect to \(y\).</li>
+      <li>\(f_{xy} = \frac{\partial^2 f}{\partial y \, \partial x}\): differentiate first with respect to \(x\), then \(y\).</li>
+    </ul>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Clairaut's Theorem (Symmetry of Mixed Partials)</span>
+      <p>
+        If \(f_{xy}\) and \(f_{yx}\) are both continuous, then:
+      </p>
+      \[ f_{xy} = f_{yx} \]
+      <p>The order of differentiation does not matter (for well-behaved functions).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        In a game with \(n\) strategies, the fitness of strategy \(i\) is a function of the full
+        strategy profile \(\mathbf{x} = (x_1, x_2, \ldots, x_n)\). When we analyze how the
+        replicator dynamics changes near an equilibrium, we need the <strong>Jacobian matrix</strong>,
+        which is the matrix of all partial derivatives \(\frac{\partial \dot{x}_i}{\partial x_j}\).
+        This connects partial derivatives directly to the stability theory you will study in
+        Module 4.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: OPTIMIZATION -->
+  <!-- ================================================================== -->
+  <div class="section" id="optimization">
+    <h2>5. Optimization</h2>
+
+    <p>
+      Optimization &mdash; finding maxima and minima &mdash; is one of the most important
+      applications of calculus. In evolutionary game theory, organisms effectively "maximize"
+      fitness through natural selection, and rational agents maximize utility. The mathematics of
+      finding these maxima and minima is built directly on derivatives.
+    </p>
+
+    <h3>Critical Points</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Critical Point</span>
+      <p>
+        A <strong>critical point</strong> of \(f(x)\) is a value \(x = c\) where either
+        \(f'(c) = 0\) or \(f'(c)\) does not exist.
+      </p>
+      <p>
+        At a critical point, the tangent line is horizontal (slope zero) or there is no well-defined
+        tangent. All local maxima and minima occur at critical points.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Finding Critical Points</span>
+      <p>Let \(f(x) = x^3 - 6x^2 + 9x + 2\). Find all critical points.</p>
+      \[ f'(x) = 3x^2 - 12x + 9 = 3(x^2 - 4x + 3) = 3(x - 1)(x - 3) \]
+      <p>Setting \(f'(x) = 0\): \(x = 1\) and \(x = 3\) are the critical points.</p>
+    </div>
+
+    <h3>The First Derivative Test</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; First Derivative Test</span>
+      <p>Let \(c\) be a critical point of \(f\) where \(f'(c) = 0\).</p>
+      <ul>
+        <li>If \(f'(x)\) changes from <strong>positive to negative</strong> at \(c\), then \(f\) has a <strong>local maximum</strong> at \(c\).</li>
+        <li>If \(f'(x)\) changes from <strong>negative to positive</strong> at \(c\), then \(f\) has a <strong>local minimum</strong> at \(c\).</li>
+        <li>If \(f'(x)\) does not change sign at \(c\), then \(c\) is neither a max nor a min (it is an <strong>inflection point</strong>).</li>
+      </ul>
+    </div>
+
+    <h3>The Second Derivative Test</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Second Derivative Test</span>
+      <p>Let \(c\) be a critical point where \(f'(c) = 0\).</p>
+      <ul>
+        <li>If \(f''(c) < 0\), then \(f\) has a <strong>local maximum</strong> at \(c\) (concave down).</li>
+        <li>If \(f''(c) > 0\), then \(f\) has a <strong>local minimum</strong> at \(c\) (concave up).</li>
+        <li>If \(f''(c) = 0\), the test is <strong>inconclusive</strong> (use the first derivative test instead).</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Classifying Critical Points</span>
+      <p>
+        Continuing with \(f(x) = x^3 - 6x^2 + 9x + 2\), we found critical points at \(x = 1\)
+        and \(x = 3\). We compute:
+      </p>
+      \[ f''(x) = 6x - 12 \]
+      <ul>
+        <li>\(f''(1) = 6(1) - 12 = -6 < 0\) &rarr; <strong>local maximum</strong> at \(x = 1\).</li>
+        <li>\(f''(3) = 6(3) - 12 = 6 > 0\) &rarr; <strong>local minimum</strong> at \(x = 3\).</li>
+      </ul>
+      <p>The maximum value is \(f(1) = 1 - 6 + 9 + 2 = 6\) and the minimum value is \(f(3) = 27 - 54 + 27 + 2 = 2\).</p>
+    </div>
+
+    <h3>Optimization with Multiple Variables</h3>
+
+    <p>
+      For a function \(f(x, y)\) of two variables, a critical point occurs where both partial
+      derivatives are zero:
+    </p>
+    \[ \frac{\partial f}{\partial x} = 0 \quad \text{and} \quad \frac{\partial f}{\partial y} = 0 \]
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Second Derivative Test (Multivariable)</span>
+      <p>
+        At a critical point \((a, b)\) of \(f(x, y)\), define the <strong>discriminant</strong>:
+      </p>
+      \[ D = f_{xx}(a,b) \cdot f_{yy}(a,b) - [f_{xy}(a,b)]^2 \]
+      <ul>
+        <li>If \(D > 0\) and \(f_{xx} < 0\): <strong>local maximum</strong>.</li>
+        <li>If \(D > 0\) and \(f_{xx} > 0\): <strong>local minimum</strong>.</li>
+        <li>If \(D < 0\): <strong>saddle point</strong> (neither max nor min).</li>
+        <li>If \(D = 0\): <strong>inconclusive</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Two-Variable Optimization</span>
+      <p>Find and classify the critical points of \(f(x, y) = x^2 + y^2 - 4x - 6y + 13\).</p>
+      <p><strong>Step 1:</strong> Set partial derivatives to zero.</p>
+      \[
+      f_x = 2x - 4 = 0 \implies x = 2, \qquad f_y = 2y - 6 = 0 \implies y = 3
+      \]
+      <p>Critical point: \((2, 3)\).</p>
+      <p><strong>Step 2:</strong> Compute second partials.</p>
+      \[ f_{xx} = 2, \quad f_{yy} = 2, \quad f_{xy} = 0 \]
+      <p><strong>Step 3:</strong> Compute discriminant.</p>
+      \[ D = (2)(2) - (0)^2 = 4 > 0 \]
+      <p>Since \(D > 0\) and \(f_{xx} = 2 > 0\), the point \((2, 3)\) is a <strong>local minimum</strong>.</p>
+      <p>The minimum value is \(f(2, 3) = 4 + 9 - 8 - 18 + 13 = 0\).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        In evolutionary game theory, natural selection drives organisms toward strategies that
+        maximize fitness. Finding equilibria of the replicator dynamics is closely related to
+        optimization: we look for strategy frequencies where the "pressure to change" is zero
+        (analogous to \(f'(x) = 0\)). The second derivative test is analogous to checking
+        stability: a maximum in the fitness landscape can correspond to a stable equilibrium
+        (an Evolutionarily Stable Strategy), while a saddle point corresponds to an unstable one.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: INTEGRATION -->
+  <!-- ================================================================== -->
+  <div class="section" id="integration">
+    <h2>6. Integration Basics</h2>
+
+    <p>
+      Integration is the reverse of differentiation. If derivatives tell us rates of change,
+      integrals tell us about <strong>accumulation</strong> &mdash; adding up infinitely many
+      infinitesimal pieces. Integration lets us compute areas, total payoffs, and probabilities.
+    </p>
+
+    <h3>Antiderivatives</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Antiderivative</span>
+      <p>
+        An <strong>antiderivative</strong> (or <strong>indefinite integral</strong>) of \(f(x)\) is
+        a function \(F(x)\) such that \(F'(x) = f(x)\). We write:
+      </p>
+      \[ \int f(x) \, dx = F(x) + C \]
+      <p>
+        where \(C\) is the <strong>constant of integration</strong> (since the derivative of any
+        constant is zero, there are infinitely many antiderivatives differing by a constant).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Basic Antiderivatives</span>
+      <p>
+        Since \(\frac{d}{dx}x^3 = 3x^2\), the antiderivative of \(3x^2\) is \(x^3 + C\). More
+        generally:
+      </p>
+      \[ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1) \]
+      <p>Some important antiderivatives:</p>
+      <ul>
+        <li>\(\int e^x \, dx = e^x + C\)</li>
+        <li>\(\int \frac{1}{x} \, dx = \ln|x| + C\)</li>
+        <li>\(\int \cos x \, dx = \sin x + C\)</li>
+        <li>\(\int \sin x \, dx = -\cos x + C\)</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Finding an Antiderivative</span>
+      <p>Compute \(\int (4x^3 - 6x + 2) \, dx\).</p>
+      <p>Integrate term by term using the power rule for integrals:</p>
+      \[
+      \int (4x^3 - 6x + 2) \, dx = \frac{4x^4}{4} - \frac{6x^2}{2} + 2x + C = x^4 - 3x^2 + 2x + C
+      \]
+      <p>We can verify: \(\frac{d}{dx}(x^4 - 3x^2 + 2x + C) = 4x^3 - 6x + 2\). Correct!</p>
+    </div>
+
+    <h3>The Definite Integral as Area</h3>
+
+    <div class="def-box">
+      <span class="box-title">Definition &mdash; Definite Integral</span>
+      <p>
+        The <strong>definite integral</strong> of \(f(x)\) from \(a\) to \(b\) is:
+      </p>
+      \[ \int_a^b f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \, \Delta x \]
+      <p>
+        where \(\Delta x = \frac{b - a}{n}\) and \(x_i^*\) is a sample point in the \(i\)-th
+        subinterval. Geometrically, this is the <strong>signed area</strong> between the curve
+        \(y = f(x)\) and the \(x\)-axis, from \(x = a\) to \(x = b\).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition</span>
+      <p>
+        Think of the definite integral as slicing the region under a curve into very thin
+        rectangles, computing the area of each, and adding them all up. As the rectangles get
+        thinner and thinner (more and more of them), the sum converges to the exact area.
+      </p>
+    </div>
+
+    <h3>The Fundamental Theorem of Calculus</h3>
+
+    <p>
+      The Fundamental Theorem of Calculus (FTC) is one of the most profound results in mathematics.
+      It connects the two seemingly different operations of differentiation and integration.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Fundamental Theorem of Calculus (Part 1)</span>
+      <p>
+        If \(f\) is continuous on \([a, b]\) and we define
+        \(F(x) = \int_a^x f(t) \, dt\), then \(F\) is differentiable and:
+      </p>
+      \[ F'(x) = f(x) \]
+      <p>
+        In words: the derivative of the integral is the original function. Differentiation undoes
+        integration.
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Fundamental Theorem of Calculus (Part 2)</span>
+      <p>
+        If \(f\) is continuous on \([a, b]\) and \(F\) is any antiderivative of \(f\), then:
+      </p>
+      \[ \int_a^b f(x) \, dx = F(b) - F(a) \]
+      <p>
+        This is the <em>evaluation theorem</em>: to compute a definite integral, find an
+        antiderivative and subtract its values at the endpoints.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Evaluating a Definite Integral</span>
+      <p>Compute \(\int_1^3 (2x + 1) \, dx\).</p>
+      <p><strong>Step 1:</strong> Find an antiderivative: \(F(x) = x^2 + x\).</p>
+      <p><strong>Step 2:</strong> Evaluate at the bounds:</p>
+      \[
+      \int_1^3 (2x + 1) \, dx = F(3) - F(1) = (9 + 3) - (1 + 1) = 12 - 2 = 10
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Area Under an Exponential</span>
+      <p>Compute \(\int_0^1 e^x \, dx\).</p>
+      <p>The antiderivative of \(e^x\) is \(e^x\):</p>
+      \[
+      \int_0^1 e^x \, dx = e^1 - e^0 = e - 1 \approx 1.718
+      \]
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        Integration appears in evolutionary game theory in several important contexts:
+      </p>
+      <ul>
+        <li>
+          <strong>Cumulative payoffs:</strong> The total payoff a strategy accumulates over a
+          time interval \([0, T]\) is \(\int_0^T f_i(t) \, dt\), where \(f_i(t)\) is the
+          instantaneous payoff rate.
+        </li>
+        <li>
+          <strong>Probability distributions:</strong> In stochastic models of evolution, the
+          probability of an event is computed as an integral of a probability density function:
+          \(P(a \le X \le b) = \int_a^b p(x) \, dx\).
+        </li>
+        <li>
+          <strong>Average fitness:</strong> The mean fitness of a population with a continuous
+          distribution of types is an integral: \(\bar{f} = \int f(x) \, p(x) \, dx\).
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: CHAIN RULE IN DETAIL -->
+  <!-- ================================================================== -->
+  <div class="section" id="chain-rule-detail">
+    <h2>7. The Chain Rule in Detail</h2>
+
+    <p>
+      The chain rule is so important for evolutionary game theory that it deserves its own extended
+      treatment. Whenever a quantity depends on another quantity that itself depends on a third,
+      we need the chain rule. In EGT, fitness depends on strategy frequencies, which depend on
+      time &mdash; a classic chain of dependencies.
+    </p>
+
+    <h3>The Chain Rule, Revisited</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; The Chain Rule</span>
+      <p>
+        If \(y = f(u)\) and \(u = g(x)\), then:
+      </p>
+      \[ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} = f'(g(x)) \cdot g'(x) \]
+      <p>
+        In words: the rate of change of \(y\) with respect to \(x\) equals the rate of change
+        of \(y\) with respect to \(u\), times the rate of change of \(u\) with respect to \(x\).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuition &mdash; Chain of Cause and Effect</span>
+      <p>
+        If changing \(x\) by 1 unit causes \(u\) to change by 3 units, and changing \(u\) by
+        1 unit causes \(y\) to change by 5 units, then changing \(x\) by 1 unit causes \(y\) to
+        change by \(3 \times 5 = 15\) units. The chain rule simply multiplies the rates along the
+        chain.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Chain Rule with Exponential</span>
+      <p>Differentiate \(y = e^{3x^2}\).</p>
+      <p>
+        Let \(u = 3x^2\), so \(y = e^u\). Then \(\frac{dy}{du} = e^u\) and
+        \(\frac{du}{dx} = 6x\).
+      </p>
+      \[ \frac{dy}{dx} = e^u \cdot 6x = 6x \, e^{3x^2} \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Chain Rule with Logarithm</span>
+      <p>Differentiate \(y = \ln(x^2 + 1)\).</p>
+      <p>
+        Let \(u = x^2 + 1\), so \(y = \ln u\). Then \(\frac{dy}{du} = \frac{1}{u}\) and
+        \(\frac{du}{dx} = 2x\).
+      </p>
+      \[ \frac{dy}{dx} = \frac{1}{x^2 + 1} \cdot 2x = \frac{2x}{x^2 + 1} \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Nested Chain Rule</span>
+      <p>Differentiate \(y = \sin(e^{2x})\).</p>
+      <p>
+        This involves two layers of composition. Let \(v = 2x\), \(u = e^v\), and \(y = \sin u\).
+      </p>
+      \[
+      \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dv} \cdot \frac{dv}{dx}
+                     = \cos(u) \cdot e^v \cdot 2
+                     = 2e^{2x} \cos(e^{2x})
+      \]
+    </div>
+
+    <h3>The Multivariable Chain Rule</h3>
+
+    <p>
+      When a function depends on several variables, each of which depends on a common parameter
+      (like time \(t\)), the chain rule generalizes.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Theorem &mdash; Multivariable Chain Rule</span>
+      <p>
+        If \(z = f(x, y)\) where \(x = x(t)\) and \(y = y(t)\) are both functions of \(t\), then:
+      </p>
+      \[ \frac{dz}{dt} = \frac{\partial f}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial f}{\partial y} \cdot \frac{dy}{dt} \]
+    </div>
+
+    <h3>The Chain Rule in Replicator Dynamics</h3>
+
+    <p>
+      Let us see exactly how the chain rule appears in a derivation relevant to EGT. This example
+      is important preparation for Module 7.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Average Fitness Rate of Change</span>
+      <p>
+        In a two-strategy game, the average fitness of the population is:
+      </p>
+      \[ \bar{f}(x) = x \cdot f_A(x) + (1 - x) \cdot f_B(x) \]
+      <p>
+        where \(x = x(t)\) is the frequency of strategy A (a function of time). How does
+        \(\bar{f}\) change over time?
+      </p>
+      <p>
+        Using the chain rule, \(\frac{d\bar{f}}{dt} = \frac{d\bar{f}}{dx} \cdot \frac{dx}{dt}\).
+        The factor \(\frac{dx}{dt}\) is exactly what the replicator equation gives us, and
+        \(\frac{d\bar{f}}{dx}\) tells us how sensitive the average fitness is to the strategy mix.
+      </p>
+      <p>
+        Suppose the fitness functions are linear: \(f_A(x) = ax + b(1-x)\) and
+        \(f_B(x) = cx + d(1-x)\) for constants \(a, b, c, d\). Then:
+      </p>
+      \[
+      \bar{f}(x) = x[ax + b(1-x)] + (1-x)[cx + d(1-x)]
+      \]
+      <p>Taking the derivative with respect to \(x\):</p>
+      \[
+      \frac{d\bar{f}}{dx} = f_A(x) + x \cdot f_A'(x) - f_B(x) + (1-x)\cdot(-f_B'(x))
+      \]
+      <p>
+        At this point, every step requires the chain rule and product rule working together. This
+        is why fluency with these rules is essential before tackling the replicator dynamics in
+        Module 7.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Example &mdash; Differentiating a Composed Fitness Function</span>
+      <p>
+        Suppose the fitness of strategy A depends on a resource level \(R\), which itself depends
+        on the strategy frequency \(x\):
+      </p>
+      \[ f_A(R(x)) = \ln(1 + R(x)), \quad R(x) = \frac{K}{1 + e^{-\alpha x}} \]
+      <p>
+        Here \(R(x)\) is a logistic function of \(x\) (modeling a saturating resource), and fitness
+        is the log of available resources. To find \(\frac{df_A}{dx}\), we use the chain rule:
+      </p>
+      \[
+      \frac{df_A}{dx} = \frac{df_A}{dR} \cdot \frac{dR}{dx}
+      \]
+      <p>First: \(\frac{df_A}{dR} = \frac{1}{1 + R}\).</p>
+      <p>
+        Second, for \(R(x) = K(1 + e^{-\alpha x})^{-1}\), we use the chain rule again:
+      </p>
+      \[
+      \frac{dR}{dx} = K \cdot (-1)(1 + e^{-\alpha x})^{-2} \cdot (-\alpha e^{-\alpha x})
+                    = \frac{K \alpha \, e^{-\alpha x}}{(1 + e^{-\alpha x})^2}
+      \]
+      <p>Putting it together:</p>
+      \[
+      \frac{df_A}{dx} = \frac{1}{1 + R(x)} \cdot \frac{K \alpha \, e^{-\alpha x}}{(1 + e^{-\alpha x})^2}
+      \]
+      <p>
+        This is a realistic calculation you might encounter when analyzing how fitness responds
+        to changes in strategy composition through a resource-mediated pathway.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Why This Matters for EGT</span>
+      <p>
+        The chain rule is everywhere in evolutionary game theory because the quantities we care
+        about are <em>composed</em>: fitness depends on strategy frequencies, which depend on time;
+        payoffs depend on the population state, which depends on individual strategies, which evolve
+        according to their payoffs. Every time we need to trace how a change propagates through
+        these layers of dependence, we use the chain rule.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- INTERACTIVE DERIVATIVE EXPLORER -->
+  <!-- ================================================================== -->
+  <div class="section" id="interactive">
+    <h2>Interactive Visualization</h2>
+
+    <div class="interactive-container">
+      <h3>Interactive: Derivative Explorer</h3>
+      <p>Drag the slider to move the point along f(x) = x&sup2; and see how the tangent line (derivative) changes.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>x position:</label>
+          <input type="range" id="deriv-x-slider" min="-3" max="3" step="0.1" value="1">
+          <span class="control-value" id="deriv-x-val">1.0</span>
+        </div>
+      </div>
+      <canvas id="deriv-canvas" class="viz-canvas" width="600" height="400"></canvas>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- EXERCISES -->
+  <!-- ================================================================== -->
+  <div class="section" id="exercises">
+    <h2>Exercises</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 1: Evaluating Limits</div>
+      <p>Evaluate the following limits:</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>\(\displaystyle \lim_{x \to 1} \frac{x^2 - 1}{x - 1}\)</li>
+        <li>\(\displaystyle \lim_{x \to 0} \frac{\sin x}{x}\)</li>
+        <li>\(\displaystyle \lim_{h \to 0} \frac{(2 + h)^3 - 8}{h}\)</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Factor: \(\frac{x^2 - 1}{x - 1} = \frac{(x-1)(x+1)}{x-1} = x + 1\). So the limit is \(1 + 1 = \mathbf{2}\).</p>
+          <p><strong>(b)</strong> This is a famous limit: \(\lim_{x \to 0} \frac{\sin x}{x} = \mathbf{1}\). (This can be proved using the squeeze theorem.)</p>
+          <p><strong>(c)</strong> Expand: \((2+h)^3 = 8 + 12h + 6h^2 + h^3\). So \(\frac{(2+h)^3 - 8}{h} = \frac{12h + 6h^2 + h^3}{h} = 12 + 6h + h^2\). As \(h \to 0\), this approaches \(\mathbf{12}\). (Note: this is \(f'(2)\) for \(f(x) = x^3\), and indeed \(3 \cdot 2^2 = 12\).)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 2: Differentiation Practice</div>
+      <p>Find the derivative of each function:</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>\(f(x) = 4x^5 - 3x^3 + 2x - 7\)</li>
+        <li>\(g(x) = x^2 e^x\)</li>
+        <li>\(h(x) = \ln(x^3 + 1)\)</li>
+        <li>\(p(x) = \dfrac{x}{x^2 + 1}\)</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Power rule: \(f'(x) = 20x^4 - 9x^2 + 2\).</p>
+          <p><strong>(b)</strong> Product rule with \(u = x^2\), \(v = e^x\): \(g'(x) = 2xe^x + x^2 e^x = e^x(2x + x^2) = xe^x(2 + x)\).</p>
+          <p><strong>(c)</strong> Chain rule: \(h'(x) = \frac{1}{x^3 + 1} \cdot 3x^2 = \frac{3x^2}{x^3 + 1}\).</p>
+          <p><strong>(d)</strong> Quotient rule: \(p'(x) = \frac{(1)(x^2 + 1) - x(2x)}{(x^2 + 1)^2} = \frac{x^2 + 1 - 2x^2}{(x^2+1)^2} = \frac{1 - x^2}{(x^2+1)^2}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 3: Critical Points and Optimization</div>
+      <p>
+        A strategy's fitness is modeled as \(f(x) = -2x^2 + 8x - 3\), where \(x \in [0, 1]\) is
+        the strategy frequency. Find the value of \(x\) that maximizes fitness, and verify it is
+        indeed a maximum.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>Step 1:</strong> Find critical points. \(f'(x) = -4x + 8 = 0 \implies x = 2\).</p>
+          <p><strong>Step 2:</strong> But \(x = 2\) is outside our domain \([0, 1]\)! So we need to check the endpoints.</p>
+          <p>
+            \(f(0) = -3\), \(f(1) = -2 + 8 - 3 = 3\).
+          </p>
+          <p>
+            Since \(f'(x) = -4x + 8 > 0\) for all \(x \in [0, 1]\) (because \(-4x + 8 \geq -4(1) + 8 = 4 > 0\)),
+            the function is increasing on the entire interval.
+          </p>
+          <p>
+            The maximum on \([0, 1]\) is at \(x = 1\) with \(f(1) = \mathbf{3}\).
+          </p>
+          <p>
+            <strong>EGT interpretation:</strong> the derivative is positive everywhere in \([0,1]\), meaning
+            this strategy's fitness always increases with its own frequency &mdash; a situation that leads
+            to fixation (the strategy takes over the population).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 4: Partial Derivatives and the Gradient</div>
+      <p>
+        In a three-strategy game, suppose the fitness of strategy 1 is
+        \(f_1(x, y) = 2x - xy + 3y^2\), where \(x\) and \(y\) are the frequencies of strategies
+        1 and 2 (the frequency of strategy 3 is \(1 - x - y\)).
+      </p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>Compute \(\frac{\partial f_1}{\partial x}\) and \(\frac{\partial f_1}{\partial y}\).</li>
+        <li>Compute the gradient \(\nabla f_1\) at the point \((x, y) = (0.3, 0.3)\).</li>
+        <li>Interpret the gradient in terms of how fitness changes with strategy frequencies.</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          \[
+          \frac{\partial f_1}{\partial x} = 2 - y, \quad \frac{\partial f_1}{\partial y} = -x + 6y
+          \]
+          <p><strong>(b)</strong> At \((0.3, 0.3)\):</p>
+          \[
+          \nabla f_1(0.3, 0.3) = (2 - 0.3, \; -0.3 + 6(0.3)) = (1.7, \; 1.5)
+          \]
+          <p><strong>(c)</strong> The gradient tells us: increasing strategy 1's frequency by a small amount raises its fitness by about 1.7 per unit, while increasing strategy 2's frequency raises strategy 1's fitness by about 1.5 per unit. Both components are positive, meaning strategy 1 benefits from increases in both its own frequency and strategy 2's frequency (at this particular population state).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 5: Integration</div>
+      <p>
+        A strategy's payoff rate at time \(t\) is \(r(t) = 6t^2 - 4t + 1\). Compute the total
+        payoff accumulated from \(t = 0\) to \(t = 3\).
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p>The total payoff is the definite integral:</p>
+          \[
+          \int_0^3 (6t^2 - 4t + 1) \, dt = \left[ 2t^3 - 2t^2 + t \right]_0^3
+          \]
+          \[
+          = (2 \cdot 27 - 2 \cdot 9 + 3) - (0) = 54 - 18 + 3 = \mathbf{39}
+          \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 6: Chain Rule Application</div>
+      <p>
+        In a model of frequency-dependent selection, the fitness of cooperators is
+        \(f_C(x) = e^{-\beta(1 - x)}\), where \(x\) is the frequency of cooperators and
+        \(\beta > 0\) is the selection intensity. The frequency changes over time: \(x = x(t)\).
+      </p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>Find \(\frac{df_C}{dx}\) and interpret its sign.</li>
+        <li>Using the chain rule, express \(\frac{df_C}{dt}\) in terms of \(\frac{dx}{dt}\).</li>
+        <li>If the replicator dynamics gives \(\frac{dx}{dt} > 0\) (cooperators are increasing), what happens to cooperator fitness over time?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Using the chain rule with \(u = -\beta(1-x)\):</p>
+          \[
+          \frac{df_C}{dx} = e^{-\beta(1-x)} \cdot \beta = \beta \, e^{-\beta(1-x)}
+          \]
+          <p>Since \(\beta > 0\) and \(e^{(\cdot)} > 0\) always, we have \(\frac{df_C}{dx} > 0\). Cooperator fitness increases as cooperator frequency increases &mdash; there is positive frequency dependence.</p>
+
+          <p><strong>(b)</strong> By the chain rule:</p>
+          \[
+          \frac{df_C}{dt} = \frac{df_C}{dx} \cdot \frac{dx}{dt} = \beta \, e^{-\beta(1-x)} \cdot \frac{dx}{dt}
+          \]
+
+          <p><strong>(c)</strong> If \(\frac{dx}{dt} > 0\), then \(\frac{df_C}{dt} > 0\) as well (since all factors are positive). Cooperator fitness is increasing over time. This creates a positive feedback loop: more cooperators &rarr; higher cooperator fitness &rarr; even more cooperators. This is characteristic of coordination games where cooperation is self-reinforcing once it reaches a critical mass.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 7: Second Derivative and Stability</div>
+      <p>
+        A population's average fitness as a function of strategy frequency \(x\) is:
+      </p>
+      \[ \bar{f}(x) = -x^3 + 3x^2 - 2x + 1 \]
+      <ol style="list-style-type: lower-alpha;">
+        <li>Find all critical points of \(\bar{f}\) on \(\mathbb{R}\).</li>
+        <li>Use the second derivative test to classify each critical point.</li>
+        <li>Find the inflection point of \(\bar{f}\).</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(\bar{f}'(x) = -3x^2 + 6x - 2\). Set equal to zero:</p>
+          \[
+          3x^2 - 6x + 2 = 0 \implies x = \frac{6 \pm \sqrt{36 - 24}}{6} = \frac{6 \pm \sqrt{12}}{6} = 1 \pm \frac{\sqrt{3}}{3}
+          \]
+          <p>So \(x_1 = 1 - \frac{1}{\sqrt{3}} \approx 0.423\) and \(x_2 = 1 + \frac{1}{\sqrt{3}} \approx 1.577\).</p>
+
+          <p><strong>(b)</strong> \(\bar{f}''(x) = -6x + 6\).</p>
+          <ul>
+            <li>\(\bar{f}''(x_1) = -6(0.423) + 6 \approx 3.46 > 0\): <strong>local minimum</strong>.</li>
+            <li>\(\bar{f}''(x_2) = -6(1.577) + 6 \approx -3.46 < 0\): <strong>local maximum</strong>.</li>
+          </ul>
+
+          <p><strong>(c)</strong> \(\bar{f}''(x) = -6x + 6 = 0 \implies x = 1\). Since \(\bar{f}''(x)\) changes from positive (for \(x < 1\)) to negative (for \(x > 1\)), the point \(x = 1\) is an <strong>inflection point</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 8 -->
+    <div class="exercise">
+      <div class="exercise-title">Exercise 8: Putting It All Together</div>
+      <p>
+        In a Hawk-Dove game, the fitness of Hawks when the frequency of Hawks is \(x\) is:
+      </p>
+      \[ f_H(x) = x \cdot \frac{V - C}{2} + (1 - x) \cdot V \]
+      <p>where \(V\) is the resource value and \(C\) is the cost of fighting (\(C > V > 0\)).</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>Simplify \(f_H(x)\) and find \(f_H'(x)\).</li>
+        <li>Is Hawk fitness increasing or decreasing in \(x\)? Interpret this biologically.</li>
+        <li>The average fitness is \(\bar{f}(x) = x \cdot f_H(x) + (1-x) \cdot f_D(x)\) where
+            \(f_D(x) = x \cdot 0 + (1-x) \cdot \frac{V}{2}\) is Dove fitness. Compute \(\bar{f}'(x)\).</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Show Solution</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Simplify:</p>
+          \[
+          f_H(x) = x \cdot \frac{V - C}{2} + V - Vx = V + x\left(\frac{V - C}{2} - V\right) = V - x \cdot \frac{V + C}{2}
+          \]
+          <p>So \(f_H'(x) = -\frac{V + C}{2}\).</p>
+
+          <p><strong>(b)</strong> Since \(V > 0\) and \(C > 0\), we have \(f_H'(x) = -\frac{V+C}{2} < 0\). Hawk fitness is <em>decreasing</em> in \(x\). This makes biological sense: the more Hawks there are, the more fights occur, and fights are costly (since \(C > V\)). Each additional Hawk in the population lowers the expected payoff for all Hawks.</p>
+
+          <p><strong>(c)</strong> First, simplify \(f_D(x) = \frac{V}{2}(1-x)\). Then:</p>
+          \[
+          \bar{f}(x) = x\left[V - x\frac{V+C}{2}\right] + (1-x)\left[\frac{V}{2}(1-x)\right]
+          \]
+          \[
+          = Vx - \frac{V+C}{2}x^2 + \frac{V}{2}(1 - 2x + x^2)
+          \]
+          \[
+          = Vx - \frac{V+C}{2}x^2 + \frac{V}{2} - Vx + \frac{V}{2}x^2
+          \]
+          \[
+          = \frac{V}{2} - \frac{C}{2}x^2
+          \]
+          <p>Therefore:</p>
+          \[
+          \bar{f}'(x) = -Cx
+          \]
+          <p>
+            Since \(C > 0\) and \(x \geq 0\), average fitness is always decreasing (or zero) as
+            Hawk frequency increases. More Hawks means more wasteful fighting, reducing the
+            population's overall fitness. This is an example of a social dilemma: individual Hawks
+            may benefit (when rare), but collective welfare decreases as Hawks proliferate.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- MODULE NAVIGATION -->
+  <!-- ================================================================== -->
+  <div class="module-nav-strip">
+    <a href="module2.html">&larr; Module 2: Linear Algebra</a>
+    <a href="module4.html">Module 4: Differential Equations &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Content covers mathematical foundations through EGT applications in social science.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>
