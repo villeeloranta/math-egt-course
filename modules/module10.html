@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 10: Advanced Anti-Rivalry in Digital Commons | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="module1.html">1. Foundations</a></li>
+      <li><a href="module2.html">2. Linear Algebra</a></li>
+      <li><a href="module3.html">3. Calculus</a></li>
+      <li><a href="module4.html">4. Diff. Equations</a></li>
+      <li><a href="module5.html">5. Probability</a></li>
+      <li><a href="module6.html">6. Game Theory</a></li>
+      <li><a href="module7.html">7. EGT &amp; Replicator</a></li>
+      <li><a href="module8.html">8. Applications</a></li>
+      <li><a href="module9.html">9. Digital Commons</a></li>
+      <li><a href="module10.html" class="active">10. Advanced Anti-Rivalry</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Module 10</div>
+    <h1>Advanced Anti-Rivalry in Digital Commons</h1>
+    <p class="module-desc">
+      The central paradox of digital commons: anti-rivalrous goods <em>create</em> scarcity.
+      When a resource becomes more valuable with use, it attracts more users, more contributions,
+      and more demands &mdash; overwhelming the <strong>rivalrous complements</strong> it depends on.
+      This module formalizes the coupling between anti-rivalrous and rivalrous resources,
+      derives the game-theoretic consequences, and explores institutional responses.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module9.html">&larr; Module 9: Digital Commons</a>
+    <a href="../index.html">Back to Course Home &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ol>
+      <li><a href="#paradox">The Anti-Rivalry Paradox: Success Breeds Scarcity</a></li>
+      <li><a href="#coupled-resources">Coupled Resource Model</a>
+        <ol>
+          <li><a href="#coupled-formal">Formal Framework</a></li>
+          <li><a href="#coupled-carrying">Carrying Capacity of the Commons</a></li>
+        </ol>
+      </li>
+      <li><a href="#attention-scarcity">Attention Scarcity in Information Commons</a></li>
+      <li><a href="#maintainer-scarcity">Maintainer Scarcity in Open Source</a></li>
+      <li><a href="#infrastructure-scarcity">Infrastructure Scarcity</a></li>
+      <li><a href="#game-theory">Game Theory of Coupled Systems</a>
+        <ol>
+          <li><a href="#two-role">Two-Role Contribution Game</a></li>
+          <li><a href="#three-strategy">Three-Strategy Replicator Dynamics</a></li>
+          <li><a href="#governance-trap">The Governance Trap</a></li>
+        </ol>
+      </li>
+      <li><a href="#anti-commons">The Tragedy of the Anti-Commons</a></li>
+      <li><a href="#institutional-design">Institutional Design for Coupled Systems</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#synthesis">Synthesis</a></li>
+      <li><a href="#exercises">Exercises</a></li>
+      <li><a href="#reading">Recommended Reading</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: THE PARADOX -->
+  <!-- ================================================================== -->
+  <div class="section" id="paradox">
+    <h2>1. The Anti-Rivalry Paradox: Success Breeds Scarcity</h2>
+
+    <div class="note-box">
+      <strong>Prerequisites.</strong> This module builds directly on Module 9&rsquo;s formalization
+      of anti-rivalry. We use the value function \(V(n) = V_0 \cdot g(n)\) with rivalry parameter
+      \(\beta\) throughout. If you haven&rsquo;t worked through Module 9, Section 5, do so first.
+    </div>
+
+    <p>
+      In Module 9 we established that anti-rivalrous goods have the remarkable property that
+      their value <em>increases</em> with the number of users:
+    </p>
+
+    \[
+      V'(n) > 0 \quad \text{(anti-rivalrous)}
+    \]
+
+    <p>
+      We showed how this transforms social dilemmas: under sufficiently strong anti-rivalry,
+      the Prisoner&rsquo;s Dilemma becomes a Coordination Game or even a Harmony Game, making
+      cooperation self-sustaining.
+    </p>
+
+    <p>
+      This picture, however, is incomplete. It treats the anti-rivalrous good in isolation,
+      as if it exists in a vacuum. In practice, every digital commons depends on
+      <strong>complementary resources that remain rivalrous</strong>:
+    </p>
+
+    <ul>
+      <li><strong>Wikipedia</strong> articles are anti-rivalrous (more readers &rarr; more editors
+        &rarr; better articles), but <em>editor attention</em> and <em>curation capacity</em>
+        are strictly rivalrous.</li>
+      <li><strong>Open-source software</strong> is anti-rivalrous (more users &rarr; more bug
+        reports, patches, and libraries), but <em>maintainer time</em> and
+        <em>review bandwidth</em> are rivalrous.</li>
+      <li><strong>AI training datasets</strong> become more valuable with broader contribution,
+        but <em>data quality curation</em> and <em>compute resources</em> are rivalrous.</li>
+      <li><strong>Online forums</strong> become more valuable with participants, but
+        <em>moderation capacity</em> and <em>signal-to-noise ratio</em> degrade.</li>
+    </ul>
+
+    <div class="def-box">
+      <strong>Definition 10.1 (The Anti-Rivalry Paradox).</strong>
+      The success of an anti-rivalrous resource generates demand that exhausts its rivalrous
+      complements. Formally, if the anti-rivalrous resource \(R_a\) has value \(V_a(n)\)
+      increasing in users \(n\), and depends on a rivalrous complement \(R_r\) whose
+      per-user availability \(S_r(n)\) is decreasing in \(n\), then there exists a tension:
+      \[
+        \frac{dV_a}{dn} > 0 \quad \text{but} \quad \frac{dS_r}{dn} < 0
+      \]
+      The <em>effective</em> value of the commons is determined by both.
+    </div>
+
+    <div class="intuition-box">
+      <strong>Intuition: The Restaurant Analogy.</strong>
+      Imagine a restaurant whose food gets <em>better</em> the more customers it serves (anti-rivalrous
+      quality &mdash; perhaps through crowd-sourced recipe improvement). Word spreads, and ever more
+      diners arrive. But the kitchen has finite capacity, the waitstaff are overworked, and tables
+      are limited. The food quality rises, but the dining experience collapses. The anti-rivalrous
+      dimension (recipe quality) creates a crisis in the rivalrous dimensions (seating, service, ingredients).
+    </div>
+
+    <p>
+      This is not merely a theoretical curiosity. It is arguably the <strong>central governance challenge</strong>
+      of digital commons. The open-source sustainability crisis, Wikipedia&rsquo;s editor retention problem,
+      and the moderation challenges of online communities are all instances of this paradox.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: COUPLED RESOURCE MODEL -->
+  <!-- ================================================================== -->
+  <div class="section" id="coupled-resources">
+    <h2>2. Coupled Resource Model</h2>
+
+    <h3 id="coupled-formal">2.1 Formal Framework</h3>
+
+    <p>
+      We model a digital commons as depending on two coupled resources:
+    </p>
+
+    <ul>
+      <li><strong>Anti-rivalrous resource</strong> \(R_a\): the core digital good (code, knowledge, data).
+        Its value to each user increases with the number of active users.</li>
+      <li><strong>Rivalrous complement</strong> \(R_r\): the scarce input the commons requires
+        (attention, maintenance, infrastructure, moderation). Its per-user availability decreases
+        with the number of users.</li>
+    </ul>
+
+    <div class="def-box">
+      <strong>Definition 10.2 (Coupled Value Function).</strong>
+      The effective per-user value of a digital commons with \(n\) users is:
+      \[
+        V(n) \;=\; V_a(n) \cdot h\!\bigl(S_r(n)\bigr)
+      \]
+      where:
+      <ul style="margin-top:0.5rem">
+        <li>\(V_a(n) = V_0 \cdot n^{\beta}\) is the anti-rivalrous component (\(\beta > 0\)),
+          as defined in Module 9</li>
+        <li>\(S_r(n)\) is the per-user availability of the rivalrous complement</li>
+        <li>\(h: \mathbb{R}_+ \to [0,1]\) is a <em>quality modulator</em>: \(h(0) = 0\),
+          \(h'(s) > 0\), \(h(s) \to 1\) as \(s \to \infty\)</li>
+      </ul>
+    </div>
+
+    <p>
+      The simplest model for the rivalrous complement assumes a fixed total supply \(M\)
+      (e.g., total maintainer-hours available) shared among \(n\) users plus overhead:
+    </p>
+
+    \[
+      S_r(n) = \frac{M}{n^\gamma}
+    \]
+
+    <p>
+      where \(\gamma > 0\) measures how fast demand for the rivalrous resource scales with
+      users. If each user creates exactly one unit of demand, \(\gamma = 1\) (linear scaling).
+      But often demand is superlinear (\(\gamma > 1\)) because coordination overhead grows
+      faster than linearly (cf. Brooks&rsquo;s Law).
+    </p>
+
+    <p>
+      For the quality modulator, a natural choice is:
+    </p>
+
+    \[
+      h(s) = \frac{s}{s + \kappa}
+    \]
+
+    <p>
+      where \(\kappa > 0\) is the half-saturation constant (when \(s = \kappa\), quality is at 50%).
+      This is a Michaelis&ndash;Menten / Monod-type function, widely used in ecology and biochemistry
+      for exactly this kind of saturation dynamics.
+    </p>
+
+    <div class="example-box">
+      <strong>Example 10.1: Open-Source Project.</strong>
+      Consider an open-source library with:
+      <ul>
+        <li>Anti-rivalry parameter \(\beta = 0.3\) (moderate ecosystem effects)</li>
+        <li>Base value \(V_0 = 10\)</li>
+        <li>Total maintainer capacity \(M = 100\) hours/month</li>
+        <li>Demand exponent \(\gamma = 1.2\) (mildly superlinear)</li>
+        <li>Half-saturation \(\kappa = 5\)</li>
+      </ul>
+      <p>The coupled value function is:</p>
+      \[
+        V(n) = 10 \cdot n^{0.3} \cdot \frac{100/n^{1.2}}{100/n^{1.2} + 5}
+      \]
+      <p>For small \(n\), the anti-rivalry term dominates and value rises. But as \(n\) grows,
+      the maintainer bottleneck term \(S_r(n) = 100/n^{1.2}\) shrinks, pulling quality down.
+      At some point, value peaks and then declines &mdash; the commons enters crisis.</p>
+    </div>
+
+    <h3 id="coupled-carrying">2.2 Carrying Capacity of the Commons</h3>
+
+    <p>
+      A crucial quantity is the <strong>peak</strong> of the coupled value function &mdash; the
+      number of users at which the commons delivers maximum per-user value.
+    </p>
+
+    <div class="theorem-box">
+      <strong>Theorem 10.1 (Optimal Community Size).</strong>
+      For the coupled value function \(V(n) = V_0 \, n^{\beta} \cdot \frac{M/n^{\gamma}}{M/n^{\gamma} + \kappa}\),
+      the per-user value is maximized at:
+      \[
+        n^* = \left(\frac{\beta \, M}{(\gamma - \beta)\,\kappa}\right)^{1/\gamma}
+      \]
+      provided \(\gamma > \beta\) (the rivalrous drain outpaces the anti-rivalrous gain).
+      <details>
+        <summary>Proof</summary>
+        <div style="padding:1rem">
+          <p>Let \(s(n) = M/n^{\gamma}\). Write \(V(n) = V_0 \, n^{\beta} \cdot s/(s+\kappa)\).
+          Taking the log-derivative:</p>
+          \[
+            \frac{V'(n)}{V(n)} = \frac{\beta}{n} + \frac{s'(n)}{s(n)} \cdot \frac{\kappa}{s(n)+\kappa}
+          \]
+          <p>Since \(s'(n) = -\gamma M n^{-\gamma-1}\), we have \(s'(n)/s(n) = -\gamma/n\). Setting
+          \(V'(n) = 0\):</p>
+          \[
+            \frac{\beta}{n} = \frac{\gamma}{n} \cdot \frac{\kappa}{s(n) + \kappa}
+          \]
+          \[
+            \beta \bigl(s(n) + \kappa\bigr) = \gamma \kappa
+          \]
+          \[
+            s(n^*) = \frac{(\gamma - \beta)\kappa}{\beta}
+          \]
+          <p>Substituting \(s(n) = M/n^{\gamma}\) and solving for \(n\) gives the result. \(\square\)</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="intuition-box">
+      <strong>Interpreting \(n^*\).</strong>
+      <ul>
+        <li>Higher \(M\) (more maintainer capacity) &rarr; larger optimal community.
+          This is intuitive: more governance resources support more users.</li>
+        <li>Higher \(\beta\) (stronger anti-rivalry) &rarr; larger optimal community.
+          The anti-rivalrous benefit justifies tolerating more strain.</li>
+        <li>Higher \(\gamma\) (faster demand scaling) &rarr; smaller optimal community.
+          When each new user creates disproportionate governance burden, the community
+          saturates sooner.</li>
+        <li>Higher \(\kappa\) (quality more sensitive to scarcity) &rarr; smaller optimal community.</li>
+      </ul>
+    </div>
+
+    <p>
+      Beyond \(n^*\), per-user value declines. The commons hasn&rsquo;t failed &mdash;
+      total welfare \(W(n) = n \cdot V(n)\) may still increase &mdash; but the <em>experience</em>
+      degrades. This is precisely the point at which communities report &ldquo;the project
+      isn&rsquo;t what it used to be.&rdquo;
+    </p>
+
+    <div class="def-box">
+      <strong>Definition 10.3 (Carrying Capacity of the Commons).</strong>
+      The <em>carrying capacity</em> \(n_K\) is the community size at which total welfare
+      \(W(n) = n \cdot V(n)\) is maximized. For \(\gamma > \beta + 1\), this is finite;
+      for \(\gamma \le \beta + 1\), total welfare grows without bound (though per-user
+      value may still peak and decline).
+    </div>
+
+    <p>
+      The analogy to ecological carrying capacity is deliberate. Just as an ecosystem can
+      support a maximum population given finite resources, a digital commons can support a
+      maximum community given finite governance resources &mdash; even though the core
+      resource itself is anti-rivalrous.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: ATTENTION SCARCITY -->
+  <!-- ================================================================== -->
+  <div class="section" id="attention-scarcity">
+    <h2>3. Attention Scarcity in Information Commons</h2>
+
+    <p>
+      The oldest and most fundamental case of anti-rivalry-induced scarcity:
+      <strong>information is anti-rivalrous, but attention is rivalrous</strong>.
+    </p>
+
+    <p>
+      Herbert Simon observed in 1971: &ldquo;A wealth of information creates a poverty of attention.&rdquo;
+      We can now state this precisely in our framework.
+    </p>
+
+    <div class="def-box">
+      <strong>Definition 10.4 (Attention-Bounded Information Commons).</strong>
+      An information commons with \(n\) contributors produces content at rate \(C(n)\) (increasing in \(n\)),
+      while each user has fixed attention budget \(A\). The <em>signal-to-noise ratio</em> experienced
+      by a user is:
+      \[
+        \text{SNR}(n) = \frac{q(n) \cdot A}{C(n)}
+      \]
+      where \(q(n)\) is average content quality (which may increase with \(n\) due to peer review and
+      competition) and \(C(n)\) is total content volume.
+    </div>
+
+    <p>
+      The core tension: more contributors increase both \(q(n)\) (quality, anti-rivalrous) and
+      \(C(n)\) (volume). When volume grows faster than quality, the signal-to-noise ratio falls.
+    </p>
+
+    <div class="example-box">
+      <strong>Example 10.2: Wikipedia&rsquo;s Quality&ndash;Volume Tradeoff.</strong>
+      <p>
+        Wikipedia&rsquo;s article quality improves with editors (anti-rivalrous):
+        \(q(n) \approx q_0 \cdot n^{0.2}\) (diminishing returns as easy improvements
+        are made first). But content volume grows nearly linearly: \(C(n) \approx c_0 \cdot n\).
+      </p>
+      <p>
+        The signal-to-noise ratio is:
+        \[
+          \text{SNR}(n) = \frac{q_0 \, n^{0.2} \cdot A}{c_0 \, n} = \frac{q_0 A}{c_0} \cdot n^{-0.8}
+        \]
+      </p>
+      <p>
+        This declines as \(n^{-0.8}\) &mdash; sharply. Without <strong>curation institutions</strong>
+        (featured articles, review processes, deletion policies), the commons would drown in its own
+        abundance. Wikipedia&rsquo;s elaborate governance structure is precisely a response to this
+        anti-rivalry-induced attention scarcity.
+      </p>
+    </div>
+
+    <p>
+      More generally, the attention scarcity problem applies to any information commons:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Commons</th>
+        <th>Anti-Rivalrous Dimension</th>
+        <th>Attention Bottleneck</th>
+      </tr>
+      <tr>
+        <td>Wikipedia</td>
+        <td>Article quality (more editors &rarr; better coverage)</td>
+        <td>Reader/editor attention to find &amp; fix errors</td>
+      </tr>
+      <tr>
+        <td>Stack Overflow</td>
+        <td>Answer quality (voting, competition among answerers)</td>
+        <td>Expert time to answer; reader time to find answers</td>
+      </tr>
+      <tr>
+        <td>Academic preprints</td>
+        <td>Knowledge grows with contributions</td>
+        <td>Peer review capacity; reader time to assess quality</td>
+      </tr>
+      <tr>
+        <td>Social media</td>
+        <td>Content diversity and network value</td>
+        <td>Algorithmic filtering needed; moderation overwhelmed</td>
+      </tr>
+    </table>
+
+    <div class="theorem-box">
+      <strong>Proposition 10.1 (Attention Scarcity Threshold).</strong>
+      In an information commons where quality scales as \(q(n) = q_0 \, n^{\alpha}\) and volume
+      as \(C(n) = c_0 \, n^{\delta}\) with \(\delta > \alpha\) (volume outpaces quality), the
+      signal-to-noise ratio crosses a critical threshold \(\text{SNR}_{\min}\) at community size:
+      \[
+        n_{\text{crisis}} = \left(\frac{q_0 \, A}{c_0 \, \text{SNR}_{\min}}\right)^{1/(\delta - \alpha)}
+      \]
+      Beyond \(n_{\text{crisis}}\), the commons requires <em>institutional intervention</em>
+      (curation, filtering, editorial policies) to remain functional.
+    </div>
+
+    <p>
+      This result connects directly to Ostrom: the institutional rules governing an information
+      commons are not optional niceties &mdash; they are mathematically necessary responses to
+      anti-rivalry-induced attention scarcity.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: MAINTAINER SCARCITY -->
+  <!-- ================================================================== -->
+  <div class="section" id="maintainer-scarcity">
+    <h2>4. Maintainer Scarcity in Open Source</h2>
+
+    <p>
+      Perhaps the most vivid instance of the anti-rivalry paradox occurs in open-source software.
+      The code is anti-rivalrous: more users generate more bug reports, more patches, more
+      integrations, and a richer ecosystem. But the people who review pull requests, triage
+      issues, make architectural decisions, and cut releases are finite in number and energy.
+    </p>
+
+    <div class="def-box">
+      <strong>Definition 10.5 (Maintainer Load Model).</strong>
+      Let \(n\) be the number of active users of an open-source project. The <em>maintenance demand</em>
+      generated is:
+      \[
+        D(n) = d_0 \, n^{\gamma}
+      \]
+      where \(\gamma \ge 1\) reflects how demand scales (issues, PRs, questions, security patches).
+      The <em>maintenance supply</em> is:
+      \[
+        S(n) = m_0 + s \cdot n^{\alpha}
+      \]
+      where \(m_0\) is core maintainer capacity, \(s \cdot n^{\alpha}\) captures community
+      contributions (\(\alpha < 1\) because only a fraction of users contribute and coordination
+      costs grow), and the <em>maintenance ratio</em> is:
+      \[
+        \rho(n) = \frac{S(n)}{D(n)} = \frac{m_0 + s \cdot n^{\alpha}}{d_0 \, n^{\gamma}}
+      \]
+    </div>
+
+    <p>
+      When \(\gamma > \alpha\) (demand outpaces community supply), the maintenance ratio declines
+      with scale. This is the <strong>open-source sustainability crisis</strong> in a single equation.
+    </p>
+
+    <div class="example-box">
+      <strong>Example 10.3: The Heartbleed Pattern.</strong>
+      <p>
+        OpenSSL was used by roughly 66% of all web servers (\(n \approx\) millions) but maintained
+        by effectively one full-time developer (\(m_0 = 1\), \(s \approx 0\)). The maintenance
+        ratio was:
+      </p>
+      \[
+        \rho \approx \frac{1}{d_0 \cdot n^{\gamma}} \to 0
+      \]
+      <p>
+        The Heartbleed vulnerability (2014) was a direct consequence: a critical security bug
+        went unreviewed because \(\rho\) was far below any reasonable threshold. The code
+        was maximally anti-rivalrous (used everywhere), which created maximal scarcity of
+        the rivalrous complement (security review).
+      </p>
+    </div>
+
+    <div class="warning-box">
+      <strong>Brooks&rsquo;s Law in the Coupled Model.</strong>
+      Fred Brooks observed that &ldquo;adding manpower to a late software project makes it later.&rdquo;
+      In our framework, this means \(\gamma > 1\): the coordination overhead of additional
+      maintainers can <em>increase</em> demand faster than it increases supply. When both
+      \(\gamma > 1\) and \(\alpha < 1\), the maintenance ratio declines especially fast.
+      New contributors help, but with diminishing returns.
+    </div>
+
+    <p>
+      The maintenance ratio \(\rho(n)\) can be incorporated into our coupled value function:
+    </p>
+
+    \[
+      V(n) = V_0 \, n^{\beta} \cdot h\!\bigl(\rho(n)\bigr)
+    \]
+
+    <p>
+      where \(h(\rho) = \rho/(\rho + \kappa)\) as before. Projects with \(\rho \gg \kappa\)
+      are well-maintained and their users enjoy full anti-rivalrous benefits. Projects with
+      \(\rho \ll \kappa\) are effectively abandoned despite being widely used &mdash; the
+      anti-rivalry exists in principle but the rivalrous bottleneck destroys the experienced value.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: INFRASTRUCTURE SCARCITY -->
+  <!-- ================================================================== -->
+  <div class="section" id="infrastructure-scarcity">
+    <h2>5. Infrastructure Scarcity</h2>
+
+    <p>
+      A third type of anti-rivalry-induced scarcity arises when the anti-rivalrous good
+      runs on <strong>rivalrous physical infrastructure</strong>.
+    </p>
+
+    <p>
+      Software can be copied at zero marginal cost (anti-rivalrous). But it must
+      <em>execute</em> on hardware: servers, bandwidth, storage, and compute cycles &mdash;
+      all of which are rivalrous. The more users the anti-rivalrous software attracts,
+      the more infrastructure is consumed.
+    </p>
+
+    <div class="def-box">
+      <strong>Definition 10.6 (Infrastructure-Bounded Anti-Rivalry).</strong>
+      Let \(V_a(n) = V_0 \, n^{\beta}\) be the anti-rivalrous value and let the infrastructure
+      cost per user be \(I(n)\). In many systems, infrastructure cost per user <em>increases</em>
+      with \(n\) due to congestion, coordination, and the need for redundancy:
+      \[
+        I(n) = I_0 \cdot n^{\delta - 1} \quad (\delta \ge 1)
+      \]
+      The <em>net value</em> to each user is:
+      \[
+        V_{\text{net}}(n) = V_0 \, n^{\beta} - I_0 \, n^{\delta - 1}
+      \]
+    </div>
+
+    <p>
+      When \(\delta > \beta + 1\), infrastructure costs eventually dominate, and net value
+      peaks at:
+    </p>
+
+    \[
+      n^*_{\text{infra}} = \left(\frac{\beta \, V_0}{(\delta - 1) \, I_0}\right)^{1/(\delta - 1 - \beta)}
+    \]
+
+    <div class="example-box">
+      <strong>Example 10.4: The Jevons Paradox of Digital Commons.</strong>
+      <p>
+        William Stanley Jevons observed in 1865 that improvements in coal efficiency <em>increased</em>
+        total coal consumption. The digital analog: making software better (anti-rivalrous improvement)
+        increases adoption, which increases infrastructure demand, which can exceed the original
+        resource savings.
+      </p>
+      <p>
+        A federated social network (e.g., Mastodon) has anti-rivalrous content (more users &rarr;
+        more diverse feeds), but each instance operator bears rivalrous server costs that scale
+        with users. The network&rsquo;s anti-rivalry drives adoption, but adoption exhausts
+        volunteer-operated infrastructure. Many instances shut down not because the software
+        failed but because the <em>infrastructure complement</em> was exhausted.
+      </p>
+    </div>
+
+    <p>
+      The three types of induced scarcity &mdash; attention, maintenance, and infrastructure &mdash;
+      often occur <em>simultaneously</em>, compounding the challenge:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Scarcity Type</th>
+        <th>What Runs Out</th>
+        <th>Scaling</th>
+        <th>Examples</th>
+      </tr>
+      <tr>
+        <td>Attention</td>
+        <td>Human cognitive capacity to process, filter, and evaluate</td>
+        <td>Fixed per user; total content grows</td>
+        <td>Wikipedia, forums, preprint servers</td>
+      </tr>
+      <tr>
+        <td>Maintenance</td>
+        <td>Developer/curator time to govern, review, and fix</td>
+        <td>Demand superlinear; supply sublinear</td>
+        <td>Open-source projects, community wikis</td>
+      </tr>
+      <tr>
+        <td>Infrastructure</td>
+        <td>Compute, storage, bandwidth</td>
+        <td>Per-user cost may increase with congestion</td>
+        <td>Federated services, P2P networks, CDNs</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: GAME THEORY OF COUPLED SYSTEMS -->
+  <!-- ================================================================== -->
+  <div class="section" id="game-theory">
+    <h2>6. Game Theory of Coupled Systems</h2>
+
+    <p>
+      In Module 9, we analyzed a two-strategy game (Contribute vs. Free-Ride) for the
+      anti-rivalrous good. But once we recognize that anti-rivalry induces scarcity in a
+      rivalrous complement, we need a richer strategy space. The key insight: <strong>not
+      all contributions are alike</strong>.
+    </p>
+
+    <h3 id="two-role">6.1 Two-Role Contribution Game</h3>
+
+    <p>
+      We now distinguish two types of contribution:
+    </p>
+
+    <ul>
+      <li><strong>Content contribution</strong> (type C): Adding to the anti-rivalrous resource
+        (writing code, creating articles, submitting data).</li>
+      <li><strong>Governance contribution</strong> (type G): Maintaining the rivalrous complement
+        (reviewing PRs, moderating content, running infrastructure, curating quality).</li>
+    </ul>
+
+    <div class="def-box">
+      <strong>Definition 10.7 (Three-Strategy Model).</strong>
+      Consider a population where each agent adopts one of three strategies:
+      <ul style="margin-top:0.5rem">
+        <li>\(\mathbf{C}\) (Content Contributor): Contributes to the anti-rivalrous resource at
+          personal cost \(c_C\).</li>
+        <li>\(\mathbf{G}\) (Governance Contributor): Maintains the rivalrous complement at personal
+          cost \(c_G\) (typically \(c_G > c_C\), as governance is often less rewarding and more
+          demanding).</li>
+        <li>\(\mathbf{F}\) (Free-Rider): Consumes the commons without contributing. Cost \(= 0\).</li>
+      </ul>
+      <p style="margin-top:0.5rem">
+        Let \(x\), \(y\), and \(z = 1 - x - y\) be the population fractions playing C, G, and F
+        respectively. The per-user value depends on both content (driven by \(x\)) and governance
+        (driven by \(y\)):
+      </p>
+      \[
+        V(x, y) = V_0 \cdot g(x) \cdot h(y)
+      \]
+      where \(g(x) = (1 + \beta x)^{\eta}\) captures anti-rivalrous content effects
+      and \(h(y) = y / (y + \kappa)\) captures governance quality.
+    </div>
+
+    <p>
+      The payoffs for each strategy are:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C &= V(x,y) - c_C \\
+      \pi_G &= V(x,y) - c_G + \sigma \\
+      \pi_F &= V(x,y)
+    \end{aligned}
+    \]
+
+    <p>
+      where \(\sigma \ge 0\) is a <em>governance premium</em> &mdash; social status, decision-making
+      power, or institutional incentives given to maintainers. This premium is often crucial for
+      attracting governance contributors.
+    </p>
+
+    <div class="intuition-box">
+      <strong>The Governance Dilemma.</strong>
+      Even if everyone recognizes the need for governance, individual incentives push toward content
+      contribution (more visible, more rewarding) or free-riding. Governance is the &ldquo;less
+      glamorous&rdquo; contribution: code reviewers are thanked less than code authors,
+      Wikipedia admins are appreciated less than prolific editors. Without institutional mechanisms
+      to reward governance (\(\sigma > 0\)), the rivalrous complement is systematically
+      under-supplied.
+    </div>
+
+    <h3 id="three-strategy">6.2 Three-Strategy Replicator Dynamics</h3>
+
+    <p>
+      The replicator dynamics on the 2-simplex (with \(z = 1-x-y\)) are:
+    </p>
+
+    \[
+    \begin{aligned}
+      \dot{x} &= x \,(\pi_C - \bar{\pi}) \\
+      \dot{y} &= y \,(\pi_G - \bar{\pi}) \\
+    \end{aligned}
+    \]
+
+    <p>
+      where \(\bar{\pi} = x\pi_C + y\pi_G + (1-x-y)\pi_F\) is the population average payoff.
+      Substituting:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C - \pi_F &= -c_C \\
+      \pi_G - \pi_F &= -c_G + \sigma \\
+      \pi_C - \pi_G &= c_G - c_C - \sigma
+    \end{aligned}
+    \]
+
+    <div class="warning-box">
+      <strong>Key observation.</strong>
+      The fitness differences \(\pi_C - \pi_F = -c_C\) and \(\pi_G - \pi_F = -c_G + \sigma\) are
+      <em>constant</em> (independent of \(x\) and \(y\)) if the value function \(V(x,y)\)
+      enters all payoffs equally. This is the standard public goods result: when everyone
+      gets the same value regardless of their own strategy, contributing is always dominated.
+      <br><br>
+      But this changes when we incorporate <strong>differential access</strong>: contributors may
+      receive <em>more</em> of the anti-rivalrous benefit than free-riders (e.g., GitHub contributors
+      get better reputation, job prospects, and community standing).
+    </div>
+
+    <p>
+      Let us introduce <em>differential access</em>: contributors receive a multiplier
+      \(\phi > 1\) on the value function (capturing reputational returns, learning-by-doing,
+      and community recognition), while free-riders receive the base value:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C &= \phi \cdot V(x,y) - c_C \\
+      \pi_G &= \phi \cdot V(x,y) - c_G + \sigma \\
+      \pi_F &= V(x,y)
+    \end{aligned}
+    \]
+
+    <p>
+      Now the fitness differences become state-dependent:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C - \pi_F &= (\phi - 1) \, V(x,y) - c_C \\
+      \pi_G - \pi_F &= (\phi - 1) \, V(x,y) - c_G + \sigma
+    \end{aligned}
+    \]
+
+    <p>
+      Contributing is favored when the commons is valuable enough that \((\phi - 1)\,V(x,y) > c_C\).
+      The anti-rivalry effect matters: as the commons grows, \(V(x,y)\) increases, making
+      contribution more attractive. But the governance bottleneck constrains \(V\) through \(h(y)\),
+      creating a coupling between the two types of contribution.
+    </p>
+
+    <div class="theorem-box">
+      <strong>Theorem 10.2 (Governance-Content Coupling).</strong>
+      In the three-strategy model with differential access \(\phi > 1\), the interior fixed
+      point \((x^*, y^*)\) satisfies:
+      \[
+        V(x^*, y^*) = \frac{c_C}{\phi - 1} = \frac{c_G - \sigma}{\phi - 1}
+      \]
+      An interior equilibrium therefore requires \(c_C = c_G - \sigma\), i.e., the governance
+      premium must exactly compensate the extra cost of governance: \(\sigma = c_G - c_C\).
+      <br><br>
+      When \(\sigma < c_G - c_C\) (insufficient governance premium), the system has no interior
+      equilibrium. Instead, governance contributors are driven to extinction (\(y \to 0\)),
+      which collapses \(h(y) \to 0\), which collapses the commons value, which then also
+      eliminates content contributors. <strong>The commons fails because governance failed first.</strong>
+      <details>
+        <summary>Proof sketch</summary>
+        <div style="padding:1rem">
+          <p>At an interior fixed point, \(\pi_C = \pi_G = \pi_F = \bar{\pi}\).
+          From \(\pi_C = \pi_F\): \((\phi-1)V(x^*,y^*) = c_C\).
+          From \(\pi_G = \pi_F\): \((\phi-1)V(x^*,y^*) = c_G - \sigma\).
+          Equating gives \(c_C = c_G - \sigma\). If \(\sigma < c_G - c_C\),
+          then at any state \(\pi_G < \pi_C\) (governance is dominated by content contribution),
+          so \(y\) decreases monotonically. As \(y \to 0\), \(h(y) \to 0\),
+          \(V \to 0\), and then \(\pi_C - \pi_F = (\phi-1) \cdot 0 - c_C < 0\),
+          so content contribution is also dominated. \(\square\)</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 id="governance-trap">6.3 The Governance Trap</h3>
+
+    <div class="def-box">
+      <strong>Definition 10.8 (The Governance Trap).</strong>
+      A digital commons is in a <em>governance trap</em> when:
+      <ol style="margin-top:0.5rem">
+        <li>The anti-rivalrous resource is valuable and growing (\(V_a\) increasing).</li>
+        <li>The governance premium is insufficient (\(\sigma < c_G - c_C\)).</li>
+        <li>Governance contributor fraction \(y\) is declining.</li>
+      </ol>
+      The system appears healthy (growing user base, growing content) but is on a trajectory
+      toward collapse: the rivalrous complement is being depleted at a rate hidden by the
+      surface-level growth of the anti-rivalrous resource.
+    </div>
+
+    <div class="example-box">
+      <strong>Example 10.5: The Governance Trap in Open Source.</strong>
+      <p>
+        Consider a successful open-source project with parameters:
+        \(\beta = 0.3\), \(\phi = 1.5\), \(c_C = 2\), \(c_G = 5\), \(\sigma = 1\), \(\kappa = 0.1\).
+      </p>
+      <p>
+        Since \(\sigma = 1 < c_G - c_C = 3\), the governance premium is insufficient.
+        Even though content contribution can be sustained (when the project is popular enough
+        that \(0.5 \cdot V > 2\)), governance contribution is never individually rational.
+      </p>
+      <p>
+        The project follows a characteristic trajectory:
+      </p>
+      <ol>
+        <li><strong>Growth phase</strong>: Founders provide governance; content contributors
+          join; the project grows; anti-rivalry kicks in.</li>
+        <li><strong>Success phase</strong>: The project becomes popular; anti-rivalrous value
+          is high; many content contributors; governance still handled by founders.</li>
+        <li><strong>Burnout phase</strong>: Governance demand exceeds founder capacity;
+          founders burn out; governance quality \(h(y)\) drops; but anti-rivalrous value
+          masks the problem temporarily.</li>
+        <li><strong>Crisis phase</strong>: A critical event (security vulnerability, breaking
+          change, community conflict) reveals the governance deficit; rapid collapse.</li>
+      </ol>
+    </div>
+
+    <p>
+      The governance trap is insidious because growth metrics (users, stars, downloads)
+      are all proxies for the anti-rivalrous dimension and <em>hide</em> the deteriorating
+      rivalrous dimension. The project looks healthier than ever right up until it collapses.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: TRAGEDY OF THE ANTI-COMMONS -->
+  <!-- ================================================================== -->
+  <div class="section" id="anti-commons">
+    <h2>7. The Tragedy of the Anti-Commons</h2>
+
+    <p>
+      Michael Heller (1998) identified a phenomenon symmetric to the tragedy of the commons:
+      the <strong>tragedy of the anti-commons</strong>, where multiple parties hold rights
+      that can <em>exclude</em> others, leading to underuse of a resource.
+    </p>
+
+    <div class="def-box">
+      <strong>Definition 10.9 (Tragedy of the Anti-Commons).</strong>
+      An <em>anti-commons</em> arises when an anti-rivalrous resource is fragmented by
+      exclusion rights (patents, licenses, proprietary APIs), so that no single user can
+      access the full resource. If there are \(k\) right-holders, each of whom can block
+      access, the probability of gaining access is:
+      \[
+        P_{\text{access}} = \prod_{i=1}^{k} p_i
+      \]
+      where \(p_i\) is the probability of obtaining permission from right-holder \(i\).
+      Even if each \(p_i\) is close to 1, the product shrinks exponentially in \(k\).
+    </div>
+
+    <p>
+      This is a particularly perverse interaction with anti-rivalry. The resource <em>should</em>
+      become more valuable with use, but the exclusion rights <em>prevent</em> the use that
+      would generate the value. The social loss has two components:
+    </p>
+
+    <ol>
+      <li><strong>Direct loss</strong>: underuse of the existing resource.</li>
+      <li><strong>Anti-rivalry loss</strong>: the foregone value increase that <em>would</em>
+        have occurred if more users had access. This second loss is unique to anti-rivalrous
+        goods and can dwarf the first.</li>
+    </ol>
+
+    <div class="theorem-box">
+      <strong>Proposition 10.2 (Anti-Commons Welfare Loss).</strong>
+      For an anti-rivalrous good with value \(V(n) = V_0 \, n^{\beta}\) and potential user
+      population \(N\), fragmented into \(k\) exclusion rights with uniform access probability
+      \(p\), the expected number of users is \(n = N \cdot p^k\) and the welfare loss relative
+      to open access is:
+      \[
+        \Delta W = N \cdot V_0 \cdot N^{\beta} - N p^k \cdot V_0 \cdot (Np^k)^{\beta}
+             = V_0 N^{1+\beta}\bigl(1 - p^{k(1+\beta)}\bigr)
+      \]
+      For \(\beta > 0\), this loss grows superlinearly in \(N\): the larger the potential
+      community, the more destructive the anti-commons.
+    </div>
+
+    <div class="example-box">
+      <strong>Example 10.6: Patent Thickets in Biotechnology.</strong>
+      <p>
+        A gene-editing technique has potential value \(V(n) = V_0 \, n^{0.4}\) (anti-rivalrous
+        through shared protocols, reagents, and training data). But 12 overlapping patents
+        (\(k = 12\)) each require licensing (\(p = 0.9\) probability of access). The expected
+        fraction of researchers with full access:
+      </p>
+      \[
+        p^{12} = 0.9^{12} \approx 0.28
+      \]
+      <p>
+        Only 28% of potential users gain access, and the realized value is:
+        \(V(0.28N) = V_0 \cdot (0.28N)^{0.4}\) instead of \(V_0 \cdot N^{0.4}\).
+        The welfare ratio is \(0.28^{1.4} \approx 0.17\) &mdash; 83% of the value is destroyed
+        by the anti-commons, most of it from the lost anti-rivalry effect.
+      </p>
+    </div>
+
+    <p>
+      The tragedy of the anti-commons shows that the interaction between anti-rivalry and
+      institutional design cuts both ways: good institutions can amplify anti-rivalry,
+      but bad institutions (excessive fragmentation of rights) can destroy it.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 8: INSTITUTIONAL DESIGN -->
+  <!-- ================================================================== -->
+  <div class="section" id="institutional-design">
+    <h2>8. Institutional Design for Coupled Systems</h2>
+
+    <p>
+      Given the anti-rivalry paradox, how should institutions be designed to manage the
+      coupling between anti-rivalrous and rivalrous resources? We revisit Ostrom&rsquo;s
+      design principles (Module 8) through this new lens.
+    </p>
+
+    <div class="intuition-box">
+      <strong>The Design Challenge.</strong>
+      The institution must simultaneously:
+      <ol>
+        <li><em>Maximize</em> the anti-rivalrous effect (keep the commons open, encourage use).</li>
+        <li><em>Protect</em> the rivalrous complement (prevent governance collapse, manage infrastructure).</li>
+      </ol>
+      These goals are in tension. Making the commons more open accelerates the anti-rivalrous
+      benefit but also accelerates the depletion of rivalrous complements.
+    </div>
+
+    <p>
+      We identify four institutional mechanisms that address this tension:
+    </p>
+
+    <h3>8.1 Governance Premiums (\(\sigma\)-Mechanisms)</h3>
+
+    <p>
+      To escape the governance trap (Theorem 10.2 requires \(\sigma \ge c_G - c_C\)),
+      institutions must reward governance contribution. Real-world mechanisms include:
+    </p>
+
+    <ul>
+      <li><strong>Formal roles</strong>: Apache Foundation&rsquo;s &ldquo;committer&rdquo; and
+        &ldquo;PMC member&rdquo; status (social \(\sigma\)).</li>
+      <li><strong>Financial incentives</strong>: Linux Foundation, Mozilla, and corporate
+        sponsorship paying maintainers (monetary \(\sigma\)).</li>
+      <li><strong>Decision-making power</strong>: Governance contributors get voting rights,
+        veto power, or agenda-setting ability (power \(\sigma\)).</li>
+      <li><strong>Career signaling</strong>: Maintainer roles that signal competence to
+        employers (reputational \(\sigma\)).</li>
+    </ul>
+
+    <h3>8.2 Graduated Contribution Expectations</h3>
+
+    <p>
+      An analog of Ostrom&rsquo;s &ldquo;graduated sanctions&rdquo;: as users benefit more
+      from the anti-rivalrous resource, expectations for governance contribution increase.
+    </p>
+
+    <ul>
+      <li><strong>Wikipedia</strong>: Experienced editors are expected to participate in
+        deletion discussions, arbitration, and policy development.</li>
+      <li><strong>Open-source</strong>: Heavy corporate users are expected to &ldquo;give back&rdquo;
+        through maintainer funding, dedicated engineers, or infrastructure support.</li>
+      <li><strong>Academic commons</strong>: Researchers who benefit from peer review are expected
+        to review for others.</li>
+    </ul>
+
+    <h3>8.3 Attention Management Institutions</h3>
+
+    <p>
+      To combat attention scarcity (Section 3), commons develop filtering and curation
+      institutions:
+    </p>
+
+    <ul>
+      <li><strong>Quality hierarchies</strong>: Wikipedia&rsquo;s featured article process,
+        Stack Overflow&rsquo;s voting system, academic peer review.</li>
+      <li><strong>Algorithmic curation</strong>: Recommendation systems that increase the
+        effective signal-to-noise ratio (raising \(q(n)/C(n)\) in our model).</li>
+      <li><strong>Scope boundaries</strong>: Rules about what belongs in the commons and what
+        doesn&rsquo;t (Wikipedia&rsquo;s notability criteria, subreddit topic rules).</li>
+    </ul>
+
+    <h3>8.4 Federated Governance</h3>
+
+    <p>
+      When a single governance structure cannot scale, federating into semi-autonomous
+      sub-communities can help. Each sub-community manages its own rivalrous complement
+      while sharing the anti-rivalrous resource:
+    </p>
+
+    \[
+      V_{\text{federated}} = V_0 \cdot g(n_{\text{total}}) \cdot \frac{1}{K} \sum_{j=1}^K h(y_j)
+    \]
+
+    <p>
+      where \(K\) sub-communities each maintain governance quality \(h(y_j)\) independently.
+      The anti-rivalrous benefit \(g(n_{\text{total}})\) is shared globally, while the governance
+      burden is distributed locally. This is the pattern of Linux distributions, Mastodon instances,
+      and Wikipedia&rsquo;s language editions.
+    </p>
+
+    <div class="theorem-box">
+      <strong>Proposition 10.3 (Federation Advantage).</strong>
+      If governance cost per sub-community scales as \(D_j(n_j) = d_0 \, n_j^{\gamma}\) and
+      total users are split equally across \(K\) sub-communities (\(n_j = n/K\)), the total
+      governance demand is:
+      \[
+        D_{\text{fed}} = K \cdot d_0 \left(\frac{n}{K}\right)^{\gamma} = d_0 \, n^{\gamma} \, K^{1-\gamma}
+      \]
+      For \(\gamma > 1\) (superlinear scaling), federation <em>reduces</em> total governance
+      demand by a factor of \(K^{\gamma - 1}\). The larger the coordination overhead exponent,
+      the greater the benefit of federation.
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 9: CASE STUDIES -->
+  <!-- ================================================================== -->
+  <div class="section" id="case-studies">
+    <h2>9. Case Studies</h2>
+
+    <h3>9.1 Wikipedia: The Attention&ndash;Anti-Rivalry Spiral</h3>
+
+    <p>
+      Wikipedia illustrates the full anti-rivalry paradox lifecycle:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Phase</th>
+        <th>Anti-Rivalrous Dimension</th>
+        <th>Induced Scarcity</th>
+        <th>Institutional Response</th>
+      </tr>
+      <tr>
+        <td>2001&ndash;2006</td>
+        <td>Rapid article growth; quality improves with editors</td>
+        <td>Vandalism outpaces editor attention</td>
+        <td>Bots, semi-protection, admin tools</td>
+      </tr>
+      <tr>
+        <td>2007&ndash;2012</td>
+        <td>Comprehensive coverage; reliable source</td>
+        <td>Editor burnout; newbie-hostile culture</td>
+        <td>Mentorship programs, WikiProjects</td>
+      </tr>
+      <tr>
+        <td>2013&ndash;present</td>
+        <td>Dominant knowledge resource; high citation value</td>
+        <td>Systemic bias; gender gap among editors</td>
+        <td>Outreach, grants, structured data (Wikidata)</td>
+      </tr>
+    </table>
+
+    <p>
+      Each phase shows the same pattern: anti-rivalry success &rarr; induced scarcity &rarr;
+      institutional innovation. Wikipedia survives because it continuously invents new
+      governance mechanisms to address each new form of induced scarcity.
+    </p>
+
+    <h3>9.2 The npm/left-pad Incident: Fragile Anti-Rivalry</h3>
+
+    <p>
+      In March 2016, a single developer unpublished a trivial 11-line JavaScript package
+      (&ldquo;left-pad&rdquo;) from the npm registry. This broke thousands of projects
+      worldwide, including major systems at Facebook and Airbnb.
+    </p>
+
+    <p>
+      In our framework:
+    </p>
+
+    <ul>
+      <li><strong>Anti-rivalrous dimension</strong>: The npm ecosystem had extremely high
+        \(\beta\) &mdash; each package made the ecosystem more valuable, driving adoption.</li>
+      <li><strong>Induced scarcity</strong>: No one governed the dependency graph. The
+        rivalrous complement &mdash; <em>dependency curation and risk assessment</em> &mdash;
+        was effectively zero (\(y \approx 0\)).</li>
+      <li><strong>Governance quality</strong>: \(h(y) \approx h(0) = 0\) for supply-chain security.</li>
+    </ul>
+
+    <p>
+      The anti-rivalrous success of npm (thousands of micro-packages, easy reuse) created a
+      hidden scarcity in supply-chain governance. The system looked maximally healthy (extreme
+      reuse, rapid growth) right up until it catastrophically failed.
+    </p>
+
+    <h3>9.3 AI/ML Commons: Compute as the Rivalrous Bottleneck</h3>
+
+    <p>
+      Open AI/ML models exhibit strong anti-rivalry: a model trained on diverse data and
+      fine-tuned by many users improves for everyone. But the <em>compute</em> needed for
+      training, inference, and evaluation is intensely rivalrous.
+    </p>
+
+    <ul>
+      <li><strong>Anti-rivalrous</strong>: model weights, training techniques, evaluation benchmarks,
+        datasets (with curation).</li>
+      <li><strong>Rivalrous complements</strong>: GPU time for training, inference costs for
+        deployment, human evaluator attention for alignment.</li>
+    </ul>
+
+    <p>
+      The result: open-weight models create enormous anti-rivalrous value, but the compute
+      requirements concentrate power among those who can afford the rivalrous complement.
+      The anti-rivalry of the <em>knowledge</em> coexists with intense rivalry for the
+      <em>infrastructure</em> to use it.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 10: SYNTHESIS -->
+  <!-- ================================================================== -->
+  <div class="section" id="synthesis">
+    <h2>10. Synthesis</h2>
+
+    <p>
+      Let us collect the key results of this module.
+    </p>
+
+    <div class="def-box">
+      <strong>Central Thesis.</strong>
+      Anti-rivalry is never pure. Every anti-rivalrous resource depends on rivalrous complements,
+      and the <em>success</em> of the anti-rivalrous resource <em>accelerates the depletion</em>
+      of those complements. The governance challenge of digital commons is not just about
+      managing the anti-rivalrous resource &mdash; it is about managing the coupling between
+      anti-rivalrous and rivalrous dimensions.
+    </div>
+
+    <p>
+      The mathematical framework we developed captures this through:
+    </p>
+
+    <ol>
+      <li><strong>Coupled value function</strong>: \(V(n) = V_a(n) \cdot h(S_r(n))\), where
+        anti-rivalry and rivalrous depletion interact multiplicatively.</li>
+      <li><strong>Carrying capacity</strong>: Even with unbounded anti-rivalry, finite rivalrous
+        complements create an optimal community size \(n^*\).</li>
+      <li><strong>Three-strategy dynamics</strong>: Content contribution, governance contribution,
+        and free-riding produce qualitatively different dynamics than the two-strategy model.</li>
+      <li><strong>The governance trap</strong>: Without sufficient governance premiums,
+        the rivalrous complement is systematically under-supplied, leading to hidden fragility.</li>
+      <li><strong>The anti-commons</strong>: Exclusion rights destroy anti-rivalrous value
+        superlinearly.</li>
+    </ol>
+
+    <div class="two-col">
+      <div>
+        <h4>Module 9 View (Isolated Anti-Rivalry)</h4>
+        <ul>
+          <li>More users &rarr; more value</li>
+          <li>Anti-rivalry transforms PD &rarr; Coordination &rarr; Harmony</li>
+          <li>Key question: is \(\beta\) large enough?</li>
+          <li>Cooperation can be self-sustaining</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Module 10 View (Coupled Systems)</h4>
+        <ul>
+          <li>More users &rarr; more value <em>but</em> rivalrous bottleneck</li>
+          <li>Success of anti-rivalry creates new dilemmas</li>
+          <li>Key question: is governance sustainable?</li>
+          <li>Cooperation requires <em>institutional design</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <p>
+      This synthesis connects directly back to Ostrom (Module 8): the design principles for
+      governing commons are not just about preventing overuse of rivalrous resources &mdash;
+      they are about sustaining the rivalrous complements that make anti-rivalrous resources
+      function. The digital commons is not a solved problem once anti-rivalry is established;
+      it is a <em>continuous institutional challenge</em> of managing coupled systems.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 11: EXERCISES -->
+  <!-- ================================================================== -->
+  <div class="section" id="exercises">
+    <h2>11. Exercises</h2>
+
+    <ol class="exercises">
+
+      <li>
+        <strong>(Coupled Value Function)</strong>
+        Consider a digital commons with \(V_0 = 10\), \(\beta = 0.25\), \(M = 50\),
+        \(\gamma = 1.5\), and \(\kappa = 3\).
+        <ol type="a">
+          <li>Write out the coupled value function \(V(n)\) explicitly.</li>
+          <li>Calculate \(V(n)\) for \(n = 1, 10, 50, 100, 500\).</li>
+          <li>Find the optimal community size \(n^*\) using Theorem 10.1.</li>
+          <li>Plot the per-user value \(V(n)\) and total welfare \(W(n) = nV(n)\). At what
+            \(n\) does per-user value peak? Does total welfare continue to grow after that?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Attention Scarcity)</strong>
+        A Q&amp;A forum has quality \(q(n) = 5n^{0.15}\), volume \(C(n) = 2n^{0.9}\), and
+        user attention budget \(A = 10\).
+        <ol type="a">
+          <li>Derive the signal-to-noise ratio \(\text{SNR}(n)\).</li>
+          <li>If the minimum usable SNR is \(\text{SNR}_{\min} = 1\), find \(n_{\text{crisis}}\).</li>
+          <li>The forum introduces an upvoting system that effectively raises quality to
+            \(q'(n) = 5n^{0.35}\) by surfacing better answers. How does \(n_{\text{crisis}}\) change?</li>
+          <li>Interpret: what does the upvoting system do in terms of the coupled resource model?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Maintainer Sustainability)</strong>
+        An open-source project has \(m_0 = 3\) (three core maintainers), community supply
+        \(s = 0.5\), \(\alpha = 0.6\), and demand \(d_0 = 0.1\), \(\gamma = 1.3\).
+        <ol type="a">
+          <li>Find the community size at which the maintenance ratio \(\rho(n) = 1\)
+            (demand equals supply). This is the sustainability threshold.</li>
+          <li>A corporate sponsor adds 2 paid maintainers (\(m_0 = 5\)). How does the
+            sustainability threshold change?</li>
+          <li>Alternatively, the project invests in tooling that reduces demand exponent to
+            \(\gamma = 1.1\). Compare this to adding paid maintainers.</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Three-Strategy Dynamics)</strong>
+        In the three-strategy model (C, G, F) with differential access \(\phi = 1.3\),
+        costs \(c_C = 1\), \(c_G = 4\), governance premium \(\sigma\), and value function
+        \(V(x,y) = 10(1+2x) \cdot y/(y+0.1)\):
+        <ol type="a">
+          <li>What is the minimum governance premium \(\sigma\) for an interior equilibrium
+            to exist?</li>
+          <li>For \(\sigma = 2\), show that governance is dominated and find the long-run
+            outcome.</li>
+          <li>For \(\sigma = 3\), find the fixed point conditions and verify the interior
+            equilibrium.</li>
+          <li>Discuss: what real-world institution corresponds to increasing \(\sigma\) from 2 to 3?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Anti-Commons)</strong>
+        A research tool has potential users \(N = 1000\), anti-rivalry parameter \(\beta = 0.5\),
+        and base value \(V_0 = 1\).
+        <ol type="a">
+          <li>Calculate total welfare under open access.</li>
+          <li>Now suppose the tool requires licenses from \(k = 5\) patent holders, each
+            granting access with probability \(p = 0.85\). Calculate expected users and total
+            welfare.</li>
+          <li>What fraction of potential welfare is destroyed?</li>
+          <li>A patent pool reduces the situation to a single license (\(k = 1\)) with
+            \(p = 0.8\). Compare welfare. Is the patent pool beneficial despite the lower
+            individual access probability?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Federation)</strong>
+        A digital commons has \(n = 10{,}000\) users, governance demand exponent \(\gamma = 1.4\),
+        and a fixed total governance supply.
+        <ol type="a">
+          <li>Compare total governance demand for \(K = 1\) (centralized), \(K = 10\), and \(K = 100\)
+            sub-communities.</li>
+          <li>Discuss the tradeoff: federation reduces governance demand but may reduce the
+            anti-rivalrous benefit if sub-communities become too isolated. Under what conditions
+            is federation optimal?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Case Study Analysis)</strong>
+        Choose a real digital commons (e.g., a specific open-source project, a wiki, a dataset).
+        <ol type="a">
+          <li>Identify the anti-rivalrous dimension(s) and the rivalrous complement(s).</li>
+          <li>Estimate (qualitatively) the parameters \(\beta\), \(\gamma\), and \(\kappa\).</li>
+          <li>Has the commons encountered the anti-rivalry paradox? What institutional
+            mechanisms (if any) were developed in response?</li>
+          <li>Using the framework of this module, propose one institutional change that could
+            improve governance sustainability.</li>
+        </ol>
+      </li>
+
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 12: RECOMMENDED READING -->
+  <!-- ================================================================== -->
+  <div class="section" id="reading">
+    <h2>12. Recommended Reading</h2>
+
+    <div class="note-box">
+      <ul style="list-style:none; padding-left:0">
+        <li style="margin-bottom:0.8rem;">
+          <strong>Weber, S.</strong> (2004). <em>The Success of Open Source.</em>
+          Harvard University Press. &mdash; Analyzes the economic and institutional logic
+          of open-source production, relevant to Sections 4 and 6.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Eghbal, N.</strong> (2020). <em>Working in Public: The Making and Maintenance
+          of Open Source Software.</em> Stripe Press. &mdash; A detailed account of the
+          maintainer scarcity crisis, directly relevant to Sections 4 and 6.3.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Heller, M. A.</strong> (1998). &ldquo;The Tragedy of the Anticommons:
+          Property in the Transition from Marx to Markets.&rdquo; <em>Harvard Law Review</em>,
+          111(3), 621&ndash;688. &mdash; The foundational paper on anti-commons theory (Section 7).
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Heller, M. A. &amp; Eisenberg, R. S.</strong> (1998). &ldquo;Can Patents
+          Deter Innovation? The Anticommons in Biomedical Research.&rdquo; <em>Science</em>,
+          280(5364), 698&ndash;701. &mdash; Application of anti-commons theory to patent
+          thickets in biomedicine.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Simon, H. A.</strong> (1971). &ldquo;Designing Organizations for an
+          Information-Rich World.&rdquo; In <em>Computers, Communications, and the Public
+          Interest</em>. &mdash; The seminal statement on attention scarcity (Section 3).
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Hess, C. &amp; Ostrom, E.</strong> (2007). <em>Understanding Knowledge
+          as a Commons.</em> MIT Press. &mdash; Extends Ostrom&rsquo;s framework to knowledge
+          commons, directly relevant to our coupled-systems analysis.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Schweik, C. M. &amp; English, R. C.</strong> (2012). <em>Internet Success:
+          A Study of Open-Source Software Commons.</em> MIT Press. &mdash; Empirical analysis
+          using Ostrom&rsquo;s IAD framework, complementary to our theoretical treatment.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Brooks, F. P.</strong> (1975). <em>The Mythical Man-Month.</em>
+          Addison-Wesley. &mdash; The classic treatment of coordination overhead in software
+          engineering (\(\gamma > 1\) in our model).
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module9.html">&larr; Module 9: Digital Commons</a>
+    <a href="../index.html">Back to Course Home &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Mathematics for Evolutionary Game Theory &mdash; An open educational resource</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Module 10: Advanced Anti-Rivalry in Digital Commons
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
