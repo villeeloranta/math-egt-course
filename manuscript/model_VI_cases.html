@@ -20,17 +20,17 @@
 
 <h2>Model Recap</h2>
 
-<p>As the technological anti-rivalry parameter \(\beta\) increases, the business model landscape undergoes phase transitions:</p>
-<ul>
-<li><strong>Phase I</strong> (\(\beta&lt;\beta_{\min}\)): All-Restrict is the unique equilibrium. Traditional proprietary models dominate.</li>
-<li><strong>Phase II</strong> (\(\beta_{\min}&lt;\beta&lt;\beta^*\)): Transform becomes viable. Bistable: Restrict or Transform depending on history.</li>
-<li><strong>Phase III</strong> (\(\beta^*&lt;\beta&lt;\beta_{\max}\)): Leverage becomes viable. Tri-stable: Restrict, Transform, and Leverage coexist.</li>
-<li><strong>Phase IV</strong> (\(\beta&gt;\beta_{\max}\)): Leverage dominates. Restrict destabilises.</li>
-</ul>
-<p>The critical anti-rivalry level:</p>
+<p>As the technological anti-rivalry parameter \(\beta\) increases, the business model landscape undergoes phase transitions. The phase boundaries are determined by <em>invasion thresholds</em> that separate the standalone payoff channel from the ecosystem channel. Each strategy \(i \in \{T, L\}\) has a standalone efficiency \(\psi_i\) such that a mutant playing strategy \(i\) in an all-Restrict population gains \(\beta \psi_i\) from anti-rivalry alone. The invasion thresholds are:</p>
 \[
-\beta^* = \left[\frac{(c_L+R_0)(1+\kappa_G)}{(\varphi_L+\delta)\,V_0}\right]^{1/\eta} - 1
+\beta_{\text{inv}}^T = \frac{c_T + R_0}{\psi_T}, \qquad \beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L}
 \]
+
+<ul>
+<li><strong>Phase I</strong> (\(\beta &lt; \beta_{\text{inv}}^T\)): All-Restrict is the unique stable equilibrium. Neither Transform nor Leverage can invade because their standalone efficiency gains are insufficient to offset costs.</li>
+<li><strong>Phase II</strong> (\(\beta_{\text{inv}}^T &lt; \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade Restrict (since \(\beta \psi_T > c_T + R_0\)) but Leverage cannot yet. Bistable: Restrict or Transform depending on history and ecosystem coordination.</li>
+<li><strong>Phase III</strong> (\(\beta_{\text{inv}}^L &lt; \beta &lt; \beta_{\max}\)): Both Leverage and Transform can invade Restrict; the landscape is multi-stable. The tipping point for Leverage decreases with \(\beta\) as the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L\) shrinks.</li>
+<li><strong>Phase IV</strong> (\(\beta &gt; \beta_{\max}\)): Leverage dominates; Restrict is unstable. The standalone efficiency \(\beta\psi_L\) alone exceeds \(c_L + R_0\), so the tipping point vanishes.</li>
+</ul>
 
 <!-- ========== CASE A ========== -->
 <h2>Case A: Software Industry &mdash; Four Decades of Phase Transitions</h2>
@@ -67,26 +67,23 @@
 
 <div class="calc">
 <p class="lb">Computing Phase Transition Thresholds</p>
-<p>Using representative parameters: \(V_0=8\), \(\varphi_L=2.0\), \(\delta=0.4\), \(c_L=7\), \(R_0=10\), \(\kappa_G=0.12\), \(\eta=1\).</p>
+<p>Using representative software-industry parameters: \(c_T=3\), \(c_L=7\), \(R_0=10\). The standalone efficiency parameters reflect software&rsquo;s high intrinsic anti-rivalry leverage: \(\psi_T=15\) (Transform practices&mdash;shareware, SaaS&mdash;yield moderate standalone efficiency gains), \(\psi_L=68\) (Leverage practices&mdash;open-source development, community contribution&mdash;yield very high standalone efficiency, reflecting that even without ecosystem coordination, open-source practices independently improve code quality, attract talent, and reduce duplicated effort).</p>
 
-<p><strong>Transform viability threshold (\(\beta_{\min}\)):</strong> Transform requires \(\varphi_T V_0(1+\beta_T)^1 \frac{\alpha_T}{\alpha_T+\kappa_G} &gt; c_T + R_0\). With \(\varphi_T=1.2\), \(\alpha_T=0.3\), \(c_T=3\):</p>
+<p><strong>Transform invasion threshold (\(\beta_{\text{inv}}^T\)):</strong></p>
 \[
-1.2\times 8\times(1+\beta_{\min})\times\frac{0.3}{0.42} > 13
+\beta_{\text{inv}}^T = \frac{c_T + R_0}{\psi_T} = \frac{3+10}{15} = \frac{13}{15} \approx 0.87
 \]
-\[
-6.86\times(1+\beta_{\min}) > 13 \implies \beta_{\min} > 0.89
-\]
-<p>This is very high. But this calculation assumes Transform must compete head-to-head with Restrict at \(x_T=1\). In practice, Transform strategies (shareware, SaaS) entered <em>niche segments</em> where \(R_0\) was lower, making \(\beta_{\min}\) effectively lower for those segments. The model&rsquo;s homogeneous-market assumption overestimates \(\beta_{\min}\).</p>
+<p>This is very high. But this calculation assumes Transform must invade an all-Restrict population in a homogeneous market. In practice, Transform strategies (shareware, SaaS) entered <em>niche segments</em> where \(R_0\) was lower, making \(\beta_{\text{inv}}^T\) effectively lower for those segments. The model&rsquo;s homogeneous-market assumption overestimates \(\beta_{\text{inv}}^T\).</p>
 
-<p><strong>Leverage viability threshold (\(\beta^*\)):</strong></p>
+<p><strong>Leverage invasion threshold (\(\beta_{\text{inv}}^L\)):</strong></p>
 \[
-\beta^* = \frac{(c_L+R_0)(1+\kappa_G)}{(\varphi_L+\delta)\,V_0} - 1 = \frac{17\times 1.12}{2.4\times 8} - 1 = \frac{19.04}{19.2} - 1 = -0.008
+\beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L} = \frac{7+10}{68} = \frac{17}{68} = 0.25
 \]
-<p>This yields \(\beta^*\approx 0\), meaning that Leverage becomes viable almost as soon as anti-rivalry exists at all. This is surprisingly low and reflects the strong parameters (\(\varphi_L=2.0\), high Red Hat-level value capture). With more conservative \(\varphi_L=1.5\):</p>
+<p>\(\beta_{\text{inv}}^L \approx 0.25\): Leverage strategies became viable when \(\beta\) crossed approximately 0.25, corresponding to the mid-2000s when cloud computing and GitHub made large-scale open-source collaboration practical. With a more conservative standalone efficiency \(\psi_L=45\) (lower if firms capture less standalone benefit from open-source practices):</p>
 \[
-\beta^* = \frac{17\times 1.12}{1.9\times 8} - 1 = \frac{19.04}{15.2} - 1 = 0.253
+\beta_{\text{inv}}^L = \frac{17}{45} \approx 0.38
 \]
-<p>With \(\varphi_L=1.5\): \(\beta^*\approx 0.25\). This is more realistic: Leverage strategies became viable when \(\beta\) crossed approximately 0.25, corresponding to the mid-2000s when cloud computing and GitHub made large-scale open-source collaboration practical.</p>
+<p>With \(\psi_L=45\): \(\beta_{\text{inv}}^L\approx 0.38\), placing the Leverage invasion threshold in the late 2000s&mdash;also plausible given that practical open-source business models (Red Hat IPO 1999, GitHub 2008) took time to mature.</p>
 </div>
 
 <div class="finding">
@@ -120,17 +117,17 @@
 
 <div class="calc">
 <p class="lb">Why Music Stalls at Phase II/III</p>
-<p>With music-industry parameters: \(V_0=5\), \(\varphi_L=1.2\) (low &mdash; leverage in music offers limited differential access), \(\delta=0.3\), \(c_L=6\) (high &mdash; music community governance is complex: licensing, royalties, rights management), \(R_0=8\) (record labels retain strong returns), \(\kappa_G=0.20\).</p>
+<p>With music-industry parameters: \(c_L=6\) (high &mdash; music community governance is complex: licensing, royalties, rights management), \(R_0=8\) (record labels retain strong returns), and \(\psi_L \approx 20\) (low &mdash; standalone efficiency from leverage practices is weak in music because open-sharing practices yield limited direct cost savings without ecosystem coordination; unlike in software, sharing musical compositions does not independently reduce production costs).</p>
 \[
-\beta^* = \frac{(6+8)(1.20)}{(1.2+0.3)\times 5} - 1 = \frac{16.8}{7.5} - 1 = 1.24
+\beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L} = \frac{6+8}{20} = \frac{14}{20} = 0.70
 \]
-<p>\(\beta^*=1.24\) is <strong>extremely high</strong>. Music would need anti-rivalry exceeding 1.24 for Leverage strategies to dominate &mdash; far above the current \(\beta\approx 0.20\). This explains the stall: music&rsquo;s institutional structure (copyright law, licensing complexity, label oligopoly) keeps \(c_L\) high and \(\varphi_L\) low, pushing the phase transition threshold out of practical reach.</p>
+<p>\(\beta_{\text{inv}}^L=0.70\) is <strong>very high</strong>, far above the current \(\beta\approx 0.20\). Music would need anti-rivalry exceeding 0.70 for Leverage strategies to invade &mdash; more than triple the current level. This explains the stall: music&rsquo;s institutional structure (copyright law, licensing complexity, label oligopoly) keeps \(c_L\) high and \(\psi_L\) low, pushing the Leverage invasion threshold out of practical reach.</p>
 </div>
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>Music illustrates that phase transitions are <strong>not inevitable</strong>. The model identifies the institutional conditions (\(c_L\), \(\varphi_L\), \(R_0\)) that determine whether a given industry can reach Phase IV. Music&rsquo;s high governance costs (copyright compliance), low leverage capture (\(\varphi_L\)), and strong incumbent returns (\(R_0\)) place the Leverage viability threshold at an unreachable \(\beta^*=1.24\). Unless these institutional parameters change (through copyright reform, new licensing frameworks, or the collapse of label economics), music will remain in the Transform phase indefinitely.</p>
-<p>Compare with software: \(\beta^*\approx 0.25\) (achievable). The difference is entirely institutional, not technological. Software has no copyright-licensing intermediaries (no equivalent of ASCAP/BMI), much lower governance costs (Apache/MIT licensing vs complex music rights), and higher leverage capture (Red Hat model).</p>
+<p>Music illustrates that phase transitions are <strong>not inevitable</strong>. The model identifies the institutional conditions (\(c_L\), \(\psi_L\), \(R_0\)) that determine whether a given industry can reach Phase IV. Music&rsquo;s high governance costs (copyright compliance), low standalone efficiency (\(\psi_L\)), and strong incumbent returns (\(R_0\)) place the Leverage invasion threshold at an unreachable \(\beta_{\text{inv}}^L=0.70\). Unless these institutional parameters change (through copyright reform, new licensing frameworks, or the collapse of label economics), music will remain in the Transform phase indefinitely.</p>
+<p>Compare with software: \(\beta_{\text{inv}}^L\approx 0.25\) (achievable). The difference is entirely institutional, not technological. Software has no copyright-licensing intermediaries (no equivalent of ASCAP/BMI), much lower governance costs (Apache/MIT licensing vs complex music rights), and higher standalone efficiency from leverage practices (\(\psi_L=68\) for software vs \(\psi_L=20\) for music).</p>
 </div>
 
 <!-- ========== CASE C ========== -->
@@ -146,8 +143,11 @@
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.40</td><td>Research is strongly anti-rival: each citation, each replication, each extension adds value. Open research accelerates discovery for everyone.</td></tr>
+<tr><td>\(\psi_L\)</td><td>40</td><td>Standalone efficiency from leverage practices is high: preprints accelerate dissemination, reduce formatting overhead, and enable rapid iteration &mdash; benefits that accrue even without ecosystem coordination.</td></tr>
+<tr><td>\(\psi_T\)</td><td>30</td><td>Transform practices (author-pays OA) yield moderate standalone gains through broader readership and compliance with funder mandates.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>1.5</td><td>Leverage firms (arXiv, overlay journals) capture moderate value through community centrality and reputation.</td></tr>
 <tr><td>\(c_L\)</td><td>5</td><td>Community governance of preprint moderation, peer review coordination.</td></tr>
+<tr><td>\(c_T\)</td><td>3</td><td>Transform governance is simpler: author-pays models require less community coordination than preprint-based peer review.</td></tr>
 <tr><td>\(R_0\)</td><td>12</td><td>Traditional publishers (Elsevier, Springer) have extremely high margins (~35&ndash;40%).</td></tr>
 <tr><td>\(\delta\)</td><td>0.3</td><td>Open access is beginning to displace traditional subscriptions (Plan S, funder mandates).</td></tr>
 <tr><td>\(\kappa_G\)</td><td>0.15</td><td>Peer review governance requires significant coordination.</td></tr>
@@ -155,33 +155,35 @@
 
 <div class="calc">
 <p class="lb">Phase Analysis</p>
+<p>Computing the invasion thresholds with \(\psi_L = 40\), \(\psi_T = 30\), \(c_L = 5\), \(c_T = 3\), \(R_0 = 12\):</p>
 \[
-\beta^* = \frac{(5+12)(1.15)}{(1.5+0.3)\times V_0} - 1
+\beta_{\text{inv}}^T = \frac{c_T + R_0}{\psi_T} = \frac{3+12}{30} = \frac{15}{30} = 0.50, \qquad
+\beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L} = \frac{5+12}{40} = \frac{17}{40} = 0.425
 \]
-<p>With \(V_0=10\): \(\beta^* = \frac{19.55}{18} - 1 = 0.086\).</p>
-<p>Since current \(\beta\approx 0.40 &gt; \beta^*=0.086\), the system is in <strong>Phase III or IV</strong>. Leverage strategies are viable. The question is whether the tipping point has been crossed.</p>
+<p>Note that \(\beta_{\text{inv}}^L &lt; \beta_{\text{inv}}^T\) here: Leverage can invade All-Restrict at a <em>lower</em> \(\beta\) than Transform, because the high standalone efficiency of leverage practices (\(\psi_L = 40\)) more than compensates for the higher governance costs (\(c_L = 5 &gt; c_T = 3\)). This is consistent with the empirical observation that preprint-based leverage strategies (arXiv, bioRxiv) have been more disruptive than author-pays transform strategies (PLOS, MDPI).</p>
+<p>Since current \(\beta \approx 0.40\) is just below \(\beta_{\text{inv}}^L = 0.425\), the system is at the <strong>boundary of Phase II/III</strong>. The standalone efficiency of Leverage nearly covers the cost-plus-displacement threshold. The effective threshold is \(\tilde{c} = c_L + R_0 - \beta\psi_L = 17 - 16 = 1\), meaning only a small amount of ecosystem coordination is needed to make Leverage viable.</p>
 </div>
 
 <div class="calc">
 <p class="lb">Tipping Point</p>
-<p>Using the L-R edge formula with these parameters:</p>
+<p>Using the L&ndash;R edge formula with the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L = 17 - 16 = 1\):</p>
 \[
-F(x^*) = (1.5+0.3)\times 10\times(1+0.40\,x^*)\times\frac{x^*}{x^*+0.15} = 5+12 = 17
+F(x^*) = (1.5+0.3)\times 10\times(1+0.40\,x^*)\times\frac{x^*}{x^*+0.15} = \tilde{c} = 1
 \]
 \[
-18(1+0.4x)\frac{x}{x+0.15} = 17
+18(1+0.4x)\frac{x}{x+0.15} = 1
 \]
-<p>Expanding: \(18x + 7.2x^2 = 17x + 2.55\), giving \(7.2x^2 + x - 2.55 = 0\).</p>
+<p>Expanding: \(18x + 7.2x^2 = x + 0.15\), giving \(7.2x^2 + 17x - 0.15 = 0\).</p>
 \[
-x^* = \frac{-1+\sqrt{1+73.44}}{14.4} = \frac{-1+8.63}{14.4} \approx 0.53
+x^* = \frac{-17+\sqrt{289+4.32}}{14.4} = \frac{-17+\sqrt{293.32}}{14.4} = \frac{-17+17.13}{14.4} \approx 0.009
 \]
-<p><strong>Tipping point: \(x^*\approx 0.53\).</strong></p>
+<p><strong>Tipping point: \(x^*\approx 0.01\) (approximately 1%).</strong> The standalone efficiency of leverage practices has reduced the effective threshold to \(\tilde{c}=1\), meaning that even minimal ecosystem coordination suffices. The mathematical tipping point has already been crossed (current open-access share is ~30&ndash;40%). The remaining barriers to full transition are institutional, not mathematical.</p>
 </div>
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>The tipping point at 53% means that once a majority of scientific publications use leverage strategies (preprints, overlay journals, diamond OA), the transition becomes self-reinforcing. Current estimates place open-access share at approximately 30&ndash;40% of new publications (depending on definition), with preprints growing rapidly (arXiv: ~2M papers, bioRxiv: ~300K). The field is approaching but has not yet crossed the tipping point.</p>
-<p>Key factors that could accelerate the transition past \(x^*\):</p>
+<p>With the new standalone efficiency terms, the ecosystem-coordination tipping point drops to approximately 1%. This means the mathematical barrier to Leverage invasion has effectively been crossed: the standalone efficiency of open-research practices (\(\beta\psi_L = 16\)) nearly covers the full cost-plus-displacement threshold (\(c_L + R_0 = 17\)), leaving only a residual \(\tilde{c}=1\) that minimal ecosystem coordination can overcome. Current estimates place open-access share at approximately 30&ndash;40% of new publications (depending on definition), with preprints growing rapidly (arXiv: ~2M papers, bioRxiv: ~300K)&mdash;well above \(x^*\). The incomplete transition is therefore explained not by insufficient coordination but by institutional resistance that the model captures through \(R_0\).</p>
+<p>Key factors that could accelerate the transition:</p>
 <ul>
 <li><strong>Funder mandates</strong> (Plan S, NIH policy): These function as ecosystem-level coordination events, exactly the mechanism the model identifies as necessary for crossing tipping points.</li>
 <li><strong>AI-augmented peer review</strong>: If AI reduces governance costs \(c_L\), the tipping point drops.</li>
@@ -200,20 +202,21 @@ x^* = \frac{-1+\sqrt{1+73.44}}{14.4} = \frac{-1+8.63}{14.4} \approx 0.53
 <table>
 <tr><th>Metric</th><th>Software</th><th>Music</th><th>Scientific Publishing</th></tr>
 <tr><td>Current \(\beta\)</td><td>~0.33</td><td>~0.20</td><td>~0.40</td></tr>
-<tr><td>\(\beta^*\) (Leverage threshold)</td><td>0.25</td><td>1.24</td><td>0.09</td></tr>
-<tr><td>\(\beta/\beta^*\) ratio</td><td>1.32 (above)</td><td>0.16 (far below)</td><td>4.4 (well above)</td></tr>
-<tr><td>Current phase</td><td>Phase IV</td><td>Phase II</td><td>Phase III</td></tr>
-<tr><td>Tipping point \(x^*\)</td><td>Crossed (~2010)</td><td>Not reachable</td><td>~0.53 (approaching)</td></tr>
-<tr><td>Transition blocker</td><td>None (completed)</td><td>Institutional (\(c_L\), \(R_0\))</td><td>Cultural (prestige economy)</td></tr>
+<tr><td>\(\psi_L\) (standalone efficiency)</td><td>68</td><td>20</td><td>40</td></tr>
+<tr><td>\(\beta_{\text{inv}}^L\) (Leverage invasion threshold)</td><td>0.25</td><td>0.70</td><td>0.425</td></tr>
+<tr><td>\(\beta/\beta_{\text{inv}}^L\) ratio</td><td>1.32 (above)</td><td>0.29 (far below)</td><td>0.94 (at boundary)</td></tr>
+<tr><td>Current phase</td><td>Phase IV</td><td>Phase II</td><td>Phase II/III boundary</td></tr>
+<tr><td>Tipping point \(x^*\)</td><td>Crossed (~2010)</td><td>Not reachable</td><td>~0.01 (crossed; institutional barriers remain)</td></tr>
+<tr><td>Transition blocker</td><td>None (completed)</td><td>Institutional (\(c_L\), \(\psi_L\), \(R_0\))</td><td>Cultural (prestige economy)</td></tr>
 </table>
 
 <div class="finding">
 <p class="lb">Key Insights</p>
 <ol>
-<li><strong>Phase transitions are contingent on institutional parameters, not just technology.</strong> All three industries have increasing technological anti-rivalry, but the phase transition thresholds (\(\beta^*\)) differ by an order of magnitude. The difference is entirely explained by institutional factors: governance costs (\(c_L\)), leverage capture (\(\varphi_L\)), and incumbent returns (\(R_0\)).</li>
-<li><strong>The \(\beta/\beta^*\) ratio predicts transition likelihood.</strong> Software (\(1.32\)) has completed the transition. Scientific publishing (\(4.4\)) will complete it &mdash; the technological conditions are met, and the transition is a matter of coordinated action. Music (\(0.16\)) will not complete it without institutional reform.</li>
+<li><strong>Phase transitions are contingent on institutional parameters, not just technology.</strong> All three industries have increasing technological anti-rivalry, but the Leverage invasion thresholds (\(\beta_{\text{inv}}^L\)) differ significantly. The difference is explained by institutional factors: governance costs (\(c_L\)), standalone efficiency (\(\psi_L\)), and incumbent returns (\(R_0\)).</li>
+<li><strong>The \(\beta/\beta_{\text{inv}}^L\) ratio predicts transition likelihood.</strong> Software (\(1.32\)) has completed the transition. Scientific publishing (\(0.94\)) is at the threshold &mdash; the standalone channel nearly suffices, the ecosystem tipping point has been crossed, and the remaining barriers are institutional. Music (\(0.29\)) will not complete it without institutional reform.</li>
 <li><strong>Coordinated action drives transitions, not individual decisions.</strong> In software, cloud computing and GitHub provided the coordination. In scientific publishing, funder mandates (Plan S) are providing it. In music, no comparable coordination mechanism exists because the institutional beneficiaries (labels, publishers) actively resist it.</li>
-<li><strong>The model is most predictive for industries where \(\beta/\beta^*\) is near 1.</strong> When the ratio is far above 1 (publishing), the transition is likely regardless of model details. When far below 1 (music), no transition will occur. The model&rsquo;s analytical value is highest for industries at the threshold, where the specific values of \(c_L\), \(\varphi_L\), and \(R_0\) determine the outcome.</li>
+<li><strong>The model is most predictive for industries where \(\beta/\beta_{\text{inv}}^L\) is near 1.</strong> Scientific publishing (\(0.94\)) is the most analytically interesting case: the standalone channel is nearly sufficient, the ecosystem channel has already overcome its tipping point, and the transition outcome depends on whether institutional parameters (\(c_L\), \(R_0\)) shift. When far below 1 (music), no transition will occur without institutional reform. When above 1 (software), the transition has already completed. The specific values of \(c_L\), \(\psi_L\), and \(R_0\) determine the outcome.</li>
 </ol>
 </div>
 

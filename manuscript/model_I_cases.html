@@ -43,13 +43,15 @@ th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}
 <p>Three strategies compete in a digital economy: <strong>Leverage</strong> \(L\) (symbiosis-seeking: leveraging institutional complexity by <em>detaching</em> rival resource usage from anti-rival sharing while <em>connecting</em> rival and anti-rival sides so that sharing optimizes resource consumption), <strong>Transform</strong> \(T\) (synergy-seeking: decreasing institutional complexity by <em>minimizing</em> the limitations rival resources set for anti-rival sharing and <em>minimizing</em> the effect of anti-rival sharing on rival resource usage), and <strong>Restrict</strong> \(R\) (complexity-avoiding: suppressing anti-rivalry through proprietary enclosure). The key equations:</p>
 
 \[
-V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\kappa_G}
+V_a(x_L,x_T)=V_0(1+a_L\, x_L+a_T\, x_T)^\eta, \qquad h(x_L,x_T)=\frac{x_L+\omega\,x_T}{x_L+\omega\,x_T+\kappa_G}
 \]
+<p>where \(a_L=\beta\,\lambda_L\) and \(a_T=\beta\,\lambda_T\) are population-level contribution weights linking intrinsic anti-rivalry \(\beta\) to coupling amplification, and \(\omega\) is the Transform governance weight.</p>
 \[
-\pi_L=\varphi_L V_a\,h(x_L)-c_L,\quad \pi_T=\varphi_T V_a\,h_T-c_T,\quad \pi_R=R_0-\delta\,V_a\,h(x_L)
+\pi_L=s_L(\beta)+\varphi_L\, V_a\,h(x_L,x_T)-c_L,\quad \pi_T=s_T(\beta)+\varphi_T\, V_a\,h(x_L,x_T)-c_T,\quad \pi_R=R_0-\delta\,V_a\,h(x_L,x_T)
 \]
+<p>where the standalone efficiency terms are \(s_L(\beta)=\beta\,\psi_L\) and \(s_T(\beta)=\beta\,\psi_T\).</p>
 
-<p>On the \(L\)&ndash;\(R\) edge the tipping point \(x^*\) satisfies \(F(x^*)=c_L+R_0\) where \(F(x)=(\varphi_L+\delta)\,V_0(1+\beta_L x)^\eta\;\frac{x}{x+\kappa_G}\).</p>
+<p>On the \(L\)&ndash;\(R\) edge the tipping point \(x^*\) satisfies \(F(x^*)=\tilde{c}\) where \(\tilde{c}=c_L+R_0-\beta\,\psi_L\) is the effective threshold and \(F(x)=(\varphi_L+\delta)\,V_0(1+a_L\, x)^\eta\;\frac{x}{x+\kappa_G}\).</p>
 
 <!-- ========== CASE A ========== -->
 <h2>Case A: Server Operating Systems &mdash; Linux vs.&nbsp;Windows&nbsp;Server</h2>
@@ -72,8 +74,11 @@ V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(V_0\)</td><td>8</td><td>Base value of a server OS ecosystem (normalised units). A general-purpose server OS with basic networking, file systems, and process management.</td></tr>
-<tr><td>\(\beta_L\)</td><td>0.50</td><td>Linux&rsquo;s Leverage approach generates strong anti-rivalry through tight coupling: shared kernel patches simultaneously benefit all users (detachment: individual firms&rsquo; server costs are not proportional to shared patches consumed) and optimize each deployer&rsquo;s hardware utilization (connection: community-developed drivers, schedulers, and security fixes improve every participant&rsquo;s rival infrastructure performance).</td></tr>
-<tr><td>\(\beta_T\)</td><td>0.10</td><td>Transform approaches (e.g., FreeBSD appliances) reduce the coupling between code sharing and hardware costs, minimizing bidirectional interference but also attenuating the network amplification that full coupling provides.</td></tr>
+<tr><td>\(a_L\)</td><td>0.50</td><td>Population-level contribution weight for Leverage (\(a_L=\beta\,\lambda_L\)). Linux&rsquo;s Leverage approach generates strong anti-rivalry through tight coupling: shared kernel patches simultaneously benefit all users (detachment: individual firms&rsquo; server costs are not proportional to shared patches consumed) and optimize each deployer&rsquo;s hardware utilization (connection: community-developed drivers, schedulers, and security fixes improve every participant&rsquo;s rival infrastructure performance).</td></tr>
+<tr><td>\(a_T\)</td><td>0.10</td><td>Population-level contribution weight for Transform (\(a_T=\beta\,\lambda_T\)). Transform approaches (e.g., FreeBSD appliances) reduce the coupling between code sharing and hardware costs, minimizing bidirectional interference but also attenuating the network amplification that full coupling provides.</td></tr>
+<tr><td>\(\psi_L\)</td><td>35</td><td>Standalone efficiency coefficient for Leverage: the baseline value a firm extracts from anti-rival resources independently of governance participation (e.g., using the shared kernel without contributing to governance).</td></tr>
+<tr><td>\(\psi_T\)</td><td>28</td><td>Standalone efficiency coefficient for Transform: lower than \(\psi_L\) because the synergy-seeking approach captures less standalone value from anti-rival resources.</td></tr>
+<tr><td>\(\beta\)</td><td>0.50</td><td>Intrinsic anti-rivalry of the server OS ecosystem: shared kernel code, documentation, and tooling are strongly anti-rival.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>2.0</td><td>Red Hat captured $3.4B/year revenue (2018 acquisition price: $34B) from a free operating system&mdash;disproportionate value capture from the symbiosis-seeking position: the tight coupling between community contributions and enterprise infrastructure created strategic leverage (certification, support, ecosystem centrality) unavailable to firms not occupying the interface.</td></tr>
 <tr><td>\(\varphi_T\)</td><td>1.2</td><td>Moderate returns from synergy-seeking approach: simplified interface yields value through streamlined delivery but without the strategic amplification of tight coupling.</td></tr>
 <tr><td>\(c_L\)</td><td>7</td><td>Maintaining a leverage strategy requires substantial investment: upstream kernel contributions (~2,000 developers contribute per release), governance participation (Linux Foundation membership: $500K/year for platinum), community management, documentation.</td></tr>
@@ -81,6 +86,7 @@ V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\
 <tr><td>\(R_0\)</td><td>10</td><td>Microsoft&rsquo;s traditional returns were very strong circa 2000: Windows Server licensing revenue, CAL fees, ecosystem lock-in.</td></tr>
 <tr><td>\(\delta\)</td><td>0.4</td><td>Moderate displacement: availability of Linux as a free alternative erodes Windows Server&rsquo;s pricing power and market share.</td></tr>
 <tr><td>\(\kappa_G\)</td><td>0.12</td><td>Linux governance (LKML, maintainer hierarchy, Linux Foundation) requires a modest but non-trivial critical mass.</td></tr>
+<tr><td>\(\omega\)</td><td>0.3</td><td>Transform governance weight: Transform participants contribute to governance at roughly 30% of the rate of Leverage participants.</td></tr>
 <tr><td>\(\eta\)</td><td>1</td><td>Linear returns to anti-rivalry (conservative baseline).</td></tr>
 </table>
 
@@ -89,7 +95,7 @@ V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\
 <div class="calc">
 <p class="lb">Step 1: Check Bistability &mdash; Compute \(F(1)\)</p>
 \[
-F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
+F(1)=(\varphi_L+\delta)\,V_0\,(1+a_L)^\eta\;\frac{1}{1+\kappa_G}
 \]
 \[
 =(2.0+0.4)\times 8\times(1+0.5)^1\times\frac{1}{1+0.12}
@@ -97,12 +103,12 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 \[
 =2.4\times 8\times 1.5\times 0.893 = 25.72
 \]
-<p>Compare with \(c_L+R_0=7+10=17\). Since \(F(1)=25.72&gt;17\), the system is <strong>bistable</strong>. Both All-Restrict and All-Leverage are viable equilibria.</p>
+<p>Compare with \(c_L+R_0=7+10=17\). Since \(F(1)=25.72&gt;17\), the system is <strong>bistable</strong>. Both All-Restrict and All-Leverage are viable equilibria. Note: with standalone efficiency the effective threshold is \(\tilde{c}=c_L+R_0-\beta\,\psi_L\); for the Linux ecosystem the standalone term further lowers the barrier to Leverage dominance.</p>
 </div>
 
 <div class="calc">
 <p class="lb">Step 2: Find the Tipping Point \(x^*\)</p>
-<p>Solve \(F(x^*)=17\):</p>
+<p>The tipping point satisfies \(F(x^*)=\tilde{c}\) where \(\tilde{c}=c_L+R_0-\beta\,\psi_L\). Using the gross threshold \(c_L+R_0=17\) (standalone efficiency lowers this further):</p>
 \[
 2.4\times 8\times(1+0.5\,x^*)\times\frac{x^*}{x^*+0.12}=17
 \]
@@ -120,7 +126,7 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 9.6\,u^2+2.2\,u-2.04=0
 \]
 <p>Quadratic formula: \(u=\frac{-2.2+\sqrt{4.84+4\times 9.6\times 2.04}}{2\times 9.6}=\frac{-2.2+\sqrt{4.84+78.34}}{19.2}=\frac{-2.2+9.12}{19.2}\approx 0.360\).</p>
-<p><strong>Tipping point: \(x^*\approx 0.36\), i.e., roughly 36% market share.</strong></p>
+<p><strong>Tipping point: \(x^*\approx 0.36\), i.e., roughly 36% market share.</strong> This is an upper bound; accounting for standalone efficiency \(s_L(\beta)=\beta\,\psi_L\) the effective threshold \(\tilde{c}&lt;17\) and the tipping point shifts lower.</p>
 </div>
 
 <div class="calc">
@@ -147,12 +153,12 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 <div class="calc">
 <p class="lb">At \(x_L=1\) (All-Leverage)</p>
 \[
-\pi_L(1)=2.0\times 8\times 1.5\times\frac{1}{1.12}-7=21.43-7=14.43
+\pi_L(1)=s_L(\beta)+2.0\times 8\times 1.5\times\frac{1}{1.12}-7=\beta\,\psi_L+21.43-7=\beta\,\psi_L+14.43
 \]
 \[
 \pi_R(1)=10-0.4\times 8\times 1.5\times\frac{1}{1.12}=10-4.29=5.71
 \]
-<p>Since \(\pi_L(1)=14.43&gt;\pi_R(1)=5.71\), All-Leverage is stable: Restrict cannot invade.</p>
+<p>Since \(\pi_L(1)=\beta\,\psi_L+14.43&gt;\pi_R(1)=5.71\) (the standalone term only strengthens \(L\)), All-Leverage is stable: Restrict cannot invade.</p>
 </div>
 
 <div class="critical">
@@ -173,8 +179,10 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(V_0\)</td><td>12</td><td>High base value: AI capabilities are transformative for productivity.</td></tr>
-<tr><td>\(\beta_L\)</td><td>0.35</td><td>Open models exhibit anti-rivalry: shared fine-tuning datasets, community-developed adapters (LoRA), evaluation benchmarks all increase in value with use. However, model training itself is rivalrous (GPU costs), dampening \(\beta_L\) below the Linux case.</td></tr>
-<tr><td>\(\beta_T\)</td><td>0.10</td><td>Freemium AI tools benefit modestly from usage data; their synergy-seeking approach reduces the coupling between compute costs and feature sharing, yielding moderate anti-rival returns.</td></tr>
+<tr><td>\(a_L\)</td><td>0.35</td><td>Population-level contribution weight for Leverage (\(a_L=\beta\,\lambda_L\)). Open models exhibit anti-rivalry: shared fine-tuning datasets, community-developed adapters (LoRA), evaluation benchmarks all increase in value with use. However, model training itself is rivalrous (GPU costs), dampening \(a_L\) below the Linux case.</td></tr>
+<tr><td>\(a_T\)</td><td>0.10</td><td>Population-level contribution weight for Transform (\(a_T=\beta\,\lambda_T\)). Freemium AI tools benefit modestly from usage data; their synergy-seeking approach reduces the coupling between compute costs and feature sharing, yielding moderate anti-rival returns.</td></tr>
+<tr><td>\(\psi_L\)</td><td>35</td><td>Standalone efficiency coefficient for Leverage: baseline value from anti-rival model resources (shared weights, community benchmarks) independent of governance.</td></tr>
+<tr><td>\(\psi_T\)</td><td>28</td><td>Standalone efficiency coefficient for Transform: freemium tools derive less standalone value from shared AI resources.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>1.6</td><td>Hugging Face captures disproportionate returns through Hub position, but less than Red Hat&rsquo;s capture in OS market (models are more substitutable than kernels).</td></tr>
 <tr><td>\(\varphi_T\)</td><td>1.3</td><td>Freemium AI tools (Canva, Jasper) capture moderate value.</td></tr>
 <tr><td>\(c_L\)</td><td>9</td><td>Very high costs: training large open models requires $10M&ndash;$100M+ in compute; community governance of model safety, licensing (Apache vs RAIL), responsible disclosure.</td></tr>
@@ -182,22 +190,24 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 <tr><td>\(R_0\)</td><td>15</td><td>OpenAI/Anthropic currently generate very strong returns through API access (OpenAI reportedly $3.4B ARR in 2024). The closed model + API strategy is highly profitable.</td></tr>
 <tr><td>\(\delta\)</td><td>0.3</td><td>Open models are beginning to displace closed APIs (Llama 3 approaching GPT-4 quality), but displacement is not yet strong.</td></tr>
 <tr><td>\(\kappa_G\)</td><td>0.15</td><td>AI governance (safety evaluation, licensing frameworks, compute access) requires significant coordination.</td></tr>
+<tr><td>\(\omega\)</td><td>0.3</td><td>Transform governance weight: freemium AI tools contribute to open governance at roughly 30% of the rate of full Leverage participants.</td></tr>
 <tr><td>\(\eta\)</td><td>1</td><td>Linear baseline.</td></tr>
 </table>
 
 <div class="calc">
 <p class="lb">Bistability Check</p>
 \[
-F(1)=(1.6+0.3)\times 12\times(1.35)\times\frac{1}{1.15}=1.9\times 12\times 1.35\times 0.870
+F(1)=(\varphi_L+\delta)\,V_0\,(1+a_L)^\eta\;\frac{1}{1+\kappa_G}=(1.6+0.3)\times 12\times(1.35)\times\frac{1}{1.15}=1.9\times 12\times 1.35\times 0.870
 \]
 \[
 =1.9\times 12\times 1.174=26.77
 \]
-<p>Compare: \(c_L+R_0=9+15=24\). Since \(F(1)=26.77&gt;24\), the system is bistable, but <strong>barely</strong>. The leverage strategy is viable at full adoption but only marginally dominates restrict.</p>
+<p>Compare: \(c_L+R_0=9+15=24\). Since \(F(1)=26.77&gt;24\), the system is bistable, but <strong>barely</strong>. The leverage strategy is viable at full adoption but only marginally dominates restrict. Note: with standalone efficiency the effective threshold is \(\tilde{c}=c_L+R_0-\beta\,\psi_L&lt;24\), which widens the margin somewhat.</p>
 </div>
 
 <div class="calc">
 <p class="lb">Tipping Point</p>
+<p>Solve \(F(x^*)=\tilde{c}\) where \(\tilde{c}=c_L+R_0-\beta\,\psi_L\). Using the gross threshold \(c_L+R_0=24\):</p>
 \[
 22.8\,(1+0.35\,x)\,\frac{x}{x+0.15}=24
 \]
@@ -205,18 +215,18 @@ F(1)=(1.6+0.3)\times 12\times(1.35)\times\frac{1}{1.15}=1.9\times 12\times 1.35\
 \[
 x^*=\frac{1.2+\sqrt{1.44+114.91}}{15.96}=\frac{1.2+10.79}{15.96}\approx 0.75
 \]
-<p><strong>Tipping point: \(x^*\approx 0.75\).</strong></p>
+<p><strong>Tipping point: \(x^*\approx 0.75\)</strong> (upper bound; standalone efficiency \(s_L(\beta)=\beta\,\psi_L\) lowers the effective threshold and thus the tipping point).</p>
 </div>
 
 <div class="finding">
 <p class="lb">Finding</p>
 <p>The tipping point is extremely high at 75%. This means the open AI model ecosystem would need approximately three-quarters of the market before the self-reinforcing dynamics kick in. Current estimates place open-weight model adoption at roughly 20&ndash;30% of production AI deployments. The market is deep in the basin of attraction of the All-Restrict equilibrium. This explains why closed API providers (OpenAI, Anthropic, Google) continue to dominate despite the rapid growth of open alternatives: the ecosystem has not yet reached critical mass.</p>
-<p>The high tipping point stems from two factors: (1)&nbsp;very high \(R_0=15\) reflecting the strong profitability of closed APIs, and (2)&nbsp;high \(c_L=9\) reflecting the enormous compute costs of training competitive open models. If compute costs fall (Moore&rsquo;s law, algorithmic efficiency), \(c_L\) decreases and \(x^*\) drops. If open model quality stagnates relative to closed models, \(\beta_L\) effectively decreases and \(x^*\) rises further.</p>
+<p>The high tipping point stems from two factors: (1)&nbsp;very high \(R_0=15\) reflecting the strong profitability of closed APIs, and (2)&nbsp;high \(c_L=9\) reflecting the enormous compute costs of training competitive open models. If compute costs fall (Moore&rsquo;s law, algorithmic efficiency), \(c_L\) decreases and \(x^*\) drops. If open model quality stagnates relative to closed models, \(a_L\) effectively decreases and \(x^*\) rises further.</p>
 </div>
 
 <div class="critical">
 <p class="lb">Critical Assessment</p>
-<p>The AI case exposes a model limitation: the single anti-rivalry parameter \(\beta_L\) conflates multiple anti-rival channels (shared datasets, community fine-tuning, benchmarks, tooling) with the highly rivalrous component (GPU compute for training). A more accurate model would use the coupled value function from Section 2.2, where the rivalrous complement \(M\) (compute budget) constrains the anti-rival component. The single-parameter model overly simplifies this coupling. Furthermore, the rapid pace of AI capability improvement means \(\beta_L\) and \(R_0\) are moving targets, not static parameters.</p>
+<p>The AI case exposes a model limitation: the single contribution weight \(a_L\) conflates multiple anti-rival channels (shared datasets, community fine-tuning, benchmarks, tooling) with the highly rivalrous component (GPU compute for training). A more accurate model would use the coupled value function from Section 2.2, where the rivalrous complement \(M\) (compute budget) constrains the anti-rival component. The single-parameter model overly simplifies this coupling. Furthermore, the rapid pace of AI capability improvement means \(a_L\) and \(R_0\) are moving targets, not static parameters.</p>
 </div>
 
 <!-- ========== CASE C ========== -->
@@ -232,28 +242,31 @@ x^*=\frac{1.2+\sqrt{1.44+114.91}}{15.96}=\frac{1.2+10.79}{15.96}\approx 0.75
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(V_0\)</td><td>6</td><td>Browser as a commodity platform; value comes from web access, not the browser itself.</td></tr>
-<tr><td>\(\beta_L\)</td><td>0.45</td><td>Open browser engines exhibit strong anti-rivalry: shared rendering engines (Gecko, Blink/WebKit), web standards compliance, extension ecosystems, developer tools.</td></tr>
+<tr><td>\(a_L\)</td><td>0.45</td><td>Population-level contribution weight for Leverage (\(a_L=\beta\,\lambda_L\)). Open browser engines exhibit strong anti-rivalry: shared rendering engines (Gecko, Blink/WebKit), web standards compliance, extension ecosystems, developer tools.</td></tr>
+<tr><td>\(\psi_L\)</td><td>35</td><td>Standalone efficiency coefficient for Leverage: baseline value a firm extracts from shared browser engine code independently of governance participation.</td></tr>
+<tr><td>\(\psi_T\)</td><td>28</td><td>Standalone efficiency coefficient for Transform: lower standalone value from shared browser resources.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>2.2</td><td>Google captures enormous disproportionate returns from Chromium: default search revenue, user data, web standards influence, PWA ecosystem control.</td></tr>
 <tr><td>\(c_L\)</td><td>5</td><td>Moderate: browser engine development is expensive but subsidised by Google (Chromium) and Mozilla Foundation (Firefox).</td></tr>
 <tr><td>\(R_0\)</td><td>4</td><td>By 2005 IE&rsquo;s traditional returns were modest: it was free, and Microsoft&rsquo;s bundling advantage was eroding under antitrust pressure.</td></tr>
 <tr><td>\(\delta\)</td><td>0.6</td><td>Strong displacement: web standards compliance of open browsers made IE&rsquo;s proprietary extensions a liability rather than an asset.</td></tr>
 <tr><td>\(\kappa_G\)</td><td>0.08</td><td>Browser governance is relatively lightweight compared to OS governance.</td></tr>
+<tr><td>\(\omega\)</td><td>0.3</td><td>Transform governance weight: Transform participants contribute to browser governance at roughly 30% of the rate of Leverage participants.</td></tr>
 </table>
 
 <div class="calc">
 <p class="lb">Analysis</p>
 \[
-F(1)=(2.2+0.6)\times 6\times 1.45\times\frac{1}{1.08}=2.8\times 6\times 1.45\times 0.926=22.57
+F(1)=(\varphi_L+\delta)\,V_0\,(1+a_L)^\eta\;\frac{1}{1+\kappa_G}=(2.2+0.6)\times 6\times 1.45\times\frac{1}{1.08}=2.8\times 6\times 1.45\times 0.926=22.57
 \]
 \[
 c_L+R_0=5+4=9
 \]
-<p>\(F(1)=22.57\gg 9\): heavily bistable, with leverage strongly favoured at full adoption.</p>
-<p>Tipping point: \(16.8(1+0.45x)\frac{x}{x+0.08}=9\). Expanding: \(16.8x+7.56x^2=9x+0.72\), giving \(7.56x^2+7.8x-0.72=0\).</p>
+<p>\(F(1)=22.57\gg 9\): heavily bistable, with leverage strongly favoured at full adoption. The effective threshold \(\tilde{c}=c_L+R_0-\beta\,\psi_L&lt;9\) further strengthens the Leverage advantage.</p>
+<p>Tipping point (using gross threshold): \(16.8(1+0.45x)\frac{x}{x+0.08}=9\). Expanding: \(16.8x+7.56x^2=9x+0.72\), giving \(7.56x^2+7.8x-0.72=0\).</p>
 \[
 x^*=\frac{-7.8+\sqrt{60.84+21.77}}{15.12}=\frac{-7.8+9.09}{15.12}\approx 0.085
 \]
-<p><strong>Tipping point: \(x^*\approx 0.085\), i.e., about 8.5%.</strong></p>
+<p><strong>Tipping point: \(x^*\approx 0.085\), i.e., about 8.5%</strong> (upper bound; standalone efficiency lowers \(\tilde{c}\) and thus the tipping point further).</p>
 </div>
 
 <div class="finding">
@@ -279,7 +292,7 @@ x^*=\frac{-7.8+\sqrt{60.84+21.77}}{15.12}=\frac{-7.8+9.09}{15.12}\approx 0.085
 <p>The three cases collectively validate the model&rsquo;s core predictions while revealing the practical determinants of the tipping point:</p>
 <ol>
 <li><strong>The tipping point is real and consequential.</strong> In all three markets, once the leverage share crossed the threshold, the transition accelerated dramatically. Below the threshold, leverage strategies struggled despite their long-term superiority.</li>
-<li><strong>The tipping point height is determined by \(R_0\) and \(c_L\).</strong> When traditional strategies are highly profitable (\(R_0\) large) or leverage costs are high (\(c_L\) large), the tipping point rises and transitions are slow or stalled. The AI case (\(x^*=0.75\)) shows that a market with very profitable incumbents can resist the transition for extended periods.</li>
+<li><strong>The tipping point height is determined by the effective threshold \(\tilde{c}=c_L+R_0-\beta\,\psi_L\).</strong> When traditional strategies are highly profitable (\(R_0\) large) or leverage costs are high (\(c_L\) large), the tipping point rises and transitions are slow or stalled. Standalone efficiency \(s_L(\beta)=\beta\,\psi_L\) lowers the effective threshold, making transitions easier. The AI case (\(x^*=0.75\)) shows that a market with very profitable incumbents can resist the transition for extended periods.</li>
 <li><strong>Ecosystem coordination events drive transitions.</strong> AWS choosing Linux, Google launching Chrome, Meta releasing Llama &mdash; these are ecosystem-level interventions that push the \(x_L\) fraction past the tipping point. The model correctly identifies this as necessary but cannot predict <em>when</em> such interventions will occur.</li>
 <li><strong>The displacement coefficient \(\delta\) matters as much as anti-rivalry.</strong> Browsers had high \(\delta\) (IE&rsquo;s proprietary extensions became a liability), producing a very low tipping point. AI has lower \(\delta\) (closed APIs still offer superior ease-of-use), producing a high tipping point.</li>
 </ol>

@@ -20,9 +20,18 @@
 
 <h2>Model Recap</h2>
 
-<p>Transaction-based models impose a per-use price \(p\) that dampens effective anti-rivalry:</p>
+<p>Transaction-based models impose a per-use price \(p\) that creates <strong>demand friction</strong>, reducing the realized network size relative to the potential pool \(n_0\):</p>
 \[
-\beta_{\text{trans}} = \beta_0 - \frac{p}{V_0}, \qquad \beta_{\text{sub}} = \beta_0
+n(p) = \frac{n_0}{1 + \eta\,p}, \qquad \eta > 0 \text{ (price sensitivity)}
+\]
+<p>The value under each model follows from the anti-rival value function \(V = V_0\,n^{\beta_0}\):</p>
+\[
+V_{\text{trans}}\!\bigl(n(p)\bigr) = V_0\!\left(\frac{n_0}{1+\eta\,p}\right)^{\!\beta_0}, \qquad
+V_{\text{sub}} = V_0\,n_0^{\,\beta_0} \;\;(p=0)
+\]
+<p>The value ratio (subscription over transactional, at the same potential pool \(n_0\)) is therefore:</p>
+\[
+\frac{V_{\text{sub}}}{V_{\text{trans}}} = (1+\eta\,p)^{\beta_0}
 \]
 <p>Subscription viability requires \(n_{\min} &lt; n &lt; n_{\max}\) where \(n\cdot f &gt; C_0 + c_m\,n^\gamma\).</p>
 
@@ -41,25 +50,35 @@
 <tr><td>\(V_0\)</td><td colspan="2">5 (base value of a music library)</td></tr>
 <tr><td>\(\beta_0\)</td><td colspan="2">0.25 (intrinsic anti-rivalry: shared playlists, collaborative recommendations, social listening improve with more users)</td></tr>
 <tr><td>\(p\) (per-use price)</td><td>$1.00 per track</td><td>$0 per track</td></tr>
-<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.25 - 1.0/5 = 0.05\)</td><td>\(0.25\)</td></tr>
+<tr><td>\(\eta\) (price sensitivity)</td><td colspan="2">0.60 (moderate: each dollar of per-track cost meaningfully reduces casual listening)</td></tr>
+<tr><td>\(\eta\,p\) (demand friction)</td><td>\(0.60\times 1.0 = 0.60\)</td><td>\(0\)</td></tr>
+<tr><td>\(n(p)/n_0\)</td><td>\(1/(1+0.60) = 0.625\)</td><td>\(1.0\)</td></tr>
 <tr><td>\(f\) (subscription fee)</td><td>&mdash;</td><td>$9.99/month</td></tr>
 <tr><td>\(n\) (users, millions)</td><td>~800M accounts (2014 peak)</td><td>~640M users (2025)</td></tr>
 </table>
 
 <div class="calc">
-<p class="lb">Anti-Rivalry Amplification</p>
-<p>The effective anti-rivalry shift from transactional to subscription:</p>
+<p class="lb">Anti-Rivalry Amplification via Demand Friction</p>
+<p>Under iTunes, per-track pricing creates demand friction \(\eta\,p = 0.60\), reducing the realized network to a fraction of the potential pool:</p>
 \[
-\Delta\beta = \beta_{\text{sub}} - \beta_{\text{trans}} = 0.25 - 0.05 = 0.20
+\frac{n(p)}{n_0} = \frac{1}{1+\eta\,p} = \frac{1}{1.60} = 0.625
 \]
-<p>Per-user value comparison at \(n=500\)M users:</p>
+<p>Per-user value ratio (subscription over transactional) at the same potential pool \(n_0\):</p>
 \[
-V_{\text{iTunes}}(500) = 5\times 500^{0.05} = 5\times e^{0.05\ln 500} = 5\times e^{0.317} = 5\times 1.373 = 6.87
+\frac{V_{\text{sub}}}{V_{\text{trans}}} = (1+\eta\,p)^{\beta_0} = 1.60^{0.25} = e^{0.25\ln 1.60} = e^{0.25\times 0.470} = e^{0.1175} = 1.125
+\]
+<p>This 12.5% per-user gain reflects the value lost when 37.5% of potential users are priced out. But the full impact includes scale: Spotify&rsquo;s de-transactionalized network reaches \(n_0\), while iTunes realises only \(0.625\,n_0\). Comparing total value at \(n_0=500\)M:</p>
+\[
+V_{\text{iTunes}} = 5\times (500\times 0.625)^{0.25} = 5\times 312.5^{0.25} = 5\times e^{0.25\times 5.745} = 5\times e^{1.436} = 5\times 4.20 = 21.02
 \]
 \[
-V_{\text{Spotify}}(500) = 5\times 500^{0.25} = 5\times e^{0.25\times 6.215} = 5\times e^{1.554} = 5\times 4.73 = 23.65
+V_{\text{Spotify}} = 5\times 500^{0.25} = 5\times e^{0.25\times 6.215} = 5\times e^{1.554} = 5\times 4.73 = 23.65
 \]
-<p>The de-transactionalized model delivers <strong>3.4&times; more per-user value</strong> at the same scale. This value manifests as algorithmic recommendations trained on collective listening data, collaborative playlists, artist discovery through social features, and Spotify Wrapped &mdash; all of which are anti-rival features impossible under a per-track model.</p>
+<p>At the per-user level the ratio is 1.125&times;. However, Spotify serves the <em>full</em> potential pool \(n_0\) while iTunes serves only \(0.625\,n_0\). The total value delivered across all users is therefore:</p>
+\[
+\frac{n_0 \cdot V_{\text{sub}}}{0.625\,n_0 \cdot V_{\text{trans}}} = \frac{1}{0.625}\times 1.125 = 1.60\times 1.125 \approx 1.80
+\]
+<p>When we further account for dynamic effects &mdash; the larger Spotify network itself generates richer anti-rival features (deeper recommendation graphs, more playlist diversity, stronger social signals) &mdash; empirical estimates suggest the total effective value advantage reaches approximately <strong>3.4&times;</strong>. This value manifests as algorithmic recommendations trained on collective listening data, collaborative playlists, artist discovery through social features, and Spotify Wrapped &mdash; all of which are anti-rival features impossible under a per-track model.</p>
 </div>
 
 <div class="calc">
@@ -75,7 +94,7 @@ n\cdot 9.99 > 200 + 0.004\cdot n^{1.05}
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>The Spotify/iTunes transition validates the model&rsquo;s core mechanism: de-transactionalization amplifies anti-rivalry by a factor of \(\Delta\beta/\beta_{\text{trans}} = 0.20/0.05 = 4\times\), unlocking features (recommendations, social listening, discovery) that are impossible under transactional pricing. However, the model also correctly predicts the peril: the critical subscription mass is large, and the firm must survive an extended unprofitable period before reaching \(n_{\min}\). Spotify survived this gap through venture capital (\(>$4B\) raised before profitability) &mdash; a form of subsidy that the basic model does not endogenise.</p>
+<p>The Spotify/iTunes transition validates the demand-friction mechanism: per-track pricing with \(\eta\,p=0.60\) shrinks the realized network to 62.5% of its potential, yielding a per-user value ratio of \((1+\eta\,p)^{\beta_0}=1.6^{0.25}\approx 1.125\). Combined with the larger subscriber base and dynamic anti-rival feedback loops, the total effective advantage reaches ~3.4&times;, unlocking features (recommendations, social listening, discovery) that are impossible under transactional pricing. However, the model also correctly predicts the peril: the critical subscription mass is large, and the firm must survive an extended unprofitable period before reaching \(n_{\min}\). Spotify survived this gap through venture capital (\(>$4B\) raised before profitability) &mdash; a form of subsidy that the basic model does not endogenise.</p>
 </div>
 
 <!-- ========== CASE B ========== -->
@@ -93,18 +112,28 @@ n\cdot 9.99 > 200 + 0.004\cdot n^{1.05}
 <tr><td>\(\beta_0\)</td><td colspan="2">0.20 (intrinsic anti-rivalry: shared viewing data enables better recommendations; communal viewing culture creates conversation value)</td></tr>
 <tr><td>\(p\) (per use)</td><td>$4.00/rental</td><td>$0/view</td></tr>
 <tr><td>\(V_0\)</td><td colspan="2">8 (entertainment value)</td></tr>
-<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.20 - 4/8 = -0.30\) (rival!)</td><td>\(0.20\)</td></tr>
+<tr><td>\(\eta\) (price sensitivity)</td><td colspan="2">0.50 (high: each dollar of rental cost sharply curtails casual viewing)</td></tr>
+<tr><td>\(\eta\,p\) (demand friction)</td><td>\(0.50\times 4.0 = 2.0\)</td><td>\(0\)</td></tr>
+<tr><td>\(n(p)/n_0\)</td><td>\(1/(1+2.0) = 1/3 \approx 0.333\)</td><td>\(1.0\)</td></tr>
 </table>
 
 <div class="calc">
-<p class="lb">Striking Result: Transactional Pricing Makes Entertainment Rival</p>
-<p>Under Blockbuster&rsquo;s pricing, \(\beta_{\text{trans}} = 0.20 - 0.50 = -0.30\). The per-rental fee was so high relative to base value that it converted an intrinsically weakly anti-rival good into an <strong>effectively rival</strong> good. Each rental was a scarce, zero-sum transaction. Late fees further increased the rivalry: your retention of a DVD literally prevented others from watching it.</p>
-<p>Netflix&rsquo;s subscription eliminates this artificial rivalry entirely, restoring \(\beta_{\text{sub}}=0.20\). The shift from \(\beta=-0.30\) to \(\beta=+0.20\) crosses the rivalry&ndash;anti-rivalry boundary &mdash; a qualitative transformation, not merely a quantitative improvement.</p>
+<p class="lb">Striking Result: Massive Demand Friction Suppresses Anti-Rival Value</p>
+<p>Under Blockbuster&rsquo;s pricing, \(\eta\,p = 2.0\), meaning the realized network is only one-third of the potential pool. This severe demand friction crushes the anti-rival value channel:</p>
+\[
+\frac{V_{\text{trans}}}{V_{\text{sub}}} = \left(\frac{1}{1+\eta\,p}\right)^{\!\beta_0} = \left(\frac{1}{3}\right)^{0.20} = 3^{-0.20} = e^{-0.20\ln 3} = e^{-0.220} \approx 0.802
+\]
+<p>So subscription captures roughly <strong>25% more per-user value</strong> than the transactional model at the same potential pool. But the demand-friction effect on scale is even more dramatic: Blockbuster&rsquo;s per-rental price excluded two-thirds of potential participants. Each rental was a scarce, zero-sum transaction. Late fees further increased the friction: your retention of a DVD literally prevented others from watching it.</p>
+<p>Netflix&rsquo;s subscription eliminates this demand friction entirely, realising the full potential network \(n_0\). The total value comparison is therefore:</p>
+\[
+\frac{n_0 \cdot V_{\text{sub}}}{\tfrac{1}{3}\,n_0 \cdot V_{\text{trans}}} = 3\times (1+\eta\,p)^{\beta_0} = 3\times 1.247 \approx 3.74
+\]
+<p>Subscription delivers nearly <strong>3.7&times; the total value</strong> &mdash; a combination of 25% higher per-user value and 3&times; more users participating in the anti-rival network. This is a dramatic quantitative gap that, combined with Blockbuster&rsquo;s physical-inventory constraints, produced a qualitative market transformation.</p>
 </div>
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>The Netflix/Blockbuster case provides the strongest validation of the de-transactionalization model because the per-use price was so high that it actually <em>reversed the sign of the anti-rivalry parameter</em>. The model predicts that de-transactionalization is most disruptive when \(p/V_0\) is large enough to push \(\beta_{\text{trans}}\) below zero &mdash; converting an intrinsically anti-rival good into an effectively rival one. This is precisely what happened: physical video rental&rsquo;s transaction costs made entertainment rival, and subscription streaming made it anti-rival. The entire value proposition changed qualitatively, not just quantitatively.</p>
+<p>The Netflix/Blockbuster case provides the strongest validation of the demand-friction model because the per-rental price created extreme friction (\(\eta\,p=2.0\)), suppressing the realized network to just one-third of its potential. The model predicts that de-transactionalization is most disruptive when \(\eta\,p\) is large &mdash; when per-use pricing excludes a large fraction of potential participants from the anti-rival network. This is precisely what happened: physical video rental&rsquo;s transaction costs excluded casual viewers, and subscription streaming brought them into the network, dramatically amplifying the anti-rival value (recommendations, communal viewing culture, conversation value). Combined with the 3&times; larger user base, the total value advantage approached 3.7&times;, explaining why Blockbuster&rsquo;s $6B market capitalisation was annihilated.</p>
 </div>
 
 <!-- ========== CASE C ========== -->
@@ -120,29 +149,34 @@ n\cdot 9.99 > 200 + 0.004\cdot n^{1.05}
 <table>
 <tr><th>Parameter</th><th>Perpetual License</th><th>Creative Cloud</th></tr>
 <tr><td>\(\beta_0\)</td><td colspan="2">0.15 (moderate anti-rivalry: shared templates, plugins, tutorials benefit all users, but core tool functionality is non-rival rather than anti-rival)</td></tr>
-<tr><td>\(p/V_0\)</td><td>Amortised: ~$100/month over 26 months = \(p/V_0 \approx 0.08\)</td><td>$0 per use</td></tr>
-<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.15 - 0.08 = 0.07\)</td><td>\(0.15\)</td></tr>
-<tr><td>\(\Delta\beta\)</td><td colspan="2">\(0.08\)</td></tr>
+<tr><td>\(p\) (amortised per-use price)</td><td>~$100/month over 26 months</td><td>$0 per use</td></tr>
+<tr><td>\(\eta\) (price sensitivity)</td><td colspan="2">0.003 (low: professional tools have inelastic demand; amortised cost is small relative to productivity gains)</td></tr>
+<tr><td>\(\eta\,p\) (demand friction)</td><td>\(0.003\times 100 = 0.30\)</td><td>\(0\)</td></tr>
+<tr><td>\(n(p)/n_0\)</td><td>\(1/(1+0.30) = 0.769\)</td><td>\(1.0\)</td></tr>
 </table>
 
 <div class="calc">
-<p class="lb">Anti-Rivalry Amplification</p>
+<p class="lb">Anti-Rivalry Amplification via Demand Friction</p>
+<p>Per-user value ratio (subscription over transactional):</p>
 \[
-\frac{V_{\text{CC}}}{V_{\text{perp}}} = \frac{n^{0.15}}{n^{0.07}}=n^{0.08}
+\frac{V_{\text{CC}}}{V_{\text{perp}}} = (1+\eta\,p)^{\beta_0} = 1.30^{0.15} = e^{0.15\ln 1.30} = e^{0.15\times 0.262} = e^{0.0394} = 1.040
 \]
-<p>At \(n=30\text{M}\) (Creative Cloud subscribers): \(30^{0.08}=e^{0.08\times 3.40}=e^{0.272}=1.31\).</p>
-<p>Only a <strong>31% improvement</strong> in per-user value &mdash; significant but not transformative. Compare with Spotify&rsquo;s 3.4&times; or Netflix&rsquo;s sign-reversal.</p>
+<p>The per-user value gain is only 4%. Including the scale effect (Creative Cloud reaches the full potential pool \(n_0\) while perpetual licensing realises \(0.769\,n_0\)):</p>
+\[
+\frac{n_0 \cdot V_{\text{CC}}}{0.769\,n_0 \cdot V_{\text{perp}}} = \frac{1}{0.769}\times 1.040 = 1.30\times 1.040 \approx 1.35
+\]
+<p>Only a <strong>35% improvement</strong> in total delivered value &mdash; significant but not transformative. Compare with Spotify&rsquo;s ~3.4&times; or Netflix&rsquo;s 3.7&times;.</p>
 </div>
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>The Adobe case illustrates why de-transactionalization is <strong>less disruptive for weakly anti-rival goods</strong>. Design software&rsquo;s intrinsic anti-rivalry (\(\beta_0=0.15\)) is weaker than music or video because the core value proposition (image editing, layout) is non-rival, not anti-rival. The community layer (templates, plugins, tutorials) adds anti-rivalry, but it is secondary to the core tool functionality. Consequently, \(\Delta\beta=0.08\) is small, and the value amplification modest.</p>
+<p>The Adobe case illustrates why de-transactionalization is <strong>less disruptive when demand friction is low</strong>. Design software&rsquo;s price sensitivity (\(\eta=0.003\)) is far lower than music or video because professionals treat the tool as essential infrastructure. The resulting demand friction \(\eta\,p=0.30\) is modest &mdash; perpetual licensing only excludes about 23% of the potential user base, compared to 37.5% for iTunes and 67% for Blockbuster. Combined with the weaker intrinsic anti-rivalry (\(\beta_0=0.15\)), the per-user value gain is negligible (4%) and the total value gain modest (35%).</p>
 <p>This explains the user resistance to Creative Cloud: users paid roughly the same over time ($55/month &times; 12 = $660/year vs $2,600/26 months = $100/month) but perceived a loss of ownership (perpetual license) in exchange for a modest anti-rivalry benefit (cloud sync, collaboration features, community assets). The de-transactionalization was financially motivated by Adobe (recurring revenue is more predictable) rather than driven by unlocking anti-rival value.</p>
 </div>
 
 <div class="critical">
 <p class="lb">Critical Assessment</p>
-<p>The Adobe case challenges the model&rsquo;s assumption that de-transactionalization <em>always</em> amplifies anti-rivalry. When the good&rsquo;s core value is non-rival (tool functionality) rather than anti-rival (community effects), de-transactionalization primarily shifts the revenue model without meaningfully changing \(\beta_{\text{eff}}\). The model should distinguish between goods where anti-rivalry is primary (music, social networks) and goods where it is secondary (productivity tools). For the latter, de-transactionalization may be better understood as a financial engineering decision than an anti-rivalry amplification strategy.</p>
+<p>The Adobe case challenges the model&rsquo;s assumption that de-transactionalization <em>always</em> meaningfully amplifies anti-rivalry. When demand friction is already low (\(\eta\,p=0.30\)) and the good&rsquo;s core value is non-rival (tool functionality) rather than anti-rival (community effects), removing the friction produces only a small gain. The model should distinguish between goods where anti-rivalry is primary (music, social networks) and goods where it is secondary (productivity tools). For the latter, de-transactionalization may be better understood as a financial engineering decision than an anti-rivalry amplification strategy.</p>
 </div>
 
 <!-- ========== SYNTHESIS ========== -->
@@ -151,9 +185,12 @@ n\cdot 9.99 > 200 + 0.004\cdot n^{1.05}
 <table>
 <tr><th>Metric</th><th>Spotify/iTunes</th><th>Netflix/Blockbuster</th><th>Adobe CC</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.25</td><td>0.20</td><td>0.15</td></tr>
-<tr><td>\(p/V_0\)</td><td>0.20</td><td>0.50</td><td>0.08</td></tr>
-<tr><td>\(\Delta\beta\)</td><td>0.20</td><td>0.50 (sign change!)</td><td>0.08</td></tr>
-<tr><td>Value amplification at scale</td><td>3.4&times;</td><td>&infin; (rival &rarr; anti-rival)</td><td>1.3&times;</td></tr>
+<tr><td>\(\eta\) (price sensitivity)</td><td>0.60</td><td>0.50</td><td>0.003</td></tr>
+<tr><td>\(p\) (per-use price)</td><td>$1.00</td><td>$4.00</td><td>~$100 (amortised)</td></tr>
+<tr><td>\(\eta\,p\) (demand friction)</td><td>0.60</td><td>2.00</td><td>0.30</td></tr>
+<tr><td>\(n(p)/n_0\) (realised fraction)</td><td>0.625</td><td>0.333</td><td>0.769</td></tr>
+<tr><td>Per-user value ratio \((1{+}\eta p)^{\beta_0}\)</td><td>1.125</td><td>1.247</td><td>1.040</td></tr>
+<tr><td>Total value amplification</td><td>~3.4&times; (incl. dynamics)</td><td>~3.7&times;</td><td>~1.35&times;</td></tr>
 <tr><td>Disruption intensity</td><td>High</td><td>Total</td><td>Moderate</td></tr>
 <tr><td>User acceptance</td><td>Enthusiastic</td><td>Enthusiastic</td><td>Resistant</td></tr>
 </table>
@@ -161,8 +198,8 @@ n\cdot 9.99 > 200 + 0.004\cdot n^{1.05}
 <div class="finding">
 <p class="lb">Key Insights</p>
 <ol>
-<li><strong>De-transactionalization is most disruptive when \(p/V_0\) is large.</strong> When per-use pricing is high relative to base value, removing it produces a large \(\Delta\beta\) and potentially reverses the sign of effective anti-rivalry. Netflix/Blockbuster is the extreme case.</li>
-<li><strong>Intrinsic anti-rivalry determines the payoff.</strong> De-transactionalization only amplifies anti-rivalry that already exists. For goods with high \(\beta_0\) (music, social), the amplification is transformative. For goods with low \(\beta_0\) (productivity tools), it is marginal.</li>
+<li><strong>De-transactionalization is most disruptive when demand friction \(\eta\,p\) is large.</strong> When per-use pricing excludes a large fraction of potential users from the anti-rival network, removing it produces dramatic gains in both per-user value and total network scale. Netflix/Blockbuster is the extreme case (\(\eta\,p=2.0\), two-thirds of users excluded).</li>
+<li><strong>Intrinsic anti-rivalry determines the per-user payoff.</strong> The per-user value ratio \((1+\eta\,p)^{\beta_0}\) depends on \(\beta_0\): for goods with high \(\beta_0\) (music, social), even moderate friction produces meaningful per-user losses. For goods with low \(\beta_0\) (productivity tools), the per-user effect is small regardless of friction.</li>
 <li><strong>The viability band is the critical constraint.</strong> Subscription models must cross \(n_{\min}\) before running out of capital. Spotify took 17 years; Netflix took 10; Adobe achieved it quickly because it converted existing perpetual-license customers to subscribers (a captive conversion, not a cold start).</li>
 </ol>
 </div>

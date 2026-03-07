@@ -189,18 +189,22 @@ V(n) = V_0 \cdot n^{\beta} \cdot h\!\left(\frac{M}{n^{\gamma}}\right), \qquad h(
 <div class="definition">
 <p class="label">Definition 3.1 (Ecosystem Anti-Rival Value)</p>
 \[
-V_a(x_L, x_T) = V_0 \left(1 + \beta_L \cdot x_L + \beta_T \cdot x_T\right)^{\eta}
+V_a(x_L, x_T) = V_0 \left(1 + a_L \cdot x_L + a_T \cdot x_T\right)^{\eta}
 \]
-<p>where \(\beta_L &gt; \beta_T &gt; 0\) are strategy-specific anti-rivalry contributions and \(\eta &gt; 0\) controls the curvature of returns. The ordering \(\beta_L &gt; \beta_T\) reflects the structural difference between the two approaches: Leverage strategies amplify coupling between rival and anti-rival components (connecting them so that anti-rival sharing optimizes rival resource consumption), thereby generating stronger ecosystem-level anti-rival value. Transform strategies reduce coupling (minimizing bidirectional interference between rival and anti-rival components), which preserves anti-rival value but at a lower intensity because the synergy-seeking simplification attenuates the network effects that full coupling would amplify.</p>
+<p>where \(a_L &gt; a_T &gt; 0\) are strategy-specific <em>population-level contribution weights</em> and \(\eta &gt; 0\) controls the curvature of returns. These weights are linked to the intrinsic anti-rivalry exponent \(\beta\) (from Section 2.1) through coupling amplification factors:</p>
+\[
+a_L = \beta \cdot \lambda_L, \quad a_T = \beta \cdot \lambda_T, \qquad \lambda_L > \lambda_T > 0
+\]
+<p>where \(\lambda_L &gt; 1\) captures the amplification from Leverage&rsquo;s symbiosis-seeking approach (connecting rival and anti-rival components for mutual optimization generates stronger ecosystem effects than the intrinsic anti-rivalry alone) and \(\lambda_T &lt; \lambda_L\) captures the attenuated contribution from Transform&rsquo;s synergy-seeking approach (minimizing bidirectional interference preserves anti-rival value but at lower intensity because simplification attenuates the network effects that full coupling would amplify). Separating \(a_L, a_T\) from \(\beta\) avoids overloading the symbol \(\beta\), which is reserved throughout for the intrinsic anti-rivalry exponent in \(V(n) = V_0 \cdot n^{\beta}\).</p>
 </div>
 
-<p>We also incorporate the rivalrous complement through a governance quality function. The fraction of firms investing in governance and community infrastructure determines the quality modulator:</p>
+<p>We also incorporate the rivalrous complement through a governance quality function. Both Leverage and Transform firms contribute to ecosystem governance, but at different intensities:</p>
 
 \[
-h(x_L) = \frac{x_L}{x_L + \kappa_G}
+h(x_L, x_T) = \frac{x_L + \omega \cdot x_T}{x_L + \omega \cdot x_T + \kappa_G}, \qquad 0 < \omega < 1
 \]
 
-<p>where \(\kappa_G\) is the governance half-saturation constant. Only \(L\)-strategy firms contribute to ecosystem governance (community governance, stewardship, shared ownership patterns from Mechanisms 1 and 7), so governance quality depends solely on \(x_L\).</p>
+<p>where \(\kappa_G\) is the governance half-saturation constant and \(\omega\) is the <em>Transform governance weight</em>. Leverage firms contribute to governance at full weight (community governance, stewardship, shared ownership patterns from Mechanisms 1 and 7), while Transform firms contribute at attenuated weight \(\omega &lt; 1\) through their own interface-simplification mechanisms. This single function replaces the earlier separate definitions for \(L\)- and \(T\)-accessible governance. A key consequence: at \((x_L = 0,\, x_T = \varepsilon)\), \(h(0, \varepsilon) > 0\), so Transform <em>can</em> bootstrap governance without requiring Leverage firms to be present.</p>
 
 <h3>3.3 Payoff Functions</h3>
 
@@ -208,27 +212,37 @@ h(x_L) = \frac{x_L}{x_L + \kappa_G}
 <p class="label">Definition 3.2 (Strategy Payoffs)</p>
 <p>The fitness of each strategy is:</p>
 \[
-\pi_L = \varphi_L \cdot V_a(x_L, x_T) \cdot h(x_L) - c_L
+\pi_L = s_L(\beta) + \varphi_L \cdot V_a(x_L, x_T) \cdot h(x_L, x_T) - c_L
 \]
 \[
-\pi_T = \varphi_T \cdot V_a(x_L, x_T) \cdot h_T(x_L, x_T) - c_T
+\pi_T = s_T(\beta) + \varphi_T \cdot V_a(x_L, x_T) \cdot h(x_L, x_T) - c_T
 \]
 \[
-\pi_R = R_0 - \delta \cdot V_a(x_L, x_T) \cdot h(x_L)
+\pi_R = R_0 - \delta \cdot V_a(x_L, x_T) \cdot h(x_L, x_T)
 \]
-<p>where:</p>
+<p>where the <em>standalone efficiency terms</em> are:</p>
+\[
+s_L(\beta) = \beta \cdot \psi_L, \qquad s_T(\beta) = \beta \cdot \psi_T, \qquad \psi_L > \psi_T > 0
+\]
+<p>and:</p>
 <ul>
+<li>\(s_L(\beta), s_T(\beta)\): intrinsic efficiency gains from adopting anti-rival practices <em>independent of ecosystem size</em>. Even a single firm adopting Leverage or Transform practices benefits from internal efficiencies (reduced duplication, learning effects, better internal knowledge flows) proportional to the good&rsquo;s intrinsic anti-rivalry \(\beta\). The ordering \(\psi_L &gt; \psi_T\) reflects that symbiosis-seeking practices yield larger standalone efficiency gains because tight coupling captures more anti-rival value even internally.</li>
 <li>\(\varphi_L &gt; \varphi_T &gt; 1\): differential access multipliers. Leverage firms capture disproportionate returns from anti-rival value because their symbiosis-seeking approach&mdash;connecting rival and anti-rival components&mdash;creates strategic positions (ecosystem centrality, data flows, integration advantages) that amplify value capture. Transform firms capture moderate returns because their synergy-seeking approach&mdash;minimizing bidirectional interference&mdash;yields a simpler but less strategically differentiated position.</li>
 <li>\(c_L &gt; c_T &gt; 0\): cost ordering. Leverage strategies require higher investment because maintaining the dual structural moves (detaching rival costs from anti-rival sharing while connecting the sides for optimization) demands complex institutional infrastructure (governance mechanisms, community coordination, transparency systems). Transform strategies have lower costs because decreasing institutional complexity is inherently less infrastructure-intensive than leveraging it.</li>
-<li>\(h_T(x_L, x_T) = \frac{x_L + \alpha_T x_T}{x_L + \alpha_T x_T + \kappa_G}\): governance quality accessible to \(T\)-firms. The coefficient \(0 &lt; \alpha_T &lt; 1\) reflects that Transform firms contribute to ecosystem governance through their own mechanisms (offering restructuring, interface simplification) but at lower intensity than Leverage firms, whose approach is specifically designed to build and maintain complex governance structures. Transform firms also benefit from the governance infrastructure that Leverage firms create, as the simplified interfaces they rely on presuppose some baseline ecosystem coordination.</li>
+<li>\(h(x_L, x_T)\): the unified governance quality function from Definition 3.1, shared by all strategies.</li>
 <li>\(R_0\): base returns from traditional rival goods business models.</li>
 <li>\(\delta &gt; 0\): competitive displacement coefficient. As the anti-rival ecosystem grows, traditional business models lose market share to firms offering anti-rival value.</li>
 </ul>
 </div>
 
 <div class="remark">
+<p class="label">Remark 3.0 (Standalone Efficiency Terms)</p>
+<p>The terms \(s_L(\beta)\) and \(s_T(\beta)\) are economically motivated by the observation that anti-rival practices generate value even without ecosystem participation. A firm that adopts open internal knowledge-sharing practices (a Leverage practice) benefits from reduced duplication, faster internal learning, and better cross-team coordination, regardless of how many other firms do likewise. Similarly, a firm that de-transactionalizes its internal processes (a Transform practice) reduces friction and gains efficiency proportional to the good&rsquo;s anti-rivalry. These standalone terms are crucial for the phase transition analysis (Section 8): without them, the all-Restrict vertex \((0,0)\) would be locally stable for <em>all</em> parameter values, making Phase IV (Leverage dominance) impossible by construction. With standalone terms, the all-Restrict state becomes unstable when \(\beta\) is sufficiently large, creating a genuine phase transition.</p>
+</div>
+
+<div class="remark">
 <p class="label">Remark 3.1 (Justification of the Displacement Effect)</p>
-<p>The negative term \(-\delta \cdot V_a \cdot h\) in \(\pi_R\) captures a key empirical regularity: when substantial anti-rival value exists in the ecosystem (e.g., high-quality open-source software), firms using restrictive strategies face competitive pressure. Customers can access anti-rival alternatives, reducing the market for proprietary offerings. This is <em>not</em> symmetric: \(L\)-firms do not suffer from the existence of \(R\)-firms, because restrictive strategies do not create comparable anti-rival value. The asymmetry is structural and reflects the positive-sum nature of anti-rival value creation.</p>
+<p>The negative term \(-\delta \cdot V_a \cdot h(x_L, x_T)\) in \(\pi_R\) captures a key empirical regularity: when substantial anti-rival value exists in the ecosystem (e.g., high-quality open-source software), firms using restrictive strategies face competitive pressure. Customers can access anti-rival alternatives, reducing the market for proprietary offerings. This is <em>not</em> symmetric: \(L\)-firms do not suffer from the existence of \(R\)-firms, because restrictive strategies do not create comparable anti-rival value. The asymmetry is structural and reflects the positive-sum nature of anti-rival value creation. Note that \(\pi_R\) uses the same governance function \(h(x_L, x_T)\) as the other strategies: the displacement pressure on Restrict is proportional to the total governance quality that Leverage and Transform firms jointly create.</p>
 </div>
 
 <h3>3.4 Replicator Dynamics</h3>
@@ -251,17 +265,14 @@ h(x_L) = \frac{x_L}{x_L + \kappa_G}
 <p>Substituting and expanding the fitness differences:</p>
 
 \[
-\pi_L - \pi_R = \varphi_L \cdot V_a \cdot h(x_L) - c_L - R_0 + \delta \cdot V_a \cdot h(x_L)
-\]
-\[
-= (\varphi_L + \delta) \cdot V_a(x_L, x_T) \cdot h(x_L) - (c_L + R_0)
+\pi_L - \pi_R = s_L(\beta) + (\varphi_L + \delta) \cdot V_a(x_L, x_T) \cdot h(x_L, x_T) - (c_L + R_0)
 \]
 
 \[
-\pi_T - \pi_R = \varphi_T \cdot V_a \cdot h_T - c_T - R_0 + \delta \cdot V_a \cdot h(x_L)
+\pi_T - \pi_R = s_T(\beta) + (\varphi_T + \delta) \cdot V_a(x_L, x_T) \cdot h(x_L, x_T) - (c_T + R_0)
 \]
 
-<p>These expressions reveal the key structural feature: the fitness differences are <em>state-dependent</em>, increasing with the anti-rival ecosystem value \(V_a\) and governance quality \(h\). This creates positive feedback: more leverage firms &rarr; higher \(V_a\) and \(h\) &rarr; higher relative fitness of leveraging &rarr; more leverage firms. The dynamics are thus inherently nonlinear.</p>
+<p>These expressions reveal two distinct fitness channels. The <em>ecosystem channel</em> \((\varphi + \delta) \cdot V_a \cdot h\) is state-dependent, increasing with anti-rival ecosystem value and governance quality, creating positive feedback: more sharing firms &rarr; higher \(V_a\) and \(h\) &rarr; higher relative fitness &rarr; more sharing firms. The <em>standalone channel</em> \(s(\beta)\) is state-independent, depending only on the intrinsic anti-rivalry parameter. This standalone channel is what makes invasion of the all-Restrict state possible when \(\beta\) is sufficiently large.</p>
 
 <h3>3.5 Fixed Point Analysis</h3>
 
@@ -269,9 +280,9 @@ h(x_L) = \frac{x_L}{x_L + \kappa_G}
 <p class="label">Theorem 3.1 (Fixed Points of the Three-Strategy Model)</p>
 <p>The system has the following fixed points:</p>
 <ol>
-<li><strong>All-Restrict vertex</strong> \((0, 0)\): Always exists. Payoffs reduce to \(\pi_R = R_0\).</li>
-<li><strong>All-Leverage vertex</strong> \((1, 0)\): Exists. Fitness is \(\pi_L = \varphi_L \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L\).</li>
-<li><strong>All-Transform vertex</strong> \((0, 1)\): Exists. Fitness is \(\pi_T = \varphi_T \cdot V_0(1+\beta_T)^{\eta} \cdot \frac{\alpha_T}{\alpha_T + \kappa_G} - c_T\).</li>
+<li><strong>All-Restrict vertex</strong> \((0, 0)\): Always exists. Payoffs reduce to \(\pi_L = s_L(\beta) - c_L\), \(\pi_T = s_T(\beta) - c_T\), \(\pi_R = R_0\).</li>
+<li><strong>All-Leverage vertex</strong> \((1, 0)\): Exists. Fitness is \(\pi_L = s_L(\beta) + \varphi_L \cdot V_0(1+a_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L\).</li>
+<li><strong>All-Transform vertex</strong> \((0, 1)\): Exists. Fitness is \(\pi_T = s_T(\beta) + \varphi_T \cdot V_0(1+a_T)^{\eta} \cdot \frac{\omega}{\omega + \kappa_G} - c_T\).</li>
 <li><strong>Interior fixed point</strong> \((x_L^*, x_T^*)\): Exists when \(\pi_L = \pi_T = \pi_R\), requiring specific parameter configurations.</li>
 <li><strong>Edge fixed points</strong>: On the \(L\)&ndash;\(R\), \(T\)&ndash;\(R\), and \(L\)&ndash;\(T\) edges, defined by pairwise fitness equalities.</li>
 </ol>
@@ -281,34 +292,74 @@ h(x_L) = \frac{x_L}{x_L + \kappa_G}
 
 <div class="proposition">
 <p class="label">Proposition 3.1 (Invasion Conditions)</p>
-<p><strong>(a) Leverage invades Restrict:</strong> Strategy \(L\) can invade an all-\(R\) population when:</p>
+<p><strong>(a) Leverage invades Restrict:</strong> At the all-\(R\) vertex \((0,0)\), the invasion fitness of \(L\) is:</p>
 \[
-\pi_L\big|_{x_L=0, x_T=0} > \pi_R\big|_{x_L=0, x_T=0}
+\pi_L\big|_{(0,0)} - \pi_R\big|_{(0,0)} = s_L(\beta) - c_L - R_0 = \beta \psi_L - c_L - R_0
 \]
+<p>This has two components. The ecosystem channel vanishes because \(h(0,0) = 0\), but the <em>standalone channel</em> does not. Leverage invades when:</p>
 \[
-\Longleftrightarrow \quad (\varphi_L + \delta) \cdot V_0 \cdot \frac{\varepsilon}{\varepsilon + \kappa_G} > c_L + R_0
+\beta > \beta_{\text{inv}}^L \;=\; \frac{c_L + R_0}{\psi_L}
 \]
-<p>where \(\varepsilon \to 0\) represents a vanishingly small fraction of leverage firms. Since \(h(\varepsilon) \to 0\) as \(\varepsilon \to 0\), leverage <strong>cannot invade</strong> an all-Restrict population through infinitesimal perturbation. The leverage strategy requires a critical mass to establish viable governance (\(h(x_L) &gt; 0\) requires \(x_L &gt; 0\)).</p>
+<p>Below this threshold, the all-Restrict population resists invasion.</p>
 
-<p><strong>(b) Transform invades Restrict:</strong> Similarly, \(T\) cannot invade through infinitesimal perturbation because \(h_T(0, \varepsilon) \to 0\).</p>
+<p><strong>(b) Transform invades Restrict:</strong> By the same logic, Transform invades when:</p>
+\[
+\beta > \beta_{\text{inv}}^T \;=\; \frac{c_T + R_0}{\psi_T}
+\]
+<p>Since \(c_T &lt; c_L\) and \(\psi_T &lt; \psi_L\), the ordering of these thresholds depends on parameter values.</p>
 
 <p><strong>(c) Restrict invades Leverage:</strong> Strategy \(R\) can invade an all-\(L\) population when:</p>
 \[
-R_0 > (\varphi_L + \delta) \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L - \delta \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G}
-\]
-\[
-\Longleftrightarrow \quad R_0 + c_L > \varphi_L \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G}
+R_0 > s_L(\beta) + \varphi_L \cdot V_0(1+a_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L
 \]
 <p>This fails (Restrict cannot invade) when the anti-rival ecosystem is sufficiently valuable.</p>
 </div>
 
 <div class="critical">
 <p class="label">Critical Observation 3.1</p>
-<p>The inability of anti-rival strategies to invade an all-Restrict population through infinitesimal perturbation is a fundamental structural result. It implies that the transition from traditional to anti-rival business models <em>cannot be gradual</em>&mdash;it requires a critical mass. This is the business model analogue of the tipping point dynamics identified in Module 9 for anti-rivalrous contribution games. Mathematically, the all-Restrict vertex \((0,0)\) is always locally stable, making the system <strong>bistable</strong> when anti-rival strategies are also viable at higher frequencies.</p>
-<p>This has a profound implication: in economies where traditional business models are entrenched, anti-rival business model innovation requires coordinated entry&mdash;a sufficient number of firms must simultaneously adopt leveraging or transforming strategies to create enough ecosystem value and governance quality to sustain themselves. This provides a formal justification for the ecosystem-level entrepreneurship and policy intervention that the anti-rival goods literature calls for.</p>
+<p>The stability of the all-Restrict vertex \((0,0)\) now depends on the anti-rivalry parameter \(\beta\). For low \(\beta\) (below \(\beta_{\text{inv}}^L\) and \(\beta_{\text{inv}}^T\)), the all-Restrict state is locally stable: anti-rival strategies cannot invade because their standalone efficiency gains are insufficient to offset their costs. However, for high \(\beta\) (above both thresholds), the all-Restrict state is <em>unstable</em>: both Leverage and Transform can invade through the standalone channel alone, without requiring any ecosystem coordination.</p>
+<p>This resolves a conceptual difficulty in the original formulation, where the all-Restrict vertex was <em>always</em> locally stable, making Phase IV (Leverage dominance) impossible by construction. With standalone terms, the system exhibits genuine phase transitions: at low \(\beta\) the system is trapped in all-Restrict; at intermediate \(\beta\) the system is bistable (requiring coordinated entry to escape all-Restrict); at high \(\beta\) the all-Restrict state destabilises and the system transitions toward anti-rival strategies without requiring coordinated entry.</p>
+<p>The practical implication remains that at intermediate \(\beta\) values&mdash;where most contemporary digital economies operate&mdash;ecosystem-level coordination is required. The standalone terms shift the all-Restrict boundary from &ldquo;always stable&rdquo; to &ldquo;conditionally stable,&rdquo; creating the possibility of natural transitions as technology increases \(\beta\).</p>
 </div>
 
-<h3>3.6 Stability on the Leverage&ndash;Restrict Edge</h3>
+<h3>3.6 Jacobian-Based Stability Analysis</h3>
+
+<p>We provide explicit Jacobian computations at each vertex of the simplex. The replicator dynamics on the 2-simplex, projected onto coordinates \((x_L, x_T)\) with \(x_R = 1 - x_L - x_T\), have the Jacobian \(J = \partial(\dot{x}_L, \dot{x}_T)/\partial(x_L, x_T)\). At the vertices, the Jacobian is diagonal (Hofbauer &amp; Sigmund, 1998, Ch.&nbsp;7), with eigenvalues given by the invasion fitness of each absent strategy.</p>
+
+<div class="proposition">
+<p class="label">Proposition 3.2 (Vertex Stability via Jacobian)</p>
+
+<p><strong>At \((0, 0)\) &mdash; All-Restrict:</strong></p>
+\[
+J(0,0) = \operatorname{diag}\!\left(\pi_L - \pi_R,\;\pi_T - \pi_R\right)\bigg|_{(0,0)} = \operatorname{diag}\!\left(\beta\psi_L - c_L - R_0,\;\beta\psi_T - c_T - R_0\right)
+\]
+<p>Stable when both eigenvalues are negative: \(\beta &lt; \min\!\left(\frac{c_L + R_0}{\psi_L},\;\frac{c_T + R_0}{\psi_T}\right)\). The phase boundaries are:</p>
+<ul>
+<li>\(\beta_{\text{inv}}^T = (c_T + R_0)/\psi_T\): Transform invasion threshold</li>
+<li>\(\beta_{\text{inv}}^L = (c_L + R_0)/\psi_L\): Leverage invasion threshold</li>
+</ul>
+
+<p><strong>At \((1, 0)\) &mdash; All-Leverage:</strong></p>
+\[
+J(1,0) = \operatorname{diag}\!\left(\pi_R - \pi_L,\;\pi_T - \pi_L\right)\bigg|_{(1,0)}
+\]
+<p>The first eigenvalue (Restrict invasion) is \(\lambda_1 = R_0 - s_L(\beta) - \varphi_L V_0(1+a_L)^\eta \frac{1}{1+\kappa_G} + c_L\). The second eigenvalue (Transform invasion) is \(\lambda_2 = s_T - s_L + (\varphi_T - \varphi_L) V_0(1+a_L)^\eta \frac{1}{1+\kappa_G} - c_T + c_L\). All-Leverage is stable when both eigenvalues are negative.</p>
+
+<p><strong>At \((0, 1)\) &mdash; All-Transform:</strong></p>
+\[
+J(0,1) = \operatorname{diag}\!\left(\pi_L - \pi_T,\;\pi_R - \pi_T\right)\bigg|_{(0,1)}
+\]
+<p>The first eigenvalue (Leverage invasion) is \(\lambda_1 = s_L - s_T + (\varphi_L - \varphi_T) V_0(1+a_T)^\eta \frac{\omega}{\omega+\kappa_G} - c_L + c_T\). The second eigenvalue (Restrict invasion) is \(\lambda_2 = R_0 - s_T(\beta) - \varphi_T V_0(1+a_T)^\eta \frac{\omega}{\omega+\kappa_G} + c_T\). All-Transform is stable when both are negative.</p>
+
+<p><strong>On each edge:</strong> The transverse eigenvalue determines whether the edge is attracting or repelling for the absent strategy. On the \(L\)&ndash;\(R\) edge (\(x_T = 0\)), the transverse eigenvalue for Transform at each point \((x, 0, 1-x)\) is \(\pi_T(x, 0) - \bar{\pi}(x, 0)\). If this is negative everywhere on the edge, Transform cannot invade any \(L\)&ndash;\(R\) mixture and the edge dynamics fully determine the long-run outcome.</p>
+</div>
+
+<div class="remark">
+<p class="label">Remark 3.2 (Simplex Projection)</p>
+<p>The Jacobian computations above use the standard simplex projection. On the boundary of \(\Delta^2\), the replicator dynamics reduce to lower-dimensional replicator systems. The vertex eigenvalues coincide with invasion fitnesses, which is a classical result (Hofbauer &amp; Sigmund, 1998, Ch.&nbsp;7, Theorem 7.2.1). The diagonal structure at vertices follows from the factored form \(\dot{x}_i = x_i(\pi_i - \bar{\pi})\): at a vertex where \(x_i = 0\), \(\partial \dot{x}_i / \partial x_j = 0\) for \(j \neq i\).</p>
+</div>
+
+<h3>3.7 Stability on the Leverage&ndash;Restrict Edge</h3>
 
 <p>The most analytically tractable reduction is the two-strategy game between \(L\) and \(R\) (setting \(x_T = 0\)). Let \(x = x_L\), so \(x_R = 1 - x\). The replicator equation becomes:</p>
 
@@ -319,33 +370,35 @@ R_0 > (\varphi_L + \delta) \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G
 <p>where:</p>
 
 \[
-\pi_L(x) - \pi_R(x) = (\varphi_L + \delta) \cdot V_0(1 + \beta_L x)^{\eta} \cdot \frac{x}{x + \kappa_G} - (c_L + R_0)
+\pi_L(x) - \pi_R(x) = s_L(\beta) + (\varphi_L + \delta) \cdot V_0(1 + a_L x)^{\eta} \cdot \frac{x}{x + \kappa_G} - (c_L + R_0)
 \]
 
-<p>Define \(F(x) = (\varphi_L + \delta) \cdot V_0(1 + \beta_L x)^{\eta} \cdot \frac{x}{x + \kappa_G}\). This function satisfies \(F(0) = 0\) and is strictly increasing for \(x &gt; 0\) (both factors are increasing in \(x\)). Therefore:</p>
+<p>Define \(F(x) = (\varphi_L + \delta) \cdot V_0(1 + a_L x)^{\eta} \cdot \frac{x}{x + \kappa_G}\) and let \(\tilde{c} = c_L + R_0 - s_L(\beta)\) be the <em>effective threshold</em>, reduced by the standalone efficiency gain. Note \(F(0) = 0\) and \(F\) is strictly increasing for \(x &gt; 0\). The tipping point condition is \(F(x^*) = \tilde{c}\). Therefore:</p>
 
 <div class="theorem">
 <p class="label">Theorem 3.2 (Bistability on the \(L\)&ndash;\(R\) Edge)</p>
-<p>On the \(L\)&ndash;\(R\) edge, the dynamics exhibit one of two regimes:</p>
+<p>On the \(L\)&ndash;\(R\) edge, let \(\tilde{c} = c_L + R_0 - s_L(\beta)\). The dynamics exhibit one of three regimes:</p>
 <ol>
-<li><strong>If \(F(1) &lt; c_L + R_0\):</strong> The fitness difference \(\pi_L - \pi_R &lt; 0\) for all \(x \in (0,1]\). The all-Restrict state \(x = 0\) is globally stable. Anti-rival leverage strategies are not viable.</li>
-<li><strong>If \(F(1) &gt; c_L + R_0\):</strong> By the intermediate value theorem, there exists a unique \(x^* \in (0,1)\) such that \(F(x^*) = c_L + R_0\). The dynamics are bistable: \(x = 0\) is stable for \(x &lt; x^*\), \(x = 1\) is stable for \(x &gt; x^*\), and \(x^*\) is an unstable tipping point.</li>
+<li><strong>If \(\tilde{c} \leq 0\)</strong> (equivalently, \(\beta \geq (c_L + R_0)/\psi_L\)): The standalone efficiency alone exceeds the cost-plus-displacement threshold. Leverage dominates: \(\pi_L &gt; \pi_R\) for all \(x \in [0,1]\), and \(x = 1\) is globally stable.</li>
+<li><strong>If \(\tilde{c} &gt; 0\) and \(F(1) &lt; \tilde{c}\):</strong> The ecosystem channel is too weak even at full adoption. The all-Restrict state \(x = 0\) is globally stable.</li>
+<li><strong>If \(\tilde{c} &gt; 0\) and \(F(1) &gt; \tilde{c}\):</strong> By the intermediate value theorem, there exists a unique \(x^* \in (0,1)\) such that \(F(x^*) = \tilde{c}\). The dynamics are bistable: \(x = 0\) is stable for \(x &lt; x^*\), \(x = 1\) is stable for \(x &gt; x^*\), and \(x^*\) is an unstable tipping point.</li>
 </ol>
 </div>
 
 <div class="proof-box">
 <p class="label">Proof</p>
-<p>\(F(x)\) is continuous on \([0,1]\) with \(F(0) = 0\). Since \(F\) is strictly increasing (as a product of two strictly increasing positive functions for \(x &gt; 0\)), if \(F(1) &gt; c_L + R_0\), there exists exactly one crossing point \(x^*\) where \(F(x^*) = c_L + R_0\). For \(x &lt; x^*\), \(F(x) &lt; c_L + R_0\), so \(\pi_L - \pi_R &lt; 0\) and \(\dot{x} &lt; 0\). For \(x &gt; x^*\), \(\pi_L - \pi_R &gt; 0\) and \(\dot{x} &gt; 0\). The monotonicity of \(F\) guarantees uniqueness of \(x^*\).</p>
+<p>Regime 1: When \(\tilde{c} \leq 0\), \(\pi_L - \pi_R = F(x) - \tilde{c} \geq F(x) \geq 0\) for all \(x\), with strict inequality for \(x &gt; 0\). At \(x = 0\), \(\pi_L - \pi_R = -\tilde{c} \geq 0\), with strict inequality when \(\beta &gt; (c_L + R_0)/\psi_L\). Hence \(x = 1\) is globally stable.</p>
+<p>Regimes 2&ndash;3: When \(\tilde{c} &gt; 0\), \(F(x)\) is continuous on \([0,1]\) with \(F(0) = 0\) and strictly increasing. If \(F(1) &gt; \tilde{c}\), there exists exactly one crossing point \(x^*\) where \(F(x^*) = \tilde{c}\). For \(x &lt; x^*\), \(F(x) &lt; \tilde{c}\), so \(\pi_L - \pi_R &lt; 0\) and \(\dot{x} &lt; 0\). For \(x &gt; x^*\), \(\pi_L - \pi_R &gt; 0\) and \(\dot{x} &gt; 0\).</p>
 <p class="qed">&#9632;</p>
 </div>
 
-<p>The tipping point \(x^*\) satisfies:</p>
+<p>The tipping point \(x^*\) (when it exists) satisfies:</p>
 
 \[
-(\varphi_L + \delta) \cdot V_0 (1 + \beta_L x^*)^{\eta} \cdot \frac{x^*}{x^* + \kappa_G} = c_L + R_0
+(\varphi_L + \delta) \cdot V_0 (1 + a_L x^*)^{\eta} \cdot \frac{x^*}{x^* + \kappa_G} = c_L + R_0 - \beta \psi_L
 \]
 
-<p>This equation does not admit a closed-form solution for general \(\eta\), but its qualitative behavior is clear: \(x^*\) decreases as \(\beta_L\) increases (stronger anti-rivalry lowers the tipping point), as \(V_0\) increases (higher base value), and as \(R_0\) decreases (weaker traditional alternatives). Conversely, \(x^*\) increases with \(c_L\) (higher leveraging costs) and \(\kappa_G\) (more demanding governance requirements).</p>
+<p>This equation does not admit a closed-form solution for general \(\eta\), but its qualitative behavior is clear: \(x^*\) decreases as \(a_L\) increases (stronger contribution weight lowers the tipping point), as \(\beta\) increases (higher standalone efficiency reduces the effective threshold \(\tilde{c}\)), as \(V_0\) increases (higher base value), and as \(R_0\) decreases (weaker traditional alternatives). Conversely, \(x^*\) increases with \(c_L\) (higher leveraging costs) and \(\kappa_G\) (more demanding governance requirements). When \(\beta\) crosses \((c_L + R_0)/\psi_L\), the tipping point vanishes entirely&mdash;this is the Phase IV transition.</p>
 
 <!-- ============================================================ -->
 <h2 id="sec4">4. Model II: The Community Governance Game</h2>
@@ -390,8 +443,9 @@ R_0 > (\varphi_L + \delta) \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G
 <p class="label">Theorem 4.1 (Business Model Governance Trap)</p>
 <p>A community-based business model operating under Mechanism 1 is in a governance trap if and only if \(\sigma &lt; c_G - c_C\). When this condition holds:</p>
 <ol>
-<li>The governance contribution fraction \(y(t)\) is monotonically decreasing.</li>
-<li>As \(y \to 0\), the commons value \(V(x,y) \to 0\) regardless of content contribution \(x\).</li>
+<li>The governance-to-content ratio \(y(t)/x(t)\) is monotonically decreasing: \(\frac{d}{dt}\ln(y/x) = \sigma - (c_G - c_C) &lt; 0\).</li>
+<li>The <em>absolute</em> governance share \(y(t)\) may temporarily increase (when \(\pi_G &gt; \bar{\pi}\)) before eventually declining as the ratio \(y/x \to 0\) pulls \(y\) down.</li>
+<li>Eventually \(y\) becomes small enough that \(h(y) \approx 0\), causing \(V(x,y) \to 0\).</li>
 <li>When \(V \to 0\), content contribution is also dominated: \(\pi_C - \pi_F = (\varphi - 1) \cdot 0 - c_C &lt; 0\).</li>
 <li>The system converges to the all-free-rider state: \((x, y) \to (0, 0)\).</li>
 </ol>
@@ -403,12 +457,18 @@ R_0 > (\varphi_L + \delta) \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G
 \[
 \pi_G - \pi_C = \sigma - (c_G - c_C)
 \]
-<p>When \(\sigma &lt; c_G - c_C\), this difference is negative and <em>constant</em>&mdash;independent of the population state. Therefore, governance contribution is strictly dominated by content contribution at every state. In the replicator dynamics, this implies:</p>
+<p>When \(\sigma &lt; c_G - c_C\), this difference is negative and <em>constant</em>&mdash;independent of the population state. In any population containing both \(G\) and \(C\) types, the ratio \(y/x\) satisfies:</p>
 \[
-\dot{y} = y(\pi_G - \bar{\pi}) < y(\pi_C - \bar{\pi}) = \dot{x}/x \cdot y
+\frac{d}{dt}\ln\!\left(\frac{y}{x}\right) = \pi_G - \pi_C = \sigma - (c_G - c_C) < 0
 \]
-<p>More directly, in any population containing both \(G\) and \(C\) types, the ratio \(y/x\) satisfies \(\frac{d}{dt}\ln(y/x) = \pi_G - \pi_C = \sigma - (c_G - c_C) &lt; 0\), so \(y/x\) decreases exponentially. The governance fraction shrinks relative to the content fraction, and since the quality modulator \(h(y) = y/(y + \kappa)\) requires positive governance for any value to be sustained, the commons eventually collapses.</p>
+<p>so \(y/x\) decreases exponentially at rate \(|c_G - c_C - \sigma|\). This does <em>not</em> immediately imply that \(y\) itself is monotonically decreasing. In the replicator dynamics, \(\dot{y} = y(\pi_G - \bar{\pi})\), and \(\pi_G &gt; \bar{\pi}\) is possible when the free-rider fraction is large and governance contributions are generating substantial community value. Thus \(y(t)\) may have a non-monotonic path, temporarily increasing before the declining ratio eventually forces \(y\) down.</p>
+<p>The collapse sequence is: (1)&nbsp;\(y/x\) declines exponentially; (2)&nbsp;eventually \(y\) becomes small enough that \(h(y) = y/(y+\kappa) \approx 0\); (3)&nbsp;\(V \to 0\); (4)&nbsp;content contribution becomes irrational; (5)&nbsp;convergence to \((0,0)\).</p>
 <p class="qed">&#9632;</p>
+</div>
+
+<div class="remark">
+<p class="label">Remark 4.0 (The Knife-Edge Case)</p>
+<p>When \(\sigma = c_G - c_C\) exactly, governance and content contribution are payoff-equivalent at every state: \(\pi_G = \pi_C\) everywhere. The ratio \(y/x\) is constant along trajectories. The remaining dynamics are determined by the \(C\)&ndash;\(F\) fitness difference \(\pi_C - \pi_F = (\varphi - 1)V(x,y) - c_C\), which defines a curve (not a point) of equilibria in the simplex interior. This knife-edge condition is non-generic and structurally unstable: any perturbation of \(\sigma\) relative to \(c_G - c_C\) breaks the degeneracy and drives the system to either the governance trap (\(\sigma &lt; c_G - c_C\)) or sustained governance (\(\sigma &gt; c_G - c_C\)).</p>
 </div>
 
 <h3>4.4 Connecting BMPs to the Governance Premium</h3>
@@ -465,6 +525,11 @@ V_0 (1 + \beta x)^{\eta} \cdot \frac{y}{y + \kappa} > \frac{c_C}{\varphi - 1}
 <h2 id="sec5">5. Model III: The Subsidization&ndash;Transparency Game</h2>
 
 <p>Mechanism 2 (&ldquo;Subsidizing Sharing-Related Rival Costs to Allow Anti-Rival Sharing&rdquo;) encompasses 8 BMPs including &ldquo;Hidden revenue,&rdquo; &ldquo;Free,&rdquo; &ldquo;Sponsorship,&rdquo; and three social mission patterns. This mechanism creates an asymmetric game between platforms and users.</p>
+
+<div class="remark">
+<p class="label">Remark 5.0 (Structure of this Section)</p>
+<p>This section has two parts that serve different analytical roles. Section 5.1 formulates a <em>single-player optimisation problem</em>: a platform choosing its transparency level to maximise payoff, given user response. This optimisation motivates the strategy space and payoff structure. Section 5.2 then embeds this into a <em>population game</em>: a population of platforms choosing between high-transparency and opaque strategies, with evolutionary dynamics determining the equilibrium transparency level. We retain &ldquo;game&rdquo; in the section title because the population-level dynamics are the substantive contribution.</p>
+</div>
 
 <h3>5.1 The Platform&ndash;User Asymmetric Game</h3>
 
@@ -535,24 +600,27 @@ n_O(p) = n_0 \cdot \alpha \cdot (1 - \lambda p), \qquad \lambda \in (0, 1)
 <h3>6.1 Transactional vs. De-Transactional Value Capture</h3>
 
 <div class="definition">
-<p class="label">Definition 6.1 (Anti-Rivalry Amplification through De-Transactionalization)</p>
-<p>Under a transactional model, each use incurs a price \(p\), creating an effective anti-rivalry parameter:</p>
+<p class="label">Definition 6.1 (Demand-Friction Model of De-Transactionalization)</p>
+<p>The intrinsic anti-rivalry exponent \(\beta_0\) is a property of the good and is <em>not</em> altered by pricing. Instead, per-use pricing affects the <em>realized network size</em> by creating demand friction:</p>
 \[
-\beta_{\text{trans}} = \beta_0 - \frac{p}{V_0}
+n(p) = \frac{n_0}{1 + \eta \cdot p}, \qquad \eta > 0
 \]
-<p>where \(\beta_0\) is the intrinsic anti-rivalry of the good and the subtracted term captures the friction that per-use pricing introduces (each transaction is a micro-enclosure that reduces the effective sharing effect). Under a de-transactional model (subscription/flat-rate), the per-use price is zero and the full anti-rivalry is expressed:</p>
+<p>where \(n_0\) is the potential user base (at zero per-use price) and \(\eta\) is the price sensitivity parameter. The per-user value under each model is:</p>
 \[
-\beta_{\text{sub}} = \beta_0
+V_{\text{trans}}(n(p)) = V_0 \cdot n(p)^{\beta_0} = V_0 \cdot \left(\frac{n_0}{1+\eta p}\right)^{\!\beta_0}
+\]
+\[
+V_{\text{sub}} = V_0 \cdot n_0^{\beta_0} \qquad \text{(subscription: } p = 0\text{)}
 \]
 </div>
 
-<p>The effective anti-rivalry determines the value function experienced by users:</p>
+<p>The value ratio between subscription and transactional models is:</p>
 
 \[
-V_{\text{trans}}(n) = V_0 \cdot n^{\beta_{\text{trans}}}, \qquad V_{\text{sub}}(n) = V_0 \cdot n^{\beta_0}
+\frac{V_{\text{sub}}}{V_{\text{trans}}} = (1 + \eta \cdot p)^{\beta_0}
 \]
 
-<p>Since \(\beta_{\text{sub}} &gt; \beta_{\text{trans}}\) (for \(p &gt; 0\)), subscription models unlock strictly more anti-rival value. However, they also shift revenue risk: the firm must ensure sufficient subscribers to cover costs, whereas transactional models generate revenue proportional to usage.</p>
+<p>This formulation preserves the key insight&mdash;de-transactionalization unlocks anti-rival value&mdash;but grounds it in the economically transparent mechanism of demand friction rather than an ad hoc shift in the anti-rivalry exponent. The exponent \(\beta_0\) remains fixed because anti-rivalry is a property of the good (shared playlists, collaborative recommendations), not of the pricing model. What pricing changes is the <em>number of users participating</em>, and since anti-rival value scales as \(n^{\beta_0}\), fewer participants means less value realized.</p>
 
 <h3>6.2 Critical Subscription Mass</h3>
 
@@ -562,11 +630,16 @@ V_{\text{trans}}(n) = V_0 \cdot n^{\beta_{\text{trans}}}, \qquad V_{\text{sub}}(
 n \cdot f > C_0 + c_m \cdot n^{\gamma}
 \]
 
-<p>For \(\gamma &gt; 1\) (realistic for digital platforms with infrastructure costs), this defines a viability band \(n_{\min} &lt; n &lt; n_{\max}\) rather than a simple minimum. The lower bound \(n_{\min}\) is the critical subscription mass; below it, revenue fails to cover costs. The upper bound \(n_{\max}\) reflects infrastructure limits. This connects directly to the coupled value function: at \(n_{\max}\), the rivalrous complement (infrastructure) becomes the binding constraint.</p>
+<p>For \(\gamma &gt; 1\) (realistic for digital platforms with infrastructure costs), this defines a viability band \(n_{\min} &lt; n &lt; n_{\max}\) rather than a simple minimum. The lower bound \(n_{\min}\) is the critical subscription mass; below it, revenue fails to cover costs. The upper bound \(n_{\max}\) reflects infrastructure limits.</p>
 
 <div class="proposition">
-<p class="label">Proposition 6.1 (De-Transactionalization as a Bifurcation Parameter)</p>
-<p>In the two-strategy game between Transactional (\(T\)) and De-Transactional (\(D\)) business models, the effective anti-rivalry shift \(\Delta\beta = \beta_0 - \beta_{\text{trans}} = p/V_0\) acts as a bifurcation parameter. For small \(\Delta\beta\) (low per-use prices or high base value), the competitive advantage of de-transactionalization is marginal. As \(\Delta\beta\) increases, the coordination game between transactional and de-transactional models exhibits a declining tipping point, making de-transactional models viable at smaller critical masses.</p>
+<p class="label">Proposition 6.1 (Demand-Friction Bifurcation)</p>
+<p>In the two-strategy game between Transactional and De-Transactional (subscription) business models:</p>
+<ol>
+<li>The <em>price-friction product</em> \(\eta \cdot p\) acts as the bifurcation parameter. The value ratio \((1+\eta p)^{\beta_0}\) determines the competitive advantage of de-transactionalization.</li>
+<li>A <em>viability band</em> for the subscription model exists if and only if \(\max_{n&gt;0}(f \cdot n - C_0 - c_m \cdot n^{\gamma}) &gt; 0\). When this condition fails, subscription is not viable at any scale.</li>
+<li>The competitive advantage of de-transactionalization scales with both \(\eta \cdot p\) (how much friction pricing creates) and \(\beta_0\) (how sensitive the good is to network size). For goods with high intrinsic anti-rivalry (\(\beta_0\) large) facing significant price friction (\(\eta p\) large), de-transactionalization is transformative. For goods with low \(\beta_0\) or low \(\eta p\), the advantage is marginal.</li>
+</ol>
 </div>
 
 <!-- ============================================================ -->
@@ -579,63 +652,74 @@ n \cdot f > C_0 + c_m \cdot n^{\gamma}
 <p>Transform strategies (Metamechanism 3) manage the rival&ndash;anti-rival interface by <em>reducing the coupling</em> between rival and anti-rival components. De-transactionalization decouples payment from consumption; digitalization decouples physical constraints from digital sharing; parallel offerings decouple premium rival services from the anti-rival base. This decoupling achieves Transform&rsquo;s dual goals&mdash;minimizing rival limitations on anti-rival sharing and minimizing anti-rival effects on rival resource usage&mdash;but it also <em>attenuates the network amplification</em> that full coupling would enable. By reducing the interface between rival and anti-rival sides, Transform strategies limit the channels through which anti-rival sharing can generate superlinear returns.</p>
 
 <div class="definition">
-<p class="label">Definition 7.1 (Interface Decoupling Coefficient)</p>
-<p>Let \(d \in [0, 1]\) represent the degree to which a Transform-type BMP decouples the rival and anti-rival components of a business model. The effective anti-rivalry under decoupling is:</p>
+<p class="label">Definition 7.1 (Shared Interface Parameter)</p>
+<p>Consider a product line that combines Leverage and Transform business model patterns sharing a single rival&ndash;anti-rival interface. The interface is characterised by a <em>coupling parameter</em> \(\theta \in [0, 1]\):</p>
+<ul>
+<li>\(\theta = 1\): tight coupling (benefits Leverage &mdash; connecting rival and anti-rival components for mutual optimization)</li>
+<li>\(\theta = 0\): loose coupling (benefits Transform &mdash; minimizing bidirectional interference)</li>
+</ul>
+<p>The effective anti-rivalry experienced by each component depends on \(\theta\):</p>
 \[
-\beta_{\text{eff}}(d) = \beta_0 \cdot (1 - d)
+\text{L component: } \beta_0 \cdot \theta, \qquad \text{T component: } \beta_0 \cdot (1 - \theta)
 \]
-<p>Full decoupling (\(d = 1\)) eliminates the network amplification channel, reducing the good to non-rivalrous (\(\beta_{\text{eff}} = 0\)); no decoupling (\(d = 0\)) preserves full anti-rivalry but also full bidirectional interference. Note that Transform strategies operate at intermediate values of \(d\): they seek to <em>minimize</em> (not eliminate) bidirectional interference, so \(d \in (0, 1)\) rather than \(d = 1\). This linear attenuation is a simplification; the qualitative results hold for any monotonically decreasing relationship between decoupling and effective anti-rivalry.</p>
+<p>This captures the structural tension: tight coupling amplifies the network effects that Leverage depends on but increases the bidirectional interference that Transform seeks to minimize, and vice versa. Within a single product line sharing one interface, the firm must choose <em>one</em> \(\theta\).</p>
 </div>
 
-<p>The crucial distinction from simple enclosure is that decoupling is <em>bidirectional</em>: it reduces both (i) the limitations rival resources impose on anti-rival sharing, and (ii) the effects of anti-rival sharing on rival resource usage. This bidirectional reduction is structurally different from merely gating access (which would be a Restrict strategy). Transform strategies are not seeking to exclude users; they are seeking to simplify the interface so that rival and anti-rival components can coexist with less institutional friction.</p>
+<p>The crucial insight is that a shared interface forces the Leverage and Transform components to accept the <em>same</em> coupling level. This is not an assumed incompatibility but a structural constraint: the degree of coupling at an interface is a single parameter, not independently adjustable for different components sharing that interface.</p>
 
 <h3>7.2 Formal Statement</h3>
 
 <div class="theorem">
 <p class="label">Theorem 7.1 (Incompatibility of Leveraging and Decreasing Patterns)</p>
-<p>Consider a business model that combines a fraction \(w\) of leverage-seeking BMPs and a fraction \((1-w)\) of synergy-seeking BMPs, where \(w \in [0, 1]\). The synergy-seeking patterns impose an interface decoupling coefficient \(d &gt; 0\) that attenuates the coupling between rival and anti-rival components. The effective payoff of the mixed configuration is:</p>
+<p>Consider a firm operating a mixed business model with fraction \(w\) of Leverage patterns and fraction \((1-w)\) of Transform patterns, sharing a single interface with coupling parameter \(\theta\). The mixed payoff is:</p>
 \[
-\pi_{\text{mix}}(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0(1-d(1-w))} \cdot h(y) + (1-w) \cdot \varphi_T \cdot V_0 \cdot n^{\beta_0(1-d(1-w))} \cdot h_T - w \cdot c_L - (1-w) \cdot c_T
+\pi_{\text{mix}}(w, \theta) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0 \theta} \cdot h(y) + (1-w) \cdot \varphi_T \cdot V_0 \cdot n^{\beta_0(1-\theta)} \cdot h(y) - w \cdot c_L - (1-w) \cdot c_T
 \]
-<p>The decoupling coefficient applies to the shared interface because within a single product line, the degree of coupling between rival and anti-rival components cannot be simultaneously high (as Leverage requires) and low (as Transform requires). The decoupling introduced by Transform patterns attenuates the network amplification channels that Leverage patterns depend on for superlinear returns.</p>
-
-<p>Define the <strong>incompatibility cost</strong>:</p>
+<p>The firm chooses \(\theta\) to maximise \(\pi_{\text{mix}}\) given its strategy mix \(w\). The key result is that the payoff is <strong>convex in \(\theta\)</strong>:</p>
 \[
-I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0(1-d(1-w))} \cdot h(y)
+\frac{\partial^2 \pi_{\text{mix}}}{\partial \theta^2} = V_0 \cdot (\beta_0 \ln n)^2 \cdot h(y) \cdot \left[w \cdot \varphi_L \cdot n^{\beta_0 \theta} + (1-w) \cdot \varphi_T \cdot n^{\beta_0(1-\theta)}\right] > 0
 \]
-\[
-= w \cdot \varphi_L \cdot V_0 \cdot h(y) \cdot \left[n^{\beta_0} - n^{\beta_0(1-d(1-w))}\right]
-\]
-
-<p>For \(n &gt; 1\), \(\beta_0 &gt; 0\), and \(d &gt; 0\), we have \(n^{\beta_0} &gt; n^{\beta_0(1-d(1-w))}\) whenever \(w &lt; 1\). Therefore \(I(w) &gt; 0\) for all \(w \in (0, 1)\), and \(I(0) = I(1) = 0\).</p>
-
-<p>The source of incompatibility is structural: Leverage requires tight coupling (connecting rival and anti-rival sides for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). The Leverage component suffers a value loss because the decoupling introduced by the Transform component attenuates the network amplification that the Leverage strategy depends on. Symmetrically, the Transform component suffers because the coupling amplified by the Leverage component increases the bidirectional interference that Transform seeks to minimize. This loss is zero only at the pure strategies (\(w = 0\) or \(w = 1\)).</p>
+<p>for \(n &gt; 1\), \(\beta_0 &gt; 0\), and \(w \in (0,1)\). Therefore:</p>
+<ol>
+<li>Any interior critical point \(\theta^*\) satisfying the first-order condition is a <strong>minimum</strong>, not a maximum.</li>
+<li>The firm maximises payoff at the boundary: \(\theta = 0\) or \(\theta = 1\).</li>
+<li>At \(\theta = 1\): the T-component receives \(n^0 = 1\) (dead weight&mdash;no network benefit).</li>
+<li>At \(\theta = 0\): the L-component receives \(n^0 = 1\) (dead weight&mdash;no coupling benefit).</li>
+<li>Pure strategies (\(w = 0\) or \(w = 1\)) avoid this waste: a pure-L firm chooses \(\theta = 1\) naturally, and a pure-T firm chooses \(\theta = 0\).</li>
+</ol>
+<p>The incompatibility is <em>derived</em>, not assumed. It emerges from three structural features: (i)&nbsp;the shared interface constraint (single \(\theta\) per product line), (ii)&nbsp;the convexity of the payoff in \(\theta\) (opposing effects on L and T components), and (iii)&nbsp;no scale threshold is required&mdash;the result holds for all \(n &gt; 1\).</p>
 </div>
 
 <div class="proof-box">
-<p class="label">Proof (Strict Dominance of Pure Strategies)</p>
-<p>We show that for sufficiently large \(n\) (i.e., for business models at scale), the mixed strategy is dominated by at least one pure strategy. Consider the payoff difference between pure leverage (\(w = 1\)) and mixed (\(w \in (0,1)\)):</p>
+<p class="label">Proof</p>
+<p>The first-order condition \(\partial\pi_{\text{mix}}/\partial\theta = 0\) gives:</p>
 \[
-\pi_L - \pi_{\text{mix}}(w) = \varphi_L V_0 h(y) \left[n^{\beta_0} - n^{\beta_0(1-d(1-w))}\right] \cdot (1) + (1-w)(c_T - c_L) - (1-w) \varphi_T V_0 n^{\beta_0(1-d(1-w))} h_T
+w \cdot \varphi_L \cdot n^{\beta_0 \theta} \cdot \beta_0 \ln n = (1-w) \cdot \varphi_T \cdot n^{\beta_0(1-\theta)} \cdot \beta_0 \ln n
 \]
-<p>The first term (value gain from restoring full coupling) grows as \(n^{\beta_0}\), while the third term (lost transform-component revenue) grows as \(n^{\beta_0(1-d(1-w))}\) with a strictly smaller exponent. Therefore, for sufficiently large \(n\):</p>
+<p>which simplifies to \(w \varphi_L \cdot n^{\beta_0 \theta} = (1-w) \varphi_T \cdot n^{\beta_0(1-\theta)}\). This determines an interior \(\theta^*\) for each \(w \in (0,1)\). But since:</p>
 \[
-\lim_{n \to \infty} \frac{\pi_L - \pi_{\text{mix}}(w)}{n^{\beta_0}} = \varphi_L h(y) \left[1 - n^{-\beta_0 d(1-w)}\right] > 0
+\frac{\partial^2 \pi_{\text{mix}}}{\partial \theta^2} = V_0 (\beta_0 \ln n)^2 h(y) \left[w \varphi_L n^{\beta_0\theta} + (1-w)\varphi_T n^{\beta_0(1-\theta)}\right]
 \]
-<p>Hence \(\pi_L &gt; \pi_{\text{mix}}(w)\) for sufficiently large \(n\). A symmetric argument shows that for sufficiently small \(n\) (below the critical mass for leverage strategies), \(\pi_T &gt; \pi_{\text{mix}}(w)\) because the leverage component incurs coupling costs without sufficient scale for the network amplification to justify them.</p>
+<p>is strictly positive for \(n &gt; 1\) and \(w \in (0,1)\), the interior critical point is a minimum. On the compact domain \(\theta \in [0,1]\), the maximum must occur at the boundary. Evaluating:</p>
+<ul>
+<li>At \(\theta = 1\): \(\pi_{\text{mix}} = w \varphi_L V_0 n^{\beta_0} h(y) + (1-w)\varphi_T V_0 \cdot 1 \cdot h(y) - wc_L - (1-w)c_T\)</li>
+<li>At \(\theta = 0\): \(\pi_{\text{mix}} = w \varphi_L V_0 \cdot 1 \cdot h(y) + (1-w)\varphi_T V_0 n^{\beta_0} h(y) - wc_L - (1-w)c_T\)</li>
+</ul>
+<p>In both cases, one component receives \(n^{\beta_0}\) (full network benefit) while the other receives \(n^0 = 1\) (no benefit). The dead-weight component generates revenue \(\varphi V_0 h(y)\) at best, while costing \(c\). A pure strategy eliminates this waste entirely.</p>
+<p>For the comparison with pure strategies: \(\pi_{L,\text{pure}} = \varphi_L V_0 n^{\beta_0} h(y) - c_L\). The best mixed payoff at \(\theta = 1\) is \(\pi_{\text{mix}}(\theta=1) = \pi_{L,\text{pure}} + (1-w)[\varphi_T V_0 h(y) - c_T] - (1-w)[\varphi_L V_0 n^{\beta_0} h(y) - c_L]\). The second bracket is large and positive for \(n &gt; 1\), making the overall expression less than \(\pi_{L,\text{pure}}\) whenever \(\varphi_L n^{\beta_0} - c_L/h &gt; \varphi_T - c_T/h\), which holds for all sufficiently large \(n\).</p>
 <p class="qed">&#9632;</p>
 </div>
 
 <div class="corollary">
 <p class="label">Corollary 7.1 (Evolutionary Elimination of Mixed Strategies)</p>
-<p>In the replicator dynamics with a continuum of strategies indexed by \(w \in [0,1]\), interior strategies (\(0 &lt; w &lt; 1\)) are driven to extinction. The population converges to a mixture of pure leveraging (\(w = 1\)) and pure transforming (\(w = 0\)) firms, with the equilibrium mixture determined by the anti-rivalry level \(\beta_0\) and the community scale \(n\).</p>
+<p>In a population game with a <em>finite</em> set of strategies indexed by \(w \in \{0, w_1, w_2, \ldots, 1\}\), any interior strategy (\(w_i \in (0,1)\)) is dominated by one of the pure strategies (\(w = 0\) or \(w = 1\)) for all \(n &gt; 1\). Under the replicator dynamics, interior strategies are driven to extinction.</p>
+<p><em>Technical remark:</em> Extension to a continuous strategy space \(w \in [0,1]\) requires the strategy space to be compact and the payoff function to be continuous in \(w\)&mdash;both conditions are satisfied here. The convexity of \(\pi_{\text{mix}}\) in \(\theta\) (and the induced suboptimality of interior \(w\)) ensures that the evolutionary stable strategies are concentrated at the boundary \(\{0, 1\}\).</p>
 </div>
 
 <div class="critical">
 <p class="label">Critical Assessment 7.1</p>
-<p>This theorem relies on the assumption that the decoupling effect is <em>global within a product line</em>&mdash;that the interface simplification pursued by Transform patterns is incompatible with the interface amplification pursued by Leverage patterns when they share the same digital good. This assumption is defensible when the patterns target the same rival&ndash;anti-rival interface (e.g., a firm attempting to both tightly couple community development with infrastructure optimization <em>and</em> decouple consumption from infrastructure costs within the same product). It is less applicable when the patterns target <em>different</em> interfaces within a diversified business model, or when the rival and anti-rival components are sufficiently separable that one interface can be coupled while another is decoupled. The theorem should therefore be interpreted as applying within a <em>single product line sharing a common rival&ndash;anti-rival interface</em>, not necessarily across an entire conglomerate.</p>
-<p>A further limitation: the theorem is asymptotic (it holds &ldquo;for sufficiently large \(n\)&rdquo;). At intermediate scales, the mixed strategy may be locally optimal as a transitional configuration. This suggests that firms may rationally adopt mixed strategies during the growth phase before converging to a pure approach at scale&mdash;a prediction that could be tested empirically.</p>
-<p>Finally, note that the linear attenuation model \(\beta_{\text{eff}}(d) = \beta_0(1-d)\) is a simplification of Transform&rsquo;s dual minimization goals. In practice, Transform strategies may achieve their goals asymmetrically&mdash;minimizing rival limitations on anti-rival sharing more effectively than minimizing anti-rival effects on rival usage, or vice versa. A richer model would use separate parameters for each direction of interference, potentially revealing parameter regimes where partial mixing is viable.</p>
+<p>The theorem&rsquo;s key structural assumption is the <em>shared interface constraint</em>: L and T components must use the same coupling parameter \(\theta\). This is defensible when both pattern types target the same rival&ndash;anti-rival interface within a single product line. It does <em>not</em> apply when Leverage and Transform patterns target <em>different interfaces</em>&mdash;for example, when a firm tightly couples community development with code quality (L patterns, one interface) while simultaneously offering simplified managed hosting (T patterns, a separate interface). In such cases, each interface has its own \(\theta\), and the convexity argument does not produce incompatibility. This identifies a precise boundary condition: the theorem applies within a single product line sharing a common rival&ndash;anti-rival interface, and the WordPress complement exception (Section 7 case studies) is exactly the situation where different interfaces eliminate the shared constraint.</p>
+<p>A strength of the revised formulation is that the result holds for <em>all</em> \(n &gt; 1\), not just asymptotically. The incompatibility is present from the smallest scales, though its magnitude (\(\propto (\beta_0 \ln n)^2\)) grows with scale. At very small \(n\) close to 1, the convexity is weak and the payoff difference between mixed and pure strategies may be negligible in practice.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -649,33 +733,26 @@ I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varph
 
 <h3>8.2 Phase Structure</h3>
 
-<p>Consider the two-strategy game between Leverage (\(L\)) and Restrict (\(R\)) from Theorem 3.2. The fitness difference at the all-Leverage state is:</p>
+<p>The phase structure is now determined by the interaction between two channels: the standalone efficiency \(s(\beta) = \beta \psi\) and the ecosystem value \((\varphi + \delta) V_a \cdot h\). We use &ldquo;phase transition&rdquo; in the dynamical systems sense: a qualitative change in the number or stability of equilibria as a parameter crosses a threshold.</p>
 
+<p>From Proposition 3.1, the invasion thresholds at the all-Restrict vertex are:</p>
 \[
-\Delta\pi(1; \beta) \equiv \pi_L(1; \beta) - \pi_R(1; \beta) = (\varphi_L + \delta) \cdot V_0 (1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - (c_L + R_0)
+\beta_{\text{inv}}^T = \frac{c_T + R_0}{\psi_T}, \qquad \beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L}
 \]
 
-<p>Define \(\beta^*\) as the critical anti-rivalry level at which \(\Delta\pi(1; \beta^*) = 0\):</p>
-
-\[
-(1 + \beta_L^*)^{\eta} = \frac{(c_L + R_0)(1 + \kappa_G)}{(\varphi_L + \delta) \cdot V_0}
-\]
-
-\[
-\beta_L^* = \left[\frac{(c_L + R_0)(1 + \kappa_G)}{(\varphi_L + \delta) \cdot V_0}\right]^{1/\eta} - 1
-\]
+<p>The all-Leverage vertex is stable when Restrict cannot invade, i.e., when \(R_0 &lt; s_L(\beta) + \varphi_L V_0(1+a_L)^\eta / (1+\kappa_G) - c_L\). The critical \(\beta\) at which the All-Leverage state first becomes viable (as a stable equilibrium) depends on both the standalone and ecosystem terms.</p>
 
 <div class="theorem">
 <p class="label">Theorem 8.1 (Business Model Phase Transitions)</p>
 <p>As the anti-rivalry parameter \(\beta\) increases from 0, the business model landscape undergoes the following phase transitions:</p>
 
-<p><strong>Phase I</strong> (\(\beta &lt; \beta_{\min}\)): Anti-rivalry is too weak to sustain any anti-rival-friendly strategy. All-Restrict is the unique stable equilibrium. The business landscape is dominated by traditional proprietary business models (compartmentalization and defiance patterns).</p>
+<p><strong>Phase I</strong> (\(\beta &lt; \beta_{\text{inv}}^T\)): Anti-rivalry is too weak to sustain any anti-rival-friendly strategy. All-Restrict is the unique stable equilibrium. Neither Transform nor Leverage can invade because their standalone efficiency gains (\(\beta \psi_T\) and \(\beta \psi_L\)) are insufficient to offset costs.</p>
 
-<p><strong>Phase II</strong> (\(\beta_{\min} &lt; \beta &lt; \beta^*\)): Transform strategies become viable but require critical mass. The dynamics are bistable: both All-Restrict and All-Transform are locally stable, separated by an unstable tipping point \(x^*_T(\beta)\) that decreases with \(\beta\). Markets can support either traditional or transform-based business models depending on history.</p>
+<p><strong>Phase II</strong> (\(\beta_{\text{inv}}^T &lt; \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade the all-Restrict state (since \(\beta \psi_T &gt; c_T + R_0\)) but Leverage cannot yet. The dynamics may be bistable between All-Restrict and states with Transform present, depending on whether the ecosystem channel reinforces the standalone invasion.</p>
 
-<p><strong>Phase III</strong> (\(\beta^* &lt; \beta &lt; \beta_{\max}\)): Leverage strategies become viable with sufficient critical mass. The landscape is now tri-stable: All-Restrict, All-Transform, and All-Leverage can each be locally stable. The tipping point for Leverage, \(x^*_L(\beta)\), decreases with \(\beta\), while the All-Restrict basin of attraction shrinks.</p>
+<p><strong>Phase III</strong> (\(\beta_{\text{inv}}^L &lt; \beta &lt; \beta_{\max}\)): Both Leverage and Transform can invade All-Restrict. The landscape is multi-stable: All-Restrict is now unstable (both strategies invade), while All-Leverage and All-Transform can be locally stable depending on the ecosystem channel. The tipping point for Leverage, \(x^*_L(\beta)\), decreases with \(\beta\) as the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L\) shrinks.</p>
 
-<p><strong>Phase IV</strong> (\(\beta &gt; \beta_{\max}\)): Anti-rivalry is sufficiently strong that All-Leverage dominates. The all-Restrict state becomes unstable. All-Transform remains locally stable but with a shrinking basin of attraction relative to All-Leverage.</p>
+<p><strong>Phase IV</strong> (\(\beta &gt; \beta_{\max}\)): Anti-rivalry is sufficiently strong that All-Leverage dominates. The standalone efficiency \(\beta \psi_L\) alone exceeds \(c_L + R_0\), so the tipping point vanishes. All-Restrict is unstable. All-Transform remains locally stable but with a shrinking basin of attraction relative to All-Leverage as the stronger ecosystem effects of Leverage become decisive.</p>
 </div>
 
 <div class="remark">
@@ -685,25 +762,19 @@ I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varph
 
 <h3>8.3 The Transform-to-Leverage Transition</h3>
 
-<p>A particularly important dynamic occurs within the anti-rival-friendly strategies: the competitive interaction between synergy-seeking (Transform) and symbiosis-seeking (Leverage) approaches, each representing a structurally distinct way of managing the rival&ndash;anti-rival interface. On the \(L\)&ndash;\(T\) edge of the simplex, the fitness difference is:</p>
+<p>A particularly important dynamic occurs within the anti-rival-friendly strategies: the competitive interaction between synergy-seeking (Transform) and symbiosis-seeking (Leverage) approaches. On the \(L\)&ndash;\(T\) edge of the simplex (where \(x_R = 0\), \(x_T = 1 - x_L\)), the fitness difference is:</p>
 
 \[
-\pi_L - \pi_T = \varphi_L \cdot V_a \cdot h(x_L) - c_L - \varphi_T \cdot V_a \cdot h_T(x_L, x_T) + c_T
+\pi_L - \pi_T = (s_L - s_T) + (\varphi_L - \varphi_T) \cdot V_a \cdot h(x_L, 1-x_L) - (c_L - c_T)
 \]
 
-<p>At the All-Transform vertex (\(x_T = 1, x_L = 0\)), Leverage can invade only if governance can be bootstrapped&mdash;but \(h(0) = 0\), so Leverage cannot invade through infinitesimal perturbation. Conversely, at the All-Leverage vertex (\(x_L = 1, x_T = 0\)), Transform can invade when:</p>
+<p>At the All-Transform vertex (\(x_T = 1, x_L = 0\)), governance is bootstrapped at \(h(0, 1) = \omega/(\omega + \kappa_G) &gt; 0\). Leverage can now invade when:</p>
 
 \[
-\varphi_T \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{\alpha_T}{\alpha_T + \kappa_G} - c_T > \varphi_L \cdot V_0(1+\beta_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L
+s_L - s_T + (\varphi_L - \varphi_T) \cdot V_0(1 + a_T)^\eta \cdot \frac{\omega}{\omega + \kappa_G} > c_L - c_T
 \]
 
-<p>This simplifies to:</p>
-
-\[
-c_L - c_T > V_0(1+\beta_L)^{\eta} \left[\frac{\varphi_L}{1+\kappa_G} - \frac{\varphi_T \alpha_T}{\alpha_T + \kappa_G}\right]
-\]
-
-<p>Transform invades the All-Leverage state when the cost advantage of Transform (\(c_L - c_T\)) exceeds the value advantage of Leverage&rsquo;s stronger governance and anti-rival capture. For strongly anti-rival goods (\(\beta_L\) large), the right-hand side dominates and Transform cannot invade. For weakly anti-rival goods, the cost advantage dominates and Transform can invade. This generates a <em>second bifurcation</em> within the anti-rival strategy space.</p>
+<p>This is a genuine possibility because the unified governance function allows Transform to provide baseline governance. Conversely, at the All-Leverage vertex (\(x_L = 1, x_T = 0\)), Transform can invade when the cost advantage of Transform exceeds the combined standalone and value advantages of Leverage. For strongly anti-rival goods (\(\beta\) large), the standalone difference \(s_L - s_T = \beta(\psi_L - \psi_T)\) grows and Transform cannot invade. For weakly anti-rival goods, the cost advantage dominates. This generates a <em>second bifurcation</em> within the anti-rival strategy space.</p>
 
 <!-- ============================================================ -->
 <h2 id="sec9">9. Numerical Analysis</h2>
@@ -715,8 +786,11 @@ c_L - c_T > V_0(1+\beta_L)^{\eta} \left[\frac{\varphi_L}{1+\kappa_G} - \frac{\va
 <table>
 <tr><th>Parameter</th><th>Symbol</th><th>Baseline Value</th><th>Interpretation</th></tr>
 <tr><td>Base value</td><td>\(V_0\)</td><td>10</td><td>Intrinsic value of the digital good</td></tr>
-<tr><td>Anti-rivalry (Leverage)</td><td>\(\beta_L\)</td><td>0.4</td><td>Strong anti-rivalry from tight rival&ndash;anti-rival coupling</td></tr>
-<tr><td>Anti-rivalry (Transform)</td><td>\(\beta_T\)</td><td>0.15</td><td>Moderate anti-rivalry under reduced coupling (interface simplification)</td></tr>
+<tr><td>Intrinsic anti-rivalry</td><td>\(\beta\)</td><td>0.4</td><td>Anti-rivalry exponent in \(V(n) = V_0 n^\beta\)</td></tr>
+<tr><td>Leverage contribution weight</td><td>\(a_L\)</td><td>0.4</td><td>Population-level anti-rivalry contribution from L-firms (\(= \beta \lambda_L\) with \(\lambda_L = 1.0\))</td></tr>
+<tr><td>Transform contribution weight</td><td>\(a_T\)</td><td>0.15</td><td>Population-level anti-rivalry contribution from T-firms (\(= \beta \lambda_T\) with \(\lambda_T = 0.375\))</td></tr>
+<tr><td>Leverage standalone efficiency</td><td>\(\psi_L\)</td><td>35</td><td>Standalone efficiency gain per unit \(\beta\) from Leverage practices</td></tr>
+<tr><td>Transform standalone efficiency</td><td>\(\psi_T\)</td><td>28</td><td>Standalone efficiency gain per unit \(\beta\) from Transform practices</td></tr>
 <tr><td>Leverage multiplier</td><td>\(\varphi_L\)</td><td>1.8</td><td>Disproportionate returns from symbiosis-seeking interface position</td></tr>
 <tr><td>Transform multiplier</td><td>\(\varphi_T\)</td><td>1.3</td><td>Moderate returns from synergy-seeking interface simplification</td></tr>
 <tr><td>Leverage cost</td><td>\(c_L\)</td><td>8</td><td>Dual-move infrastructure: detachment + connection mechanisms</td></tr>
@@ -724,41 +798,59 @@ c_L - c_T > V_0(1+\beta_L)^{\eta} \left[\frac{\varphi_L}{1+\kappa_G} - \frac{\va
 <tr><td>Traditional returns</td><td>\(R_0\)</td><td>6</td><td>Baseline profitability of restrictive models</td></tr>
 <tr><td>Displacement coefficient</td><td>\(\delta\)</td><td>0.5</td><td>Competitive pressure from anti-rival ecosystem</td></tr>
 <tr><td>Governance requirement</td><td>\(\kappa_G\)</td><td>0.15</td><td>Half-saturation for governance quality</td></tr>
-<tr><td>Transform governance access</td><td>\(\alpha_T\)</td><td>0.3</td><td>Partial free-riding on L-firm governance</td></tr>
+<tr><td>Transform governance weight</td><td>\(\omega\)</td><td>0.3</td><td>Transform firms&rsquo; governance contribution relative to Leverage firms</td></tr>
 <tr><td>Returns curvature</td><td>\(\eta\)</td><td>1</td><td>Linear returns to anti-rivalry (baseline)</td></tr>
 </table>
 
 <h3>9.2 Tipping Point Calculation</h3>
 
-<p>On the \(L\)&ndash;\(R\) edge with these parameters, the tipping point equation becomes:</p>
+<p>First, compute the phase boundaries. With \(\psi_L = 35\), \(\psi_T = 28\), \(c_L = 8\), \(c_T = 4\), \(R_0 = 6\):</p>
 
 \[
-F(x) = (1.8 + 0.5) \cdot 10 \cdot (1 + 0.4x) \cdot \frac{x}{x + 0.15} = 8 + 6 = 14
+\beta_{\text{inv}}^T = \frac{c_T + R_0}{\psi_T} = \frac{10}{28} \approx 0.357, \qquad
+\beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L} = \frac{14}{35} = 0.400
+\]
+
+<p>At the baseline \(\beta = 0.4\), we are exactly at the Phase III/IV boundary: \(\beta = \beta_{\text{inv}}^L\), so the standalone term for Leverage exactly equals the cost threshold (\(s_L = 0.4 \times 35 = 14 = c_L + R_0\)). The effective threshold is \(\tilde{c} = 14 - 14 = 0\), meaning the tipping point vanishes and Leverage can invade All-Restrict even at zero ecosystem coordination.</p>
+
+<p>For a more interesting bistable case, consider \(\beta = 0.35\) (just above \(\beta_{\text{inv}}^T\) but below \(\beta_{\text{inv}}^L\)). Then \(s_L = 0.35 \times 35 = 12.25\), so \(\tilde{c} = 14 - 12.25 = 1.75\). The tipping point equation on the \(L\)&ndash;\(R\) edge becomes:</p>
+
+\[
+F(x) = (1.8 + 0.5) \cdot 10 \cdot (1 + 0.4x) \cdot \frac{x}{x + 0.15} = 1.75
 \]
 
 \[
-23 \cdot (1 + 0.4x) \cdot \frac{x}{x + 0.15} = 14
+23 \cdot (1 + 0.4x) \cdot \frac{x}{x + 0.15} = 1.75
 \]
 
-<p>Expanding: \(23x(1 + 0.4x)/(x + 0.15) = 14\), which gives \(23x + 9.2x^2 = 14x + 2.1\), hence \(9.2x^2 + 9x - 2.1 = 0\). By the quadratic formula:</p>
+<p>Expanding: \(23x + 9.2x^2 = 1.75x + 0.2625\), hence \(9.2x^2 + 21.25x - 0.2625 = 0\). By the quadratic formula:</p>
 
 \[
-x^* = \frac{-9 + \sqrt{81 + 4 \cdot 9.2 \cdot 2.1}}{2 \cdot 9.2} = \frac{-9 + \sqrt{81 + 77.28}}{18.4} = \frac{-9 + \sqrt{158.28}}{18.4} = \frac{-9 + 12.58}{18.4} \approx 0.195
+x^* = \frac{-21.25 + \sqrt{451.56 + 9.66}}{18.4} = \frac{-21.25 + \sqrt{461.22}}{18.4} = \frac{-21.25 + 21.48}{18.4} \approx 0.012
 \]
 
-<p>Approximately 19.5% of the market must adopt leverage strategies before the dynamics tip toward leverage dominance. This is a substantial critical mass, reflecting the high governance requirements (\(\kappa_G = 0.15\)) and costs (\(c_L = 8\)) of leverage strategies.</p>
+<p>The tipping point is approximately 1.2%&mdash;very low because the standalone efficiency has already done most of the work. Even a tiny amount of ecosystem coordination suffices.</p>
+
+<p>For comparison, at \(\beta = 0.25\) (Phase II): \(s_L = 8.75\), \(\tilde{c} = 5.25\):</p>
+
+\[
+23 \cdot (1 + 0.4x) \cdot \frac{x}{x + 0.15} = 5.25
+\]
+
+<p>Expanding: \(9.2x^2 + 17.75x - 0.7875 = 0\), giving \(x^* \approx 0.043\). Still relatively low, but the system requires meaningful ecosystem coordination.</p>
 
 <h3>9.3 Sensitivity Analysis</h3>
 
 <p>The tipping point \(x^*\) responds to parameter changes as follows:</p>
 
 <table>
-<tr><th>Parameter Change</th><th>Effect on \(x^*\)</th><th>Interpretation</th></tr>
-<tr><td>\(\beta_L\) increases (0.4 &rarr; 0.6)</td><td>\(x^*\) decreases (&asymp; 0.15)</td><td>Stronger anti-rivalry lowers critical mass</td></tr>
-<tr><td>\(R_0\) decreases (6 &rarr; 3)</td><td>\(x^*\) decreases (&asymp; 0.11)</td><td>Weaker traditional alternatives ease transition</td></tr>
-<tr><td>\(c_L\) increases (8 &rarr; 12)</td><td>\(x^*\) increases (&asymp; 0.32)</td><td>Higher leverage costs require more critical mass</td></tr>
-<tr><td>\(\kappa_G\) increases (0.15 &rarr; 0.30)</td><td>\(x^*\) increases (&asymp; 0.28)</td><td>Harder governance requirements raise the bar</td></tr>
-<tr><td>\(\varphi_L\) increases (1.8 &rarr; 2.5)</td><td>\(x^*\) decreases (&asymp; 0.12)</td><td>Higher differential returns reward leverage</td></tr>
+<tr><th>Parameter Change (at \(\beta = 0.25\))</th><th>Effect on \(x^*\)</th><th>Interpretation</th></tr>
+<tr><td>\(a_L\) increases (0.4 &rarr; 0.6)</td><td>\(x^*\) decreases</td><td>Stronger ecosystem contribution weight lowers critical mass</td></tr>
+<tr><td>\(\beta\) increases (0.25 &rarr; 0.35)</td><td>\(x^*\) decreases sharply (0.043 &rarr; 0.012)</td><td>Higher intrinsic anti-rivalry reduces \(\tilde{c}\) via standalone term</td></tr>
+<tr><td>\(R_0\) decreases (6 &rarr; 3)</td><td>\(x^*\) decreases</td><td>Weaker traditional alternatives ease transition</td></tr>
+<tr><td>\(c_L\) increases (8 &rarr; 12)</td><td>\(\beta_{\text{inv}}^L\) increases (0.40 &rarr; 0.51)</td><td>Higher costs push Phase IV threshold out</td></tr>
+<tr><td>\(\psi_L\) decreases (35 &rarr; 20)</td><td>\(\beta_{\text{inv}}^L\) increases (0.40 &rarr; 0.70)</td><td>Weaker standalone efficiency delays phase transitions</td></tr>
+<tr><td>\(\kappa_G\) increases (0.15 &rarr; 0.30)</td><td>\(x^*\) increases</td><td>Harder governance requirements raise the ecosystem bar</td></tr>
 </table>
 
 <h3>9.4 Governance Trap Numerical Example</h3>
@@ -794,7 +886,7 @@ x^* = \frac{-9 + \sqrt{81 + 4 \cdot 9.2 \cdot 2.1}}{2 \cdot 9.2} = \frac{-9 + \s
 
 <p><strong>Result 3: Incompatibility of Mixed Approaches (Theorem 7.1).</strong> At scale, business models mixing leverage-seeking and synergy-seeking patterns within a single product line are dominated by pure approaches. The structural incompatibility arises because Leverage requires tight coupling between rival and anti-rival components (connecting them for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). These opposing interface requirements create an endogenous incompatibility cost that grows with scale.</p>
 
-<p><strong>Result 4: Phase Transitions (Theorem 8.1).</strong> Increasing anti-rivalry drives discontinuous shifts in the market-dominant business model. The phase structure reveals that Transform strategies (synergy-seeking, interface simplification) become viable at lower anti-rivalry thresholds than Leverage strategies (symbiosis-seeking, interface amplification), because the governance costs and coordination requirements of tight coupling are only justified when anti-rival returns are sufficiently strong. Both approaches remain independently viable as distinct equilibria; the dominance of Leverage at high anti-rivalry reflects the superlinear returns from full coupling, not an inherent inferiority of the Transform approach.</p>
+<p><strong>Result 4: Phase Transitions (Theorem 8.1).</strong> Increasing anti-rivalry \(\beta\) drives qualitative changes in the stability of equilibria. The phase structure has explicit thresholds: \(\beta_{\text{inv}}^T = (c_T + R_0)/\psi_T\) for Transform invasion and \(\beta_{\text{inv}}^L = (c_L + R_0)/\psi_L\) for Leverage invasion. Transform strategies become viable at lower thresholds than Leverage strategies because their lower costs are offset by lower standalone efficiency gains. Both approaches remain independently viable as distinct equilibria; the dominance of Leverage at high \(\beta\) reflects the combination of stronger standalone efficiency and superlinear ecosystem returns from full coupling.</p>
 
 <h3>10.2 Prescriptive Implications</h3>
 

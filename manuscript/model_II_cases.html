@@ -48,6 +48,16 @@ th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}
 
 <p>where \(V(x,y)=V_0(1+\beta x)^\eta\;\frac{y}{y+\kappa}\). The governance trap condition is \(\sigma&lt;c_G-c_C\). The minimum community value for sustained contribution is \(V&gt;\frac{c_C}{\varphi-1}\).</p>
 
+<p><strong>Governance Trap Theorem (Theorem 4.1, ratio form).</strong> When the governance trap condition holds (\(\sigma&lt;c_G-c_C\)), the governance-to-content ratio \(y(t)/x(t)\) is monotonically decreasing:</p>
+
+\[
+\frac{d}{dt}\ln\!\left(\frac{y}{x}\right)=\sigma-(c_G-c_C)&lt;0.
+\]
+
+<p>The absolute governance share \(y(t)\) may temporarily increase before eventually declining. What the theorem guarantees is that governance always loses ground <em>relative to content</em>&mdash;the ratio \(y/x\) shrinks at a rate determined by the governance deficit.</p>
+
+<p><em>Knife-edge note.</em> The boundary case \(\sigma=c_G-c_C\) exactly is non-generic: any perturbation in costs or premiums pushes the system into either the trap (\(\sigma&lt;c_G-c_C\)) or sustained governance (\(\sigma&gt;c_G-c_C\)). In practice, parameter drift ensures the knife-edge is never observed in real communities.</p>
+
 <!-- ========== CASE A ========== -->
 <h2>Case A: OpenSSL / Heartbleed &mdash; The Governance Trap Realised</h2>
 

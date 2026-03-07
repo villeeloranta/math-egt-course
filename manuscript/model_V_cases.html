@@ -20,13 +20,28 @@
 
 <h2>Model Recap</h2>
 
-<p>Combining leverage-seeking (symbiosis: amplifying rival&ndash;anti-rival coupling) and synergy-seeking (decreasing institutional complexity: reducing rival&ndash;anti-rival coupling) patterns within a single product line incurs an incompatibility cost. Leverage requires tight coupling between rival and anti-rival components (connecting them for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). These opposing interface requirements attenuate each other&rsquo;s effectiveness:</p>
+<p>Combining leverage-seeking (symbiosis: amplifying rival&ndash;anti-rival coupling) and synergy-seeking (decreasing institutional complexity: reducing rival&ndash;anti-rival coupling) patterns within a single product line incurs an incompatibility cost. Leverage requires tight coupling between rival and anti-rival components (connecting them for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). These opposing interface requirements cannot both be satisfied simultaneously.</p>
+
+<p>Consider a mixed firm that allocates fraction \(w\) to Leverage and fraction \(1-w\) to Transform. If both patterns share a <strong>single interface</strong>, the firm must choose one interface parameter \(\theta\in[0,1]\), where \(\theta=1\) means full coupling (optimal for Leverage) and \(\theta=0\) means full decoupling (optimal for Transform). The mixed payoff is:</p>
 
 \[
-\beta_{\text{eff}}(d) = \beta_0\,(1-d), \qquad I(w) = w\,\varphi_L\,V_0\,h(y)\left[n^{\beta_0} - n^{\beta_0(1-d(1-w))}\right]
+\pi_{\text{mix}}(w,\theta) = w\,\varphi_L\,V_0\,n^{\beta_0\theta}\,h(y) + (1-w)\,\varphi_T\,V_0\,n^{\beta_0(1-\theta)}\,h(y) - w\,c_L - (1-w)\,c_T
 \]
 
-<p>where \(d\) is the interface decoupling coefficient introduced by Transform patterns. At scale (\(n\) large), pure strategies dominate mixed strategies because the incompatibility cost grows with scale.</p>
+<p>The key result follows from the second derivative with respect to \(\theta\):</p>
+
+\[
+\frac{\partial^2 \pi_{\text{mix}}}{\partial \theta^2} = V_0\,h(y)\,(\beta_0 \ln n)^2\left[w\,\varphi_L\,n^{\beta_0\theta} + (1-w)\,\varphi_T\,n^{\beta_0(1-\theta)}\right] > 0
+\]
+
+<p>Since every term is positive, \(\pi_{\text{mix}}\) is <strong>strictly convex</strong> in \(\theta\). Convexity means any interior critical point \(\theta^*\) is a <em>minimum</em>, not a maximum. The firm maximises payoff at a boundary: either \(\theta=1\) (full coupling) or \(\theta=0\) (full decoupling).</p>
+
+<ul>
+<li>At \(\theta=1\): the Leverage component gets \(n^{\beta_0}\) (full anti-rival scaling), but the Transform component gets \(n^{\beta_0(1-1)}=n^0=1\) &mdash; <strong>dead weight</strong>.</li>
+<li>At \(\theta=0\): the Transform component gets \(n^{\beta_0}\), but the Leverage component gets \(n^0=1\) &mdash; <strong>dead weight</strong>.</li>
+</ul>
+
+<p>The incompatibility is therefore <em>derived</em> from the convexity of the payoff function, not assumed. At any interior \(\theta\), both components underperform their pure-strategy benchmarks. At scale (\(n\) large), the convexity strengthens (\(\propto (\beta_0\ln n)^2\)), making pure strategies strictly dominant.</p>
 
 <!-- ========== CASE A ========== -->
 <h2>Case A: MongoDB &mdash; The Open Core Collapse</h2>
@@ -41,43 +56,53 @@
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.30</td><td>MongoDB&rsquo;s document model, query language, drivers, and community tools are anti-rival: improvements benefit all users.</td></tr>
-<tr><td>\(d\) (decoupling)</td><td>0.35 (pre-SSPL)</td><td>Open-core model: core database was tightly coupled (Leverage), while Atlas and Enterprise features operated on a simplified, decoupled interface (Transform). Estimated 35% of the interface was decoupled from the full community coupling.</td></tr>
-<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.30\times(1-0.35)=0.195\) (pre-SSPL)</td><td>Interface decoupling reduced effective anti-rivalry by 35%.</td></tr>
 <tr><td>\(w\) (leverage fraction)</td><td>0.65 (pre-SSPL)</td><td>65% of the business model relied on community-driven open source; 35% on proprietary enterprise.</td></tr>
 <tr><td>\(n\)</td><td>~35,000 companies (self-reported, 2018)</td><td>Scale at time of license change.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>1.7</td><td>MongoDB captured significant value from community position: reputation, talent pipeline, conference ecosystem.</td></tr>
 <tr><td>\(\varphi_T\)</td><td>1.4</td><td>Enterprise/Atlas captured value through premium features and managed service.</td></tr>
 <tr><td>\(c_L\)</td><td>6</td><td>Maintaining open-source community, contributor relations, conference sponsorship.</td></tr>
 <tr><td>\(c_T\)</td><td>4</td><td>Developing and marketing proprietary features.</td></tr>
+<tr><td>Interface</td><td>Shared \(\theta\)</td><td>MongoDB&rsquo;s open-core had a single interface coupling that tried to serve both L (AGPL core) and T (Atlas/Enterprise). The same database API served community users and enterprise customers, forcing a shared interface parameter.</td></tr>
 </table>
 
 <div class="calc">
-<p class="lb">Incompatibility Cost Calculation</p>
-<p>At \(n=35{,}000\), \(w=0.65\), \(d=0.35\):</p>
+<p class="lb">&theta;-Based Incompatibility Analysis</p>
+<p>MongoDB&rsquo;s open-core had an interface coupling that tried to serve both L (AGPL core) and T (Atlas/Enterprise) through a shared interface. The convexity result means the optimal interface is at a boundary. Setting \(V_0\,h(y)=1\) for normalisation, we compute payoffs at each boundary.</p>
+<p>Preliminary: \(\ln(35{,}000)=10.46\), so \(n^{\beta_0}=35000^{0.30}=e^{3.14}=23.1\) and \(n^0=1\).</p>
+
+<p><strong>At \(\theta=1\)</strong> (full coupling &mdash; optimise for Leverage):</p>
 \[
-\beta_0(1-d(1-w)) = 0.30\times(1-0.35\times 0.35) = 0.30\times(1-0.1225) = 0.30\times 0.8775 = 0.2633
+\pi_{\text{mix}}(w,1) = 0.65\times 1.7\times 23.1 + 0.35\times 1.4\times 1 - 0.65\times 6 - 0.35\times 4
 \]
 \[
-I(w) = 0.65\times 1.7\times V_0\times h(y)\times\left[35000^{0.30} - 35000^{0.2633}\right]
+= 25.53 + 0.49 - 3.90 - 1.40 = 20.72
 \]
-<p>Computing: \(35000^{0.30}=e^{0.30\times 10.46}=e^{3.14}=23.1\) and \(35000^{0.2633}=e^{0.2633\times 10.46}=e^{2.754}=15.7\).</p>
+<p>The Transform component contributes only 0.49 (dead weight: \(n^0=1\)).</p>
+
+<p><strong>At \(\theta=0\)</strong> (full decoupling &mdash; optimise for Transform):</p>
 \[
-I(0.65) = 1.105\times V_0\times h(y)\times(23.1-15.7) = 1.105\times V_0\times h(y)\times 7.4
+\pi_{\text{mix}}(w,0) = 0.65\times 1.7\times 1 + 0.35\times 1.4\times 23.1 - 0.65\times 6 - 0.35\times 4
 \]
-<p>Setting \(V_0\times h(y)=1\) for normalisation: \(I(0.65)=8.2\) units.</p>
+\[
+= 1.105 + 11.32 - 3.90 - 1.40 = 7.12
+\]
+<p>The Leverage component contributes only 1.105 (dead weight: \(n^0=1\)).</p>
+
+<p><strong>Convexity strength:</strong> \((\beta_0\ln n)^2 = (0.30\times 10.46)^2 = (3.14)^2 = 9.86\). This strong convexity means any interior \(\theta\) is far below the boundary payoffs.</p>
 </div>
 
 <div class="calc">
 <p class="lb">Comparing Pure vs Mixed Payoffs</p>
-<p>Pure Leverage (\(w=1\), \(e=0\)):
-\(\pi_L = 1.7\times 1\times 23.1 - 6 = 39.3 - 6 = 33.3\)</p>
-<p>Pure Transform (\(w=0\), full decoupling at \(d=0.35\), applied fully):
-\(\pi_T = 1.4\times 1\times 35000^{0.30\times 0.65} - 4 = 1.4\times 35000^{0.195} - 4\). Computing \(35000^{0.195}=e^{0.195\times 10.46}=e^{2.04}=7.69\). So \(\pi_T=1.4\times 7.69 - 4 = 10.77 - 4 = 6.77\).</p>
-<p>Mixed (\(w=0.65\)):
-\(\pi_{\text{mix}} = 0.65\times 1.7\times 15.7 + 0.35\times 1.4\times 15.7 - 0.65\times 6 - 0.35\times 4\)
-\(= 17.35 + 7.69 - 3.9 - 1.4 = 19.74\).</p>
-<p><strong>Ranking: \(\pi_L=33.3 > \pi_{\text{mix}}=19.74 > \pi_T=6.77\).</strong></p>
-<p>Pure Leverage dominates at this scale. The incompatibility cost (\(33.3 - 19.74 = 13.56\)) is massive &mdash; the open-core model destroyed 41% of the value that a purely open approach would have captured.</p>
+<p>Pure Leverage (\(w=1\), \(\theta=1\)):
+\(\pi_L = 1.7\times 23.1 - 6 = 39.3 - 6 = 33.3\)</p>
+<p>Pure Transform (\(w=0\), \(\theta=0\)):
+\(\pi_T = 1.4\times 23.1 - 4 = 32.3 - 4 = 28.3\)</p>
+<p>Best mixed boundary (\(w=0.65\), \(\theta=1\)):
+\(\pi_{\text{mix}}^{\theta=1} = 20.72\) (computed above).</p>
+<p>Alternate mixed boundary (\(w=0.65\), \(\theta=0\)):
+\(\pi_{\text{mix}}^{\theta=0} = 7.12\) (computed above).</p>
+<p><strong>Ranking: \(\pi_L=33.3 > \pi_T=28.3 > \pi_{\text{mix}}^{\theta=1}=20.72 > \pi_{\text{mix}}^{\theta=0}=7.12\).</strong></p>
+<p>Both pure strategies dominate the best mixed strategy. At the better boundary (\(\theta=1\)), the mixed firm loses \(33.3-20.72=12.58\) relative to pure Leverage &mdash; this is the dead-weight cost of the Transform component receiving \(n^0=1\) instead of its own optimal scaling. The incompatibility is not an assumed penalty but a direct consequence of the convexity of \(\pi_{\text{mix}}\) in \(\theta\).</p>
 </div>
 
 <div class="finding">
@@ -102,32 +127,34 @@ I(0.65) = 1.105\times V_0\times h(y)\times(23.1-15.7) = 1.105\times V_0\times h(
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.20</td><td>DevOps platform anti-rivalry: shared CI/CD templates, runners, integrations benefit all users, but the benefit is moderate (tool functionality is largely non-rival, not anti-rival).</td></tr>
-<tr><td>\(d\)</td><td>0.25</td><td>Lower decoupling than MongoDB: GitLab&rsquo;s community edition maintains tight coupling with the community (most features in CE), while enterprise features operate on a simplified interface.</td></tr>
 <tr><td>\(w\)</td><td>0.75</td><td>High leverage fraction: the community edition is very capable.</td></tr>
 <tr><td>\(n\)</td><td>~30M users</td><td>Registered user base.</td></tr>
+<tr><td>\(\varphi_L\)</td><td>1.5</td><td>Community-driven platform value capture through developer adoption and ecosystem lock-in.</td></tr>
+<tr><td>\(\varphi_T\)</td><td>1.3</td><td>Enterprise tier captures value through premium features (security, compliance).</td></tr>
+<tr><td>Interface</td><td>Shared \(\theta\)</td><td>GitLab CE and EE share the same codebase and API surface; enterprise features are gated within the same interface, forcing a shared \(\theta\).</td></tr>
 </table>
 </div>
 
 <div class="calc">
-<p class="lb">Incompatibility Cost</p>
-\[
-\beta_0(1-e(1-w)) = 0.20\times(1-0.25\times 0.25) = 0.20\times 0.9375 = 0.1875
-\]
-\[
-n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
-\]
-<p>Computing: \(\ln(30\text{M})=17.22\). So \(n^{0.20}=e^{3.444}=31.3\) and \(n^{0.1875}=e^{3.229}=25.3\).</p>
-\[
-\frac{I(w)}{\varphi_L V_0 h(y)} = w\times(31.3 - 25.3) = 0.75\times 6.0 = 4.5
-\]
-<p>The incompatibility cost exists but is <strong>smaller</strong> than MongoDB&rsquo;s (4.5 vs 8.2 in normalised units) for two reasons: (1) lower interface decoupling \(d\) (0.25 vs 0.35) and (2) lower intrinsic anti-rivalry \(\beta_0\) (0.20 vs 0.30), which reduces the sensitivity to decoupling.</p>
+<p class="lb">&theta;-Based Incompatibility Analysis</p>
+<p>Preliminary: \(\ln(30\text{M})=17.22\), so \(n^{\beta_0}=30\text{M}^{0.20}=e^{3.444}=31.3\) and \(n^0=1\). Setting \(V_0\,h(y)=1\).</p>
+
+<p><strong>At \(\theta=1\)</strong> (full coupling):
+\(\pi_{\text{mix}}(0.75,1) = 0.75\times 1.5\times 31.3 + 0.25\times 1.3\times 1 - c = 35.21 + 0.33 - c\).</p>
+<p><strong>At \(\theta=0\)</strong> (full decoupling):
+\(\pi_{\text{mix}}(0.75,0) = 0.75\times 1.5\times 1 + 0.25\times 1.3\times 31.3 - c = 1.13 + 10.17 - c\).</p>
+<p>The gap between boundaries: \(35.54 - 11.30 = 24.24\), favouring \(\theta=1\).</p>
+
+<p><strong>Convexity strength:</strong> \((\beta_0\ln n)^2 = (0.20\times 17.22)^2 = (3.44)^2 = 11.86\).</p>
+
+<p>The incompatibility (dead-weight cost at the better boundary) is the Transform component&rsquo;s loss: \(0.25\times 1.3\times(31.3-1)=9.85\). This is <strong>qualitatively smaller</strong> relative to total payoff than MongoDB&rsquo;s case for two reasons: (1) the Leverage fraction \(w=0.75\) is higher (less weight on the dead-weight component), and (2) the lower \(\beta_0=0.20\) means the convexity strength \((\beta_0\ln n)^2\) is comparable to MongoDB&rsquo;s \((3.14)^2=9.86\) only because GitLab&rsquo;s much larger \(n\) compensates. For a same-scale comparison, lower \(\beta_0\) produces weaker convexity and a more tolerable incompatibility.</p>
 </div>
 
 <div class="finding">
 <p class="lb">Finding</p>
 <p>GitLab survives the mixed strategy for three reasons the theorem&rsquo;s asymptotic analysis does not capture:</p>
 <ol>
-<li><strong>The incompatibility cost is smaller</strong> because DevOps platforms have lower intrinsic anti-rivalry than databases. The theorem&rsquo;s prediction that pure strategies dominate is weaker for low-\(\beta_0\) goods.</li>
+<li><strong>The incompatibility cost is smaller</strong> because DevOps platforms have lower intrinsic anti-rivalry than databases. The convexity strength \((\beta_0\ln n)^2\) that drives boundary optimality is weaker for low-\(\beta_0\) goods at comparable scale.</li>
 <li><strong>GitLab is still at growth stage.</strong> The theorem holds &ldquo;for sufficiently large \(n\)&rdquo;. At 30M users, GitLab may not yet be in the asymptotic regime. The theorem&rsquo;s own caveat acknowledges that mixed strategies can be locally optimal at intermediate scale.</li>
 <li><strong>No hyperscaler free-rider problem.</strong> Unlike MongoDB (where AWS built DocumentDB), no cloud provider has built a competing hosted GitLab service. GitLab&rsquo;s effective \(\varphi_L\) is not eroded by industrial-scale free-riding.</li>
 </ol>
@@ -147,15 +174,19 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Key Difference</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.30</td><td>High anti-rivalry: themes, plugins, tutorials, community knowledge all benefit from more users.</td></tr>
-<tr><td>\(d\)</td><td>0.10</td><td><strong>Very low decoupling.</strong> Premium themes and hosting operate as rival complements alongside the fully coupled anti-rival good (WordPress software). The Transform patterns target <em>separate rival resources</em> (hosting, design services), not the anti-rival good itself, so decoupling is minimal.</td></tr>
+<tr><td>Interface</td><td><strong>Separate \(\theta\)</strong></td><td>WordPress&rsquo;s Leverage patterns (community plugin/theme ecosystem) and Transform patterns (premium hosting, managed services) target <strong>different interfaces</strong>. The L component has its own \(\theta_L\) (community software coupling) and the T component has its own \(\theta_T\) (hosting service decoupling). Each can be independently optimised.</td></tr>
 </table>
 </div>
 
 <div class="finding">
-<p class="lb">Finding: The Complement Exception</p>
-<p>WordPress does <em>not</em> contradict the theorem because its Transform patterns (premium hosting, themes) do not <strong>decouple the anti-rival good</strong> (the WordPress software and plugin ecosystem) from its community coupling. Instead, they sell <em>rival complements</em> (server resources, premium support) that sit alongside the fully coupled anti-rival good. The decoupling coefficient \(d\approx 0.10\) is near zero because the Transform patterns target a <em>separate</em> rival&ndash;anti-rival interface.</p>
-<p>Formally, the theorem requires that the interface simplification pursued by Transform patterns attenuates the coupling that Leverage patterns depend on within the same product line. WordPress violates this premise: the Transform patterns (minimizing hosting limitations on website sharing) operate on a different interface than the Leverage patterns (connecting community contributions to each user&rsquo;s site optimization). Anyone can download, install, and use WordPress without any interaction with Automattic&rsquo;s paid offerings.</p>
-<p>This identifies a critical boundary condition: <strong>the theorem applies only when Leverage and Transform patterns share the same rival&ndash;anti-rival interface</strong>. When they target different interfaces (community software development vs hosting services), they can coexist indefinitely because the decoupling does not attenuate the coupling of the anti-rival good.</p>
+<p class="lb">Finding: The Complement Exception as a Precise Boundary Condition</p>
+<p>WordPress does <em>not</em> contradict the theorem because its Leverage and Transform patterns target <strong>different interfaces</strong>. The L component (community plugin/theme ecosystem) controls its own interface parameter \(\theta_L\) and sets \(\theta_L=1\) (full coupling). The T component (premium hosting, managed services) controls its own interface parameter \(\theta_T\) and sets \(\theta_T=0\) (full decoupling). Each component independently achieves its optimal boundary without constraining the other.</p>
+<p>Formally, the convexity argument requires a <strong>shared</strong> \(\theta\) constraint: both L and T components must use the same interface parameter. When this constraint is absent &mdash; when each component has its own \(\theta\) &mdash; the payoff decomposes into two independent optimisation problems, each solved at its own boundary. No convexity argument applies because there is no single \(\theta\) over which the joint payoff is convex.</p>
+\[
+\pi = w\,\varphi_L\,V_0\,n^{\beta_0\theta_L}\,h(y) + (1-w)\,\varphi_T\,V_0\,n^{\beta_0(1-\theta_T)}\,h(y) - w\,c_L - (1-w)\,c_T
+\]
+<p>With independent \(\theta_L\) and \(\theta_T\), optimising yields \(\theta_L^*=1\) and \(\theta_T^*=0\) simultaneously. The mixed firm captures the full benefit of both components: no dead weight, no incompatibility.</p>
+<p>This identifies a precise boundary condition: <strong>the theorem applies if and only if Leverage and Transform patterns share a single interface parameter \(\theta\)</strong>. When they target different interfaces (community software development vs hosting services), they can coexist indefinitely. Anyone can download, install, and use WordPress without any interaction with Automattic&rsquo;s paid offerings.</p>
 </div>
 
 <!-- ========== SYNTHESIS ========== -->
@@ -164,19 +195,20 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 <table>
 <tr><th>Metric</th><th>MongoDB</th><th>GitLab</th><th>WordPress</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.30</td><td>0.20</td><td>0.30</td></tr>
-<tr><td>Decoupling \(d\)</td><td>0.35</td><td>0.25</td><td>0.10</td></tr>
-<tr><td>Incompatibility cost (normalised)</td><td>8.2</td><td>4.5</td><td>~0.5</td></tr>
+<tr><td>Interface constraint</td><td>Shared \(\theta\)</td><td>Shared \(\theta\)</td><td>Separate \(\theta_L, \theta_T\)</td></tr>
+<tr><td>Convexity strength \((\beta_0\ln n)^2\)</td><td>Strong (9.86)</td><td>Moderate&ndash;strong (11.86)</td><td>N/A (no shared \(\theta\))</td></tr>
+<tr><td>Incompatibility</td><td>Severe: dead-weight T component at \(\theta=1\)</td><td>Moderate: tolerable at growth stage</td><td>None: each component at own optimum</td></tr>
 <tr><td>Hyperscaler threat</td><td>Yes (AWS DocumentDB)</td><td>No (yet)</td><td>No (hosting is commodity)</td></tr>
 <tr><td>Outcome</td><td>Abandoned mix (SSPL)</td><td>Stable (so far)</td><td>Stable (20+ years)</td></tr>
-<tr><td>Theorem applies?</td><td>Yes &mdash; validated</td><td>Yes &mdash; at growth stage</td><td>No &mdash; complement exception</td></tr>
+<tr><td>Theorem applies?</td><td>Yes &mdash; validated</td><td>Yes &mdash; at growth stage</td><td>No &mdash; separate interfaces</td></tr>
 </table>
 
 <div class="finding">
 <p class="lb">Key Insights</p>
 <ol>
-<li><strong>The theorem&rsquo;s boundary conditions matter as much as its conclusion.</strong> It applies when Leverage and Transform patterns share the same rival&ndash;anti-rival interface (MongoDB, GitLab) but not when Transform patterns target separate rival complements alongside an uncoupled anti-rival good (WordPress).</li>
-<li><strong>The severity of incompatibility scales with \(\beta_0\) and \(d\).</strong> High anti-rivalry goods (databases: \(\beta_0=0.30\)) with significant interface decoupling (\(d=0.35\)) produce large incompatibility costs. Low anti-rivalry goods (DevOps: \(\beta_0=0.20\)) with moderate decoupling (\(d=0.25\)) produce smaller costs that may be tolerable at growth stage.</li>
-<li><strong>Hyperscaler free-riding is the precipitating event.</strong> The theorem predicts that pure leverage dominates mixed strategies at scale. But firms only <em>abandon</em> the mixed strategy when large free-riders erode their effective \(\varphi_L\). Without the free-rider trigger, the mixed strategy can persist even when it is theoretically suboptimal (GitLab).</li>
+<li><strong>The theorem&rsquo;s boundary conditions matter as much as its conclusion.</strong> It applies when Leverage and Transform patterns share a single interface parameter \(\theta\) (MongoDB, GitLab) but not when each pattern controls its own \(\theta\) (WordPress). The shared-vs-separate \(\theta\) distinction is a precise, testable boundary condition.</li>
+<li><strong>The severity of incompatibility scales with convexity strength \((\beta_0\ln n)^2\).</strong> High anti-rivalry goods (databases: \(\beta_0=0.30\)) at moderate scale produce strong convexity and severe dead-weight costs at the optimal boundary. Lower anti-rivalry goods (DevOps: \(\beta_0=0.20\)) produce weaker convexity at comparable scale, making the incompatibility more tolerable.</li>
+<li><strong>Hyperscaler free-riding is the precipitating event.</strong> The theorem predicts that pure strategies dominate mixed strategies at scale. But firms only <em>abandon</em> the mixed strategy when large free-riders erode their effective \(\varphi_L\). Without the free-rider trigger, the mixed strategy can persist even when it is theoretically suboptimal (GitLab).</li>
 <li><strong>Mixed strategies may be optimal transitional configurations.</strong> The theorem&rsquo;s own caveat &mdash; that mixed strategies may be locally optimal at intermediate scale &mdash; is empirically supported. GitLab&rsquo;s open-core model has enabled growth that a purely open or purely proprietary approach might not have achieved.</li>
 </ol>
 </div>
