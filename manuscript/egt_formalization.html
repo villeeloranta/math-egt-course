@@ -77,7 +77,7 @@ sup { font-size: 0.75rem; }
 
 <div class="abstract">
 <h3>Abstract</h3>
-<p>This paper develops a formal evolutionary game-theoretic (EGT) framework for analyzing the complexity management mechanisms and business model patterns (BMPs) identified in the study of anti-rival digital goods. We translate the seven complexity management mechanisms and three metamechanisms into explicit payoff functions, replicator dynamics, and stability conditions. Our formalization yields several analytical results: (i) a three-strategy replicator model with a phase transition structure: at low anti-rivalry, restrictive strategies dominate; at intermediate levels, synergy-seeking (complexity-decreasing) strategies become viable; and above a critical threshold, symbiosis-seeking (complexity-leveraging) strategies become viable and may be evolutionarily stable under the corresponding transverse invasion conditions; (ii) a formal incompatibility theorem showing that, under a shared-interface coupling-allocation model, mixing leveraging and decreasing patterns within a single business model yields lower fitness than pure approaches; (iii) an extension of the governance trap framework to business model communities, deriving sufficient conditions for collapse together with threshold conditions for the sustainability of community-based mechanisms; and (iv) a phase transition analysis revealing bifurcation points at which the equilibrium business model landscape shifts qualitatively as technological anti-rivalry increases. These results provide analytical depth to the qualitative findings of the original study while generating testable predictions and design prescriptions for business model innovators operating with anti-rival digital goods.</p>
+<p>This paper develops a formal evolutionary game-theoretic (EGT) framework for analyzing the complexity management mechanisms and business model patterns (BMPs) identified in the study of anti-rival digital goods. We translate the seven complexity management mechanisms and three metamechanisms into explicit payoff functions, replicator dynamics, and stability conditions. Our formalization yields several analytical results: (i) a three-strategy replicator model with a phase transition structure: at low anti-rivalry, restrictive strategies dominate; at intermediate levels, synergy-seeking (complexity-decreasing) strategies become viable; and above a critical threshold, symbiosis-seeking (complexity-leveraging) strategies become viable and may be evolutionarily stable under the corresponding transverse invasion conditions; (ii) a formal incompatibility theorem showing that, under a shared-interface coupling-allocation model, mixed leveraging/decreasing strategies within a single business model are weakly dominated by pure approaches, and generically strictly dominated; (iii) an extension of the governance trap framework to business model communities, deriving sufficient conditions for collapse together with threshold conditions for the sustainability of community-based mechanisms; and (iv) a phase transition analysis revealing bifurcation points at which the equilibrium business model landscape shifts qualitatively as technological anti-rivalry increases. These results provide analytical depth to the qualitative findings of the original study while generating testable predictions and design prescriptions for business model innovators operating with anti-rival digital goods.</p>
 </div>
 
 <p class="keywords"><strong>Keywords:</strong> evolutionary game theory; replicator dynamics; anti-rival goods; business model patterns; institutional complexity; stability analysis; phase transitions</p>
@@ -110,7 +110,7 @@ sup { font-size: 0.75rem; }
 <p>Our formalization makes four principal contributions:</p>
 <ol>
 <li>A <strong>three-strategy replicator model</strong> at the metamechanism level, establishing conditions under which leveraging versus decreasing approaches become viable and, under the corresponding invasion conditions, evolutionarily stable (Section 3).</li>
-<li>An extension of the <strong>governance trap framework</strong> to community-based business model mechanisms, connecting the manuscript&rsquo;s Mechanism 1 (15 BMPs) to precise sustainability conditions (Section 4).</li>
+<li>An extension of the <strong>governance trap framework</strong> to community-based business model mechanisms, connecting the manuscript&rsquo;s Mechanism 1 (15 BMPs) to precise collapse and sustainability threshold conditions (Section 4).</li>
 <li>A formal <strong>Incompatibility Theorem</strong> demonstrating that, under a shared-interface coupling-allocation model, mixed leveraging&ndash;decreasing strategies are evolutionarily dominated (Section 7).</li>
 <li>A <strong>phase transition analysis</strong> showing how increasing technological anti-rivalry drives qualitative shifts (bifurcations) in the equilibrium business model landscape (Section 8).</li>
 </ol>
@@ -493,11 +493,11 @@ J(0,1) = \operatorname{diag}\!\left(\pi_L - \pi_T,\;\pi_R - \pi_T\right)\bigg|_{
 
 <div class="proposition">
 <p class="label">Proposition 4.1 (Minimum Viable Governance Premium)</p>
-<p>For a community-based business model to be sustainable, the aggregate governance premium must satisfy:</p>
+<p>For governance contribution not to be systematically dominated by content contribution, the aggregate governance premium must satisfy:</p>
 \[
 \sigma_{\text{total}} = \sigma_{\text{power}} + \sigma_{\text{rep}} + \sigma_{\text{fin}} + \sigma_{\text{strat}} + \sigma_{\text{social}} \geq c_G - c_C
 \]
-<p>The practical implication is that Mechanism 1 requires <em>stacking</em> multiple governance-oriented BMPs to achieve the minimum viable premium. A community relying on social recognition alone (\(\sigma_{\text{social}}\)) will fail if \(\sigma_{\text{social}} &lt; c_G - c_C\); it must combine recognition with revenue sharing, decision-making power, or reputational returns.</p>
+<p>The practical implication is that Mechanism 1 requires <em>stacking</em> multiple governance-oriented BMPs to achieve the minimum viable governance premium. A community relying on social recognition alone (\(\sigma_{\text{social}}\)) will not sustain governance contribution if \(\sigma_{\text{social}} &lt; c_G - c_C\); it must combine recognition with revenue sharing, decision-making power, or reputational returns. This condition is necessary for sustained governance contribution but not sufficient for full community sustainability, which additionally requires the value threshold in Corollary 4.1.</p>
 </div>
 
 <div class="critical">
@@ -663,6 +663,8 @@ n \cdot f > C_0 + c_m \cdot n^{\gamma}
 <li>A <em>viability band</em> for the subscription model exists if and only if \(\max_{n&gt;0}(f \cdot n - C_0 - c_m \cdot n^{\gamma}) &gt; 0\). When this condition fails, subscription is not viable at any scale.</li>
 <li>The competitive advantage of de-transactionalization scales with both \(\eta \cdot p\) (how much friction pricing creates) and \(\beta_0\) (how sensitive the good is to network size). For goods with high intrinsic anti-rivalry (\(\beta_0\) large) facing significant price friction (\(\eta p\) large), de-transactionalization is transformative. For goods with low \(\beta_0\) or low \(\eta p\), the advantage is marginal.</li>
 </ol>
+
+<p>This section does not yet specify a full population-dynamic game in the replicator sense; rather, it formalizes the payoff advantage and viability thresholds that would parameterize a two-strategy evolutionary comparison between transactional and de-transactionalized business models.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -902,7 +904,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 <li>\(c_C = 2\), \(c_G = 5\), \(\sigma = 1\)</li>
 </ul>
 
-<p>Since \(\sigma = 1 &lt; c_G - c_C = 3\), the governance trap condition is satisfied. No interior equilibrium exists. The governance-to-content ratio \(y/x\) declines monotonically (Theorem 4.1), and the system follows the four-phase trajectory:</p>
+<p>Since \(\sigma = 1 &lt; c_G - c_C = 3\), the governance trap condition is satisfied. Under this parameterization, any interior state with both governance and content contribution is dynamically undermined rather than stably sustained. The governance-to-content ratio \(y/x\) declines monotonically (Theorem 4.1), and the system follows the four-phase trajectory:</p>
 
 <ol>
 <li><strong>Growth Phase:</strong> Community grows, both content and governance contributions appear, \(V(x,y)\) increases.</li>
