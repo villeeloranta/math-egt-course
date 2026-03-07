@@ -20,20 +20,20 @@
 
 <h2>Model Recap</h2>
 
-<p>Combining leverage-seeking (open, anti-rival) and synergy-seeking (enclosed, partially anti-rival) patterns within a single product line incurs an incompatibility cost. The enclosure required by Transform patterns dampens the anti-rivalry that Leverage patterns depend on:</p>
+<p>Combining leverage-seeking (symbiosis: amplifying rival&ndash;anti-rival coupling) and synergy-seeking (decreasing institutional complexity: reducing rival&ndash;anti-rival coupling) patterns within a single product line incurs an incompatibility cost. Leverage requires tight coupling between rival and anti-rival components (connecting them for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). These opposing interface requirements attenuate each other&rsquo;s effectiveness:</p>
 
 \[
-\beta_{\text{eff}}(e) = \beta_0\,(1-e), \qquad I(w) = w\,\varphi_L\,V_0\,h(y)\left[n^{\beta_0} - n^{\beta_0(1-e(1-w))}\right]
+\beta_{\text{eff}}(d) = \beta_0\,(1-d), \qquad I(w) = w\,\varphi_L\,V_0\,h(y)\left[n^{\beta_0} - n^{\beta_0(1-d(1-w))}\right]
 \]
 
-<p>At scale (\(n\) large), pure strategies dominate mixed strategies. Mixed strategies may be viable only as transitional configurations at intermediate scale.</p>
+<p>where \(d\) is the interface decoupling coefficient introduced by Transform patterns. At scale (\(n\) large), pure strategies dominate mixed strategies because the incompatibility cost grows with scale.</p>
 
 <!-- ========== CASE A ========== -->
 <h2>Case A: MongoDB &mdash; The Open Core Collapse</h2>
 
 <div class="case">
 <p class="lb">Case Context</p>
-<p>MongoDB operated with an open-core model from 2007 to 2018: the core database was open source (AGPL) while MongoDB Atlas (cloud service) and Enterprise Advanced were proprietary (Transform). In October 2018, MongoDB switched the server license to SSPL (Server Side Public License), effectively restricting cloud providers from offering MongoDB-as-a-service without open-sourcing their entire stack. This was a move from a mixed \(L+T\) strategy to a predominantly \(T\) strategy.</p>
+<p>MongoDB operated with an open-core model from 2007 to 2018: the core database used a Leverage approach (tightly coupling community database development with infrastructure optimization through open-source AGPL) while MongoDB Atlas and Enterprise Advanced used a Transform approach (minimizing infrastructure limitations on database-as-a-service sharing while minimizing the effect of cloud usage on infrastructure costs). In October 2018, MongoDB switched the server license to SSPL, moving from a mixed \(L+T\) strategy to a predominantly \(T\) strategy&mdash;restructuring the rival&ndash;anti-rival interface toward reduced coupling.</p>
 </div>
 
 <h3>Parameter Estimation</h3>
@@ -41,8 +41,8 @@
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.30</td><td>MongoDB&rsquo;s document model, query language, drivers, and community tools are anti-rival: improvements benefit all users.</td></tr>
-<tr><td>\(e\) (enclosure)</td><td>0.35 (pre-SSPL)</td><td>Open-core model: core was open, but Atlas, monitoring, security features were enclosed. Estimated 35% of total functionality enclosed.</td></tr>
-<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.30\times(1-0.35)=0.195\) (pre-SSPL)</td><td>Enclosure reduced effective anti-rivalry by 35%.</td></tr>
+<tr><td>\(d\) (decoupling)</td><td>0.35 (pre-SSPL)</td><td>Open-core model: core database was tightly coupled (Leverage), while Atlas and Enterprise features operated on a simplified, decoupled interface (Transform). Estimated 35% of the interface was decoupled from the full community coupling.</td></tr>
+<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.30\times(1-0.35)=0.195\) (pre-SSPL)</td><td>Interface decoupling reduced effective anti-rivalry by 35%.</td></tr>
 <tr><td>\(w\) (leverage fraction)</td><td>0.65 (pre-SSPL)</td><td>65% of the business model relied on community-driven open source; 35% on proprietary enterprise.</td></tr>
 <tr><td>\(n\)</td><td>~35,000 companies (self-reported, 2018)</td><td>Scale at time of license change.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>1.7</td><td>MongoDB captured significant value from community position: reputation, talent pipeline, conference ecosystem.</td></tr>
@@ -53,9 +53,9 @@
 
 <div class="calc">
 <p class="lb">Incompatibility Cost Calculation</p>
-<p>At \(n=35{,}000\), \(w=0.65\), \(e=0.35\):</p>
+<p>At \(n=35{,}000\), \(w=0.65\), \(d=0.35\):</p>
 \[
-\beta_0(1-e(1-w)) = 0.30\times(1-0.35\times 0.35) = 0.30\times(1-0.1225) = 0.30\times 0.8775 = 0.2633
+\beta_0(1-d(1-w)) = 0.30\times(1-0.35\times 0.35) = 0.30\times(1-0.1225) = 0.30\times 0.8775 = 0.2633
 \]
 \[
 I(w) = 0.65\times 1.7\times V_0\times h(y)\times\left[35000^{0.30} - 35000^{0.2633}\right]
@@ -71,7 +71,7 @@ I(0.65) = 1.105\times V_0\times h(y)\times(23.1-15.7) = 1.105\times V_0\times h(
 <p class="lb">Comparing Pure vs Mixed Payoffs</p>
 <p>Pure Leverage (\(w=1\), \(e=0\)):
 \(\pi_L = 1.7\times 1\times 23.1 - 6 = 39.3 - 6 = 33.3\)</p>
-<p>Pure Transform (\(w=0\), full enclosure at \(e=0.35\), applied fully):
+<p>Pure Transform (\(w=0\), full decoupling at \(d=0.35\), applied fully):
 \(\pi_T = 1.4\times 1\times 35000^{0.30\times 0.65} - 4 = 1.4\times 35000^{0.195} - 4\). Computing \(35000^{0.195}=e^{0.195\times 10.46}=e^{2.04}=7.69\). So \(\pi_T=1.4\times 7.69 - 4 = 10.77 - 4 = 6.77\).</p>
 <p>Mixed (\(w=0.65\)):
 \(\pi_{\text{mix}} = 0.65\times 1.7\times 15.7 + 0.35\times 1.4\times 15.7 - 0.65\times 6 - 0.35\times 4\)
@@ -82,7 +82,7 @@ I(0.65) = 1.105\times V_0\times h(y)\times(23.1-15.7) = 1.105\times V_0\times h(
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>The model predicts that at MongoDB&rsquo;s scale (\(n=35{,}000\) companies), pure leverage would be strictly superior to the open-core mix. Yet MongoDB moved toward <em>more</em> enclosure (SSPL), not less. Why?</p>
+<p>The model predicts that at MongoDB&rsquo;s scale (\(n=35{,}000\) companies), pure leverage would be strictly superior to the open-core mix. Yet MongoDB moved toward <em>more</em> decoupling (SSPL), not less. Why?</p>
 <p>The answer lies in <strong>who captures the value</strong>. Under pure leverage, the anti-rival value (\(V_0\times n^{0.30}=23.1\)) would be captured by the entire ecosystem, including cloud providers (AWS DocumentDB, Azure Cosmos DB) who contribute nothing to governance. MongoDB Inc. would capture only \(\varphi_L\) share, but \(\varphi_L\) was insufficient to cover its costs as a public company with shareholder obligations. The incompatibility theorem assumes the leverage firm captures the full \(\varphi_L\times V_a\); in practice, industrial-scale free-riders siphoned the anti-rival value, reducing MongoDB Inc.&rsquo;s effective \(\varphi_L\).</p>
 <p>This reveals a boundary condition of the theorem: it holds when the leverage firm is the primary beneficiary of the ecosystem it creates. When large free-riders (cloud hyperscalers) extract disproportionate value, the effective \(\varphi_L\) for the firm that bears \(c_L\) drops below the threshold, making Transform preferable despite the incompatibility cost.</p>
 </div>
@@ -102,7 +102,7 @@ I(0.65) = 1.105\times V_0\times h(y)\times(23.1-15.7) = 1.105\times V_0\times h(
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.20</td><td>DevOps platform anti-rivalry: shared CI/CD templates, runners, integrations benefit all users, but the benefit is moderate (tool functionality is largely non-rival, not anti-rival).</td></tr>
-<tr><td>\(e\)</td><td>0.25</td><td>Lower enclosure than MongoDB: GitLab&rsquo;s open core is more generous (most features in CE), with enterprise features (advanced security, compliance) in EE.</td></tr>
+<tr><td>\(d\)</td><td>0.25</td><td>Lower decoupling than MongoDB: GitLab&rsquo;s community edition maintains tight coupling with the community (most features in CE), while enterprise features operate on a simplified interface.</td></tr>
 <tr><td>\(w\)</td><td>0.75</td><td>High leverage fraction: the community edition is very capable.</td></tr>
 <tr><td>\(n\)</td><td>~30M users</td><td>Registered user base.</td></tr>
 </table>
@@ -120,7 +120,7 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 \[
 \frac{I(w)}{\varphi_L V_0 h(y)} = w\times(31.3 - 25.3) = 0.75\times 6.0 = 4.5
 \]
-<p>The incompatibility cost exists but is <strong>smaller</strong> than MongoDB&rsquo;s (4.5 vs 8.2 in normalised units) for two reasons: (1) lower enclosure \(e\) (0.25 vs 0.35) and (2) lower intrinsic anti-rivalry \(\beta_0\) (0.20 vs 0.30), which reduces the sensitivity to enclosure.</p>
+<p>The incompatibility cost exists but is <strong>smaller</strong> than MongoDB&rsquo;s (4.5 vs 8.2 in normalised units) for two reasons: (1) lower interface decoupling \(d\) (0.25 vs 0.35) and (2) lower intrinsic anti-rivalry \(\beta_0\) (0.20 vs 0.30), which reduces the sensitivity to decoupling.</p>
 </div>
 
 <div class="finding">
@@ -139,7 +139,7 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 
 <div class="case">
 <p class="lb">Case Context</p>
-<p>WordPress (open source, GPL) powers 43% of all websites. Automattic (the company behind WordPress.com) operates a Transform strategy (freemium hosting, premium themes, WooCommerce) alongside the open-source Leverage strategy. This coexistence has been stable for nearly 20 years. Does this contradict the Incompatibility Theorem?</p>
+<p>WordPress (open source, GPL) powers 43% of all websites. Automattic (the company behind WordPress.com) operates a Transform strategy (minimizing server limitations on website sharing through managed hosting; minimizing the effect of site creation on infrastructure costs through tiered services) alongside the open-source Leverage strategy (connecting community plugin/theme development to each site&rsquo;s quality optimization). This coexistence has been stable for nearly 20 years. Does this contradict the Incompatibility Theorem?</p>
 </div>
 
 <div class="calc">
@@ -147,15 +147,15 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Key Difference</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.30</td><td>High anti-rivalry: themes, plugins, tutorials, community knowledge all benefit from more users.</td></tr>
-<tr><td>\(e\)</td><td>0.10</td><td><strong>Very low enclosure.</strong> Premium themes and hosting do not restrict the open-source WordPress.org software. The enclosed products are <em>complements</em> (hosting, premium themes), not enclosures of the core anti-rival good.</td></tr>
+<tr><td>\(d\)</td><td>0.10</td><td><strong>Very low decoupling.</strong> Premium themes and hosting operate as rival complements alongside the fully coupled anti-rival good (WordPress software). The Transform patterns target <em>separate rival resources</em> (hosting, design services), not the anti-rival good itself, so decoupling is minimal.</td></tr>
 </table>
 </div>
 
 <div class="finding">
 <p class="lb">Finding: The Complement Exception</p>
-<p>WordPress does <em>not</em> contradict the theorem because its Transform patterns (premium hosting, themes) do not <strong>enclose</strong> the anti-rival good (the WordPress software and plugin ecosystem). Instead, they sell <em>rival complements</em> (server resources, premium support) that sit alongside the unenclosed anti-rival good. The enclosure coefficient \(e\approx 0.10\) is near zero.</p>
-<p>Formally, the theorem requires that &ldquo;the excludability regime imposed by Transform patterns affects the anti-rival value available to Leverage patterns within the same business model.&rdquo; WordPress violates this premise: the Transform patterns (hosting) do not impose excludability on the Leverage patterns (open-source software). Anyone can download, install, and use WordPress without any interaction with Automattic&rsquo;s paid offerings.</p>
-<p>This identifies a critical boundary condition: <strong>the theorem applies only when Leverage and Transform patterns share the same digital good</strong>. When they target different goods (open-source software vs hosting services), they can coexist indefinitely because the enclosure does not dampen the anti-rivalry of the open good.</p>
+<p>WordPress does <em>not</em> contradict the theorem because its Transform patterns (premium hosting, themes) do not <strong>decouple the anti-rival good</strong> (the WordPress software and plugin ecosystem) from its community coupling. Instead, they sell <em>rival complements</em> (server resources, premium support) that sit alongside the fully coupled anti-rival good. The decoupling coefficient \(d\approx 0.10\) is near zero because the Transform patterns target a <em>separate</em> rival&ndash;anti-rival interface.</p>
+<p>Formally, the theorem requires that the interface simplification pursued by Transform patterns attenuates the coupling that Leverage patterns depend on within the same product line. WordPress violates this premise: the Transform patterns (minimizing hosting limitations on website sharing) operate on a different interface than the Leverage patterns (connecting community contributions to each user&rsquo;s site optimization). Anyone can download, install, and use WordPress without any interaction with Automattic&rsquo;s paid offerings.</p>
+<p>This identifies a critical boundary condition: <strong>the theorem applies only when Leverage and Transform patterns share the same rival&ndash;anti-rival interface</strong>. When they target different interfaces (community software development vs hosting services), they can coexist indefinitely because the decoupling does not attenuate the coupling of the anti-rival good.</p>
 </div>
 
 <!-- ========== SYNTHESIS ========== -->
@@ -164,7 +164,7 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 <table>
 <tr><th>Metric</th><th>MongoDB</th><th>GitLab</th><th>WordPress</th></tr>
 <tr><td>\(\beta_0\)</td><td>0.30</td><td>0.20</td><td>0.30</td></tr>
-<tr><td>Enclosure \(e\)</td><td>0.35</td><td>0.25</td><td>0.10</td></tr>
+<tr><td>Decoupling \(d\)</td><td>0.35</td><td>0.25</td><td>0.10</td></tr>
 <tr><td>Incompatibility cost (normalised)</td><td>8.2</td><td>4.5</td><td>~0.5</td></tr>
 <tr><td>Hyperscaler threat</td><td>Yes (AWS DocumentDB)</td><td>No (yet)</td><td>No (hosting is commodity)</td></tr>
 <tr><td>Outcome</td><td>Abandoned mix (SSPL)</td><td>Stable (so far)</td><td>Stable (20+ years)</td></tr>
@@ -174,8 +174,8 @@ n^{\beta_0}=30\text{M}^{0.20},\quad n^{0.1875}=30\text{M}^{0.1875}
 <div class="finding">
 <p class="lb">Key Insights</p>
 <ol>
-<li><strong>The theorem&rsquo;s boundary conditions matter as much as its conclusion.</strong> It applies when Leverage and Transform patterns share the same digital good (MongoDB, GitLab) but not when Transform patterns sell rival complements to an unenclosed anti-rival good (WordPress).</li>
-<li><strong>The severity of incompatibility scales with \(\beta_0\) and \(e\).</strong> High anti-rivalry goods (databases: \(\beta_0=0.30\)) with significant enclosure (\(e=0.35\)) produce large incompatibility costs. Low anti-rivalry goods (DevOps: \(\beta_0=0.20\)) with moderate enclosure (\(e=0.25\)) produce smaller costs that may be tolerable at growth stage.</li>
+<li><strong>The theorem&rsquo;s boundary conditions matter as much as its conclusion.</strong> It applies when Leverage and Transform patterns share the same rival&ndash;anti-rival interface (MongoDB, GitLab) but not when Transform patterns target separate rival complements alongside an uncoupled anti-rival good (WordPress).</li>
+<li><strong>The severity of incompatibility scales with \(\beta_0\) and \(d\).</strong> High anti-rivalry goods (databases: \(\beta_0=0.30\)) with significant interface decoupling (\(d=0.35\)) produce large incompatibility costs. Low anti-rivalry goods (DevOps: \(\beta_0=0.20\)) with moderate decoupling (\(d=0.25\)) produce smaller costs that may be tolerable at growth stage.</li>
 <li><strong>Hyperscaler free-riding is the precipitating event.</strong> The theorem predicts that pure leverage dominates mixed strategies at scale. But firms only <em>abandon</em> the mixed strategy when large free-riders erode their effective \(\varphi_L\). Without the free-rider trigger, the mixed strategy can persist even when it is theoretically suboptimal (GitLab).</li>
 <li><strong>Mixed strategies may be optimal transitional configurations.</strong> The theorem&rsquo;s own caveat &mdash; that mixed strategies may be locally optimal at intermediate scale &mdash; is empirically supported. GitLab&rsquo;s open-core model has enabled growth that a purely open or purely proprietary approach might not have achieved.</li>
 </ol>

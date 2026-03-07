@@ -219,11 +219,11 @@ V(0.03,\,0.008)=12\times(1.0105)\times\frac{0.008}{0.088}=12\times 1.0105\times 
 
 <div class="finding">
 <p class="lb">The License Change as a Strategy Switch</p>
-<p>Redis Labs&rsquo; license change can be formally interpreted as abandoning the \(L\)-strategy (open-source leverage, community governance) in favour of a \(T\)-strategy (enclosure through restrictive licensing, monetisation through Redis Enterprise). The switch occurred because:</p>
+<p>Redis Labs&rsquo; license change can be formally interpreted as shifting from an \(L\)-strategy (symbiosis-seeking: tightly coupling community database development with infrastructure optimization) to a \(T\)-strategy (synergy-seeking: restructuring the offering to minimize the interference between the rival component&mdash;server infrastructure&mdash;and the anti-rival component&mdash;database knowledge and tooling). The switch occurred because:</p>
 <ol>
 <li>The governance trap was unsustainable: Redis Labs could not indefinitely subsidise governance (\(c_G=9\)) with only \(\sigma=1.5\) in returns while cloud providers extracted the anti-rival value.</li>
 <li>The free-rider problem was extreme: the largest beneficiaries (AWS, GCP, Azure) contributed nothing to governance.</li>
-<li>Enclosure (license change) converted the model from \(\pi_L=\varphi_L V\cdot h-c_L\) to \(\pi_T=\varphi_T V\cdot h_T-c_T\), where the enclosure enables \(T\)-strategy to capture revenue directly from cloud providers (who must now license Redis commercially or build alternatives).</li>
+<li>The license change restructured the rival&ndash;anti-rival interface: Redis Enterprise minimizes the limitations that server infrastructure (rival) imposes on database knowledge sharing (anti-rival), while the SSPL minimizes the effect of community contributions on cloud providers&rsquo; infrastructure costs (preventing rivals from extracting anti-rival value without bearing rival costs). This converted the model from \(\pi_L=\varphi_L V\cdot h-c_L\) to \(\pi_T=\varphi_T V\cdot h_T-c_T\).</li>
 </ol>
 <p>This triggered the creation of the Valkey fork (maintained by the Linux Foundation with backing from AWS, Google, Oracle), which represents a new \(L\)-strategy entrant with higher \(\sigma\) (corporate-backed governance from the start).</p>
 </div>
@@ -243,7 +243,7 @@ V(0.03,\,0.008)=12\times(1.0105)\times\frac{0.008}{0.088}=12\times 1.0105\times 
 <tr><td>Deficit</td><td>7.5</td><td>1.2</td><td>4.5</td></tr>
 <tr><td>In Governance Trap?</td><td>Yes (deep)</td><td>Yes (shallow)</td><td>Yes (deep)</td></tr>
 <tr><td>Outcome</td><td>Crisis (Heartbleed), then external rescue</td><td>Slow chronic decline</td><td>License change (L→T strategy switch)</td></tr>
-<tr><td>Resolution</td><td>CII increased \(\sigma_{\text{fin}}\)</td><td>Paid staff reduced \(c_G\)</td><td>Enclosure bypassed the trap entirely</td></tr>
+<tr><td>Resolution</td><td>CII increased \(\sigma_{\text{fin}}\)</td><td>Paid staff reduced \(c_G\)</td><td>L&rarr;T switch: restructured rival&ndash;anti-rival interface</td></tr>
 </table>
 
 <div class="finding">
@@ -251,7 +251,7 @@ V(0.03,\,0.008)=12\times(1.0105)\times\frac{0.008}{0.088}=12\times 1.0105\times 
 <ol>
 <li><strong>The governance trap is ubiquitous.</strong> All three cases &mdash; spanning critical infrastructure, knowledge commons, and database software &mdash; exhibit the trap. The condition \(\sigma&lt;c_G-c_C\) holds across radically different contexts, suggesting it is a structural feature of community-based business models, not an accidental property of specific projects.</li>
 <li><strong>The depth of the deficit predicts the outcome type.</strong> Deep deficits (OpenSSL: 7.5, Redis: 4.5) produce crises or strategic pivots. Shallow deficits (Wikipedia: 1.2) produce slow chronic decline. This is a testable prediction: projects with governance deficits exceeding a threshold (perhaps \(c_G-c_C-\sigma &gt; 3\)) should be classified as crisis-prone.</li>
-<li><strong>Three escape routes exist:</strong> (a)&nbsp;Increase \(\sigma\) through external funding (OpenSSL/CII); (b)&nbsp;Decrease effective \(c_G\) through paid staff or automation (Wikipedia); (c)&nbsp;Abandon the governance game entirely by switching from \(L\) to \(T\) strategy (Redis). Option (c) is irreversible and destroys anti-rival value; options (a) and (b) preserve it.</li>
+<li><strong>Three escape routes exist:</strong> (a)&nbsp;Increase \(\sigma\) through external funding (OpenSSL/CII); (b)&nbsp;Decrease effective \(c_G\) through paid staff or automation (Wikipedia); (c)&nbsp;Switch from \(L\) to \(T\) strategy (Redis), restructuring the rival&ndash;anti-rival interface to reduce coupling. Option (c) preserves some anti-rival value (the database knowledge still circulates) but attenuates it by reducing the tight coupling that amplified network effects under the Leverage approach. Options (a) and (b) preserve the full coupling and thus the full anti-rival value.</li>
 <li><strong>Premium stacking is necessary but fragile.</strong> Wikipedia&rsquo;s survival relies on stacking three premium types (power, reputation, social). Removing any one would likely push it deeper into the trap. This fragility suggests that community-based business models require continuous investment in <em>multiple</em> governance-premium mechanisms&mdash;the minimum viable governance premium is a portfolio problem, not a single-instrument problem.</li>
 </ol>
 </div>

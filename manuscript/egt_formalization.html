@@ -105,7 +105,7 @@ sup { font-size: 0.75rem; }
 
 <p>The original manuscript identifies seven complexity management mechanisms and 39 related business model patterns through which firms can benefit from the anti-rivalry of digital goods while managing the institutional complexity that arises from mixing rival and anti-rival resources. The study&rsquo;s qualitative findings&mdash;organized into three metamechanisms and the symbiosis-seeking versus synergy-seeking distinction&mdash;represent a substantial contribution to the anti-rival goods discourse. However, the original analysis remains, by design, qualitative and classificatory. The present work responds to the original manuscript&rsquo;s explicit call for &ldquo;systems dynamics methods that provide tools for analyzing complex systems&rdquo; by providing an evolutionary game-theoretic formalization.</p>
 
-<p>Why evolutionary game theory? Three features of the business model pattern landscape make EGT the appropriate analytical framework. First, <em>frequency dependence</em>: the value of anti-rival-friendly business models depends critically on how many other firms adopt similar approaches, because anti-rival goods increase in value with use. A single firm adopting open-source practices in a market of proprietary competitors faces a different payoff landscape than one operating among many open-source peers. Second, <em>bounded rationality</em>: firms do not solve global optimization problems when choosing business models; they imitate successful competitors, experiment incrementally, and respond to market signals&mdash;dynamics well captured by replicator dynamics (Hofbauer &amp; Sigmund, 1998). Third, <em>population-level selection</em>: the organizational ecology literature (Hannan &amp; Freeman, 1977) has long recognized that business model viability is determined by environmental selection as much as by deliberate design, and EGT provides the mathematical apparatus for analyzing such selection dynamics.</p>
+<p>Why evolutionary game theory? Three features of the business model pattern landscape make EGT the appropriate analytical framework. First, <em>frequency dependence</em>: the value of anti-rival-friendly business models depends critically on how many other firms adopt similar approaches, because anti-rival goods increase in value with use. A single firm adopting anti-rival-friendly complexity management practices in a market of proprietary competitors faces a different payoff landscape than one operating among many firms that leverage or transform institutional complexity for anti-rival benefits. Second, <em>bounded rationality</em>: firms do not solve global optimization problems when choosing business models; they imitate successful competitors, experiment incrementally, and respond to market signals&mdash;dynamics well captured by replicator dynamics (Hofbauer &amp; Sigmund, 1998). Third, <em>population-level selection</em>: the organizational ecology literature (Hannan &amp; Freeman, 1977) has long recognized that business model viability is determined by environmental selection as much as by deliberate design, and EGT provides the mathematical apparatus for analyzing such selection dynamics.</p>
 
 <p>Our formalization makes four principal contributions:</p>
 <ol>
@@ -165,6 +165,14 @@ V(n) = V_0 \cdot n^{\beta} \cdot h\!\left(\frac{M}{n^{\gamma}}\right), \qquad h(
 <tr><td>\(R\) (Restrict)</td><td>Compartmentalization / Defiance</td><td>&mdash;</td><td>109</td><td>Complexity-avoiding</td></tr>
 </table>
 
+<p>The structural content of each strategy must be understood precisely:</p>
+
+<p><strong>Strategy \(L\) (Leverage)</strong> is a <em>symbiosis-seeking</em> approach that leverages institutional complexity for anti-rival benefits. It operates through two simultaneous structural moves: (1)&nbsp;<em>Detaching</em> rival resource usage from anti-rival digital good sharing, so that rival resource consumption does not rise in proportion to anti-rival sharing; and (2)&nbsp;<em>Connecting</em> the rival and anti-rival sides of the system, so that anti-rival sharing helps the rival part optimize its resource consumption. The combination of detachment and connection constitutes symbiosis: rival and anti-rival components coexist with their institutional complexity intact, but each benefits from the other. The two metamechanisms&mdash;large-scale collaboration (minimizing individuals&rsquo; rival costs through collective action) and seeking anti-rival leverage from rival investments (extracting anti-rival value from activities that also consume rival resources)&mdash;are the institutional mechanisms through which these structural moves are realized.</p>
+
+<p><strong>Strategy \(T\) (Transform)</strong> is a <em>synergy-seeking</em> approach that decreases institutional complexity for anti-rival benefits. It pursues two structural goals: (1)&nbsp;<em>Minimizing</em> (but not entirely removing) the limitations that rival resources set for anti-rival sharing; and (2)&nbsp;<em>Minimizing</em> (but not necessarily optimizing) the effect of anti-rival sharing on rival resource usage. Unlike Leverage, which maintains and exploits the coupling between rival and anti-rival components, Transform restructures the offerings to reduce the bidirectional interference between them. The metamechanism&mdash;asset and offering transformation toward anti-rivalry&mdash;achieves this through patterns that simplify the rival&ndash;anti-rival interface (de-transactionalization, digitalization, parallel offerings) rather than through building complex governance structures to manage the interface.</p>
+
+<p>The critical distinction is <em>qualitative</em>, not merely quantitative: Leverage <em>amplifies coupling</em> between rival and anti-rival components (symbiosis), while Transform <em>reduces coupling</em> between them (synergy through simplification). These are structurally different approaches to the same challenge of managing institutional complexity, not simply more or less aggressive versions of the same approach.</p>
+
 <p>Note that strategy \(R\) includes the 76 compartmentalization patterns, 33 defiance patterns excluded from the manuscript&rsquo;s core analysis. These represent the traditional approach of either ignoring the rival&ndash;anti-rival tension or suppressing anti-rivalry through artificial scarcity (DRM, proprietary enclosure). Including them in the evolutionary model is essential: they constitute the incumbent population against which anti-rival-friendly strategies must compete.</p>
 
 <!-- ============================================================ -->
@@ -183,7 +191,7 @@ V(n) = V_0 \cdot n^{\beta} \cdot h\!\left(\frac{M}{n^{\gamma}}\right), \qquad h(
 \[
 V_a(x_L, x_T) = V_0 \left(1 + \beta_L \cdot x_L + \beta_T \cdot x_T\right)^{\eta}
 \]
-<p>where \(\beta_L &gt; \beta_T &gt; 0\) are strategy-specific anti-rivalry contributions and \(\eta &gt; 0\) controls the curvature of returns. The ordering \(\beta_L &gt; \beta_T\) reflects that leverage strategies (open source, crowdsourcing, community governance) contribute more to the ecosystem&rsquo;s anti-rival value than transform strategies (freemium, subscription, digitalization), which impose partial enclosure.</p>
+<p>where \(\beta_L &gt; \beta_T &gt; 0\) are strategy-specific anti-rivalry contributions and \(\eta &gt; 0\) controls the curvature of returns. The ordering \(\beta_L &gt; \beta_T\) reflects the structural difference between the two approaches: Leverage strategies amplify coupling between rival and anti-rival components (connecting them so that anti-rival sharing optimizes rival resource consumption), thereby generating stronger ecosystem-level anti-rival value. Transform strategies reduce coupling (minimizing bidirectional interference between rival and anti-rival components), which preserves anti-rival value but at a lower intensity because the synergy-seeking simplification attenuates the network effects that full coupling would amplify.</p>
 </div>
 
 <p>We also incorporate the rivalrous complement through a governance quality function. The fraction of firms investing in governance and community infrastructure determines the quality modulator:</p>
@@ -210,9 +218,9 @@ h(x_L) = \frac{x_L}{x_L + \kappa_G}
 \]
 <p>where:</p>
 <ul>
-<li>\(\varphi_L &gt; \varphi_T &gt; 1\): differential access multipliers. Leverage firms capture disproportionate returns from anti-rival value (through community position, data access, reputational capital). Transform firms capture moderate returns.</li>
-<li>\(c_L &gt; c_T &gt; 0\): cost ordering. Leverage strategies require higher investment (community building, governance infrastructure, transparency mechanisms). Transform strategies have moderate costs (offering design, asset conversion).</li>
-<li>\(h_T(x_L, x_T) = \frac{x_L + \alpha_T x_T}{x_L + \alpha_T x_T + \kappa_G}\): governance quality accessible to \(T\)-firms, where \(0 &lt; \alpha_T &lt; 1\) reflects that transform firms partially free-ride on governance created by leverage firms.</li>
+<li>\(\varphi_L &gt; \varphi_T &gt; 1\): differential access multipliers. Leverage firms capture disproportionate returns from anti-rival value because their symbiosis-seeking approach&mdash;connecting rival and anti-rival components&mdash;creates strategic positions (ecosystem centrality, data flows, integration advantages) that amplify value capture. Transform firms capture moderate returns because their synergy-seeking approach&mdash;minimizing bidirectional interference&mdash;yields a simpler but less strategically differentiated position.</li>
+<li>\(c_L &gt; c_T &gt; 0\): cost ordering. Leverage strategies require higher investment because maintaining the dual structural moves (detaching rival costs from anti-rival sharing while connecting the sides for optimization) demands complex institutional infrastructure (governance mechanisms, community coordination, transparency systems). Transform strategies have lower costs because decreasing institutional complexity is inherently less infrastructure-intensive than leveraging it.</li>
+<li>\(h_T(x_L, x_T) = \frac{x_L + \alpha_T x_T}{x_L + \alpha_T x_T + \kappa_G}\): governance quality accessible to \(T\)-firms. The coefficient \(0 &lt; \alpha_T &lt; 1\) reflects that Transform firms contribute to ecosystem governance through their own mechanisms (offering restructuring, interface simplification) but at lower intensity than Leverage firms, whose approach is specifically designed to build and maintain complex governance structures. Transform firms also benefit from the governance infrastructure that Leverage firms create, as the simplified interfaces they rely on presuppose some baseline ecosystem coordination.</li>
 <li>\(R_0\): base returns from traditional rival goods business models.</li>
 <li>\(\delta &gt; 0\): competitive displacement coefficient. As the anti-rival ecosystem grows, traditional business models lose market share to firms offering anti-rival value.</li>
 </ul>
@@ -522,7 +530,7 @@ n_O(p) = n_0 \cdot \alpha \cdot (1 - \lambda p), \qquad \lambda \in (0, 1)
 <!-- ============================================================ -->
 <h2 id="sec6">6. Model IV: De-Transactionalization and Anti-Rivalry Amplification</h2>
 
-<p>Mechanism 5 (&ldquo;Enabling Anti-Rivalry through De-Transactionalization&rdquo;) contains 4 BMPs: flat rate, subscription, membership, and license. These patterns share a common structural feature: they decouple individual consumption events from payment, thereby removing per-use friction that inhibits anti-rival sharing.</p>
+<p>Mechanism 5 (&ldquo;Enabling Anti-Rivalry through De-Transactionalization&rdquo;) contains 4 BMPs: flat rate, subscription, membership, and license. These patterns exemplify Transform&rsquo;s first structural goal&mdash;minimizing the limitations that rival resources set for anti-rival sharing. They achieve this by decoupling individual consumption events from payment, thereby removing per-use friction (a rival-resource limitation) that inhibits anti-rival sharing. Simultaneously, they address Transform&rsquo;s second structural goal&mdash;minimizing the effect of anti-rival sharing on rival resource usage&mdash;by converting variable costs into fixed fees, so that increased sharing does not proportionally increase the rival resource (payment) burden on users.</p>
 
 <h3>6.1 Transactional vs. De-Transactional Value Capture</h3>
 
@@ -566,53 +574,55 @@ n \cdot f > C_0 + c_m \cdot n^{\gamma}
 
 <p>The original manuscript contains a crucial design insight, stated qualitatively: business model patterns from different complexity management approaches (leveraging vs. decreasing) &ldquo;should be combined into a single business model only with caution&rdquo; because patterns seeking complexity leverage combined with those seeking complexity decrease can result in a system that &ldquo;loses the ability to seek complexity leverage.&rdquo; We now provide a formal statement and proof.</p>
 
-<h3>7.1 The Enclosure Effect</h3>
+<h3>7.1 The Interface Decoupling Effect</h3>
 
-<p>Transform strategies (Metamechanism 3) achieve compatibility with anti-rivalry through partial enclosure: freemium models exclude non-paying users from premium features, subscription models gate access behind payment, and parallel offerings create excludability tiers. These enclosures, while enabling revenue capture, <em>reduce the effective anti-rivalry</em> of the enclosed components.</p>
+<p>Transform strategies (Metamechanism 3) manage the rival&ndash;anti-rival interface by <em>reducing the coupling</em> between rival and anti-rival components. De-transactionalization decouples payment from consumption; digitalization decouples physical constraints from digital sharing; parallel offerings decouple premium rival services from the anti-rival base. This decoupling achieves Transform&rsquo;s dual goals&mdash;minimizing rival limitations on anti-rival sharing and minimizing anti-rival effects on rival resource usage&mdash;but it also <em>attenuates the network amplification</em> that full coupling would enable. By reducing the interface between rival and anti-rival sides, Transform strategies limit the channels through which anti-rival sharing can generate superlinear returns.</p>
 
 <div class="definition">
-<p class="label">Definition 7.1 (Enclosure Coefficient)</p>
-<p>Let \(e \in [0, 1]\) represent the degree of enclosure imposed by a Transform-type BMP on a digital good. The effective anti-rivalry under enclosure is:</p>
+<p class="label">Definition 7.1 (Interface Decoupling Coefficient)</p>
+<p>Let \(d \in [0, 1]\) represent the degree to which a Transform-type BMP decouples the rival and anti-rival components of a business model. The effective anti-rivalry under decoupling is:</p>
 \[
-\beta_{\text{eff}}(e) = \beta_0 \cdot (1 - e)
+\beta_{\text{eff}}(d) = \beta_0 \cdot (1 - d)
 \]
-<p>Full enclosure (\(e = 1\)) reduces the good to non-rivalrous (\(\beta_{\text{eff}} = 0\)); no enclosure (\(e = 0\)) preserves full anti-rivalry. This linear dampening is a simplification; the qualitative results hold for any monotonically decreasing relationship between enclosure and effective anti-rivalry.</p>
+<p>Full decoupling (\(d = 1\)) eliminates the network amplification channel, reducing the good to non-rivalrous (\(\beta_{\text{eff}} = 0\)); no decoupling (\(d = 0\)) preserves full anti-rivalry but also full bidirectional interference. Note that Transform strategies operate at intermediate values of \(d\): they seek to <em>minimize</em> (not eliminate) bidirectional interference, so \(d \in (0, 1)\) rather than \(d = 1\). This linear attenuation is a simplification; the qualitative results hold for any monotonically decreasing relationship between decoupling and effective anti-rivalry.</p>
 </div>
+
+<p>The crucial distinction from simple enclosure is that decoupling is <em>bidirectional</em>: it reduces both (i) the limitations rival resources impose on anti-rival sharing, and (ii) the effects of anti-rival sharing on rival resource usage. This bidirectional reduction is structurally different from merely gating access (which would be a Restrict strategy). Transform strategies are not seeking to exclude users; they are seeking to simplify the interface so that rival and anti-rival components can coexist with less institutional friction.</p>
 
 <h3>7.2 Formal Statement</h3>
 
 <div class="theorem">
 <p class="label">Theorem 7.1 (Incompatibility of Leveraging and Decreasing Patterns)</p>
-<p>Consider a business model that combines a fraction \(w\) of leverage-seeking BMPs and a fraction \((1-w)\) of synergy-seeking BMPs, where \(w \in [0, 1]\). The synergy-seeking patterns impose an enclosure coefficient \(e &gt; 0\) on the shared digital good. The effective payoff of the mixed configuration is:</p>
+<p>Consider a business model that combines a fraction \(w\) of leverage-seeking BMPs and a fraction \((1-w)\) of synergy-seeking BMPs, where \(w \in [0, 1]\). The synergy-seeking patterns impose an interface decoupling coefficient \(d &gt; 0\) that attenuates the coupling between rival and anti-rival components. The effective payoff of the mixed configuration is:</p>
 \[
-\pi_{\text{mix}}(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0(1-e(1-w))} \cdot h(y) + (1-w) \cdot \varphi_T \cdot V_0 \cdot n^{\beta_0(1-e(1-w))} \cdot h_T - w \cdot c_L - (1-w) \cdot c_T
+\pi_{\text{mix}}(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0(1-d(1-w))} \cdot h(y) + (1-w) \cdot \varphi_T \cdot V_0 \cdot n^{\beta_0(1-d(1-w))} \cdot h_T - w \cdot c_L - (1-w) \cdot c_T
 \]
-<p>The enclosure coefficient applies globally because the excludability regime affects all users. Even a partial enclosure (from the Transform patterns) reduces the anti-rivalrous benefit that the Leverage patterns depend on.</p>
+<p>The decoupling coefficient applies to the shared interface because within a single product line, the degree of coupling between rival and anti-rival components cannot be simultaneously high (as Leverage requires) and low (as Transform requires). The decoupling introduced by Transform patterns attenuates the network amplification channels that Leverage patterns depend on for superlinear returns.</p>
 
 <p>Define the <strong>incompatibility cost</strong>:</p>
 \[
-I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0(1-e(1-w))} \cdot h(y)
+I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0(1-d(1-w))} \cdot h(y)
 \]
 \[
-= w \cdot \varphi_L \cdot V_0 \cdot h(y) \cdot \left[n^{\beta_0} - n^{\beta_0(1-e(1-w))}\right]
+= w \cdot \varphi_L \cdot V_0 \cdot h(y) \cdot \left[n^{\beta_0} - n^{\beta_0(1-d(1-w))}\right]
 \]
 
-<p>For \(n &gt; 1\), \(\beta_0 &gt; 0\), and \(e &gt; 0\), we have \(n^{\beta_0} &gt; n^{\beta_0(1-e(1-w))}\) whenever \(w &lt; 1\). Therefore \(I(w) &gt; 0\) for all \(w \in (0, 1)\), and \(I(0) = I(1) = 0\).</p>
+<p>For \(n &gt; 1\), \(\beta_0 &gt; 0\), and \(d &gt; 0\), we have \(n^{\beta_0} &gt; n^{\beta_0(1-d(1-w))}\) whenever \(w &lt; 1\). Therefore \(I(w) &gt; 0\) for all \(w \in (0, 1)\), and \(I(0) = I(1) = 0\).</p>
 
-<p>The leverage component of the business model suffers a value loss due to the enclosure imposed by the transform component. This loss is zero only at the pure strategies (\(w = 0\) or \(w = 1\)).</p>
+<p>The source of incompatibility is structural: Leverage requires tight coupling (connecting rival and anti-rival sides for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). The Leverage component suffers a value loss because the decoupling introduced by the Transform component attenuates the network amplification that the Leverage strategy depends on. Symmetrically, the Transform component suffers because the coupling amplified by the Leverage component increases the bidirectional interference that Transform seeks to minimize. This loss is zero only at the pure strategies (\(w = 0\) or \(w = 1\)).</p>
 </div>
 
 <div class="proof-box">
 <p class="label">Proof (Strict Dominance of Pure Strategies)</p>
 <p>We show that for sufficiently large \(n\) (i.e., for business models at scale), the mixed strategy is dominated by at least one pure strategy. Consider the payoff difference between pure leverage (\(w = 1\)) and mixed (\(w \in (0,1)\)):</p>
 \[
-\pi_L - \pi_{\text{mix}}(w) = \varphi_L V_0 h(y) \left[n^{\beta_0} - n^{\beta_0(1-e(1-w))}\right] \cdot (1) + (1-w)(c_T - c_L) - (1-w) \varphi_T V_0 n^{\beta_0(1-e(1-w))} h_T
+\pi_L - \pi_{\text{mix}}(w) = \varphi_L V_0 h(y) \left[n^{\beta_0} - n^{\beta_0(1-d(1-w))}\right] \cdot (1) + (1-w)(c_T - c_L) - (1-w) \varphi_T V_0 n^{\beta_0(1-d(1-w))} h_T
 \]
-<p>The first term (value gain from removing enclosure) grows as \(n^{\beta_0}\), while the third term (lost transform-component revenue) grows as \(n^{\beta_0(1-e(1-w))}\) with a strictly smaller exponent. Therefore, for sufficiently large \(n\):</p>
+<p>The first term (value gain from restoring full coupling) grows as \(n^{\beta_0}\), while the third term (lost transform-component revenue) grows as \(n^{\beta_0(1-d(1-w))}\) with a strictly smaller exponent. Therefore, for sufficiently large \(n\):</p>
 \[
-\lim_{n \to \infty} \frac{\pi_L - \pi_{\text{mix}}(w)}{n^{\beta_0}} = \varphi_L h(y) \left[1 - n^{-\beta_0 e(1-w)}\right] > 0
+\lim_{n \to \infty} \frac{\pi_L - \pi_{\text{mix}}(w)}{n^{\beta_0}} = \varphi_L h(y) \left[1 - n^{-\beta_0 d(1-w)}\right] > 0
 \]
-<p>Hence \(\pi_L &gt; \pi_{\text{mix}}(w)\) for sufficiently large \(n\). A symmetric argument shows that for sufficiently small \(n\) (below the critical mass for leverage strategies), \(\pi_T &gt; \pi_{\text{mix}}(w)\) because the leverage component incurs costs without sufficient anti-rival value to justify them.</p>
+<p>Hence \(\pi_L &gt; \pi_{\text{mix}}(w)\) for sufficiently large \(n\). A symmetric argument shows that for sufficiently small \(n\) (below the critical mass for leverage strategies), \(\pi_T &gt; \pi_{\text{mix}}(w)\) because the leverage component incurs coupling costs without sufficient scale for the network amplification to justify them.</p>
 <p class="qed">&#9632;</p>
 </div>
 
@@ -623,8 +633,9 @@ I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varph
 
 <div class="critical">
 <p class="label">Critical Assessment 7.1</p>
-<p>This theorem relies on the assumption that enclosure effects are <em>global</em>&mdash;that the excludability regime imposed by Transform patterns affects the anti-rival value available to Leverage patterns within the same business model. This assumption is defensible when the patterns share the same digital good (e.g., a firm offering both an open-source community version and a premium proprietary version of the same software). It is less applicable when the patterns target <em>different</em> goods within a diversified business model. The theorem should therefore be interpreted as applying within a <em>single product line</em>, not necessarily across an entire conglomerate.</p>
+<p>This theorem relies on the assumption that the decoupling effect is <em>global within a product line</em>&mdash;that the interface simplification pursued by Transform patterns is incompatible with the interface amplification pursued by Leverage patterns when they share the same digital good. This assumption is defensible when the patterns target the same rival&ndash;anti-rival interface (e.g., a firm attempting to both tightly couple community development with infrastructure optimization <em>and</em> decouple consumption from infrastructure costs within the same product). It is less applicable when the patterns target <em>different</em> interfaces within a diversified business model, or when the rival and anti-rival components are sufficiently separable that one interface can be coupled while another is decoupled. The theorem should therefore be interpreted as applying within a <em>single product line sharing a common rival&ndash;anti-rival interface</em>, not necessarily across an entire conglomerate.</p>
 <p>A further limitation: the theorem is asymptotic (it holds &ldquo;for sufficiently large \(n\)&rdquo;). At intermediate scales, the mixed strategy may be locally optimal as a transitional configuration. This suggests that firms may rationally adopt mixed strategies during the growth phase before converging to a pure approach at scale&mdash;a prediction that could be tested empirically.</p>
+<p>Finally, note that the linear attenuation model \(\beta_{\text{eff}}(d) = \beta_0(1-d)\) is a simplification of Transform&rsquo;s dual minimization goals. In practice, Transform strategies may achieve their goals asymmetrically&mdash;minimizing rival limitations on anti-rival sharing more effectively than minimizing anti-rival effects on rival usage, or vice versa. A richer model would use separate parameters for each direction of interference, potentially revealing parameter regimes where partial mixing is viable.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -669,12 +680,12 @@ I(w) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0} \cdot h(y) - w \cdot \varph
 
 <div class="remark">
 <p class="label">Remark 8.1 (Empirical Correlates)</p>
-<p>These phases have observable empirical correlates. Phase I describes the pre-internet economy where most goods were rival. Phase II describes the early internet era: some firms adopted subscription and freemium models (Transform strategies), but traditional models remained dominant. Phase III describes the current era: open-source and platform-based business models (Leverage strategies) are viable and growing but still require ecosystem coordination. Phase IV describes a hypothetical future where anti-rival business models are the default. The phase transition analysis predicts that the transition from Phase III to Phase IV is <em>discontinuous</em>&mdash;once the tipping point is reached, the shift to leverage-dominant markets is rapid. This is consistent with the observed &ldquo;winner-take-all&rdquo; dynamics in digital platform markets.</p>
+<p>These phases have observable empirical correlates. Phase I describes the pre-internet economy where most goods were rival. Phase II describes the early internet era: firms began restructuring their offerings to minimize the interference between rival and anti-rival components (Transform strategies&mdash;e.g., de-transactionalizing through subscription models, digitalizing physical offerings), but traditional models remained dominant. Phase III describes the current era: firms are building complex governance structures that leverage the coupling between rival and anti-rival components (Leverage strategies&mdash;e.g., community-driven development where shared contributions optimize each participant&rsquo;s resource usage), but these approaches still require ecosystem coordination to sustain governance quality. Phase IV describes a hypothetical future where the symbiosis-seeking approach dominates because anti-rivalry is strong enough that the returns from tight coupling justify the governance costs. The phase transition analysis predicts that the transition from Phase III to Phase IV is <em>discontinuous</em>&mdash;once the tipping point is reached, the shift to leverage-dominant markets is rapid.</p>
 </div>
 
 <h3>8.3 The Transform-to-Leverage Transition</h3>
 
-<p>A particularly important transition occurs within the anti-rival-friendly strategies: the shift from synergy-seeking (Transform) to symbiosis-seeking (Leverage) approaches. On the \(L\)&ndash;\(T\) edge of the simplex, the fitness difference is:</p>
+<p>A particularly important dynamic occurs within the anti-rival-friendly strategies: the competitive interaction between synergy-seeking (Transform) and symbiosis-seeking (Leverage) approaches, each representing a structurally distinct way of managing the rival&ndash;anti-rival interface. On the \(L\)&ndash;\(T\) edge of the simplex, the fitness difference is:</p>
 
 \[
 \pi_L - \pi_T = \varphi_L \cdot V_a \cdot h(x_L) - c_L - \varphi_T \cdot V_a \cdot h_T(x_L, x_T) + c_T
@@ -704,12 +715,12 @@ c_L - c_T > V_0(1+\beta_L)^{\eta} \left[\frac{\varphi_L}{1+\kappa_G} - \frac{\va
 <table>
 <tr><th>Parameter</th><th>Symbol</th><th>Baseline Value</th><th>Interpretation</th></tr>
 <tr><td>Base value</td><td>\(V_0\)</td><td>10</td><td>Intrinsic value of the digital good</td></tr>
-<tr><td>Anti-rivalry (Leverage)</td><td>\(\beta_L\)</td><td>0.4</td><td>Strong anti-rivalry from open sharing</td></tr>
-<tr><td>Anti-rivalry (Transform)</td><td>\(\beta_T\)</td><td>0.15</td><td>Moderate anti-rivalry under partial enclosure</td></tr>
-<tr><td>Leverage multiplier</td><td>\(\varphi_L\)</td><td>1.8</td><td>Disproportionate returns from community position</td></tr>
-<tr><td>Transform multiplier</td><td>\(\varphi_T\)</td><td>1.3</td><td>Moderate returns from transformed offerings</td></tr>
-<tr><td>Leverage cost</td><td>\(c_L\)</td><td>8</td><td>Community building, governance, transparency</td></tr>
-<tr><td>Transform cost</td><td>\(c_T\)</td><td>4</td><td>Offering design, asset conversion</td></tr>
+<tr><td>Anti-rivalry (Leverage)</td><td>\(\beta_L\)</td><td>0.4</td><td>Strong anti-rivalry from tight rival&ndash;anti-rival coupling</td></tr>
+<tr><td>Anti-rivalry (Transform)</td><td>\(\beta_T\)</td><td>0.15</td><td>Moderate anti-rivalry under reduced coupling (interface simplification)</td></tr>
+<tr><td>Leverage multiplier</td><td>\(\varphi_L\)</td><td>1.8</td><td>Disproportionate returns from symbiosis-seeking interface position</td></tr>
+<tr><td>Transform multiplier</td><td>\(\varphi_T\)</td><td>1.3</td><td>Moderate returns from synergy-seeking interface simplification</td></tr>
+<tr><td>Leverage cost</td><td>\(c_L\)</td><td>8</td><td>Dual-move infrastructure: detachment + connection mechanisms</td></tr>
+<tr><td>Transform cost</td><td>\(c_T\)</td><td>4</td><td>Dual-goal restructuring: minimizing bidirectional interference</td></tr>
 <tr><td>Traditional returns</td><td>\(R_0\)</td><td>6</td><td>Baseline profitability of restrictive models</td></tr>
 <tr><td>Displacement coefficient</td><td>\(\delta\)</td><td>0.5</td><td>Competitive pressure from anti-rival ecosystem</td></tr>
 <tr><td>Governance requirement</td><td>\(\kappa_G\)</td><td>0.15</td><td>Half-saturation for governance quality</td></tr>
@@ -781,16 +792,16 @@ x^* = \frac{-9 + \sqrt{81 + 4 \cdot 9.2 \cdot 2.1}}{2 \cdot 9.2} = \frac{-9 + \s
 
 <p><strong>Result 2: Governance Trap Conditions (Theorem 4.1).</strong> Community-based business models (Mechanism 1, 15 BMPs) require a governance premium exceeding the cost differential between governance and content contribution. The 5 governance-oriented BMPs in Mechanism 1 can be interpreted as mechanisms for building this premium through different channels (power, reputation, financial, strategic, social).</p>
 
-<p><strong>Result 3: Incompatibility of Mixed Approaches (Theorem 7.1).</strong> At scale, business models mixing leverage-seeking and synergy-seeking patterns are dominated by pure approaches. The enclosure required by Transform patterns reduces the anti-rival value that Leverage patterns depend on, creating an endogenous incompatibility cost.</p>
+<p><strong>Result 3: Incompatibility of Mixed Approaches (Theorem 7.1).</strong> At scale, business models mixing leverage-seeking and synergy-seeking patterns within a single product line are dominated by pure approaches. The structural incompatibility arises because Leverage requires tight coupling between rival and anti-rival components (connecting them for mutual optimization), while Transform requires loose coupling (minimizing bidirectional interference). These opposing interface requirements create an endogenous incompatibility cost that grows with scale.</p>
 
-<p><strong>Result 4: Phase Transitions (Theorem 8.1).</strong> Increasing anti-rivalry drives discontinuous shifts in the market-dominant business model. The phase structure predicts an inevitable transition from restrictive to leverage-dominant markets as digital goods become more anti-rival, with the Transform approach serving as a transitional strategy.</p>
+<p><strong>Result 4: Phase Transitions (Theorem 8.1).</strong> Increasing anti-rivalry drives discontinuous shifts in the market-dominant business model. The phase structure reveals that Transform strategies (synergy-seeking, interface simplification) become viable at lower anti-rivalry thresholds than Leverage strategies (symbiosis-seeking, interface amplification), because the governance costs and coordination requirements of tight coupling are only justified when anti-rival returns are sufficiently strong. Both approaches remain independently viable as distinct equilibria; the dominance of Leverage at high anti-rivalry reflects the superlinear returns from full coupling, not an inherent inferiority of the Transform approach.</p>
 
 <h3>10.2 Prescriptive Implications</h3>
 
 <p>For business model innovators, these results suggest several prescriptions:</p>
 
 <ol>
-<li><strong>Choose a pure approach at scale.</strong> The Incompatibility Theorem warns against attempting to &ldquo;have it both ways&rdquo;&mdash;combining open sharing with enclosure within a single product line. Mixed strategies may be viable during the growth phase (when scale \(n\) is small and the asymptotic dominance of pure strategies does not yet bind), but firms should plan a transition to a pure approach as they scale.</li>
+<li><strong>Choose a pure interface approach at scale.</strong> The Incompatibility Theorem warns against attempting to simultaneously amplify and reduce the coupling between rival and anti-rival components within a single product line. A firm cannot both tightly connect rival and anti-rival sides for mutual optimization (Leverage) and minimize their bidirectional interference (Transform) on the same interface. Mixed strategies may be viable during the growth phase (when scale \(n\) is small and the asymptotic dominance of pure strategies does not yet bind), but firms should plan a transition to a pure approach as they scale.</li>
 
 <li><strong>Stack governance premiums.</strong> Community-based business models (Mechanism 1) should not rely on a single source of governance premium. The minimum viable premium \(\sigma_{\min} = c_G - c_C\) is typically larger than any single premium source can provide. Combining community governance (power), revenue sharing (financial), and stewardship roles (reputational) increases the total premium and reduces governance trap risk.</li>
 
@@ -825,7 +836,7 @@ x^* = \frac{-9 + \sqrt{81 + 4 \cdot 9.2 \cdot 2.1}}{2 \cdot 9.2} = \frac{-9 + \s
 
 <p><strong>Commons Governance.</strong> The governance trap formalization extends Ostrom&rsquo;s (1990) design principles to digital business model communities. The key difference from natural commons is that the governance challenge is not preventing overuse (the good is anti-rival) but sustaining the rivalrous complement that enables anti-rival value creation.</p>
 
-<p><strong>Institutional Complexity.</strong> Our phase transition analysis provides a dynamical systems interpretation of the institutional complexity framework (Thornton et al., 2012; Battilana &amp; Lee, 2014). The shift from complexity-avoiding to complexity-decreasing to complexity-leveraging approaches corresponds to phase transitions driven by the technological evolution of anti-rivalry.</p>
+<p><strong>Institutional Complexity.</strong> Our phase transition analysis provides a dynamical systems interpretation of the institutional complexity framework (Thornton et al., 2012; Battilana &amp; Lee, 2014). The coexistence of complexity-avoiding (Restrict), complexity-decreasing (Transform, synergy-seeking through interface simplification), and complexity-leveraging (Leverage, symbiosis-seeking through interface amplification) approaches&mdash;and the conditions under which each dominates&mdash;corresponds to phase transitions driven by the technological evolution of anti-rivalry.</p>
 
 <h3>10.5 Future Research Directions</h3>
 
@@ -842,7 +853,7 @@ x^* = \frac{-9 + \sqrt{81 + 4 \cdot 9.2 \cdot 2.1}}{2 \cdot 9.2} = \frac{-9 + \s
 <!-- ============================================================ -->
 <h2 id="sec11">11. Conclusion</h2>
 
-<p>This paper has demonstrated that the qualitative findings of the original manuscript on anti-rival business model complexity management can be placed on rigorous analytical foundations through evolutionary game theory. The formalization is not merely a mathematical re-statement of existing insights; it generates new results&mdash;the bistability of business model landscapes, the precise conditions for governance trap avoidance, the strict dominance of pure over mixed complexity management approaches at scale, and the phase transition structure of market evolution&mdash;that go beyond what qualitative analysis alone can deliver.</p>
+<p>This paper has demonstrated that the qualitative findings of the original manuscript on anti-rival business model complexity management can be placed on rigorous analytical foundations through evolutionary game theory. The formalization is not merely a mathematical re-statement of existing insights; it generates new results&mdash;the bistability of business model landscapes, the precise conditions for governance trap avoidance, the structural incompatibility of coupling-amplifying (Leverage) and coupling-reducing (Transform) approaches within a single product line at scale, and the phase transition structure of market evolution&mdash;that go beyond what qualitative analysis alone can deliver.</p>
 
 <p>At the same time, we have been candid about the limitations of the approach. Mathematical models impose assumptions that may not hold, parameters that may not be measurable, and functional forms that may not be accurate. The value of the formalization lies not in its predictive precision but in its structural clarity: it makes the logical relationships between variables, strategies, and outcomes explicit and falsifiable.</p>
 

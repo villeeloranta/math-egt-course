@@ -40,7 +40,7 @@ th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}
 
 <h2>Model Recap</h2>
 
-<p>Three strategies compete in a digital economy: <strong>Leverage</strong> \(L\) (symbiosis-seeking: open source, crowdsourcing, community governance), <strong>Transform</strong> \(T\) (synergy-seeking: freemium, subscription, digitalization), and <strong>Restrict</strong> \(R\) (complexity-avoiding: proprietary enclosure, DRM). The key equations:</p>
+<p>Three strategies compete in a digital economy: <strong>Leverage</strong> \(L\) (symbiosis-seeking: leveraging institutional complexity by <em>detaching</em> rival resource usage from anti-rival sharing while <em>connecting</em> rival and anti-rival sides so that sharing optimizes resource consumption), <strong>Transform</strong> \(T\) (synergy-seeking: decreasing institutional complexity by <em>minimizing</em> the limitations rival resources set for anti-rival sharing and <em>minimizing</em> the effect of anti-rival sharing on rival resource usage), and <strong>Restrict</strong> \(R\) (complexity-avoiding: suppressing anti-rivalry through proprietary enclosure). The key equations:</p>
 
 \[
 V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\kappa_G}
@@ -62,8 +62,8 @@ V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\
 <h3>Strategy Mapping</h3>
 <table>
 <tr><th>Strategy</th><th>Exemplars</th><th>Key Patterns</th></tr>
-<tr><td>\(L\) &mdash; Leverage</td><td>Linux (kernel.org), Red&nbsp;Hat, Canonical, SUSE</td><td>Open source, community governance, crowdsourcing, revenue sharing</td></tr>
-<tr><td>\(T\) &mdash; Transform</td><td>FreeBSD-based appliances, macOS Server (discontinued 2022)</td><td>Freemium, dual-licensing</td></tr>
+<tr><td>\(L\) &mdash; Leverage</td><td>Linux (kernel.org), Red&nbsp;Hat, Canonical, SUSE</td><td>Detaches individual firms&rsquo; hardware costs (rival) from kernel development sharing (anti-rival); connects shared kernel improvements to each deployer&rsquo;s hardware utilization optimization</td></tr>
+<tr><td>\(T\) &mdash; Transform</td><td>FreeBSD-based appliances, macOS Server (discontinued 2022)</td><td>Minimizes hardware limitations on code sharing (through streamlined BSD licensing); minimizes sharing&rsquo;s effect on appliance costs (through pre-integrated offerings)</td></tr>
 <tr><td>\(R\) &mdash; Restrict</td><td>Microsoft Windows Server, Solaris (pre-OpenSolaris), HP-UX, AIX</td><td>Proprietary licensing, DRM enforcement</td></tr>
 </table>
 
@@ -72,10 +72,10 @@ V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\
 <table>
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(V_0\)</td><td>8</td><td>Base value of a server OS ecosystem (normalised units). A general-purpose server OS with basic networking, file systems, and process management.</td></tr>
-<tr><td>\(\beta_L\)</td><td>0.50</td><td>Linux exhibits strong anti-rivalry: each contributor&rsquo;s kernel patch, driver, or security fix benefits every other user. The shared kernel development model creates superlinear returns to adoption.</td></tr>
-<tr><td>\(\beta_T\)</td><td>0.10</td><td>Transform approaches (e.g., FreeBSD appliances) share some code but enclosure limits anti-rival benefits.</td></tr>
-<tr><td>\(\varphi_L\)</td><td>2.0</td><td>Red Hat captured $3.4B/year revenue (2018 acquisition price: $34B) from a free operating system&mdash;disproportionate value capture through community position, enterprise support, certification.</td></tr>
-<tr><td>\(\varphi_T\)</td><td>1.2</td><td>Moderate differential access from partially open systems.</td></tr>
+<tr><td>\(\beta_L\)</td><td>0.50</td><td>Linux&rsquo;s Leverage approach generates strong anti-rivalry through tight coupling: shared kernel patches simultaneously benefit all users (detachment: individual firms&rsquo; server costs are not proportional to shared patches consumed) and optimize each deployer&rsquo;s hardware utilization (connection: community-developed drivers, schedulers, and security fixes improve every participant&rsquo;s rival infrastructure performance).</td></tr>
+<tr><td>\(\beta_T\)</td><td>0.10</td><td>Transform approaches (e.g., FreeBSD appliances) reduce the coupling between code sharing and hardware costs, minimizing bidirectional interference but also attenuating the network amplification that full coupling provides.</td></tr>
+<tr><td>\(\varphi_L\)</td><td>2.0</td><td>Red Hat captured $3.4B/year revenue (2018 acquisition price: $34B) from a free operating system&mdash;disproportionate value capture from the symbiosis-seeking position: the tight coupling between community contributions and enterprise infrastructure created strategic leverage (certification, support, ecosystem centrality) unavailable to firms not occupying the interface.</td></tr>
+<tr><td>\(\varphi_T\)</td><td>1.2</td><td>Moderate returns from synergy-seeking approach: simplified interface yields value through streamlined delivery but without the strategic amplification of tight coupling.</td></tr>
 <tr><td>\(c_L\)</td><td>7</td><td>Maintaining a leverage strategy requires substantial investment: upstream kernel contributions (~2,000 developers contribute per release), governance participation (Linux Foundation membership: $500K/year for platinum), community management, documentation.</td></tr>
 <tr><td>\(c_T\)</td><td>3</td><td>Lower costs for maintaining a partially open offering.</td></tr>
 <tr><td>\(R_0\)</td><td>10</td><td>Microsoft&rsquo;s traditional returns were very strong circa 2000: Windows Server licensing revenue, CAL fees, ecosystem lock-in.</td></tr>
@@ -165,7 +165,7 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 
 <div class="case">
 <p class="lb">Case Context</p>
-<p>The artificial intelligence ecosystem as of 2025&ndash;2026 presents a live instance of the three-strategy competition. Hugging Face and the open-weight model community (Llama, Mistral, Stable Diffusion) represent the Leverage strategy; OpenAI and Anthropic&rsquo;s closed API model represent Restrict; and freemium AI tools (Canva AI, Grammarly, various wrappers) represent Transform.</p>
+<p>The artificial intelligence ecosystem as of 2025&ndash;2026 presents a live instance of the three-strategy competition. The open-weight model community (Hugging Face, Llama, Mistral) represents the <strong>Leverage</strong> strategy: detaching individual firms&rsquo; compute costs from community model sharing (each firm doesn&rsquo;t need to retrain from scratch) while connecting shared model improvements to each deployer&rsquo;s compute optimization (community fine-tuning and adapters reduce individual inference costs). Closed API providers (OpenAI, Anthropic) represent <strong>Restrict</strong>. Freemium AI tools (Canva AI, Grammarly) represent <strong>Transform</strong>: minimizing compute limitations on AI sharing (through API abstraction) while minimizing the effect of user sharing on infrastructure costs (through usage-based tiering that decouples the two sides).</p>
 </div>
 
 <h3>Parameter Estimation</h3>
@@ -174,7 +174,7 @@ F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
 <tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
 <tr><td>\(V_0\)</td><td>12</td><td>High base value: AI capabilities are transformative for productivity.</td></tr>
 <tr><td>\(\beta_L\)</td><td>0.35</td><td>Open models exhibit anti-rivalry: shared fine-tuning datasets, community-developed adapters (LoRA), evaluation benchmarks all increase in value with use. However, model training itself is rivalrous (GPU costs), dampening \(\beta_L\) below the Linux case.</td></tr>
-<tr><td>\(\beta_T\)</td><td>0.10</td><td>Freemium AI tools benefit modestly from usage data but enclosure limits sharing.</td></tr>
+<tr><td>\(\beta_T\)</td><td>0.10</td><td>Freemium AI tools benefit modestly from usage data; their synergy-seeking approach reduces the coupling between compute costs and feature sharing, yielding moderate anti-rival returns.</td></tr>
 <tr><td>\(\varphi_L\)</td><td>1.6</td><td>Hugging Face captures disproportionate returns through Hub position, but less than Red Hat&rsquo;s capture in OS market (models are more substitutable than kernels).</td></tr>
 <tr><td>\(\varphi_T\)</td><td>1.3</td><td>Freemium AI tools (Canva, Jasper) capture moderate value.</td></tr>
 <tr><td>\(c_L\)</td><td>9</td><td>Very high costs: training large open models requires $10M&ndash;$100M+ in compute; community governance of model safety, licensing (Apache vs RAIL), responsible disclosure.</td></tr>
