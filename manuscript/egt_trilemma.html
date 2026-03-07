@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Anti-Rivalry Trilemma: A Formal Analysis of Business Model Innovation for Anti-Rival Goods</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root {
+  --primary: #2c3e50;
+  --accent: #c0392b;
+  --info: #2980b9;
+  --bg: #fefefe;
+  --text: #222;
+  --text-light: #555;
+  --border: #ccc;
+  --bg-box: #f7f7f7;
+  --font-main: 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --max-width: 820px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-main); color: var(--text); background: var(--bg); line-height: 1.85; padding: 2rem 1rem; }
+.container { max-width: var(--max-width); margin: 0 auto; }
+h1 { font-size: 1.65rem; margin: 2.5rem 0 0.5rem; line-height: 1.3; color: var(--primary); }
+h2 { font-size: 1.35rem; margin: 2.2rem 0 0.6rem; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+h3 { font-size: 1.12rem; margin: 1.6rem 0 0.4rem; color: var(--primary); }
+h4 { font-size: 1.02rem; margin: 1.2rem 0 0.3rem; font-style: italic; }
+p { margin: 0.6rem 0; text-align: justify; }
+.abstract { background: var(--bg-box); border-left: 4px solid var(--primary); padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; }
+.abstract h3 { margin-top: 0; }
+.keywords { font-size: 0.9rem; color: var(--text-light); margin: 0.5rem 0 2rem; }
+.theorem, .definition, .proposition, .corollary, .remark, .example, .proof-box, .lemma {
+  border-left: 4px solid var(--info); background: #f0f6fa; padding: 1rem 1.3rem; margin: 1.2rem 0; border-radius: 0 4px 4px 0;
+}
+.definition { border-left-color: #27ae60; background: #f0faf4; }
+.proposition { border-left-color: #8e44ad; background: #f8f0fa; }
+.corollary { border-left-color: #d35400; background: #fdf5f0; }
+.remark { border-left-color: #f39c12; background: #fefcf0; }
+.example { border-left-color: #16a085; background: #f0faf8; }
+.lemma { border-left-color: #2980b9; background: #f0f4fa; }
+.proof-box { border-left-color: #7f8c8d; background: #f5f5f5; font-size: 0.95rem; }
+.label { font-weight: bold; font-family: var(--font-sans); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+.qed { text-align: right; font-size: 1.1rem; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+th, td { border: 1px solid var(--border); padding: 0.5rem 0.7rem; text-align: left; }
+th { background: var(--bg-box); font-family: var(--font-sans); font-size: 0.85rem; }
+.title-block { text-align: center; margin: 2rem 0 1rem; }
+.title-block h1 { font-size: 1.7rem; border: none; }
+.title-block .authors { font-size: 1rem; color: var(--text-light); margin: 0.5rem 0; font-style: italic; }
+.title-block .date { font-size: 0.9rem; color: var(--text-light); }
+.toc { background: var(--bg-box); padding: 1.2rem 1.5rem; margin: 1.5rem 0; border-radius: 4px; }
+.toc h3 { margin-top: 0; font-family: var(--font-sans); }
+.toc ol { padding-left: 1.5rem; }
+.toc li { margin: 0.25rem 0; font-size: 0.93rem; }
+.toc a { color: var(--info); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.footnote { font-size: 0.85rem; color: var(--text-light); }
+sup { font-size: 0.75rem; }
+.ref-list { font-size: 0.9rem; }
+.ref-list p { text-indent: -1.5rem; padding-left: 1.5rem; margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title-block">
+<h1>The Anti-Rivalry Trilemma: A Formal Analysis of Business Model Innovation for Anti-Rival Goods</h1>
+<p class="authors">Analytical Extension of &ldquo;Managing the Complexities of Digital Goods&rsquo; Anti-Rivalry in Contemporary Business Model Innovation&rdquo;</p>
+<p class="date">Working Paper &mdash; March 2026</p>
+</div>
+
+<div class="abstract">
+<h3>Abstract</h3>
+<p>Anti-rival goods create value that scales with use, but rival costs&mdash;infrastructure, governance, curation&mdash;must be covered. We identify a trilemma: maximal anti-rival value requires either firm subsidy (creating dependency and opacity) or community provision (creating governance scarcity), while transforming offerings provides a partial escape at the cost of limited anti-rivalry. Using evolutionary game theory, we formalize all three paths, characterize their viability conditions and failure modes, and show that private and social optima diverge at intermediate anti-rivalry levels. The framework yields four main results: (i)&nbsp;phase transitions in business model landscapes driven by the anti-rivalry parameter \(\beta\); (ii)&nbsp;a governance trap theorem giving sufficient conditions for community collapse; (iii)&nbsp;an incompatibility theorem showing that mixed leveraging&ndash;transforming strategies are dominated under shared-interface coupling; and (iv)&nbsp;a private&ndash;social divergence result driven by the tension between value capture and participation reach.</p>
+</div>
+
+<p class="keywords"><strong>Keywords:</strong> anti-rival goods; evolutionary game theory; business model innovation; replicator dynamics; phase transitions; governance trap; institutional complexity</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+<li><a href="#sec1">Introduction: The Trilemma</a></li>
+<li><a href="#sec2">Foundations</a></li>
+<li><a href="#sec3">Path A: Firm Subsidy (Leverage)</a></li>
+<li><a href="#sec4">Path B: Community</a></li>
+<li><a href="#sec5">The Partial Escape: Transform</a></li>
+<li><a href="#sec6">Dynamics: When Each Path Becomes Viable</a></li>
+<li><a href="#sec7">Welfare: When Private and Social Optima Diverge</a></li>
+<li><a href="#sec8">Discussion</a></li>
+<li><a href="#sec9">Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sec1">1. Introduction: The Trilemma</h2>
+
+<p>Anti-rival goods&mdash;goods whose per-user value <em>increases</em> with the number of users&mdash;create value that is superlinear in participation. Shared data improves with more contributors; open-source software gains from every patch; collaborative knowledge bases become more useful as they grow. The logic of anti-rivalry points toward maximal sharing. But sharing is not free: every anti-rivalrous resource depends on rivalrous complements&mdash;server infrastructure, editorial curation, conflict resolution, maintainer attention&mdash;that must be paid for.</p>
+
+<p>There are exactly two paths to maximal anti-rival value, and each creates a new scarcity. <strong>Path A (Firm Subsidy):</strong> a firm subsidizes the rival costs of sharing, maximizes participation, and extracts disproportionate returns through information rent. This creates dependency on the subsidizing firm and requires opacity to sustain extraction&mdash;the new scarcity is access to the subsidy, controlled by the firm. <strong>Path B (Community):</strong> a community collectively covers rival costs through governance contributions. This eliminates the dependency but creates a new scarcity&mdash;governance labor&mdash;and when governance premiums are insufficient, the community collapses (the governance trap). A third option, <strong>Transform</strong>, restructures offerings to reduce the coupling between rival and anti-rival components, partially escaping the trilemma at the cost of limited anti-rival benefit.</p>
+
+<p>This paper formalizes all three paths using evolutionary game theory. We derive precise conditions for each path&rsquo;s viability and failure, characterize phase transitions as anti-rivalry increases, and show when the privately optimal path is socially suboptimal. The trilemma cannot be resolved&mdash;only navigated.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec2">2. Foundations</h2>
+
+<p>We parameterize the rivalry&ndash;anti-rivalry spectrum through an exponent \(\beta\) in the per-user value function \(V(n) = V_0 \cdot n^{\beta}\), where \(\beta &lt; 0\) is rival, \(\beta = 0\) is non-rival, and \(\beta &gt; 0\) is anti-rival. Every anti-rivalrous resource depends on rivalrous complements:</p>
+
+<div class="definition">
+<p class="label">Definition 2.1 (Coupled Value Function)</p>
+<p>For an anti-rivalrous resource with \(n\) users depending on a rivalrous complement with total supply \(M\):</p>
+\[
+V(n) = V_0 \cdot n^{\beta} \cdot h\!\left(\frac{M}{n^{\gamma}}\right), \qquad h(s) = \frac{s}{s + \kappa}
+\]
+<p>where \(\gamma &gt; 0\) is the demand scaling exponent for the rivalrous complement and \(\kappa &gt; 0\) is the half-saturation constant. The condition \(\gamma &gt; \beta\) ensures an optimal community size exists.</p>
+</div>
+
+<p>We model a population of firms choosing among three complexity management strategies: \(L\) (Leverage&mdash;symbiosis-seeking, amplifies rival&ndash;anti-rival coupling), \(T\) (Transform&mdash;synergy-seeking, reduces coupling), and \(R\) (Restrict&mdash;complexity-avoiding). The population state \((x_L, x_T, x_R)\) with \(x_L + x_T + x_R = 1\) lives on the 2-simplex \(\Delta^2\).</p>
+
+<p>Anti-rival value is endogenous to the population state:</p>
+
+<div class="definition">
+<p class="label">Definition 2.2 (Ecosystem Anti-Rival Value)</p>
+\[
+V_a(x_L, x_T) = V_0 \left(1 + a_L \cdot x_L + a_T \cdot x_T\right)^{\eta}
+\]
+<p>where \(a_L = \beta \lambda_L\), \(a_T = \beta \lambda_T\), with \(\lambda_L \geq 1 &gt; \lambda_T &gt; 0\) and \(\eta &gt; 0\). Governance quality is \(h(x_L, x_T) = \frac{x_L + \omega x_T}{x_L + \omega x_T + \kappa_G}\) with \(0 &lt; \omega &lt; 1\).</p>
+</div>
+
+<div class="definition">
+<p class="label">Definition 2.3 (Strategy Payoffs)</p>
+\[
+\pi_L = \beta\psi_L + \varphi_L \cdot V_a \cdot h - c_L, \qquad
+\pi_T = \beta\psi_T + \varphi_T \cdot V_a \cdot h - c_T, \qquad
+\pi_R = R_0 - \delta \cdot V_a \cdot h
+\]
+<p>where \(\psi_L &gt; \psi_T &gt; 0\) (standalone efficiency), \(\varphi_L &gt; \varphi_T &gt; 1\) (value capture), \(c_L &gt; c_T &gt; 0\) (costs), and \(\delta &gt; 0\) (displacement). The replicator dynamics are \(\dot{x}_i = x_i(\pi_i - \bar{\pi})\).</p>
+</div>
+
+<p>The fitness differences reveal two channels. The <em>standalone channel</em> \(\beta\psi\) is state-independent; the <em>ecosystem channel</em> \((\varphi + \delta) V_a h\) creates positive feedback. These determine when each strategy can invade the all-Restrict state:</p>
+
+<div class="proposition">
+<p class="label">Proposition 2.1 (Invasion Conditions)</p>
+<p>At the all-Restrict vertex, the ecosystem channel vanishes (\(h(0,0) = 0\)). Invasion requires the standalone channel alone to exceed costs:</p>
+\[
+\text{Transform invades:}\quad \beta > \beta_{\text{inv}}^T = \frac{c_T + R_0}{\psi_T}, \qquad
+\text{Leverage invades:}\quad \beta > \beta_{\text{inv}}^L = \frac{c_L + R_0}{\psi_L}
+\]
+<p>The ordering of these thresholds depends on parameter values. Below both thresholds, all-Restrict is locally stable.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sec3">3. Path A: Firm Subsidy (Leverage)</h2>
+
+<p>The firm subsidizes rival costs, maximizes sharing, and extracts information rent. This is the path to maximal anti-rival value&mdash;Leverage creates the strongest per-user ecosystem value through tight coupling&mdash;but it requires opacity to sustain extraction. The &ldquo;transparency challenge&rdquo; identified in the original manuscript is not merely ethical but strategic.</p>
+
+<div class="definition">
+<p class="label">Definition 3.1 (Subsidization Game)</p>
+<p>A platform subsidizes anti-rival sharing and chooses transparency \(\tau \in [0,1]\). User participation responds to perceived fairness:</p>
+\[
+n(\tau) = n_0\left[\alpha + (1-\alpha)\tau^{\psi}\right]
+\]
+<p>where \(\alpha \in (0,1)\) is baseline participation. Platform payoff is \(\pi_P(\tau) = (1-\tau) I(n) + \tau T(n) - c_{\text{sub}} n\), where \(I(n)\) is information rent (decreasing in \(\tau\)) and \(T(n)\) is trust-based revenue (increasing in \(\tau\)).</p>
+</div>
+
+<p>In a population of platforms choosing between high-transparency (\(\tau_H\)) and opaque (\(\tau_O\)) strategies, with \(p\) the transparent fraction, opaque platforms face negative frequency dependence: as transparency becomes the norm, opaque platforms lose users via \(n_O(p) = n_0 \alpha (1 - \lambda p)\). The replicator equation \(\dot{p} = p(1-p)[\pi_H(p) - \pi_O(p)]\) admits a tipping point \(p^*\) where both strategies earn equal fitness. Below \(p^*\), opacity dominates; above it, transparency dominates.</p>
+
+<p><strong>The cost of this path.</strong> The firm controls the terms of the subsidy. Opacity is required to sustain information rent extraction, which suppresses participation (Section 7). The new scarcity created is <em>access to the subsidy itself</em>&mdash;the firm decides who participates and under what conditions. Leverage maximizes per-user value but at the cost of dependency and reduced reach.</p>
+
+<p><strong>Prescriptive implication.</strong> Firms should time transparency moves to market composition. Once the transparent fraction crosses \(p^*\), opacity becomes self-undermining through the negative frequency dependence on \(n_O(p)\). Early transparency adoption may be disadvantageous, but delaying past the tipping point accelerates user loss.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec4">4. Path B: Community</h2>
+
+<p>The community collectively covers rival costs, eliminating dependency on any single firm. Within a community-based ecosystem, participants choose among three strategies:</p>
+
+<div class="definition">
+<p class="label">Definition 4.1 (Community Strategies)</p>
+<ul>
+<li><strong>Content Contributor (C)</strong>: Creates anti-rival value. Cost \(c_C\).</li>
+<li><strong>Governance Contributor (G)</strong>: Maintains the rivalrous complement (moderation, infrastructure, conflict resolution). Cost \(c_G &gt; c_C\). Receives governance premium \(\sigma\).</li>
+<li><strong>Free-Rider (F)</strong>: Consumes without contributing.</li>
+</ul>
+<p>With differential access \(\varphi &gt; 1\) for contributors: \(\pi_C = \varphi V(x,y) - c_C\), \(\pi_G = \varphi V(x,y) - c_G + \sigma\), \(\pi_F = V(x,y)\), where \(V(x,y) = V_0(1+\beta x)^{\eta} \cdot y/(y+\kappa)\).</p>
+</div>
+
+<div class="theorem">
+<p class="label">Theorem 4.1 (Governance Trap)</p>
+<p>A sufficient condition for community collapse is \(\sigma &lt; c_G - c_C\). When this holds:</p>
+<ol>
+<li>The governance-to-content ratio declines exponentially: \(\frac{d}{dt}\ln(y/x) = \sigma - (c_G - c_C) &lt; 0\).</li>
+<li>Eventually \(y\) becomes small enough that \(h(y) \approx 0\), causing \(V(x,y) \to 0\).</li>
+<li>When \(V \to 0\), content contribution is also dominated: \(\pi_C - \pi_F = (\varphi-1) \cdot 0 - c_C &lt; 0\).</li>
+<li>The dynamics are driven toward collapse near the all-free-rider state.</li>
+</ol>
+</div>
+
+<div class="proof-box">
+<p class="label">Proof</p>
+<p>The fitness difference \(\pi_G - \pi_C = \sigma - (c_G - c_C)\) is negative and <em>constant</em>. In any population with both \(G\) and \(C\), the ratio \(y/x\) decreases exponentially at rate \(|c_G - c_C - \sigma|\). The absolute share \(y(t)\) may temporarily increase (when \(\pi_G &gt; \bar{\pi}\)) but eventually the declining ratio forces \(y\) down, collapsing governance quality, community value, and finally content contribution.</p>
+<p class="qed">&#9632;</p>
+</div>
+
+<div class="proposition">
+<p class="label">Proposition 4.1 (Minimum Viable Governance Premium)</p>
+<p>For governance not to be systematically dominated, the aggregate premium must satisfy:</p>
+\[
+\sigma_{\text{total}} = \sigma_{\text{power}} + \sigma_{\text{rep}} + \sigma_{\text{fin}} + \sigma_{\text{strat}} + \sigma_{\text{social}} \geq c_G - c_C
+\]
+<p>This requires <em>stacking</em> multiple governance-oriented business model patterns (community governance, revenue sharing, stewardship roles). A community relying on a single premium source will not sustain governance if that source alone falls short of \(c_G - c_C\).</p>
+</div>
+
+<p><strong>The cost of this path.</strong> Governance labor becomes the new scarce resource. The governance trap is insidious: surface metrics (user count, content volume) remain healthy during the burnout phase while the governance-to-content ratio \(y/x\) declines exponentially underneath. Theorem 4.1 gives the precise condition under which this collapse is inevitable.</p>
+
+<p><strong>Prescriptive implication.</strong> Monitor \(y/x\), not surface metrics. Stack governance premiums from multiple sources. The minimum viable premium \(\sigma_{\min} = c_G - c_C\) is a design target, not a naturally occurring property.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec5">5. The Partial Escape: Transform</h2>
+
+<p>Transform restructures offerings to reduce the coupling between rival and anti-rival components&mdash;de-transactionalization (flat rate, subscription), digitalization, parallel offerings. This avoids both the dependency of Path A and the governance demands of Path B, but at a cost: reduced anti-rival benefit.</p>
+
+<div class="definition">
+<p class="label">Definition 5.1 (Demand-Friction Model of De-Transactionalization)</p>
+<p>Per-use pricing creates demand friction that reduces the realized network size:</p>
+\[
+n(p) = \frac{n_0}{1 + \eta p}, \qquad \eta > 0
+\]
+<p>The value ratio between subscription (zero per-use friction) and transactional models is:</p>
+\[
+\frac{V_{\text{sub}}}{V_{\text{trans}}} = (1 + \eta p)^{\beta_0}
+\]
+<p>The advantage scales with both price friction \(\eta p\) and intrinsic anti-rivalry \(\beta_0\).</p>
+</div>
+
+<div class="proposition">
+<p class="label">Proposition 5.1 (De-Transactionalization Viability)</p>
+<p>A subscription model with fee \(f\) and cost \(C_0 + c_m n^{\gamma}\) (\(\gamma &gt; 1\)) is viable within a band \(n_{\min} &lt; n &lt; n_{\max}\), where \(n_{\min}\) is the critical subscription mass. The competitive advantage over transactional models is transformative for high \(\beta_0\) and high \(\eta p\), and marginal otherwise.</p>
+</div>
+
+<p><strong>Why Transform is partial.</strong> Transform reduces coupling, which limits the channels through which anti-rival sharing generates superlinear returns. The ecosystem contribution weight \(a_T = \beta\lambda_T\) with \(\lambda_T &lt; \lambda_L\) means Transform generates less ecosystem value per firm. The governance weight \(\omega &lt; 1\) means Transform contributes less to ecosystem governance. Transform gains its advantage from lower costs (\(c_T &lt; c_L\)) and lower coordination requirements, not from stronger anti-rival value creation.</p>
+
+<h3>5.1 The Incompatibility of Mixed Strategies</h3>
+
+<p>Can a firm combine Leverage and Transform within a single product line? Under shared-interface coupling, no.</p>
+
+<div class="definition">
+<p class="label">Definition 5.2 (Shared Interface Parameter)</p>
+<p>When Leverage and Transform patterns share a single rival&ndash;anti-rival interface, the coupling parameter \(\theta \in [0,1]\) determines effective anti-rivalry: L-component gets \(\beta_0\theta\), T-component gets \(\beta_0(1-\theta)\).</p>
+</div>
+
+<div class="theorem">
+<p class="label">Theorem 5.1 (Incompatibility of Leveraging and Transforming Patterns)</p>
+<p>Under the shared-interface model, the mixed payoff \(\pi_{\text{mix}}(w, \theta)\) for a firm with fraction \(w\) Leverage and \((1-w)\) Transform is <strong>convex in \(\theta\)</strong>:</p>
+\[
+\frac{\partial^2 \pi_{\text{mix}}}{\partial \theta^2} = V_0(\beta_0 \ln n)^2 h(y)\left[w\varphi_L n^{\beta_0\theta} + (1-w)\varphi_T n^{\beta_0(1-\theta)}\right] > 0
+\]
+<p>for \(n &gt; 1\), \(\beta_0 &gt; 0\), \(w \in (0,1)\). Therefore:</p>
+<ol>
+<li>Any interior \(\theta^*\) is a <strong>minimum</strong>, not a maximum. The optimum is at \(\theta = 0\) or \(\theta = 1\).</li>
+<li>At either boundary, one component receives \(n^{\beta_0}\) (full benefit) while the other receives \(n^0 = 1\) (dead weight).</li>
+<li>Joint optimization over \((\theta, w)\): since the payoff after optimizing \(\theta\) is convex in \(w\), the global optimum is at a pure strategy \((w,\theta) \in \{(0,0), (1,1)\}\).</li>
+</ol>
+</div>
+
+<div class="proof-box">
+<p class="label">Proof</p>
+<p>The second derivative is strictly positive because \(n^{\beta_0\theta}\) and \(n^{\beta_0(1-\theta)}\) are convex in \(\theta\) (exponentials of a linear function). The interior critical point from the FOC is therefore a minimum. On \(\theta \in [0,1]\), the maximum is at the boundary. The pointwise maximum \(\pi^*(w) = \max\{\pi_{\text{mix}}(w,0), \pi_{\text{mix}}(w,1)\}\) is convex in \(w\) (pointwise max of affine functions), so is maximized at \(w \in \{0,1\}\).</p>
+<p class="qed">&#9632;</p>
+</div>
+
+<p><strong>Scope condition.</strong> This applies to products sharing a single rival&ndash;anti-rival interface. Multi-interface firms can operate Leverage and Transform on separate interfaces without incurring the incompatibility cost. The result holds for all \(n &gt; 1\), with magnitude proportional to \((\beta_0 \ln n)^2\).</p>
+
+<!-- ============================================================ -->
+<h2 id="sec6">6. Dynamics: When Each Path Becomes Viable</h2>
+
+<p>The anti-rivalry parameter \(\beta\) is determined by the nature of the good and technological infrastructure, not by firm choice. As technology evolves (cloud, open APIs, AI), \(\beta\) increases secularly. We study the induced transitions.</p>
+
+<div class="theorem">
+<p class="label">Theorem 6.1 (Phase Transitions in Business Model Landscapes)</p>
+<p><em>Assumption:</em> \(\beta_{\text{inv}}^T &lt; \beta_{\text{inv}}^L\) (Transform invades all-Restrict at lower \(\beta\) than Leverage). The landscape undergoes three phases:</p>
+
+<p><strong>Phase I</strong> (\(\beta &lt; \beta_{\text{inv}}^T\)): All-Restrict is locally stable (both invasion eigenvalues negative). Neither strategy can invade through the standalone channel. However, the \(L\)&ndash;\(R\) edge is <em>bistable</em>: all-Leverage is also stable on this edge, separated from all-Restrict by a tipping point \(x^*\). Leverage adoption requires ecosystem coordination exceeding \(x^*\). <em>The binding constraint is coordination.</em></p>
+
+<p><strong>Phase II</strong> (\(\beta_{\text{inv}}^T \leq \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade all-Restrict (eigenvalue positive in the \(T\)-direction), making all-Restrict a saddle. The \(L\)&ndash;\(R\) tipping point \(x^*\) shrinks as \(\beta\) grows. Multiple stable states (all-Transform, all-Leverage) may coexist on their respective edges. <em>Transform is available without coordination; Leverage still requires a tipping point.</em></p>
+
+<p><strong>Phase III</strong> (\(\beta \geq \beta_{\text{inv}}^L\)): All-Restrict is unstable in both directions. The \(L\)&ndash;\(R\) tipping point vanishes. Leverage dominates through the combination of standalone efficiency and stronger ecosystem returns. <em>Standalone efficiency suffices; coordination is no longer the constraint.</em></p>
+</div>
+
+<h3>6.1 The Transform-to-Leverage Transition</h3>
+
+<p>On the \(L\)&ndash;\(T\) edge (no Restrict firms), Transform bootstraps ecosystem governance: \(h(0,1) = \omega/(\omega + \kappa_G) &gt; 0\). Leverage can invade this Transform population when:</p>
+
+\[
+\beta(\psi_L - \psi_T) + (\varphi_L - \varphi_T) V_0(1+a_T)^{\eta} \cdot \frac{\omega}{\omega + \kappa_G} > c_L - c_T
+\]
+
+<p>For strongly anti-rival goods (\(\beta\) large), the standalone advantage \(\beta(\psi_L - \psi_T)\) grows and Leverage dominates. For weakly anti-rival goods, Transform&rsquo;s cost advantage prevails. This creates a second bifurcation within the anti-rival strategy space. The practical implication: use Transform as a stepping stone to build ecosystem governance capacity, then transition to Leverage as \(\beta\) increases.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec7">7. Welfare: When Private and Social Optima Diverge</h2>
+
+<p>The payoffs \(\pi_L, \pi_T, \pi_R\) measure private fitness in the firm population game. They do not account for user participation. Leverage maximizes per-user ecosystem value through tight coupling, but its information rent extraction requires opacity, which reduces participation. This creates a wedge between private and social optima.</p>
+
+<div class="definition">
+<p class="label">Definition 7.1 (Strategy-Dependent Transparency and Participation)</p>
+<p>Each strategy has a characteristic transparency level \(\tau_s\) compatible with its value capture mechanism, with \(\tau_T &gt; \tau_L\). User participation under strategy \(s\) is:</p>
+\[
+n_s = n_0\left[\alpha + (1-\alpha)\tau_s^{\psi}\right]
+\]
+<p>Since participation is increasing in \(\tau\) and \(\tau_T &gt; \tau_L\), we have \(n_T &gt; n_L\): Transform ecosystems attract more users.</p>
+</div>
+
+<div class="definition">
+<p class="label">Definition 7.2 (Social Welfare)</p>
+<p>Social welfare at vertex equilibrium \(s\) is \(W_s = n_s \cdot E_s - c_s\), where the per-user ecosystem values are:</p>
+\[
+E_L = V_0(1+\beta\lambda_L)^{\eta} \cdot \frac{1}{1+\kappa_G}, \qquad E_T = V_0(1+\beta\lambda_T)^{\eta} \cdot \frac{\omega}{\omega + \kappa_G}
+\]
+<p>\(E_L &gt; E_T\) for all \(\beta &gt; 0\) (Leverage creates more per-user value). But \(n_T &gt; n_L\) (Transform attracts more users). Social welfare depends on the product \(n_s \cdot E_s\).</p>
+</div>
+
+<div class="theorem">
+<p class="label">Theorem 7.1 (Private&ndash;Social Optimality Divergence)</p>
+<p>Define the participation ratio \(P = n_T/n_L &gt; 1\) and the per-user value ratio \(Q = E_L/E_T &gt; 1\). Transform is socially superior (\(W_T &gt; W_L\)) if and only if:</p>
+\[
+P > Q - \frac{c_L - c_T}{n_L \cdot E_T}
+\]
+<p>Leverage is privately dominant when \(\beta(\psi_L - \psi_T) + \varphi_L E_L - \varphi_T E_T &gt; c_L - c_T\). The divergence occurs when both conditions hold. The structural source: private fitness weights value by capture multipliers \(\varphi\); social welfare weights it by participation \(n\). Firms optimize for capture; welfare depends on reach.</p>
+</div>
+
+<div class="corollary">
+<p class="label">Corollary 7.1 (Opacity Increases Suppression Cost)</p>
+<p>The anti-rivalry suppression cost \(\Gamma = W_T - W_L\) is strictly decreasing in Leverage transparency:</p>
+\[
+\frac{\partial \Gamma}{\partial \tau_L} = -E_L \cdot n_0(1-\alpha)\psi\tau_L^{\psi-1} < 0
+\]
+<p>As Leverage becomes more opaque, the welfare loss grows. The magnitude scales with \(E_L\): the more per-user value Leverage creates, the larger the loss from each unit of participation sacrificed to opacity.</p>
+</div>
+
+<div class="proposition">
+<p class="label">Proposition 7.1 (Phase II as the Critical Regime)</p>
+<p>The per-user value ratio \(Q\) is increasing in \(\beta\) (approaching a finite limit); the participation ratio \(P\) is independent of \(\beta\). The welfare condition is most easily satisfied at lower \(\beta\), where \(Q\) is closer to 1. Since private dominance requires sufficient \(\beta\), the divergence region is concentrated at intermediate \(\beta\) (Phase II): both equilibria exist and \(Q\) is moderate, creating the widest parameter region where Leverage is privately dominant but Transform is socially superior.</p>
+</div>
+
+<p><strong>Policy implication.</strong> Target transparency, not the strategy itself. Disclosure requirements and fairness-in-extraction rules increase \(\tau_L\), raising \(n_L\) and narrowing the private&ndash;social gap. Transparency regulation is most productive in Phase II, where extraction norms are not yet locked in.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec8">8. Discussion</h2>
+
+<p><strong>Scarcity displacement as the unifying theme.</strong> Anti-rival goods do not eliminate scarcity; they displace it. Path A displaces scarcity from the good itself to the subsidy relationship&mdash;who provides rival-cost coverage and on what terms. Path B displaces it to governance labor&mdash;who maintains the rivalrous complement. Transform avoids this displacement by reducing coupling, at the cost of limited anti-rival benefit. Each path addresses the rival-cost problem; none resolves the underlying tension between maximal sharing and rival-cost coverage.</p>
+
+<p><strong>The trilemma is structural.</strong> The three constraints&mdash;dependency (Path A), governance scarcity (Path B), and limited benefit (Transform)&mdash;are not contingent features of current technology or institutions. They follow from the interaction between anti-rival value creation and the rival costs that enable it. Technological progress (increasing \(\beta\)) changes which path is viable and lowers coordination barriers, but does not eliminate the trilemma itself.</p>
+
+<p><strong>Navigation depends on context.</strong> The phase structure (Theorem 6.1) shows that the best available path depends on \(\beta\), governance capacity, and transparency norms. In Phase I, coordination is the binding constraint; firms must collectively achieve a tipping point. In Phase II, Transform is available as a stepping stone while governance capacity builds. In Phase III, standalone efficiency makes Leverage self-sustaining.</p>
+
+<p><strong>Limitations.</strong> The model assumes homogeneous agents within each strategy type, exogenous \(\beta\) (in reality firms invest in changing anti-rivalry), and commitment to fixed strategies (no switching or experimentation). The power-law and Michaelis&ndash;Menten functional forms are mathematically convenient but empirically unvalidated. We conjecture that the bistability and incompatibility results are robust to functional form, but specific phase thresholds are not.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec9">9. Conclusion</h2>
+
+<p>Anti-rival goods create value that scales with use, but rival costs must be covered. There are exactly two paths to maximal anti-rivalry (firm subsidy and community), each creating new scarcities, and one partial escape (transform) that limits the benefit. This paper formalizes all three paths, derives precise conditions for each path&rsquo;s viability and failure (Propositions 2.1, 4.1, 5.1; Theorems 4.1, 5.1, 6.1), characterizes phase transitions as anti-rivalry increases, and identifies the parameter regime where private and social optima diverge (Theorem 7.1). The trilemma cannot be resolved&mdash;only navigated, with the optimal navigation depending on the anti-rivalry level, governance capacity, and transparency norms of the specific ecosystem. Future work should endogenize \(\beta\) and validate the phase thresholds empirically.</p>
+
+<!-- ============================================================ -->
+<h2 id="refs">References</h2>
+
+<div class="ref-list">
+<p>Eisenmann, T., Parker, G., &amp; Van Alstyne, M. (2006). Strategies for two-sided markets. <em>Harvard Business Review</em>, 84(10), 92&ndash;101.</p>
+<p>Hannan, M. T., &amp; Freeman, J. (1977). The population ecology of organizations. <em>American Journal of Sociology</em>, 82(5), 929&ndash;964.</p>
+<p>Hofbauer, J., &amp; Sigmund, K. (1998). <em>Evolutionary Games and Population Dynamics</em>. Cambridge University Press.</p>
+<p>Katz, M. L., &amp; Shapiro, C. (1985). Network externalities, competition, and compatibility. <em>American Economic Review</em>, 75(3), 424&ndash;440.</p>
+<p>Nelson, R. R., &amp; Winter, S. G. (1982). <em>An Evolutionary Theory of Economic Change</em>. Harvard University Press.</p>
+<p>Nikander, P., Eloranta, V., Karhu, K., &amp; Hiekkanen, K. (2020). Digitalisation, anti-rival compensation, and governance. <em>arXiv preprint</em> arXiv:2009.00923.</p>
+<p>Ostrom, E. (1990). <em>Governing the Commons: The Evolution of Institutions for Collective Action</em>. Cambridge University Press.</p>
+</div>
+
+<hr style="margin: 3rem 0 1.5rem;">
+<p class="footnote" style="text-align: center; font-size: 0.85rem; color: #999;">
+Working paper. Analytical extension produced using the mathematical frameworks from the <em>Mathematics for Evolutionary Game Theory</em> course.
+</p>
+
+</div>
+</body>
+</html>
