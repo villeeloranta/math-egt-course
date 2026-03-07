@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 10: Antikilpailevuus digitaalisissa yhteisresursseissa | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html" class="active">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 10</div>
+    <h1>Antikilpailevuus digitaalisissa yhteisresursseissa</h1>
+    <p class="module-desc">
+      Digitaalisten yhteisresurssien keskeinen paradoksi: antikilpailevat hyödykkeet <em>luovat</em> niukkuutta.
+      Kun resurssi tulee arvokkaammaksi käytön myötä, se houkuttelee lisää käyttäjiä, lisää kontribuutioita
+      ja lisää vaatimuksia &mdash; ylikuormittaen <strong>kilpailevat täydentävät resurssit</strong>, joista se riippuu.
+      Tämä moduuli formalisoi antikilpailevien ja kilpailevien resurssien kytkennän,
+      johtaa peliteoreettiset seuraukset ja tutkii institutionaalisia ratkaisuja.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Moduulinavigaatio -->
+  <div class="module-nav-strip">
+    <a href="module9.html">&larr; Moduuli 9: Digitaaliset yhteisresurssit</a>
+    <a href="../index.html">Takaisin kurssin etusivulle &rarr;</a>
+  </div>
+
+  <!-- Sisällysluettelo -->
+  <div class="toc">
+    <h3>Sisällysluettelo</h3>
+    <ol>
+      <li><a href="#paradox">Antikilpailevuuden paradoksi: menestys synnyttää niukkuutta</a></li>
+      <li><a href="#coupled-resources">Kytkettyjen resurssien malli</a>
+        <ol>
+          <li><a href="#coupled-formal">Formaali viitekehys</a></li>
+          <li><a href="#coupled-carrying">Yhteisresurssin kantokyky</a></li>
+        </ol>
+      </li>
+      <li><a href="#attention-scarcity">Huomioniukkuus tietoyhteisresursseissa</a></li>
+      <li><a href="#maintainer-scarcity">Ylläpitäjäniukkuus avoimen lähdekoodin projekteissa</a></li>
+      <li><a href="#infrastructure-scarcity">Infrastruktuuriniukkuus</a></li>
+      <li><a href="#game-theory">Kytkettyjen järjestelmien peliteoria</a>
+        <ol>
+          <li><a href="#two-role">Kahden roolin kontribuutiopeli</a></li>
+          <li><a href="#three-strategy">Kolmen strategian replikaattoridynamiikka</a></li>
+          <li><a href="#governance-trap">Hallintaloukku</a></li>
+        </ol>
+      </li>
+      <li><a href="#anti-commons">Antiyhteisresurssien tragedia</a></li>
+      <li><a href="#institutional-design">Institutionaalinen suunnittelu kytkettyjä järjestelmiä varten</a></li>
+      <li><a href="#case-studies">Tapaustutkimukset</a></li>
+      <li><a href="#synthesis">Synteesi</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+      <li><a href="#reading">Suositeltua kirjallisuutta</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 1: PARADOKSI -->
+  <!-- ================================================================== -->
+  <div class="section" id="paradox">
+    <h2>1. Antikilpailevuuden paradoksi: menestys synnyttää niukkuutta</h2>
+
+    <div class="note-box">
+      <strong>Esitiedot.</strong> Tämä moduuli rakentuu suoraan moduulin 9 antikilpailevuuden
+      formalisoinnille. Käytämme arvofunktiota \(V(n) = V_0 \cdot g(n)\) kilpailevuusparametrilla
+      \(\beta\) kauttaaltaan. Jos et ole käynyt läpi moduulin 9 osiota 5, tee se ensin.
+    </div>
+
+    <p>
+      Moduulissa 9 totesimme, että antikilpailevilla hyödykkeillä on merkittävä ominaisuus: niiden
+      arvo <em>kasvaa</em> käyttäjien määrän myötä:
+    </p>
+
+    \[
+      V'(n) > 0 \quad \text{(antikilpaileva)}
+    \]
+
+    <p>
+      Osoitimme, kuinka tämä muuttaa sosiaalisia dilemmoja: riittävän vahvan antikilpailevuuden
+      vallitessa vangin dilemma muuttuu koordinaatiopeliksi tai jopa harmoniseksi peliksi,
+      jolloin yhteistyöstä tulee itseään ylläpitävää.
+    </p>
+
+    <p>
+      Tämä kuva on kuitenkin epätäydellinen. Se käsittelee antikilpailevaa hyödykettä eristyksissä,
+      ikään kuin se olisi tyhjiössä. Käytännössä jokainen digitaalinen yhteisresurssi riippuu
+      <strong>täydentävistä resursseista, jotka ovat edelleen kilpailevia</strong>:
+    </p>
+
+    <ul>
+      <li><strong>Wikipedian</strong> artikkelit ovat antikilpailevia (enemmän lukijoita &rarr; enemmän muokkaajia
+        &rarr; parempia artikkeleita), mutta <em>muokkaajien huomio</em> ja <em>kuratointikapasiteetti</em>
+        ovat ehdottoman kilpailevia.</li>
+      <li><strong>Avoimen lähdekoodin ohjelmistot</strong> ovat antikilpailevia (enemmän käyttäjiä &rarr; enemmän
+        virheraportteja, korjauksia ja kirjastoja), mutta <em>ylläpitäjien aika</em> ja
+        <em>katselmointikapasiteetti</em> ovat kilpailevia.</li>
+      <li><strong>Tekoälyn koulutusaineistot</strong> tulevat arvokkaammiksi laajemman kontribuution myötä,
+        mutta <em>datan laadun kuratointi</em> ja <em>laskentaresurssit</em> ovat kilpailevia.</li>
+      <li><strong>Verkkofoorumit</strong> tulevat arvokkaammiksi osallistujien myötä, mutta
+        <em>moderointikapasiteetti</em> ja <em>signaali-kohinasuhde</em> heikkenevät.</li>
+    </ul>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.1 (Antikilpailevuuden paradoksi).</strong>
+      Antikilpailevan resurssin menestys synnyttää kysyntää, joka kuluttaa loppuun sen kilpailevat
+      täydentävät resurssit. Formaalisti, jos antikilpailevalla resurssilla \(R_a\) on arvo \(V_a(n)\),
+      joka kasvaa käyttäjien \(n\) myötä, ja se riippuu kilpailevasta täydentävästä resurssista \(R_r\),
+      jonka käyttäjäkohtainen saatavuus \(S_r(n)\) vähenee \(n\):n kasvaessa, vallitsee jännite:
+      \[
+        \frac{dV_a}{dn} > 0 \quad \text{mutta} \quad \frac{dS_r}{dn} < 0
+      \]
+      Yhteisresurssin <em>todellinen</em> arvo määräytyy molemmista.
+    </div>
+
+    <div class="intuition-box">
+      <strong>Intuitio: Ravintola-analogia.</strong>
+      Kuvittele ravintola, jonka ruoka paranee <em>sitä enemmän</em>, mitä enemmän asiakkaita se palvelee
+      (antikilpaileva laatu &mdash; esimerkiksi joukkoistettua reseptien kehittämistä). Sana leviää, ja yhä useampi
+      ruokailija saapuu. Mutta keittiöllä on rajallinen kapasiteetti, tarjoilijat ovat ylityöllistettyjä ja
+      pöydät ovat rajallisia. Ruoan laatu nousee, mutta ravintolassa ruokailemisen kokemus romahtaa.
+      Antikilpaileva ulottuvuus (reseptin laatu) luo kriisin kilpailevissa ulottuvuuksissa
+      (istumapaikat, palvelu, raaka-aineet).
+    </div>
+
+    <p>
+      Tämä ei ole pelkkä teoreettinen kuriositeetti. Se on kiistatta <strong>digitaalisten
+      yhteisresurssien keskeinen hallintahaaste</strong>. Avoimen lähdekoodin kestävyyskriisi,
+      Wikipedian muokkaajien pysyvyysongelma ja verkkoyhteisöjen moderointihaasteet ovat kaikki
+      tämän paradoksin ilmentymiä.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 2: KYTKETTYJEN RESURSSIEN MALLI -->
+  <!-- ================================================================== -->
+  <div class="section" id="coupled-resources">
+    <h2>2. Kytkettyjen resurssien malli</h2>
+
+    <h3 id="coupled-formal">2.1 Formaali viitekehys</h3>
+
+    <p>
+      Mallinnnamme digitaalisen yhteisresurssin kahdesta kytketystä resurssista riippuvaiseksi:
+    </p>
+
+    <ul>
+      <li><strong>Antikilpaileva resurssi</strong> \(R_a\): digitaalinen ydinhyödyke (koodi, tieto, data).
+        Sen arvo kullekin käyttäjälle kasvaa aktiivisten käyttäjien lukumäärän myötä.</li>
+      <li><strong>Kilpaileva täydentävä resurssi</strong> \(R_r\): niukka panos, jota yhteisresurssi vaatii
+        (huomio, ylläpito, infrastruktuuri, moderointi). Sen käyttäjäkohtainen saatavuus vähenee
+        käyttäjien lukumäärän kasvaessa.</li>
+    </ul>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.2 (Kytketty arvofunktio).</strong>
+      Digitaalisen yhteisresurssin todellinen käyttäjäkohtainen arvo \(n\) käyttäjällä on:
+      \[
+        V(n) \;=\; V_a(n) \cdot h\!\bigl(S_r(n)\bigr)
+      \]
+      missä:
+      <ul style="margin-top:0.5rem">
+        <li>\(V_a(n) = V_0 \cdot n^{\beta}\) on antikilpaileva komponentti (\(\beta > 0\)),
+          kuten moduulissa 9 määriteltiin</li>
+        <li>\(S_r(n)\) on kilpailevan täydentävän resurssin käyttäjäkohtainen saatavuus</li>
+        <li>\(h: \mathbb{R}_+ \to [0,1]\) on <em>laatumodulaattori</em>: \(h(0) = 0\),
+          \(h'(s) > 0\), \(h(s) \to 1\) kun \(s \to \infty\)</li>
+      </ul>
+    </div>
+
+    <p>
+      Yksinkertaisin malli kilpailevalle täydentävälle resurssille olettaa kiinteän kokonaistarjonnan \(M\)
+      (esim. ylläpitäjätyötuntien kokonaismäärä), joka jaetaan \(n\) käyttäjän ja yleiskustannusten kesken:
+    </p>
+
+    \[
+      S_r(n) = \frac{M}{n^\gamma}
+    \]
+
+    <p>
+      missä \(\gamma > 0\) mittaa, kuinka nopeasti kilpailevan resurssin kysyntä skaalautuu
+      käyttäjämäärän myötä. Jos kukin käyttäjä luo täsmälleen yhden yksikön kysyntää, \(\gamma = 1\)
+      (lineaarinen skaalautuminen). Usein kysyntä on kuitenkin superlineaarista (\(\gamma > 1\)),
+      koska koordinaatiokustannukset kasvavat lineaarista nopeammin (vrt. Brooksin laki).
+    </p>
+
+    <p>
+      Luonnollinen valinta laatumodulaattoriksi on:
+    </p>
+
+    \[
+      h(s) = \frac{s}{s + \kappa}
+    \]
+
+    <p>
+      missä \(\kappa > 0\) on puolisaturaatiovakio (kun \(s = \kappa\), laatu on 50 %).
+      Tämä on Michaelis&ndash;Menten / Monod-tyyppinen funktio, jota käytetään laajasti ekologiassa
+      ja biokemiassa juuri tämäntyyppiseen saturaatiodynamiikkaan.
+    </p>
+
+    <div class="example-box">
+      <strong>Esimerkki 10.1: Avoimen lähdekoodin projekti.</strong>
+      Tarkastellaan avoimen lähdekoodin kirjastoa, jossa:
+      <ul>
+        <li>Antikilpailevuusparametri \(\beta = 0.3\) (kohtalainen ekosysteemivaikutus)</li>
+        <li>Perusarvo \(V_0 = 10\)</li>
+        <li>Ylläpitäjien kokonaiskapasiteetti \(M = 100\) tuntia/kuukausi</li>
+        <li>Kysyntäeksponentti \(\gamma = 1.2\) (lievästi superlineaarinen)</li>
+        <li>Puolisaturaatio \(\kappa = 5\)</li>
+      </ul>
+      <p>Kytketty arvofunktio on:</p>
+      \[
+        V(n) = 10 \cdot n^{0.3} \cdot \frac{100/n^{1.2}}{100/n^{1.2} + 5}
+      \]
+      <p>Pienillä \(n\):n arvoilla antikilpailevuustermi dominoi ja arvo nousee. Mutta \(n\):n
+      kasvaessa ylläpitäjäpullonkaulatermi \(S_r(n) = 100/n^{1.2}\) pienenee, vetäen laatua alas.
+      Jossakin vaiheessa arvo saavuttaa huippunsa ja alkaa laskea &mdash; yhteisresurssi ajautuu kriisiin.</p>
+    </div>
+
+    <h3 id="coupled-carrying">2.2 Yhteisresurssin kantokyky</h3>
+
+    <p>
+      Ratkaiseva suure on kytketyn arvofunktion <strong>huippu</strong> &mdash;
+      käyttäjämäärä, jolla yhteisresurssi tuottaa suurimman käyttäjäkohtaisen arvon.
+    </p>
+
+    <div class="theorem-box">
+      <strong>Lause 10.1 (Optimaalinen yhteisön koko).</strong>
+      Kytketylle arvofunktiolle \(V(n) = V_0 \, n^{\beta} \cdot \frac{M/n^{\gamma}}{M/n^{\gamma} + \kappa}\)
+      käyttäjäkohtainen arvo maksimoituu kohdassa:
+      \[
+        n^* = \left(\frac{\beta \, M}{(\gamma - \beta)\,\kappa}\right)^{1/\gamma}
+      \]
+      edellyttäen, että \(\gamma > \beta\) (kilpaileva kuluminen ylittää antikilpailevan hyödyn).
+      <details>
+        <summary>Todistus</summary>
+        <div style="padding:1rem">
+          <p>Olkoon \(s(n) = M/n^{\gamma}\). Kirjoitetaan \(V(n) = V_0 \, n^{\beta} \cdot s/(s+\kappa)\).
+          Logaritminen derivaatta:</p>
+          \[
+            \frac{V'(n)}{V(n)} = \frac{\beta}{n} + \frac{s'(n)}{s(n)} \cdot \frac{\kappa}{s(n)+\kappa}
+          \]
+          <p>Koska \(s'(n) = -\gamma M n^{-\gamma-1}\), saadaan \(s'(n)/s(n) = -\gamma/n\). Asettamalla
+          \(V'(n) = 0\):</p>
+          \[
+            \frac{\beta}{n} = \frac{\gamma}{n} \cdot \frac{\kappa}{s(n) + \kappa}
+          \]
+          \[
+            \beta \bigl(s(n) + \kappa\bigr) = \gamma \kappa
+          \]
+          \[
+            s(n^*) = \frac{(\gamma - \beta)\kappa}{\beta}
+          \]
+          <p>Sijoittamalla \(s(n) = M/n^{\gamma}\) ja ratkaisemalla \(n\) saadaan tulos. \(\square\)</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="intuition-box">
+      <strong>\(n^*\):n tulkinta.</strong>
+      <ul>
+        <li>Suurempi \(M\) (enemmän ylläpitokapasiteettia) &rarr; suurempi optimaalinen yhteisö.
+          Tämä on intuitiivista: enemmän hallintaresursseja tukee useampia käyttäjiä.</li>
+        <li>Suurempi \(\beta\) (vahvempi antikilpailevuus) &rarr; suurempi optimaalinen yhteisö.
+          Antikilpaileva hyöty oikeuttaa suuremman rasituksen sietämisen.</li>
+        <li>Suurempi \(\gamma\) (nopeampi kysynnän skaalautuminen) &rarr; pienempi optimaalinen yhteisö.
+          Kun kukin uusi käyttäjä luo suhteettoman hallintataakan, yhteisö
+          kyllästyy nopeammin.</li>
+        <li>Suurempi \(\kappa\) (laatu herkempi niukkuudelle) &rarr; pienempi optimaalinen yhteisö.</li>
+      </ul>
+    </div>
+
+    <p>
+      \(n^*\):n jälkeen käyttäjäkohtainen arvo laskee. Yhteisresurssi ei ole epäonnistunut &mdash;
+      kokonaishyvinvointi \(W(n) = n \cdot V(n)\) saattaa yhä kasvaa &mdash; mutta <em>kokemus</em>
+      heikkenee. Tämä on juuri se kohta, jossa yhteisöt raportoivat, että &ldquo;projekti
+      ei ole enää entisensä.&rdquo;
+    </p>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.3 (Yhteisresurssin kantokyky).</strong>
+      <em>Kantokyky</em> \(n_K\) on yhteisön koko, jolla kokonaishyvinvointi
+      \(W(n) = n \cdot V(n)\) maksimoituu. Kun \(\gamma > \beta + 1\), tämä on äärellinen;
+      kun \(\gamma \le \beta + 1\), kokonaishyvinvointi kasvaa rajatta (vaikka käyttäjäkohtainen
+      arvo saattaa silti saavuttaa huippunsa ja alkaa laskea).
+    </div>
+
+    <p>
+      Analogia ekologiseen kantokykyyn on tarkoituksellinen. Aivan kuten ekosysteemi voi
+      ylläpitää enimmäispopulaation rajallisilla resursseilla, digitaalinen yhteisresurssi voi tukea
+      enimmäisyhteisöä rajallisilla hallintaresursseilla &mdash; vaikka ydinresurssi
+      itsessään on antikilpaileva.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 3: HUOMIONIUKKUUS -->
+  <!-- ================================================================== -->
+  <div class="section" id="attention-scarcity">
+    <h2>3. Huomioniukkuus tietoyhteisresursseissa</h2>
+
+    <p>
+      Vanhin ja perustavanlaatuisin tapaus antikilpailevuuden synnyttämästä niukkuudesta:
+      <strong>tieto on antikilpailevaa, mutta huomio on kilpailevaa</strong>.
+    </p>
+
+    <p>
+      Herbert Simon huomautti vuonna 1971: &ldquo;Tiedon runsaus synnyttää huomion niukkuutta.&rdquo;
+      Voimme nyt ilmaista tämän tarkasti viitekehyksessämme.
+    </p>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.4 (Huomiorajoitteinen tietoyhteisresurssi).</strong>
+      Tietoyhteisresurssi, jossa on \(n\) kontribuoijaa, tuottaa sisältöä nopeudella \(C(n)\)
+      (kasvava \(n\):n suhteen), ja kullakin käyttäjällä on kiinteä huomiobudjetti \(A\).
+      Käyttäjän kokema <em>signaali-kohinasuhde</em> on:
+      \[
+        \text{SNR}(n) = \frac{q(n) \cdot A}{C(n)}
+      \]
+      missä \(q(n)\) on sisällön keskimääräinen laatu (joka voi kasvaa \(n\):n myötä
+      vertaisarvioinnin ja kilpailun ansiosta) ja \(C(n)\) on sisällön kokonaismäärä.
+    </div>
+
+    <p>
+      Ydinristiriita: useammat kontribuoijat kasvattavat sekä \(q(n)\):ää (laatu, antikilpaileva) että
+      \(C(n)\):ää (volyymi). Kun volyymi kasvaa nopeammin kuin laatu, signaali-kohinasuhde laskee.
+    </p>
+
+    <div class="example-box">
+      <strong>Esimerkki 10.2: Wikipedian laatu&ndash;volyymi-vaihtokauppa.</strong>
+      <p>
+        Wikipedian artikkelien laatu paranee muokkaajien myötä (antikilpaileva):
+        \(q(n) \approx q_0 \cdot n^{0.2}\) (vähenevät tuotot, koska helpot parannukset
+        tehdään ensin). Mutta sisällön volyymi kasvaa lähes lineaarisesti: \(C(n) \approx c_0 \cdot n\).
+      </p>
+      <p>
+        Signaali-kohinasuhde on:
+        \[
+          \text{SNR}(n) = \frac{q_0 \, n^{0.2} \cdot A}{c_0 \, n} = \frac{q_0 A}{c_0} \cdot n^{-0.8}
+        \]
+      </p>
+      <p>
+        Tämä laskee kuin \(n^{-0.8}\) &mdash; jyrkästi. Ilman <strong>kuratointirakenteita</strong>
+        (artikkelien nosto, katselmointiprosessit, poistokäytännöt) yhteisresurssi hukkuisi
+        omaan runsauteensa. Wikipedian monimutkainen hallintorakenne on nimenomaan vastaus tähän
+        antikilpailevuuden synnyttämään huomioniukkuuteen.
+      </p>
+    </div>
+
+    <p>
+      Yleisemmin huomioniukkuusongelma koskee kaikkia tietoyhteisresursseja:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Yhteisresurssi</th>
+        <th>Antikilpaileva ulottuvuus</th>
+        <th>Huomiopullonkaula</th>
+      </tr>
+      <tr>
+        <td>Wikipedia</td>
+        <td>Artikkelien laatu (enemmän muokkaajia &rarr; parempi kattavuus)</td>
+        <td>Lukijoiden/muokkaajien huomio virheiden löytämiseen ja korjaamiseen</td>
+      </tr>
+      <tr>
+        <td>Stack Overflow</td>
+        <td>Vastausten laatu (äänestäminen, kilpailu vastaajien kesken)</td>
+        <td>Asiantuntijoiden aika vastaamiseen; lukijoiden aika vastausten löytämiseen</td>
+      </tr>
+      <tr>
+        <td>Akateemiset preprintit</td>
+        <td>Tieto kasvaa kontribuutioiden myötä</td>
+        <td>Vertaisarviointikapasiteetti; lukijoiden aika laadun arviointiin</td>
+      </tr>
+      <tr>
+        <td>Sosiaalinen media</td>
+        <td>Sisällön monimuotoisuus ja verkoston arvo</td>
+        <td>Algoritmista suodatusta tarvitaan; moderointi ylikuormittuu</td>
+      </tr>
+    </table>
+
+    <div class="theorem-box">
+      <strong>Propositio 10.1 (Huomioniukkuuden kynnysarvo).</strong>
+      Tietoyhteisresurssissa, jossa laatu skaalautuu kuin \(q(n) = q_0 \, n^{\alpha}\) ja volyymi
+      kuin \(C(n) = c_0 \, n^{\delta}\) ja \(\delta > \alpha\) (volyymi ohittaa laadun),
+      signaali-kohinasuhde alittaa kriittisen kynnysarvon \(\text{SNR}_{\min}\) yhteisön koolla:
+      \[
+        n_{\text{crisis}} = \left(\frac{q_0 \, A}{c_0 \, \text{SNR}_{\min}}\right)^{1/(\delta - \alpha)}
+      \]
+      \(n_{\text{crisis}}\):n jälkeen yhteisresurssi vaatii <em>institutionaalista interventiota</em>
+      (kuratointia, suodatusta, toimituspolitiikkaa) pysyäkseen toimintakykyisenä.
+    </div>
+
+    <p>
+      Tämä tulos liittyy suoraan Ostromiin: tietoyhteisresurssin institutionaaliset säännöt
+      eivät ole valinnaisia hienouksia &mdash; ne ovat matemaattisesti välttämättömiä vasteita
+      antikilpailevuuden synnyttämälle huomioniukkuudelle.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 4: YLLÄPITÄJÄNIUKKUUS -->
+  <!-- ================================================================== -->
+  <div class="section" id="maintainer-scarcity">
+    <h2>4. Ylläpitäjäniukkuus avoimen lähdekoodin projekteissa</h2>
+
+    <p>
+      Ehkä elävöittävin esimerkki antikilpailevuuden paradoksista esiintyy avoimen lähdekoodin
+      ohjelmistoissa. Koodi on antikilpailevaa: useammat käyttäjät tuottavat enemmän virheraportteja,
+      enemmän korjauksia, enemmän integraatioita ja rikkaamman ekosysteemin. Mutta ihmiset, jotka
+      katselmoivat pull requesteja, priorisoivat ongelmia, tekevät arkkitehtuuripäätöksiä ja
+      julkaisevat versioita, ovat rajallisia lukumäärältään ja energialtaan.
+    </p>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.5 (Ylläpitokuormitusmalli).</strong>
+      Olkoon \(n\) avoimen lähdekoodin projektin aktiivisten käyttäjien lukumäärä.
+      Syntyvä <em>ylläpitokysyntä</em> on:
+      \[
+        D(n) = d_0 \, n^{\gamma}
+      \]
+      missä \(\gamma \ge 1\) kuvastaa kysynnän skaalautumista (issuet, PR:t, kysymykset, tietoturvapäivitykset).
+      <em>Ylläpitotarjonta</em> on:
+      \[
+        S(n) = m_0 + s \cdot n^{\alpha}
+      \]
+      missä \(m_0\) on ydinylläpitäjien kapasiteetti, \(s \cdot n^{\alpha}\) kuvaa yhteisön
+      kontribuutioita (\(\alpha < 1\), koska vain osa käyttäjistä kontribuoi ja koordinaatiokustannukset
+      kasvavat), ja <em>ylläpitosuhde</em> on:
+      \[
+        \rho(n) = \frac{S(n)}{D(n)} = \frac{m_0 + s \cdot n^{\alpha}}{d_0 \, n^{\gamma}}
+      \]
+    </div>
+
+    <p>
+      Kun \(\gamma > \alpha\) (kysyntä ohittaa yhteisön tarjonnan), ylläpitosuhde laskee
+      mittakaavan kasvaessa. Tämä on <strong>avoimen lähdekoodin kestävyyskriisi</strong> yhdessä yhtälössä.
+    </p>
+
+    <div class="example-box">
+      <strong>Esimerkki 10.3: Heartbleed-ilmiö.</strong>
+      <p>
+        OpenSSL:ää käytti noin 66 % kaikista verkkopalvelimista (\(n \approx\) miljoonia), mutta sitä
+        ylläpiti käytännössä yksi kokopäiväinen kehittäjä (\(m_0 = 1\), \(s \approx 0\)). Ylläpitosuhde oli:
+      </p>
+      \[
+        \rho \approx \frac{1}{d_0 \cdot n^{\gamma}} \to 0
+      \]
+      <p>
+        Heartbleed-haavoittuvuus (2014) oli suora seuraus: kriittinen tietoturvavirhe
+        jäi katselmoimatta, koska \(\rho\) oli kaukana kaikista kohtuullisista kynnysarvoista.
+        Koodi oli maksimaalisesti antikilpailevaa (käytössä kaikkialla), mikä loi maksimaalisen
+        niukkuuden kilpailevasta täydentävästä resurssista (tietoturvakatselmoinneista).
+      </p>
+    </div>
+
+    <div class="warning-box">
+      <strong>Brooksin laki kytkettyssä mallissa.</strong>
+      Fred Brooks havaitsi, että &ldquo;työvoiman lisääminen myöhässä olevaan ohjelmistoprojektiin
+      tekee siitä vielä myöhäisemmän.&rdquo; Viitekehyksessämme tämä tarkoittaa \(\gamma > 1\):
+      ylimääräisten ylläpitäjien koordinaatiokustannukset voivat <em>kasvattaa</em> kysyntää
+      nopeammin kuin ne kasvattavat tarjontaa. Kun sekä \(\gamma > 1\) että \(\alpha < 1\),
+      ylläpitosuhde laskee erityisen nopeasti. Uudet kontribuoijat auttavat, mutta vähenevällä tuotolla.
+    </div>
+
+    <p>
+      Ylläpitosuhde \(\rho(n)\) voidaan sisällyttää kytkettyyn arvofunktioomme:
+    </p>
+
+    \[
+      V(n) = V_0 \, n^{\beta} \cdot h\!\bigl(\rho(n)\bigr)
+    \]
+
+    <p>
+      missä \(h(\rho) = \rho/(\rho + \kappa)\) kuten aiemmin. Projektit, joilla \(\rho \gg \kappa\),
+      ovat hyvin ylläpidettyjä ja niiden käyttäjät nauttivat täysistä antikilpailevista hyödyistä.
+      Projektit, joilla \(\rho \ll \kappa\), ovat käytännössä hylättyjä, vaikka niitä käytetään
+      laajasti &mdash; antikilpailevuus on periaatteessa olemassa, mutta kilpaileva pullonkaula
+      tuhoaa koetun arvon.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 5: INFRASTRUKTUURINIUKKUUS -->
+  <!-- ================================================================== -->
+  <div class="section" id="infrastructure-scarcity">
+    <h2>5. Infrastruktuuriniukkuus</h2>
+
+    <p>
+      Kolmas antikilpailevuuden synnyttämän niukkuuden tyyppi syntyy, kun antikilpaileva hyödyke
+      toimii <strong>kilpailevalla fyysisellä infrastruktuurilla</strong>.
+    </p>
+
+    <p>
+      Ohjelmistoa voidaan kopioida nollamarginaalikustannuksin (antikilpaileva). Mutta sen täytyy
+      <em>suorittua</em> laitteistolla: palvelimilla, kaistanleveydellä, tallennustilalla ja
+      laskentasykleillä &mdash; jotka kaikki ovat kilpailevia. Mitä enemmän käyttäjiä antikilpaileva
+      ohjelmisto houkuttelee, sitä enemmän infrastruktuuria kulutetaan.
+    </p>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.6 (Infrastruktuurirajoitteinen antikilpailevuus).</strong>
+      Olkoon \(V_a(n) = V_0 \, n^{\beta}\) antikilpaileva arvo ja olkoon käyttäjäkohtainen
+      infrastruktuurikustannus \(I(n)\). Monissa järjestelmissä infrastruktuurikustannus käyttäjää
+      kohden <em>kasvaa</em> \(n\):n myötä ruuhkautumisen, koordinaation ja redundanssin tarpeen vuoksi:
+      \[
+        I(n) = I_0 \cdot n^{\delta - 1} \quad (\delta \ge 1)
+      \]
+      <em>Nettoarvo</em> kullekin käyttäjälle on:
+      \[
+        V_{\text{net}}(n) = V_0 \, n^{\beta} - I_0 \, n^{\delta - 1}
+      \]
+    </div>
+
+    <p>
+      Kun \(\delta > \beta + 1\), infrastruktuurikustannukset lopulta dominoivat, ja nettoarvo
+      saavuttaa huippunsa kohdassa:
+    </p>
+
+    \[
+      n^*_{\text{infra}} = \left(\frac{\beta \, V_0}{(\delta - 1) \, I_0}\right)^{1/(\delta - 1 - \beta)}
+    \]
+
+    <div class="example-box">
+      <strong>Esimerkki 10.4: Digitaalisten yhteisresurssien Jevonsin paradoksi.</strong>
+      <p>
+        William Stanley Jevons havaitsi vuonna 1865, että hiilen käytön tehostaminen <em>lisäsi</em>
+        hiilen kokonaiskulutusta. Digitaalinen vastine: ohjelmiston parantaminen (antikilpaileva parannus)
+        lisää käyttöönottoa, mikä lisää infrastruktuurikysyntää, joka voi ylittää alkuperäiset
+        resurssisäästöt.
+      </p>
+      <p>
+        Hajautetulla sosiaalisella verkostolla (esim. Mastodon) on antikilpaileva sisältö (enemmän
+        käyttäjiä &rarr; monipuolisemmat syötteet), mutta kukin instanssin ylläpitäjä kantaa
+        kilpailevat palvelinkustannukset, jotka skaalautuvat käyttäjien myötä. Verkoston
+        antikilpailevuus ajaa käyttöönottoa, mutta käyttöönotto kuluttaa loppuun
+        vapaaehtoisvoimin ylläpidetyn infrastruktuurin. Monet instanssit sulkeutuvat, eivät siksi
+        että ohjelmisto epäonnistui, vaan siksi että <em>infrastruktuuritäydennys</em> loppui.
+      </p>
+    </div>
+
+    <p>
+      Kolme synnytettyn niukkuuden tyyppiä &mdash; huomio, ylläpito ja infrastruktuuri &mdash;
+      esiintyvät usein <em>samanaikaisesti</em>, pahentaen haastetta:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Niukkuustyyppi</th>
+        <th>Mikä loppuu</th>
+        <th>Skaalautuminen</th>
+        <th>Esimerkkejä</th>
+      </tr>
+      <tr>
+        <td>Huomio</td>
+        <td>Ihmisen kognitiivinen kapasiteetti käsitellä, suodattaa ja arvioida</td>
+        <td>Kiinteä käyttäjää kohden; kokonaissisältö kasvaa</td>
+        <td>Wikipedia, foorumit, preprinttipalvelimet</td>
+      </tr>
+      <tr>
+        <td>Ylläpito</td>
+        <td>Kehittäjän/kuraattorin aika hallintaan, katselmointiin ja korjaukseen</td>
+        <td>Kysyntä superlineaarinen; tarjonta sublineaarinen</td>
+        <td>Avoimen lähdekoodin projektit, yhteisöwikit</td>
+      </tr>
+      <tr>
+        <td>Infrastruktuuri</td>
+        <td>Laskenta, tallennus, kaistanleveys</td>
+        <td>Käyttäjäkohtainen kustannus voi kasvaa ruuhkautumisen myötä</td>
+        <td>Hajautetut palvelut, P2P-verkot, CDN:t</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 6: KYTKETTYJEN JÄRJESTELMIEN PELITEORIA -->
+  <!-- ================================================================== -->
+  <div class="section" id="game-theory">
+    <h2>6. Kytkettyjen järjestelmien peliteoria</h2>
+
+    <p>
+      Moduulissa 9 analysoimme kahden strategian peliä (Kontribuoi vs. Vapaamatkusta)
+      antikilpailevalle hyödykkeelle. Mutta kun tunnistamme, että antikilpailevuus synnyttää
+      niukkuutta kilpailevassa täydentävässä resurssissa, tarvitsemme rikkaamman strategiaavaruuden.
+      Keskeinen oivallus: <strong>kaikki kontribuutiot eivät ole samanlaisia</strong>.
+    </p>
+
+    <h3 id="two-role">6.1 Kahden roolin kontribuutiopeli</h3>
+
+    <p>
+      Erotamme nyt kaksi kontribuutiotyyppiä:
+    </p>
+
+    <ul>
+      <li><strong>Sisältökontribuutio</strong> (tyyppi C): Antikilpailevan resurssin kasvattaminen
+        (koodin kirjoittaminen, artikkelien luominen, datan toimittaminen).</li>
+      <li><strong>Hallintakontribuutio</strong> (tyyppi G): Kilpailevan täydentävän resurssin ylläpito
+        (PR:ien katselmointi, sisällön moderointi, infrastruktuurin ylläpito, laadun kuratointi).</li>
+    </ul>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.7 (Kolmen strategian malli).</strong>
+      Tarkastellaan populaatiota, jossa kukin toimija omaksuu yhden kolmesta strategiasta:
+      <ul style="margin-top:0.5rem">
+        <li>\(\mathbf{C}\) (Sisältökontribuoija): Kontribuoi antikilpailevaan resurssiin
+          henkilökohtaisella kustannuksella \(c_C\).</li>
+        <li>\(\mathbf{G}\) (Hallintakontribuoija): Ylläpitää kilpailevaa täydentävää resurssia
+          henkilökohtaisella kustannuksella \(c_G\) (tyypillisesti \(c_G > c_C\), koska hallinta
+          on usein vähemmän palkitsevaa ja vaativampaa).</li>
+        <li>\(\mathbf{F}\) (Vapaamatkustaja): Kuluttaa yhteisresurssia kontribuoimatta. Kustannus \(= 0\).</li>
+      </ul>
+      <p style="margin-top:0.5rem">
+        Olkoot \(x\), \(y\) ja \(z = 1 - x - y\) populaatio-osuudet, jotka pelaavat C:tä, G:tä ja F:ää
+        vastaavasti. Käyttäjäkohtainen arvo riippuu sekä sisällöstä (riippuu \(x\):stä) että hallinnasta
+        (riippuu \(y\):stä):
+      </p>
+      \[
+        V(x, y) = V_0 \cdot g(x) \cdot h(y)
+      \]
+      missä \(g(x) = (1 + \beta x)^{\eta}\) kuvaa antikilpailevia sisältövaikutuksia
+      ja \(h(y) = y / (y + \kappa)\) kuvaa hallinnan laatua.
+    </div>
+
+    <p>
+      Kunkin strategian tuotot ovat:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C &= V(x,y) - c_C \\
+      \pi_G &= V(x,y) - c_G + \sigma \\
+      \pi_F &= V(x,y)
+    \end{aligned}
+    \]
+
+    <p>
+      missä \(\sigma \ge 0\) on <em>hallintapreemio</em> &mdash; sosiaalinen asema, päätösvalta
+      tai institutionaaliset kannustimet, joita ylläpitäjille annetaan. Tämä preemio on usein
+      ratkaiseva hallintakontribuoijien houkuttelemiseksi.
+    </p>
+
+    <div class="intuition-box">
+      <strong>Hallintadilemma.</strong>
+      Vaikka kaikki tunnistaisivat hallinnan tarpeen, yksilölliset kannustimet ohjaavat kohti
+      sisältökontribuutiota (näkyvämpää, palkitsevampaa) tai vapaamatkustamista. Hallinta on
+      &ldquo;vähemmän glamouria&rdquo; kontribuutiota: koodin katselmoijia kiitetään vähemmän kuin
+      koodin kirjoittajia, Wikipedian ylläpitäjiä arvostetaan vähemmän kuin tuotteliaita muokkaajia.
+      Ilman institutionaalisia mekanismeja hallinnan palkitsemiseksi (\(\sigma > 0\)) kilpaileva
+      täydentävä resurssi on systemaattisesti alitarjottu.
+    </div>
+
+    <h3 id="three-strategy">6.2 Kolmen strategian replikaattoridynamiikka</h3>
+
+    <p>
+      Replikaattoridynamiikka 2-simpleksillä (\(z = 1-x-y\)):
+    </p>
+
+    \[
+    \begin{aligned}
+      \dot{x} &= x \,(\pi_C - \bar{\pi}) \\
+      \dot{y} &= y \,(\pi_G - \bar{\pi}) \\
+    \end{aligned}
+    \]
+
+    <p>
+      missä \(\bar{\pi} = x\pi_C + y\pi_G + (1-x-y)\pi_F\) on populaation keskimääräinen tuotto.
+      Sijoittamalla:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C - \pi_F &= -c_C \\
+      \pi_G - \pi_F &= -c_G + \sigma \\
+      \pi_C - \pi_G &= c_G - c_C - \sigma
+    \end{aligned}
+    \]
+
+    <div class="warning-box">
+      <strong>Keskeinen havainto.</strong>
+      Kelpoisuuserot \(\pi_C - \pi_F = -c_C\) ja \(\pi_G - \pi_F = -c_G + \sigma\) ovat
+      <em>vakioita</em> (riippumattomia \(x\):stä ja \(y\):stä), jos arvofunktio \(V(x,y)\)
+      sisältyy kaikkiin tuottoihin samalla tavalla. Tämä on tavanomainen julkishyödyketulos:
+      kun kaikki saavat saman arvon riippumatta omasta strategiastaan, kontribuointi on aina alisteinen.
+      <br><br>
+      Mutta tämä muuttuu, kun otamme käyttöön <strong>eriytetyn pääsyn</strong>: kontribuoijat voivat
+      saada <em>enemmän</em> antikilpailevaa hyötyä kuin vapaamatkustajat (esim. GitHubin kontribuoijat
+      saavat parempaa mainetta, työllistymismahdollisuuksia ja yhteisöllistä asemaa).
+    </div>
+
+    <p>
+      Otetaan käyttöön <em>eriytetty pääsy</em>: kontribuoijat saavat kertoimen
+      \(\phi > 1\) arvofunktioon (mainehyötyjä, tekemällä oppimista
+      ja yhteisön tunnustusta), kun taas vapaamatkustajat saavat perusarvon:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C &= \phi \cdot V(x,y) - c_C \\
+      \pi_G &= \phi \cdot V(x,y) - c_G + \sigma \\
+      \pi_F &= V(x,y)
+    \end{aligned}
+    \]
+
+    <p>
+      Nyt kelpoisuuserot tulevat tilariippuviksi:
+    </p>
+
+    \[
+    \begin{aligned}
+      \pi_C - \pi_F &= (\phi - 1) \, V(x,y) - c_C \\
+      \pi_G - \pi_F &= (\phi - 1) \, V(x,y) - c_G + \sigma
+    \end{aligned}
+    \]
+
+    <p>
+      Kontribuointi on edullista, kun yhteisresurssi on tarpeeksi arvokas, jotta \((\phi - 1)\,V(x,y) > c_C\).
+      Antikilpailevuusvaikutus merkitsee: yhteisresurssin kasvaessa \(V(x,y)\) kasvaa, tehden
+      kontribuoinnista houkuttelevampaa. Mutta hallintapullonkaula rajoittaa \(V\):tä \(h(y)\):n kautta,
+      luoden kytkennän kahden kontribuutiotyypin välille.
+    </p>
+
+    <div class="theorem-box">
+      <strong>Lause 10.2 (Hallinnan ja sisällön kytkentä).</strong>
+      Kolmen strategian mallissa eriytetyllä pääsyllä \(\phi > 1\) sisäinen kiintopiste
+      \((x^*, y^*)\) toteuttaa:
+      \[
+        V(x^*, y^*) = \frac{c_C}{\phi - 1} = \frac{c_G - \sigma}{\phi - 1}
+      \]
+      Sisäinen tasapaino edellyttää siis \(c_C = c_G - \sigma\), eli hallintapreemion täytyy
+      kompensoida tarkasti hallinnan lisäkustannus: \(\sigma = c_G - c_C\).
+      <br><br>
+      Kun \(\sigma < c_G - c_C\) (riittämätön hallintapreemio), järjestelmällä ei ole sisäistä
+      tasapainoa. Sen sijaan hallintakontribuoijat kuolevat sukupuuttoon (\(y \to 0\)),
+      mikä romahduttaa \(h(y) \to 0\), mikä romahduttaa yhteisresurssin arvon, mikä eliminoi myös
+      sisältökontribuoijat. <strong>Yhteisresurssi epäonnistuu, koska hallinta epäonnistui ensin.</strong>
+      <details>
+        <summary>Todistusluonnos</summary>
+        <div style="padding:1rem">
+          <p>Sisäisessä kiintopisteessä \(\pi_C = \pi_G = \pi_F = \bar{\pi}\).
+          Yhtälöstä \(\pi_C = \pi_F\): \((\phi-1)V(x^*,y^*) = c_C\).
+          Yhtälöstä \(\pi_G = \pi_F\): \((\phi-1)V(x^*,y^*) = c_G - \sigma\).
+          Yhdistämällä saadaan \(c_C = c_G - \sigma\). Jos \(\sigma < c_G - c_C\),
+          niin missä tahansa tilassa \(\pi_G < \pi_C\) (hallinta on alisteinen sisältökontribuutiolle),
+          joten \(y\) pienenee monotonisesti. Kun \(y \to 0\), \(h(y) \to 0\),
+          \(V \to 0\), ja silloin \(\pi_C - \pi_F = (\phi-1) \cdot 0 - c_C < 0\),
+          joten myös sisältökontribuutio on alisteinen. \(\square\)</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 id="governance-trap">6.3 Hallintaloukku</h3>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.8 (Hallintaloukku).</strong>
+      Digitaalinen yhteisresurssi on <em>hallintaloukussa</em>, kun:
+      <ol style="margin-top:0.5rem">
+        <li>Antikilpaileva resurssi on arvokas ja kasvava (\(V_a\) kasvaa).</li>
+        <li>Hallintapreemio on riittämätön (\(\sigma < c_G - c_C\)).</li>
+        <li>Hallintakontribuoijien osuus \(y\) on laskeva.</li>
+      </ol>
+      Järjestelmä vaikuttaa terveeltä (kasvava käyttäjäkunta, kasvava sisältö), mutta on
+      romahduksen suuntaisella liikeradalla: kilpailevaa täydentävää resurssia kulutetaan tahtiin,
+      jonka antikilpailevan resurssin pinnallinen kasvu peittää.
+    </div>
+
+    <div class="example-box">
+      <strong>Esimerkki 10.5: Hallintaloukku avoimen lähdekoodin projekteissa.</strong>
+      <p>
+        Tarkastellaan menestynyttä avoimen lähdekoodin projektia parametreilla:
+        \(\beta = 0.3\), \(\phi = 1.5\), \(c_C = 2\), \(c_G = 5\), \(\sigma = 1\), \(\kappa = 0.1\).
+      </p>
+      <p>
+        Koska \(\sigma = 1 < c_G - c_C = 3\), hallintapreemio on riittämätön.
+        Vaikka sisältökontribuutio voi olla kestävää (kun projekti on tarpeeksi suosittu niin,
+        että \(0.5 \cdot V > 2\)), hallintakontribuutio ei ole koskaan yksilöllisesti rationaalista.
+      </p>
+      <p>
+        Projekti seuraa ominaista liikerataa:
+      </p>
+      <ol>
+        <li><strong>Kasvuvaihe</strong>: Perustajat hoitavat hallinnan; sisältökontribuoijat
+          liittyvät mukaan; projekti kasvaa; antikilpailevuus käynnistyy.</li>
+        <li><strong>Menestysvaihe</strong>: Projektista tulee suosittu; antikilpaileva arvo
+          on korkea; paljon sisältökontribuoijia; hallinnan hoitavat yhä perustajat.</li>
+        <li><strong>Uupumisvaihe</strong>: Hallintakysyntä ylittää perustajien kapasiteetin;
+          perustajat uupuvat; hallinnan laatu \(h(y)\) laskee; mutta antikilpaileva arvo
+          peittää ongelman tilapäisesti.</li>
+        <li><strong>Kriisivaihe</strong>: Kriittinen tapahtuma (tietoturvahaavoittuvuus,
+          yhteensopivuusmuutos, yhteisökonflikti) paljastaa hallintavajeen; nopea romahdus.</li>
+      </ol>
+    </div>
+
+    <p>
+      Hallintaloukku on salakavala, koska kasvumittarit (käyttäjät, tähdet, lataukset)
+      ovat kaikki antikilpailevan ulottuvuuden indikaattoreita ja <em>kätkevät</em> heikkenevän
+      kilpailevan ulottuvuuden. Projekti näyttää terveemmältä kuin koskaan juuri ennen romahdustaan.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 7: ANTIYHTEISRESURSSIEN TRAGEDIA -->
+  <!-- ================================================================== -->
+  <div class="section" id="anti-commons">
+    <h2>7. Antiyhteisresurssien tragedia</h2>
+
+    <p>
+      Michael Heller (1998) tunnisti ilmiön, joka on symmetrinen yhteisresurssien tragedialle:
+      <strong>antiyhteisresurssien tragedia</strong>, jossa useilla osapuolilla on oikeuksia,
+      jotka voivat <em>sulkea pois</em> muita, johtaen resurssin alikäyttöön.
+    </p>
+
+    <div class="def-box">
+      <strong>Määritelmä 10.9 (Antiyhteisresurssien tragedia).</strong>
+      <em>Antiyhteisresurssi</em> syntyy, kun antikilpaileva resurssi on pirstaloitunut
+      poissulkemisoikeuksilla (patentit, lisenssit, suljetut rajapinnat) niin, ettei yksikään
+      käyttäjä pääse käsiksi koko resurssiin. Jos oikeudenhaltijoita on \(k\), joista kukin voi
+      estää pääsyn, pääsyn todennäköisyys on:
+      \[
+        P_{\text{access}} = \prod_{i=1}^{k} p_i
+      \]
+      missä \(p_i\) on todennäköisyys saada lupa oikeudenhaltijalta \(i\).
+      Vaikka kukin \(p_i\) olisi lähellä arvoa 1, tulo pienenee eksponentiaalisesti \(k\):n suhteen.
+    </div>
+
+    <p>
+      Tämä on erityisen nurinkurinen vuorovaikutus antikilpailevuuden kanssa. Resurssin <em>pitäisi</em>
+      tulla arvokkaammaksi käytön myötä, mutta poissulkemisoikeudet <em>estävät</em> käytön, joka
+      synnyttäisi arvon. Yhteiskunnallisella tappiolla on kaksi komponenttia:
+    </p>
+
+    <ol>
+      <li><strong>Suora tappio</strong>: olemassa olevan resurssin alikäyttö.</li>
+      <li><strong>Antikilpailevuustappio</strong>: menetetty arvonnousu, joka <em>olisi tapahtunut</em>,
+        jos useammilla käyttäjillä olisi ollut pääsy. Tämä toinen tappio on ainutlaatuinen
+        antikilpaileville hyödykkeille ja voi olla ensimmäistä paljon suurempi.</li>
+    </ol>
+
+    <div class="theorem-box">
+      <strong>Propositio 10.2 (Antiyhteisresurssien hyvinvointitappio).</strong>
+      Antikilpailevalle hyödykkeelle, jonka arvo on \(V(n) = V_0 \, n^{\beta}\) ja potentiaalinen
+      käyttäjäpopulaatio \(N\), pirstaloituna \(k\) poissulkemisoikeuteen tasaisella
+      pääsytodennäköisyydellä \(p\), odotettu käyttäjämäärä on \(n = N \cdot p^k\) ja hyvinvointitappio
+      suhteessa avoimeen pääsyyn on:
+      \[
+        \Delta W = N \cdot V_0 \cdot N^{\beta} - N p^k \cdot V_0 \cdot (Np^k)^{\beta}
+             = V_0 N^{1+\beta}\bigl(1 - p^{k(1+\beta)}\bigr)
+      \]
+      Kun \(\beta > 0\), tämä tappio kasvaa superlineaarisesti \(N\):n suhteen: mitä suurempi
+      potentiaalinen yhteisö, sitä tuhoisampi antiyhteisresurssi.
+    </div>
+
+    <div class="example-box">
+      <strong>Esimerkki 10.6: Patenttitiheiköt biotekniikassa.</strong>
+      <p>
+        Geenimuokkausmenetelmän potentiaalinen arvo on \(V(n) = V_0 \, n^{0.4}\) (antikilpaileva
+        jaettujen protokollien, reagenssien ja koulutusaineistojen kautta). Mutta 12 päällekkäistä
+        patenttia (\(k = 12\)) vaativat kukin lisensoinnin (\(p = 0.9\) pääsyn todennäköisyys).
+        Odotettu osuus tutkijoista, joilla on täysi pääsy:
+      </p>
+      \[
+        p^{12} = 0.9^{12} \approx 0.28
+      \]
+      <p>
+        Vain 28 % potentiaalisista käyttäjistä saa pääsyn, ja toteutunut arvo on:
+        \(V(0.28N) = V_0 \cdot (0.28N)^{0.4}\) eikä \(V_0 \cdot N^{0.4}\).
+        Hyvinvointisuhde on \(0.28^{1.4} \approx 0.17\) &mdash; 83 % arvosta tuhoutuu
+        antiyhteisresurssin vuoksi, suurin osa menetetyn antikilpailevuusvaikutuksen takia.
+      </p>
+    </div>
+
+    <p>
+      Antiyhteisresurssien tragedia osoittaa, että antikilpailevuuden ja institutionaalisen
+      suunnittelun vuorovaikutus toimii molempiin suuntiin: hyvät instituutiot voivat vahvistaa
+      antikilpailevuutta, mutta huonot instituutiot (liiallinen oikeuksien pirstaloituminen) voivat
+      tuhota sen.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 8: INSTITUTIONAALINEN SUUNNITTELU -->
+  <!-- ================================================================== -->
+  <div class="section" id="institutional-design">
+    <h2>8. Institutionaalinen suunnittelu kytkettyjä järjestelmiä varten</h2>
+
+    <p>
+      Antikilpailevuuden paradoksin valossa, miten instituutiot tulisi suunnitella hallitsemaan
+      antikilpailevien ja kilpailevien resurssien kytkentää? Tarkastelemme Ostromin
+      suunnitteluperiaatteita (moduuli 8) tästä uudesta näkökulmasta.
+    </p>
+
+    <div class="intuition-box">
+      <strong>Suunnitteluhaaste.</strong>
+      Instituution täytyy samanaikaisesti:
+      <ol>
+        <li><em>Maksimoida</em> antikilpaileva vaikutus (pitää yhteisresurssi avoimena, kannustaa käyttöä).</li>
+        <li><em>Suojella</em> kilpailevaa täydentävää resurssia (estää hallinnan romahdus, hallita infrastruktuuria).</li>
+      </ol>
+      Nämä tavoitteet ovat jännitteessä keskenään. Yhteisresurssin avoimemmaksi tekeminen kiihdyttää
+      antikilpailevaa hyötyä mutta myös kilpailevien täydentävien resurssien kulumista.
+    </div>
+
+    <p>
+      Tunnistamme neljä institutionaalista mekanismia, jotka vastaavat tähän jännitteeseen:
+    </p>
+
+    <h3>8.1 Hallintapreemiot (\(\sigma\)-mekanismit)</h3>
+
+    <p>
+      Hallintaloukusta pääsemiseksi (lauseen 10.2 mukaan vaaditaan \(\sigma \ge c_G - c_C\))
+      instituutioiden täytyy palkita hallintakontribuutiota. Reaalimaailman mekanismeja ovat:
+    </p>
+
+    <ul>
+      <li><strong>Viralliset roolit</strong>: Apache-säätiön &ldquo;committer&rdquo;- ja
+        &ldquo;PMC-jäsen&rdquo;-status (sosiaalinen \(\sigma\)).</li>
+      <li><strong>Taloudelliset kannustimet</strong>: Linux Foundation, Mozilla ja yritysten
+        sponsorointi, jotka maksavat ylläpitäjille (rahallinen \(\sigma\)).</li>
+      <li><strong>Päätösvalta</strong>: Hallintakontribuoijat saavat äänioikeuden,
+        veto-oikeuden tai asialistan määrittämisen (valtaan perustuva \(\sigma\)).</li>
+      <li><strong>Urasignalointi</strong>: Ylläpitäjäroolit, jotka signaloivat osaamista
+        työnantajille (maineeseen perustuva \(\sigma\)).</li>
+    </ul>
+
+    <h3>8.2 Asteittaiset kontribuutio-odotukset</h3>
+
+    <p>
+      Ostromin &ldquo;asteittaisten sanktioiden&rdquo; vastine: kun käyttäjät hyötyvät enemmän
+      antikilpailevasta resurssista, odotukset hallintakontribuutiosta kasvavat.
+    </p>
+
+    <ul>
+      <li><strong>Wikipedia</strong>: Kokeneiden muokkaajien odotetaan osallistuvan
+        poistokeskusteluihin, välimiesmenettelyihin ja politiikan kehittämiseen.</li>
+      <li><strong>Avoin lähdekoodi</strong>: Suurten yrityskäyttäjien odotetaan &ldquo;antavan takaisin&rdquo;
+        ylläpitäjärahoituksen, omistettujen insinöörien tai infrastruktuurituen kautta.</li>
+      <li><strong>Akateemiset yhteisresurssit</strong>: Vertaisarvioinnista hyötyvien tutkijoiden
+        odotetaan tekevän arviointeja muillekin.</li>
+    </ul>
+
+    <h3>8.3 Huomionhallintainstituutiot</h3>
+
+    <p>
+      Huomioniukkuuden torjumiseksi (osio 3) yhteisresurssit kehittävät suodatus- ja
+      kuratointiinstituutioita:
+    </p>
+
+    <ul>
+      <li><strong>Laatuhierarkiat</strong>: Wikipedian suositellut artikkelit -prosessi,
+        Stack Overflow'n äänestysjärjestelmä, akateeminen vertaisarviointi.</li>
+      <li><strong>Algoritminen kuratointi</strong>: Suosittelujärjestelmät, jotka nostavat
+        todellista signaali-kohinasuhdetta (nostaen \(q(n)/C(n)\):ää mallissamme).</li>
+      <li><strong>Laajuusrajat</strong>: Säännöt siitä, mikä kuuluu yhteisresurssiin ja mikä
+        ei (Wikipedian merkittävyyskriteerit, aliredditien aiherajaukset).</li>
+    </ul>
+
+    <h3>8.4 Hajautettu hallinta</h3>
+
+    <p>
+      Kun yksittäinen hallintorakenne ei pysty skaalautumaan, jakautuminen puoliautonomisiksi
+      osayhteisöiksi voi auttaa. Kukin osayhteisö hallitsee omaa kilpailevaa täydentävää
+      resurssiaan jakaen antikilpailevan resurssin:
+    </p>
+
+    \[
+      V_{\text{federated}} = V_0 \cdot g(n_{\text{total}}) \cdot \frac{1}{K} \sum_{j=1}^K h(y_j)
+    \]
+
+    <p>
+      missä \(K\) osayhteisöä ylläpitävät kukin hallinnan laatua \(h(y_j)\) itsenäisesti.
+      Antikilpaileva hyöty \(g(n_{\text{total}})\) jaetaan globaalisti, kun taas hallintataakka
+      jakautuu paikallisesti. Tämä on Linux-jakeluiden, Mastodon-instanssien
+      ja Wikipedian kieliversioiden malli.
+    </p>
+
+    <div class="theorem-box">
+      <strong>Propositio 10.3 (Federaation etu).</strong>
+      Jos hallintakustannus osayhteisöä kohden skaalautuu kuin \(D_j(n_j) = d_0 \, n_j^{\gamma}\) ja
+      kokonaiskäyttäjät jaetaan tasan \(K\) osayhteisön kesken (\(n_j = n/K\)), kokonaishallintakysyntä on:
+      \[
+        D_{\text{fed}} = K \cdot d_0 \left(\frac{n}{K}\right)^{\gamma} = d_0 \, n^{\gamma} \, K^{1-\gamma}
+      \]
+      Kun \(\gamma > 1\) (superlineaarinen skaalautuminen), federaatio <em>vähentää</em>
+      kokonaishallintakysyntää kertoimella \(K^{\gamma - 1}\). Mitä suurempi koordinaatiokustannusten
+      eksponentti, sitä suurempi federaation hyöty.
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 9: TAPAUSTUTKIMUKSET -->
+  <!-- ================================================================== -->
+  <div class="section" id="case-studies">
+    <h2>9. Tapaustutkimukset</h2>
+
+    <h3>9.1 Wikipedia: Huomio&ndash;antikilpailevuus-kierre</h3>
+
+    <p>
+      Wikipedia havainnollistaa antikilpailevuuden paradoksin koko elinkaaren:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Vaihe</th>
+        <th>Antikilpaileva ulottuvuus</th>
+        <th>Aiheutettu niukkuus</th>
+        <th>Institutionaalinen vastaus</th>
+      </tr>
+      <tr>
+        <td>2001&ndash;2006</td>
+        <td>Nopea artikkelien kasvu; laatu paranee muokkaajien myötä</td>
+        <td>Vandalismi ohittaa muokkaajien huomion</td>
+        <td>Botit, puolisuojaus, ylläpitotyökalut</td>
+      </tr>
+      <tr>
+        <td>2007&ndash;2012</td>
+        <td>Kattava peitto; luotettava lähde</td>
+        <td>Muokkaajien uupuminen; uusille vihamielinen kulttuuri</td>
+        <td>Mentorointiohjelmat, WikiProjektit</td>
+      </tr>
+      <tr>
+        <td>2013&ndash;nykyhetki</td>
+        <td>Hallitseva tietoresurssi; korkea viittausarvo</td>
+        <td>Systemaattinen vinouma; sukupuolivaje muokkaajissa</td>
+        <td>Tiedotus, apurahat, rakenteinen data (Wikidata)</td>
+      </tr>
+    </table>
+
+    <p>
+      Kukin vaihe näyttää saman kaavan: antikilpailevuuden menestys &rarr; aiheutettu niukkuus &rarr;
+      institutionaalinen innovaatio. Wikipedia selviää, koska se jatkuvasti keksii uusia
+      hallintamekanismeja kunkin uuden aiheutetun niukkuuden muodon käsittelemiseksi.
+    </p>
+
+    <h3>9.2 npm/left-pad-tapaus: hauras antikilpailevuus</h3>
+
+    <p>
+      Maaliskuussa 2016 yksittäinen kehittäjä poisti yksinkertaisen 11-rivisen JavaScript-paketin
+      (&ldquo;left-pad&rdquo;) npm-rekisteristä. Tämä rikkoi tuhansia projekteja
+      maailmanlaajuisesti, mukaan lukien Facebookin ja Airbnb:n merkittäviä järjestelmiä.
+    </p>
+
+    <p>
+      Viitekehyksessämme:
+    </p>
+
+    <ul>
+      <li><strong>Antikilpaileva ulottuvuus</strong>: npm-ekosysteemillä oli erittäin korkea
+        \(\beta\) &mdash; kukin paketti teki ekosysteemistä arvokkaamman ja ajoi käyttöönottoa.</li>
+      <li><strong>Aiheutettu niukkuus</strong>: Kukaan ei hallinnoinut riippuvuusgrafia.
+        Kilpaileva täydentävä resurssi &mdash; <em>riippuvuuksien kuratointi ja riskiarviointi</em> &mdash;
+        oli käytännössä nolla (\(y \approx 0\)).</li>
+      <li><strong>Hallinnan laatu</strong>: \(h(y) \approx h(0) = 0\) toimitusketjun turvallisuudelle.</li>
+    </ul>
+
+    <p>
+      npm:n antikilpaileva menestys (tuhansia mikropaketteja, helppo uudelleenkäyttö) loi
+      piiloniukkuuden toimitusketjun hallinnassa. Järjestelmä näytti maksimaalisesti terveeltä
+      (äärimmäinen uudelleenkäyttö, nopea kasvu) juuri ennen katastrofaalista epäonnistumistaan.
+    </p>
+
+    <h3>9.3 Tekoäly/koneoppimisen yhteisresurssit: laskenta kilpailevana pullonkaulana</h3>
+
+    <p>
+      Avoimet tekoäly/koneoppimismallit ovat vahvasti antikilpailevia: monimuotoisella datalla
+      koulutettu ja monen käyttäjän hienosäätämä malli paranee kaikille. Mutta koulutukseen,
+      päättelyyn ja arviointiin tarvittava <em>laskentateho</em> on voimakkaasti kilpailevaa.
+    </p>
+
+    <ul>
+      <li><strong>Antikilpailevia</strong>: mallin painot, koulutustekniikat, arviointimittaristot,
+        aineistot (kuratoinnin kera).</li>
+      <li><strong>Kilpailevia täydentäviä resursseja</strong>: GPU-aika koulutukseen, päättelykustannukset
+        käyttöönotossa, ihmisarvioijien huomio linjaamista varten.</li>
+    </ul>
+
+    <p>
+      Tulos: avoimet mallit luovat valtavaa antikilpailevaa arvoa, mutta laskentavaatimukset
+      keskittävät valtaa niille, jotka voivat hankkia kilpailevan täydentävän resurssin.
+      <em>Tiedon</em> antikilpailevuus elää rinnakkain intensiivisen kilpailun kanssa
+      <em>infrastruktuurista</em> sen hyödyntämiseksi.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 10: SYNTEESI -->
+  <!-- ================================================================== -->
+  <div class="section" id="synthesis">
+    <h2>10. Synteesi</h2>
+
+    <p>
+      Kootaan yhteen tämän moduulin keskeiset tulokset.
+    </p>
+
+    <div class="def-box">
+      <strong>Keskusteesi.</strong>
+      Antikilpailevuus ei ole koskaan puhdasta. Jokainen antikilpaileva resurssi riippuu kilpailevista
+      täydentävistä resursseista, ja antikilpailevan resurssin <em>menestys</em> <em>kiihdyttää
+      noiden täydentävien resurssien kulumista</em>. Digitaalisten yhteisresurssien hallintahaaste
+      ei ole pelkästään antikilpailevan resurssin hallintaa &mdash; se on antikilpailevien ja
+      kilpailevien ulottuvuuksien kytkennän hallintaa.
+    </div>
+
+    <p>
+      Kehittämämme matemaattinen viitekehys kuvaa tämän seuraavien kautta:
+    </p>
+
+    <ol>
+      <li><strong>Kytketty arvofunktio</strong>: \(V(n) = V_a(n) \cdot h(S_r(n))\), jossa
+        antikilpailevuus ja kilpaileva kuluminen vuorovaikuttavat multiplikatiivisesti.</li>
+      <li><strong>Kantokyky</strong>: Rajoittamattomallakin antikilpailevuudella äärellinen kilpaileva
+        täydentävä resurssi luo optimaalisen yhteisökoon \(n^*\).</li>
+      <li><strong>Kolmen strategian dynamiikka</strong>: Sisältökontribuutio, hallintakontribuutio
+        ja vapaamatkustaminen tuottavat laadullisesti erilaista dynamiikkaa kuin kahden strategian malli.</li>
+      <li><strong>Hallintaloukku</strong>: Ilman riittäviä hallintapreemioita
+        kilpaileva täydentävä resurssi on systemaattisesti alitarjottu, johtaen piiloiseen haurauteen.</li>
+      <li><strong>Antiyhteisresurssit</strong>: Poissulkemisoikeudet tuhoavat antikilpailevaa arvoa
+        superlineaarisesti.</li>
+    </ol>
+
+    <div class="two-col">
+      <div>
+        <h4>Moduulin 9 näkökulma (eristetty antikilpailevuus)</h4>
+        <ul>
+          <li>Enemmän käyttäjiä &rarr; enemmän arvoa</li>
+          <li>Antikilpailevuus muuttaa VD &rarr; Koordinaatio &rarr; Harmonia</li>
+          <li>Avainkysymys: onko \(\beta\) tarpeeksi suuri?</li>
+          <li>Yhteistyö voi olla itseään ylläpitävää</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Moduulin 10 näkökulma (kytketyt järjestelmät)</h4>
+        <ul>
+          <li>Enemmän käyttäjiä &rarr; enemmän arvoa <em>mutta</em> kilpaileva pullonkaula</li>
+          <li>Antikilpailevuuden menestys luo uusia dilemmoja</li>
+          <li>Avainkysymys: onko hallinta kestävää?</li>
+          <li>Yhteistyö vaatii <em>institutionaalista suunnittelua</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <p>
+      Tämä synteesi kytkeytyy suoraan takaisin Ostromiin (moduuli 8): yhteisresurssien hallinnan
+      suunnitteluperiaatteet eivät koske vain kilpailevien resurssien ylikäytön estämistä &mdash;
+      ne koskevat niiden kilpailevien täydentävien resurssien ylläpitoa, jotka saavat antikilpailevat
+      resurssit toimimaan. Digitaalinen yhteisresurssi ei ole ratkaistu ongelma, kun antikilpailevuus
+      on vakiintunut; se on <em>jatkuva institutionaalinen haaste</em> kytkettyjen järjestelmien hallinnassa.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 11: HARJOITUKSET -->
+  <!-- ================================================================== -->
+  <div class="section" id="exercises">
+    <h2>11. Harjoitukset</h2>
+
+    <ol class="exercises">
+
+      <li>
+        <strong>(Kytketty arvofunktio)</strong>
+        Tarkastellaan digitaalista yhteisresurssia parametreilla \(V_0 = 10\), \(\beta = 0.25\), \(M = 50\),
+        \(\gamma = 1.5\) ja \(\kappa = 3\).
+        <ol type="a">
+          <li>Kirjoita kytketty arvofunktio \(V(n)\) eksplisiittisesti.</li>
+          <li>Laske \(V(n)\) arvoille \(n = 1, 10, 50, 100, 500\).</li>
+          <li>Etsi optimaalinen yhteisökoko \(n^*\) lauseen 10.1 avulla.</li>
+          <li>Piirrä käyttäjäkohtainen arvo \(V(n)\) ja kokonaishyvinvointi \(W(n) = nV(n)\). Millä
+            \(n\):n arvolla käyttäjäkohtainen arvo saavuttaa huippunsa? Jatkaako kokonaishyvinvointi
+            kasvuaan sen jälkeen?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Huomioniukkuus)</strong>
+        Kysymys-vastaus-foorumilla on laatu \(q(n) = 5n^{0.15}\), volyymi \(C(n) = 2n^{0.9}\) ja
+        käyttäjän huomiobudjetti \(A = 10\).
+        <ol type="a">
+          <li>Johda signaali-kohinasuhde \(\text{SNR}(n)\).</li>
+          <li>Jos pienin käyttökelpoinen SNR on \(\text{SNR}_{\min} = 1\), etsi \(n_{\text{crisis}}\).</li>
+          <li>Foorumi ottaa käyttöön äänestysjärjestelmän, joka tehokkaasti nostaa laadun tasolle
+            \(q'(n) = 5n^{0.35}\) nostamalla paremmat vastaukset esiin. Miten \(n_{\text{crisis}}\) muuttuu?</li>
+          <li>Tulkitse: mitä äänestysjärjestelmä tekee kytketyn resurssimallin termein?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Ylläpidon kestävyys)</strong>
+        Avoimen lähdekoodin projektilla on \(m_0 = 3\) (kolme ydinylläpitäjää), yhteisön tarjonta
+        \(s = 0.5\), \(\alpha = 0.6\), ja kysyntä \(d_0 = 0.1\), \(\gamma = 1.3\).
+        <ol type="a">
+          <li>Etsi yhteisön koko, jolla ylläpitosuhde \(\rho(n) = 1\)
+            (kysyntä vastaa tarjontaa). Tämä on kestävyyskynnys.</li>
+          <li>Yrityssponsori lisää 2 palkattua ylläpitäjää (\(m_0 = 5\)). Miten
+            kestävyyskynnys muuttuu?</li>
+          <li>Vaihtoehtoisesti projekti investoi työkaluihin, jotka vähentävät kysyntäeksponentin
+            arvoon \(\gamma = 1.1\). Vertaa tätä palkattujen ylläpitäjien lisäämiseen.</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Kolmen strategian dynamiikka)</strong>
+        Kolmen strategian mallissa (C, G, F) eriytetyllä pääsyllä \(\phi = 1.3\),
+        kustannuksilla \(c_C = 1\), \(c_G = 4\), hallintapreemiolla \(\sigma\) ja arvofunktiolla
+        \(V(x,y) = 10(1+2x) \cdot y/(y+0.1)\):
+        <ol type="a">
+          <li>Mikä on pienin hallintapreemio \(\sigma\), jolla sisäinen tasapaino on olemassa?</li>
+          <li>Osoita, että \(\sigma = 2\):lla hallinta on alisteinen, ja etsi pitkän aikavälin tulos.</li>
+          <li>Etsi kiintopiste-ehdot \(\sigma = 3\):lla ja varmista sisäinen tasapaino.</li>
+          <li>Keskustele: mikä reaalimaailman instituutio vastaa \(\sigma\):n nostamista 2:sta 3:een?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Antiyhteisresurssit)</strong>
+        Tutkimustyökalulla on potentiaalisia käyttäjiä \(N = 1000\), antikilpailevuusparametri \(\beta = 0.5\)
+        ja perusarvo \(V_0 = 1\).
+        <ol type="a">
+          <li>Laske kokonaishyvinvointi avoimen pääsyn alla.</li>
+          <li>Oletetaan, että työkalu vaatii lisenssit \(k = 5\) patentinhaltijalta, joista kukin
+            myöntää pääsyn todennäköisyydellä \(p = 0.85\). Laske odotetut käyttäjät ja
+            kokonaishyvinvointi.</li>
+          <li>Mikä osuus potentiaalisesta hyvinvoinnista tuhoutuu?</li>
+          <li>Patenttipooli yksinkertaistaa tilanteen yhdeksi lisenssiksi (\(k = 1\))
+            todennäköisyydellä \(p = 0.8\). Vertaa hyvinvointia. Onko patenttipooli hyödyllinen
+            alhaisemmasta yksittäisestä pääsytodennäköisyydestä huolimatta?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Federaatio)</strong>
+        Digitaalisella yhteisresurssilla on \(n = 10{,}000\) käyttäjää, hallintakysynnän eksponentti
+        \(\gamma = 1.4\) ja kiinteä kokonaishallintaresurssi.
+        <ol type="a">
+          <li>Vertaa kokonaishallintakysyntää arvoilla \(K = 1\) (keskitetty), \(K = 10\) ja \(K = 100\)
+            osayhteisöä.</li>
+          <li>Keskustele vaihtokaupasta: federaatio vähentää hallintakysyntää mutta saattaa heikentää
+            antikilpailevaa hyötyä, jos osayhteisöt eristyvät liikaa. Millä ehdoilla
+            federaatio on optimaalista?</li>
+        </ol>
+      </li>
+
+      <li>
+        <strong>(Tapaustutkimusanalyysi)</strong>
+        Valitse todellinen digitaalinen yhteisresurssi (esim. tietty avoimen lähdekoodin projekti,
+        wiki tai aineisto).
+        <ol type="a">
+          <li>Tunnista antikilpaileva(t) ulottuvuus/ulottuvuudet ja kilpaileva(t) täydentävä(t) resurssi(t).</li>
+          <li>Arvioi (laadullisesti) parametrit \(\beta\), \(\gamma\) ja \(\kappa\).</li>
+          <li>Onko yhteisresurssi kohdannut antikilpailevuuden paradoksin? Mitä institutionaalisia
+            mekanismeja (jos mitään) kehitettiin vastaukseksi?</li>
+          <li>Ehdota tämän moduulin viitekehystä käyttäen yhtä institutionaalista muutosta, joka voisi
+            parantaa hallinnan kestävyyttä.</li>
+        </ol>
+      </li>
+
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 12: SUOSITELTUA KIRJALLISUUTTA -->
+  <!-- ================================================================== -->
+  <div class="section" id="reading">
+    <h2>12. Suositeltua kirjallisuutta</h2>
+
+    <div class="note-box">
+      <ul style="list-style:none; padding-left:0">
+        <li style="margin-bottom:0.8rem;">
+          <strong>Weber, S.</strong> (2004). <em>The Success of Open Source.</em>
+          Harvard University Press. &mdash; Analysoi avoimen lähdekoodin tuotannon taloudellista ja
+          institutionaalista logiikkaa, olennainen osioille 4 ja 6.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Eghbal, N.</strong> (2020). <em>Working in Public: The Making and Maintenance
+          of Open Source Software.</em> Stripe Press. &mdash; Yksityiskohtainen kuvaus
+          ylläpitäjäniukkuuskriisistä, suoraan olennainen osioille 4 ja 6.3.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Heller, M. A.</strong> (1998). &ldquo;The Tragedy of the Anticommons:
+          Property in the Transition from Marx to Markets.&rdquo; <em>Harvard Law Review</em>,
+          111(3), 621&ndash;688. &mdash; Antiyhteisresurssiteorian perustavanlaatuinen artikkeli (osio 7).
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Heller, M. A. &amp; Eisenberg, R. S.</strong> (1998). &ldquo;Can Patents
+          Deter Innovation? The Anticommons in Biomedical Research.&rdquo; <em>Science</em>,
+          280(5364), 698&ndash;701. &mdash; Antiyhteisresurssiteorian soveltaminen
+          patenttitiheiköihin biolääketieteessä.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Simon, H. A.</strong> (1971). &ldquo;Designing Organizations for an
+          Information-Rich World.&rdquo; Teoksessa <em>Computers, Communications, and the Public
+          Interest</em>. &mdash; Uraauurtava huomioniukkuuden kuvaus (osio 3).
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Hess, C. &amp; Ostrom, E.</strong> (2007). <em>Understanding Knowledge
+          as a Commons.</em> MIT Press. &mdash; Laajentaa Ostromin viitekehyksen
+          tietoyhteisresursseihin, suoraan olennainen kytkettyjen järjestelmien analyysillemme.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Schweik, C. M. &amp; English, R. C.</strong> (2012). <em>Internet Success:
+          A Study of Open-Source Software Commons.</em> MIT Press. &mdash; Empiirinen analyysi
+          Ostromin IAD-viitekehyksen avulla, täydentää teoreettista käsittelyämme.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Brooks, F. P.</strong> (1975). <em>The Mythical Man-Month.</em>
+          Addison-Wesley. &mdash; Klassinen käsittely koordinaatiokustannuksista
+          ohjelmistotuotannossa (\(\gamma > 1\) mallissamme).
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Moduulinavigaatio alhaalla -->
+  <div class="module-nav-strip">
+    <a href="module9.html">&larr; Moduuli 9: Digitaaliset yhteisresurssit</a>
+    <a href="../index.html">Takaisin kurssin etusivulle &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Moduuli 10: Antikilpailevuus digitaalisissa yhteisresursseissa
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

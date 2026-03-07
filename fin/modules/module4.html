@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 4: Differentiaaliyhtälöt ja dynaamiset systeemit — Matematiikkaa EGT:hen</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progress-fill"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html" class="active">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 4</div>
+    <h1>Differentiaaliyhtälöt ja dynaamiset systeemit</h1>
+    <p class="module-desc">
+      Kuinka systeemit kehittyvät ajan myötä. Yksittäisistä yhtälöistä ODE-systeemeihin, kiintopisteisiin,
+      stabiilisuusanalyysiin ja vaihemuotokuviin &mdash; matemaattinen kehys, josta suoraan
+      muodostuu replikaattoridynamiikka.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module3.html">&larr; Moduuli 3: Analyysi</a>
+    <a href="module5.html">Moduuli 5: Todennäköisyys &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Tämän moduulin sisältö</h3>
+    <ol>
+      <li><a href="#what-is-ode">Mikä on differentiaaliyhtälö?</a></li>
+      <li><a href="#solving-odes">Yksinkertaisten ODE:iden ratkaiseminen</a></li>
+      <li><a href="#systems">ODE-systeemit</a></li>
+      <li><a href="#fixed-points">Kiintopisteet (tasapainot)</a></li>
+      <li><a href="#stability">Stabiilisuusanalyysi</a></li>
+      <li><a href="#phase-portraits">Vaihemuotokuvat</a></li>
+      <li><a href="#logistic-preview">Logistinen yhtälö replikaattoridynamiikan esikatsauksena</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+    </ol>
+  </div>
+
+  <!-- Why This Module Matters -->
+  <div class="intuition-box">
+    <span class="box-title">Miksi tämä moduuli on tärkeä</span>
+    <p>
+      Tämä on kiistatta koko kurssin tärkein matemaattinen moduuli. <strong>Replikaattoriyhtälö</strong>
+      &mdash; evoluutiopeliteorian keskeinen yhtälö &mdash; <em>on</em> differentiaaliyhtälö. Kaikki
+      mitä tässä opimme pätee suoraan: tasapainojen löytäminen tarkoittaa tasapainostrategiasekoitusten löytämistä,
+      stabiilisuusanalyysi ratkaisee, onko tasapaino evoluutiossa stabiili, ja vaihemuotokuvat näyttävät,
+      kuinka strategiapopulaatiot kehittyvät ajan myötä.
+    </p>
+    <p>
+      Jos ymmärrät tämän moduulin hyvin, moduuli 7 (replikaattoridynamiikka) tuntuu luonnolliselta
+      jatkumolta eikä hypyltä.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: What is a Differential Equation? -->
+  <!-- ============================================================ -->
+  <div class="section" id="what-is-ode">
+    <h2>1. Mikä on differentiaaliyhtälö?</h2>
+
+    <p>
+      Moduulissa 3 (Analyysi) opimme, että derivaatta \(\frac{dx}{dt}\) kuvaa suureen
+      \(x\) muutosnopeutta ajan \(t\) suhteen. <strong>Differentiaaliyhtälö</strong> on yksinkertaisesti yhtälö, joka
+      kertoo, miten tämä muutosnopeus riippuu nykyisestä tilasta.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Tavallinen differentiaaliyhtälö (ODE)</span>
+      <p>
+        <strong>Tavallinen differentiaaliyhtälö</strong> (ODE) on muotoa:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = f(x, t)\]
+      </div>
+      <p>
+        Se kertoo: kun tiedetään suureen \(x\) nykyinen arvo (ja mahdollisesti nykyhetki \(t\)),
+        mikä on \(x\):n muutosnopeus?
+      </p>
+    </div>
+
+    <p>
+      Sana "tavallinen" erottaa nämä <em>osittais</em>differentiaaliyhtälöistä, joissa on
+      useita riippumattomia muuttujia. Evoluutiopeliteoriassa tarvitsemme tavallisia
+      differentiaaliyhtälöitä.
+    </p>
+
+    <h3>Keskeinen idea: muutoksen sääntö</h3>
+    <p>
+      Ajattele differentiaaliyhtälöä reseptinä: "Kun tiedetään, missä olet juuri nyt, tässä on
+      kuinka nopeasti sinun tulisi liikkua ja mihin suuntaan." Jos seuraat tätä reseptiä jostakin
+      alkupisteestä, piirrät polun ajan läpi &mdash; tämä polku on <strong>ratkaisu</strong>.
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Navigointianalogia</span>
+      <p>
+        Kuvittele olevasi joessa, jossa on virtaus. Joen jokaisessa pisteessä virtauksella on
+        tietty voimakkuus ja suunta. Differentiaaliyhtälö on kuin kartta virtauksesta: se
+        kertoo jokaisessa pisteessä, mihin suuntaan ja kuinka nopeasti vesi työntää sinua. Todellinen polkusi
+        joen läpi &mdash; se riippuu siitä, mistä aloitat (<strong>alkuehto</strong>).
+      </p>
+    </div>
+
+    <h3>Ratkaisut ovat funktioita</h3>
+    <p>
+      Toisin kuin algebrallisissa yhtälöissä, joissa ratkaisu on luku (esim. \(x^2 = 4\) antaa \(x = \pm 2\)),
+      differentiaaliyhtälön ratkaisu on <strong>funktio</strong>. Etsimme funktiota \(x(t)\) &mdash;
+      joka kertoo suureen \(x\) arvon jokaisella ajanhetkellä \(t\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Alkuarvotehtävä</span>
+      <p>
+        <strong>Alkuarvotehtävä</strong> koostuu differentiaaliyhtälöstä ja
+        alkuehdosta:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = f(x), \quad x(0) = x_0\]
+      </div>
+      <p>
+        Alkuehto \(x(0) = x_0\) määrittää, mistä systeemi lähtee liikkeelle. Kun funktio
+        \(f\) on riittävän säännöllinen, jokaiselle alkuarvon \(x_0\) valinnalle on olemassa yksikäsitteinen ratkaisu \(x(t)\).
+      </p>
+    </div>
+
+    <h3>Esimerkki 1: Eksponentiaalinen kasvu</h3>
+    <p>Yksinkertaisin ja tärkein differentiaaliyhtälö:</p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Eksponentiaalinen kasvu</span>
+      <div class="math-display">
+        \[\frac{dx}{dt} = rx\]
+      </div>
+      <p>
+        Tämä sanoo: "Kasvunopeus on verrannollinen nykyiseen kokoon." Vakio \(r\)
+        on <strong>kasvunopeus</strong>.
+      </p>
+      <ul>
+        <li>Jos \(r > 0\): populaatio kasvaa &mdash; mitä suurempi se on, sitä nopeammin se kasvaa.</li>
+        <li>Jos \(r < 0\): populaatio pienenee &mdash; eksponentiaalinen vaimeneminen.</li>
+        <li>Jos \(r = 0\): ei muutosta &mdash; populaatio pysyy vakiona.</li>
+      </ul>
+      <p>Ratkaisu (jonka johdamme pian) on:</p>
+      <div class="math-display">
+        \[x(t) = x_0 e^{rt}\]
+      </div>
+      <p>
+        missä \(x_0 = x(0)\) on populaation alkukoko.
+      </p>
+    </div>
+
+    <h3>Esimerkki 2: Logistinen kasvu</h3>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Logistinen kasvu</span>
+      <p>
+        Eksponentiaalinen kasvu ei voi jatkua loputtomiin &mdash; resurssit ovat rajalliset. Logistinen yhtälö
+        lisää korjaustermin:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = rx\left(1 - \frac{x}{K}\right)\]
+      </div>
+      <p>missä:</p>
+      <ul>
+        <li>\(r\) on luontainen kasvunopeus</li>
+        <li>\(K\) on <strong>kantokyky</strong> &mdash; suurin kestävä populaatiokoko</li>
+      </ul>
+      <p>Kun \(x\) on pieni verrattuna arvoon \(K\), termi \((1 - x/K) \approx 1\) ja kasvu on
+        likimain eksponentiaalista. Kun \(x\) lähestyy arvoa \(K\), kasvunopeus hidastuu. Kun \(x = K\),
+        kasvu pysähtyy kokonaan.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys EGT:hen</span>
+      <p>
+        Evoluutiopeliteorian replikaattoriyhtälön muoto on:
+      </p>
+      <div class="math-display">
+        \[\frac{dx_i}{dt} = x_i \left( f_i(\mathbf{x}) - \bar{f}(\mathbf{x}) \right)\]
+      </div>
+      <p>
+        Tämä on differentiaaliyhtälö! Se sanoo: strategian \(i\) osuuden muutosnopeus
+        on verrannollinen sen nykyiseen osuuteen kerrottuna (sen kelpoisuus miinus keskimääräinen kelpoisuus). Tutkimme
+        tätä tarkemmin moduulissa 7. Huomaa nyt rakenteellinen samankaltaisuus logistisen
+        yhtälön kanssa &mdash; molemmissa on muoto "osuus kertaa jokin."
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Solving Simple ODEs -->
+  <!-- ============================================================ -->
+  <div class="section" id="solving-odes">
+    <h2>2. Yksinkertaisten ODE:iden ratkaiseminen</h2>
+
+    <p>
+      Kaikkia differentiaaliyhtälöitä ei voida ratkaista analyyttisesti (eli kaavalla). Mutta monet
+      tärkeät yhtälöt voidaan, ja <strong>muuttujien erottaminen</strong> on perustavanlaatuisin
+      menetelmä.
+    </p>
+
+    <h3>Muuttujien erottaminen</h3>
+
+    <div class="def-box">
+      <span class="box-title">Menetelmä &mdash; Muuttujien erottaminen</span>
+      <p>
+        Muotoa \(\frac{dx}{dt} = g(x) \cdot h(t)\) olevalle ODE:lle voimme erottaa muuttujat:
+      </p>
+      <div class="math-display">
+        \[\frac{1}{g(x)}\,dx = h(t)\,dt\]
+      </div>
+      <p>
+        Sitten integroimme molemmat puolet:
+      </p>
+      <div class="math-display">
+        \[\int \frac{1}{g(x)}\,dx = \int h(t)\,dt\]
+      </div>
+      <p>
+        Keskeinen idea: siirrä kaikki \(x\)-termit toiselle puolelle, kaikki \(t\)-termit toiselle, ja integroi.
+      </p>
+    </div>
+
+    <h3>Ratkaistu esimerkki: eksponentiaalisen kasvun yhtälön ratkaiseminen</h3>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Yhtälön \(\frac{dx}{dt} = rx\) ratkaiseminen</span>
+      <p><strong>Vaihe 1:</strong> Erota muuttujat. Jaa molemmat puolet luvulla \(x\):</p>
+      <div class="math-display">
+        \[\frac{1}{x}\frac{dx}{dt} = r\]
+      </div>
+      <p>Kirjoita uudelleen:</p>
+      <div class="math-display">
+        \[\frac{1}{x}\,dx = r\,dt\]
+      </div>
+
+      <p><strong>Vaihe 2:</strong> Integroi molemmat puolet:</p>
+      <div class="math-display">
+        \[\int \frac{1}{x}\,dx = \int r\,dt\]
+      </div>
+      <div class="math-display">
+        \[\ln|x| = rt + C\]
+      </div>
+      <p>missä \(C\) on integroimisvakio.</p>
+
+      <p><strong>Vaihe 3:</strong> Ratkaise \(x\). Eksponentoi molemmat puolet:</p>
+      <div class="math-display">
+        \[|x| = e^{rt + C} = e^C \cdot e^{rt}\]
+      </div>
+      <p>Merkitään \(A = e^C\) (positiivinen vakio):</p>
+      <div class="math-display">
+        \[x(t) = A e^{rt}\]
+      </div>
+
+      <p><strong>Vaihe 4:</strong> Sovelletaan alkuehto \(x(0) = x_0\):</p>
+      <div class="math-display">
+        \[x(0) = A e^{0} = A = x_0\]
+      </div>
+
+      <p><strong>Ratkaisu:</strong></p>
+      <div class="math-display">
+        \[\boxed{x(t) = x_0 e^{rt}}\]
+      </div>
+    </div>
+
+    <h3>Ratkaistu esimerkki: logistisen yhtälön ratkaiseminen</h3>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Yhtälön \(\frac{dx}{dt} = rx\left(1 - \frac{x}{K}\right)\) ratkaiseminen</span>
+
+      <p><strong>Vaihe 1:</strong> Erota muuttujat:</p>
+      <div class="math-display">
+        \[\frac{dx}{x(1 - x/K)} = r\,dt\]
+      </div>
+
+      <p><strong>Vaihe 2:</strong> Käytä osamurtokehitelmää vasemmalle puolelle. Kirjoita:</p>
+      <div class="math-display">
+        \[\frac{1}{x(1 - x/K)} = \frac{1}{x} + \frac{1/K}{1 - x/K}\]
+      </div>
+      <p>Voit varmistaa tämän yhdistämällä oikean puolen murtolausekkeet.</p>
+
+      <p><strong>Vaihe 3:</strong> Integroi molemmat puolet:</p>
+      <div class="math-display">
+        \[\int\left(\frac{1}{x} + \frac{1/K}{1 - x/K}\right)dx = \int r\,dt\]
+      </div>
+      <div class="math-display">
+        \[\ln|x| - \ln|1 - x/K| = rt + C\]
+      </div>
+      <div class="math-display">
+        \[\ln\left|\frac{x}{1 - x/K}\right| = rt + C\]
+      </div>
+
+      <p><strong>Vaihe 4:</strong> Eksponentoi ja ratkaise \(x(t)\). Alkuehdon
+        \(x(0) = x_0\) soveltamisen jälkeen saadaan:</p>
+      <div class="math-display">
+        \[\boxed{x(t) = \frac{K}{1 + \left(\frac{K - x_0}{x_0}\right) e^{-rt}}}\]
+      </div>
+
+      <p><strong>Käyttäytyminen:</strong></p>
+      <ul>
+        <li>Kun \(t \to 0\): \(x(0) = x_0\) (alkuehto toteutuu).</li>
+        <li>Kun \(t \to \infty\): eksponenttitermi \(e^{-rt} \to 0\), joten \(x(t) \to K\) (lähestyy kantokykyä).</li>
+        <li>Ratkaisu piirtää S-muotoisen (sigmoidisen) käyrän.</li>
+      </ul>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Miksi ratkaisumenetelmät ovat tärkeitä EGT:ssä</span>
+      <p>
+        Monissa tapauksissa emme ratkaise replikaattoriyhtälöä tarkasti. Sen sijaan tutkimme sitä
+        kvalitatiivisesti &mdash; kysyen "missä ovat tasapainot?" ja "ovatko ne stabiileja?" sen sijaan että
+        kysyisimme "mikä on tarkka kaava?" Mutta ratkaisujen toiminnan ymmärtäminen (eksponentiaalinen kasvu,
+        sigmoidinen saturaatio) antaa meille syvän intuition dynamiikasta. Kun näemme ominaisarvoja,
+        joiden reaaliosa on negatiivinen, tiedämme systeemin vaimentuvan eksponentiaalisesti kohti tasapainoa &mdash;
+        koska ymmärrämme eksponentiaalisen ratkaisun.
+      </p>
+    </div>
+
+    <h3>Huomautus autonomisista ODE:istä</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Autonominen ODE</span>
+      <p>
+        ODE on <strong>autonominen</strong>, jos oikea puoli ei riipu eksplisiittisesti
+        ajasta:
+      </p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = f(x)\]
+      </div>
+      <p>
+        Vertaa tätä yhtälöön \(\frac{dx}{dt} = f(x, t)\), jossa muutossääntö itsessään muuttuu
+        ajan myötä. Lähes kaikki evoluutiopeliteorian yhtälöt ovat autonomisia &mdash; pelin säännöt
+        eivät muutu ajan kuluessa. Tämä tekee analyysistä huomattavasti yksinkertaisempaa.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Systems of ODEs -->
+  <!-- ============================================================ -->
+  <div class="section" id="systems">
+    <h2>3. ODE-systeemit</h2>
+
+    <p>
+      Tähän asti olemme seuranneet yhtä suuretta \(x(t)\). Mutta evoluutiopeliteoriassa
+      seuraamme tyypillisesti useita strategiaosuuksia samanaikaisesti. Jos strategioita on \(n\),
+      tarvitsemme \(n\) yhtälöä.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; ODE-systeemi</span>
+      <p>
+        <strong>Tavallisten differentiaaliyhtälöiden systeemi</strong> on kokoelma kytketyistä yhtälöistä:
+      </p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \frac{dx}{dt} &= f(x, y) \\[6pt]
+        \frac{dy}{dt} &= g(x, y)
+        \end{aligned}\]
+      </div>
+      <p>
+        Tässä \(x\) ja \(y\) muuttuvat samanaikaisesti, ja kummankin muutosnopeus voi riippua molemmista
+        muuttujista. Systeemi on <strong>kytketty</strong>, koska yhtälö \(x\):lle sisältää \(y\):n
+        ja päinvastoin.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Miksi systeemejä?</span>
+      <p>
+        Kahden strategian pelissä (esim. Haukka vs. Kyyhky) meidän on seurattava Haukkojen osuutta
+        \(x\) ja Kyyhkyjen osuutta \(y = 1 - x\). Kolmen strategian pelissä (Kivi-Paperi-Sakset)
+        tarvitsemme \(x_1, x_2, x_3\) ehdolla \(x_1 + x_2 + x_3 = 1\). Replikaattoridynamiikka
+        \(n\) strategialle on \(n\) kytketyn ODE:n systeemi.
+      </p>
+    </div>
+
+    <h3>Vektorinotaatio</h3>
+    <p>
+      Voimme kirjoittaa systeemin tiiviisti vektoreilla. Määritellään:
+    </p>
+    <div class="math-display">
+      \[\mathbf{x} = \begin{pmatrix} x \\ y \end{pmatrix}, \quad
+      \mathbf{F}(\mathbf{x}) = \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix}\]
+    </div>
+    <p>Tällöin systeemiksi tulee:</p>
+    <div class="math-display">
+      \[\frac{d\mathbf{x}}{dt} = \mathbf{F}(\mathbf{x})\]
+    </div>
+    <p>Tämä on täsmälleen sama kuin yhden muuttujan tapaus, mutta lihavoiduilla vektoreilla.</p>
+
+    <h3>Lineaariset systeemit</h3>
+    <p>
+      Erityisen tärkeä systeemien luokka ovat <strong>lineaariset systeemit</strong>, joissa \(f\) ja \(g\)
+      ovat \(x\):n ja \(y\):n lineaarisia funktioita:
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Lineaarinen systeemi</span>
+      <div class="math-display">
+        \[\frac{d\mathbf{x}}{dt} = A\mathbf{x}\]
+      </div>
+      <p>
+        missä \(A\) on vakiomatriisi. Auki kirjoitettuna:
+      </p>
+      <div class="math-display">
+        \[\begin{pmatrix} \dot{x} \\ \dot{y} \end{pmatrix} =
+        \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+        \begin{pmatrix} x \\ y \end{pmatrix}\]
+      </div>
+      <p>
+        (Tässä käytämme pistemerkintää \(\dot{x} = \frac{dx}{dt}\) lyhyyden vuoksi.)
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Lineaarinen systeemi</span>
+      <p>Tarkastellaan systeemiä:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= -2x + y \\
+        \dot{y} &= x - 2y
+        \end{aligned}\]
+      </div>
+      <p>Matriisimuodossa: \(\dot{\mathbf{x}} = A\mathbf{x}\), missä</p>
+      <div class="math-display">
+        \[A = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\]
+      </div>
+      <p>
+        Matriisin \(A\) ominaisarvot määräävät kvalitatiivisen käyttäytymisen. Muistetaan moduulista 2, että
+        ominaisarvot \(\lambda\) toteuttavat ehdon \(\det(A - \lambda I) = 0\):
+      </p>
+      <div class="math-display">
+        \[(-2 - \lambda)^2 - 1 = 0 \implies \lambda^2 + 4\lambda + 3 = 0 \implies \lambda = -1, -3\]
+      </div>
+      <p>
+        Molemmat ominaisarvot ovat negatiivisia, joten origo on <strong>stabiili solmu</strong> &mdash; kaikki
+        liikeradat suppenevat kohti pistettä \((0, 0)\). Formalisoimme tämän luvussa 5.
+      </p>
+    </div>
+
+    <h3>Lineaaristen systeemien ratkaisu</h3>
+    <p>
+      Lineaariselle systeemille \(\dot{\mathbf{x}} = A\mathbf{x}\), jos \(A\):lla on ominaisarvot
+      \(\lambda_1, \lambda_2\) vastaavine ominaisvektoreineen \(\mathbf{v}_1, \mathbf{v}_2\),
+      yleinen ratkaisu on:
+    </p>
+    <div class="math-display">
+      \[\mathbf{x}(t) = c_1 e^{\lambda_1 t} \mathbf{v}_1 + c_2 e^{\lambda_2 t} \mathbf{v}_2\]
+    </div>
+    <p>
+      missä \(c_1\) ja \(c_2\) ovat alkuehdoista määräytyviä vakioita. Huomaa, että
+      jokainen termi sisältää eksponenttifunktion \(e^{\lambda t}\) &mdash; täsmälleen se ratkaisumuoto,
+      jonka löysimme yhden muuttujan tapauksessa! Siksi ominaisarvot ohjaavat käyttäytymistä:
+    </p>
+    <ul>
+      <li>Jos \(\lambda < 0\): termi \(e^{\lambda t}\) vaimenee nollaan &mdash; komponentti pienenee.</li>
+      <li>Jos \(\lambda > 0\): termi \(e^{\lambda t}\) kasvaa &mdash; komponentti räjähtää.</li>
+      <li>Jos \(\lambda\) on kompleksinen: eksponenttifunktio tuottaa värähtelyjä (spiraaleja).</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys EGT:hen</span>
+      <p>
+        Monen strategian replikaattoriyhtälö on ODE-systeemi. Tasapainon lähellä voimme
+        approksimoida sitä lineaarisena systeeminä \(\dot{\mathbf{x}} \approx J\mathbf{x}\), missä \(J\)
+        on Jacobin matriisi. \(J\):n ominaisarvot kertovat, onko tasapaino
+        evoluutiossa stabiili. Tämä on keskeinen tekniikka, jota käytämme moduulissa 7.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Fixed Points (Equilibria) -->
+  <!-- ============================================================ -->
+  <div class="section" id="fixed-points">
+    <h2>4. Kiintopisteet (tasapainot)</h2>
+
+    <p>
+      <strong>Kiintopiste</strong> (kutsutaan myös <strong>tasapainoksi</strong> tai <strong>lepopisteeksi</strong>)
+      on tila, jossa systeemi pysyy paikallaan &mdash; mitään ei muutu.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Kiintopiste</span>
+      <p>
+        Piste \(x^*\) on ODE:n \(\frac{dx}{dt} = f(x)\) <strong>kiintopiste</strong>, jos:
+      </p>
+      <div class="math-display">
+        \[f(x^*) = 0\]
+      </div>
+      <p>
+        Systeemille \(\dot{\mathbf{x}} = \mathbf{F}(\mathbf{x})\) kiintopiste \(\mathbf{x}^*\)
+        toteuttaa ehdon \(\mathbf{F}(\mathbf{x}^*) = \mathbf{0}\) &mdash; kaikki muutosnopeuden
+        komponentit ovat nollia samanaikaisesti.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Pallo maisemassa</span>
+      <p>
+        Ajattele palloa, joka vierii mäkisessä maastossa. Kiintopisteet ovat paikkoja, joissa pallo voi olla
+        liikkumatta: kukkuloiden huiput (epästabiileja &mdash; pienikin tönäisy saa sen vierimään pois),
+        laakson pohjat (stabiileja &mdash; tönäisyistä seuraa palautuminen) ja satulapisteet
+        (stabiileja yhteen suuntaan, epästabiileja toiseen).
+      </p>
+    </div>
+
+    <h3>Kiintopisteiden löytäminen: yksi muuttuja</h3>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Logistisen yhtälön kiintopisteet</span>
+      <p>Etsi yhtälön \(\frac{dx}{dt} = rx(1 - x/K)\) kiintopisteet.</p>
+      <p><strong>Ratkaisu:</strong> Asetetaan \(f(x) = 0\):</p>
+      <div class="math-display">
+        \[rx\left(1 - \frac{x}{K}\right) = 0\]
+      </div>
+      <p>Tämä on nolla, kun:</p>
+      <ul>
+        <li>\(x^* = 0\) (sukupuutto), tai</li>
+        <li>\(1 - x^*/K = 0 \implies x^* = K\) (kantokyky)</li>
+      </ul>
+      <p>
+        Kiintopisteitä on siis kaksi. Kumpi on stabiili? Vastaamme tähän luvussa 5,
+        mutta intuitiivisesti: jos aloitetaan pienellä populaatiolla, se kasvaa kohti arvoa \(K\); jos
+        aloitetaan arvon \(K\) yläpuolelta, se pienenee kohti arvoa \(K\). Siis \(x^* = K\) on stabiili ja \(x^* = 0\)
+        on epästabiili (kun \(r > 0\)).
+      </p>
+    </div>
+
+    <h3>Kiintopisteiden löytäminen: kaksi muuttujaa</h3>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; 2D-systeemin kiintopisteet</span>
+      <p>Etsi systeemin kiintopisteet:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= x(3 - x - 2y) \\
+        \dot{y} &= y(2 - x - y)
+        \end{aligned}\]
+      </div>
+      <p><strong>Ratkaisu:</strong> Tarvitsemme sekä \(\dot{x} = 0\) että \(\dot{y} = 0\) samanaikaisesti.</p>
+      <p>Ehdosta \(\dot{x} = 0\): joko \(x = 0\) tai \(3 - x - 2y = 0\).</p>
+      <p>Ehdosta \(\dot{y} = 0\): joko \(y = 0\) tai \(2 - x - y = 0\).</p>
+
+      <p>Yhdistämällä kaikki tapaukset:</p>
+
+      <p><strong>Tapaus 1:</strong> \(x = 0\) ja \(y = 0\): Kiintopiste \((0, 0)\).</p>
+
+      <p><strong>Tapaus 2:</strong> \(x = 0\) ja \(2 - 0 - y = 0\): Kiintopiste \((0, 2)\).</p>
+
+      <p><strong>Tapaus 3:</strong> \(3 - x - 0 = 0\) ja \(y = 0\): Kiintopiste \((3, 0)\).</p>
+
+      <p><strong>Tapaus 4:</strong> \(3 - x - 2y = 0\) ja \(2 - x - y = 0\). Vähentämällä:
+        \(1 - y = 0\), joten \(y = 1\), sitten \(x = 1\). Kiintopiste \((1, 1)\).</p>
+
+      <p>Neljä kiintopistettä ovat: \((0,0)\), \((0,2)\), \((3,0)\) ja \((1,1)\).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys EGT:hen</span>
+      <p>
+        Replikaattoriyhtälössä kiintopisteet vastaavat <strong>strategioiden tasapainojakaumia</strong>.
+        Näitä ovat:
+      </p>
+      <ul>
+        <li><strong>Puhtaan strategian tasapainot</strong> (simpleksin kärjet): vain yksi strategia selviytyy.</li>
+        <li><strong>Sekataseapainot</strong> (simpleksin sisäosa): useat strategiat esiintyvät yhdessä tietyillä osuuksilla.</li>
+        <li><strong>Reunatasapainot</strong>: jotkut strategiat ovat läsnä, toiset kuolleet sukupuuttoon.</li>
+      </ul>
+      <p>
+        Replikaattoriyhtälön kiintopisteiden löytäminen vastaa taustalla olevan pelin Nash-tasapainojen
+        löytämistä. Tämä on yksi syvistä yhteyksistä dynamiikan ja staattisen
+        peliteorian välillä.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: Stability Analysis -->
+  <!-- ============================================================ -->
+  <div class="section" id="stability">
+    <h2>5. Stabiilisuusanalyysi</h2>
+
+    <p>
+      Kiintopisteiden löytäminen kertoo <em>missä</em> systeemi voi levätä. <strong>Stabiilisuusanalyysi</strong>
+      kertoo <em>pysyykö</em> se todella siellä &mdash; vaimentuvatko pienet häiriöt (stabiili) vai kasvavatko ne
+      (epästabiili)?
+    </p>
+
+    <h3>Stabiilisuus yhdessä ulottuvuudessa</h3>
+    <p>
+      Yksiulotteiselle ODE:lle \(\dot{x} = f(x)\) voimme määrittää stabiilisuuden tarkastelemalla
+      derivaattaa \(f'(x)\) kiintopisteessä.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Stabiilisuuskriteeri (1D)</span>
+      <p>Olkoon \(x^*\) yhtälön \(\dot{x} = f(x)\) kiintopiste. Tällöin:</p>
+      <ul>
+        <li>Jos \(f'(x^*) < 0\): \(x^*\) on <strong>stabiili</strong> (vetävä).</li>
+        <li>Jos \(f'(x^*) > 0\): \(x^*\) on <strong>epästabiili</strong> (hylkivä).</li>
+        <li>Jos \(f'(x^*) = 0\): ratkaisematon (tarvitaan korkeamman kertaluvun analyysi).</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Logististen kiintopisteiden stabiilisuus</span>
+      <p>Funktiolle \(f(x) = rx(1 - x/K)\) löysimme kiintopisteet \(x^* = 0\) ja \(x^* = K\).</p>
+      <p>Lasketaan \(f'(x)\):</p>
+      <div class="math-display">
+        \[f'(x) = r - \frac{2rx}{K}\]
+      </div>
+      <p><strong>Pisteessä \(x^* = 0\):</strong> \(f'(0) = r\).</p>
+      <ul>
+        <li>Jos \(r > 0\): \(f'(0) > 0\) &mdash; <strong>epästabiili</strong>. Pieni populaatio kasvaa pois nollasta.</li>
+      </ul>
+      <p><strong>Pisteessä \(x^* = K\):</strong> \(f'(K) = r - 2r = -r\).</p>
+      <ul>
+        <li>Jos \(r > 0\): \(f'(K) = -r < 0\) &mdash; <strong>stabiili</strong>. Populaatio vetäytyy kohti arvoa \(K\).</li>
+      </ul>
+      <p>Tämä vahvistaa intuitiomme: populaatiot kasvavat kohti kantokykyä.</p>
+    </div>
+
+    <h3>Stabiilisuus useammassa ulottuvuudessa: Jacobin matriisi</h3>
+    <p>
+      Usean muuttujan systeemeissä yleistämme derivaatan \(f'(x^*)\)
+      <strong>Jacobin matriisiksi</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Jacobin matriisi</span>
+      <p>
+        Systeemille \(\dot{x} = f(x,y)\), \(\dot{y} = g(x,y)\) <strong>Jacobin matriisi</strong>
+        pisteessä \((x_0, y_0)\) on:
+      </p>
+      <div class="math-display">
+        \[J = \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\[6pt]
+        \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{pmatrix}\Bigg|_{(x_0, y_0)}\]
+      </div>
+      <p>
+        Jacobin matriisi kuvaa, miten systeemi käyttäytyy pienille häiriöille pisteen
+        \((x_0, y_0)\) ympärillä. Se on "paras lineaarinen approksimaatio" epälineaariselle systeemille kyseisen pisteen lähellä.
+      </p>
+    </div>
+
+    <h3>Linearisointi</h3>
+    <p>
+      Kiintopisteen \(\mathbf{x}^*\) lähellä olkoon \(\boldsymbol{\xi} = \mathbf{x} - \mathbf{x}^*\)
+      pieni häiriö. Tällöin:
+    </p>
+    <div class="math-display">
+      \[\frac{d\boldsymbol{\xi}}{dt} \approx J\big|_{\mathbf{x}^*} \boldsymbol{\xi}\]
+    </div>
+    <p>
+      Tämä on lineaarinen systeemi! Olemme palauttaneet epälineaarisen systeemin ymmärtämisen
+      tasapainon lähellä lineaarisen systeemin ymmärtämiseen. Ja tiedämme, miten lineaarisia
+      systeemejä analysoidaan: lasketaan ominaisarvot.
+    </p>
+
+    <h3>Ominaisarvoluokittelu</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Stabiilisuus ominaisarvojen avulla (Hartman-Grobman)</span>
+      <p>
+        Olkoot \(\lambda_1, \lambda_2\) Jacobin matriisin \(J\) ominaisarvot kiintopisteessä
+        \(\mathbf{x}^*\). Jos millään ominaisarvolla ei ole nollareaaliosaa, paikallinen käyttäytyminen
+        määräytyy ominaisarvoista:
+      </p>
+      <table class="payoff-matrix" style="width:100%; text-align:left; margin-top:1rem;">
+        <tr>
+          <th>Ominaisarvot</th>
+          <th>Tyyppi</th>
+          <th>Käyttäytyminen</th>
+        </tr>
+        <tr>
+          <td>\(\lambda_1, \lambda_2 < 0\) (molemmat reaalisia, negatiivisia)</td>
+          <td><strong>Stabiili solmu</strong></td>
+          <td>Kaikki liikeradat lähestyvät pistettä \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\lambda_1, \lambda_2 > 0\) (molemmat reaalisia, positiivisia)</td>
+          <td><strong>Epästabiili solmu</strong></td>
+          <td>Kaikki liikeradat etääntyvät pisteestä \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\lambda_1 < 0 < \lambda_2\) (reaalisia, eri etumerkkiä)</td>
+          <td><strong>Satulapiste</strong></td>
+          <td>Vetää yhtä suuntaa pitkin, hylkii toista pitkin</td>
+        </tr>
+        <tr>
+          <td>\(\alpha \pm i\beta\) missä \(\alpha < 0\)</td>
+          <td><strong>Stabiili spiraali</strong></td>
+          <td>Kiertyy sisäänpäin kohti pistettä \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\alpha \pm i\beta\) missä \(\alpha > 0\)</td>
+          <td><strong>Epästabiili spiraali</strong></td>
+          <td>Kiertyy ulospäin pisteestä \(\mathbf{x}^*\)</td>
+        </tr>
+        <tr>
+          <td>\(\pm i\beta\) (puhtaasti imaginaarinen)</td>
+          <td><strong>Keskipiste</strong></td>
+          <td>Suljetut radat pisteen \(\mathbf{x}^*\) ympärillä (neutraalisti stabiili)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Kiintopisteen (1,1) luokittelu</span>
+      <p>Palaamme aiempaan systeemiimme:</p>
+      <div class="math-display">
+        \[\dot{x} = x(3 - x - 2y), \quad \dot{y} = y(2 - x - y)\]
+      </div>
+      <p>Lasketaan Jacobin matriisi. Olkoon \(f = x(3 - x - 2y)\), \(g = y(2 - x - y)\):</p>
+      <div class="math-display">
+        \[J = \begin{pmatrix}
+        3 - 2x - 2y & -2x \\
+        -y & 2 - x - 2y
+        \end{pmatrix}\]
+      </div>
+      <p>Kiintopisteessä \((1, 1)\):</p>
+      <div class="math-display">
+        \[J\big|_{(1,1)} = \begin{pmatrix}
+        3 - 2 - 2 & -2 \\
+        -1 & 2 - 1 - 2
+        \end{pmatrix} = \begin{pmatrix}
+        -1 & -2 \\
+        -1 & -1
+        \end{pmatrix}\]
+      </div>
+      <p>Etsitään ominaisarvot yhtälöstä \(\det(J - \lambda I) = 0\):</p>
+      <div class="math-display">
+        \[(-1 - \lambda)^2 - 2 = 0\]
+      </div>
+      <div class="math-display">
+        \[\lambda^2 + 2\lambda - 1 = 0 \implies \lambda = \frac{-2 \pm \sqrt{4 + 4}}{2} = -1 \pm \sqrt{2}\]
+      </div>
+      <p>Siis \(\lambda_1 = -1 + \sqrt{2} \approx 0{,}414\) ja \(\lambda_2 = -1 - \sqrt{2} \approx -2{,}414\).</p>
+      <p>
+        Yksi ominaisarvo on positiivinen ja toinen negatiivinen: kiintopiste \((1, 1)\) on <strong>satulapiste</strong>.
+        Se vetää liikeratoja joistakin suunnista ja hylkii toisista.
+      </p>
+    </div>
+
+    <h3>Ljapunovin stabiilisuus</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Ljapunovin stabiilisuus</span>
+      <p>Stabiilisuudella on useita tasoja:</p>
+      <ul>
+        <li>
+          <strong>Ljapunov-stabiili:</strong> pisteen \(\mathbf{x}^*\) läheltä lähtevät liikeradat pysyvät
+          pisteen \(\mathbf{x}^*\) lähellä ikuisesti (ne eivät välttämättä suppene, mutta pysyvät lähellä).
+        </li>
+        <li>
+          <strong>Asymptoottisesti stabiili:</strong> pisteen \(\mathbf{x}^*\) läheltä lähtevät liikeradat suppenevat
+          kohti pistettä \(\mathbf{x}^*\) kun \(t \to \infty\). Tämä on vahvempi kuin Ljapunov-stabiilisuus.
+        </li>
+        <li>
+          <strong>Epästabiili:</strong> on olemassa liikeratoja, jotka lähtevät mielivaltaisen läheltä pistettä \(\mathbf{x}^*\)
+          ja etääntyvät kauas.
+        </li>
+      </ul>
+    </div>
+
+    <p>Keskipiste (puhtaasti imaginaariset ominaisarvot) on Ljapunov-stabiili mutta ei asymptoottisesti stabiili &mdash;
+      radat kiertävät tasapainon ympärillä ikuisesti lähestymättä sitä.</p>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys EGT:hen</span>
+      <p>
+        Evoluutiopeliteoriassa <strong>replikaattoriyhtälön kiintopisteen asymptoottinen stabiilisuus</strong>
+        liittyy läheisesti käsitteeseen <strong>evoluutiossa stabiili strategia (ESS)</strong>.
+        Tarkemmin:
+      </p>
+      <ul>
+        <li>Jokainen ESS on replikaattoridynamiikan asymptoottisesti stabiili kiintopiste.</li>
+        <li>Nash-tasapaino on kiintopiste, mutta se ei välttämättä ole stabiili.</li>
+        <li>Satulapisteet vastaavat evoluutiossa epästabiileja tasapainoja &mdash; populaatio
+            kehittyy niistä pois minkä tahansa häiriön jälkeen.</li>
+      </ul>
+      <p>
+        Siksi stabiilisuusanalyysi on niin keskeistä: se on matemaattinen mekanismi, joka
+        erottaa vankat evoluutiotulokset hauraisita.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: Phase Portraits -->
+  <!-- ============================================================ -->
+  <div class="section" id="phase-portraits">
+    <h2>6. Vaihemuotokuvat</h2>
+
+    <p>
+      <strong>Vaihemuotokuva</strong> on visuaalinen esitys siitä, miten systeemi kehittyy.
+      Sen sijaan, että piirtäisimme \(x\):n ajan funktiona, piirrämme <em>tilaavaruuden</em> &mdash; kaikkien
+      mahdollisten arvojen \((x, y)\) joukon &mdash; ja piirrämme nuolet, jotka näyttävät muutoksen suunnan ja nopeuden
+      jokaisessa pisteessä.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Vaihemuotokuva</span>
+      <p>
+        Systeemin \(\dot{x} = f(x,y)\), \(\dot{y} = g(x,y)\) <strong>vaihemuotokuva</strong>
+        on kuvaaja \((x, y)\)-tasossa, joka näyttää:
+      </p>
+      <ul>
+        <li>
+          <strong>Vektorikentän</strong>: nuolet jokaisessa pisteessä, jotka näyttävät vektorin
+          \((f(x,y), g(x,y))\) suunnan ja suuruuden.
+        </li>
+        <li>
+          <strong>Liikeradat</strong>: käyrät, joita ratkaisut piirtävät eri alkuehdoista.
+        </li>
+        <li>
+          <strong>Kiintopisteet</strong>: merkityt kohdat, joissa vektorikenttä häviää.
+        </li>
+      </ul>
+    </div>
+
+    <h3>Vaihemuotokuvien tyypit</h3>
+    <p>
+      Edellisen luvun ominaisarvoluokittelu määrää vaihemuotokuvan muodon
+      kunkin kiintopisteen lähellä. Tässä on yhteenveto kunkin tyypin ulkonäöstä:
+    </p>
+
+    <div class="two-col">
+      <div>
+        <h4>Stabiili solmu</h4>
+        <p>Kaikki liikeradat virtaavat suoraan kohti kiintopistettä. Jos ominaisarvoilla on eri
+          itseisarvot, liikeradat suuntautuvat ensin hitaamman ominaisvektorin suuntaan ja lähestyvät sitten sitä pitkin.
+        </p>
+      </div>
+      <div>
+        <h4>Epästabiili solmu</h4>
+        <p>Stabiilin solmun käänteistapaus: kaikki liikeradat virtaavat pois kiintopisteestä.
+          Nopeammin kasvavan ominaisvektorin suunta hallitsee suurilla etäisyyksillä.
+        </p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4>Satulapiste</h4>
+        <p>On kaksi erityissuuntaa: <strong>stabiili monisto</strong> (liikeradat lähestyvät)
+          ja <strong>epästabiili monisto</strong> (liikeradat erkanevat). Kaikki muut liikeradat
+          lähestyvät stabiilia monistoa pitkin ja kääntyvät sitten pois epästabiilia monistoa pitkin.
+        </p>
+      </div>
+      <div>
+        <h4>Keskipiste</h4>
+        <p>Liikeradat ovat suljettuja silmukoita (ellipsejä lineaarisissa systeemeissä), jotka kiertävät kiintopistettä ikuisesti.
+          Systeemi on konservatiivinen &mdash; radat eivät kasva eivätkä pienene.
+        </p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <h4>Stabiili spiraali</h4>
+        <p>Liikeradat kiertyvät sisäänpäin kohti kiintopistettä. Pyöriminen johtuu ominaisarvojen imaginaariosasta;
+          sisäänpäin liike negatiivisesta reaaliosasta.
+        </p>
+      </div>
+      <div>
+        <h4>Epästabiili spiraali</h4>
+        <p>Liikeradat kiertyvät ulospäin kiintopisteestä. Sama pyöriminen, mutta positiivinen reaaliosa
+          saa spiraalin laajenemaan.
+        </p>
+      </div>
+    </div>
+
+    <!-- Interactive Phase Portrait -->
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Vaihemuotokuvatutkija</h3>
+      <p>Valitse systeemityyppi nähdäksesi sen vaihemuotokuvan. Napsauta mitä tahansa kohtaa lisätäksesi liikeradan kyseisestä alkupisteestä.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Systeemityyppi:</label>
+          <select id="system-select">
+            <option value="saddle">Satulapiste</option>
+            <option value="stable-node">Stabiili solmu</option>
+            <option value="unstable-node">Epästabiili solmu</option>
+            <option value="stable-spiral">Stabiili spiraali</option>
+            <option value="unstable-spiral">Epästabiili spiraali</option>
+            <option value="center">Keskipiste</option>
+            <option value="lotka-volterra">Lotka-Volterra (epälineaarinen)</option>
+          </select>
+        </div>
+      </div>
+      <canvas id="phase-canvas" class="viz-canvas" width="500" height="500"></canvas>
+      <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">Napsauta kangasta lisätäksesi liikeradan kyseisestä alkuehdosta.</p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Vaihemuotokuvat EGT:ssä</span>
+      <p>
+        Evoluutiopeliteoriassa tila-avaruus on <strong>simpleksi</strong> &mdash; kaikkien
+        strategioiden todennäköisyysjakaumien joukko. Kahdelle strategialle se on väli \([0, 1]\).
+        Kolmelle strategialle se on kolmio. Vaihemuotokuvat simpleksillä näyttävät strategioiden
+        evoluution virtauksen: mitkä strategiat kasvavat, mitkä pienenevät ja minne populaatio lopulta
+        asettuu.
+      </p>
+      <p>
+        Moduulissa 7 piirrämme replikaattoridynamiikan vaihemuotokuvia simpleksillä. Tässä
+        opitut käsitteet &mdash; vektorikentät, liikeradat, kiintopisteet, stabiilit ja epästabiilit
+        monistot &mdash; siirtyvät suoraan.
+      </p>
+    </div>
+
+    <h3>Nollakäyrät</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Nollakäyrät</span>
+      <p><strong>\(x\)-nollakäyrä</strong> on pisteiden joukko, jossa \(\dot{x} = 0\) (ts. \(f(x,y) = 0\)).</p>
+      <p><strong>\(y\)-nollakäyrä</strong> on pisteiden joukko, jossa \(\dot{y} = 0\) (ts. \(g(x,y) = 0\)).</p>
+      <p>Kiintopisteet sijaitsevat nollakäyrien <strong>leikkauspisteissä</strong> (sekä \(\dot{x} = 0\) että \(\dot{y} = 0\)).</p>
+    </div>
+
+    <p>
+      Nollakäyrät ovat äärimmäisen hyödyllisiä vaihemuotokuvien käsin piirtämiseen. \(x\)-nollakäyrällä
+      virtaus on puhtaasti pystysuoraa (vain \(y\) muuttuu). \(y\)-nollakäyrällä virtaus on puhtaasti
+      vaakasuoraa (vain \(x\) muuttuu). Nollakäyrien välissä voidaan määrittää virtauksen suunta
+      tarkistamalla suureiden \(\dot{x}\) ja \(\dot{y}\) etumerkit.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Kilpailevan systeemin nollakäyrät</span>
+      <p>Systeemille \(\dot{x} = x(3 - x - 2y)\), \(\dot{y} = y(2 - x - y)\):</p>
+      <p><strong>\(x\)-nollakäyrät</strong> (\(\dot{x} = 0\)): \(x = 0\) tai \(x + 2y = 3\).</p>
+      <p><strong>\(y\)-nollakäyrät</strong> (\(\dot{y} = 0\)): \(y = 0\) tai \(x + y = 2\).</p>
+      <p>Nollakäyrät jakavat ensimmäisen neljänneksen alueisiin. Jokaisella alueella voimme määrittää
+        suureiden \(\dot{x}\) ja \(\dot{y}\) etumerkit, mikä kertoo virtauksen kvalitatiivisen suunnan.
+        Kiintopisteet ovat nollakäyrien leikkauskohdissa: \((0,0)\), \((3,0)\), \((0,3/2)\) ja
+        \((1,1)\).
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: The Logistic Equation as a Preview -->
+  <!-- ============================================================ -->
+  <div class="section" id="logistic-preview">
+    <h2>7. Logistinen yhtälö replikaattoridynamiikan esikatsauksena</h2>
+
+    <p>
+      Nyt saavumme käsitteelliselle sillalle tämän moduulin ja moduulin 7 välillä. Logistinen
+      yhtälö ja replikaattoriyhtälö jakavat saman matemaattisen rakenteen. Tämän yhteyden ymmärtäminen
+      tekee siirtymästä saumattoman.
+    </p>
+
+    <h3>Replikaattorimuoto</h3>
+    <p>
+      Tarkastellaan populaatiota, jossa on kaksi strategiaa. Olkoon \(x\) strategian 1 osuus
+      (jolloin \(1 - x\) on strategian 2 osuus). Oletetaan, että strategian 1 kelpoisuus on \(a\) ja
+      strategian 2 kelpoisuus on \(b\). Replikaattoriyhtälö sanoo:
+    </p>
+    <div class="math-display">
+      \[\frac{dx}{dt} = x \left( f_1 - \bar{f} \right)\]
+    </div>
+    <p>
+      missä \(f_1 = a\) on strategian 1 kelpoisuus ja \(\bar{f} = xa + (1-x)b\) on keskimääräinen
+      kelpoisuus. Sijoittamalla:
+    </p>
+    <div class="math-display">
+      \[\frac{dx}{dt} = x \Big( a - \big[xa + (1-x)b\big] \Big) = x \Big( a - xa - b + xb \Big)\]
+    </div>
+    <div class="math-display">
+      \[= x(a - b)(1 - x)\]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Keskeinen tulos &mdash; Kahden strategian replikaattoriyhtälö</span>
+      <p>
+        Kahdelle strategialle, joiden vakiokelpoisuudet ovat \(a\) ja \(b\), replikaattoriyhtälö
+        pelkistyy muotoon:
+      </p>
+      <div class="math-display">
+        \[\boxed{\frac{dx}{dt} = x(1-x)(a-b)}\]
+      </div>
+      <p>
+        Tämä on täsmälleen <strong>logistinen yhtälö</strong>! Vertaa yhtälöön \(\dot{x} = rx(1 - x/K)\):
+        asetetaan \(K = 1\) ja \(r = a - b\), ja saadaan sama yhtälö.
+      </p>
+    </div>
+
+    <h3>Rakenteen analysointi</h3>
+    <p>Analysoidaan \(\dot{x} = x(1-x)(a-b)\) tämän moduulin työkaluilla:</p>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Yhtälön \(\dot{x} = x(1-x)(a-b)\) täydellinen analyysi</span>
+
+      <p><strong>Vaihe 1: Etsi kiintopisteet.</strong> Asetetaan \(\dot{x} = 0\):</p>
+      <div class="math-display">
+        \[x(1-x)(a-b) = 0\]
+      </div>
+      <p>Tästä saadaan: \(x^* = 0\) tai \(x^* = 1\) (tai \(a = b\), joka on degeneroitunut tapaus,
+        jossa jokainen piste on kiintopiste).</p>
+
+      <p><strong>Vaihe 2: Määritä stabiilisuus.</strong> Olkoon \(f(x) = x(1-x)(a-b)\). Tällöin:</p>
+      <div class="math-display">
+        \[f'(x) = (1-x)(a-b) + x(-1)(a-b) = (a-b)(1 - 2x)\]
+      </div>
+
+      <p><strong>Pisteessä \(x^* = 0\):</strong> \(f'(0) = (a - b)\).</p>
+      <ul>
+        <li>Jos \(a > b\): \(f'(0) > 0\) &mdash; <strong>epästabiili</strong>. Strategia 1 on kelpoisempi, joten pienikin
+          määrä sitä kasvaa.</li>
+        <li>Jos \(a < b\): \(f'(0) < 0\) &mdash; <strong>stabiili</strong>. Strategia 2 hallitsee; strategia 1
+          kuolee sukupuuttoon.</li>
+      </ul>
+
+      <p><strong>Pisteessä \(x^* = 1\):</strong> \(f'(1) = -(a - b)\).</p>
+      <ul>
+        <li>Jos \(a > b\): \(f'(1) < 0\) &mdash; <strong>stabiili</strong>. Strategia 1 valtaa.</li>
+        <li>Jos \(a < b\): \(f'(1) > 0\) &mdash; <strong>epästabiili</strong>. Strategia 1 ei selviä.</li>
+      </ul>
+
+      <p><strong>Johtopäätös:</strong></p>
+      <ul>
+        <li>Jos \(a > b\): strategia 1 on kelpoisempi. \(x^* = 0\) on epästabiili, \(x^* = 1\) on stabiili.
+          Populaatio kehittyy kohti 100 % strategiaa 1. Strategia 1 on ESS.</li>
+        <li>Jos \(a < b\): strategia 2 on kelpoisempi. \(x^* = 0\) on stabiili, \(x^* = 1\) on epästabiili.
+          Populaatio kehittyy kohti 0 % strategiaa 1 (100 % strategiaa 2).</li>
+        <li>Jos \(a = b\): jokainen piste on kiintopiste. Ei valintapainetta.</li>
+      </ul>
+    </div>
+
+    <h3>Kun kelpoisuus riippuu osuuksista</h3>
+    <p>
+      Yllä oleva esimerkki käytti vakiokelpoisuuksia. Todellisissa evoluutiopeleissä kelpoisuus riippuu siitä, mitä
+      kaikki muut tekevät (frekvenssiriippuva valinta). Esimerkiksi Haukka-Kyyhky-pelissä
+      Haukkojen kelpoisuus riippuu siitä, kuinka paljon Haukkoja on. Tämä muuttaa yhtälön muotoon:
+    </p>
+    <div class="math-display">
+      \[\frac{dx}{dt} = x(1-x)\big[f_1(x) - f_2(x)\big]\]
+    </div>
+    <p>
+      missä kelpoisuusfunktiot \(f_1(x)\) ja \(f_2(x)\) riippuvat \(x\):stä. Nyt sisäiset kiintopisteet
+      (joissa \(0 < x^* < 1\)) tulevat mahdollisiksi: ne esiintyvät siellä, missä \(f_1(x^*) = f_2(x^*)\)
+      &mdash; missä molemmilla strategioilla on yhtä suuri kelpoisuus. Tämä on evoluutiopeliteorian
+      ydin, ja tutkimme sitä perusteellisesti moduulissa 7.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Silta moduuliin 7</span>
+      <p>
+        Kaikki tässä moduulissa opittu kuvautuu suoraan replikaattoridynamiikkaan:
+      </p>
+      <table class="payoff-matrix" style="width:100%; text-align:left;">
+        <tr>
+          <th>Tämä moduuli</th>
+          <th>Moduuli 7 (Replikaattoridynamiikka)</th>
+        </tr>
+        <tr>
+          <td>Differentiaaliyhtälö \(\dot{x} = f(x)\)</td>
+          <td>Replikaattoriyhtälö \(\dot{x}_i = x_i(f_i - \bar{f})\)</td>
+        </tr>
+        <tr>
+          <td>Kiintopiste \(f(x^*) = 0\)</td>
+          <td>Nash-tasapainon strategiasekoitus</td>
+        </tr>
+        <tr>
+          <td>Asymptoottisesti stabiili kiintopiste</td>
+          <td>Evoluutiossa stabiili strategia (ESS)</td>
+        </tr>
+        <tr>
+          <td>Jacobin matriisin ominaisarvot</td>
+          <td>Invaasiominaisarvot</td>
+        </tr>
+        <tr>
+          <td>Vaihemuotokuva</td>
+          <td>Dynamiikka simpleksillä</td>
+        </tr>
+        <tr>
+          <td>Satulapiste</td>
+          <td>Epästabiili polymorfismi</td>
+        </tr>
+        <tr>
+          <td>Stabiili spiraali</td>
+          <td>Syklisesti stabiili rinnakkaiselo (esim. KPS)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: Exercises -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>Harjoitukset</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 1: ODE:n ratkaiseminen</div>
+      <p>Ratkaise alkuarvotehtävä:</p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = -3x, \quad x(0) = 5\]
+      </div>
+      <p>Mikä on \(x(t)\)? Mitä tapahtuu, kun \(t \to \infty\)?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Muuttujien erottamista käyttäen (tai tunnistamalla tämä eksponentiaaliseksi vaimenemiseksi parametrilla \(r = -3\)):</p>
+          <div class="math-display">
+            \[x(t) = 5e^{-3t}\]
+          </div>
+          <p>
+            Kun \(t \to \infty\): \(e^{-3t} \to 0\), joten \(x(t) \to 0\). Ratkaisu vaimenee
+            eksponentiaalisesti nollaan. Kiintopiste \(x^* = 0\) on stabiili (koska \(f'(0) = -3 < 0\)).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 2: Kiintopisteiden löytäminen</div>
+      <p>Etsi kaikki seuraavan ODE:n kiintopisteet:</p>
+      <div class="math-display">
+        \[\frac{dx}{dt} = x^2 - 4x + 3\]
+      </div>
+      <p>Määritä kunkin kiintopisteen stabiilisuus.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>Kiintopisteiden löytäminen:</strong> Asetetaan \(x^2 - 4x + 3 = 0\):</p>
+          <div class="math-display">
+            \[(x - 1)(x - 3) = 0 \implies x^* = 1 \text{ tai } x^* = 3\]
+          </div>
+          <p><strong>Stabiilisuus:</strong> Lasketaan \(f'(x) = 2x - 4\).</p>
+          <ul>
+            <li>Pisteessä \(x^* = 1\): \(f'(1) = 2 - 4 = -2 < 0\) &mdash; <strong>stabiili</strong>.</li>
+            <li>Pisteessä \(x^* = 3\): \(f'(3) = 6 - 4 = 2 > 0\) &mdash; <strong>epästabiili</strong>.</li>
+          </ul>
+          <p>Arvojen 1 ja 3 väliltä lähtevät ratkaisut suppenevat kohti \(x^* = 1\). Arvon 3 yläpuolelta
+            lähtevät ratkaisut hajaantuvat kohti \(+\infty\). Arvon 1 alapuolelta lähtevät ratkaisut suppenevat kohti \(x^* = 1\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 3: Jacobin matriisi ja ominaisarvot</div>
+      <p>Tarkastellaan systeemiä:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= y \\
+        \dot{y} &= -x - 0.5y
+        \end{aligned}\]
+      </div>
+      <p>(a) Etsi kiintopiste(et). (b) Laske Jacobin matriisi. (c) Etsi ominaisarvot ja luokittele
+        kiintopiste.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Asetetaan \(\dot{x} = 0\) ja \(\dot{y} = 0\):</p>
+          <div class="math-display">
+            \[y = 0 \quad \text{ja} \quad -x - 0{,}5(0) = 0 \implies x = 0\]
+          </div>
+          <p>Ainoa kiintopiste on \((0, 0)\).</p>
+
+          <p><strong>(b)</strong> Jacobin matriisi on:</p>
+          <div class="math-display">
+            \[J = \begin{pmatrix} 0 & 1 \\ -1 & -0.5 \end{pmatrix}\]
+          </div>
+          <p>(Tämä on jo lineaarinen systeemi, joten \(J\) on sama jokaisessa pisteessä.)</p>
+
+          <p><strong>(c)</strong> Ominaisarvot: \(\det(J - \lambda I) = 0\):</p>
+          <div class="math-display">
+            \[-\lambda(-0.5 - \lambda) - (-1) = 0\]
+          </div>
+          <div class="math-display">
+            \[\lambda^2 + 0.5\lambda + 1 = 0\]
+          </div>
+          <div class="math-display">
+            \[\lambda = \frac{-0.5 \pm \sqrt{0.25 - 4}}{2} = \frac{-0.5 \pm \sqrt{-3.75}}{2} = -0.25 \pm i\frac{\sqrt{3.75}}{2}\]
+          </div>
+          <p>Ominaisarvot ovat kompleksisia ja niiden reaaliosa on negatiivinen \(\alpha = -0{,}25 < 0\).
+            Kiintopiste on <strong>stabiili spiraali</strong>. Liikeradat kiertyvät sisäänpäin kohti
+            origoa vaimenevina värähtelyinä.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 4: Kahden strategian replikaattorianalyysi</div>
+      <p>Kahdella strategialla on frekvenssiriippuvat kelpoisuudet:</p>
+      <div class="math-display">
+        \[f_1(x) = 3 - 2x, \quad f_2(x) = 1 + x\]
+      </div>
+      <p>missä \(x\) on strategian 1 osuus.</p>
+      <p>(a) Kirjoita replikaattoriyhtälö \(\dot{x} = x(1-x)[f_1(x) - f_2(x)]\).</p>
+      <p>(b) Etsi kaikki kiintopisteet (mukaan lukien sisäiset).</p>
+      <p>(c) Määritä kunkin kiintopisteen stabiilisuus. Mikä strategia (tai sekoitus) on ESS?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Kelpoisuusero on:</p>
+          <div class="math-display">
+            \[f_1(x) - f_2(x) = (3 - 2x) - (1 + x) = 2 - 3x\]
+          </div>
+          <p>Joten replikaattoriyhtälö on:</p>
+          <div class="math-display">
+            \[\dot{x} = x(1-x)(2 - 3x)\]
+          </div>
+
+          <p><strong>(b)</strong> Kiintopisteet: asetetaan \(\dot{x} = 0\):</p>
+          <ul>
+            <li>\(x^* = 0\) (kaikki strategiaa 2)</li>
+            <li>\(x^* = 1\) (kaikki strategiaa 1)</li>
+            <li>\(2 - 3x = 0 \implies x^* = 2/3\) (sisäinen kiintopiste &mdash; sekapopulaatio)</li>
+          </ul>
+
+          <p><strong>(c)</strong> Olkoon \(h(x) = x(1-x)(2-3x)\). Lasketaan \(h'(x)\):</p>
+          <div class="math-display">
+            \[h(x) = (2x - 3x^2)(1-x)(2-3x) \text{ ... mutta on helpompaa käyttää tulosääntöä huolellisesti.}\]
+          </div>
+          <p>Itse asiassa, laajennetaan ensin: \(h(x) = x(1-x)(2-3x) = (x - x^2)(2-3x) = 2x - 3x^2 - 2x^2 + 3x^3 = 2x - 5x^2 + 3x^3\).</p>
+          <div class="math-display">
+            \[h'(x) = 2 - 10x + 9x^2\]
+          </div>
+          <ul>
+            <li>Pisteessä \(x^* = 0\): \(h'(0) = 2 > 0\) &mdash; <strong>epästabiili</strong>.</li>
+            <li>Pisteessä \(x^* = 1\): \(h'(1) = 2 - 10 + 9 = 1 > 0\) &mdash; <strong>epästabiili</strong>.</li>
+            <li>Pisteessä \(x^* = 2/3\): \(h'(2/3) = 2 - 20/3 + 9(4/9) = 2 - 20/3 + 4 = 6 - 20/3 = -2/3 < 0\) &mdash; <strong>stabiili</strong>.</li>
+          </ul>
+          <p>
+            Sisäinen kiintopiste \(x^* = 2/3\) on <strong>ESS</strong>. Populaatio kehittyy kohti
+            sekoitusta 2/3 strategiaa 1 ja 1/3 strategiaa 2. Tässä sekoituksessa molemmilla strategioilla on yhtä suuri
+            kelpoisuus: \(f_1(2/3) = 3 - 4/3 = 5/3\) ja \(f_2(2/3) = 1 + 2/3 = 5/3\). Tämä on
+            stabiili polymorfismi.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 5: Vaihemuotokuvan piirtäminen</div>
+      <p>Tarkastellaan lineaarista systeemiä:</p>
+      <div class="math-display">
+        \[\dot{\mathbf{x}} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \mathbf{x}\]
+      </div>
+      <p>(a) Etsi ominaisarvot. (b) Minkä tyyppinen kiintopiste origo on? (c) Kuvaile
+        liikeratoja kvalitatiivisesti. (d) Tämä systeemi mallintaa erästä tunnettua fysikaalista systeemiä &mdash; mitä?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Ominaisarvot: \(\det(A - \lambda I) = -\lambda(-\lambda) - (-1) = \lambda^2 + 1 = 0\), joten \(\lambda = \pm i\).</p>
+          <p><strong>(b)</strong> Puhtaasti imaginaariset ominaisarvot: origo on <strong>keskipiste</strong>.</p>
+          <p><strong>(c)</strong> Liikeradat ovat suljettuja ellipsejä (itse asiassa ympyröitä) origon ympärillä.
+            Systeemi on:
+          </p>
+          <div class="math-display">
+            \[\dot{x} = y, \quad \dot{y} = -x\]
+          </div>
+          <p>mikä antaa \(\ddot{x} = \dot{y} = -x\), eli \(\ddot{x} + x = 0\). Ratkaisu
+            on \(x(t) = A\cos(t + \phi)\) &mdash; yksinkertainen harmoninen värähtely.</p>
+          <p><strong>(d)</strong> Tämä on <strong>yksinkertainen harmoninen oskillaattori</strong> (vaimentamaton jousi,
+            kitkaton heiluri pienille kulmille). EGT:ssä keskipisteitä esiintyy peleissä kuten
+            Kivi-Paperi-Sakset replikaattoridynamiikan alla, tuottaen syklisiä värähtelyjä
+            strategiaosuuksissa.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 6: Nollakäyrät ja kvalitatiivinen analyysi</div>
+      <p>Lotka-Volterra-saalistaja-saalis-systeemille:</p>
+      <div class="math-display">
+        \[\begin{aligned}
+        \dot{x} &= x(2 - y) \\
+        \dot{y} &= y(x - 1)
+        \end{aligned}\]
+      </div>
+      <p>
+        (a) Etsi nollakäyrät. (b) Etsi kiintopisteet. (c) Laske Jacobin matriisi sisäisessä
+        kiintopisteessä ja etsi ominaisarvot. (d) Mikä on käyttäytyminen tämän kiintopisteen lähellä?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Nollakäyrät:</strong></p>
+          <ul>
+            <li>\(x\)-nollakäyrät: \(x = 0\) tai \(y = 2\).</li>
+            <li>\(y\)-nollakäyrät: \(y = 0\) tai \(x = 1\).</li>
+          </ul>
+
+          <p><strong>(b) Kiintopisteet</strong> (nollakäyrien leikkauspisteet):</p>
+          <ul>
+            <li>\((0, 0)\): triviaali (ei saalista, ei saalistajaa).</li>
+            <li>\((1, 2)\): sisäinen kiintopiste (rinnakkaiselo).</li>
+          </ul>
+
+          <p><strong>(c)</strong> Jacobin matriisi:</p>
+          <div class="math-display">
+            \[J = \begin{pmatrix} 2 - y & -x \\ y & x - 1 \end{pmatrix}\]
+          </div>
+          <p>Pisteessä \((1, 2)\):</p>
+          <div class="math-display">
+            \[J\big|_{(1,2)} = \begin{pmatrix} 0 & -1 \\ 2 & 0 \end{pmatrix}\]
+          </div>
+          <p>Ominaisarvot: \(\lambda^2 + 2 = 0\), joten \(\lambda = \pm i\sqrt{2}\).</p>
+
+          <p><strong>(d)</strong> Puhtaasti imaginaariset ominaisarvot: sisäinen kiintopiste on <strong>keskipiste</strong>.
+            Liikeradat muodostavat suljettuja silmukoita pisteen \((1, 2)\) ympärille &mdash; saalistaja- ja saalispopulaatiot
+            värähtelevät ikuisesti vaimenematta. Tämä on klassinen Lotka-Volterra-sykli.
+          </p>
+          <p>
+            EGT:ssä vastaavaa syklistä dynamiikkaa esiintyy Kivi-Paperi-Sakset-peleissä
+            replikaattoriyhtälön alla.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7: Tuottomatriisista replikaattoriyhtälöön</div>
+      <p>Tarkastellaan symmetristä kahden pelaajan peliä, jonka tuottomatriisi on:</p>
+      <div class="math-display">
+        \[A = \begin{pmatrix} 2 & 4 \\ 1 & 3 \end{pmatrix}\]
+      </div>
+      <p>
+        Strategian 1 kelpoisuus populaatiota vastaan, jossa strategian 1 osuus on \(x\), on
+        \(f_1(x) = 2x + 4(1-x)\), ja strategian 2 kelpoisuus on \(f_2(x) = 1 \cdot x + 3(1-x)\).
+      </p>
+      <p>
+        (a) Sievennä \(f_1(x)\) ja \(f_2(x)\).
+        (b) Kirjoita replikaattoriyhtälö \(\dot{x} = x(1-x)(f_1 - f_2)\).
+        (c) Etsi ja luokittele kaikki kiintopisteet.
+        (d) Tulkitse tulos: kumpi strategia voittaa?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <div class="math-display">
+            \[f_1(x) = 2x + 4(1-x) = 4 - 2x\]
+          </div>
+          <div class="math-display">
+            \[f_2(x) = x + 3(1-x) = 3 - 2x\]
+          </div>
+
+          <p><strong>(b)</strong> Kelpoisuusero: \(f_1 - f_2 = (4 - 2x) - (3 - 2x) = 1\). Joten:</p>
+          <div class="math-display">
+            \[\dot{x} = x(1-x)(1) = x(1-x)\]
+          </div>
+
+          <p><strong>(c)</strong> Kiintopisteet: \(x^* = 0\) ja \(x^* = 1\). Ei sisäistä kiintopistettä (koska
+            \(f_1 - f_2 = 1 \neq 0\) kaikilla \(x\)).</p>
+          <p>Olkoon \(h(x) = x(1-x) = x - x^2\). Tällöin \(h'(x) = 1 - 2x\).</p>
+          <ul>
+            <li>Pisteessä \(x^* = 0\): \(h'(0) = 1 > 0\) &mdash; <strong>epästabiili</strong>.</li>
+            <li>Pisteessä \(x^* = 1\): \(h'(1) = -1 < 0\) &mdash; <strong>stabiili</strong>.</li>
+          </ul>
+
+          <p><strong>(d)</strong> Strategialla 1 on <strong>aina</strong> suurempi kelpoisuus kuin strategialla 2 (ero
+            on vakio 1, riippumaton \(x\):stä). Strategia 1 on <strong>vahvasti dominoiva</strong>.
+            Riippumatta alkusekoituksesta populaatio kehittyy kohti 100 % strategiaa 1. Strategia 1 on ESS.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <h2>Moduulin yhteenveto</h2>
+    <p>Tässä moduulissa opit:</p>
+    <ol>
+      <li><strong>Differentiaaliyhtälöt</strong> kuvaavat, miten systeemit muuttuvat ajan myötä yhtälöllä \(\dot{x} = f(x)\).</li>
+      <li><strong>Muuttujien erottaminen</strong> ratkaisee yhtälöitä kuten \(\dot{x} = rx\), antaen tulokseksi \(x(t) = x_0 e^{rt}\).</li>
+      <li><strong>ODE-systeemit</strong> seuraavat useita vuorovaikuttavia suureita; lineaarisilla systeemeillä on muoto \(\dot{\mathbf{x}} = A\mathbf{x}\).</li>
+      <li><strong>Kiintopisteet</strong> ovat kohtia, joissa \(f(x^*) = 0\) &mdash; systeemi on levossa. Nämä vastaavat EGT:n tasapainostrategioita.</li>
+      <li><strong>Stabiilisuusanalyysi</strong> käyttää Jacobin matriisia ja sen ominaisarvoja kiintopisteiden luokitteluun stabiileiksi solmuiksi, epästabiileiksi solmuiksi, satulapisteiksi, spiraaleiksi tai keskipisteiksi.</li>
+      <li><strong>Vaihemuotokuvat</strong> visualisoivat dynamiikan: vektorikentät, liikeradat ja ratkaisujen kvalitatiivisen käyttäytymisen.</li>
+      <li><strong>Logistinen/replikaattoriyhteys</strong>: kahden strategian replikaattoriyhtälö \(\dot{x} = x(1-x)(a-b)\) on logistinen yhtälö, mikä tarjoaa suoran sillan moduuliin 7.</li>
+    </ol>
+
+    <div class="intuition-box">
+      <span class="box-title">Katsaus eteenpäin</span>
+      <p>
+        <strong>Moduulissa 5 (Todennäköisyys)</strong> kehitämme työkalut sekastrategioiden ja
+        stokastisen dynamiikan analysointiin. Sitten <strong>moduulissa 6 (Peliteoria)</strong>
+        rakennamme strategiset kehykset. Lopulta <strong>moduulissa 7</strong> kaikki yhdistyy:
+        tämän moduulin differentiaaliyhtälöistä tulee replikaattoriyhtälö,
+        kiintopisteistä tulee Nash-tasapainoja, ja stabiilisuusanalyysi tunnistaa evoluutiossa stabiilit
+        strategiat.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module3.html">&larr; Moduuli 3: Analyysi</a>
+    <a href="module5.html">Moduuli 5: Todennäköisyys &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Sisältö kattaa matemaattiset perusteet evoluutiopeliteorian sovelluksiin yhteiskuntatieteissä.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

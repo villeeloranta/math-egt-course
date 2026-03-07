@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 2: Vektorit, matriisit ja lineaarialgebra | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html" class="active">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 2</div>
+    <h1>Vektorit, matriisit &amp; lineaarialgebra</h1>
+    <p class="module-desc">
+      Voittomatriisien, strategia-avaruuksien ja stabiilisuusanalyysin matematiikkaa.
+      Lineaarialgebra on kieli, jolla peliteoria kirjoitetaan.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Tässä moduulissa</h3>
+    <ol>
+      <li><a href="#vectors">Vektorit: suunta, suuruus &amp; strategiaprofiilit</a></li>
+      <li><a href="#matrices">Matriisit: lukutaulukot, jotka muuttavat maailmaa</a></li>
+      <li><a href="#matrix-operations">Matriisioperaatiot</a></li>
+      <li><a href="#systems">Lineaariset yhtälöryhmät</a></li>
+      <li><a href="#determinants">Determinantit</a></li>
+      <li><a href="#eigenvalues">Ominaisarvot &amp; ominaisvektorit</a></li>
+      <li><a href="#game-theory-connection">Yhteys peliteoriaan</a></li>
+      <li><a href="#interactive-calculator">Interaktiivinen: matriisilaskin</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: VECTORS -->
+  <!-- ============================================================ -->
+  <div class="section" id="vectors">
+    <h2>1. Vektorit: suunta, suuruus &amp; strategiaprofiilit</h2>
+
+    <h3>Mikä on vektori?</h3>
+    <p>
+      <strong>Vektori</strong> on järjestetty luettelo lukuja. Vaikka se kuulostaa yksinkertaiselta, vektorit ovat
+      yksi matematiikan monikäyttöisimmistä objekteista. Ne voivat esittää pistettä avaruudessa,
+      suuntaa, nopeutta tai -- mikä meille tärkeintä -- <em>strategiaprofiilia</em> pelissä.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Vektori</span>
+      <p>
+        <strong>Vektori</strong> avaruudessa \(\mathbb{R}^n\) on järjestetty \(n\)-jono reaalilukuja:
+      </p>
+      \[
+        \mathbf{v} = \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix}
+      \]
+      <p>
+        Kutakin \(v_i\):tä kutsutaan vektorin <strong>komponentiksi</strong> (tai alkioksi).
+        Lukua \(n\) kutsutaan vektorin <strong>dimensioksi</strong>.
+      </p>
+    </div>
+
+    <p>
+      Vektorit merkitään lihavoiduilla pienillä kirjaimilla (\(\mathbf{v}\)) tai nuolella (\(\vec{v}\)).
+      Vektori, jolla on 2 komponenttia, elää avaruudessa \(\mathbb{R}^2\) (taso), kolmen komponentin vektori
+      avaruudessa \(\mathbb{R}^3\) (3D-avaruus) ja niin edelleen.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Vektorit tasossa</span>
+      <p>Vektori \(\mathbf{v} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}\) esittää pistettä
+      (tai nuolta origosta pisteeseen) kohdassa \((3, 2)\) tasossa.</p>
+      <p>Vektori \(\mathbf{w} = \begin{pmatrix} -1 \\ 4 \end{pmatrix}\) osoittaa pisteeseen \((-1, 4)\).</p>
+    </div>
+
+    <h3>Strategiaprofiilit vektoreina</h3>
+    <p>
+      Peliteoriassa <strong>sekastrategia</strong> on todennäköisyysjakauma pelaajan
+      käytettävissä olevien toimintojen yli. Jos pelaajalla on \(n\) mahdollista toimintoa, hänen sekastrategiansa on vektori
+      \(\mathbf{x} \in \mathbb{R}^n\), jossa kukin komponentti \(x_i\) antaa todennäköisyyden
+      valita toiminto \(i\).
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        Evoluutiopeliteoriassa populaation tila kuvataan vektorilla
+        \(\mathbf{x} = (x_1, x_2, \ldots, x_n)\), jossa \(x_i\) on strategiaa \(i\) pelaavan populaation
+        <em>osuus</em>. Tämän vektorin on täytettävä seuraavat ehdot:
+      </p>
+      <ul>
+        <li>Kukin \(x_i \geq 0\) (ei negatiivisia osuuksia)</li>
+        <li>\(x_1 + x_2 + \cdots + x_n = 1\) (osuudet summautuvat ykköseksi)</li>
+      </ul>
+      <p>Kaikkien tällaisten vektoreiden joukko muodostaa <strong>simpleksin</strong>, joka on evoluutiodynamiikan strategia-avaruus.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Sekastrategia kivi-paperi-sakset-pelissä</span>
+      <p>
+        Pelaaja, joka pelaa kiveä todennäköisyydellä \(\frac{1}{3}\), paperia todennäköisyydellä
+        \(\frac{1}{3}\) ja saksia todennäköisyydellä \(\frac{1}{3}\), käyttää sekastrategiavektoria:
+      </p>
+      \[
+        \mathbf{x} = \begin{pmatrix} 1/3 \\ 1/3 \\ 1/3 \end{pmatrix}
+      \]
+      <p>Pelaajalla, joka pelaa aina kiveä, on <strong>puhdas strategia</strong> -vektori:</p>
+      \[
+        \mathbf{x} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+      \]
+    </div>
+
+    <h3>Vektorien yhteenlasku</h3>
+    <p>Kaksi vektoria lasketaan yhteen laskemalla vastaavat komponentit yhteen:</p>
+    \[
+      \mathbf{u} + \mathbf{v} =
+      \begin{pmatrix} u_1 \\ u_2 \end{pmatrix} + \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+      = \begin{pmatrix} u_1 + v_1 \\ u_2 + v_2 \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Vektorien yhteenlasku</span>
+      \[
+        \begin{pmatrix} 3 \\ 1 \end{pmatrix} + \begin{pmatrix} -1 \\ 4 \end{pmatrix}
+        = \begin{pmatrix} 3 + (-1) \\ 1 + 4 \end{pmatrix}
+        = \begin{pmatrix} 2 \\ 5 \end{pmatrix}
+      \]
+      <p>Geometrisesti tämä on "kärjestä häntään" -sääntö: aseta \(\mathbf{v}\):n häntä \(\mathbf{u}\):n kärkeen ja piirrä uusi nuoli origosta tulokseen.</p>
+    </div>
+
+    <h3>Skalaarilla kertominen</h3>
+    <p>Vektori kerrotaan luvulla (<em>skalaari</em>) kertomalla kukin komponentti:</p>
+    \[
+      c \, \mathbf{v} = c \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+      = \begin{pmatrix} c \cdot v_1 \\ c \cdot v_2 \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Skalaarilla kertominen</span>
+      \[
+        3 \begin{pmatrix} 2 \\ -1 \end{pmatrix} = \begin{pmatrix} 6 \\ -3 \end{pmatrix}
+      \]
+      <p>
+        Kertominen positiivisella skalaariilla \(c > 1\) venyttää vektoria. Kertominen arvolla \(0 < c < 1\)
+        kutistaa sitä. Negatiivisella luvulla kertominen kääntää sen suunnan.
+      </p>
+    </div>
+
+    <h3>Pistetulo</h3>
+    <p>
+      <strong>Pistetulo</strong> (tai <em>sisätulo</em>) ottaa kaksi saman dimension vektoria
+      ja tuottaa yhden luvun:
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Pistetulo</span>
+      \[
+        \mathbf{u} \cdot \mathbf{v} = u_1 v_1 + u_2 v_2 + \cdots + u_n v_n = \sum_{i=1}^{n} u_i v_i
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Pistetulon laskeminen</span>
+      \[
+        \begin{pmatrix} 3 \\ 1 \\ -2 \end{pmatrix} \cdot \begin{pmatrix} 2 \\ 0 \\ 4 \end{pmatrix}
+        = (3)(2) + (1)(0) + (-2)(4) = 6 + 0 - 8 = -2
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio: Mitä pistetulo tarkoittaa?</span>
+      <p>Pistetulolle on useita keskeisiä tulkintoja:</p>
+      <ul>
+        <li><strong>Geometrinen:</strong> \(\mathbf{u} \cdot \mathbf{v} = \|\mathbf{u}\| \, \|\mathbf{v}\| \cos\theta\), missä \(\theta\) on vektorien välinen kulma. Jos \(\mathbf{u} \cdot \mathbf{v} = 0\), vektorit ovat <em>kohtisuorassa</em> (ortogonaalisia).</li>
+        <li><strong>Painotettu summa:</strong> Pistetulo laskee <em>painotetun summan</em> -- toisen vektorin kutakin komponenttia painotetaan toisen vektorin vastaavalla komponentilla.</li>
+        <li><strong>Odotettu voitto:</strong> Peliteoriassa, jos \(\mathbf{x}\) on todennäköisyysvektori (sekastrategia) ja \(\mathbf{p}\) on voittovektori, niin \(\mathbf{x} \cdot \mathbf{p}\) on <em>odotettu voitto</em>.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        Oletetaan, että pelaajalla on kolme strategiaa, joiden voitot ovat \(\mathbf{p} = (5, 2, 8)\),
+        ja hän pelaa sekastrategiaa \(\mathbf{x} = (0.3, 0.5, 0.2)\). Hänen odotettu voittonsa on:
+      </p>
+      \[
+        \mathbf{x} \cdot \mathbf{p} = (0.3)(5) + (0.5)(2) + (0.2)(8) = 1.5 + 1.0 + 1.6 = 4.1
+      \]
+      <p>
+        Tämä on täsmälleen pistetulo. Odotettujen voittojen laskeminen -- peliteorian ydin
+        -- on yksinkertaisesti pistetulojen ottamista.
+      </p>
+    </div>
+
+    <h3>Vektorin pituus (normi)</h3>
+    <p>Vektorin <strong>pituus</strong> (eli <em>normi</em>) on:</p>
+    \[
+      \|\mathbf{v}\| = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2} = \sqrt{\mathbf{v} \cdot \mathbf{v}}
+    \]
+    <p>
+      Vektoria, jonka \(\|\mathbf{v}\| = 1\), kutsutaan <strong>yksikkövektoriksi</strong>.
+      Minkä tahansa nollasta poikkeavan vektorin voi normalisoida yksikkövektoriksi jakamalla sen normillaan:
+      \(\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}\).
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: MATRICES -->
+  <!-- ============================================================ -->
+  <div class="section" id="matrices">
+    <h2>2. Matriisit: lukutaulukot, jotka muuttavat maailmaa</h2>
+
+    <h3>Mikä on matriisi?</h3>
+    <p>
+      <strong>Matriisi</strong> on suorakaiteen muotoinen lukujen taulukko, joka on järjestetty riveihin ja sarakkeisiin.
+      Jos matriisissa on \(m\) riviä ja \(n\) saraketta, sanomme sen olevan \(m \times n\) -matriisi
+      (luetaan "\(m\) kertaa \(n\)").
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Matriisi</span>
+      <p>\(m \times n\) -matriisi \(A\) kirjoitetaan:</p>
+      \[
+        A = \begin{pmatrix}
+          a_{11} & a_{12} & \cdots & a_{1n} \\
+          a_{21} & a_{22} & \cdots & a_{2n} \\
+          \vdots & \vdots & \ddots & \vdots \\
+          a_{m1} & a_{m2} & \cdots & a_{mn}
+        \end{pmatrix}
+      \]
+      <p>
+        Alkiota rivillä \(i\) ja sarakkeessa \(j\) merkitään \(a_{ij}\) (tai \([A]_{ij}\)).
+        Merkintä \(A \in \mathbb{R}^{m \times n}\) tarkoittaa, että \(A\) on reaalilukujen
+        \(m \times n\) -matriisi.
+      </p>
+    </div>
+
+    <h3>Voittomatriisit: keskeisin esimerkki</h3>
+    <p>
+      Peliteoriassa <strong>voittomatriisi</strong> on perustavanlaatuinen objekti. Kahden pelaajan
+      pelissä, jossa pelaajalla 1 on \(m\) strategiaa ja pelaajalla 2 on \(n\) strategiaa, pelaajan 1
+      voittomatriisi on \(m \times n\) -matriisi \(A\), jossa \(a_{ij}\) on pelaajan 1 voitto, kun
+      pelaaja 1 pelaa strategiaa \(i\) ja pelaaja 2 pelaa strategiaa \(j\).
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Vangin dilemman voittomatriisi</span>
+      <p>Tarkastellaan klassista vangin dilemmaa strategioilla yhteistyö (Y) ja petos (P):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Y</th>
+          <th>P</th>
+        </tr>
+        <tr>
+          <td class="row-header">Y</td>
+          <td>3</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td class="row-header">P</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+      </table>
+      <p>Matriisina pelaajan 1 voitot ovat:</p>
+      \[
+        A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}
+      \]
+      <p>
+        Tässä \(a_{11} = 3\) tarkoittaa "jos molemmat tekevät yhteistyötä, pelaaja 1 saa 3",
+        \(a_{12} = 0\) tarkoittaa "jos pelaaja 1 tekee yhteistyötä ja pelaaja 2 pettää, pelaaja 1 saa 0" ja niin edelleen.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Haukka-kyyhky-peli</span>
+      <p>Haukka-kyyhky-peli, joka on evoluutiopeliteorian peruspeli, on voittomatriisiltaan:</p>
+      \[
+        A = \begin{pmatrix} \frac{V - C}{2} & V \\ 0 & \frac{V}{2} \end{pmatrix}
+      \]
+      <p>
+        missä \(V\) on kiistanalaisen resurssin arvo ja \(C\) on taistelun kustannus.
+        Arvoilla \(V = 4\) ja \(C = 6\):
+      </p>
+      \[
+        A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}
+      \]
+    </div>
+
+    <h3>Erikoismatriisit</h3>
+    <p>Useita matriisityyppejä esiintyy toistuvasti:</p>
+    <ul>
+      <li><strong>Neliömatriisi:</strong> \(m = n\) (sama määrä rivejä ja sarakkeita). Kaikki symmetristen pelien voittomatriisit ovat neliömatriiseja.</li>
+      <li><strong>Yksikkömatriisi:</strong> Neliömatriisi, jonka lävistäjällä on ykkösiä ja muualla nollia:
+      \[
+        I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \quad \text{tai} \quad
+        I = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+      \]
+      Se toimii kuten luku 1: \(AI = IA = A\).</li>
+      <li><strong>Nollamatriisi:</strong> Kaikki alkiot ovat 0. Se toimii kuten luku 0.</li>
+      <li><strong>Symmetrinen matriisi:</strong> \(A = A^T\) (yhtä suuri kuin transpoosi). Alkio rivillä \(i\), sarakkeessa \(j\) on yhtä suuri kuin alkio rivillä \(j\), sarakkeessa \(i\).</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: MATRIX OPERATIONS -->
+  <!-- ============================================================ -->
+  <div class="section" id="matrix-operations">
+    <h2>3. Matriisioperaatiot</h2>
+
+    <h3>Matriisien yhteenlasku</h3>
+    <p>
+      Kaksi <em>samankokoista</em> matriisia lasketaan yhteen laskemalla vastaavat alkiot yhteen:
+    </p>
+    \[
+      A + B = \begin{pmatrix} a_{11} + b_{11} & a_{12} + b_{12} \\ a_{21} + b_{21} & a_{22} + b_{22} \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Voittomatriisien yhteenlasku</span>
+      <p>Jos pelaajan 1 voitot ovat \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\) ja pelaajan 2 voitot ovat \(B = \begin{pmatrix} 3 & 5 \\ 0 & 1 \end{pmatrix}\), niin kokonaishyvinvoinnin matriisi on:</p>
+      \[
+        A + B = \begin{pmatrix} 3+3 & 0+5 \\ 5+0 & 1+1 \end{pmatrix} = \begin{pmatrix} 6 & 5 \\ 5 & 2 \end{pmatrix}
+      \]
+      <p>Huomaa, että molemminpuolinen yhteistyö (6) tuottaa suurimman kokonaisvoiton.</p>
+    </div>
+
+    <h3>Skalaarilla kertominen</h3>
+    <p>Matriisi kerrotaan skalaariilla kertomalla jokainen alkio:</p>
+    \[
+      cA = \begin{pmatrix} c \cdot a_{11} & c \cdot a_{12} \\ c \cdot a_{21} & c \cdot a_{22} \end{pmatrix}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki</span>
+      \[
+        2 \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix} = \begin{pmatrix} 6 & 0 \\ 10 & 2 \end{pmatrix}
+      \]
+      <p>Peliteoriassa voittomatriisin skaalaaminen positiivisella vakiolla ei muuta pelin strategista rakennetta -- samat strategiat pysyvät dominoivina ja samat tasapainot säilyvät.</p>
+    </div>
+
+    <h3>Transpoosi</h3>
+    <p>
+      Matriisin \(A\) <strong>transpoosi</strong>, jota merkitään \(A^T\), vaihtaa rivit ja sarakkeet:
+      \(A^T\):n alkio rivillä \(i\), sarakkeessa \(j\) on \(A\):n alkio rivillä \(j\), sarakkeessa \(i\).
+    </p>
+    \[
+      A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix} \implies
+      A^T = \begin{pmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{pmatrix}
+    \]
+    <p>
+      \(2 \times 2\) -matriisille:
+      \(\begin{pmatrix} a & b \\ c & d \end{pmatrix}^T = \begin{pmatrix} a & c \\ b & d \end{pmatrix}\).
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        Symmetrisessä kahden pelaajan pelissä, jos \(A\) on rivipelaajan voittomatriisi,
+        niin \(A^T\) on sarakepelajan voittomatriisi.
+        Odotetun voiton kaava \(\mathbf{x}^T A \mathbf{y}\) käyttää transpoosia
+        muuttaakseen sarakevektorin rivivektoriksi kertolaskua varten.
+      </p>
+    </div>
+
+    <h3>Matriisi-vektorikertolasku</h3>
+    <p>
+      Tässä tapahtuu taika. Kun \(m \times n\) -matriisi \(A\) kerrotaan
+      \(n \times 1\) -sarakevektorilla \(\mathbf{v}\), tuloksena on \(m \times 1\) -sarakevektori.
+      Tuloksen kukin alkio on \(A\):n rivin ja \(\mathbf{v}\):n <em>pistetulo</em>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Matriisi-vektoritulo</span>
+      \[
+        A\mathbf{v} = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}
+        \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}
+        = \begin{pmatrix} a_{11}v_1 + a_{12}v_2 \\ a_{21}v_1 + a_{22}v_2 \end{pmatrix}
+      \]
+      <p>
+        Tulon \(A\mathbf{v}\) \(i\):s alkio on \(A\):n rivin \(i\) ja \(\mathbf{v}\):n pistetulo.
+        Tulos on vektori: kukin alkio on strategian \(i\) odotettu voitto vastustajan sekastrategiaa vastaan.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Odotetut voitot vangin dilemmassa</span>
+      <p>
+        Olkoon voittomatriisi \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\) ja oletetaan,
+        että vastustaja pelaa yhteistyötä todennäköisyydellä \(0.6\) ja petosta todennäköisyydellä \(0.4\):
+        \(\mathbf{y} = \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}\).
+      </p>
+      <p>Pelaajan 1 kunkin puhtaan strategian odotettu voittovektori on:</p>
+      \[
+        A\mathbf{y} = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}
+        \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}
+        = \begin{pmatrix} 3(0.6) + 0(0.4) \\ 5(0.6) + 1(0.4) \end{pmatrix}
+        = \begin{pmatrix} 1.8 \\ 3.4 \end{pmatrix}
+      \]
+      <p>
+        Tuloksen tulkinta: jos pelaaja 1 tekee yhteistyötä, hänen odottamansa voitto on \(1.8\). Jos hän pettää,
+        odotettu voitto on \(3.4\). Koska \(3.4 > 1.8\), petos on parempi vastaus (kuten vangin dilemmassa odottaakin).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio: Matriisi-vektoritulo kertoo "Mitä vaihtoehtoni ovat arvoltaan?"</span>
+      <p>
+        Kun kerrot voittomatriisin \(A\) vastustajan strategiavektorilla \(\mathbf{y}\),
+        saat vektorin, joka kertoo <em>kunkin strategiasi odotetun voiton</em>
+        kyseistä vastustajaa vastaan. Tulon \(A\mathbf{y}\) \(i\):s alkio vastaa kysymykseen: "Jos pelaan puhdasta
+        strategiaa \(i\), mikä voittoni on keskimäärin?"
+      </p>
+      <p>
+        Tämä on perustavaa: sekä rationaaliset pelaajat että evoluutiodynamiikka käyttävät tätä laskutoimitusta
+        selvittääkseen, mitkä strategiat pärjäävät parhaiten.
+      </p>
+    </div>
+
+    <h3>Matriisien kertolasku</h3>
+    <p>
+      Kahdelle matriisille \(A\) (\(m \times n\)) ja \(B\) (\(n \times p\)) tulo \(AB\) on
+      \(m \times p\) -matriisi. Tulon \(AB\) alkio rivillä \(i\), sarakkeessa \(j\) on
+      \(A\):n rivin \(i\) ja \(B\):n sarakkeen \(j\) pistetulo.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Matriisikertolasku</span>
+      \[
+        [AB]_{ij} = \sum_{k=1}^{n} a_{ik} \, b_{kj}
+      \]
+      <p><strong>Keskeinen vaatimus:</strong> \(A\):n <em>sarakkeiden</em> lukumäärän on oltava yhtä suuri kuin \(B\):n <em>rivien</em> lukumäärä.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: 2x2-matriisikertolasku</span>
+      \[
+        \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}
+        \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}
+        = \begin{pmatrix}
+          3 \cdot 1 + 0 \cdot 0 & 3 \cdot 2 + 0 \cdot 1 \\
+          5 \cdot 1 + 1 \cdot 0 & 5 \cdot 2 + 1 \cdot 1
+        \end{pmatrix}
+        = \begin{pmatrix} 3 & 6 \\ 5 & 11 \end{pmatrix}
+      \]
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">Varoitus: Matriisikertolasku ei ole vaihdannainen</span>
+      <p>
+        Yleisesti \(AB \neq BA\). Kertolaskun järjestyksellä on väliä!
+        Tämä poikkeaa tavallisesta lukujen kertolaskusta, jossa \(3 \times 5 = 5 \times 3\).
+      </p>
+    </div>
+
+    <h3>Matriisioperaatioiden ominaisuudet</h3>
+    <p>Matriisioperaatiot noudattavat monia (mutta eivät kaikkia) tutuista algebrallisista säännöistä:</p>
+    <ul>
+      <li>\(A + B = B + A\) (yhteenlasku on vaihdannainen)</li>
+      <li>\((AB)C = A(BC)\) (kertolasku on liitännäinen)</li>
+      <li>\(A(B + C) = AB + AC\) (osittelulaki)</li>
+      <li>\((AB)^T = B^T A^T\) (tulon transpoosi kääntää järjestyksen)</li>
+      <li>\(AI = IA = A\) (yksikkömatriisi)</li>
+      <li>Mutta: \(AB \neq BA\) yleisesti (ei vaihdannainen)</li>
+      <li>Ja: \(AB = 0\) <em>ei</em> välttämättä tarkoita, että \(A = 0\) tai \(B = 0\)</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: SYSTEMS OF LINEAR EQUATIONS -->
+  <!-- ============================================================ -->
+  <div class="section" id="systems">
+    <h2>4. Lineaariset yhtälöryhmät</h2>
+
+    <h3>Mikä on lineaarinen yhtälöryhmä?</h3>
+    <p>
+      <strong>Lineaarinen yhtälöryhmä</strong> on joukko yhtälöitä, joissa kukin yhtälö on
+      lineaarinen (muuttujia ei koroteta potensseihin, muuttujien tuloja ei esiinny). Meidän on löydettävä
+      muuttujien arvot, jotka toteuttavat <em>kaikki</em> yhtälöt samanaikaisesti.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Yhtälöryhmä matriisimuodossa</span>
+      <p>\(m\):n lineaarisen yhtälön ryhmä \(n\):ssä tuntemattomassa voidaan kirjoittaa:</p>
+      \[
+        A\mathbf{x} = \mathbf{b}
+      \]
+      <p>missä \(A\) on \(m \times n\) -kerroinmatriisi, \(\mathbf{x}\) on tuntemattomien vektori ja \(\mathbf{b}\) on oikean puolen vektori.</p>
+      <p>Esimerkiksi yhtälöryhmä:</p>
+      \[
+        \begin{cases}
+          2x + 3y = 7 \\
+          x - y = 1
+        \end{cases}
+        \quad \longleftrightarrow \quad
+        \begin{pmatrix} 2 & 3 \\ 1 & -1 \end{pmatrix}
+        \begin{pmatrix} x \\ y \end{pmatrix}
+        = \begin{pmatrix} 7 \\ 1 \end{pmatrix}
+      \]
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        <strong>Sekastrategia-Nash-tasapainojen</strong> löytäminen edellyttää lineaaristen
+        yhtälöryhmien ratkaisemista. Sekatasapainossa pelaajan on oltava indifferentti kaikkien
+        positiivisella todennäköisyydellä pelattujen strategioidensa välillä. Tämä indifferenssiehto
+        antaa meille ratkaistavan lineaarisen yhtälöryhmän.
+      </p>
+    </div>
+
+    <h3>2x2-yhtälöryhmien ratkaiseminen</h3>
+    <p>\(2 \times 2\) -yhtälöryhmälle voidaan käyttää sijoitusta, eliminointia tai suoraa kaavaa.</p>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: Ratkaiseminen eliminoimalla</span>
+      <p>Ratkaise yhtälöryhmä:</p>
+      \[
+        \begin{cases}
+          2x + 3y = 7 \\
+          x - y = 1
+        \end{cases}
+      \]
+      <p><strong>Vaihe 1:</strong> Yhtälöstä 2 saadaan \(x = 1 + y\).</p>
+      <p><strong>Vaihe 2:</strong> Sijoitetaan yhtälöön 1:</p>
+      \[
+        2(1 + y) + 3y = 7 \implies 2 + 2y + 3y = 7 \implies 5y = 5 \implies y = 1
+      \]
+      <p><strong>Vaihe 3:</strong> Takaisinsijoitus: \(x = 1 + 1 = 2\).</p>
+      <p><strong>Ratkaisu:</strong> \(x = 2, \; y = 1\).</p>
+      <p><strong>Tarkistus:</strong> \(2(2) + 3(1) = 7\) ja \(2 - 1 = 1\). Molemmat pitävät paikkansa.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: Seka-Nash-tasapainon löytäminen</span>
+      <p>Tarkastellaan haukka-kyyhky-peliä voittomatriisilla \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\).</p>
+      <p>
+        Sekatasapainossa vastustaja pelaa haukkaa todennäköisyydellä \(q\) ja kyyhkyä
+        todennäköisyydellä \(1 - q\), ja rivipelaajan on oltava <em>indifferentti</em> haukan ja
+        kyyhkyn välillä. Tämä tarkoittaa, että haukan odotettu voitto on yhtä suuri kuin kyyhkyn odotettu voitto:
+      </p>
+      \[
+        \underbrace{-1 \cdot q + 4 \cdot (1-q)}_{\text{haukan voitto}} = \underbrace{0 \cdot q + 2 \cdot (1-q)}_{\text{kyyhkyn voitto}}
+      \]
+      \[
+        -q + 4 - 4q = 2 - 2q
+      \]
+      \[
+        4 - 5q = 2 - 2q \implies 2 = 3q \implies q = \frac{2}{3}
+      \]
+      <p>
+        Sekatasapainossa kumpikin pelaaja pelaa haukkaa todennäköisyydellä \(\frac{2}{3}\) ja kyyhkyä
+        todennäköisyydellä \(\frac{1}{3}\).
+      </p>
+    </div>
+
+    <h3>3x3-yhtälöryhmien ratkaiseminen</h3>
+    <p>
+      Kolmen yhtälön ja kolmen tuntemattoman tapauksessa käytetään <strong>Gaussin eliminointia</strong>: yhtä yhtälöä käyttäen
+      eliminoidaan muuttuja järjestelmällisesti muista yhtälöistä, jolloin ryhmä pelkistyy yksinkertaisempaan muotoon.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: 3x3-yhtälöryhmä</span>
+      <p>Ratkaise:</p>
+      \[
+        \begin{cases}
+          x + y + z = 6 \\
+          2x - y + z = 3 \\
+          x + 2y - z = 3
+        \end{cases}
+      \]
+      <p><strong>Vaihe 1:</strong> Vähennetään yhtälöstä 2 kaksi kertaa yhtälö 1 ja yhtälöstä 3 yhtälö 1:</p>
+      \[
+        \begin{cases}
+          x + y + z = 6 \\
+          (2x - y + z) - 2(x + y + z) = 3 - 12 \implies -3y - z = -9 \\
+          (x + 2y - z) - (x + y + z) = 3 - 6 \implies y - 2z = -3
+        \end{cases}
+      \]
+      <p><strong>Vaihe 2:</strong> Uudesta yhtälöstä 2: \(-3y - z = -9 \implies 3y + z = 9\).</p>
+      <p>Uudesta yhtälöstä 3: \(y - 2z = -3 \implies y = 2z - 3\).</p>
+      <p><strong>Vaihe 3:</strong> Sijoitetaan yhtälöön \(3y + z = 9\):</p>
+      \[
+        3(2z - 3) + z = 9 \implies 6z - 9 + z = 9 \implies 7z = 18 \implies z = \frac{18}{7}
+      \]
+      <p>Silloin \(y = 2 \cdot \frac{18}{7} - 3 = \frac{36}{7} - \frac{21}{7} = \frac{15}{7}\) ja \(x = 6 - y - z = 6 - \frac{15}{7} - \frac{18}{7} = \frac{42 - 15 - 18}{7} = \frac{9}{7}\).</p>
+      <p><strong>Ratkaisu:</strong> \(x = \frac{9}{7}, \; y = \frac{15}{7}, \; z = \frac{18}{7}\).</p>
+    </div>
+
+    <h3>Kun yhtälöryhmällä ei ole ratkaisua tai ratkaisuja on äärettömän monta</h3>
+    <p>Lineaarisella yhtälöryhmällä voi olla:</p>
+    <ul>
+      <li><strong>Täsmälleen yksi ratkaisu:</strong> Yhtälöt määräävät yksikäsitteisen pisteen. (Kerroinmatriisin determinantti on nollasta poikkeava.)</li>
+      <li><strong>Ei ratkaisua:</strong> Yhtälöt ovat ristiriitaisia (esim. \(x + y = 3\) ja \(x + y = 5\)).</li>
+      <li><strong>Äärettömän monta ratkaisua:</strong> Yhtälöt ovat redundantteja -- jotkin ovat muiden monikertoja tai yhdistelimiä.</li>
+    </ul>
+    <p>Determinantti (käsitellään seuraavaksi) on keskeinen työkalu näiden tapausten erottamiseen.</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: DETERMINANTS -->
+  <!-- ============================================================ -->
+  <div class="section" id="determinants">
+    <h2>5. Determinantit</h2>
+
+    <h3>2x2-determinantti</h3>
+    <p>
+      \(2 \times 2\) -matriisin <strong>determinantti</strong> on yksittäinen luku, joka koodaa
+      olennaista tietoa matriisista.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: 2x2-determinantti</span>
+      \[
+        \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc
+      \]
+      <p>Tämä kirjoitetaan joskus muodossa \(\begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki</span>
+      \[
+        \det\begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix} = (3)(1) - (0)(5) = 3 - 0 = 3
+      \]
+      \[
+        \det\begin{pmatrix} 2 & 4 \\ 1 & 2 \end{pmatrix} = (2)(2) - (4)(1) = 4 - 4 = 0
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio: Mitä determinantti tarkoittaa?</span>
+      <p>Determinantille on useita vahvoja tulkintoja:</p>
+      <ul>
+        <li><strong>Pinta-alan skaalaus:</strong> Jos matriisia sovelletaan muunnoksena, determinantti kertoo, kuinka paljon pinta-alat skaalautuvat. \(|\det(A)| = 2\) tarkoittaa, että pinta-alat kaksinkertaistuvat.</li>
+        <li><strong>Suuntaus:</strong> Jos \(\det(A) > 0\), muunnos säilyttää suuntauksen. Jos \(\det(A) < 0\), se kääntää suuntauksen (kuten peili).</li>
+        <li><strong>Kääntyvyys:</strong> \(\det(A) = 0\) tarkoittaa, että matriisi "litistää" avaruuden alempaan dimensioon -- matriisilla ei ole käänteismatriisia, eikä yhtälöryhmällä \(A\mathbf{x} = \mathbf{b}\) välttämättä ole yksikäsitteistä ratkaisua.</li>
+      </ul>
+    </div>
+
+    <h3>3x3-determinantti</h3>
+    <p>\(3 \times 3\) -matriisille kehitetään ensimmäisen rivin mukaan:</p>
+    <div class="def-box">
+      <span class="box-title">Määritelmä: 3x3-determinantti (kofaktorikehitelmä)</span>
+      \[
+        \det\begin{pmatrix} a & b & c \\ d & e & f \\ g & h & i \end{pmatrix}
+        = a(ei - fh) - b(di - fg) + c(dh - eg)
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: 3x3-determinantti</span>
+      \[
+        \det\begin{pmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 1 & 0 & 6 \end{pmatrix}
+      \]
+      <p>Kehitetään ensimmäisen rivin mukaan:</p>
+      \[
+        = 1 \cdot \det\begin{pmatrix} 4 & 5 \\ 0 & 6 \end{pmatrix}
+        - 2 \cdot \det\begin{pmatrix} 0 & 5 \\ 1 & 6 \end{pmatrix}
+        + 3 \cdot \det\begin{pmatrix} 0 & 4 \\ 1 & 0 \end{pmatrix}
+      \]
+      \[
+        = 1(24 - 0) - 2(0 - 5) + 3(0 - 4)
+      \]
+      \[
+        = 24 + 10 - 12 = 22
+      \]
+    </div>
+
+    <h3>Milloin yhtälöryhmällä on yksikäsitteinen ratkaisu</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause: Kääntyvyys ja determinantit</span>
+      <p>Neliömatriisille \(A\):</p>
+      <ul>
+        <li>Jos \(\det(A) \neq 0\), niin \(A\) on <strong>kääntyvä</strong>, ja yhtälöryhmällä \(A\mathbf{x} = \mathbf{b}\) on <em>täsmälleen yksi ratkaisu</em> jokaisella \(\mathbf{b}\):llä.</li>
+        <li>Jos \(\det(A) = 0\), niin \(A\) on <strong>singulaarinen</strong> (ei kääntyvä), ja yhtälöryhmällä on joko ei ratkaisua tai äärettömän monta ratkaisua.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        Kun asetamme indifferenssiehdot seka-Nash-tasapainolle, saamme yhtälöryhmän
+        \(A\mathbf{x} = \mathbf{b}\). Determinantti kertoo, onko yksikäsitteinen sekatasapaino
+        olemassa. Jos \(\det(A) = 0\), pelillä voi olla jatkumo tasapainoja tai yhtälöryhmän
+        rakenne on degeneroitunut -- molemmat tapaukset vaativat erityisanalyysiä.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: EIGENVALUES AND EIGENVECTORS -->
+  <!-- ============================================================ -->
+  <div class="section" id="eigenvalues">
+    <h2>6. Ominaisarvot ja ominaisvektorit</h2>
+
+    <p>
+      Ominaisarvot ja ominaisvektorit ovat ehkä lineaarialgebran tärkein käsite
+      <em>dynaamisten järjestelmien</em> ymmärtämiseksi -- ja siten evoluutiopeliteorian
+      ymmärtämiseksi. Ne kertovat tasapainojen <strong>stabiilisuudesta</strong>.
+    </p>
+
+    <h3>Pääajatus</h3>
+    <p>
+      Useimmat vektorit muuttavat suuntaansa, kun ne kerrotaan matriisilla. Mutta jotkin erityiset vektorit
+      ainoastaan <em>venyvät tai kutistuvat</em> -- ne osoittavat edelleen samaan suuntaan. Nämä ovat
+      ominaisvektoreita.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä: Ominaisarvo ja ominaisvektori</span>
+      <p>
+        Olkoon \(A\) \(n \times n\) -matriisi. Nollasta poikkeava vektori \(\mathbf{v}\) on
+        \(A\):n <strong>ominaisvektori</strong>, jos:
+      </p>
+      \[
+        A\mathbf{v} = \lambda \mathbf{v}
+      \]
+      <p>
+        jollakin skalaariilla \(\lambda\). Skalaaaria \(\lambda\) kutsutaan vastaavaksi
+        <strong>ominaisarvoksi</strong>.
+      </p>
+      <p>
+        Sanallisesti: \(A\):n soveltaminen \(\mathbf{v}\):hen vain skaalaa \(\mathbf{v}\):n kertoimella \(\lambda\).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio: Ominaisvektorit "luonnollisina suuntina"</span>
+      <p>
+        Ajattele matriisia muunnoksena, joka venyttää, kiertää ja vääristää avaruutta.
+        Ominaisvektorit ovat ne erityiset suunnat, joissa muunnos toimii puhtaana
+        venytyksenä (tai puristuksena). Ominaisarvo kertoo, kuinka paljon.
+      </p>
+      <ul>
+        <li>\(\lambda > 1\): venytys (kasvaminen)</li>
+        <li>\(0 < \lambda < 1\): puristus (kutistuminen)</li>
+        <li>\(\lambda < 0\): suunnan kääntö ja skaalaus</li>
+        <li>\(\lambda = 0\): romahtaminen nollaan</li>
+      </ul>
+    </div>
+
+    <h3>Ominaisarvojen löytäminen: karakteristinen yhtälö</h3>
+    <p>
+      Muokkaamalla yhtälöä \(A\mathbf{v} = \lambda \mathbf{v}\) saadaan \((A - \lambda I)\mathbf{v} = \mathbf{0}\).
+      Jotta nollasta poikkeava ratkaisu \(\mathbf{v}\) olisi olemassa, matriisin \(A - \lambda I\) on oltava singulaarinen:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause: Karakteristinen yhtälö</span>
+      <p>\(A\):n ominaisarvot ovat yhtälön ratkaisut:</p>
+      \[
+        \det(A - \lambda I) = 0
+      \]
+      <p>Tätä kutsutaan <strong>karakteristiseksi yhtälöksi</strong>. \(n \times n\) -matriisille se on \(n\):nnen asteen polynomi muuttujassa \(\lambda\).</p>
+    </div>
+
+    <h3>Ominaisarvojen laskeminen 2x2-matriiseille</h3>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: 2x2-matriisin ominaisarvot</span>
+      <p>Etsi matriisin \(A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}\) ominaisarvot.</p>
+      <p><strong>Vaihe 1:</strong> Kirjoitetaan karakteristinen yhtälö:</p>
+      \[
+        \det(A - \lambda I) = \det\begin{pmatrix} 4 - \lambda & 1 \\ 2 & 3 - \lambda \end{pmatrix} = 0
+      \]
+      <p><strong>Vaihe 2:</strong> Lasketaan determinantti:</p>
+      \[
+        (4 - \lambda)(3 - \lambda) - (1)(2) = 0
+      \]
+      \[
+        12 - 4\lambda - 3\lambda + \lambda^2 - 2 = 0
+      \]
+      \[
+        \lambda^2 - 7\lambda + 10 = 0
+      \]
+      <p><strong>Vaihe 3:</strong> Tekijöidään tai käytetään toisen asteen kaavaa:</p>
+      \[
+        (\lambda - 5)(\lambda - 2) = 0
+      \]
+      <p>Siis \(\lambda_1 = 5\) ja \(\lambda_2 = 2\).</p>
+      <p><strong>Vaihe 4:</strong> Etsitään ominaisvektorit. Arvolle \(\lambda_1 = 5\):</p>
+      \[
+        (A - 5I)\mathbf{v} = \begin{pmatrix} -1 & 1 \\ 2 & -2 \end{pmatrix}\mathbf{v} = \mathbf{0}
+      \]
+      <p>Tästä saadaan \(-v_1 + v_2 = 0\), joten \(v_2 = v_1\). Ominaisvektori on \(\mathbf{v}_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\).</p>
+      <p>Arvolle \(\lambda_2 = 2\):</p>
+      \[
+        (A - 2I)\mathbf{v} = \begin{pmatrix} 2 & 1 \\ 2 & 1 \end{pmatrix}\mathbf{v} = \mathbf{0}
+      \]
+      <p>Tästä saadaan \(2v_1 + v_2 = 0\), joten \(v_2 = -2v_1\). Ominaisvektori on \(\mathbf{v}_2 = \begin{pmatrix} 1 \\ -2 \end{pmatrix}\).</p>
+    </div>
+
+    <h3>Pikaoikotie 2x2-matriiseille</h3>
+    <p>
+      \(2 \times 2\) -matriisille \(A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\)
+      karakteristinen yhtälö on aina:
+    </p>
+    \[
+      \lambda^2 - \underbrace{(a + d)}_{\text{jälki}} \lambda + \underbrace{(ad - bc)}_{\text{det}} = 0
+    \]
+    <p>
+      missä <strong>jälki</strong> \(\text{tr}(A) = a + d\) on lävistäjäalkioiden summa.
+      Ominaisarvot ovat:
+    </p>
+    \[
+      \lambda = \frac{\text{tr}(A) \pm \sqrt{\text{tr}(A)^2 - 4\det(A)}}{2}
+    \]
+
+    <h3>Ominaisarvot ja tasapainojen stabiilisuus</h3>
+    <p>
+      Tässä ominaisarvoista tulee olennaisia evoluutiopeliteorialle. Kun tutkimme
+      <strong>replikaattoriyhtälöä</strong> (moduuli 7), analysoimme kiintopisteitä (tasapainoja)
+      laskemalla <strong>Jacobin matriisin</strong> ominaisarvot kussakin kiintopisteessä.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause: Stabiilisuusluokittelu ominaisarvojen avulla</span>
+      <p>
+        Dynaamiselle järjestelmälle \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\), jolla on kiintopiste
+        \(\mathbf{x}^*\):ssä, lasketaan Jacobin matriisin \(J\) ominaisarvot pisteessä
+        \(\mathbf{x}^*\). Silloin:
+      </p>
+      <ul>
+        <li><strong>Stabiili (vetävä):</strong> Kaikilla ominaisarvoilla on <em>negatiivinen reaaliosa</em> (\(\text{Re}(\lambda_i) < 0\) kaikilla \(i\)). Läheiset radat suppenevat tasapainoon.</li>
+        <li><strong>Epästabiili (hylkivä):</strong> Ainakin yhdellä ominaisarvolla on <em>positiivinen reaaliosa</em>. Läheiset radat hajaantuvat tasapainosta.</li>
+        <li><strong>Satulapiste:</strong> Joillakin ominaisarvoilla on positiivinen reaaliosa ja joillakin negatiivinen reaaliosa. Radat lähestyvät joistakin suunnista ja hajaantuvat toisista.</li>
+        <li><strong>Keskipiste (neutraalisti stabiili):</strong> Kaikki ominaisarvot ovat puhtaasti imaginaarisia (\(\text{Re}(\lambda_i) = 0\)). Radat kiertävät tasapainon ympärillä.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        Evoluutiopeliteoriassa keskeinen kysymys ei ole vain "mitkä ovat tasapainot?" vaan
+        "ovatko tasapainot <strong>stabiileja</strong>?" Strategiasekoitus on <strong>evoluutiossa
+        stabiili strategia (ESS)</strong> vain, jos se on stabiili mutanttistrategioiden hyökkäystä vastaan.
+        Ominaisarvoanalyysi on matemaattinen työkalu, joka vastaa tähän kysymykseen täsmällisesti.
+      </p>
+      <p>
+        Kun kaikilla Jacobin matriisin ominaisarvoilla replikaattoridynamiikan kiintopisteessä on
+        negatiivinen reaaliosa, tasapaino on asymptoottisesti stabiili -- pienet häiriöt
+        vaimenevat ja järjestelmä palaa tasapainoon. Tämä on evoluutiostabiilisuuden matemaattinen tunnusmerkki.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: Stabiilisuus haukka-kyyhky-pelissä</span>
+      <p>
+        Haukka-kyyhky-pelissä arvoilla \(V = 4, C = 6\) sekatasapaino on
+        \(x^* = \frac{2}{3}\) (haukkaa pelaavien osuus). Replikaattoridynamiikka tämän
+        tasapainon lähellä voidaan linearisoida, jolloin Jacobin matriisin ominaisarvo on:
+      </p>
+      \[
+        \lambda = -\frac{2}{3} \cdot \frac{1}{3} \cdot (C - V) = -\frac{2}{3} \cdot \frac{1}{3} \cdot 2 = -\frac{4}{9}
+      \]
+      <p>
+        Koska \(\lambda = -\frac{4}{9} < 0\), sekatasapaino on <strong>stabiili</strong>.
+        Jos populaatio häiriintyy hieman \(\frac{2}{3}\) haukka / \(\frac{1}{3}\) kyyhky
+        -sekoituksesta, se palaa kyseiseen tasapainoon ajan myötä. Tämä on juuri sitä, mitä odotamme ESS:ltä.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: 2D-järjestelmän stabiilisuusanalyysi</span>
+      <p>Tarkastellaan järjestelmää, jonka Jacobin matriisi kiintopisteessä on:</p>
+      \[
+        J = \begin{pmatrix} -3 & 1 \\ 0 & -2 \end{pmatrix}
+      \]
+      <p>
+        Ominaisarvot saadaan yhtälöstä:
+        \(\det(J - \lambda I) = (-3 - \lambda)(-2 - \lambda) - 0 = 0\)
+      </p>
+      \[
+        \lambda^2 + 5\lambda + 6 = 0 \implies (\lambda + 3)(\lambda + 2) = 0
+      \]
+      <p>Siis \(\lambda_1 = -3\) ja \(\lambda_2 = -2\). Molemmat ovat negatiivisia, joten kiintopiste on <strong>asymptoottisesti stabiili</strong> (stabiili solmu). Kaikki läheiset radat suppenevat tähän tasapainoon.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: Epästabiili tasapaino</span>
+      <p>Tarkastellaan nyt Jacobin matriisia:</p>
+      \[
+        J = \begin{pmatrix} 1 & 0 \\ 0 & -2 \end{pmatrix}
+      \]
+      <p>Ominaisarvot ovat \(\lambda_1 = 1\) ja \(\lambda_2 = -2\). Koska toinen ominaisarvo on positiivinen ja toinen negatiivinen, kyseessä on <strong>satulapiste</strong> -- epästabiili. Radat lähestyvät negatiivisen ominaisarvon suunnassa mutta hajaantuvat positiivisen ominaisarvon suunnassa.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: CONNECTING TO GAME THEORY -->
+  <!-- ============================================================ -->
+  <div class="section" id="game-theory-connection">
+    <h2>7. Yhteys peliteoriaan</h2>
+
+    <h3>Voittomatriisit koodaavat strategiset vuorovaikutukset</h3>
+    <p>
+      Voittomatriisi on pelin täydellinen kuvaus. Jokainen strateginen vuorovaikutus -- jokainen
+      valintojen yhdistelmä ja niiden seuraukset -- on tallennettu tähän yksittäiseen matemaattiseen objektiin.
+    </p>
+    <p>
+      Kahden pelaajan pelissä tarvitsemme <em>kaksi</em> voittomatriisia: \(A\) pelaajalle 1 (rivipelaaja)
+      ja \(B\) pelaajalle 2 (sarakepelaja). <strong>Symmetrisessä pelissä</strong>
+      (evoluutiopeliteoriassa tavallisin tyyppi) \(B = A^T\), joten yksi matriisi riittää.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Voittomatriisin lukeminen</span>
+      <p>Tarkastellaan kolmen strategian peliä, jossa strategioina ovat yhteistyö (Y), petos (P) ja rankaisija (R):</p>
+      \[
+        A = \begin{pmatrix}
+          3 & 0 & 3 \\
+          5 & 1 & 0 \\
+          3 & 2 & 2
+        \end{pmatrix}
+      \]
+      <p>Matriisin lukeminen:</p>
+      <ul>
+        <li>\(a_{11} = 3\): Kun yhteistyöntekijä kohtaa yhteistyöntekijän, voitto on 3.</li>
+        <li>\(a_{12} = 0\): Kun yhteistyöntekijä kohtaa pettäjän, voitto on 0.</li>
+        <li>\(a_{21} = 5\): Kun pettäjä kohtaa yhteistyöntekijän, voitto on 5 (hyväksikäyttö).</li>
+        <li>\(a_{32} = 2\): Kun rankaisija kohtaa pettäjän, voitto on 2 (rankaiseminen on kallista mutta vähemmän kuin hyväksikäytetyksi tuleminen).</li>
+      </ul>
+    </div>
+
+    <h3>Strategia-avaruus simpleksinä</h3>
+    <p>
+      Kun populaatiossa on \(n\) strategiaa, mahdolliset populaation tilat muodostavat
+      <strong>\((n-1)\)-simpleksin</strong>:
+    </p>
+    \[
+      \Delta_n = \left\{ \mathbf{x} \in \mathbb{R}^n \;\middle|\; x_i \geq 0 \text{ kaikilla } i, \;\; \sum_{i=1}^n x_i = 1 \right\}
+    \]
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki: Simpleksi eri strategiamäärille</span>
+      <ul>
+        <li><strong>2 strategiaa:</strong> \(\Delta_2 = \{(x, 1-x) : 0 \leq x \leq 1\}\) -- tämä on vain jana pisteestä \((0,1)\) pisteeseen \((1,0)\).</li>
+        <li><strong>3 strategiaa:</strong> \(\Delta_3\) on kolmio, jonka kärjet ovat pisteissä \((1,0,0)\), \((0,1,0)\) ja \((0,0,1)\). Kukin kärki on puhdas strategia; sisäpisteet ovat sekastrategioita.</li>
+        <li><strong>4 strategiaa:</strong> \(\Delta_4\) on tetraedri.</li>
+      </ul>
+      <p>
+        Simpleksin kärjet ovat <em>puhtaat strategiat</em>. Sisäpiste
+        edustaa populaatiota, jossa kaikki strategiat ovat läsnä. Särmät ja sivut edustavat
+        populaatioita, joissa joitakin strategioita on kuollut sukupuuttoon.
+      </p>
+    </div>
+
+    <h3>Odotettu voitto matriisi-vektoritulona</h3>
+    <p>
+      Tässä kaikki palaset loksahtavat kohdalleen. Jos pelaaja 1 pelaa sekastrategiaa
+      \(\mathbf{x}\) ja pelaaja 2 pelaa sekastrategiaa \(\mathbf{y}\),
+      pelaajan 1 <strong>odotettu voitto</strong> on:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause: Odotetun voiton kaava</span>
+      \[
+        E[\text{pelaajan 1 voitto}] = \mathbf{x}^T A \mathbf{y}
+      \]
+      <p>missä \(\mathbf{x}^T\) on \(\mathbf{x}\):n transpoosi (rivivektori), \(A\) on voittomatriisi ja \(\mathbf{y}\) on vastustajan strategia (sarakevektori).</p>
+    </div>
+
+    <p>Puretaan tämä kaava auki vaihe vaiheelta.</p>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki: Odotetun voiton laskeminen</span>
+      <p>
+        Vangin dilemmassa matriisilla
+        \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\)
+        oletetaan, että pelaaja 1 pelaa Y:tä todennäköisyydellä 0.7 ja P:tä todennäköisyydellä 0.3
+        (\(\mathbf{x} = \begin{pmatrix} 0.7 \\ 0.3 \end{pmatrix}\))
+        ja pelaaja 2 pelaa Y:tä todennäköisyydellä 0.4 ja P:tä todennäköisyydellä 0.6
+        (\(\mathbf{y} = \begin{pmatrix} 0.4 \\ 0.6 \end{pmatrix}\)).
+      </p>
+      <p><strong>Vaihe 1:</strong> Lasketaan \(A\mathbf{y}\) (kunkin puhtaan strategian odotettu voitto \(\mathbf{y}\):tä vastaan):</p>
+      \[
+        A\mathbf{y} = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\begin{pmatrix} 0.4 \\ 0.6 \end{pmatrix}
+        = \begin{pmatrix} 1.2 \\ 2.6 \end{pmatrix}
+      \]
+      <p>
+        Siis yhteistyö tuottaa odotetun voiton \(1.2\) ja petos \(2.6\) tätä vastustajaa vastaan.
+      </p>
+      <p><strong>Vaihe 2:</strong> Lasketaan \(\mathbf{x}^T (A\mathbf{y})\) (keskiarvo pelaajan 1 sekoituksen yli):</p>
+      \[
+        \mathbf{x}^T A \mathbf{y} = \begin{pmatrix} 0.7 & 0.3 \end{pmatrix}\begin{pmatrix} 1.2 \\ 2.6 \end{pmatrix}
+        = 0.7 \times 1.2 + 0.3 \times 2.6 = 0.84 + 0.78 = 1.62
+      \]
+      <p>Pelaajan 1 odotettu voitto on \(1.62\).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        Evoluutiopeliteoriassa odotetun voiton kaava saa erityisen ja ratkaisevan muodon.
+        Jos populaation tila on \(\mathbf{x}\) ja voittomatriisi on \(A\), niin:
+      </p>
+      <ul>
+        <li><strong>Strategian \(i\) kelpoisuus</strong> on: \(f_i(\mathbf{x}) = (A\mathbf{x})_i = \sum_j a_{ij} x_j\)</li>
+        <li>Populaation <strong>keskimääräinen kelpoisuus</strong> on: \(\bar{f}(\mathbf{x}) = \mathbf{x}^T A \mathbf{x}\)</li>
+        <li><strong>Replikaattoriyhtälö</strong> on: \(\dot{x}_i = x_i \left[ (A\mathbf{x})_i - \mathbf{x}^T A \mathbf{x} \right]\)</li>
+      </ul>
+      <p>
+        Koko replikaattoriyhtälö rakentuu matriisi-vektoritulosta \(A\mathbf{x}\) ja
+        neliömuodosta \(\mathbf{x}^T A \mathbf{x}\). Siksi lineaarialgebra on
+        välttämätön edellytys evoluutiodynamiikan ymmärtämiselle.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: INTERACTIVE CALCULATOR -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive-calculator">
+    <h2>8. Interaktiivinen: matriisilaskin</h2>
+    <p>
+      Käytä tätä laskinta matriisioperaatioiden kokeilemiseen. Syötä arvot kahdelle
+      \(2 \times 2\) -matriisille ja tutki yhteenlaskua, kertolaskua, determinantteja ja ominaisarvoja.
+    </p>
+
+    <div class="interactive-container">
+      <h3>Interaktiivinen: matriisilaskin</h3>
+      <div class="controls" id="matrix-calc">
+        <div>
+          <strong>Matriisi A:</strong><br>
+          <input type="number" id="a00" value="3" style="width:60px"> <input type="number" id="a01" value="0" style="width:60px"><br>
+          <input type="number" id="a10" value="5" style="width:60px"> <input type="number" id="a11" value="1" style="width:60px">
+        </div>
+        <div>
+          <strong>Matriisi B:</strong><br>
+          <input type="number" id="b00" value="1" style="width:60px"> <input type="number" id="b01" value="2" style="width:60px"><br>
+          <input type="number" id="b10" value="0" style="width:60px"> <input type="number" id="b11" value="1" style="width:60px">
+        </div>
+      </div>
+      <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="matrixAdd()">A + B</button>
+        <button class="btn btn-primary" onclick="matrixMul()">A &times; B</button>
+        <button class="btn btn-accent" onclick="matrixDet()">det(A)</button>
+        <button class="btn btn-success" onclick="matrixEigen()">A:n ominaisarvot</button>
+      </div>
+      <div id="matrix-result" style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:6px; min-height:60px"></div>
+    </div>
+
+    <script>
+    function getMatrix(prefix) {
+      return [
+        [parseFloat(document.getElementById(prefix + '00').value) || 0,
+         parseFloat(document.getElementById(prefix + '01').value) || 0],
+        [parseFloat(document.getElementById(prefix + '10').value) || 0,
+         parseFloat(document.getElementById(prefix + '11').value) || 0]
+      ];
+    }
+
+    function showResult(html) {
+      document.getElementById('matrix-result').innerHTML = html;
+      if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+        MathJax.typesetPromise([document.getElementById('matrix-result')]);
+      }
+    }
+
+    function matrixAdd() {
+      const A = getMatrix('a'), B = getMatrix('b');
+      const C = [
+        [A[0][0] + B[0][0], A[0][1] + B[0][1]],
+        [A[1][0] + B[1][0], A[1][1] + B[1][1]]
+      ];
+      showResult(`<strong>A + B =</strong> \\[\\begin{pmatrix} ${C[0][0]} & ${C[0][1]} \\\\ ${C[1][0]} & ${C[1][1]} \\end{pmatrix}\\]`);
+    }
+
+    function matrixMul() {
+      const A = getMatrix('a'), B = getMatrix('b');
+      const C = [
+        [A[0][0]*B[0][0] + A[0][1]*B[1][0], A[0][0]*B[0][1] + A[0][1]*B[1][1]],
+        [A[1][0]*B[0][0] + A[1][1]*B[1][0], A[1][0]*B[0][1] + A[1][1]*B[1][1]]
+      ];
+      showResult(`<strong>A &times; B =</strong> \\[\\begin{pmatrix} ${C[0][0]} & ${C[0][1]} \\\\ ${C[1][0]} & ${C[1][1]} \\end{pmatrix}\\]`);
+    }
+
+    function matrixDet() {
+      const A = getMatrix('a');
+      const det = A[0][0]*A[1][1] - A[0][1]*A[1][0];
+      let interpretation = '';
+      if (det === 0) {
+        interpretation = '<br><em>Determinantti on nolla, joten matriisi on <strong>singulaarinen</strong> (ei kääntyvä). Yhtälöryhmällä Ax = b ei välttämättä ole yksikäsitteistä ratkaisua.</em>';
+      } else {
+        interpretation = `<br><em>Determinantti on nollasta poikkeava, joten matriisi on <strong>kääntyvä</strong>. Yhtälöryhmällä Ax = b on yksikäsitteinen ratkaisu jokaisella b:llä.</em>`;
+      }
+      showResult(`<strong>det(A)</strong> = (${A[0][0]})(${A[1][1]}) &minus; (${A[0][1]})(${A[1][0]}) = <strong>${det}</strong>${interpretation}`);
+    }
+
+    function matrixEigen() {
+      const A = getMatrix('a');
+      const trace = A[0][0] + A[1][1];
+      const det = A[0][0]*A[1][1] - A[0][1]*A[1][0];
+      const discriminant = trace * trace - 4 * det;
+
+      let result = `<strong>A:n ominaisarvot</strong><br>`;
+      result += `Jälki = ${trace}, &ensp; Det = ${det}<br>`;
+      result += `Karakteristinen yhtälö: &lambda;&sup2; &minus; ${trace}&lambda; + ${det} = 0<br>`;
+      result += `Diskriminantti = ${trace}&sup2; &minus; 4(${det}) = ${discriminant.toFixed(4)}<br><br>`;
+
+      if (discriminant > 0) {
+        const l1 = (trace + Math.sqrt(discriminant)) / 2;
+        const l2 = (trace - Math.sqrt(discriminant)) / 2;
+        result += `&lambda;<sub>1</sub> = <strong>${l1.toFixed(4)}</strong>, &ensp; &lambda;<sub>2</sub> = <strong>${l2.toFixed(4)}</strong><br><br>`;
+        if (l1 < 0 && l2 < 0) {
+          result += `<em>Molemmat ominaisarvot ovat negatiivisia &rarr; <strong>Stabiili</strong> tasapaino (stabiili solmu). Kaikki läheiset radat suppenevat.</em>`;
+        } else if (l1 > 0 && l2 > 0) {
+          result += `<em>Molemmat ominaisarvot ovat positiivisia &rarr; <strong>Epästabiili</strong> tasapaino (epästabiili solmu). Kaikki läheiset radat hajaantuvat.</em>`;
+        } else {
+          result += `<em>Ominaisarvoilla on eri etumerkit &rarr; <strong>Satulapiste</strong> (epästabiili). Radat suppenevat yhdessä suunnassa mutta hajaantuvat toisessa.</em>`;
+        }
+      } else if (discriminant === 0) {
+        const l = trace / 2;
+        result += `&lambda;<sub>1</sub> = &lambda;<sub>2</sub> = <strong>${l.toFixed(4)}</strong> (toistuva ominaisarvo)<br><br>`;
+        if (l < 0) {
+          result += `<em>Toistuva negatiivinen ominaisarvo &rarr; <strong>Stabiili</strong> (degeneroitunut solmu).</em>`;
+        } else if (l > 0) {
+          result += `<em>Toistuva positiivinen ominaisarvo &rarr; <strong>Epästabiili</strong> (degeneroitunut solmu).</em>`;
+        } else {
+          result += `<em>Ominaisarvo on nolla &rarr; Ei-eristetty kiintopiste.</em>`;
+        }
+      } else {
+        const real = trace / 2;
+        const imag = Math.sqrt(-discriminant) / 2;
+        result += `&lambda; = <strong>${real.toFixed(4)} &pm; ${imag.toFixed(4)}i</strong> (kompleksikonjugaattipari)<br><br>`;
+        if (real < 0) {
+          result += `<em>Negatiivinen reaaliosa &rarr; <strong>Stabiili spiraali</strong>. Radat kiertyvät sisäänpäin kohti tasapainoa.</em>`;
+        } else if (real > 0) {
+          result += `<em>Positiivinen reaaliosa &rarr; <strong>Epästabiili spiraali</strong>. Radat kiertyvät ulospäin pois tasapainosta.</em>`;
+        } else {
+          result += `<em>Reaaliosa on nolla &rarr; <strong>Keskipiste</strong>. Radat kiertävät tasapainon ympärillä suljetuissa silmukoissa (neutraalisti stabiili).</em>`;
+        }
+      }
+
+      showResult(result);
+    }
+    </script>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: EXERCISES -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>9. Harjoitukset</h2>
+    <p>Testaa ymmärrystäsi näillä tehtävillä. Yritä kutakin ennen ratkaisun paljastamista.</p>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 1: Vektorioperaatiot</div>
+      <p>Olkoon \(\mathbf{u} = \begin{pmatrix} 2 \\ -1 \\ 3 \end{pmatrix}\) ja \(\mathbf{v} = \begin{pmatrix} 1 \\ 4 \\ -2 \end{pmatrix}\).</p>
+      <p>Laske: (a) \(\mathbf{u} + \mathbf{v}\), (b) \(3\mathbf{u} - 2\mathbf{v}\), (c) \(\mathbf{u} \cdot \mathbf{v}\), (d) \(\|\mathbf{u}\|\).</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(\mathbf{u} + \mathbf{v} = \begin{pmatrix} 2+1 \\ -1+4 \\ 3+(-2) \end{pmatrix} = \begin{pmatrix} 3 \\ 3 \\ 1 \end{pmatrix}\)</p>
+          <p><strong>(b)</strong> \(3\mathbf{u} - 2\mathbf{v} = \begin{pmatrix} 6 \\ -3 \\ 9 \end{pmatrix} - \begin{pmatrix} 2 \\ 8 \\ -4 \end{pmatrix} = \begin{pmatrix} 4 \\ -11 \\ 13 \end{pmatrix}\)</p>
+          <p><strong>(c)</strong> \(\mathbf{u} \cdot \mathbf{v} = (2)(1) + (-1)(4) + (3)(-2) = 2 - 4 - 6 = -8\)</p>
+          <p><strong>(d)</strong> \(\|\mathbf{u}\| = \sqrt{4 + 1 + 9} = \sqrt{14} \approx 3.742\)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 2: Odotettu voitto</div>
+      <p>
+        Pelaajalla kolmen strategian pelissä on voitot \((4, 1, 7)\) vastustajaa vastaan. Pelaaja
+        käyttää sekastrategiaa \(\mathbf{x} = (0.5, 0.3, 0.2)\). Mikä on odotettu voitto?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Odotettu voitto on pistetulo:</p>
+          \[
+            \mathbf{x} \cdot \mathbf{p} = (0.5)(4) + (0.3)(1) + (0.2)(7) = 2.0 + 0.3 + 1.4 = 3.7
+          \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 3: Matriisi-vektorikertolasku</div>
+      <p>
+        Haukka-kyyhky-pelissä matriisilla \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\)
+        laske \(A\mathbf{y}\), kun vastustaja pelaa haukkaa todennäköisyydellä \(q = 0.5\) eli
+        \(\mathbf{y} = \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}\). Kumpi puhdas strategia on paras
+        tätä vastustajaa vastaan?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          \[
+            A\mathbf{y} = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}
+            = \begin{pmatrix} -0.5 + 2.0 \\ 0 + 1.0 \end{pmatrix}
+            = \begin{pmatrix} 1.5 \\ 1.0 \end{pmatrix}
+          \]
+          <p>Haukka tuottaa odotetun voiton \(1.5\) ja kyyhky \(1.0\). Haukka on paras vastaus, kun vastustaja pelaa molempia strategioita yhtä suurella todennäköisyydellä.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 4: Matriisikertolasku</div>
+      <p>Laske tulo \(AB\), missä
+        \(A = \begin{pmatrix} 2 & 1 \\ 0 & 3 \end{pmatrix}\) ja
+        \(B = \begin{pmatrix} 1 & -1 \\ 2 & 4 \end{pmatrix}\).
+        Todenna sitten, että \(AB \neq BA\).
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          \[
+            AB = \begin{pmatrix} 2(1)+1(2) & 2(-1)+1(4) \\ 0(1)+3(2) & 0(-1)+3(4) \end{pmatrix}
+            = \begin{pmatrix} 4 & 2 \\ 6 & 12 \end{pmatrix}
+          \]
+          \[
+            BA = \begin{pmatrix} 1(2)+(-1)(0) & 1(1)+(-1)(3) \\ 2(2)+4(0) & 2(1)+4(3) \end{pmatrix}
+            = \begin{pmatrix} 2 & -2 \\ 4 & 14 \end{pmatrix}
+          \]
+          <p>Todellakin \(AB \neq BA\). Matriisikertolasku <em>ei</em> ole vaihdannainen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 5: Yhtälöryhmän ratkaiseminen</div>
+      <p>Ratkaise yhtälöryhmä:</p>
+      \[
+        \begin{cases}
+          3x + 2y = 12 \\
+          x - y = 1
+        \end{cases}
+      \]
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Yhtälöstä 2: \(x = 1 + y\). Sijoitetaan yhtälöön 1:</p>
+          \[
+            3(1 + y) + 2y = 12 \implies 3 + 3y + 2y = 12 \implies 5y = 9 \implies y = \frac{9}{5}
+          \]
+          <p>Silloin \(x = 1 + \frac{9}{5} = \frac{14}{5}\).</p>
+          <p><strong>Ratkaisu:</strong> \(x = \frac{14}{5} = 2.8\), \(y = \frac{9}{5} = 1.8\).</p>
+          <p>Tarkistus: \(3(2.8) + 2(1.8) = 8.4 + 3.6 = 12\) ja \(2.8 - 1.8 = 1\). Oikein.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 6: Determinantti</div>
+      <p>Laske koordinaatiopelin voittomatriisin determinantti:
+        \(A = \begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}\).
+        Onko tämä matriisi kääntyvä?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          \[
+            \det(A) = (2)(1) - (0)(0) = 2
+          \]
+          <p>Koska \(\det(A) = 2 \neq 0\), matriisi on kääntyvä.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7: Ominaisarvot ja stabiilisuus</div>
+      <p>Etsi matriisin \(A = \begin{pmatrix} -1 & 2 \\ 0 & -3 \end{pmatrix}\) ominaisarvot. Luokittele vastaavan kiintopisteen stabiilisuus.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Koska kyseessä on kolmiomatriisi, ominaisarvot ovat lävistäjäalkiot:</p>
+          \[
+            \lambda_1 = -1, \quad \lambda_2 = -3
+          \]
+          <p>
+            (Tarkistus: \(\det(A - \lambda I) = (-1 - \lambda)(-3 - \lambda) - (2)(0) = (\lambda + 1)(\lambda + 3) = 0\),
+            josta \(\lambda = -1\) tai \(\lambda = -3\).)
+          </p>
+          <p>
+            Molemmat ominaisarvot ovat <strong>negatiivisia</strong>, joten kiintopiste on
+            <strong>asymptoottisesti stabiili</strong> (stabiili solmu). Läheiset radat suppenevat tähän
+            tasapainoon -- se on stabiili evoluutiodynamiikan mielessä.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 8 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8: Sekatasapaino lineaarialgebran avulla</div>
+      <p>
+        Tarkastellaan peliä, jonka voittomatriisi on
+        \(A = \begin{pmatrix} 2 & 0 \\ 3 & 1 \end{pmatrix}\).
+        Etsi sekastrategia-Nash-tasapaino asettamalla ja ratkaisemalla indifferenssiehto.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            Sekatasapainossa vastustaja (sarakepelaja) valitsee todennäköisyydet \(q\) ja \(1-q\) siten,
+            että rivipelaaja on indifferentti kahden strategiansa välillä:
+          </p>
+          \[
+            2q + 0(1-q) = 3q + 1(1-q)
+          \]
+          \[
+            2q = 3q + 1 - q = 2q + 1
+          \]
+          \[
+            0 = 1
+          \]
+          <p>
+            Tällä yhtälöllä ei ole ratkaisua! Rivipelaaja ei ole <em>koskaan</em> indifferentti -- strategia 2
+            dominoi heikosti strategiaa 1 (se antaa vähintään yhtä suuren voiton kaikissa tapauksissa ja tiukasti suuremman, kun vastustaja
+            pelaa strategiaa 2). Siksi <strong>täysin sekoitettua Nash-tasapainoa ei ole</strong>.
+          </p>
+          <p>
+            Puhtaan strategian Nash-tasapaino on, että rivipelaaja pelaa aina strategiaa 2 (petosta).
+            Tämä havainnollistaa, ettei jokaisella pelillä ole sekatasapainoa -- lineaarialgebra kertoo meille, milloin
+            indifferenssiyhtälöryhmällä ei ole ratkaisua.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 9 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 9: Odotettu voitto täydellä kaavalla</div>
+      <p>
+        Pelille \(A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}\) laske
+        \(\mathbf{x}^T A \mathbf{y}\), kun \(\mathbf{x} = \begin{pmatrix} 0.6 \\ 0.4 \end{pmatrix}\)
+        ja \(\mathbf{y} = \begin{pmatrix} 0.3 \\ 0.7 \end{pmatrix}\).
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>Vaihe 1:</strong> Lasketaan \(A\mathbf{y}\):</p>
+          \[
+            A\mathbf{y} = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}\begin{pmatrix} 0.3 \\ 0.7 \end{pmatrix}
+            = \begin{pmatrix} 0.9 + 0.7 \\ 0 + 1.4 \end{pmatrix} = \begin{pmatrix} 1.6 \\ 1.4 \end{pmatrix}
+          \]
+          <p><strong>Vaihe 2:</strong> Lasketaan \(\mathbf{x}^T (A\mathbf{y})\):</p>
+          \[
+            \mathbf{x}^T A \mathbf{y} = (0.6)(1.6) + (0.4)(1.4) = 0.96 + 0.56 = 1.52
+          \]
+          <p>Pelaajan 1 odotettu voitto on \(1.52\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 10 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 10: Täydellinen ominaisarvoanalyysi</div>
+      <p>
+        Replikaattorijärjestelmän Jacobin matriisi kiintopisteessä on
+        \(J = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\).
+        Etsi ominaisarvot, etsi ominaisvektorit ja määritä kiintopisteen stabiilisuus.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>Ominaisarvot:</strong></p>
+          <p>Jälki = \(-2 + (-2) = -4\), Det = \((-2)(-2) - (1)(1) = 4 - 1 = 3\).</p>
+          \[
+            \lambda^2 + 4\lambda + 3 = 0 \implies (\lambda + 1)(\lambda + 3) = 0
+          \]
+          <p>Siis \(\lambda_1 = -1\) ja \(\lambda_2 = -3\).</p>
+          <p><strong>Ominaisvektorit:</strong></p>
+          <p>Arvolle \(\lambda_1 = -1\): \((J + I)\mathbf{v} = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}\mathbf{v} = 0\), josta \(v_1 = v_2\). Ominaisvektori: \(\begin{pmatrix} 1 \\ 1 \end{pmatrix}\).</p>
+          <p>Arvolle \(\lambda_2 = -3\): \((J + 3I)\mathbf{v} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}\mathbf{v} = 0\), josta \(v_1 = -v_2\). Ominaisvektori: \(\begin{pmatrix} 1 \\ -1 \end{pmatrix}\).</p>
+          <p><strong>Stabiilisuus:</strong> Molemmat ominaisarvot (\(-1\) ja \(-3\)) ovat negatiivisia, joten kiintopiste on <strong>asymptoottisesti stabiili</strong> -- se on stabiili solmu. Tämä tasapaino on replikaattoridynamiikan attraktori.</p>
+          <p>Vaimeneminen on nopeampaa suunnassa \(\begin{pmatrix} 1 \\ -1 \end{pmatrix}\) (ominaisarvo \(-3\)) kuin suunnassa \(\begin{pmatrix} 1 \\ 1 \end{pmatrix}\) (ominaisarvo \(-1\)).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODULE NAVIGATION -->
+  <!-- ============================================================ -->
+  <div class="module-nav-strip">
+    <a href="module1.html">&larr; Edellinen moduuli: Perusteet</a>
+    <a href="module3.html">Seuraava moduuli: Analyysi &rarr;</a>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Sisältö kattaa matemaattiset perusteet ja EGT:n sovellukset yhteiskuntatieteissä.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

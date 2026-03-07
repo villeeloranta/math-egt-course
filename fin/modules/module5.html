@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 5: Todennäköisyys ja odotusarvo — Matematiikkaa EGT:hen</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html" class="active">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 5</div>
+    <h1>Todennäköisyys ja odotusarvo</h1>
+    <p class="module-desc">
+      Satunnaisuus, jakaumat ja odotettavissa olevat tulokset &mdash; sekastrategioiden,
+      stokastisten vuorovaikutusten ja kehittyvien populaatioiden keskimääräisen kelpoisuuden matemaattinen kieli.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module4.html">&larr; Moduuli 4: Differentiaaliyhtälöt</a>
+    <a href="module6.html">Moduuli 6: Peliteoria &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Sisällys</h3>
+    <ol>
+      <li><a href="#basic-probability">Todennäköisyyden perusteet</a></li>
+      <li><a href="#discrete-random-variables">Diskreetit satunnaismuuttujat</a></li>
+      <li><a href="#expected-value">Odotusarvo</a></li>
+      <li><a href="#variance-std">Varianssi ja keskihajonta</a></li>
+      <li><a href="#conditional-expectation">Ehdollinen odotusarvo ja Bayesin lause</a></li>
+      <li><a href="#law-large-numbers">Suurten lukujen laki</a></li>
+      <li><a href="#connecting-game-theory">Yhteys peliteoriaan</a></li>
+      <li><a href="#interactive-viz">Interaktiivinen: Binomijakauman tutkija</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 1: BASIC PROBABILITY                                 -->
+  <!-- ============================================================ -->
+  <div class="section" id="basic-probability">
+    <h2>1. Todennäköisyyden perusteet</h2>
+
+    <p>
+      Todennäköisyys on matemaattinen viitekehys epävarmuuden käsittelyyn. Evoluutiopeliteoriassa
+      epävarmuutta esiintyy jatkuvasti: minkä vastustajan pelaaja kohtaa? Minkä toiminnon pelaaja
+      valitsee sekastrategialla? Kuinka monta yhteistyöpelaajaa on satunnaisesti valitussa ryhmässä?
+      Todennäköisyysteoria antaa meille tarkan kielen näiden kysymysten käsittelyyn.
+    </p>
+
+    <h3>1.1 Otosavaruudet ja tapahtumat</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Otosavaruus</span>
+      <p>
+        <strong>Otosavaruus</strong> \(\Omega\) on kaikkien satunnaiskokeen mahdollisten tulosten
+        joukko. <strong>Tapahtuma</strong> \(A\) on mikä tahansa otosavaruuden osajoukko:
+        \(A \subseteq \Omega\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kolikonheitto</span>
+      <p>
+        Heitetään tasapainoinen kolikko: \(\Omega = \{H, T\}\). Tapahtuma "kruuna" on \(A = \{H\}\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Satunnainen vastustaja</span>
+      <p>
+        Pelaaja kohtaa satunnaisesti valitun jäsenen populaatiosta, joka käyttää yhtä kolmesta
+        strategiasta: Yhteistyö (C), Petos (D) tai Tit-for-Tat (T). Tällöin
+        \(\Omega = \{C, D, T\}\). Tapahtuma "vastustaja tekee yhteistyötä" on \(A = \{C\}\),
+        kun taas "vastustaja ei petä" on \(B = \{C, T\}\).
+      </p>
+    </div>
+
+    <h3>1.2 Todennäköisyyden aksioomat</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Kolmogorovin aksioomat</span>
+      <p>
+        <strong>Todennäköisyysfunktio</strong> \(P\) liittää jokaiseen tapahtumaan
+        \(A \subseteq \Omega\) reaaliluvun \(P(A)\) siten, että seuraavat ehdot täyttyvät:
+      </p>
+      <ol>
+        <li><strong>Ei-negatiivisuus:</strong> \(P(A) \geq 0\) kaikille tapahtumille \(A\).</li>
+        <li><strong>Normeeraus:</strong> \(P(\Omega) = 1\).</li>
+        <li><strong>Additiivisuus:</strong> Jos \(A\) ja \(B\) ovat toisensa poissulkevia (\(A \cap B = \emptyset\)), niin
+          \(P(A \cup B) = P(A) + P(B)\).</li>
+      </ol>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Miksi tällä on merkitystä EGT:ssä</span>
+      <p>
+        <strong>Sekastrategia</strong> on täsmälleen todennäköisyysjakauma pelaajan käytettävissä
+        olevien puhtaiden strategioiden yli. Jos pelaaja voi valita Yhteistyön tai Petoksen,
+        sekastrategia antaa todennäköisyydet \(p\) ja \(1-p\) näille toiminnoille. Aksioomat
+        takaavat, että nämä todennäköisyydet ovat ei-negatiivisia ja niiden summa on 1 &mdash;
+        juuri ne ehdot, jotka määrittävät kelvollisen strategian.
+      </p>
+    </div>
+
+    <h3>1.3 Joukko-operaatiot tapahtumille</h3>
+
+    <p>
+      Tapahtumia yhdistetään joukko-operaatioilla, ja todennäköisyys noudattaa näitä operaatioita
+      hyvin määriteltyjen sääntöjen kautta.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Yhdiste, leikkaus, komplementti</span>
+      <ul>
+        <li><strong>Yhdiste</strong> \(A \cup B\): tapahtuma, jossa \(A\) tai \(B\) (tai molemmat) toteutuu.</li>
+        <li><strong>Leikkaus</strong> \(A \cap B\): tapahtuma, jossa sekä \(A\) että \(B\) toteutuvat.</li>
+        <li><strong>Komplementti</strong> \(A^c\): tapahtuma, jossa \(A\) ei toteudu.</li>
+      </ul>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Sisällyttämis-poissulkemisperiaate</span>
+      <p>Mille tahansa kahdelle tapahtumalle \(A\) ja \(B\):</p>
+      \[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]
+      <p>Komplementtisääntö on:</p>
+      \[P(A^c) = 1 - P(A)\]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Yhteistyöpelaajan tai vastavuoroisen pelaajan kohtaaminen</span>
+      <p>
+        Populaatiossa 40 % on yhteistyöpelaajia (C), 30 % on vastavuoroisia pelaajia (R), ja 10 %
+        käyttää molempia strategioita tilannekohtaisesti (C ja R menevät päällekkäin). Mikä on
+        todennäköisyys kohdata joku, joka tekee yhteistyötä tai toimii vastavuoroisesti?
+      </p>
+      \[P(C \cup R) = P(C) + P(R) - P(C \cap R) = 0.4 + 0.3 - 0.1 = 0.6\]
+    </div>
+
+    <h3>1.4 Ehdollinen todennäköisyys</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Ehdollinen todennäköisyys</span>
+      <p>
+        Tapahtuman \(A\) <strong>ehdollinen todennäköisyys</strong> ehdolla \(B\) on:
+      </p>
+      \[P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{edellyttäen, että } P(B) > 0.\]
+    </div>
+
+    <p>
+      Ehdollinen todennäköisyys kuvaa, miten arvio tapahtumasta muuttuu, kun meillä on osittaista
+      tietoa. Peliteoriassa tämä tulee esiin, kun pelaaja havaitsee signaalin vastustajan tyypistä
+      tai aiemmasta käyttäytymisestä.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Vastustajan strategia aiemman käyttäytymisen perusteella</span>
+      <p>
+        Oletetaan, että 60 % populaatiosta on yhteistyöpelaajia ja 40 % on pettäjiä. Yhteistyöpelaajat
+        tekevät yhteistyötä 90 % ajasta, kun taas pettäjät tekevät yhteistyötä 20 % ajasta
+        (naamioidakseen itsensä). Jos vastustajasi teki yhteistyötä edellisellä kierroksella,
+        mikä on todennäköisyys, että hän on yhteistyöpelaaja?
+      </p>
+      <p>Merkitään \(C\) = "vastustaja on yhteistyöpelaaja" ja \(K\) = "vastustaja teki yhteistyötä edellisellä kierroksella".</p>
+      \[P(K) = P(K \mid C) P(C) + P(K \mid C^c) P(C^c) = 0.9 \times 0.6 + 0.2 \times 0.4 = 0.54 + 0.08 = 0.62\]
+      \[P(C \mid K) = \frac{P(K \mid C) P(C)}{P(K)} = \frac{0.9 \times 0.6}{0.62} = \frac{0.54}{0.62} \approx 0.871\]
+      <p>
+        Yhteistyön havaitsemisen jälkeen päivitämme uskomuksemme 60 prosentista noin 87 prosenttiin.
+      </p>
+    </div>
+
+    <h3>1.5 Riippumattomuus</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Riippumattomuus</span>
+      <p>
+        Kaksi tapahtumaa \(A\) ja \(B\) ovat <strong>riippumattomia</strong>, jos:
+      </p>
+      \[P(A \cap B) = P(A) \cdot P(B)\]
+      <p>
+        Vastaavasti \(P(A \mid B) = P(A)\) &mdash; tieto siitä, että \(B\) tapahtui, ei muuta
+        tapahtuman \(A\) todennäköisyyttä.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Riippumattomuus satunnaisessa kohtaamisessa</span>
+      <p>
+        Monissa EGT-malleissa pelaajat kohtaavat satunnaisesti suuren populaation jäseniä. Kierroksella
+        5 kohdattavan vastustajan strategia on riippumaton kierroksella 3 kohdatun vastustajan
+        strategiasta (olettaen, että populaatio on suuri ja hyvin sekoittunut). Tämä
+        riippumattomuusoletus tekee matematiikasta hallittavaa ja johtaa replikaattoriyhtälöön.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 2: DISCRETE RANDOM VARIABLES                        -->
+  <!-- ============================================================ -->
+  <div class="section" id="discrete-random-variables">
+    <h2>2. Diskreetit satunnaismuuttujat</h2>
+
+    <p>
+      Satunnaismuuttuja antaa meille tavan liittää numeerisia arvoja tuloksiin, mikä on
+      välttämätöntä voittojen laskemisessa, yhteistyöpelaajien laskemisessa ja kelpoisuuden
+      mittaamisessa.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Diskreetti satunnaismuuttuja</span>
+      <p>
+        <strong>Diskreetti satunnaismuuttuja</strong> \(X\) on funktio
+        \(X : \Omega \to \mathbb{R}\), joka kuvaa jokaisen otosavaruuden tuloksen reaaliluvuksi
+        ja saa äärellisen tai numeroituvasti äärettömän joukon arvoja.
+      </p>
+    </div>
+
+    <h3>2.1 Pistetodennäköisyysfunktio (PMF)</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; PMF</span>
+      <p>
+        Diskreetin satunnaismuuttujan \(X\) <strong>pistetodennäköisyysfunktio</strong> on:
+      </p>
+      \[p_X(x) = P(X = x)\]
+      <p>
+        Se toteuttaa ehdot \(p_X(x) \geq 0\) kaikille \(x\) ja \(\displaystyle\sum_{\text{kaikki } x} p_X(x) = 1\).
+      </p>
+    </div>
+
+    <h3>2.2 Kertymäfunktio (CDF)</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; CDF</span>
+      <p>
+        Satunnaismuuttujan \(X\) <strong>kertymäfunktio</strong> on:
+      </p>
+      \[F_X(x) = P(X \leq x) = \sum_{x_i \leq x} p_X(x_i)\]
+    </div>
+
+    <h3>2.3 Bernoulli-jakauma</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Bernoulli-satunnaismuuttuja</span>
+      <p>
+        <strong>Bernoulli-satunnaismuuttuja</strong> \(X \sim \text{Bernoulli}(p)\) saa arvon
+        1 todennäköisyydellä \(p\) ja arvon 0 todennäköisyydellä \(1-p\):
+      </p>
+      \[P(X = 1) = p, \qquad P(X = 0) = 1 - p\]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Bernoulli EGT:ssä</span>
+      <p>
+        Bernoulli-satunnaismuuttuja mallintaa yksittäistä kohtaamista: tekeekö vastustaja
+        yhteistyötä (\(X=1\)) vai pettääkö (\(X=0\))? Jos yhteistyöpelaajien osuus populaatiossa
+        on \(p\), niin satunnainen kohtaaminen on \(X \sim \text{Bernoulli}(p)\).
+      </p>
+    </div>
+
+    <h3>2.4 Binomijakauma</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Binomijakauma</span>
+      <p>
+        Jos \(X\) on onnistumisten lukumäärä \(n\):ssä riippumattomassa Bernoulli-kokeessa,
+        joissa kussakin onnistumistodennäköisyys on \(p\), niin \(X \sim \text{Binomial}(n, p)\)
+        ja pistetodennäköisyysfunktio on:
+      </p>
+      \[P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, \ldots, n\]
+      <p>missä \(\displaystyle\binom{n}{k} = \frac{n!}{k!(n-k)!}\) on binomikerroin.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Yhteistyöpelaajat ryhmässä</span>
+      <p>
+        Oletetaan, että 30 % populaatiosta on yhteistyöpelaajia. Ryhmä, jossa on \(n = 5\)
+        pelaajaa, kootaan satunnaisesti. Mikä on todennäköisyys, että täsmälleen 2 heistä on
+        yhteistyöpelaajia?
+      </p>
+      <p>
+        Merkitään \(X \sim \text{Binomial}(5, 0.3)\). Tällöin:
+      </p>
+      \[P(X = 2) = \binom{5}{2} (0.3)^2 (0.7)^3 = 10 \times 0.09 \times 0.343 = 0.3087\]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Julkishyödykepeli</span>
+      <p>
+        Julkishyödykepelissä kukin \(n\):stä pelaajasta panostaa itsenäisesti
+        todennäköisyydellä \(p\). Panostajien lukumäärä \(X \sim \text{Binomial}(n, p)\).
+        Yhteinen hyöty riippuu \(X\):stä, joten binomijakauma on olennainen
+        ryhmätason vuorovaikutusten analysoinnissa EGT:ssä.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Huomautus &mdash; Keskeiset ominaisuudet</span>
+      <p>Kun \(X \sim \text{Binomial}(n, p)\):</p>
+      <ul>
+        <li>Odotusarvo: \(E[X] = np\)</li>
+        <li>Varianssi: \(\text{Var}(X) = np(1-p)\)</li>
+        <li>Jakauma on symmetrinen, kun \(p = 0.5\), oikealle vino, kun \(p < 0.5\),
+            ja vasemmalle vino, kun \(p > 0.5\).</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 3: EXPECTED VALUE                                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="expected-value">
+    <h2>3. Odotusarvo</h2>
+
+    <p>
+      Odotusarvo on kiistatta <em>se</em> keskeinen käsite, joka yhdistää todennäköisyyden
+      peliteoriaan. Koko sekastrategioiden, kelpoisuuslaskelmien ja replikaattoridynamiikan
+      viitekehys perustuu odotusarvojen laskemiseen.
+    </p>
+
+    <h3>3.1 Määritelmä</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Odotusarvo</span>
+      <p>
+        Diskreetin satunnaismuuttujan \(X\), joka saa arvot \(x_1, x_2, \ldots\)
+        todennäköisyyksillä \(p(x_1), p(x_2), \ldots\), <strong>odotusarvo</strong> on:
+      </p>
+      \[E[X] = \sum_{i} x_i \, p(x_i)\]
+      <p>
+        Odotusarvo on mahdollisten arvojen painotettu keskiarvo, jossa painoina ovat
+        todennäköisyydet.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Yksinkertainen voitto</span>
+      <p>
+        Pelaaja saa voiton 3 todennäköisyydellä 0,4 ja voiton 1 todennäköisyydellä 0,6.
+        Odotettu voitto on:
+      </p>
+      \[E[X] = 3 \times 0.4 + 1 \times 0.6 = 1.2 + 0.6 = 1.8\]
+    </div>
+
+    <h3>3.2 Odotusarvon lineaarisuus</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Odotusarvon lineaarisuus</span>
+      <p>
+        Mille tahansa satunnaismuuttujille \(X\) ja \(Y\) ja vakioille \(a, b \in \mathbb{R}\):
+      </p>
+      \[E[aX + bY] = a \, E[X] + b \, E[Y]\]
+      <p>
+        Tämä pätee <strong>riippumatta siitä, ovatko \(X\) ja \(Y\) riippumattomia</strong>.
+        Lineaarisuus on yksi todennäköisyyslaskennan tehokkaimmista ja useimmin käytetyistä
+        ominaisuuksista.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kokonaisvoitto useilta kierroksilta</span>
+      <p>
+        Pelaaja pelaa 10 kierrosta satunnaisia vastustajia vastaan. Jokaisella kierroksella
+        odotettu voitto on 2,5. Lineaarisuuden nojalla odotettu kokonaisvoitto kaikilla 10
+        kierroksella on:
+      </p>
+      \[E[\text{Yhteensä}] = E[X_1 + X_2 + \cdots + X_{10}] = 10 \times 2.5 = 25\]
+    </div>
+
+    <h3>3.3 Odotettu voitto sekastrategioilla</h3>
+
+    <p>
+      Tässä odotusarvo kohtaa peliteorian suoraan. Tarkastellaan kahden pelaajan peliä,
+      jossa pelaajalla 1 on \(m\) strategiaa ja pelaajalla 2 on \(n\) strategiaa. Pelaajan 1
+      voitto hänen pelatessaan puhdasta strategiaa \(i\) ja pelaajan 2 pelatessa puhdasta
+      strategiaa \(j\) on \(a_{ij}\), joka muodostaa <strong>voittomatriisin</strong>
+      \(A = [a_{ij}]\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Sekastrategia</span>
+      <p>
+        Pelaajan 1 <strong>sekastrategia</strong> on todennäköisyysjakauma
+        \(\mathbf{x} = (x_1, x_2, \ldots, x_m)\) hänen puhtaiden strategioidensa yli, missä:
+      </p>
+      \[x_i \geq 0 \quad \text{kaikille } i, \qquad \sum_{i=1}^{m} x_i = 1\]
+      <p>
+        Vastaavasti pelaajan 2 sekastrategia on
+        \(\mathbf{y} = (y_1, y_2, \ldots, y_n)\).
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Odotettu voitto sekastrategioilla</span>
+      <p>
+        Kun pelaaja 1 pelaa sekastrategiaa \(\mathbf{x}\) ja pelaaja 2 pelaa sekastrategiaa
+        \(\mathbf{y}\), pelaajan 1 <strong>odotettu voitto</strong> on:
+      </p>
+      \[E[\text{voitto}] = \sum_{i=1}^{m} \sum_{j=1}^{n} x_i \, y_j \, a_{ij}\]
+      <p>Matriisimuodossa tämä kirjoitetaan tiiviisti:</p>
+      \[\boxed{E[\text{voitto}] = \mathbf{x}^\top A \, \mathbf{y}}\]
+    </div>
+
+    <p>Johdetaan tämä askel askeleelta.</p>
+
+    <div class="example-box">
+      <span class="box-title">Johtaminen &mdash; Todennäköisyyksistä matriisimuotoon</span>
+      <p>
+        Pelaaja 1 valitsee strategian \(i\) todennäköisyydellä \(x_i\). Riippumattomasti
+        pelaaja 2 valitsee strategian \(j\) todennäköisyydellä \(y_j\). Todennäköisyys, että
+        strategiapari \((i, j)\) pelataan, on \(x_i y_j\) (riippumattomuuden nojalla).
+        Tämän parin voitto on \(a_{ij}\). Odotusarvon määritelmän nojalla:
+      </p>
+      \[
+      E[\text{voitto}] = \sum_{i} \sum_{j} P(\text{pari } (i,j)) \times \text{voitto}(i,j)
+      = \sum_{i=1}^{m} \sum_{j=1}^{n} x_i \, y_j \, a_{ij}
+      \]
+      <p>Tarkastellaan nyt sisempää summaa:</p>
+      \[\sum_{j=1}^{n} a_{ij} \, y_j = (A \mathbf{y})_i\]
+      <p>Tämä on matriisi-vektoritulon \(A\mathbf{y}\) \(i\):s komponentti. Tällöin:</p>
+      \[E[\text{voitto}] = \sum_{i=1}^{m} x_i (A\mathbf{y})_i = \mathbf{x}^\top (A\mathbf{y}) = \mathbf{x}^\top A \mathbf{y}\]
+    </div>
+
+    <h3>3.4 Laskettu esimerkki: Haukka-Kyyhky-peli</h3>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Odotettu voitto Haukka-Kyyhky-pelissä</span>
+      <p>Tarkastellaan Haukka-Kyyhky-peliä voittomatriisilla (rivipelaajan voitot):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Haukka</th>
+          <th>Kyyhky</th>
+        </tr>
+        <tr>
+          <td class="row-header">Haukka</td>
+          <td>\(\frac{V-C}{2}\)</td>
+          <td>\(V\)</td>
+        </tr>
+        <tr>
+          <td class="row-header">Kyyhky</td>
+          <td>\(0\)</td>
+          <td>\(\frac{V}{2}\)</td>
+        </tr>
+      </table>
+      <p>
+        Kun \(V = 4\) ja \(C = 6\), matriisiksi tulee:
+      </p>
+      \[A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\]
+      <p>
+        Oletetaan, että pelaaja 1 pelaa Haukkaa todennäköisyydellä \(x\) ja Kyyhkyä
+        todennäköisyydellä \(1-x\), kun taas pelaaja 2 pelaa Haukkaa todennäköisyydellä \(y\)
+        ja Kyyhkyä todennäköisyydellä \(1-y\). Tällöin \(\mathbf{x} = (x, 1-x)^\top\) ja
+        \(\mathbf{y} = (y, 1-y)^\top\).
+      </p>
+      <p>Lasketaan ensin \(A\mathbf{y}\):</p>
+      \[
+      A\mathbf{y} = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix} \begin{pmatrix} y \\ 1-y \end{pmatrix}
+      = \begin{pmatrix} -y + 4(1-y) \\ 0 + 2(1-y) \end{pmatrix}
+      = \begin{pmatrix} 4 - 5y \\ 2 - 2y \end{pmatrix}
+      \]
+      <p>Tällöin:</p>
+      \[
+      E[\text{voitto}] = \mathbf{x}^\top A \mathbf{y} = x(4 - 5y) + (1-x)(2 - 2y)
+      \]
+      \[= 4x - 5xy + 2 - 2y - 2x + 2xy = 2 + 2x - 2y - 3xy\]
+      <p>
+        Erityistapauksessa \(x = 1/3\), \(y = 1/3\) (sekastrategian Nash-tasapaino, kun \(V/C = 2/3\)):
+      </p>
+      \[E[\text{voitto}] = 2 + \frac{2}{3} - \frac{2}{3} - 3 \cdot \frac{1}{9} = 2 - \frac{1}{3} = \frac{5}{3} \approx 1.67\]
+    </div>
+
+    <h3>3.5 Odotettu voitto populaatiota vastaan</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Kelpoisuus odotettuna voittona</span>
+      <p>
+        Evoluutiopeliteoriassa strategian <strong>kelpoisuus</strong> on sen odotettu voitto
+        pelattaessa nykyistä populaatiota vastaan. Jos populaation tila on
+        \(\mathbf{y} = (y_1, \ldots, y_n)\) (kunkin strategian osuus populaatiossa),
+        niin puhtaan strategian \(i\) kelpoisuus on:
+      </p>
+      \[f_i(\mathbf{y}) = (A\mathbf{y})_i = \sum_{j=1}^{n} a_{ij} \, y_j\]
+      <p>
+        Ja populaation <strong>keskimääräinen kelpoisuus</strong> on:
+      </p>
+      \[\bar{f}(\mathbf{y}) = \mathbf{y}^\top A \mathbf{y} = \sum_{i} \sum_{j} y_i \, y_j \, a_{ij}\]
+      <p>
+        Moduulin 4 replikaattoriyhtälö käyttää täsmälleen tätä:
+        \(\dot{y}_i = y_i \big( f_i(\mathbf{y}) - \bar{f}(\mathbf{y}) \big)\).
+      </p>
+    </div>
+
+    <h3>3.6 Funktion odotusarvo</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Tiedostamattoman tilastotieteilijän laki (LOTUS)</span>
+      <p>
+        Jos \(X\) on diskreetti satunnaismuuttuja ja \(g\) on mikä tahansa funktio, niin:
+      </p>
+      \[E[g(X)] = \sum_{i} g(x_i) \, p(x_i)\]
+      <p>
+        Tämän avulla voimme laskea muunnetun muuttujan odotusarvon suoraan alkuperäisestä
+        jakaumasta ilman, että meidän tarvitsee ensin löytää jakauma muuttujalle \(g(X)\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Epälineaarinen voitto</span>
+      <p>
+        Oletetaan, että julkishyödykepelin hyöty \(X\):n yhteistyöpelaajan ryhmässä, jonka
+        koko on 5, on \(g(X) = \sqrt{X}\) (pienenevät tuotot). Kun yhteistyön todennäköisyys
+        \(p = 0.4\):
+      </p>
+      \[E[\sqrt{X}] = \sum_{k=0}^{5} \sqrt{k} \cdot \binom{5}{k} (0.4)^k (0.6)^{5-k}\]
+      \[= \sqrt{0} \cdot 0.07776 + \sqrt{1} \cdot 0.2592 + \sqrt{2} \cdot 0.3456 + \sqrt{3} \cdot 0.2304 + \sqrt{4} \cdot 0.0768 + \sqrt{5} \cdot 0.01024\]
+      \[\approx 0 + 0.2592 + 0.4886 + 0.3991 + 0.1536 + 0.0229 = 1.3234\]
+      <p>
+        Huomaa, että tämä on <em>pienempi kuin</em> \(\sqrt{E[X]} = \sqrt{2} \approx 1.414\),
+        mikä havainnollistaa Jensenin epäyhtälöä konkaaveille funktioille.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 4: VARIANCE AND STANDARD DEVIATION                   -->
+  <!-- ============================================================ -->
+  <div class="section" id="variance-std">
+    <h2>4. Varianssi ja keskihajonta</h2>
+
+    <p>
+      Kun odotusarvo kertoo jakauman "keskikohdan", varianssi mittaa arvojen hajontaa.
+      Strategisissa vuorovaikutuksissa varianssi kuvaa strategiaan liittyvää
+      <strong>riskiä</strong>.
+    </p>
+
+    <h3>4.1 Määritelmät</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Varianssi</span>
+      <p>
+        Satunnaismuuttujan \(X\) <strong>varianssi</strong> on:
+      </p>
+      \[\text{Var}(X) = E\big[(X - E[X])^2\big] = \sum_{i} (x_i - \mu)^2 \, p(x_i)\]
+      <p>missä \(\mu = E[X]\).</p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Laskentakaava</span>
+      <p>Vastaava ja usein kätevämpii kaava:</p>
+      \[\text{Var}(X) = E[X^2] - (E[X])^2\]
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Keskihajonta</span>
+      <p>
+        <strong>Keskihajonta</strong> on:
+      </p>
+      \[\sigma_X = \sqrt{\text{Var}(X)}\]
+      <p>
+        Sillä on samat yksiköt kuin \(X\):llä, mikä tekee siitä varianssia helpommin
+        tulkittavan.
+      </p>
+    </div>
+
+    <h3>4.2 Varianssin ominaisuudet</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Varianssin ominaisuudet</span>
+      <ol>
+        <li>\(\text{Var}(aX + b) = a^2 \, \text{Var}(X)\) (vakiot siirtävät odotusarvoa, mutta skaalaus neliöityy)</li>
+        <li>Jos \(X\) ja \(Y\) ovat <strong>riippumattomia</strong>:
+          \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\)</li>
+        <li>\(\text{Var}(X) \geq 0\), ja yhtäsuuruus pätee jos ja vain jos \(X\) on vakio.</li>
+      </ol>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Sekastrategian voiton varianssi</span>
+      <p>
+        Pelissä strategian A pelaaminen tuottaa voiton 5 todennäköisyydellä 0,5 ja voiton 1
+        todennäköisyydellä 0,5. Strategian B pelaaminen tuottaa voiton 3 varmasti.
+      </p>
+      <p>Molemmilla strategioilla on sama odotettu voitto:</p>
+      \[E[A] = 5 \times 0.5 + 1 \times 0.5 = 3, \qquad E[B] = 3\]
+      <p>Mutta niiden varianssit eroavat:</p>
+      \[\text{Var}(A) = (5-3)^2 \times 0.5 + (1-3)^2 \times 0.5 = 4 \times 0.5 + 4 \times 0.5 = 4\]
+      \[\text{Var}(B) = 0\]
+      <p>
+        Strategia A on <strong>riskialttiimpi</strong>. Riskiä karttava pelaaja saattaa suosia
+        strategiaa B, vaikka odotusarvot ovat samat. Äärellisissä populaatioissa (toisin kuin
+        äärettömän populaation EGT-malleissa) varianssilla on merkitystä, koska useat peräkkäiset
+        alhaiset voitot voivat johtaa sukupuuttoon.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Riski evoluutiodynamiikassa</span>
+      <p>
+        Äärettömän populaation malleissa (tavallinen replikaattoridynamiikka) vain odotetulla
+        kelpoisuudella on merkitystä. Mutta <strong>äärellisissä populaatioissa</strong> (esim.
+        Moranin prosessi, Wright-Fisher-mallit) varianssilla on ratkaiseva rooli. Strategia,
+        jolla on korkea odotettu voitto mutta korkea varianssi, voi silti kuolla sukupuuttoon
+        satunnaisvaihteluiden vuoksi &mdash; ilmiö tunnetaan nimellä
+        <strong>stokastinen sukupuutto</strong>. Tämän vuoksi varianssin ymmärtäminen on tärkeää
+        myös evoluutiopeliteoriassa.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 5: CONDITIONAL EXPECTATION & BAYES                   -->
+  <!-- ============================================================ -->
+  <div class="section" id="conditional-expectation">
+    <h2>5. Ehdollinen odotusarvo ja Bayesin lause</h2>
+
+    <h3>5.1 Ehdollinen odotusarvo</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Ehdollinen odotusarvo</span>
+      <p>
+        Satunnaismuuttujan \(X\) <strong>ehdollinen odotusarvo</strong> ehdolla \(Y = y\) on:
+      </p>
+      \[E[X \mid Y = y] = \sum_{x} x \, P(X = x \mid Y = y)\]
+      <p>
+        Se on muuttujan \(X\) odotusarvo laskettuna käyttäen muuttujan \(X\) ehdollista
+        jakaumaa ehdolla \(Y = y\).
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Kokonaisodotusarvon laki</span>
+      <p>
+        Mille tahansa satunnaismuuttujille \(X\) ja \(Y\):
+      </p>
+      \[E[X] = \sum_{y} E[X \mid Y = y] \, P(Y = y) = E\big[E[X \mid Y]\big]\]
+      <p>
+        Kokonaisodotusarvo on ehdollisten odotusarvojen painotettu keskiarvo.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Voitto vastustajan tyypin mukaan</span>
+      <p>
+        Voittosi riippuu siitä, onko vastustajasi Haukka (todennäköisyys 0,4) vai Kyyhky
+        (todennäköisyys 0,6). Haukkaa vastaan odotettu voittosi on 1. Kyyhkyä vastaan odotettu
+        voittosi on 4. Mikä on kokonaisodotettu voittosi?
+      </p>
+      \[E[\text{voitto}] = E[\text{voitto} \mid \text{Haukka}] \cdot P(\text{Haukka}) + E[\text{voitto} \mid \text{Kyyhky}] \cdot P(\text{Kyyhky})\]
+      \[= 1 \times 0.4 + 4 \times 0.6 = 0.4 + 2.4 = 2.8\]
+    </div>
+
+    <h3>5.2 Bayesin lause</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Bayesin lause</span>
+      <p>
+        Tapahtumille \(A\) ja \(B\), kun \(P(B) > 0\):
+      </p>
+      \[P(A \mid B) = \frac{P(B \mid A) \, P(A)}{P(B)}\]
+      <p>
+        Yleisemmin, jos \(\{A_1, A_2, \ldots, A_k\}\) muodostavat otosavaruuden osituksen:
+      </p>
+      \[P(A_i \mid B) = \frac{P(B \mid A_i) \, P(A_i)}{\sum_{j=1}^{k} P(B \mid A_j) \, P(A_j)}\]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Bayesilaiset pelit</span>
+      <p>
+        Bayesin lause on <strong>bayesilaisten pelien</strong> (epätäydellisen informaation pelien)
+        perusta. Tällaisissa peleissä pelaajat eivät tiedä vastustajansa "tyyppiä", mutta voivat
+        muodostaa uskomuksia ja päivittää niitä havaittujen toimintojen perusteella. Juuri tämän
+        Bayesin lause tekee: se muuntaa <em>prioriuskomukset</em> \(P(A)\) <em>posterioriuskomuksiksi</em>
+        \(P(A \mid B)\) todisteen \(B\) havaitsemisen jälkeen.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Strategian päättely käyttäytymisestä</span>
+      <p>
+        Populaatiossa 70 % pelaajista käyttää Tit-for-Tat-strategiaa (TFT) ja 30 %
+        Aina-Petos-strategiaa (AD). Tietyllä kierroksella TFT tekee yhteistyötä
+        todennäköisyydellä 0,8 (he tekevät yhteistyötä, jos vastustaja teki yhteistyötä
+        edellisellä kierroksella), kun taas AD tekee yhteistyötä todennäköisyydellä 0.
+        Havaitset vastustajasi tekevän yhteistyötä. Mikä on posterioritodennäköisyys, että
+        hän käyttää TFT:tä?
+      </p>
+      \[P(\text{TFT} \mid \text{Yht.}) = \frac{P(\text{Yht.} \mid \text{TFT}) \, P(\text{TFT})}{P(\text{Yht.})}\]
+      \[P(\text{Yht.}) = 0.8 \times 0.7 + 0 \times 0.3 = 0.56\]
+      \[P(\text{TFT} \mid \text{Yht.}) = \frac{0.8 \times 0.7}{0.56} = \frac{0.56}{0.56} = 1\]
+      <p>
+        Koska AD <em>ei koskaan</em> tee yhteistyötä, yhteistyön havaitseminen antaa varmuuden
+        siitä, että vastustaja käyttää TFT:tä. Tämä havainnollistaa, miten käyttäytyminen voi
+        paljastaa tyypin täydellisesti, kun strategioilla on päällekkäisyydettömät toimintaprofiilit.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 6: LAW OF LARGE NUMBERS                              -->
+  <!-- ============================================================ -->
+  <div class="section" id="law-large-numbers">
+    <h2>6. Suurten lukujen laki</h2>
+
+    <p>
+      Suurten lukujen laki (SLL) on yksi todennäköisyysteorian tärkeimmistä tuloksista, ja
+      se tarjoaa teoreettisen perustelun odotusarvojen käytölle populaatioiden pitkän aikavälin
+      käyttäytymisen mallintamisessa.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Heikko suurten lukujen laki</span>
+      <p>
+        Olkoot \(X_1, X_2, \ldots, X_n\) riippumattomia ja samoin jakautuneita (i.i.d.)
+        satunnaismuuttujia, joiden odotusarvo on \(\mu = E[X_i]\). <strong>Otoskeskiarvo</strong>
+        \(\overline{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i\) suppenee todennäköisyydessä
+        kohti \(\mu\):a:
+      </p>
+      \[\overline{X}_n \xrightarrow{P} \mu \quad \text{kun } n \to \infty\]
+      <p>
+        Täsmällisesti, kaikille \(\varepsilon > 0\):
+      </p>
+      \[\lim_{n \to \infty} P\!\left( |\overline{X}_n - \mu| > \varepsilon \right) = 0\]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Miksi SLL oikeuttaa replikaattoriyhtälön</span>
+      <p>
+        Replikaattoriyhtälö mallintaa strategiadynamiikkaa <strong>äärettömissä
+        populaatioissa</strong> käyttäen odotettua kelpoisuutta. Miksi tämä on perusteltua?
+        Koska suurten lukujen laki takaa, että riittävän suuressa populaatiossa strategian
+        <em>todellinen keskimääräinen voitto</em> suppenee kohti sen <em>odotettua voittoa</em>.
+        Satunnaisuus tasoittuu, ja deterministinen dynamiikka syntyy.
+      </p>
+      <p>
+        Tarkemmin sanottuna, jos strategiaa \(i\) frekvenssillä \(y_i\) pelaa \(N y_i\)
+        yksilöä, joista kukin ansaitsee satunnaisia voittoja odotusarvolla \(f_i\), niin
+        SLL:n nojalla heidän keskimääräinen voittonsa suppenee kohti \(f_i\):tä, kun
+        \(N \to \infty\). Tämän vuoksi voimme kirjoittaa replikaattoriyhtälön
+        \(\dot{y}_i = y_i(f_i - \bar{f})\) <em>deterministisenä</em> ODE:na, vaikka
+        taustalla olevat vuorovaikutukset ovat satunnaisia.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Keskimääräisen voiton suppeneminen</span>
+      <p>
+        Yhteistyöpelaajan voitto per kierros on satunnaismuuttuja, jonka \(\mu = 2.5\) ja
+        \(\sigma = 1.5\). \(n = 100\) kierroksen jälkeen otoskeskiarvovoitto toteuttaa:
+      </p>
+      \[E[\overline{X}_{100}] = 2.5, \qquad \text{Var}(\overline{X}_{100}) = \frac{1.5^2}{100} = 0.0225\]
+      \[\sigma_{\overline{X}_{100}} = 0.15\]
+      <p>
+        Keskiarvon keskihajonta on pienentynyt 1,5:stä 0,15:een &mdash; keskimääräinen voitto
+        on nyt tiukasti keskittynyt odotusarvon ympärille. \(n = 10\,000\) kierroksen jälkeen
+        \(\sigma_{\overline{X}} = 0.015\). Suppeneminen tapahtuu nopeudella \(1/\sqrt{n}\).
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Huomautus &mdash; Äärelliset vs. äärettömät populaatiot</span>
+      <p>
+        SLL kertoo meille, että deterministiset mallit (replikaattoridynamiikka) ovat hyviä
+        approksimaatioita, kun populaatiokoot ovat suuria. <strong>Pienissä
+        populaatioissa</strong> satunnaisuus ei tasoitu, ja tarvitsemme stokastisia malleja
+        (Moranin prosessi, stokastiset differentiaaliyhtälöt). Näiden alueiden välinen ero on
+        merkittävä tutkimusalue evoluutiopeliteoriassa.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 7: CONNECTING TO GAME THEORY                        -->
+  <!-- ============================================================ -->
+  <div class="section" id="connecting-game-theory">
+    <h2>7. Yhteys peliteoriaan</h2>
+
+    <p>
+      Kootaan yhteen kaikki todennäköisyyskäsitteet ja näytetään täsmälleen, miten ne
+      muodostavat peliteorian ja evoluutiodynamiikan matemaattisen selkärangan.
+    </p>
+
+    <h3>7.1 Sekastrategia todennäköisyysjakaumana</h3>
+
+    <p>
+      Sekastrategia ei ole muuta kuin todennäköisyysjakauma puhtaiden strategioiden yli.
+      Tämä tarkoittaa, että kaikki todennäköisyydestä oppimamme pätee suoraan.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Sekastrategioiden simpleksi</span>
+      <p>
+        Pelaajalle, jolla on \(n\) puhdasta strategiaa, kaikkien sekastrategioiden joukko on
+        <strong>todennäköisyyssimpleksi</strong>:
+      </p>
+      \[\Delta_n = \left\{ \mathbf{x} \in \mathbb{R}^n \;\Big|\; x_i \geq 0 \text{ kaikille } i, \;\; \sum_{i=1}^{n} x_i = 1 \right\}\]
+      <p>
+        Jokainen piste joukossa \(\Delta_n\) on kelvollinen todennäköisyysjakauma ja siten
+        kelvollinen sekastrategia.
+      </p>
+    </div>
+
+    <h3>7.2 Odotetun voiton kaava kokonaisuudessaan</h3>
+
+    <p>
+      Tarkastellaan symmetristä kahden pelaajan peliä voittomatriisilla
+      \(A \in \mathbb{R}^{n \times n}\). Tiivistämme keskeiset odotetun voiton laskelmat:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Yhteenveto &mdash; Odotetun voiton kaavat</span>
+      <ol>
+        <li><strong>Puhdas vs. puhdas:</strong> Strategia \(i\) strategiaa \(j\) vastaan tuottaa voiton \(a_{ij}\).</li>
+        <li><strong>Puhdas vs. seka:</strong> Strategia \(i\) sekastrategiaa \(\mathbf{y}\) vastaan tuottaa odotetun voiton:
+          \[f_i(\mathbf{y}) = (A\mathbf{y})_i = \sum_{j=1}^{n} a_{ij} \, y_j\]
+        </li>
+        <li><strong>Seka vs. seka:</strong> Sekastrategia \(\mathbf{x}\) strategiaa \(\mathbf{y}\) vastaan tuottaa:
+          \[E[\text{voitto}] = \mathbf{x}^\top A \mathbf{y} = \sum_{i=1}^{n} x_i \, f_i(\mathbf{y}) = \sum_{i=1}^{n} \sum_{j=1}^{n} x_i \, a_{ij} \, y_j\]
+        </li>
+        <li><strong>Populaation keskimääräinen kelpoisuus:</strong> Kun populaation tila on \(\mathbf{y}\):
+          \[\bar{f} = \mathbf{y}^\top A \mathbf{y}\]
+        </li>
+      </ol>
+    </div>
+
+    <h3>7.3 Täydellinen laskettu esimerkki: Vangin dilemma</h3>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Odotetut voitot vangin dilemmassa</span>
+      <p>
+        Tarkastellaan vangin dilemmaa voittomatriisilla (rivipelaajan voitot):
+      </p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Yhteistyö</th>
+          <th>Petos</th>
+        </tr>
+        <tr>
+          <td class="row-header">Yhteistyö</td>
+          <td>3</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td class="row-header">Petos</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+      </table>
+      <p>Siis \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\).</p>
+
+      <p>
+        Pelaaja 1 tekee yhteistyötä todennäköisyydellä \(x\) ja pelaaja 2 tekee yhteistyötä
+        todennäköisyydellä \(y\). Tällöin \(\mathbf{x} = (x, 1-x)^\top\),
+        \(\mathbf{y} = (y, 1-y)^\top\).
+      </p>
+
+      <p><strong>Vaihe 1:</strong> Lasketaan \(A\mathbf{y}\) (kunkin puhtaan strategian kelpoisuus strategiaa \(\mathbf{y}\) vastaan):</p>
+      \[
+      A\mathbf{y} = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix} \begin{pmatrix} y \\ 1-y \end{pmatrix}
+      = \begin{pmatrix} 3y \\ 5y + (1-y) \end{pmatrix}
+      = \begin{pmatrix} 3y \\ 1 + 4y \end{pmatrix}
+      \]
+      <ul>
+        <li>Yhteistyön kelpoisuus: \(f_C = 3y\)</li>
+        <li>Petoksen kelpoisuus: \(f_D = 1 + 4y\)</li>
+      </ul>
+
+      <p><strong>Vaihe 2:</strong> Havaitaan, että \(f_D > f_C\) kaikille \(y \in [0,1]\):</p>
+      \[f_D - f_C = 1 + 4y - 3y = 1 + y > 0\]
+      <p>
+        Petoksella on aina korkeampi odotettu kelpoisuus &mdash; se on <strong>dominoiva
+        strategia</strong>. Tämä on vangin dilemman perusjännite.
+      </p>
+
+      <p><strong>Vaihe 3:</strong> Lasketaan odotettu voitto sekastrategialle:</p>
+      \[E[\text{voitto}] = \mathbf{x}^\top A \mathbf{y} = x \cdot 3y + (1-x)(1 + 4y)\]
+      \[= 3xy + 1 + 4y - x - 4xy = 1 + 4y - x - xy\]
+
+      <p><strong>Vaihe 4:</strong> Populaation keskimääräinen kelpoisuus, kun yhteistyöpelaajien osuus on \(y\):</p>
+      \[\bar{f} = \mathbf{y}^\top A \mathbf{y} = y \cdot 3y + (1-y)(1 + 4y) = 3y^2 + 1 + 4y - y - 4y^2 = 1 + 3y - y^2\]
+
+      <p>
+        Kun \(y = 0\) (kaikki pettäjiä): \(\bar{f} = 1\). Kun \(y = 1\) (kaikki
+        yhteistyöpelaajia): \(\bar{f} = 3\). Paradoksi: kaikilla menee paremmin, kun kaikki
+        tekevät yhteistyötä, mutta yksilövalinta ajaa populaation kohti täydellistä petosta.
+      </p>
+    </div>
+
+    <h3>7.4 Indifferenssi ja Nash-tasapaino</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Indifferenssiperiaate</span>
+      <p>
+        <strong>Täydellisesti sekoitetussa Nash-tasapainossa</strong> kunkin pelaajan tulee olla
+        <em>indifferentti</em> kaikkien positiivisella todennäköisyydellä pelattavien strategioiden
+        suhteen. Toisin sanoen, jos pelaaja 2 pelaa strategiaa \(\mathbf{y}^*\), niin kaikille
+        strategioille \(i\) pelaajan 1 tasapainosekoituksen kannattimessa:
+      </p>
+      \[f_i(\mathbf{y}^*) = f_j(\mathbf{y}^*) \quad \text{kaikille } i, j \text{ kannattimessa}\]
+      <p>
+        Tämä ehto seuraa suoraan odotetun voiton laskelmista: jos yhdellä strategialla olisi
+        aidosti korkeampi odotettu voitto, rationaalinen pelaaja siirtäisi kaiken
+        todennäköisyyden sille.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Seka-Nash-tasapainon löytäminen</span>
+      <p>
+        Tarkastellaan symmetristä peliä voittomatriisilla:
+      </p>
+      \[A = \begin{pmatrix} 2 & 0 \\ 3 & 1 \end{pmatrix}\]
+      <p>
+        (Tämä on Haukka-Kyyhky-pelin muunnelma.) Etsitään sekatasapaino
+        \(\mathbf{y}^* = (y^*, 1-y^*)^\top\) asettamalla molempien strategioiden kelpoisuudet
+        yhtä suuriksi:
+      </p>
+      \[f_1 = f_2 \implies 2y^* + 0(1-y^*) = 3y^* + 1(1-y^*)\]
+      \[2y^* = 3y^* + 1 - y^* = 2y^* + 1\]
+      \[0 = 1\]
+      <p>
+        Ratkaisua ei ole! Tämä tarkoittaa, että pelillä ei ole täydellisesti sekoitettua
+        Nash-tasapainoa. Strategia 2 dominoi strategiaa 1 (koska \(3 > 2\) ja \(1 > 0\)),
+        joten ainoa Nash-tasapaino on puhdas strategia \(\mathbf{y}^* = (0, 1)^\top\).
+      </p>
+      <p>
+        Tämä esimerkki havainnollistaa, miten odotetun voiton laskelmat voivat paljastaa,
+        onko sekatasapaino olemassa.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Haukka-Kyyhky-pelin sekatasapaino (uudelleen)</span>
+      <p>Haukka-Kyyhky-pelille, jossa \(V = 4, C = 6\):</p>
+      \[A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\]
+      <p>Asetetaan \(f_H = f_D\):</p>
+      \[-y + 4(1-y) = 0 \cdot y + 2(1-y)\]
+      \[4 - 5y = 2 - 2y \implies 2 = 3y \implies y^* = \frac{2}{3}\]
+      <p>
+        Seka-Nash-tasapainossa kukin pelaaja (tai populaatio) pelaa Haukkaa todennäköisyydellä
+        \(2/3\) ja Kyyhkyä todennäköisyydellä \(1/3\). Tämä on myös evoluutionaarisesti vakaa
+        tila replikaattoridynamiikan alla.
+      </p>
+    </div>
+
+    <h3>7.5 Odotetusta voitosta replikaattoridynamiikkaan</h3>
+
+    <div class="note-box">
+      <span class="box-title">Silta moduuliin 7</span>
+      <p>
+        Kaikki yhdistyy <strong>replikaattoriyhtälössä</strong>. Tämän moduulin merkinnöillä:
+      </p>
+      \[\dot{y}_i = y_i \Big( \underbrace{(A\mathbf{y})_i}_{\text{strategian } i \text{ kelpoisuus}} - \underbrace{\mathbf{y}^\top A \mathbf{y}}_{\text{keskimääräinen kelpoisuus}} \Big)\]
+      <p>
+        Jokainen termi tässä yhtälössä on odotusarvo. Kelpoisuus \((A\mathbf{y})_i\) on
+        strategian \(i\) odotettu voitto populaatiota vastaan. Keskimääräinen kelpoisuus
+        \(\mathbf{y}^\top A \mathbf{y}\) on satunnaisesti valitun yksilön odotettu voitto.
+        Strategia \(i\) kasvaa, kun sen odotettu voitto ylittää populaation keskiarvon &mdash;
+        periaate, joka perustuu kokonaan kehittämäämme todennäköisyysteoriaan.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 8: INTERACTIVE VISUALIZATION                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive-viz">
+    <h2>Interaktiivinen: Binomijakauman tutkija</h2>
+
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Binomijakauman tutkija</h3>
+      <p>Tutki, miten binomijakauma muuttuu parametrien n (kokeiden lukumäärä) ja p (onnistumistodennäköisyys) mukaan. Napsauta "Simuloi" nähdäksesi 1000 satunnaiskokeen tulokset päällekkäin.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>n (kokeet):</label>
+          <input type="range" id="prob-n" min="1" max="50" value="10" step="1">
+          <span class="control-value" id="prob-n-val">10</span>
+        </div>
+        <div class="control-group">
+          <label>p (todennäköisyys):</label>
+          <input type="range" id="prob-p" min="0.01" max="0.99" value="0.5" step="0.01">
+          <span class="control-value" id="prob-p-val">0.50</span>
+        </div>
+        <button class="btn btn-accent" id="prob-roll">Simuloi 1000 toistoa</button>
+      </div>
+      <canvas id="prob-canvas" class="viz-canvas" width="600" height="350"></canvas>
+    </div>
+
+    <p>
+      <strong>Kokeiltavaa:</strong>
+    </p>
+    <ul>
+      <li>Aseta \(p = 0.5\) ja kasvata \(n\):ää. Huomaa, miten jakauma muuttuu symmetrisemmäksi
+        ja kellomaisen muotoiseksi (lähestyen normaalijakaumaa).</li>
+      <li>Aseta \(n = 20\) ja vaihtele \(p\):tä. Kun \(p\) on pieni, jakauma on oikealle vino;
+        kun \(p\) on suuri, se on vasemmalle vino.</li>
+      <li>Napsauta "Simuloi 1000 toistoa" nähdäksesi, miten empiiriset frekvenssit (todellisista
+        satunnaiskokeista) vertautuvat teoreettiseen pistetodennäköisyysfunktioon. Tämä on suurten
+        lukujen laki toiminnassa.</li>
+      <li>Ajattele \(n\):ää ryhmäkokona ja \(p\):tä yhteistyöpelaajien osuutena. Jakauma näyttää,
+        kuinka monta yhteistyöpelaajaa odottaisit löytäväsi satunnaisesti valitusta ryhmästä.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  SECTION 9: EXERCISES                                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>Harjoitukset</h2>
+
+    <!-- Exercise 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 1: Todennäköisyyden perusteet</div>
+      <p>
+        Hyvin sekoittuneessa populaatiossa 50 % pelaa Kiveä, 30 % pelaa Paperia ja 20 % pelaa Saksia.
+      </p>
+      <ol type="a">
+        <li>Mikä on todennäköisyys kohdata Kivi- tai Paperi-pelaaja?</li>
+        <li>Mikä on todennäköisyys, ettei kohtaa Saksi-pelaajaa?</li>
+        <li>Ovatko tapahtumat "kohtaa Kiven" ja "kohtaa Paperin" toisensa poissulkevia? Riippumattomia?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Koska Kivi ja Paperi ovat toisensa poissulkevia:</p>
+          \[P(\text{Kivi} \cup \text{Paperi}) = P(\text{Kivi}) + P(\text{Paperi}) = 0.5 + 0.3 = 0.8\]
+          <p><strong>(b)</strong> Komplementtisäännön nojalla:</p>
+          \[P(\text{ei Saksia}) = 1 - P(\text{Sakset}) = 1 - 0.2 = 0.8\]
+          <p>
+            Huomaa, että tämä on sama kuin kohdan (a) tulos, koska "ei Saksia" = "Kivi tai Paperi".
+          </p>
+          <p>
+            <strong>(c)</strong> Ne ovat <strong>toisensa poissulkevia</strong> (et voi kohdata
+            Kiveä ja Paperia samanaikaisesti yhdessä kohtaamisessa, joten
+            \(P(R \cap P) = 0\)).
+          </p>
+          <p>
+            Ne <strong>eivät ole riippumattomia</strong>. Jos ne olisivat riippumattomia, tarvittaisiin
+            \(P(R \cap P) = P(R) \cdot P(P) = 0.5 \times 0.3 = 0.15\). Mutta
+            \(P(R \cap P) = 0 \neq 0.15\). Itse asiassa toisensa poissulkevat tapahtumat,
+            joiden todennäköisyys on positiivinen, eivät <em>koskaan</em> ole riippumattomia.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 2: Binomijakauma</div>
+      <p>
+        Ryhmässä, jossa on \(n = 8\) pelaajaa populaatiosta, jossa 25 % on yhteistyöpelaajia:
+      </p>
+      <ol type="a">
+        <li>Mikä on todennäköisyys, että täsmälleen 3 on yhteistyöpelaajia?</li>
+        <li>Mikä on yhteistyöpelaajien odotettu lukumäärä?</li>
+        <li>Mikä on yhteistyöpelaajien lukumäärän varianssi?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Merkitään \(X \sim \text{Binomial}(8, 0.25)\).</p>
+          <p><strong>(a)</strong></p>
+          \[P(X = 3) = \binom{8}{3} (0.25)^3 (0.75)^5 = 56 \times 0.015625 \times 0.2373 \approx 0.2076\]
+          <p><strong>(b)</strong></p>
+          \[E[X] = np = 8 \times 0.25 = 2\]
+          <p><strong>(c)</strong></p>
+          \[\text{Var}(X) = np(1-p) = 8 \times 0.25 \times 0.75 = 1.5\]
+          <p>Joten \(\sigma = \sqrt{1.5} \approx 1.22\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 3: Odotetun voiton laskeminen</div>
+      <p>
+        Tarkastellaan peliä voittomatriisilla:
+      </p>
+      \[A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}\]
+      <p>
+        Pelaaja 1 pelaa strategiaa 1 todennäköisyydellä \(x = 0.6\) ja pelaaja 2 pelaa
+        strategiaa 1 todennäköisyydellä \(y = 0.3\).
+      </p>
+      <ol type="a">
+        <li>Laske kunkin puhtaan strategian kelpoisuus pelaajan 2 sekoitusta vastaan.</li>
+        <li>Laske \(E[\text{voitto}] = \mathbf{x}^\top A \mathbf{y}\).</li>
+        <li>Onko pelaajan 1 sekoitus paras vastaus pelaajan 2 sekoitukseen?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(\mathbf{y} = (0.3, 0.7)^\top\).</p>
+          \[f_1 = 4(0.3) + 1(0.7) = 1.2 + 0.7 = 1.9\]
+          \[f_2 = 2(0.3) + 3(0.7) = 0.6 + 2.1 = 2.7\]
+
+          <p><strong>(b)</strong> \(\mathbf{x} = (0.6, 0.4)^\top\).</p>
+          \[E[\text{voitto}] = 0.6 \times 1.9 + 0.4 \times 2.7 = 1.14 + 1.08 = 2.22\]
+          <p>Vastaavasti: \(\mathbf{x}^\top A \mathbf{y} = 2.22\).</p>
+
+          <p>
+            <strong>(c)</strong> Ei. Koska \(f_2 = 2.7 > f_1 = 1.9\), strategialla 2 on aidosti
+            korkeampi odotettu voitto. Paras vastaus on puhdas strategia \(\mathbf{x} = (0, 1)^\top\),
+            joka tuottaisi voiton 2,7. Pelaajan 1 nykyinen sekoitus \((0.6, 0.4)\) ei ole paras
+            vastaus, koska se antaa positiivisen painon heikommalle strategialle.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 4: Sekatasapainon löytäminen</div>
+      <p>
+        Pelille:
+      </p>
+      \[A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\]
+      <p>
+        (Vangin dilemma) Osoita, ettei täydellisesti sekoitettua Nash-tasapainoa ole olemassa
+        yrittämällä indifferenssiehtoa.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            Asetetaan \(f_C = f_D\), missä \(\mathbf{y} = (y, 1-y)^\top\):
+          </p>
+          \[f_C = 3y + 0(1-y) = 3y\]
+          \[f_D = 5y + 1(1-y) = 4y + 1\]
+          \[3y = 4y + 1 \implies -y = 1 \implies y = -1\]
+          <p>
+            Koska \(y = -1 \notin [0, 1]\), kelvollista sekatasapainoa ei ole. Ainoa
+            Nash-tasapaino on molemminpuolinen petos (\(y = 0\)), jossa molemmat pelaajat
+            pettävät. Tämä vahvistaa, että Petos on dominoiva strategia:
+            \(f_D - f_C = y + 1 > 0\) kaikille \(y \geq 0\).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 5: Bayesin lauseen soveltaminen</div>
+      <p>
+        Populaatio koostuu 40 % Haukoista ja 60 % Kyyhkyistä. Kierroksella Haukat eskaloivat
+        (taistelevat) todennäköisyydellä 0,9 ja esittäytyvät (bluffaavat) todennäköisyydellä 0,1.
+        Kyyhkyt eskaloivat todennäköisyydellä 0,1 ja esittäytyvät todennäköisyydellä 0,9.
+      </p>
+      <ol type="a">
+        <li>Havaitset vastustajasi eskaloivan. Mikä on posterioritodennäköisyys, että hän on Haukka?</li>
+        <li>Havaitset vastustajasi esittäytyvän. Mikä on posterioritodennäköisyys, että hän on Kyyhky?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Merkitään \(H\) = Haukka, \(E\) = eskalointi.</p>
+          \[P(E) = P(E \mid H)P(H) + P(E \mid D)P(D) = 0.9 \times 0.4 + 0.1 \times 0.6 = 0.36 + 0.06 = 0.42\]
+          \[P(H \mid E) = \frac{P(E \mid H)P(H)}{P(E)} = \frac{0.36}{0.42} = \frac{6}{7} \approx 0.857\]
+
+          <p><strong>(b)</strong> Merkitään \(D\) = Kyyhky, \(Disp\) = esittäytyminen.</p>
+          \[P(Disp) = P(Disp \mid H)P(H) + P(Disp \mid D)P(D) = 0.1 \times 0.4 + 0.9 \times 0.6 = 0.04 + 0.54 = 0.58\]
+          \[P(D \mid Disp) = \frac{P(Disp \mid D)P(D)}{P(Disp)} = \frac{0.54}{0.58} = \frac{27}{29} \approx 0.931\]
+
+          <p>
+            Eskaloinnin havaitseminen viittaa vahvasti Haukkaan (86 %), ja esittäytymisen
+            havaitseminen viittaa vahvasti Kyyhkyyn (93 %). Epäsymmetria johtuu siitä, että
+            priori jo suosii Kyyhkyjä, joten esittäytyminen on vielä vahvempi indikaattori.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 6: Varianssi ja riski</div>
+      <p>
+        Kahdella strategialla evoluutioympäristössä on seuraavat voittojakaumat:
+      </p>
+      <ul>
+        <li>Strategia A: voitto 10 todennäköisyydellä 0,5, voitto 0 todennäköisyydellä 0,5.</li>
+        <li>Strategia B: voitto 6 todennäköisyydellä 0,8, voitto 2 todennäköisyydellä 0,2.</li>
+      </ul>
+      <ol type="a">
+        <li>Laske \(E[A]\), \(E[B]\), \(\text{Var}(A)\) ja \(\text{Var}(B)\).</li>
+        <li>Kumpi strategia dominoisi äärettömän populaation replikaattorimallissa?</li>
+        <li>Kumpi strategia saattaisi olla suositumpi pienessä populaatiossa? Miksi?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          \[E[A] = 10(0.5) + 0(0.5) = 5\]
+          \[E[B] = 6(0.8) + 2(0.2) = 4.8 + 0.4 = 5.2\]
+          \[\text{Var}(A) = (10-5)^2(0.5) + (0-5)^2(0.5) = 25(0.5) + 25(0.5) = 25\]
+          \[\text{Var}(B) = (6-5.2)^2(0.8) + (2-5.2)^2(0.2) = 0.512 + 2.048 = 2.56\]
+
+          <p>
+            <strong>(b)</strong> Äärettömän populaation replikaattorimallissa vain odotetulla
+            kelpoisuudella on merkitystä. Strategian B odotusarvo \(E[B] = 5.2 > E[A] = 5\),
+            joten B dominoisi ja A ajetaisiin sukupuuttoon.
+          </p>
+
+          <p>
+            <strong>(c)</strong> Pienessä populaatiossa strategia B saattaisi olla vielä
+            vahvemmin suosittu. Sen alhainen varianssi (\(\text{Var}(B) = 2.56\) vs.
+            \(\text{Var}(A) = 25\)) tarkoittaa, että se tuottaa johdonmukaisia voittoja.
+            Strategian A korkea varianssi tarkoittaa, että A-pelaajat saavat joskus 0, mikä
+            pienessä populaatiossa voi johtaa paikalliseen sukupuuttoon huonon tuurin jakson
+            seurauksena, jopa tilanteissa, joissa A:n odotusarvo olisi hieman korkeampi.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7: Suurten lukujen laki</div>
+      <p>
+        Strategian voitot ovat i.i.d.-jakautuneita odotusarvolla 3 ja keskihajonnalla 2. Kuinka monta
+        kierrosta \(n\) tarvitaan, jotta otoskeskiarvovoiton keskihajonta on alle 0,1?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Otoskeskiarvon keskihajonta on:</p>
+          \[\sigma_{\overline{X}_n} = \frac{\sigma}{\sqrt{n}} = \frac{2}{\sqrt{n}}\]
+          <p>Tarvitsemme:</p>
+          \[\frac{2}{\sqrt{n}} < 0.1 \implies \sqrt{n} > 20 \implies n > 400\]
+          <p>
+            Tarvitaan siis vähintään \(n = 401\) kierrosta. Tämä havainnollistaa
+            \(1/\sqrt{n}\)-suppenemisnopeutta: epävarmuuden pienentämiseksi 10-kertaisesti
+            tarvitaan 100-kertaisesti enemmän havaintoja.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 8 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8: Populaation kelpoisuus</div>
+      <p>
+        Haukka-Kyyhky-pelille, jossa \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\)
+        ja populaation tila \(\mathbf{y} = (y, 1-y)^\top\):
+      </p>
+      <ol type="a">
+        <li>Kirjoita kelpoisuudet \(f_H(y)\) ja \(f_D(y)\) muuttujan \(y\) funktioina.</li>
+        <li>Kirjoita populaation keskimääräinen kelpoisuus \(\bar{f}(y) = \mathbf{y}^\top A \mathbf{y}\).</li>
+        <li>Kirjoita replikaattoriyhtälö \(\dot{y} = y(f_H - \bar{f})\) ja varmista, että
+            \(y^* = 2/3\) on kiintopiste.</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          \[f_H = -1 \cdot y + 4(1-y) = 4 - 5y\]
+          \[f_D = 0 \cdot y + 2(1-y) = 2 - 2y\]
+
+          <p><strong>(b)</strong></p>
+          \[\bar{f} = y \cdot f_H + (1-y) \cdot f_D = y(4-5y) + (1-y)(2-2y)\]
+          \[= 4y - 5y^2 + 2 - 2y - 2y + 2y^2 = 2 - 3y^2\]
+
+          <p>
+            (Vaihtoehtoisesti \(\bar{f} = \mathbf{y}^\top A \mathbf{y}\) suoraan laajennettuna antaa saman tuloksen.)
+          </p>
+
+          <p><strong>(c)</strong> Haukkojen replikaattoriyhtälö:</p>
+          \[\dot{y} = y(f_H - \bar{f}) = y\big((4-5y) - (2-3y^2+\text{...})\big)\]
+          <p>Käytetään yksinkertaisempaa muotoa. Koska strategioita on vain kaksi:</p>
+          \[\dot{y} = y(1-y)(f_H - f_D)\]
+          \[f_H - f_D = (4-5y) - (2-2y) = 2 - 3y\]
+          \[\dot{y} = y(1-y)(2-3y)\]
+          <p>
+            Kiintopisteet: \(y = 0\), \(y = 1\) ja \(2 - 3y = 0 \implies y^* = 2/3\).
+          </p>
+          <p>
+            Kohdassa \(y^* = 2/3\): \(\dot{y} = \frac{2}{3} \cdot \frac{1}{3} \cdot (2 - 2) = 0\).
+            Vahvistettu kiintopisteeksi.
+          </p>
+          <p>
+            Stabiilisuus: Kun \(y < 2/3\), on \(2 - 3y > 0\), joten \(\dot{y} > 0\) (Haukkojen osuus kasvaa).
+            Kun \(y > 2/3\), \(\dot{y} < 0\) (Haukkojen osuus vähenee). Siksi \(y^* = 2/3\) on
+            <strong>asymptoottisesti stabiili</strong> &mdash; se on ESS.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module4.html">&larr; Moduuli 4: Differentiaaliyhtälöt</a>
+    <a href="module6.html">Moduuli 6: Peliteoria &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Sisältö kattaa matemaattiset perusteet EGT:n sovelluksiin yhteiskuntatieteissä.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

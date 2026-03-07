@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matematiikkaa evoluutiopeliteoriaan</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .prereq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .prereq-item {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .prereq-item .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .prereq-item h4 { margin: 0.5rem 0 0.25rem; font-size: 0.95rem; }
+    .prereq-item p { font-size: 0.85rem; color: #666; margin: 0; }
+    .roadmap { margin: 2rem 0; }
+    .roadmap-phase {
+      display: flex;
+      align-items: stretch;
+      margin-bottom: 0.5rem;
+    }
+    .phase-marker {
+      width: 120px;
+      flex-shrink: 0;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px 0 0 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    .phase-modules {
+      flex: 1;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: #f8f9fa;
+      border-radius: 0 8px 8px 0;
+      flex-wrap: wrap;
+    }
+    .phase-modules a {
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .phase-modules a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Math → EGT</a>
+    <button class="hamburger" aria-label="Valikko">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Etusivu</a></li>
+      <li><a href="modules/module1.html">1. Perusteet</a></li>
+      <li><a href="modules/module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="modules/module3.html">3. Analyysi</a></li>
+      <li><a href="modules/module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="modules/module5.html">5. Todennäköisyys</a></li>
+      <li><a href="modules/module6.html">6. Peliteoria</a></li>
+      <li><a href="modules/module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="modules/module8.html">8. Sovellukset</a></li>
+      <li><a href="modules/module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="modules/module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Matematiikkaa evoluutiopeliteoriaan</h1>
+  <p class="subtitle">
+    Kattava kurssi matemaattisista perusteista evoluutiopeliteoriaan,
+    replikaattoridynamiikkaan, sosiaalisiin arvo-orientaatioihin ja Ostromin institutionaaliseen analyysiin.
+  </p>
+  <a href="modules/module1.html" class="cta-btn">Aloita oppiminen →</a>
+</section>
+
+<div class="container">
+
+  <!-- Miksi tämä kurssi -->
+  <div class="section">
+    <h2>Miksi tämä kurssi?</h2>
+    <p>
+      Evoluutiopeliteoria (EGT) ja replikaattoridynamiikka ovat tehokkaita viitekehyksiä sen ymmärtämiseen,
+      miten strategiat kehittyvät populaatioissa — biologisista organismeista inhimillisiin instituutioihin. Nämä
+      viitekehykset vaativat kuitenkin matemaattisia työkaluja, joita ei aina opeteta yhdessä paikassa.
+    </p>
+    <p>
+      Tämä kurssi on suunniteltu tutkijoille ja opiskelijoille, jotka ovat kiinnostuneita <strong>sosiaalisista arvo-orientaatioista</strong>
+      ja <strong>Elinor Ostromin institutionaalisesta analyysistä</strong> ja haluavat rakentaa matemaattisen
+      osaamisen, jota evoluutiopeliteorian syvällinen ymmärtäminen edellyttää. Aloitamme aivan perusteista ja
+      rakennamme järjestelmällisesti kohti yhteistyön, instituutioiden ja sosiaalisen dynamiikan matematiikkaa.
+    </p>
+    <div class="prereq-grid">
+      <div class="prereq-item">
+        <div class="icon">📐</div>
+        <h4>Ei esitietoja</h4>
+        <p>Aloitamme perusalgerbasta ja rakennamme siitä</p>
+      </div>
+      <div class="prereq-item">
+        <div class="icon">🔬</div>
+        <h4>Interaktiivinen</h4>
+        <p>Jokaisessa moduulissa on käytännön simulaatioita</p>
+      </div>
+      <div class="prereq-item">
+        <div class="icon">🎯</div>
+        <h4>Tavoitteellinen</h4>
+        <p>Jokainen aihe liittyy EGT-sovelluksiin</p>
+      </div>
+      <div class="prereq-item">
+        <div class="icon">🏗️</div>
+        <h4>Soveltava</h4>
+        <p>Huipentuu SVO- ja Ostrom-analyysiin</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Oppimisen tiekartta -->
+  <div class="section">
+    <h2>Oppimisen tiekartta</h2>
+    <p>Kurssi on rakennettu kolmeen vaiheeseen. Jokainen moduuli rakentuu edellisten päälle.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-phase">
+        <div class="phase-marker">Vaihe 1<br>Perusteet</div>
+        <div class="phase-modules">
+          <a href="modules/module1.html">1. Matemaattiset perusteet</a>
+          <a href="modules/module2.html">2. Lineaarialgebra</a>
+          <a href="modules/module3.html">3. Analyysi</a>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-marker">Vaihe 2<br>Ydintyökalut</div>
+        <div class="phase-modules">
+          <a href="modules/module4.html">4. Differentiaaliyhtälöt</a>
+          <a href="modules/module5.html">5. Todennäköisyys</a>
+          <a href="modules/module6.html">6. Peliteoria</a>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-marker">Vaihe 3<br>Synteesi</div>
+        <div class="phase-modules">
+          <a href="modules/module7.html">7. EGT ja replikaattoridynamiikka</a>
+          <a href="modules/module8.html">8. SVO, Ostrom ja instituutiot</a>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-marker">Vaihe 4<br>Rajapinnat</div>
+        <div class="phase-modules">
+          <a href="modules/module9.html">9. Digitaaliset yhteisresurssit ja antikilpailevuus</a>
+          <a href="modules/module10.html">10. Antikilpailevuus (jatko)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moduulikortit -->
+  <div class="section">
+    <h2>Kurssin moduulit</h2>
+
+    <div class="module-grid">
+
+      <a href="modules/module1.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 1</div>
+          <div class="card-title">Matemaattiset perusteet</div>
+          <div class="card-desc">
+            Luvut, muuttujat, yhtälöt, funktiot ja kuvaajat — rakennuspalikat kaikelle seuraavalle.
+          </div>
+          <div class="card-topics">
+            <span>Algebra</span><span>Funktiot</span><span>Kuvaajat</span><span>Merkintätavat</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module2.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 2</div>
+          <div class="card-title">Vektorit, matriisit ja lineaarialgebra</div>
+          <div class="card-desc">
+            Tuottomatriisien, strategiaavaruuksien ja muunnosten matematiikka. Peliteorian välttämätön työkalu.
+          </div>
+          <div class="card-topics">
+            <span>Vektorit</span><span>Matriisit</span><span>Ominaisarvot</span><span>Yhtälöryhmät</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module3.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 3</div>
+          <div class="card-title">Analyysi: muutosnopeudet</div>
+          <div class="card-desc">
+            Derivaatat ja integraalit — miten asiat muuttuvat ajan myötä. Dynamiikan ja optimoinnin kieli.
+          </div>
+          <div class="card-topics">
+            <span>Derivaatat</span><span>Integraalit</span><span>Optimointi</span><span>Muutos</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module4.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 4</div>
+          <div class="card-title">Differentiaaliyhtälöt ja dynaamiset järjestelmät</div>
+          <div class="card-desc">
+            Miten järjestelmät kehittyvät ajan myötä. Kiintopisteet, stabiilisuus ja vaihemuotokuvat — replikaattoridynamiikan viitekehys.
+          </div>
+          <div class="card-topics">
+            <span>ODY:t</span><span>Kiintopisteet</span><span>Stabiilisuus</span><span>Vaiheavaruus</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module5.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 5</div>
+          <div class="card-title">Todennäköisyys ja odotusarvo</div>
+          <div class="card-desc">
+            Satunnaisuus, jakaumat ja odotetut tulokset — välttämättömiä sekastrategioille ja stokastisille malleille.
+          </div>
+          <div class="card-topics">
+            <span>Todennäköisyys</span><span>Jakaumat</span><span>Odotusarvo</span><span>Varianssi</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module6.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 6</div>
+          <div class="card-title">Peliteorian perusteet</div>
+          <div class="card-desc">
+            Strateginen vuorovaikutus: tuottomatriisit, Nash-tasapaino, dominoivat strategiat ja sosiaalisia dilemmoja mallintavat pelit.
+          </div>
+          <div class="card-topics">
+            <span>Nash-tasap.</span><span>Dominanssi</span><span>Sekastrategiat</span><span>Dilemmat</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module7.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 7</div>
+          <div class="card-title">Evoluutiopeliteoria ja replikaattoridynamiikka</div>
+          <div class="card-desc">
+            Kurssin ydinkohde: ESS, kelpoisuusmaisemat, replikaattoriyhtälö ja strategiapopulaatioiden kehitys.
+          </div>
+          <div class="card-topics">
+            <span>ESS</span><span>Replikaattoriyht.</span><span>Kelpoisuus</span><span>Simpleksi</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module8.html" class="module-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 8</div>
+          <div class="card-title">Sovellukset: SVO, Ostrom ja instituutiot</div>
+          <div class="card-desc">
+            Matematiikan yhdistäminen sosiaalisiin arvo-orientaatioihin, yhteisvarantoresursseihin ja institutionaaliseen analyysiin.
+          </div>
+          <div class="card-topics">
+            <span>SVO</span><span>YVR</span><span>Ostrom</span><span>Instituutiot</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module9.html" class="module-card">
+        <div class="card-accent" style="background:#16a085"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 9</div>
+          <div class="card-title">Digitaaliset yhteisresurssit, tietoyhteisresurssit ja antikilpailevuus</div>
+          <div class="card-desc">
+            Miten EGT-mallit soveltuvat avoimen lähdekoodin ohjelmistoihin, Wikipediaan ja tietoyhteisresursseihin, joissa resurssi on ei-kilpaileva — tai jopa antikilpaileva.
+          </div>
+          <div class="card-topics">
+            <span>Avoin lähdekoodi</span><span>Antikilpailevuus</span><span>Verkostovaikutukset</span><span>Tietoyhteisresurssit</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="modules/module10.html" class="module-card">
+        <div class="card-accent" style="background:#16a085"></div>
+        <div class="card-body">
+          <div class="card-number">Moduuli 10</div>
+          <div class="card-title">Antikilpailevuus digitaalisissa yhteisresursseissa (jatko)</div>
+          <div class="card-desc">
+            Antikilpailevuuden paradoksi: kun resurssin arvo kasvaa käytön myötä, se kuluttaa kilpailevia täydentäviä resurssejaan — huomiota, hallintoa ja infrastruktuuria.
+          </div>
+          <div class="card-topics">
+            <span>Kytketyt järjestelmät</span><span>Hallintaloukku</span><span>Antiyhteisresurssit</span><span>Federaatio</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Yhteydet -->
+  <div class="section">
+    <h2>Miten matematiikka kytkeytyy</h2>
+    <p>Näin kukin matemaattinen aihe palvelee evoluutiopeliteoriaa ja institutionaalista analyysiä:</p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th style="width:30%">Matemaattinen työkalu</th>
+        <th>Käyttö EGT:ssä / institutionaalisessa analyysissä...</th>
+      </tr>
+      <tr>
+        <td><strong>Funktiot ja algebra</strong></td>
+        <td>Tuottofunktioiden, kelpoisuusfunktioiden ja hyötyfunktioiden ilmaiseminen</td>
+      </tr>
+      <tr>
+        <td><strong>Matriisit</strong></td>
+        <td>Tuottomatriisit, siirtymämatriisit, strategiavuorovaikutustaulukot</td>
+      </tr>
+      <tr>
+        <td><strong>Ominaisarvot</strong></td>
+        <td>Tasapainotilojen stabiilisuusanalyysi, kiintopisteiden luokittelu</td>
+      </tr>
+      <tr>
+        <td><strong>Derivaatat</strong></td>
+        <td>Strategiafrekvenssien muutosnopeus, optimointiehdot</td>
+      </tr>
+      <tr>
+        <td><strong>Differentiaaliyhtälöt</strong></td>
+        <td>Replikaattoriyhtälö itsessään, populaatiodynamiikan mallit</td>
+      </tr>
+      <tr>
+        <td><strong>Kiintopisteet ja stabiilisuus</strong></td>
+        <td>Tasapainostrategiasekoitusten löytäminen ja niiden stabiilisuuden (ESS) määrittäminen</td>
+      </tr>
+      <tr>
+        <td><strong>Todennäköisyys</strong></td>
+        <td>Sekastrategiat, stokastinen dynamiikka, äärelliset populaatiot</td>
+      </tr>
+      <tr>
+        <td><strong>Odotusarvo</strong></td>
+        <td>Keskimääräisen kelpoisuuden/tuoton laskeminen sekastrategioissa</td>
+      </tr>
+      <tr>
+        <td><strong>Ei-kilpailevuus ja antikilpailevuus</strong></td>
+        <td>Digitaalisten yhteisresurssien dynamiikka, verkostovaikutukset, arvon kasvu käytön myötä tietoyhteisresursseissa</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Suositeltua lisälukemista -->
+  <div class="section">
+    <h2>Suositeltua lisälukemista</h2>
+    <ul>
+      <li><strong>Nowak, M.A.</strong> (2006). <em>Evolutionary Dynamics: Exploring the Equations of Life</em>. Harvard University Press.</li>
+      <li><strong>Hofbauer, J. & Sigmund, K.</strong> (1998). <em>Evolutionary Games and Population Dynamics</em>. Cambridge University Press.</li>
+      <li><strong>Ostrom, E.</strong> (1990). <em>Governing the Commons: The Evolution of Institutions for Collective Action</em>. Cambridge University Press.</li>
+      <li><strong>Ostrom, E.</strong> (2005). <em>Understanding Institutional Diversity</em>. Princeton University Press.</li>
+      <li><strong>Murphy, R.O. & Ackermann, K.A.</strong> (2014). Social Value Orientation: Theoretical and measurement issues. <em>Personality and Individual Differences</em>, 69, 187-192.</li>
+      <li><strong>Sandholm, W.H.</strong> (2010). <em>Population Games and Evolutionary Dynamics</em>. MIT Press.</li>
+      <li><strong>Maynard Smith, J.</strong> (1982). <em>Evolution and the Theory of Games</em>. Cambridge University Press.</li>
+      <li><strong>Hess, C. & Ostrom, E.</strong> (2007). <em>Understanding Knowledge as a Commons</em>. MIT Press.</li>
+      <li><strong>Benkler, Y.</strong> (2006). <em>The Wealth of Networks: How Social Production Transforms Markets and Freedom</em>. Yale University Press.</li>
+      <li><strong>Weber, S.</strong> (2004). <em>The Success of Open Source</em>. Harvard University Press.</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan — Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Sisältö kattaa matemaattiset perusteet ja EGT-sovellukset yhteiskuntatieteissä.
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 1: Matemaattiset perusteet | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html" class="active">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 1</div>
+    <h1>Matemaattiset perusteet</h1>
+    <p class="module-desc">Matemaattisen päättelyn rakennuspalikat evoluutiopeliteoriaa varten</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="module-nav-strip">
+    <span></span>
+    <a href="module2.html">Moduuli 2: Lineaarialgebra &rarr;</a>
+  </div>
+
+  <div class="toc">
+      <h3>Sisällysluettelo</h3>
+      <ol>
+          <li><a href="#numbers">Luvut ja lukujärjestelmät</a></li>
+          <li><a href="#variables">Muuttujat ja lausekkeet</a></li>
+          <li><a href="#equations">Yhtälöt ja epäyhtälöt</a></li>
+          <li><a href="#functions">Funktiot</a></li>
+          <li><a href="#graphs">Kuvaajat ja koordinaatistot</a></li>
+          <li><a href="#summation">Summa- ja tulomerkintä</a></li>
+          <li><a href="#sets">Joukot ja joukko-oppi</a></li>
+          <li><a href="#interactive">Interaktiivinen: Funktiotutkija</a></li>
+          <li><a href="#exercises">Harjoitukset</a></li>
+      </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: Numbers and Number Systems                        -->
+  <!-- ============================================================ -->
+  <div class="section" id="numbers">
+      <h2>1. Luvut ja lukujärjestelmät</h2>
+
+      <p>Ennen kuin voimme analysoida kehittyvien populaatioiden strategioita, meidän on tunnettava matemaattisissa malleissa esiintyvät erilaiset lukutyypit. Kukin lukujärjestelmä keksittiin (tai löydettiin, riippuen filosofiastasi) ratkaisemaan ongelmia, joita edellinen järjestelmä ei kyennyt käsittelemään. Evoluutiopeliteoriassa kaikilla näillä lukujärjestelmillä on olennainen rooli.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Luonnolliset luvut</strong> ovat lukumäärien ilmaisemiseen käytettäviä lukuja:</p>
+          \[ \mathbb{N} = \{0, 1, 2, 3, 4, \ldots\} \]
+          <p>(Jotkut kirjoittajat jättävät luvun 0 pois; tässä kurssissa se sisällytetään.)</p>
+      </div>
+
+      <p>Luonnolliset luvut ovat intuitiivisimpia: niillä lasketaan erillisiä asioita. Peliteoriassa niitä käytetään laskemaan <em>pelaajia</em>, <em>kierroksia</em>, <em>strategioita</em> ja <em>populaatioita</em>. Jos pelissä on \( n \) pelaajaa, joista kukin valitsee \( k \) mahdollisesta strategiasta, sekä \( n \) että \( k \) ovat luonnollisia lukuja.</p>
+
+      <p>Luonnollisilla luvuilla on kuitenkin rajoitus: vähennyslasku ei aina onnistu. Mikä on \( 3 - 5 \)? Tämän käsittelemiseksi laajennamme kokonaislukuihin.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Kokonaisluvut</strong> sisältävät kaikki luonnolliset luvut ja niiden vastaluvut:</p>
+          \[ \mathbb{Z} = \{\ldots, -3, -2, -1, 0, 1, 2, 3, \ldots\} \]
+      </div>
+
+      <p>Peliteoriassa voitot voivat olla negatiivisia. Tarkastellaan vangin dilemmaa: pelaaja, joka tekee yhteistyötä toisen pelatessa pettäjää, saattaa saada voiton \( -1 \) (tappio), kun taas molemminpuolinen yhteistyö tuottaa \( +3 \). Kokonaisluvuilla voimme esittää voittoja ja tappioita.</p>
+
+      <p>Kokonaisluvuillakin on kuitenkin rajoitus: jakolasku ei aina mene tasan. Mikä on \( 1 \div 3 \)? Tätä varten tarvitsemme rationaalilukuja.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Rationaaliluvut</strong> ovat kaikki luvut, jotka voidaan esittää murtolukuna \( \frac{p}{q} \), missä \( p \in \mathbb{Z} \) ja \( q \in \mathbb{Z} \), ja \( q \neq 0 \):</p>
+          \[ \mathbb{Q} = \left\{ \frac{p}{q} \;\middle|\; p, q \in \mathbb{Z},\ q \neq 0 \right\} \]
+      </div>
+
+      <p>Rationaalilukuja esiintyy peliteoriassa jatkuvasti. Kun sanomme, että pelaaja käyttää <strong>sekastrategiaa</strong> pelaten strategiaa A todennäköisyydellä \( \frac{1}{3} \) ja strategiaa B todennäköisyydellä \( \frac{2}{3} \), nämä murtoluvut ovat rationaalilukuja. Keskimääräiset voitot, odotusarvot ja populaatio-osuudet ovat tyypillisesti rationaalilukuja.</p>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>60 organismin populaatiossa 20 pelaa strategiaa "Haukka" ja 40 strategiaa "Kyyhky". Haukkojen osuus on:</p>
+          \[ \frac{20}{60} = \frac{1}{3} \approx 0.333\ldots \]
+          <p>Tämä on rationaaliluku. Sillä on jaksollinen desimaaliketju, mikä on rationaalilukujen tunnusmerkki.</p>
+      </div>
+
+      <p>Rationaaliluvutkaan eivät kuitenkaan riitä. Rationaalilukujen lukusuoralla on "aukkoja". Lukua \( \sqrt{2} \) ei esimerkiksi voida kirjoittaa minkään murtoluvun muodossa (tämän todistivat muinaiset kreikkalaiset, ja sen kerrotaan aiheuttaneen filosofisen kriisin pythagoralaisten koulukunnassa). Näiden aukkojen täyttämiseksi tarvitsemme reaalilukuja.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Reaaliluvut</strong> \( \mathbb{R} \) sisältävät kaikki rationaaliluvut ja kaikki irrationaaliluvut (luvut, joita ei voi esittää murtolukuina). Reaaliluvut muodostavat <em>täydellisen</em>, <em>järjestetyn</em> kunnan, ja ne voidaan havainnollistaa äärettömän lukusuoran jokaisena pisteenä.</p>
+      </div>
+
+      <p>Tärkeitä irrationaalilukuja, jotka esiintyvät usein työssämme:</p>
+      <ul>
+          <li>\( \sqrt{2} \approx 1.41421\ldots \) &mdash; esiintyy geometrisissa ja optimointikonteksteissa</li>
+          <li>\( \pi \approx 3.14159\ldots \) &mdash; ympyrän kehän suhde halkaisijaan; esiintyy jaksollisissa ilmiöissä ja trigonometrisissa funktioissa</li>
+          <li>\( e \approx 2.71828\ldots \) &mdash; <strong>Eulerin luku</strong>, luonnollisen logaritmin kantaluku. Tämä on kiistatta evoluutiodynamiikan tärkein vakio, sillä se hallitsee eksponentiaalista kasvua ja logistista yhtälöä.</li>
+      </ul>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p>Evoluutiopeliteoriassa <strong>tiettyä strategiaa pelaavan populaation osuus</strong> on reaaliluku väliltä 0–1. Kahden strategian populaation tila voidaan kuvata yhdellä reaaliluvulla \( x \in [0, 1] \), strategiaa A pelaavien osuudella, jolloin \( 1 - x \) pelaa strategiaa B. <strong>Replikaattoriyhtälö</strong> &mdash; EGT:n keskeinen dynaaminen yhtälö &mdash; on määritelty reaalilukujen yli. Evoluutio ei hyppää rationaalisten murtolukujen välillä; se virtaa jatkuvasti reaalilukujen läpi.</p>
+      </div>
+
+      <div class="intuition-box">
+          <span class="box-title">Intuitio</span>
+          <p>Ajattele lukujärjestelmiä sisäkkäisinä:</p>
+          \[ \mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \]
+          <p>Kukin laajennus ratkaisee ongelman, jota edellinen järjestelmä ei pystynyt käsittelemään: vähennyslasku, jakolasku ja raja-arvot (jonojen suppeneminen). EGT:ssä työskentelemme tyypillisesti avaruudessa \( \mathbb{R} \), koska populaatiodynamiikkaa mallinnetaan jatkuvina prosesseina.</p>
+      </div>
+
+      <h3>Reaalilukujen välit</h3>
+
+      <p>Koska osuudet ja todennäköisyydet ovat aina välillä 0–1, meidän on usein kuvattava joukon \( \mathbb{R} \) osajoukkoja. Yleisin tapa on <strong>välimerkintä</strong>:</p>
+
+      <ul>
+          <li><strong>Suljettu väli:</strong> \( [a, b] = \{ x \in \mathbb{R} \mid a \leq x \leq b \} \) &mdash; sisältää molemmat päätepisteet</li>
+          <li><strong>Avoin väli:</strong> \( (a, b) = \{ x \in \mathbb{R} \mid a < x < b \} \) &mdash; ei sisällä kumpaakaan päätepistettä</li>
+          <li><strong>Puoliavoimet välit:</strong> \( [a, b) \) tai \( (a, b] \) &mdash; sisältää yhden päätepisteen muttei toista</li>
+          <li><strong>Rajoittamattomat välit:</strong> \( [a, \infty) = \{ x \in \mathbb{R} \mid x \geq a \} \), \( (-\infty, b] \) jne.</li>
+      </ul>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Todennäköisyyden on oltava välillä \( [0, 1] \). Myös populaatio-osuus kuuluu välille \( [0, 1] \). Simpleksin sisäosa (jossa kaikki strategiat ovat läsnä nollasta poikkeavalla osuudella) käyttää avointa väliä \( (0, 1) \). Aika dynaamisessa järjestelmässä kuuluu tyypillisesti välille \( [0, \infty) \).</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Variables and Expressions                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="variables">
+      <h2>2. Muuttujat ja lausekkeet</h2>
+
+      <p>Matematiikka saa voimansa <strong>abstraktiosta</strong>: sen sijaan, että sanoisimme "jos 30 sadasta organismista pelaa Haukkaa", kirjoitamme "olkoon \( x \) Haukkojen osuus". Tämä ainoa siirto &mdash; tietyn luvun korvaaminen kirjaimella &mdash; antaa meidän johtaa tuloksia, jotka pätevät <em>mille tahansa</em> \( x \):n arvolle, eivät vain arvolle \( x = 0.3 \).</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Muuttuja</strong> on symboli (tyypillisesti kirjain), joka edustaa suuretta, joka voi saada eri arvoja. <strong>Vakio</strong> on symboli, jonka arvo on kiinteä. <strong>Algebrallinen lauseke</strong> on yhdistelmä muuttujia, vakioita ja operaatioita (yhteenlasku, vähennyslasku, kertolasku, jakolasku, potenssiinkorotus).</p>
+      </div>
+
+      <h3>Yleiset muuttujakäytännöt EGT:ssä</h3>
+
+      <p>Tällä kurssilla törmäät tiettyihin kirjaimiin, joita käytetään johdonmukaisesti:</p>
+
+      <table class="styled-table">
+          <thead>
+              <tr>
+                  <th>Muuttuja</th>
+                  <th>Tyypillinen merkitys</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr><td>\( x, y, z \)</td><td>Populaatio-osuudet (strategiaa käyttävän populaation osuudet)</td></tr>
+              <tr><td>\( n \)</td><td>Pelaajien lukumäärä tai populaation koko</td></tr>
+              <tr><td>\( t \)</td><td>Aika</td></tr>
+              <tr><td>\( p, q \)</td><td>Todennäköisyydet tai sekastrategian komponentit</td></tr>
+              <tr><td>\( a, b, c, d \)</td><td>Voittoarvot pelimatriisissa</td></tr>
+              <tr><td>\( \pi \) (tai \( u \))</td><td>Voittofunktio (ei luku 3,14...)</td></tr>
+              <tr><td>\( f \) tai \( w \)</td><td>Kelpoisuus</td></tr>
+              <tr><td>\( \dot{x} \)</td><td>Suureen \( x \) muutosnopeus ajan suhteen</td></tr>
+          </tbody>
+      </table>
+
+      <h3>Lausekkeiden muodostaminen</h3>
+
+      <p>Algebrallinen lauseke rakennetaan muuttujista ja vakioista perusoperaatioiden avulla. Tässä on lausekkeita kasvavan monimutkaisuuden mukaan:</p>
+
+      <ul>
+          <li><strong>Lineaarinen:</strong> \( 3x + 2 \) &mdash; yksinkertaisimmat epätriviaalit lausekkeet, jotka sisältävät vain kertolaskun vakiolla ja yhteenlaskun.</li>
+          <li><strong>Neliöllinen:</strong> \( x^2 - 4x + 3 \) &mdash; sisältää neliötermin.</li>
+          <li><strong>Rationaalinen:</strong> \( \dfrac{x}{1 + x} \) &mdash; kahden lausekkeen suhde. Näitä esiintyy keskimääräisten voittojen laskennassa.</li>
+          <li><strong>Eksponentiaalinen:</strong> \( e^{-2t} \) &mdash; lauseke, jossa muuttuja on eksponentissa. Nämä mallintavat kasvua ja vaimenemista.</li>
+      </ul>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Haukka-Kyyhky-pelissä Haukat saavat voiton \( \frac{V - C}{2} \) toisia Haukkoja vastaan ja \( V \) Kyyhkyjä vastaan, kun taas Kyyhkyt saavat \( 0 \) Haukkoja vastaan ja \( \frac{V}{2} \) Kyyhkyjä vastaan. Jos Haukkojen osuus populaatiossa on \( x \), Haukan odotettu voitto on:</p>
+          \[ \pi_H(x) = x \cdot \frac{V - C}{2} + (1 - x) \cdot V \]
+          <p>Tämä on algebrallinen lauseke muuttujassa \( x \), vakioilla \( V \) (resurssin arvo) ja \( C \) (taistelun kustannus). Sieventämällä:</p>
+          \[ \pi_H(x) = \frac{(V - C)x}{2} + V - Vx = V - Vx + \frac{Vx - Cx}{2} = V - \frac{Vx}{2} - \frac{Cx}{2} \]
+          \[ = V - \frac{(V + C)x}{2} \]
+          <p>Tämä on <em>lineaarinen</em> lauseke muuttujassa \( x \): Haukkojen osuuden kasvaessa kunkin Haukan voitto pienenee (koska Haukat taistelevat toisiaan vastaan useammin).</p>
+      </div>
+
+      <h3>Lausekkeiden sieventäminen</h3>
+
+      <p>Keskeiset algebralliset taidot ovat:</p>
+      <ul>
+          <li><strong>Samanlaisten termien yhdistäminen:</strong> \( 3x + 5x = 8x \), \( 2x^2 - x^2 = x^2 \)</li>
+          <li><strong>Osittelulaki:</strong> \( a(b + c) = ab + ac \)</li>
+          <li><strong>Tekijöihin jako:</strong> \( x^2 - 4 = (x - 2)(x + 2) \), \( x^2 + 5x + 6 = (x + 2)(x + 3) \)</li>
+      </ul>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Sievennä lauseke \( x(a - b) + b - x \cdot b + x \cdot b \):</p>
+          \[ x(a - b) + b - xb + xb = xa - xb + b - xb + xb = xa - xb + b \]
+          \[ = xa + b(1 - x) \]
+          <p>Tämä muoto paljastaa rakenteen: se on voitto \( a \) painotettuna osuudella \( x \) plus voitto \( b \) painotettuna osuudella \( (1 - x) \) &mdash; tarkasti ottaen odotetun voiton laskenta.</p>
+      </div>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p>Jokainen voittofunktio, kelpoisuusfunktio ja dynaaminen yhtälö EGT:ssä on algebrallinen lauseke. Kyky käsitellä näitä lausekkeita &mdash; sieventää, ottaa tekijöihin, laventaa, sijoittaa &mdash; on tämän kurssin tärkein yksittäinen taito. Kun johdamme replikaattoriyhtälön, meidän on otettava odotetun voiton lauseke, vähennettävä keskimääräinen voitto ja kerrottava populaatio-osuudella. Jokainen näistä vaiheista on puhdasta algebraa.</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Equations and Inequalities                        -->
+  <!-- ============================================================ -->
+  <div class="section" id="equations">
+      <h2>3. Yhtälöt ja epäyhtälöt</h2>
+
+      <p>Jos lausekkeet ovat matematiikan substantiiveja, yhtälöt ovat lauseita. <strong>Yhtälö</strong> väittää, että kaksi lauseketta ovat yhtä suuria, ja yhtälön <strong>ratkaiseminen</strong> tarkoittaa niiden muuttujan arvojen löytämistä, jotka tekevät väitteestä toden.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Yhtälö</strong> on muotoa \( \text{lauseke}_1 = \text{lauseke}_2 \) oleva väite. <strong>Ratkaisu</strong> (tai <strong>juuri</strong>) on muuttujan arvo, joka toteuttaa yhtälön.</p>
+      </div>
+
+      <h3>Ensimmäisen asteen yhtälöt</h3>
+
+      <p><strong>Ensimmäisen asteen yhtälö</strong> yhdellä muuttujalla on muotoa \( ax + b = 0 \), missä \( a \neq 0 \). Ratkaisu on suoraviivainen:</p>
+
+      \[ ax + b = 0 \implies ax = -b \implies x = -\frac{b}{a} \]
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Etsi osuus \( x \), jolla Haukkojen ja Kyyhkyjen voitot ovat yhtä suuret. Käyttäen aiempia lausekkeitamme:</p>
+          \[ \pi_H(x) = \pi_D(x) \]
+          \[ V - \frac{(V + C)x}{2} = \frac{V(1 - x)}{2} \]
+          <p>Kerrotaan molemmat puolet kahdella:</p>
+          \[ 2V - (V + C)x = V(1 - x) = V - Vx \]
+          \[ 2V - Vx - Cx = V - Vx \]
+          <p>Termit \( -Vx \) supistuvat:</p>
+          \[ 2V - Cx = V \]
+          \[ -Cx = V - 2V = -V \]
+          \[ x = \frac{V}{C} \]
+          <p>Kun siis \( V < C \) (taistelun kustannus ylittää resurssin arvon), Haukkojen tasapainoosuus on \( x^* = V/C \), joka on aidosti välillä 0 ja 1. Tämä on Haukka-Kyyhky-pelin kuuluisa <strong>sekoitettu ESS</strong>.</p>
+      </div>
+
+      <h3>Lineaariset yhtälöryhmät</h3>
+
+      <p>Kun tuntemattomia on useita, tarvitaan useita yhtälöitä. Kahden yhtälön ryhmä kahdella tuntemattomalla:</p>
+      \[ \begin{cases} a_1 x + b_1 y = c_1 \\ a_2 x + b_2 y = c_2 \end{cases} \]
+
+      <p>Tämä voidaan ratkaista <strong>sijoitusmenetelmällä</strong> (ratkaistaan yksi yhtälö yhden muuttujan suhteen ja sijoitetaan toiseen) tai <strong>eliminointimenetelmällä</strong> (lisätään/vähennetään yhtälöitä muuttujan poistamiseksi). Tutustumme näihin menetelmiin paljon yksityiskohtaisemmin moduulissa 2 (Lineaarialgebra), jossa käsittelemme mielivaltaisen kokoisia yhtälöryhmiä matriisien avulla.</p>
+
+      <h3>Toisen asteen yhtälöt</h3>
+
+      <p><strong>Toisen asteen yhtälöllä</strong> on muoto \( ax^2 + bx + c = 0 \), missä \( a \neq 0 \). Toisin kuin ensimmäisen asteen yhtälöillä, näillä voi olla 0, 1 tai 2 reaalista ratkaisua.</p>
+
+      <div class="theorem-box">
+          <span class="box-title">Lause</span>
+          <p><strong>Toisen asteen yhtälön ratkaisukaava.</strong> Yhtälön \( ax^2 + bx + c = 0 \) ratkaisut ovat:</p>
+          \[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
+          <p>Suuretta \( \Delta = b^2 - 4ac \) kutsutaan <strong>diskriminantiksi</strong>:</p>
+          <ul>
+              <li>Jos \( \Delta > 0 \): kaksi erillistä reaalista ratkaisua</li>
+              <li>Jos \( \Delta = 0 \): tasan yksi reaalinen ratkaisu (kaksoisjuuri)</li>
+              <li>Jos \( \Delta < 0 \): ei reaalisia ratkaisuja (kaksi kompleksikonjugaattiratkaisua)</li>
+          </ul>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Ratkaise \( x^2 - 5x + 6 = 0 \).</p>
+          <p>Tässä \( a = 1 \), \( b = -5 \), \( c = 6 \). Diskriminantti on:</p>
+          \[ \Delta = (-5)^2 - 4(1)(6) = 25 - 24 = 1 > 0 \]
+          <p>Reaalisia ratkaisuja on siis kaksi:</p>
+          \[ x = \frac{5 \pm \sqrt{1}}{2} = \frac{5 \pm 1}{2} \]
+          \[ x = 3 \quad \text{tai} \quad x = 2 \]
+          <p>Voimme varmistaa tekijöihin jaolla: \( x^2 - 5x + 6 = (x - 2)(x - 3) \).</p>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Pelissä voittofunktio on \( \pi(x) = -2x^2 + 3x - 1 \). Etsi strategiaosuudet, joilla voitto on nolla:</p>
+          \[ -2x^2 + 3x - 1 = 0 \]
+          <p>Kerrotaan luvulla \( -1 \): \( 2x^2 - 3x + 1 = 0 \).</p>
+          \[ x = \frac{3 \pm \sqrt{9 - 8}}{4} = \frac{3 \pm 1}{4} \]
+          \[ x = 1 \quad \text{tai} \quad x = \frac{1}{2} \]
+          <p>Molemmat ratkaisut kuuluvat välille \( [0, 1] \), joten molemmat ovat kelvollisia populaatio-osuuksia.</p>
+      </div>
+
+      <h3>Epäyhtälöt</h3>
+
+      <p><strong>Epäyhtälö</strong> käyttää merkkejä \( < \), \( > \), \( \leq \) tai \( \geq \) merkin \( = \) sijasta. Epäyhtälöiden ratkaiseminen noudattaa samoja algebrallisia sääntöjä kuin yhtälöiden, yhtä kriittistä eroa lukuun ottamatta:</p>
+
+      <div class="theorem-box">
+          <span class="box-title">Lause</span>
+          <p><strong>Epäyhtälön molempien puolien kertominen tai jakaminen negatiivisella luvulla kääntää epäyhtälön suunnan.</strong></p>
+          <p>Esimerkiksi jos \( -2x > 6 \), jakaminen luvulla \( -2 \) antaa \( x < -3 \).</p>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Milloin strategian A voitto on <em>suurempi</em> kuin strategian B? Oletetaan \( \pi_A(x) = 3 - 2x \) ja \( \pi_B(x) = 1 + x \). Tarvitsemme:</p>
+          \[ \pi_A(x) > \pi_B(x) \]
+          \[ 3 - 2x > 1 + x \]
+          \[ 2 > 3x \]
+          \[ x < \frac{2}{3} \]
+          <p>Strategia A siis päihittää strategian B aina, kun populaatio-osuus \( x \) on alle \( \frac{2}{3} \). Juuri tällaista epäyhtälöanalyysiä käytämme evoluutiodynamiikan suunnan määrittämiseen: suuremman voiton strategian yleisyys kasvaa.</p>
+      </div>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p><strong>Tasapainon</strong> löytäminen pelissä tarkoittaa yhtälön ratkaisemista: asetetaan voitot yhtä suuriksi tai muutosnopeus nollaksi. Tasapainon <strong>stabiiliuden</strong> määrittäminen tarkoittaa epäyhtälön ratkaisemista: työntääkö pieni häiriö järjestelmää takaisin kohti tasapainoa vai pois siitä? Yhtälöiden (tasapainojen etsiminen) ja epäyhtälöiden (stabiiliuden tarkistaminen) vuorovaikutus on evoluutiopeliteorian sydän.</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Functions                                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="functions">
+      <h2>4. Funktiot</h2>
+
+      <p>Funktio on matemaattinen tapa ilmaista deterministinen riippuvuus: annetulle syötteelle on olemassa tasan yksi tuloste. Funktiot ovat ensisijainen kieli kuvaamaan, miten voitot riippuvat strategioista, miten kelpoisuus riippuu populaation koostumuksesta ja miten populaatiot muuttuvat ajan myötä.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Funktio</strong> \( f \) joukosta \( A \) joukkoon \( B \), merkitään \( f : A \to B \), on sääntö, joka liittää jokaiseen alkioon \( x \in A \) tasan yhden alkion \( f(x) \in B \). Joukkoa \( A \) kutsutaan <strong>määrittelyjoukoksi</strong>, ja joukkoa \( B \) <strong>maalijoukoksi</strong>. <strong>Arvojoukko</strong> (tai kuva) on kaikkien todellisten tulosarvojen joukko: \( \{ f(x) \mid x \in A \} \subseteq B \).</p>
+      </div>
+
+      <div class="intuition-box">
+          <span class="box-title">Intuitio</span>
+          <p>Ajattele funktiota koneena: syötät sille syötteen, se tekee jotain deterministisesti ja tuottaa tulosteen. Ratkaiseva vaatimus on, että <em>sama syöte tuottaa aina saman tulosteen</em>. Voittofunktio \( \pi(x) \) ottaa populaation tilan \( x \) ja palauttaa luvun: voiton. Eri tilat voivat tuottaa eri voittoja, mutta tietty tila tuottaa aina saman voiton.</p>
+      </div>
+
+      <h3>Funktiomerkintä</h3>
+
+      <p>Merkintä \( f(x) = 2x + 1 \) kertoo meille kolme asiaa:</p>
+      <ol>
+          <li>Funktion nimi on \( f \)</li>
+          <li>Sen syötemuuttuja on \( x \)</li>
+          <li>Sen sääntö on "kaksinkertaista syöte ja lisää 1"</li>
+      </ol>
+      <p>Funktion arvo tietyllä syötteellä saadaan sijoittamalla: \( f(3) = 2(3) + 1 = 7 \). Funktioita voidaan myös yhdistää: jos \( g(x) = x^2 \), niin \( f(g(2)) = f(4) = 2(4) + 1 = 9 \).</p>
+
+      <h3>Lineaariset funktiot</h3>
+
+      <p><strong>Lineaarinen funktio</strong> on muotoa \( f(x) = mx + b \), missä \( m \) on <strong>kulmakerroin</strong> (muutosnopeus) ja \( b \) on <strong>y-akselin leikkauspiste</strong> (arvo kun \( x = 0 \)).</p>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Jos yhteistyöpelaajien voitto populaatiossa on \( \pi_C(x) = 3 - 2x \), missä \( x \) on pettäjien osuus, niin:</p>
+          <ul>
+              <li>Kulmakerroin \( m = -2 \): jokainen yksikön kasvu pettäjien osuudessa vähentää yhteistyöpelaajan voittoa kahdella</li>
+              <li>Leikkauspiste \( b = 3 \): kun pettäjiä ei ole (\( x = 0 \)), yhteistyöpelaajat saavat voiton 3</li>
+          </ul>
+          <p>Negatiivinen kulmakerroin heijastaa vihamielistä ympäristöä: enemmän pettäjiä tarkoittaa huonompia tuloksia yhteistyöpelaajille.</p>
+      </div>
+
+      <h3>Toisen asteen funktiot</h3>
+
+      <p><strong>Toisen asteen funktio</strong> on muotoa \( f(x) = ax^2 + bx + c \). Sen kuvaaja on <strong>paraabeli</strong> &mdash; ylöspäin aukeava, jos \( a > 0 \), alaspäin aukeava, jos \( a < 0 \). Huippu (tai pohja) on kohdassa \( x = -b/(2a) \).</p>
+
+      <p>Toisen asteen voittofunktioita esiintyy peleissä, joissa strategian hyöty tai kustannus riippuu epälineaarisesti populaation koostumuksesta. Strategia voi esimerkiksi menestyä hyvin keskimääräisillä osuuksilla, mutta huonosti ollessaan liian harvinainen tai liian yleinen.</p>
+
+      <h3>Eksponenttifunktiot</h3>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Eksponenttifunktio</strong> on muotoa \( f(t) = a \cdot e^{kt} \), missä \( a \) on alkuarvo ja \( k \) on kasvunopeus.</p>
+          <ul>
+              <li>Jos \( k > 0 \): eksponentiaalinen <strong>kasvu</strong></li>
+              <li>Jos \( k < 0 \): eksponentiaalinen <strong>vaimeneminen</strong></li>
+          </ul>
+      </div>
+
+      <p>Eksponentiaalinen kasvu on oletusmalli rajoittamattomalle populaatiolle: kukin organismi tuottaa jälkeläisiä vakionopeudella, joten populaatio moninkertaistuu. Jos bakteeripopulaatio kaksinkertaistuu joka tunti, alkaen 100 solusta:</p>
+      \[ N(t) = 100 \cdot 2^t = 100 \cdot e^{t \ln 2} \]
+
+      <p>10 tunnin jälkeen: \( N(10) = 100 \cdot 2^{10} = 102{,}400 \) solua. Tämä räjähdysmäinen kasvu on syy siihen, miksi todelliset populaatiot kohtaavat väistämättä resurssirajoitteita, mikä johtaa logistisiin malleihin.</p>
+
+      <h3>Logaritmifunktiot</h3>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Luonnollinen logaritmi</strong> \( \ln(x) \) on eksponenttifunktion käänteisfunktio: jos \( e^y = x \), niin \( y = \ln(x) \). Se on määritelty kun \( x > 0 \).</p>
+          <p>Keskeiset ominaisuudet:</p>
+          <ul>
+              <li>\( \ln(1) = 0 \)</li>
+              <li>\( \ln(e) = 1 \)</li>
+              <li>\( \ln(ab) = \ln(a) + \ln(b) \)</li>
+              <li>\( \ln(a^k) = k \ln(a) \)</li>
+          </ul>
+      </div>
+
+      <p>Logaritmeja esiintyy informaatioteoriassa (entropia), analyysissä siitä, kuinka kauan strategian saavuttaminen tiettyyn osuuteen kestää, ja multiplikatiivisen kelpoisuuden muuntamisessa additiiviseksi kelpoisuudeksi.</p>
+
+      <h3>Sigmoidi- (logistinen) funktio</h3>
+
+      <p>Yksi matemaattisen biologian tärkeimmistä funktioista:</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Sigmoidifunktio</strong> (kutsutaan myös <strong>logistiseksi funktioksi</strong> tai <strong>standardiksi logistiseksi funktioksi</strong>) on:</p>
+          \[ \sigma(x) = \frac{1}{1 + e^{-x}} \]
+          <p>Se kuvaa minkä tahansa reaaliluvun välille \( (0, 1) \), ja \( \sigma(0) = \frac{1}{2} \). Se on S-kirjaimen muotoinen käyrä, joka siirtyy pehmeästi läheltä nollaa lähelle yhtä.</p>
+      </div>
+
+      <p>Sigmoidilla on merkittäviä ominaisuuksia:</p>
+      <ul>
+          <li><strong>Symmetria:</strong> \( \sigma(-x) = 1 - \sigma(x) \)</li>
+          <li><strong>Derivaatta:</strong> \( \sigma'(x) = \sigma(x)(1 - \sigma(x)) \) &mdash; sen muutosnopeus riippuu sen omasta arvosta!</li>
+          <li><strong>Raja-arvot:</strong> \( \lim_{x \to -\infty} \sigma(x) = 0 \) ja \( \lim_{x \to \infty} \sigma(x) = 1 \)</li>
+      </ul>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Populaatiodynamiikassa logistinen kasvumalli kuvaa populaatiota, joka kasvaa aluksi eksponentiaalisesti mutta tasaantuu lähestyessään kantokapasiteettia \( K \):</p>
+          \[ N(t) = \frac{K}{1 + \left(\frac{K - N_0}{N_0}\right) e^{-rt}} \]
+          <p>Tämä on uudelleenskaalattu sigmoidi. Se alkaa läheltä arvoa \( N_0 \), kasvaa suunnilleen eksponentiaalisesti kun \( N \ll K \) ja kyllästyy arvoon \( K \). Sama S-käyrä kuvaa, miten hyödyllinen strategia leviää populaatiossa: hitaasti aluksi (kun harvinainen), nopeasti keskivaiheilla ja jälleen hitaasti lähestyessään fiksaatiota.</p>
+      </div>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p>Voittofunktiot \( \pi_i(x) \) kuvaavat populaation tiloja voittoihin. Kelpoisuusfunktiot \( f_i(x) \) kuvaavat tiloja lisääntymismenestykseen. Replikaattoriyhtälö itsessään on funktio, joka kuvaa nykyisen tilan muutosnopeudeksi. Funktion käsitteen hallitseminen &mdash; sen määrittelyjoukko, arvojoukko, arvon laskeminen, funktioiden yhdistäminen &mdash; on oleellista kaikelle seuraavalle. Sigmoidifunktio erityisesti kuvaa, miten strategiat leviävät populaatioissa, tehden siitä yhden evoluutiobiologian perustavimmista käyristä.</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: Graphs and Coordinate Systems                     -->
+  <!-- ============================================================ -->
+  <div class="section" id="graphs">
+      <h2>5. Kuvaajat ja koordinaatistot</h2>
+
+      <p>Kuvaaja on funktion visuaalinen esitys. Siinä missä algebra antaa meille tarkkuutta, kuvaajat antavat meille intuitiota. Kyky lukea, piirtää ja tulkita kuvaajia on oleellista evoluutiodynamiikan ymmärtämiselle.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Karteesinen koordinaatisto</strong> (eli suorakulmainen koordinaatisto) koostuu kahdesta kohtisuorasta lukusuorasta (akselista), jotka leikkaavat <strong>origossa</strong> \( (0, 0) \). Vaaka-akseli on tyypillisesti \( x \)-akseli (riippumaton muuttuja) ja pystyakseli on \( y \)-akseli (riippuva muuttuja). Piste \( (a, b) \) tasossa tarkoittaa paikkaa \( a \) yksikköä \( x \)-akselia pitkin ja \( b \) yksikköä \( y \)-akselia pitkin.</p>
+      </div>
+
+      <h3>Funktion kuvaaja</h3>
+
+      <p>Funktion \( f \) <strong>kuvaaja</strong> on kaikkien pisteiden \( (x, f(x)) \) joukko, kun \( x \) käy läpi määrittelyjoukon. Lineaarisen funktion \( f(x) = 2x + 1 \) kuvaaja on suora, jonka kulmakerroin on 2 ja joka leikkaa \( y \)-akselin kohdassa 1.</p>
+
+      <h3>Kuvaajasta luettavat keskeiset piirteet</h3>
+
+      <ul>
+          <li><strong>Leikkauspisteet:</strong> Missä käyrä leikkaa akselit? \( x \)-akselin leikkauspisteet (juuret) ovat kohdissa, joissa \( f(x) = 0 \); \( y \)-akselin leikkauspiste on \( f(0) \).</li>
+          <li><strong>Kasvavuus/vähenevyys:</strong> Missä funktio kasvaa (positiivinen kulmakerroin) ja missä se vähenee (negatiivinen kulmakerroin)?</li>
+          <li><strong>Maksimi/minimi:</strong> Missä funktio saavuttaa suurimman tai pienimmän arvonsa? Nämä ovat kriittisiä pisteitä.</li>
+          <li><strong>Kuperuus:</strong> Kääntyykö käyrä ylöspäin (kuten kuppi, konveksi) vai alaspäin (kuten mäki, konkaavi)?</li>
+          <li><strong>Asymptootti:</strong> Lähestyykö funktio tiettyä arvoa saavuttamatta sitä koskaan? Sigmoidi lähestyy arvoja 0 ja 1 saavuttamatta niitä koskaan.</li>
+      </ul>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Tarkastellaan Haukka-Kyyhky-pelin kahden voittofunktion kuvaajia:</p>
+          <ul>
+              <li>\( \pi_H(x) = V - \frac{(V+C)}{2}x \) &mdash; laskeva suora</li>
+              <li>\( \pi_D(x) = \frac{V}{2}(1 - x) \) &mdash; myös laskeva suora</li>
+          </ul>
+          <p>Kun molemmat piirretään samoihin akseleihin (vaaka-akselilla \( x \) ja pystyakselilla voitto), tasapaino on piste, jossa suorat leikkaavat. Leikkauspisteen vasemmalla puolella \( \pi_H > \pi_D \) (Haukat pärjäävät paremmin, joten niiden osuus kasvaa). Oikealla puolella \( \pi_D > \pi_H \) (Kyyhkyt pärjäävät paremmin). Leikkauspiste on stabiili tasapaino: poikkeamat kumpaankin suuntaan korjaantuvat itsestään.</p>
+      </div>
+
+      <div class="intuition-box">
+          <span class="box-title">Intuitio</span>
+          <p>EGT:ssä piirretään usein voittojen <strong>erotus</strong> \( \pi_A(x) - \pi_B(x) \) populaation tilan \( x \) funktiona. Missä erotus on positiivinen, strategia A on suosiossa; missä negatiivinen, strategia B on suosiossa. Tasapaino on kohdassa, jossa erotus leikkaa nollan. <em>Kulmakerroin</em> leikkauskohdassa määrää stabiiliuden: alaspäin suuntautuva leikkaus (negatiivinen kulmakerroin) tarkoittaa, että tasapaino on stabiili, koska suosittu strategia työntää aina kohti tasapainoa.</p>
+      </div>
+
+      <h3>Vaihesuorakaaviot</h3>
+
+      <p>Erityisen hyödyllinen kaaviolaji dynamiikassa on <strong>vaihesuora</strong>: yksittäinen lukusuora (joka edustaa populaation tilaa \( x \in [0,1] \)) nuolilla, jotka osoittavat muutoksen suunnan. Oikealle osoittava nuoli tilassa tarkoittaa, että \( x \) kasvaa; vasemmalle osoittava nuoli tarkoittaa, että \( x \) pienenee. Kiintopisteet ovat kohtia, joissa nuolet suppenevat (stabiili) tai hajaantuvat (epästabiili).</p>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p>Vietät suuren osan tästä kurssista kuvaajien analysointiin: voittofunktiot populaatio-osuuksien funktiona, dynaamisten järjestelmien radat, vaihemuotokuvat, jotka näyttävät populaatioiden virtauksen tilaavaruudessa. Taito lukea kvalitatiivista käyttäytymistä kuvaajasta &mdash; laskematta tarkkoja lukuja &mdash; on yksi arvokkaimmista opittavista asioista. Yksi hyvin piirretty kuvaaja voi välittää enemmän oivallusta kuin sivukaupalla algebraa.</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: Summation and Product Notation                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="summation">
+      <h2>6. Summa- ja tulomerkintä</h2>
+
+      <p>Kun siirrymme kahden strategian peleistä peleihin, joissa on monta strategiaa, tarvitsemme tiiviin merkintätavan monien termien yhteenlaskuun tai kertolaskuun. Tähän käytetään sigma- (\( \Sigma \)) ja pii- (\( \Pi \)) merkintää.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Sigmamerkintä</strong> (summa):</p>
+          \[ \sum_{i=1}^{n} a_i = a_1 + a_2 + a_3 + \cdots + a_n \]
+          <p>Muuttuja \( i \) on summan <strong>indeksi</strong>, joka kulkee <strong>alarajasta</strong> (1) <strong>ylärajaan</strong> (\( n \)). Kullekin \( i \):n arvolle lasketaan \( a_i \) ja lisätään se juoksevaan summaan.</p>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Viiden ensimmäisen neliöluvun summa:</p>
+          \[ \sum_{i=1}^{5} i^2 = 1^2 + 2^2 + 3^2 + 4^2 + 5^2 = 1 + 4 + 9 + 16 + 25 = 55 \]
+      </div>
+
+      <h3>Summan keskeiset ominaisuudet</h3>
+
+      <div class="theorem-box">
+          <span class="box-title">Lause</span>
+          <p><strong>Summan lineaarisuus:</strong></p>
+          <ul>
+              <li>\( \displaystyle\sum_{i=1}^{n} (a_i + b_i) = \sum_{i=1}^{n} a_i + \sum_{i=1}^{n} b_i \)</li>
+              <li>\( \displaystyle\sum_{i=1}^{n} c \cdot a_i = c \cdot \sum_{i=1}^{n} a_i \) mille tahansa vakiolle \( c \)</li>
+              <li>\( \displaystyle\sum_{i=1}^{n} c = nc \) (vakion summa \( n \) kertaa)</li>
+          </ul>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Pelissä, jossa on \( n \) strategiaa ja \( x_i \) on strategiaa \( i \) käyttävän populaation osuus, osuuksien summan on oltava 1:</p>
+          \[ \sum_{i=1}^{n} x_i = 1 \]
+          <p>Populaation <strong>keskimääräinen voitto</strong> on yksittäisten strategiavoittojen painotettu keskiarvo:</p>
+          \[ \bar{\pi} = \sum_{i=1}^{n} x_i \, \pi_i \]
+          <p>missä \( \pi_i \) on strategian \( i \) voitto. Tämä on yksi EGT:n tärkeimmistä kaavoista.</p>
+      </div>
+
+      <h3>Kaksoisumma</h3>
+
+      <p>Laskettaessa odotettuja voittoja pelissä, jossa on useita strategioita, tarvitsemme usein kaksinkertaisia summia. Jos \( a_{ij} \) on strategian \( i \) voitto strategiaa \( j \) vastaan, strategian \( i \) odotettu voitto on:</p>
+      \[ \pi_i = \sum_{j=1}^{n} x_j \, a_{ij} \]
+      <p>ja kokonaiskeskivoitto on:</p>
+      \[ \bar{\pi} = \sum_{i=1}^{n} \sum_{j=1}^{n} x_i \, x_j \, a_{ij} \]
+      <p>Lue tämä: "kullekin strategiaparille \( (i, j) \) kerrotaan strategian \( i \) osuus strategian \( j \) osuudella ja voitolla, kun \( i \) kohtaa strategian \( j \), ja lasketaan kaikki yhteen."</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Piimerkintä</strong> (tulo):</p>
+          \[ \prod_{i=1}^{n} a_i = a_1 \cdot a_2 \cdot a_3 \cdots a_n \]
+          <p>Tämä on summan multiplikatiivinen vastine.</p>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Kertomafunktio voidaan kirjoittaa tulomerkinnällä:</p>
+          \[ n! = \prod_{i=1}^{n} i = 1 \cdot 2 \cdot 3 \cdots n \]
+          <p>Esimerkiksi \( 5! = 1 \cdot 2 \cdot 3 \cdot 4 \cdot 5 = 120 \).</p>
+          <p>Kertomia esiintyy kombinatoriikassa, jota puolestaan esiintyy laskettaessa mahdollisten strategioiden, kohtaamisten tai turnaustulosten lukumäärää.</p>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Todennäköisyyslaskennassa, jos tapahtumat \( A_1, A_2, \ldots, A_n \) ovat riippumattomia, niiden kaikkien yhtäaikaisen toteutumisen todennäköisyys on yksittäisten todennäköisyyksien tulo:</p>
+          \[ P(A_1 \cap A_2 \cap \cdots \cap A_n) = \prod_{i=1}^{n} P(A_i) \]
+      </div>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p>Replikaattoriyhtälö strategialle \( i \) \( n \)-strategian pelissä on:</p>
+          \[ \dot{x}_i = x_i \left( \pi_i - \bar{\pi} \right) = x_i \left( \sum_{j=1}^{n} a_{ij} x_j - \sum_{k=1}^{n} x_k \sum_{j=1}^{n} a_{kj} x_j \right) \]
+          <p>Ilman summamerkintää tämän kirjoittaminen auki edes 4 strategialle täyttäisi kokonaisen sivun. Sigmamerkintä ei ole pelkkä lyhenne &mdash; se on välttämätön näiden lausekkeiden ajattelemiselle ja käsittelemiselle. Sinun on osattava lukea, kirjoittaa ja käsitellä summia seurataksesi myöhempien moduulien johtoja.</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: Sets and Set Notation                             -->
+  <!-- ============================================================ -->
+  <div class="section" id="sets">
+      <h2>7. Joukot ja joukko-oppi</h2>
+
+      <p><strong>Joukko</strong> on erillisten objektien kokoelma, jota käsitellään yhtenä kokonaisuutena. Joukot ovat modernin matematiikan perusta, ja peliteoriassa ne tarjoavat kielen strategiaavaruuksien, pelaajaryhmien ja tulosmahdollisuuksien kuvaamiseen.</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>Joukko</strong> on järjestämätön kokoelma erillisiä alkioita. Joukot kirjoitetaan aaltosulkeilla:</p>
+          \[ S = \{a, b, c\} \]
+          <p>Merkintä \( x \in S \) tarkoittaa "\( x \) on joukon \( S \) alkio", ja \( x \notin S \) tarkoittaa "\( x \) ei ole joukon \( S \) alkio."</p>
+      </div>
+
+      <h3>Joukkojen määrittely</h3>
+
+      <p>Joukon voi määritellä kahdella yleisellä tavalla:</p>
+
+      <ul>
+          <li><strong>Luettelemalla:</strong> \( S = \{1, 2, 3, 4, 5\} \)</li>
+          <li><strong>Joukonmuodostajamerkinnällä:</strong> \( S = \{ x \in \mathbb{R} \mid x^2 < 9 \} = (-3, 3) \)</li>
+      </ul>
+
+      <p>Pystyviiva \( \mid \) luetaan "siten, että". Joten \( \{ x \in \mathbb{R} \mid x^2 < 9 \} \) luetaan "kaikkien reaalilukujen \( x \) joukko siten, että \( x^2 \) on pienempi kuin 9."</p>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Haukka-Kyyhky-pelissä <strong>strategiajoukko</strong> on:</p>
+          \[ S = \{\text{Haukka}, \text{Kyyhky}\} \]
+          <p>Kivi-Sakset-Paperi-pelissä:</p>
+          \[ S = \{\text{Kivi}, \text{Paperi}, \text{Sakset}\} \]
+          <p>Joukon alkioiden lukumäärää kutsutaan sen <strong>mahtavuudeksi</strong>, ja se merkitään \( |S| \). Tässä \( |S| = 2 \) Haukka-Kyyhky-pelille ja \( |S| = 3 \) KPS-pelille.</p>
+      </div>
+
+      <h3>Joukko-operaatiot</h3>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p>Joukoille \( A \) ja \( B \):</p>
+          <ul>
+              <li><strong>Yhdiste:</strong> \( A \cup B = \{ x \mid x \in A \text{ tai } x \in B \} \)</li>
+              <li><strong>Leikkaus:</strong> \( A \cap B = \{ x \mid x \in A \text{ ja } x \in B \} \)</li>
+              <li><strong>Erotus:</strong> \( A \setminus B = \{ x \mid x \in A \text{ ja } x \notin B \} \)</li>
+              <li><strong>Osajoukko:</strong> \( A \subseteq B \) tarkoittaa, että jokainen joukon \( A \) alkio kuuluu myös joukkoon \( B \)</li>
+              <li><strong>Tyhjä joukko:</strong> \( \emptyset = \{ \} \), joukko, jossa ei ole alkioita</li>
+          </ul>
+      </div>
+
+      <h3>Simpleksi: strategiaosuuksien kotipaikka</h3>
+
+      <p>Yksi EGT:n tärkeimmistä joukoista on <strong>simpleksi</strong>:</p>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p><strong>\( (n-1) \)-ulotteinen simpleksi</strong> on kaikkien \( n \) tuloksen yli menevien todennäköisyysjakaumien joukko:</p>
+          \[ \Delta^{n-1} = \left\{ (x_1, x_2, \ldots, x_n) \in \mathbb{R}^n \;\middle|\; x_i \geq 0 \text{ kaikilla } i, \text{ ja } \sum_{i=1}^{n} x_i = 1 \right\} \]
+      </div>
+
+      <p>Kahdelle strategialle simpleksi on \( \Delta^1 \), joka on yksinkertaisesti jana pisteestä \( (1, 0) \) pisteeseen \( (0, 1) \) &mdash; parametrisoituna yhdellä luvulla \( x \in [0, 1] \). Kolmelle strategialle \( \Delta^2 \) on tasasivuinen kolmio 3D-avaruudessa, jonka jokainen kärki edustaa puhdasta strategiaa. Tämän kolmion sisäosa edustaa kaikkia mahdollisia sekapopulaatioita.</p>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Kolmen strategian pelissä (kuten Kivi-Sakset-Paperi) populaation tila on piste \( (x_1, x_2, x_3) \in \Delta^2 \), missä \( x_1 + x_2 + x_3 = 1 \). Piste \( (1/3, 1/3, 1/3) \) edustaa populaatiota, joka on jakautunut tasan kaikkien kolmen strategian kesken. Kärki \( (1, 0, 0) \) edustaa populaatiota, joka pelaa puhdasta Kiveä. Kärkien \( (1, 0, 0) \) ja \( (0, 1, 0) \) välinen sivu edustaa populaatioita, jotka käyttävät vain Kiveä ja Paperia.</p>
+      </div>
+
+      <h3>Karteesiset tulot</h3>
+
+      <div class="def-box">
+          <span class="box-title">Määritelmä</span>
+          <p>Joukkojen \( A \) ja \( B \) <strong>karteesinen tulo</strong> on:</p>
+          \[ A \times B = \{ (a, b) \mid a \in A, \, b \in B \} \]
+          <p>Tämä on kaikkien järjestettyjen parien joukko, joissa ensimmäinen alkio on joukosta \( A \) ja toinen joukosta \( B \).</p>
+      </div>
+
+      <div class="example-box">
+          <span class="box-title">Esimerkki</span>
+          <p>Jos kaksi pelaajaa valitsee strategiajoukosta \( S = \{Y, P\} \) (Yhteistyö tai Petos), kaikkien mahdollisten strategiaprofiilien joukko on:</p>
+          \[ S \times S = \{(Y, Y),\, (Y, P),\, (P, Y),\, (P, P)\} \]
+          <p>Voittofunktio antaa reaaliarvoisen voiton kullekin näistä profiileista kummallekin pelaajalle. Tuttu \( 2 \times 2 \) voittomatriisi on vain taulukkoesitys tästä funktiosta, joka on määritelty joukossa \( S \times S \).</p>
+      </div>
+
+      <div class="note-box">
+          <span class="box-title">Miksi tämä on tärkeää EGT:ssä</span>
+          <p>Joukkomerkintä antaa meille sanaston pelin rakenteen täsmälliseen kuvaamiseen: strategiajoukko \( S \), sekastrategioiden joukko (simpleksi \( \Delta^{|S|-1} \)), mahdollisten tulosten joukko \( S \times S \) (tai \( S^n \) \( n \) pelaajalle) ja sekastrategian tuki (puhtaiden strategioiden joukko, joita pelataan positiivisella todennäköisyydellä). Ilman tätä sanastoa edes peliteorian lauseiden muotoileminen olisi mahdotonta.</p>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: Interactive Function Explorer                     -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive">
+      <h2>Interaktiivinen tutkiminen</h2>
+
+      <div class="interactive-container">
+          <h3>Interaktiivinen: Funktiotutkija</h3>
+          <p>Valitse funktio pudotusvalikosta nähdäksesi sen kuvaajan. Huomioi, miten eri funktioilla on eri muodot, määrittelyjoukot ja käyttäytymiset. Kiinnitä erityistä huomiota sigmoidiin &mdash; sen S-muotoinen käyrä on kaikkialla läsnä evoluutiodynamiikassa.</p>
+          <div class="controls">
+              <div class="control-group">
+                  <label>Funktio:</label>
+                  <select id="func-select">
+                      <option value="x^2">f(x) = x&sup2;</option>
+                      <option value="2x + 1">f(x) = 2x + 1</option>
+                      <option value="sin(x)">f(x) = sin(x)</option>
+                      <option value="e^x">f(x) = e&#739;</option>
+                      <option value="ln(x)">f(x) = ln(x)</option>
+                      <option value="1/(1+e^(-x))">f(x) = &sigma;(x) (sigmoidi)</option>
+                      <option value="x^3 - 3x">f(x) = x&sup3; - 3x</option>
+                  </select>
+              </div>
+          </div>
+          <canvas id="func-plotter" class="viz-canvas" width="600" height="400"></canvas>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: Exercises                                         -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+      <h2>Harjoitukset</h2>
+
+      <p>Tee nämä harjoitukset vahvistaaksesi ymmärrystäsi. Jokainen harjoitus liittyy ideoihin, jotka ovat tärkeitä myöhemmissä moduuleissa.</p>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 1</div>
+          <p>Luokittele kukin seuraavista luvuista luonnolliseksi, kokonaisluvuksi, rationaaliluvuksi tai irrationaaliluvuksi (valitse tarkin luokka):</p>
+          <ol type="a">
+              <li>\( 7 \)</li>
+              <li>\( -3 \)</li>
+              <li>\( \frac{22}{7} \)</li>
+              <li>\( \pi \)</li>
+              <li>\( \sqrt{16} \)</li>
+              <li>\( \sqrt{2} \)</li>
+              <li>\( 0.\overline{142857} \) (jaksollinen desimaali)</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <ol type="a">
+                      <li>\( 7 \in \mathbb{N} \) &mdash; luonnollinen luku</li>
+                      <li>\( -3 \in \mathbb{Z} \) &mdash; kokonaisluku (ei luonnollinen, koska se on negatiivinen)</li>
+                      <li>\( \frac{22}{7} \in \mathbb{Q} \) &mdash; rationaaliluku (huom: \( 22/7 \neq \pi \), se on vain likiarvo)</li>
+                      <li>\( \pi \) on irrationaaliluku &mdash; sitä ei voi esittää kokonaislukujen murtolukuna</li>
+                      <li>\( \sqrt{16} = 4 \in \mathbb{N} \) &mdash; luonnollinen luku</li>
+                      <li>\( \sqrt{2} \) on irrationaaliluku</li>
+                      <li>\( 0.\overline{142857} = \frac{1}{7} \in \mathbb{Q} \) &mdash; rationaaliluku (jokainen jaksollinen desimaali on rationaaliluku)</li>
+                  </ol>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 2</div>
+          <p>Pelissä strategian A voitto on \( \pi_A(x) = 4 - 3x \) ja strategian B voitto on \( \pi_B(x) = 1 + 2x \), missä \( x \in [0, 1] \) on strategiaa A pelaavan populaation osuus.</p>
+          <ol type="a">
+              <li>Etsi arvo \( x \), jolla molemmilla strategioilla on yhtä suuri voitto.</li>
+              <li>Millä \( x \):n arvoilla strategia A päihittää strategian B?</li>
+              <li>Onko kohdassa (a) löytämäsi tasapaino stabiili? (Vihje: mieti, kumpi strategia on suosiossa tasapainon kummallakin puolella.)</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong> Asetetaan \( \pi_A = \pi_B \):</p>
+                  \[ 4 - 3x = 1 + 2x \]
+                  \[ 3 = 5x \]
+                  \[ x^* = \frac{3}{5} = 0.6 \]
+
+                  <p><strong>(b)</strong> Strategia A päihittää strategian B, kun \( \pi_A(x) > \pi_B(x) \):</p>
+                  \[ 4 - 3x > 1 + 2x \]
+                  \[ 3 > 5x \]
+                  \[ x < \frac{3}{5} \]
+                  <p>A siis päihittää B:n, kun \( x < 0.6 \).</p>
+
+                  <p><strong>(c)</strong> Kun \( x < 3/5 \), strategia A pärjää paremmin, joten useampi yksilö omaksuu strategian A, mikä työntää \( x \):ää ylöspäin kohti arvoa \( 3/5 \). Kun \( x > 3/5 \), strategia B pärjää paremmin, joten yksilöt vaihtavat strategiaan B, mikä työntää \( x \):ää alaspäin kohti arvoa \( 3/5 \). Poikkeamat kumpaankin suuntaan korjaantuvat, joten \( x^* = 3/5 \) on <strong>stabiili</strong>.</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 3</div>
+          <p>Käytä toisen asteen yhtälön ratkaisukaavaa yhtälön \( 2x^2 - 7x + 3 = 0 \) ratkaisemiseen. Mitkä ratkaisuista, jos mitkään, ovat kelvollisia populaatio-osuuksina (eli kuuluvat välille \( [0, 1] \))?</p>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p>Tässä \( a = 2 \), \( b = -7 \), \( c = 3 \). Diskriminantti on:</p>
+                  \[ \Delta = (-7)^2 - 4(2)(3) = 49 - 24 = 25 \]
+                  \[ x = \frac{7 \pm \sqrt{25}}{4} = \frac{7 \pm 5}{4} \]
+                  \[ x = \frac{12}{4} = 3 \quad \text{tai} \quad x = \frac{2}{4} = \frac{1}{2} \]
+                  <p>Vain \( x = \frac{1}{2} \) kuuluu välille \( [0, 1] \), joten se on ainoa kelvollinen populaatio-osuus. Ratkaisu \( x = 3 \) on matemaattisesti pätevä mutta biologisesti merkityksetön (populaatiosta ei voi 300 % pelata yhtä strategiaa).</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 4</div>
+          <p>Olkoon \( f(x) = x^2 - 4 \) ja \( g(x) = 2x + 1 \). Laske:</p>
+          <ol type="a">
+              <li>\( f(3) \)</li>
+              <li>\( g(-2) \)</li>
+              <li>\( f(g(1)) \)</li>
+              <li>\( g(f(1)) \)</li>
+              <li>Ratkaise \( f(x) = g(x) \)</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong> \( f(3) = 3^2 - 4 = 9 - 4 = 5 \)</p>
+                  <p><strong>(b)</strong> \( g(-2) = 2(-2) + 1 = -4 + 1 = -3 \)</p>
+                  <p><strong>(c)</strong> Lasketaan ensin \( g(1) = 2(1) + 1 = 3 \), sitten \( f(g(1)) = f(3) = 5 \)</p>
+                  <p><strong>(d)</strong> Lasketaan ensin \( f(1) = 1 - 4 = -3 \), sitten \( g(f(1)) = g(-3) = 2(-3) + 1 = -5 \)</p>
+                  <p>Huomaa: \( f(g(1)) \neq g(f(1)) \) yleisesti &mdash; funktioiden yhdistäminen ei ole vaihdannainen.</p>
+                  <p><strong>(e)</strong> Asetetaan \( x^2 - 4 = 2x + 1 \):</p>
+                  \[ x^2 - 2x - 5 = 0 \]
+                  \[ x = \frac{2 \pm \sqrt{4 + 20}}{2} = \frac{2 \pm \sqrt{24}}{2} = \frac{2 \pm 2\sqrt{6}}{2} = 1 \pm \sqrt{6} \]
+                  <p>Joten \( x = 1 + \sqrt{6} \approx 3.449 \) tai \( x = 1 - \sqrt{6} \approx -1.449 \).</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 5</div>
+          <p>Laske sigmoidifunktion \( \sigma(x) = \frac{1}{1 + e^{-x}} \) arvot kohdissa \( x = -2, -1, 0, 1, 2 \). Varmista, että \( \sigma(-x) = 1 - \sigma(x) \) pätee jokaiselle arvolle. (Käytä arvoa \( e \approx 2.718 \).)</p>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <ul>
+                      <li>\( \sigma(0) = \frac{1}{1 + e^0} = \frac{1}{1 + 1} = 0.5 \)</li>
+                      <li>\( \sigma(1) = \frac{1}{1 + e^{-1}} = \frac{1}{1 + 0.368} \approx \frac{1}{1.368} \approx 0.731 \)</li>
+                      <li>\( \sigma(-1) = \frac{1}{1 + e^{1}} = \frac{1}{1 + 2.718} \approx \frac{1}{3.718} \approx 0.269 \)</li>
+                      <li>\( \sigma(2) = \frac{1}{1 + e^{-2}} = \frac{1}{1 + 0.135} \approx \frac{1}{1.135} \approx 0.881 \)</li>
+                      <li>\( \sigma(-2) = \frac{1}{1 + e^{2}} = \frac{1}{1 + 7.389} \approx \frac{1}{8.389} \approx 0.119 \)</li>
+                  </ul>
+                  <p>Symmetrian tarkistus: \( \sigma(1) + \sigma(-1) \approx 0.731 + 0.269 = 1.000 \). Vastaavasti \( \sigma(2) + \sigma(-2) \approx 0.881 + 0.119 = 1.000 \). Ja \( \sigma(0) + \sigma(0) = 0.5 + 0.5 = 1.0 \). Symmetriaominaisuus pätee.</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 6</div>
+          <p>Laske seuraavat summat:</p>
+          <ol type="a">
+              <li>\( \displaystyle\sum_{i=1}^{4} (2i - 1) \)</li>
+              <li>\( \displaystyle\sum_{k=0}^{3} 2^k \)</li>
+              <li>Jos \( x_1 = 0.3 \), \( x_2 = 0.5 \), \( x_3 = 0.2 \) ja voitot ovat \( \pi_1 = 4 \), \( \pi_2 = 2 \), \( \pi_3 = 6 \), laske keskimääräinen voitto \( \bar{\pi} = \displaystyle\sum_{i=1}^{3} x_i \pi_i \).</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong></p>
+                  \[ \sum_{i=1}^{4} (2i - 1) = (2 \cdot 1 - 1) + (2 \cdot 2 - 1) + (2 \cdot 3 - 1) + (2 \cdot 4 - 1) = 1 + 3 + 5 + 7 = 16 \]
+                  <p>(Tämä on neljän ensimmäisen parittoman luvun summa, joka on \( 4^2 = 16 \) &mdash; tunnettu identiteetti.)</p>
+
+                  <p><strong>(b)</strong></p>
+                  \[ \sum_{k=0}^{3} 2^k = 2^0 + 2^1 + 2^2 + 2^3 = 1 + 2 + 4 + 8 = 15 \]
+                  <p>(Tämä on \( 2^4 - 1 \), mikä havainnollistaa geometrisen summan kaavaa \( \sum_{k=0}^{n-1} r^k = \frac{r^n - 1}{r - 1} \).)</p>
+
+                  <p><strong>(c)</strong></p>
+                  \[ \bar{\pi} = (0.3)(4) + (0.5)(2) + (0.2)(6) = 1.2 + 1.0 + 1.2 = 3.4 \]
+                  <p>Tämän populaation keskimääräinen voitto on 3,4. Huomaa, että tämä on todellakin pienimmän voiton (2) ja suurimman voiton (6) välissä, kuten minkä tahansa painotetun keskiarvon kuuluukin olla.</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 7</div>
+          <p>Olkoon \( S = \{K, P, S\} \) Kivi-Sakset-Paperi-pelin strategiajoukko.</p>
+          <ol type="a">
+              <li>Kirjoita kaikki joukon \( S \times S \) alkiot (kaikkien kahden pelaajan strategiaprofiilien joukko).</li>
+              <li>Montako alkiota joukossa \( S \times S \) on? Miten tämä liittyy lukuun \( |S| \)?</li>
+              <li>Populaation tila tässä pelissä on kolmikko \( (x_K, x_P, x_S) \in \Delta^2 \). Kirjoita rajoitteet, jotka määrittelevät joukon \( \Delta^2 \).</li>
+              <li>Kuuluuko piste \( (0.5, 0.3, 0.3) \) joukkoon \( \Delta^2 \)? Entä piste \( (0.5, 0.3, 0.2) \)?</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong></p>
+                  \[ S \times S = \{(K,K), (K,P), (K,S), (P,K), (P,P), (P,S), (S,K), (S,P), (S,S)\} \]
+
+                  <p><strong>(b)</strong> \( |S \times S| = 9 = 3^2 = |S|^2 \). Yleisesti \( |A \times B| = |A| \cdot |B| \).</p>
+
+                  <p><strong>(c)</strong> Rajoitteet ovat:</p>
+                  \[ x_K \geq 0, \quad x_P \geq 0, \quad x_S \geq 0, \quad x_K + x_P + x_S = 1 \]
+
+                  <p><strong>(d)</strong> Tarkistetaan \( (0.5, 0.3, 0.3) \): Summa = \( 0.5 + 0.3 + 0.3 = 1.1 \neq 1 \). <strong>Ei</strong> kuulu joukkoon \( \Delta^2 \).</p>
+                  <p>Tarkistetaan \( (0.5, 0.3, 0.2) \): Summa = \( 0.5 + 0.3 + 0.2 = 1.0 \), ja kaikki komponentit ovat ei-negatiivisia. <strong>Kyllä</strong>, tämä kuuluu joukkoon \( \Delta^2 \).</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 8</div>
+          <p>Populaatio, jonka koko on \( N_0 = 50 \), kasvaa eksponentiaalisen mallin \( N(t) = N_0 \cdot e^{rt} \) mukaan kasvunopeudella \( r = 0.1 \) aikayksikköä kohti.</p>
+          <ol type="a">
+              <li>Mikä on populaation koko \( t = 10 \) aikayksikön jälkeen?</li>
+              <li>Kuinka kauan populaation kaksinkertaistuminen kestää? (Ratkaise \( 2N_0 = N_0 e^{rt} \) muuttujan \( t \) suhteen.)</li>
+              <li>Miksi eksponentiaalinen kasvu on kestämätöntä todellisissa populaatioissa?</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong> \( N(10) = 50 \cdot e^{0.1 \times 10} = 50 \cdot e^1 = 50 \cdot 2.718 \approx 135.9 \).</p>
+
+                  <p><strong>(b)</strong> Ratkaistaan \( 2N_0 = N_0 e^{rt} \). Supistetaan \( N_0 \):</p>
+                  \[ 2 = e^{0.1t} \]
+                  <p>Otetaan luonnollinen logaritmi:</p>
+                  \[ \ln 2 = 0.1t \]
+                  \[ t = \frac{\ln 2}{0.1} = \frac{0.693}{0.1} = 6.93 \text{ aikayksikköä} \]
+                  <p><strong>Kaksinkertaistumisaika</strong> on \( \frac{\ln 2}{r} \), kaava joka kannattaa muistaa.</p>
+
+                  <p><strong>(c)</strong> Eksponentiaalinen kasvu olettaa rajattomat resurssit. Todellisuudessa resurssit ovat rajallisia: ravinto, tila, kumppanit jne. Populaation kasvaessa yksilöt kilpailevat niukoista resursseista, mikä pienentää yksilökohtaista kasvunopeutta. Siksi realistisissa malleissa käytetään logistista kasvua (kantokapasiteetilla \( K \)) puhtaan eksponentiaalisen kasvun sijaan.</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 9</div>
+          <p>Kolmen strategian pelissä voittomatriisi on:</p>
+          \[ A = \begin{pmatrix} 3 & 0 & 5 \\ 5 & 3 & 0 \\ 0 & 5 & 3 \end{pmatrix} \]
+          <p>missä alkio \( a_{ij} \) on strategian \( i \) voitto strategiaa \( j \) vastaan. Jos populaation tila on \( \mathbf{x} = (1/3, 1/3, 1/3) \), laske:</p>
+          <ol type="a">
+              <li>Strategian 1 odotettu voitto \( \pi_1 = \displaystyle\sum_{j=1}^{3} a_{1j} x_j \)</li>
+              <li>Strategioiden 2 ja 3 odotetut voitot</li>
+              <li>Keskimääräinen voitto \( \bar{\pi} = \displaystyle\sum_{i=1}^{3} x_i \pi_i \)</li>
+              <li>Mitä huomaat kolmen voiton välisestä suhteesta? Mitä tämä kertoo dynamiikasta?</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong></p>
+                  \[ \pi_1 = 3 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} + 5 \cdot \frac{1}{3} = \frac{3 + 0 + 5}{3} = \frac{8}{3} \]
+
+                  <p><strong>(b)</strong></p>
+                  \[ \pi_2 = 5 \cdot \frac{1}{3} + 3 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} = \frac{5 + 3 + 0}{3} = \frac{8}{3} \]
+                  \[ \pi_3 = 0 \cdot \frac{1}{3} + 5 \cdot \frac{1}{3} + 3 \cdot \frac{1}{3} = \frac{0 + 5 + 3}{3} = \frac{8}{3} \]
+
+                  <p><strong>(c)</strong></p>
+                  \[ \bar{\pi} = \frac{1}{3} \cdot \frac{8}{3} + \frac{1}{3} \cdot \frac{8}{3} + \frac{1}{3} \cdot \frac{8}{3} = \frac{8}{3} \]
+
+                  <p><strong>(d)</strong> Kaikilla kolmella strategialla on sama voitto (\( 8/3 \)), joka on myös yhtä suuri kuin keskimääräinen voitto. Tämä tarkoittaa, ettei millään strategialla ole valintaetua &mdash; tila \( (1/3, 1/3, 1/3) \) on <strong>Nash-tasapaino</strong>. Tämä on Kivi-Sakset-Paperi-tyyppisen pelin symmetrinen tasapaino (jokainen voittomatriisin rivi on muiden syklinen permutaatio). Se, onko tasapaino <em>stabiili</em>, on syvempi kysymys, joka vaatii moduulin 6 (Dynaamiset järjestelmät) työkaluja.</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="exercise">
+          <div class="exercise-title">Harjoitus 10</div>
+          <p>Kirjoita seuraavat summa- tai tulomerkinnällä:</p>
+          <ol type="a">
+              <li>\( 1 + 4 + 9 + 16 + 25 + 36 \)</li>
+              <li>\( 2 \cdot 4 \cdot 6 \cdot 8 \cdot 10 \)</li>
+              <li>\( x_1 a_{11} + x_2 a_{12} + x_3 a_{13} + \cdots + x_n a_{1n} \)</li>
+          </ol>
+          <div class="spoiler">
+              <button class="spoiler-toggle">Näytä ratkaisu</button>
+              <div class="spoiler-content">
+                  <p><strong>(a)</strong> Nämä ovat lukujen 1–6 neliöt:</p>
+                  \[ \sum_{i=1}^{6} i^2 \]
+
+                  <p><strong>(b)</strong> Nämä ovat parilliset luvut 2:sta 10:een, eli \( 2i \) arvoilla \( i = 1, \ldots, 5 \):</p>
+                  \[ \prod_{i=1}^{5} (2i) \]
+                  <p>(Tämä on myös \( 2^5 \cdot 5! = 32 \cdot 120 = 3840 \).)</p>
+
+                  <p><strong>(c)</strong> Tämä summaa toisen indeksin \( j \) yli ensimmäisen indeksin ollessa kiinnitetty arvoon 1:</p>
+                  \[ \sum_{j=1}^{n} x_j \, a_{1j} \]
+                  <p>Tämä on strategian 1 odotettu voitto pelissä, jossa on \( n \) strategiaa.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- Module Navigation                                            -->
+  <!-- ============================================================ -->
+  <div class="module-nav-strip">
+    <span></span>
+    <a href="module2.html">Moduuli 2: Lineaarialgebra &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Moduuli 1: Matemaattiset perusteet
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>

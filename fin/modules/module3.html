@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 3: Analyysi — Muutosnopeudet | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html" class="active">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yht&auml;l&ouml;t</a></li>
+      <li><a href="module5.html">5. Todenn&auml;k&ouml;isyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Moduulin otsikko -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 3</div>
+    <h1>Analyysi: Muutosnopeudet</h1>
+    <p class="module-desc">
+      Derivaatat ja integraalit &mdash; muutoksen, optimoinnin ja kertymien matematiikkaa.
+      N&auml;m&auml; ovat v&auml;ltt&auml;m&auml;tt&ouml;mi&auml; ty&ouml;kaluja sen ymm&auml;rt&auml;miseen, miten strategiafrekvenssit kehittyv&auml;t ajan my&ouml;t&auml;
+      evoluutiopeliteoriassa.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Sis&auml;llysluettelo -->
+  <div class="toc">
+    <h3>T&auml;ss&auml; moduulissa</h3>
+    <ol>
+      <li><a href="#limits">Raja-arvon k&auml;site</a></li>
+      <li><a href="#derivatives">Derivaatat: Muutosnopeus</a></li>
+      <li><a href="#higher-derivatives">Korkeamman asteen derivaatat</a></li>
+      <li><a href="#partial-derivatives">Osittaisderivaatat</a></li>
+      <li><a href="#optimization">Optimointi</a></li>
+      <li><a href="#integration">Integraalilaskennan perusteet</a></li>
+      <li><a href="#chain-rule-detail">Ketjus&auml;&auml;nt&ouml; tarkemmin</a></li>
+      <li><a href="#interactive">Interaktiivinen: Derivaattaselain</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 1: RAJA-ARVOT -->
+  <!-- ================================================================== -->
+  <div class="section" id="limits">
+    <h2>1. Raja-arvon k&auml;site</h2>
+
+    <p>
+      Ennen kuin voimme puhua muutosnopeuksista, meid&auml;n on ymm&auml;rrett&auml;v&auml; yksi matematiikan
+      perustavanlaatuisimmista k&auml;sitteist&auml;: <strong>raja-arvo</strong>. Jokainen analyysiin m&auml;&auml;ritelm&auml; &mdash;
+      derivaatat, integraalit, jatkuvuus &mdash; perustuu raja-arvoihin. Mutta perusidea on
+      yll&auml;tt&auml;v&auml;n intuitiivinen.
+    </p>
+
+    <h3>Arvon l&auml;hestyminen</h3>
+
+    <p>
+      Kuvittele, ett&auml; k&auml;velet sein&auml;&auml; kohti. Jokaisella askeleella kuljet puolet j&auml;ljell&auml; olevasta matkasta.
+      P&auml;&auml;set yh&auml; l&auml;hemm&auml;s: 1 metrin p&auml;&auml;h&auml;n, sitten 0,5 metrin, sitten 0,25, sitten 0,125... Et
+      koskaan aivan saavuta sein&auml;&auml; &auml;&auml;rellisell&auml; askelmm&auml;&auml;r&auml;ll&auml;, mutta p&auml;&auml;set <em>niin l&auml;helle kuin haluat</em>.
+      Sein&auml; on <strong>raja-arvosi</strong>.
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio</span>
+      <p>
+        <strong>Raja-arvo</strong> kuvaa, mit&auml; arvoa funktio <em>l&auml;hestyy</em>, kun sen sy&ouml;te
+        l&auml;hestyy jotakin kohdetta. Funktion ei tarvitse oikeasti saada t&auml;t&auml; arvoa
+        kohdepisteess&auml; &mdash; riitt&auml;&auml;, ett&auml; se p&auml;&auml;see mielivaltaisen l&auml;helle.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Raja-arvo (ep&auml;formaali)</span>
+      <p>
+        Kirjoitamme
+        \[ \lim_{x \to a} f(x) = L \]
+        ja sanomme &rdquo;funktion \(f(x)\) raja-arvo, kun \(x\) l&auml;hestyy arvoa \(a\), on \(L\)&rdquo;, jos voimme saada
+        \(f(x)\):n niin l&auml;helle arvoa \(L\) kuin haluamme valitsemalla \(x\):n riitt&auml;v&auml;n l&auml;helle arvoa \(a\)
+        (mutta ei yht&auml; suureksi kuin \(a\)).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Yksinkertainen raja-arvo</span>
+      <p>Tarkastellaan funktiota \(f(x) = 2x + 1\). Mik&auml; on \(\lim_{x \to 3} f(x)\)?</p>
+      <p>
+        Kun \(x\) l&auml;hestyy arvoa 3, \(f(x)\) l&auml;hestyy arvoa \(2(3) + 1 = 7\).
+        T&auml;ss&auml; ei ole mit&auml;&auml;n yll&auml;tt&auml;v&auml;&auml; &mdash; jatkuville funktioille raja-arvo on yksinkertaisesti funktion
+        arvo:
+      </p>
+      \[ \lim_{x \to 3}(2x + 1) = 7 \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Mielenkiintoisempi raja-arvo</span>
+      <p>Tarkastellaan funktiota \(f(x) = \dfrac{x^2 - 4}{x - 2}\). Mik&auml; on \(\lim_{x \to 2} f(x)\)?</p>
+      <p>
+        Huomaa, ett&auml; sijoittamalla \(x = 2\) saamme \(\frac{0}{0}\), joka on m&auml;&auml;rittelem&auml;t&ouml;n. Mutta
+        raja-arvo kysyy, mit&auml; tapahtuu, kun <em>l&auml;hestymme</em> arvoa 2, ei mit&auml; tapahtuu <em>arvossa</em> 2.
+        Voimme tekij&ouml;id&auml;:
+      </p>
+      \[ \frac{x^2 - 4}{x - 2} = \frac{(x-2)(x+2)}{x-2} = x + 2 \quad \text{(kun } x \neq 2\text{)} \]
+      <p>Joten \(\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = 2 + 2 = 4\).</p>
+      <p>
+        Funktiolla on &rdquo;reik&auml;&rdquo; kohdassa \(x = 2\), mutta raja-arvo kertoo, mihin funktio on
+        <em>menossa</em>.
+      </p>
+    </div>
+
+    <h3>Formaali m&auml;&auml;ritelm&auml; (epsilon-delta)</h3>
+
+    <p>
+      Ep&auml;formaali m&auml;&auml;ritelm&auml; riitt&auml;&auml; suurimpaan osaan ty&ouml;t&auml;mme, mutta t&auml;sm&auml;llinen versio antaa
+      analyysille sen loogisen perustan.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Raja-arvo (formaali, epsilon-delta)</span>
+      <p>
+        Sanomme, ett&auml; \(\lim_{x \to a} f(x) = L\), jos jokaiselle \(\varepsilon > 0\) on olemassa
+        \(\delta > 0\) siten, ett&auml; aina kun \(0 < |x - a| < \delta\), p&auml;tee \(|f(x) - L| < \varepsilon\).
+      </p>
+      <p>
+        Sanallisesti: riippumatta siit&auml;, kuinka tiukan toleranssin \(\varepsilon\) joku vaatii arvon \(L\) ymp&auml;rill&auml;,
+        voimme aina l&ouml;yt&auml;&auml; riitt&auml;v&auml;n pienen ymp&auml;rist&ouml;n \(\delta\) arvon \(a\) ymp&auml;rilt&auml; siten, ett&auml;
+        kaikki funktion arvot t&auml;ss&auml; ymp&auml;rist&ouml;ss&auml; osuvat toleranssin sis&auml;&auml;n.
+      </p>
+    </div>
+
+    <h3>T&auml;rkeit&auml; raja-arvos&auml;&auml;nt&ouml;j&auml;</h3>
+
+    <p>Raja-arvot noudattavat luonnollisia algebrallisia s&auml;&auml;nt&ouml;j&auml;. Jos \(\lim_{x \to a} f(x) = L\) ja \(\lim_{x \to a} g(x) = M\), niin:</p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Raja-arvos&auml;&auml;nn&ouml;t</span>
+      <ul>
+        <li><strong>Summa:</strong> \(\lim_{x \to a} [f(x) + g(x)] = L + M\)</li>
+        <li><strong>Tulo:</strong> \(\lim_{x \to a} [f(x) \cdot g(x)] = L \cdot M\)</li>
+        <li><strong>Osam&auml;&auml;r&auml;:</strong> \(\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}\), edellyttaen, ett&auml; \(M \neq 0\)</li>
+        <li><strong>Skalaariker&shy;roin:</strong> \(\lim_{x \to a} [c \cdot f(x)] = c \cdot L\) mille tahansa vakiolle \(c\)</li>
+        <li><strong>Potenssi:</strong> \(\lim_{x \to a} [f(x)]^n = L^n\) mille tahansa positiiviselle kokonaisluvulle \(n\)</li>
+      </ul>
+    </div>
+
+    <h3>Analyysille ratkaiseva raja-arvo</h3>
+
+    <p>Yksi raja-arvo esiintyy analyysissa yh&auml; uudelleen. Se on derivaatan perusta:</p>
+
+    \[ \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \]
+
+    <p>
+      T&auml;m&auml; on <em>erosuhdanne</em>. Se mittaa funktion \(f\) keskim&auml;&auml;r&auml;ist&auml; muutosnopeutta
+      pienell&auml; v&auml;lill&auml;, jonka leveys on \(h\), ja kysyy, mit&auml; tapahtuu, kun t&auml;m&auml; v&auml;li kutistuu nollaan.
+      Tutkimme t&auml;t&auml; perusteellisesti seuraavassa osiossa.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Replikaattoriyht&auml;l&ouml; \(\dot{x}_i = x_i(f_i - \bar{f})\) on kirjoitettu muodossa
+        \(\dot{x}_i = \frac{dx_i}{dt}\), joka on derivaatta &mdash; m&auml;&auml;ritelty erosuhteen raja-arvona. Ilman raja-arvoja emme voi t&auml;sm&auml;llisesti m&auml;&auml;ritell&auml;, mit&auml;
+        &rdquo;strategiafrekvenssin muutosnopeus&rdquo; tarkoittaa.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 2: DERIVAATAT -->
+  <!-- ================================================================== -->
+  <div class="section" id="derivatives">
+    <h2>2. Derivaatat: Muutosnopeus</h2>
+
+    <p>
+      Derivaatta on kiistatta t&auml;m&auml;n kurssin t&auml;rkein yksitt&auml;inen k&auml;site. Se kertoo
+      meille, <em>kuinka nopeasti</em> suure muuttuu min&auml; tahansa hetken&auml;. Evoluutiopeliteoriassa
+      suure, josta v&auml;lit&auml;mme eniten, on strategian frekvenssi populaatiossa, ja
+      derivaatta kertoo, kasvaako strategia, v&auml;heneek&ouml; se vai onko se tasapainossa.
+    </p>
+
+    <h3>Erosuhde ja derivaatan m&auml;&auml;ritelm&auml;</h3>
+
+    <p>
+      Tarkastellaan funktiota \(f(x)\). <strong>Keskim&auml;&auml;r&auml;inen muutosnopeus</strong> pisteiden
+      \(x = a\) ja \(x = a + h\) v&auml;lill&auml; on:
+    </p>
+
+    \[ \text{Keskim&auml;&auml;r&auml;inen muutosnopeus} = \frac{f(a + h) - f(a)}{h} \]
+
+    <p>
+      Geometrisesti t&auml;m&auml; on <strong>leikkaavan suoran</strong> kulmakerroin, joka yhdist&auml;&auml; pisteet
+      \((a, f(a))\) ja \((a+h, f(a+h))\). Kun \(h\) pienenee, t&auml;m&auml; leikkaava suora
+      k&auml;&auml;ntyy kohti <strong>tangenttisuoraa</strong> pisteess&auml; \(x = a\).
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Derivaatta</span>
+      <p>
+        Funktion \(f\) <strong>derivaatta</strong> pisteess&auml; \(x = a\) on:
+      </p>
+      \[ f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h} \]
+      <p>
+        edellyttaen, ett&auml; t&auml;m&auml; raja-arvo on olemassa. Kirjoitamme my&ouml;s \(\frac{df}{dx}\Big|_{x=a}\) tai \(\frac{d}{dx}f(x)\Big|_{x=a}\).
+      </p>
+      <p>
+        Kun haluamme derivaatan <em>funktiona</em> (ei vain yhdess&auml; pisteess&auml;), kirjoitamme:
+      </p>
+      \[ f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Derivaatta m&auml;&auml;ritelm&auml;st&auml;</span>
+      <p>Olkoon \(f(x) = x^2\). Laske \(f'(x)\) m&auml;&auml;ritelm&auml;n avulla.</p>
+      \[
+      \begin{aligned}
+      f'(x) &= \lim_{h \to 0} \frac{(x + h)^2 - x^2}{h} \\
+             &= \lim_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h} \\
+             &= \lim_{h \to 0} \frac{2xh + h^2}{h} \\
+             &= \lim_{h \to 0} (2x + h) \\
+             &= 2x
+      \end{aligned}
+      \]
+      <p>
+        Joten funktion \(x^2\) derivaatta on \(2x\). Pisteess&auml; \(x = 3\) tangenttisuoran kulmakerroin on
+        \(f'(3) = 6\). Pisteess&auml; \(x = -1\) kulmakerroin on \(f'(-1) = -2\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Toinen m&auml;&auml;ritelm&auml;st&auml;</span>
+      <p>Olkoon \(f(x) = 3x + 5\). Laske \(f'(x)\).</p>
+      \[
+      f'(x) = \lim_{h \to 0} \frac{[3(x+h) + 5] - [3x + 5]}{h}
+            = \lim_{h \to 0} \frac{3h}{h}
+            = \lim_{h \to 0} 3 = 3
+      \]
+      <p>
+        Lineaarisen funktion \(mx + b\) derivaatta on vakio \(m\) &mdash; sen kulmakerroin.
+        T&auml;m&auml; on t&auml;ysin luonnollista: suoralla on sama jyrkkyys kaikkialla.
+      </p>
+    </div>
+
+    <h3>Geometrinen merkitys: tangenttisuoran kulmakerroin</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio</span>
+      <p>
+        Derivaatta \(f'(a)\) on <strong>tangenttisuoran kulmakerroin</strong> k&auml;yr&auml;ll&auml;
+        \(y = f(x)\) pisteess&auml; \((a, f(a))\). Positiivinen derivaatta tarkoittaa, ett&auml; funktio on
+        kasvava; negatiivinen derivaatta tarkoittaa, ett&auml; se on v&auml;henev&auml;; nolladerivaa tarkoittaa, ett&auml;
+        funktio on hetkellisesti tasainen (mahdollinen maksimi, minimi tai k&auml;&auml;nt&ouml;piste).
+      </p>
+    </div>
+
+    <h3>Derivointis&auml;&auml;nn&ouml;t</h3>
+
+    <p>
+      Derivaattojen laskeminen m&auml;&auml;ritelm&auml;st&auml; joka kerta olisi ty&ouml;l&auml;st&auml;. Onneksi meill&auml; on
+      tehokkaita s&auml;&auml;nt&ouml;j&auml;, joilla voimme derivoida l&auml;hes mink&auml; tahansa funktion nopeasti.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Potenssisaanto</span>
+      <p>Jos \(f(x) = x^n\) mille tahansa reaaliluvulle \(n\), niin:</p>
+      \[ f'(x) = nx^{n-1} \]
+      <p>
+        <strong>Esimerkkej&auml;:</strong>
+        \(\frac{d}{dx}x^3 = 3x^2\), &ensp;
+        \(\frac{d}{dx}x^{-1} = -x^{-2}\), &ensp;
+        \(\frac{d}{dx}\sqrt{x} = \frac{d}{dx}x^{1/2} = \frac{1}{2}x^{-1/2}\).
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Vakiokertoimen s&auml;&auml;nt&ouml;</span>
+      <p>Jos \(c\) on vakio, niin:</p>
+      \[ \frac{d}{dx}[c \cdot f(x)] = c \cdot f'(x) \]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Summas&auml;&auml;nt&ouml;</span>
+      <p>Summan derivaatta on derivaattojen summa:</p>
+      \[ \frac{d}{dx}[f(x) + g(x)] = f'(x) + g'(x) \]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Tulosaanto</span>
+      <p>Kahden funktion tulolle:</p>
+      \[ \frac{d}{dx}[f(x) \cdot g(x)] = f'(x) \cdot g(x) + f(x) \cdot g'(x) \]
+      <p>Muistis&auml;&auml;nt&ouml;: &rdquo;ensimm&auml;isen derivaatta kertaa toinen, plus ensimm&auml;inen kertaa toisen derivaatta.&rdquo;</p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Osam&auml;&auml;r&auml;s&auml;&auml;nt&ouml;</span>
+      <p>Kahden funktion osam&auml;&auml;r&auml;lle:</p>
+      \[ \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{[g(x)]^2} \]
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Ketjus&auml;&auml;nt&ouml;</span>
+      <p>Yhdistetyille funktioille \(f(g(x))\):</p>
+      \[ \frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x) \]
+      <p>Leibnizin merkinn&auml;ll&auml;: jos \(y = f(u)\) ja \(u = g(x)\), niin \(\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; S&auml;&auml;nt&ouml;jen k&auml;ytt&ouml;</span>
+      <p>Derivoi \(f(x) = 5x^3 - 2x^2 + 7x - 4\).</p>
+      <p>Sovelletaan potenssisaantoa, vakiokertoimen s&auml;&auml;nt&ouml;&auml; ja summas&auml;&auml;nt&ouml;&auml; termi kerrallaan:</p>
+      \[
+      f'(x) = 5 \cdot 3x^2 - 2 \cdot 2x + 7 \cdot 1 - 0 = 15x^2 - 4x + 7
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Tulosaanto</span>
+      <p>Derivoi \(f(x) = x^2 \cdot e^x\).</p>
+      <p>Olkoon \(u = x^2\) ja \(v = e^x\). Tällöin \(u' = 2x\) ja \(v' = e^x\).</p>
+      \[
+      f'(x) = u'v + uv' = 2x \cdot e^x + x^2 \cdot e^x = e^x(2x + x^2) = e^x \cdot x(2 + x)
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Ketjus&auml;&auml;nt&ouml;</span>
+      <p>Derivoi \(f(x) = (3x + 1)^5\).</p>
+      <p>
+        Ulompi funktio on \(u^5\) ja sis&auml;funktio on \(u = 3x + 1\). Ketjus&auml;&auml;nt&ouml;
+        antaa:
+      </p>
+      \[
+      f'(x) = 5(3x + 1)^4 \cdot 3 = 15(3x + 1)^4
+      \]
+    </div>
+
+    <h3>Yleisten funktioiden derivaatat</h3>
+
+    <p>T&auml;ss&auml; on viitetaulukko usein k&auml;ytett&auml;vist&auml; derivaatoista:</p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left; margin: 1.5rem 0;">
+      <tr>
+        <th style="width:40%">Funktio \(f(x)\)</th>
+        <th>Derivaatta \(f'(x)\)</th>
+      </tr>
+      <tr><td>\(c\) (vakio)</td><td>\(0\)</td></tr>
+      <tr><td>\(x^n\)</td><td>\(nx^{n-1}\)</td></tr>
+      <tr><td>\(e^x\)</td><td>\(e^x\)</td></tr>
+      <tr><td>\(a^x\)</td><td>\(a^x \ln a\)</td></tr>
+      <tr><td>\(\ln x\)</td><td>\(\dfrac{1}{x}\)</td></tr>
+      <tr><td>\(\log_a x\)</td><td>\(\dfrac{1}{x \ln a}\)</td></tr>
+      <tr><td>\(\sin x\)</td><td>\(\cos x\)</td></tr>
+      <tr><td>\(\cos x\)</td><td>\(-\sin x\)</td></tr>
+      <tr><td>\(\tan x\)</td><td>\(\sec^2 x\)</td></tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Miksi \(e^x\) on erityinen</span>
+      <p>
+        Eksponenttifunktio \(e^x\) on itsens&auml; derivaatta: \(\frac{d}{dx}e^x = e^x\). T&auml;m&auml;
+        tarkoittaa, ett&auml; \(e^x\) kasvaa nopeudella, joka on yht&auml; suuri kuin sen nykyinen arvo &mdash; eksponentiaalisen
+        kasvun tunnusmerkki. EGT:ss&auml; eksponenttifunktiot syntyvat luonnollisesti mallinnettaessa populaatioita,
+        joiden yksil&ouml;kohtainen kasvuvauhti on vakio.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Replikaattoridynamiikan yht&auml;l&ouml; on:
+      </p>
+      \[ \dot{x}_i = \frac{dx_i}{dt} = x_i \big( f_i(\mathbf{x}) - \bar{f}(\mathbf{x}) \big) \]
+      <p>
+        T&auml;m&auml; on derivaatta &mdash; strategian \(i\) frekvenssin \(x_i\) muutosnopeus.
+        Oikea puoli sanoo, ett&auml; kasvuvauhti on verrannollinen siihen, kuinka paljon paremmin strategia \(i\)
+        menestyy populaation keskiarvoon verrattuna. Derivaattojen ymm&auml;rt&auml;minen antaa meille mahdollisuuden lukea t&auml;t&auml; yht&auml;l&ouml;&auml;:
+        positiivinen derivaatta tarkoittaa, ett&auml; strategia leviaa; negatiivinen tarkoittaa, ett&auml; se v&auml;henee;
+        nolla tarkoittaa, ett&auml; strategiafrekvenssi on tasapainossa.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 3: KORKEAMMAN ASTEEN DERIVAATAT -->
+  <!-- ================================================================== -->
+  <div class="section" id="higher-derivatives">
+    <h2>3. Korkeamman asteen derivaatat</h2>
+
+    <p>
+      Jos voimme derivoida funktion kerran saadaksemme muutosnopeuden, voimme derivoida uudelleen
+      saadaksemme <em>muutosnopeuden muutosnopeuden</em>. T&auml;m&auml; on toinen derivaatta, ja
+      se kertoo meille funktion <strong>kaarevuudesta</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Toinen derivaatta</span>
+      <p>Funktion \(f\) <strong>toinen derivaatta</strong> on ensimm&auml;isen derivaatan derivaatta:</p>
+      \[ f''(x) = \frac{d^2 f}{dx^2} = \frac{d}{dx}\left[\frac{df}{dx}\right] \]
+      <p>
+        Vastaavasti kolmas derivaatta on \(f'''(x)\) tai \(\frac{d^3 f}{dx^3}\), ja niin edelleen.
+        \(n\):s derivaatta kirjoitetaan \(f^{(n)}(x)\) tai \(\frac{d^n f}{dx^n}\).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Korkeampien derivaattojen laskeminen</span>
+      <p>Olkoon \(f(x) = x^4 - 3x^2 + 2x\).</p>
+      \[
+      \begin{aligned}
+      f'(x) &= 4x^3 - 6x + 2 \\
+      f''(x) &= 12x^2 - 6 \\
+      f'''(x) &= 24x \\
+      f^{(4)}(x) &= 24 \\
+      f^{(5)}(x) &= 0
+      \end{aligned}
+      \]
+    </div>
+
+    <h3>Konkaavius ja toinen derivaatta</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio</span>
+      <p>
+        Ensimm&auml;inen derivaatta kertoo <em>suunnan</em> (kasvava vai v&auml;henev&auml;). Toinen
+        derivaatta kertoo <em>muodon</em>:
+      </p>
+      <ul>
+        <li>\(f''(x) > 0\): kuvaaja on <strong>konkaavi yl&ouml;sp&auml;in</strong> (kaartuu yl&ouml;sp&auml;in kuin kuppi). Kulmakerroin kasvaa.</li>
+        <li>\(f''(x) < 0\): kuvaaja on <strong>konkaavi alasp&auml;in</strong> (kaartuu alasp&auml;in). Kulmakerroin v&auml;henee.</li>
+        <li>\(f''(x) = 0\): mahdollinen <strong>k&auml;&auml;nt&ouml;piste</strong>, jossa konkaavius muuttuu.</li>
+      </ul>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; K&auml;&auml;nt&ouml;piste</span>
+      <p>
+        <strong>K&auml;&auml;nt&ouml;piste</strong> on piste, jossa funktion \(f\) konkaavius muuttuu &mdash;
+        eli miss&auml; \(f''(x)\) vaihtaa merkkia. K&auml;&auml;nt&ouml;pisteess&auml; \(f''(x) = 0\) (tai on
+        m&auml;&auml;rittelem&auml;t&ouml;n), mutta jokainen piste, jossa \(f''(x) = 0\), ei v&auml;ltt&auml;m&auml;tt&auml; ole k&auml;&auml;nt&ouml;piste.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Konkaaviusanalyysi</span>
+      <p>Olkoon \(f(x) = x^3 - 3x\). Etsi konkaavius ja mahdolliset k&auml;&auml;nt&ouml;pisteet.</p>
+      \[
+      f'(x) = 3x^2 - 3, \quad f''(x) = 6x
+      \]
+      <ul>
+        <li>\(f''(x) = 0\) kun \(x = 0\).</li>
+        <li>Kun \(x < 0\): \(f''(x) < 0\), joten funktio on konkaavi alasp&auml;in.</li>
+        <li>Kun \(x > 0\): \(f''(x) > 0\), joten funktio on konkaavi yl&ouml;sp&auml;in.</li>
+      </ul>
+      <p>
+        Koska \(f''\) vaihtaa merkkia pisteess&auml; \(x = 0\), piste \((0, 0)\) on k&auml;&auml;nt&ouml;piste.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Konkaavius on keskeist&auml; <strong>stabiilisuusanalyysissa</strong>. Kun tutkimme, onko
+        tasapaino stabiili replikaattoridynamiikassa, meid&auml;n on usein tarkistettava, onko
+        kelpoisuusfunktio konkaavi vai konveksi. Konkaavi kelpoisuusfunktio (negatiivinen toinen
+        derivaatta) voi viitata stabiiliin sis&auml;iseen tasapainoon, kun taas konveksi (positiivinen
+        toinen derivaatta) voi viitata ep&auml;stabiiliuteen. Toisen derivaatan testin (k&auml;sitell&auml;&auml;n
+        Optimointi-osiossa) avulla luokitellaan suoraan tasapainopisteit&auml;.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 4: OSITTAISDERIVAATAT -->
+  <!-- ================================================================== -->
+  <div class="section" id="partial-derivatives">
+    <h2>4. Osittaisderivaatat</h2>
+
+    <p>
+      T&auml;h&auml;n asti funktioillamme on ollut yksi sy&ouml;temuuttuja. Mutta evoluutiopeliteoriassa
+      kelpoisuus riippuu tyypillisesti <em>useista</em> strategiafrekvensseist&auml;. Jos strategioita on kolme
+      ja niiden frekvenssit ovat \(x_1, x_2, x_3\), niin kunkin strategian kelpoisuus on
+      kaikkien kolmen muuttujan funktio. Tarvitsemme tavan mitata, miten tulos muuttuu, kun
+      muutamme <em>yht&auml;</em> sy&ouml;tett&auml; pit&auml;en muut vakioina. T&auml;m&auml; on osittaisderivaatta.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Osittaisderivaatta</span>
+      <p>
+        Kun funktio \(f(x, y)\) riippuu kahdesta muuttujasta, <strong>osittaisderivaatta muuttujan
+        \(x\) suhteen</strong> on:
+      </p>
+      \[ \frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x + h, y) - f(x, y)}{h} \]
+      <p>
+        Derivoimme muuttujan \(x\) suhteen pit&auml;en \(y\):n vakiona. Vastaavasti:
+      </p>
+      \[ \frac{\partial f}{\partial y} = \lim_{h \to 0} \frac{f(x, y + h) - f(x, y)}{h} \]
+      <p>Vaihtoehtoisia merkint&ouml;j&auml;: \(f_x\), \(\partial_x f\) tai \(D_x f\).</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Osittaisderivaattojen laskeminen</span>
+      <p>Olkoon \(f(x, y) = 3x^2 y + 2xy^3 - 5y + 7\).</p>
+      <p>
+        <strong>Osittaisderivaatta muuttujan \(x\) suhteen</strong> (pidet&auml;&auml;n \(y\) vakiona):
+      </p>
+      \[ \frac{\partial f}{\partial x} = 6xy + 2y^3 \]
+      <p>
+        <strong>Osittaisderivaatta muuttujan \(y\) suhteen</strong> (pidet&auml;&auml;n \(x\) vakiona):
+      </p>
+      \[ \frac{\partial f}{\partial y} = 3x^2 + 6xy^2 - 5 \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kelpoisuusfunktio</span>
+      <p>
+        Oletetaan, ett&auml; strategian A kelpoisuus kahden strategian peliss&auml; on:
+      </p>
+      \[ f_A(x, y) = 3x + 2y \]
+      <p>miss&auml; \(x\) on strategian A frekvenssi ja \(y\) on strategian B frekvenssi. Tällöin:</p>
+      \[
+      \frac{\partial f_A}{\partial x} = 3, \quad \frac{\partial f_A}{\partial y} = 2
+      \]
+      <p>
+        T&auml;m&auml; kertoo meille: A:n frekvenssin pieni kasvu nostaa A:n kelpoisuutta 3 yksikk&ouml;&auml;
+        muutosyksikk&ouml;&auml; kohden; B:n frekvenssin kasvu nostaa A:n kelpoisuutta 2 yksikk&ouml;&auml; muutosyksikk&ouml;&auml; kohden.
+      </p>
+    </div>
+
+    <h3>Gradienttivektori</h3>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Gradientti</span>
+      <p>
+        Funktion \(f(x_1, x_2, \ldots, x_n)\) <strong>gradientti</strong> on vektori, joka koostuu
+        kaikista sen osittaisderivaatoista:
+      </p>
+      \[ \nabla f = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n} \right) \]
+      <p>
+        Gradientti osoittaa funktion \(f\) <strong>jyrkimm&auml;n nousun</strong> suuntaan. Sen
+        suuruus \(\|\nabla f\|\) kertoo, kuinka jyrk&auml;sti \(f\) kasvaa t&auml;ss&auml; suunnassa.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Gradientin laskeminen</span>
+      <p>Olkoon \(f(x, y) = x^2 + 3xy + y^2\). Gradientti on:</p>
+      \[ \nabla f = \left( 2x + 3y, \; 3x + 2y \right) \]
+      <p>Pisteess&auml; \((1, 2)\):</p>
+      \[ \nabla f(1, 2) = (2 + 6, \; 3 + 4) = (8, 7) \]
+      <p>Funktio kasvaa jyrkimmin vektorin \((8, 7)\) suuntaan.</p>
+    </div>
+
+    <h3>Toisen kertaluvun osittaisderivaatat</h3>
+
+    <p>
+      Voimme ottaa osittaisderivaattoja osittaisderivaatoista. Funktiolle \(f(x,y)\):
+    </p>
+    <ul>
+      <li>\(f_{xx} = \frac{\partial^2 f}{\partial x^2}\): derivoidaan kahdesti muuttujan \(x\) suhteen.</li>
+      <li>\(f_{yy} = \frac{\partial^2 f}{\partial y^2}\): derivoidaan kahdesti muuttujan \(y\) suhteen.</li>
+      <li>\(f_{xy} = \frac{\partial^2 f}{\partial y \, \partial x}\): derivoidaan ensin muuttujan \(x\), sitten \(y\) suhteen.</li>
+    </ul>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Clairaut'n lause (ristiderivaattojen symmetria)</span>
+      <p>
+        Jos \(f_{xy}\) ja \(f_{yx}\) ovat molemmat jatkuvia, niin:
+      </p>
+      \[ f_{xy} = f_{yx} \]
+      <p>Derivointij&auml;rjestyksell&auml; ei ole v&auml;li&auml; (hyvin k&auml;ytt&auml;ytyville funktioille).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Peliss&auml;, jossa on \(n\) strategiaa, strategian \(i\) kelpoisuus on koko
+        strategiaprofiilin \(\mathbf{x} = (x_1, x_2, \ldots, x_n)\) funktio. Kun analysoimme, miten
+        replikaattoridynamiikka muuttuu tasapainon l&auml;heisyydess&auml;, tarvitsemme <strong>Jacobin matriisin</strong>,
+        joka on kaikkien osittaisderivaattojen \(\frac{\partial \dot{x}_i}{\partial x_j}\) matriisi.
+        T&auml;m&auml; yhdist&auml;&auml; osittaisderivaatat suoraan stabiilisuusteoriaan, jota opiskelet
+        moduulissa 4.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 5: OPTIMOINTI -->
+  <!-- ================================================================== -->
+  <div class="section" id="optimization">
+    <h2>5. Optimointi</h2>
+
+    <p>
+      Optimointi &mdash; maksimien ja minimien l&ouml;yt&auml;minen &mdash; on yksi analyysin t&auml;rkeimmist&auml;
+      sovelluksista. Evoluutiopeliteoriassa organismit &rdquo;maksimoivat&rdquo; kelpoisuuttaan
+      luonnonvalinnan kautta, ja rationaaliset toimijat maksimoivat hy&ouml;ty&auml;&auml;n. Maksimien ja minimien
+      l&ouml;yt&auml;misen matematiikka perustuu suoraan derivaattoihin.
+    </p>
+
+    <h3>Kriittiset pisteet</h3>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Kriittinen piste</span>
+      <p>
+        Funktion \(f(x)\) <strong>kriittinen piste</strong> on arvo \(x = c\), jossa joko
+        \(f'(c) = 0\) tai \(f'(c)\) ei ole olemassa.
+      </p>
+      <p>
+        Kriittisess&auml; pisteess&auml; tangenttisuora on vaakasuora (kulmakerroin nolla) tai hyvin m&auml;&auml;ritelty&auml;
+        tangenttia ei ole. Kaikki paikalliset maksimit ja minimit esiintyv&auml;t kriittisiss&auml; pisteiss&auml;.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kriittisten pisteiden etsiminen</span>
+      <p>Olkoon \(f(x) = x^3 - 6x^2 + 9x + 2\). Etsi kaikki kriittiset pisteet.</p>
+      \[ f'(x) = 3x^2 - 12x + 9 = 3(x^2 - 4x + 3) = 3(x - 1)(x - 3) \]
+      <p>Asettamalla \(f'(x) = 0\): \(x = 1\) ja \(x = 3\) ovat kriittiset pisteet.</p>
+    </div>
+
+    <h3>Ensimm&auml;isen derivaatan testi</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Ensimm&auml;isen derivaatan testi</span>
+      <p>Olkoon \(c\) funktion \(f\) kriittinen piste, jossa \(f'(c) = 0\).</p>
+      <ul>
+        <li>Jos \(f'(x)\) vaihtuu <strong>positiivisesta negatiiviseksi</strong> pisteess&auml; \(c\), niin \(f\):lla on <strong>paikallinen maksimi</strong> pisteess&auml; \(c\).</li>
+        <li>Jos \(f'(x)\) vaihtuu <strong>negatiivisesta positiiviseksi</strong> pisteess&auml; \(c\), niin \(f\):lla on <strong>paikallinen minimi</strong> pisteess&auml; \(c\).</li>
+        <li>Jos \(f'(x)\) ei vaihda merkkia pisteess&auml; \(c\), niin \(c\) ei ole maksimi eik&auml; minimi (se on <strong>k&auml;&auml;nt&ouml;piste</strong>).</li>
+      </ul>
+    </div>
+
+    <h3>Toisen derivaatan testi</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Toisen derivaatan testi</span>
+      <p>Olkoon \(c\) kriittinen piste, jossa \(f'(c) = 0\).</p>
+      <ul>
+        <li>Jos \(f''(c) < 0\), niin \(f\):lla on <strong>paikallinen maksimi</strong> pisteess&auml; \(c\) (konkaavi alasp&auml;in).</li>
+        <li>Jos \(f''(c) > 0\), niin \(f\):lla on <strong>paikallinen minimi</strong> pisteess&auml; \(c\) (konkaavi yl&ouml;sp&auml;in).</li>
+        <li>Jos \(f''(c) = 0\), testi on <strong>ep&auml;selv&auml;</strong> (k&auml;yt&auml; ensimm&auml;isen derivaatan testi&auml;).</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kriittisten pisteiden luokittelu</span>
+      <p>
+        Jatketaan funktiolla \(f(x) = x^3 - 6x^2 + 9x + 2\); l&ouml;ysimme kriittiset pisteet \(x = 1\)
+        ja \(x = 3\). Laskemme:
+      </p>
+      \[ f''(x) = 6x - 12 \]
+      <ul>
+        <li>\(f''(1) = 6(1) - 12 = -6 < 0\) &rarr; <strong>paikallinen maksimi</strong> pisteess&auml; \(x = 1\).</li>
+        <li>\(f''(3) = 6(3) - 12 = 6 > 0\) &rarr; <strong>paikallinen minimi</strong> pisteess&auml; \(x = 3\).</li>
+      </ul>
+      <p>Maksimiarvo on \(f(1) = 1 - 6 + 9 + 2 = 6\) ja minimiarvo on \(f(3) = 27 - 54 + 27 + 2 = 2\).</p>
+    </div>
+
+    <h3>Usean muuttujan optimointi</h3>
+
+    <p>
+      Kahden muuttujan funktiolle \(f(x, y)\) kriittinen piste esiintyy, kun molemmat osittaisderivaatat
+      ovat nolla:
+    </p>
+    \[ \frac{\partial f}{\partial x} = 0 \quad \text{ja} \quad \frac{\partial f}{\partial y} = 0 \]
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Toisen derivaatan testi (monimuuttujaiselle)</span>
+      <p>
+        Funktion \(f(x, y)\) kriittisess&auml; pisteess&auml; \((a, b)\) m&auml;&auml;ritell&auml;&auml;n <strong>diskriminantti</strong>:
+      </p>
+      \[ D = f_{xx}(a,b) \cdot f_{yy}(a,b) - [f_{xy}(a,b)]^2 \]
+      <ul>
+        <li>Jos \(D > 0\) ja \(f_{xx} < 0\): <strong>paikallinen maksimi</strong>.</li>
+        <li>Jos \(D > 0\) ja \(f_{xx} > 0\): <strong>paikallinen minimi</strong>.</li>
+        <li>Jos \(D < 0\): <strong>satulapiste</strong> (ei maksimi eik&auml; minimi).</li>
+        <li>Jos \(D = 0\): <strong>ep&auml;selv&auml;</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kahden muuttujan optimointi</span>
+      <p>Etsi ja luokittele funktion \(f(x, y) = x^2 + y^2 - 4x - 6y + 13\) kriittiset pisteet.</p>
+      <p><strong>Vaihe 1:</strong> Asetetaan osittaisderivaatat nollaksi.</p>
+      \[
+      f_x = 2x - 4 = 0 \implies x = 2, \qquad f_y = 2y - 6 = 0 \implies y = 3
+      \]
+      <p>Kriittinen piste: \((2, 3)\).</p>
+      <p><strong>Vaihe 2:</strong> Lasketaan toiset osittaisderivaatat.</p>
+      \[ f_{xx} = 2, \quad f_{yy} = 2, \quad f_{xy} = 0 \]
+      <p><strong>Vaihe 3:</strong> Lasketaan diskriminantti.</p>
+      \[ D = (2)(2) - (0)^2 = 4 > 0 \]
+      <p>Koska \(D > 0\) ja \(f_{xx} = 2 > 0\), piste \((2, 3)\) on <strong>paikallinen minimi</strong>.</p>
+      <p>Minimiarvo on \(f(2, 3) = 4 + 9 - 8 - 18 + 13 = 0\).</p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Evoluutiopeliteoriassa luonnonvalinta ohjaa organismeja kohti strategioita, jotka
+        maksimoivat kelpoisuuden. Replikaattoridynamiikan tasapainopisteiden etsiminen liittyy l&auml;heisesti
+        optimointiin: etsimme strategiafrekvenssej&auml;, joissa &rdquo;muutospaine&rdquo; on nolla
+        (analogisesti \(f'(x) = 0\)). Toisen derivaatan testi on analoginen stabiilisuuden tarkistamisen kanssa:
+        kelpoisuusmaiseman maksimi voi vastata stabiilia tasapainoa
+        (evoluutiossa stabiili strategia, ESS), kun taas satulapiste vastaa ep&auml;stabiilia tasapainoa.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 6: INTEGROINTI -->
+  <!-- ================================================================== -->
+  <div class="section" id="integration">
+    <h2>6. Integraalilaskennan perusteet</h2>
+
+    <p>
+      Integrointi on derivoinnin k&auml;&auml;nteisoperaatio. Jos derivaatat kertovat muutosnopeuksista,
+      integraalit kertovat <strong>kertymisest&auml;</strong> &mdash; &auml;&auml;rett&ouml;m&auml;n monen
+      infinitesimaalisen osan yhteenlaskusta. Integroinnin avulla voimme laskea pinta-aloja, kokonaistuottoja ja todenn&auml;k&ouml;isyyksi&auml;.
+    </p>
+
+    <h3>Integraalifunktiot</h3>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; Integraalifunktio</span>
+      <p>
+        Funktion \(f(x)\) <strong>integraalifunktio</strong> (eli <strong>m&auml;&auml;r&auml;&auml;m&auml;t&ouml;n integraali</strong>) on
+        funktio \(F(x)\) siten, ett&auml; \(F'(x) = f(x)\). Kirjoitamme:
+      </p>
+      \[ \int f(x) \, dx = F(x) + C \]
+      <p>
+        miss&auml; \(C\) on <strong>integroimisvakio</strong> (koska mink&auml; tahansa
+        vakion derivaatta on nolla, integraalifunktioita on &auml;&auml;rett&ouml;m&auml;n monta ja ne eroavat toisistaan vakion verran).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Perusintegraalifunktiot</span>
+      <p>
+        Koska \(\frac{d}{dx}x^3 = 3x^2\), funktion \(3x^2\) integraalifunktio on \(x^3 + C\). Yleisemmin:
+      </p>
+      \[ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1) \]
+      <p>Joitakin t&auml;rkeit&auml; integraalifunktioita:</p>
+      <ul>
+        <li>\(\int e^x \, dx = e^x + C\)</li>
+        <li>\(\int \frac{1}{x} \, dx = \ln|x| + C\)</li>
+        <li>\(\int \cos x \, dx = \sin x + C\)</li>
+        <li>\(\int \sin x \, dx = -\cos x + C\)</li>
+      </ul>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Integraalifunktion etsiminen</span>
+      <p>Laske \(\int (4x^3 - 6x + 2) \, dx\).</p>
+      <p>Integroidaan termi kerrallaan k&auml;ytt&auml;en integraalien potenssisaantoa:</p>
+      \[
+      \int (4x^3 - 6x + 2) \, dx = \frac{4x^4}{4} - \frac{6x^2}{2} + 2x + C = x^4 - 3x^2 + 2x + C
+      \]
+      <p>Voimme tarkistaa: \(\frac{d}{dx}(x^4 - 3x^2 + 2x + C) = 4x^3 - 6x + 2\). Oikein!</p>
+    </div>
+
+    <h3>M&auml;&auml;r&auml;tty integraali pinta-alana</h3>
+
+    <div class="def-box">
+      <span class="box-title">M&auml;&auml;ritelm&auml; &mdash; M&auml;&auml;r&auml;tty integraali</span>
+      <p>
+        Funktion \(f(x)\) <strong>m&auml;&auml;r&auml;tty integraali</strong> v&auml;lill&auml; \(a\) - \(b\) on:
+      </p>
+      \[ \int_a^b f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \, \Delta x \]
+      <p>
+        miss&auml; \(\Delta x = \frac{b - a}{n}\) ja \(x_i^*\) on otospiste \(i\):nnell&auml;
+        osavalilla. Geometrisesti t&auml;m&auml; on <strong>etumerkillinen pinta-ala</strong> k&auml;yr&auml;n
+        \(y = f(x)\) ja \(x\)-akselin v&auml;lill&auml; v&auml;lill&auml; \(x = a\) - \(x = b\).
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio</span>
+      <p>
+        Ajattele m&auml;&auml;r&auml;tty&auml; integraalia siten, ett&auml; k&auml;yr&auml;n alla oleva alue leikataan hyvin ohuiksi
+        suorakaiteiksi, lasketaan kunkin pinta-ala ja lasketaan ne yhteen. Kun suorakaiteet ohenevat
+        (ja niit&auml; tulee yh&auml; enemman), summa suppenee tarkkaan pinta-alaan.
+      </p>
+    </div>
+
+    <h3>Analyysin peruslause</h3>
+
+    <p>
+      Analyysin peruslause on yksi matematiikan syvallisimmista tuloksista.
+      Se yhdistaa kaksi n&auml;enn&auml;isesti erilaista operaatiota: derivoinnin ja integroinnin.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Analyysin peruslause (osa 1)</span>
+      <p>
+        Jos \(f\) on jatkuva valilla \([a, b]\) ja m&auml;&auml;rittelemme
+        \(F(x) = \int_a^x f(t) \, dt\), niin \(F\) on derivoituva ja:
+      </p>
+      \[ F'(x) = f(x) \]
+      <p>
+        Sanallisesti: integraalin derivaatta on alkuper&auml;inen funktio. Derivointi kumoaa
+        integroinnin.
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Analyysin peruslause (osa 2)</span>
+      <p>
+        Jos \(f\) on jatkuva v&auml;lill&auml; \([a, b]\) ja \(F\) on mik&auml; tahansa funktion \(f\) integraalifunktio, niin:
+      </p>
+      \[ \int_a^b f(x) \, dx = F(b) - F(a) \]
+      <p>
+        T&auml;m&auml; on <em>sijoituslause</em>: m&auml;&auml;r&auml;tyn integraalin laskemiseksi etsit&auml;&auml;n integraalifunktio
+        ja v&auml;hennet&auml;&auml;n sen arvot p&auml;&auml;tepisteiss&auml;.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; M&auml;&auml;r&auml;tyn integraalin laskeminen</span>
+      <p>Laske \(\int_1^3 (2x + 1) \, dx\).</p>
+      <p><strong>Vaihe 1:</strong> Etsit&auml;&auml;n integraalifunktio: \(F(x) = x^2 + x\).</p>
+      <p><strong>Vaihe 2:</strong> Sijoitetaan rajat:</p>
+      \[
+      \int_1^3 (2x + 1) \, dx = F(3) - F(1) = (9 + 3) - (1 + 1) = 12 - 2 = 10
+      \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Eksponenttifunktion alainen pinta-ala</span>
+      <p>Laske \(\int_0^1 e^x \, dx\).</p>
+      <p>Funktion \(e^x\) integraalifunktio on \(e^x\):</p>
+      \[
+      \int_0^1 e^x \, dx = e^1 - e^0 = e - 1 \approx 1{,}718
+      \]
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Integrointi esiintyy evoluutiopeliteoriassa useissa t&auml;rkeiss&auml; yhteyksis&auml;:
+      </p>
+      <ul>
+        <li>
+          <strong>Kumulatiiviset tuotot:</strong> Strategian kerryttam&auml; kokonaistuotto
+          aikav&auml;lill&auml; \([0, T]\) on \(\int_0^T f_i(t) \, dt\), miss&auml; \(f_i(t)\) on
+          hetkellinen tuottonopeus.
+        </li>
+        <li>
+          <strong>Todenn&auml;k&ouml;isyysjakaumat:</strong> Stokastisissa evoluutiomalleissa
+          tapahtuman todenn&auml;k&ouml;isyys lasketaan todenn&auml;k&ouml;isyystiheysfunktion integraalina:
+          \(P(a \le X \le b) = \int_a^b p(x) \, dx\).
+        </li>
+        <li>
+          <strong>Keskim&auml;&auml;r&auml;inen kelpoisuus:</strong> Populaation keskim&auml;&auml;r&auml;inen kelpoisuus jatkuvalla
+          tyyppijakaumalla on integraali: \(\bar{f} = \int f(x) \, p(x) \, dx\).
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- OSIO 7: KETJUS&Auml;&Auml;NT&Ouml; TARKEMMIN -->
+  <!-- ================================================================== -->
+  <div class="section" id="chain-rule-detail">
+    <h2>7. Ketjus&auml;&auml;nt&ouml; tarkemmin</h2>
+
+    <p>
+      Ketjus&auml;&auml;nt&ouml; on niin t&auml;rke&auml; evoluutiopeliteorialle, ett&auml; se ansaitsee oman laajemman
+      k&auml;sittelyns&auml;. Aina kun suure riippuu toisesta sureesta, joka puolestaan riippuu kolmannesta,
+      tarvitsemme ketjus&auml;&auml;nt&ouml;&auml;. EGT:ss&auml; kelpoisuus riippuu strategiafrekvensseist&auml;, jotka riippuvat
+      ajasta &mdash; klassinen riippuvuuksien ketju.
+    </p>
+
+    <h3>Ketjus&auml;&auml;nt&ouml;, uudelleen tarkasteltuna</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Ketjus&auml;&auml;nt&ouml;</span>
+      <p>
+        Jos \(y = f(u)\) ja \(u = g(x)\), niin:
+      </p>
+      \[ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} = f'(g(x)) \cdot g'(x) \]
+      <p>
+        Sanallisesti: suureen \(y\) muutosnopeus suureen \(x\) suhteen on yht&auml; suuri kuin suureen \(y\)
+        muutosnopeus suureen \(u\) suhteen kertaa suureen \(u\) muutosnopeus suureen \(x\) suhteen.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Syy-seurausketju</span>
+      <p>
+        Jos muuttujan \(x\) muuttaminen 1 yksiköllä aiheuttaa muuttujan \(u\) muutoksen 3 yksiköllä, ja muuttujan \(u\)
+        muuttaminen 1 yksiköllä aiheuttaa muuttujan \(y\) muutoksen 5 yksiköllä, niin muuttujan \(x\) muuttaminen 1 yksiköllä aiheuttaa muuttujan \(y\)
+        muutoksen \(3 \times 5 = 15\) yksiköllä. Ketjus&auml;&auml;nt&ouml; yksinkertaisesti kertoo nopeudet
+        ketjun varrella.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Ketjus&auml;&auml;nt&ouml; ja eksponenttifunktio</span>
+      <p>Derivoi \(y = e^{3x^2}\).</p>
+      <p>
+        Olkoon \(u = 3x^2\), jolloin \(y = e^u\). T&auml;ll&ouml;in \(\frac{dy}{du} = e^u\) ja
+        \(\frac{du}{dx} = 6x\).
+      </p>
+      \[ \frac{dy}{dx} = e^u \cdot 6x = 6x \, e^{3x^2} \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Ketjus&auml;&auml;nt&ouml; ja logaritmi</span>
+      <p>Derivoi \(y = \ln(x^2 + 1)\).</p>
+      <p>
+        Olkoon \(u = x^2 + 1\), jolloin \(y = \ln u\). T&auml;ll&ouml;in \(\frac{dy}{du} = \frac{1}{u}\) ja
+        \(\frac{du}{dx} = 2x\).
+      </p>
+      \[ \frac{dy}{dx} = \frac{1}{x^2 + 1} \cdot 2x = \frac{2x}{x^2 + 1} \]
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Sisennetty ketjus&auml;&auml;nt&ouml;</span>
+      <p>Derivoi \(y = \sin(e^{2x})\).</p>
+      <p>
+        T&auml;ss&auml; on kaksi kompositiokerrosta. Olkoon \(v = 2x\), \(u = e^v\) ja \(y = \sin u\).
+      </p>
+      \[
+      \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dv} \cdot \frac{dv}{dx}
+                     = \cos(u) \cdot e^v \cdot 2
+                     = 2e^{2x} \cos(e^{2x})
+      \]
+    </div>
+
+    <h3>Monimuuttujainen ketjus&auml;&auml;nt&ouml;</h3>
+
+    <p>
+      Kun funktio riippuu useista muuttujista, joista kukin riippuu yhteisest&auml; parametrist&auml;
+      (kuten ajasta \(t\)), ketjus&auml;&auml;nt&ouml; yleistyy.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Monimuuttujainen ketjus&auml;&auml;nt&ouml;</span>
+      <p>
+        Jos \(z = f(x, y)\), miss&auml; \(x = x(t)\) ja \(y = y(t)\) ovat molemmat muuttujan \(t\) funktioita, niin:
+      </p>
+      \[ \frac{dz}{dt} = \frac{\partial f}{\partial x} \cdot \frac{dx}{dt} + \frac{\partial f}{\partial y} \cdot \frac{dy}{dt} \]
+    </div>
+
+    <h3>Ketjus&auml;&auml;nt&ouml; replikaattoridynamiikassa</h3>
+
+    <p>
+      Katsotaan tarkasti, miten ketjus&auml;&auml;nt&ouml; esiintyy EGT:lle merkityksellisess&auml; johdossa. T&auml;m&auml; esimerkki
+      on t&auml;rke&auml;&auml; valmistautumista moduuliin 7.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Keskim&auml;&auml;r&auml;isen kelpoisuuden muutosnopeus</span>
+      <p>
+        Kahden strategian peliss&auml; populaation keskim&auml;&auml;r&auml;inen kelpoisuus on:
+      </p>
+      \[ \bar{f}(x) = x \cdot f_A(x) + (1 - x) \cdot f_B(x) \]
+      <p>
+        miss&auml; \(x = x(t)\) on strategian A frekvenssi (ajan funktio). Miten
+        \(\bar{f}\) muuttuu ajan my&ouml;t&auml;?
+      </p>
+      <p>
+        Ketjus&auml;&auml;nn&ouml;n mukaan \(\frac{d\bar{f}}{dt} = \frac{d\bar{f}}{dx} \cdot \frac{dx}{dt}\).
+        Tekij&auml; \(\frac{dx}{dt}\) on juuri se, mink&auml; replikaattoriyht&auml;l&ouml; antaa meille, ja
+        \(\frac{d\bar{f}}{dx}\) kertoo, kuinka herkk&auml; keskim&auml;&auml;r&auml;inen kelpoisuus on strategiasekoitukselle.
+      </p>
+      <p>
+        Oletetaan, ett&auml; kelpoisuusfunktiot ovat lineaarisia: \(f_A(x) = ax + b(1-x)\) ja
+        \(f_B(x) = cx + d(1-x)\) vakioille \(a, b, c, d\). T&auml;ll&ouml;in:
+      </p>
+      \[
+      \bar{f}(x) = x[ax + b(1-x)] + (1-x)[cx + d(1-x)]
+      \]
+      <p>Derivoidaan muuttujan \(x\) suhteen:</p>
+      \[
+      \frac{d\bar{f}}{dx} = f_A(x) + x \cdot f_A'(x) - f_B(x) + (1-x)\cdot(-f_B'(x))
+      \]
+      <p>
+        T&auml;ss&auml; vaiheessa jokainen askel vaatii ketjus&auml;&auml;nn&ouml;n ja tulosaannon yhteistoimintaa. Siksi
+        n&auml;iden s&auml;&auml;nt&ouml;jen sujuva hallinta on v&auml;ltt&auml;m&auml;t&ouml;nt&auml; ennen replikaattoridynamiikan k&auml;sittely&auml;
+        moduulissa 7.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Yhdistetyn kelpoisuusfunktion derivointi</span>
+      <p>
+        Oletetaan, ett&auml; strategian A kelpoisuus riippuu resurssitasosta \(R\), joka puolestaan riippuu
+        strategiafrekvensist&auml; \(x\):
+      </p>
+      \[ f_A(R(x)) = \ln(1 + R(x)), \quad R(x) = \frac{K}{1 + e^{-\alpha x}} \]
+      <p>
+        T&auml;ss&auml; \(R(x)\) on logistinen funktio muuttujasta \(x\) (mallintaa kylläsyyvää resurssia), ja kelpoisuus
+        on k&auml;ytett&auml;viss&auml; olevien resurssien logaritmi. Derivaatan \(\frac{df_A}{dx}\) l&ouml;yt&auml;miseksi k&auml;yt&auml;mme ketjus&auml;&auml;nt&ouml;&auml;:
+      </p>
+      \[
+      \frac{df_A}{dx} = \frac{df_A}{dR} \cdot \frac{dR}{dx}
+      \]
+      <p>Ensiksi: \(\frac{df_A}{dR} = \frac{1}{1 + R}\).</p>
+      <p>
+        Toiseksi, funktiolle \(R(x) = K(1 + e^{-\alpha x})^{-1}\) k&auml;yt&auml;mme ketjus&auml;&auml;nt&ouml;&auml; uudelleen:
+      </p>
+      \[
+      \frac{dR}{dx} = K \cdot (-1)(1 + e^{-\alpha x})^{-2} \cdot (-\alpha e^{-\alpha x})
+                    = \frac{K \alpha \, e^{-\alpha x}}{(1 + e^{-\alpha x})^2}
+      \]
+      <p>Yhdist&auml;mäll&auml;:</p>
+      \[
+      \frac{df_A}{dx} = \frac{1}{1 + R(x)} \cdot \frac{K \alpha \, e^{-\alpha x}}{(1 + e^{-\alpha x})^2}
+      \]
+      <p>
+        T&auml;m&auml; on realistinen laskelma, johon saatat t&ouml;rm&auml;t&auml; analysoidessasi, miten kelpoisuus reagoi
+        strategiakoostumuksen muutoksiin resurssiv&auml;litteisell&auml; polulla.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Miksi t&auml;m&auml; on t&auml;rke&auml;&auml; EGT:lle</span>
+      <p>
+        Ketjus&auml;&auml;nt&ouml; on kaikkialla evoluutiopeliteoriassa, koska suureet, joista v&auml;lit&auml;mme,
+        ovat <em>yhdistettyjä</em>: kelpoisuus riippuu strategiafrekvensseist&auml;, jotka riippuvat ajasta;
+        tuotot riippuvat populaation tilasta, joka riippuu yksil&ouml;iden strategioista, jotka kehittyv&auml;t
+        tuottojensa mukaan. Joka kerta kun meid&auml;n on j&auml;ljitett&auml;v&auml;, miten muutos etenee n&auml;iden
+        riippuvuuskerrosten l&auml;pi, k&auml;yt&auml;mme ketjus&auml;&auml;nt&ouml;&auml;.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- INTERAKTIIVINEN DERIVAATTASELAIN -->
+  <!-- ================================================================== -->
+  <div class="section" id="interactive">
+    <h2>Interaktiivinen visualisointi</h2>
+
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Derivaattaselain</h3>
+      <p>Ved&auml; liukus&auml;&auml;dint&auml; siirt&auml;&auml;ksesi pistett&auml; k&auml;yr&auml;ll&auml; f(x) = x&sup2; ja n&auml;hd&auml;ksesi, miten tangenttisuora (derivaatta) muuttuu.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>x:n paikka:</label>
+          <input type="range" id="deriv-x-slider" min="-3" max="3" step="0.1" value="1">
+          <span class="control-value" id="deriv-x-val">1.0</span>
+        </div>
+      </div>
+      <canvas id="deriv-canvas" class="viz-canvas" width="600" height="400"></canvas>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- HARJOITUKSET -->
+  <!-- ================================================================== -->
+  <div class="section" id="exercises">
+    <h2>Harjoitukset</h2>
+
+    <!-- Harjoitus 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 1: Raja-arvojen laskeminen</div>
+      <p>Laske seuraavat raja-arvot:</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>\(\displaystyle \lim_{x \to 1} \frac{x^2 - 1}{x - 1}\)</li>
+        <li>\(\displaystyle \lim_{x \to 0} \frac{\sin x}{x}\)</li>
+        <li>\(\displaystyle \lim_{h \to 0} \frac{(2 + h)^3 - 8}{h}\)</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Tekij&ouml;id&auml;&auml;n jako: \(\frac{x^2 - 1}{x - 1} = \frac{(x-1)(x+1)}{x-1} = x + 1\). Joten raja-arvo on \(1 + 1 = \mathbf{2}\).</p>
+          <p><strong>(b)</strong> T&auml;m&auml; on kuuluisa raja-arvo: \(\lim_{x \to 0} \frac{\sin x}{x} = \mathbf{1}\). (T&auml;m&auml; voidaan todistaa puristuslauseen avulla.)</p>
+          <p><strong>(c)</strong> Kehitet&auml;&auml;n: \((2+h)^3 = 8 + 12h + 6h^2 + h^3\). Joten \(\frac{(2+h)^3 - 8}{h} = \frac{12h + 6h^2 + h^3}{h} = 12 + 6h + h^2\). Kun \(h \to 0\), t&auml;m&auml; l&auml;hestyy arvoa \(\mathbf{12}\). (Huom: t&auml;m&auml; on \(f'(2)\) funktiolle \(f(x) = x^3\), ja todellakin \(3 \cdot 2^2 = 12\).)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 2: Derivointiharjoituksia</div>
+      <p>Laske kunkin funktion derivaatta:</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>\(f(x) = 4x^5 - 3x^3 + 2x - 7\)</li>
+        <li>\(g(x) = x^2 e^x\)</li>
+        <li>\(h(x) = \ln(x^3 + 1)\)</li>
+        <li>\(p(x) = \dfrac{x}{x^2 + 1}\)</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Potenssisaanto: \(f'(x) = 20x^4 - 9x^2 + 2\).</p>
+          <p><strong>(b)</strong> Tulosaanto, miss&auml; \(u = x^2\), \(v = e^x\): \(g'(x) = 2xe^x + x^2 e^x = e^x(2x + x^2) = xe^x(2 + x)\).</p>
+          <p><strong>(c)</strong> Ketjus&auml;&auml;nt&ouml;: \(h'(x) = \frac{1}{x^3 + 1} \cdot 3x^2 = \frac{3x^2}{x^3 + 1}\).</p>
+          <p><strong>(d)</strong> Osam&auml;&auml;r&auml;s&auml;&auml;nt&ouml;: \(p'(x) = \frac{(1)(x^2 + 1) - x(2x)}{(x^2 + 1)^2} = \frac{x^2 + 1 - 2x^2}{(x^2+1)^2} = \frac{1 - x^2}{(x^2+1)^2}\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 3: Kriittiset pisteet ja optimointi</div>
+      <p>
+        Strategian kelpoisuutta mallinnetaan funktiolla \(f(x) = -2x^2 + 8x - 3\), miss&auml; \(x \in [0, 1]\) on
+        strategian frekvenssi. Etsi arvo \(x\), joka maksimoi kelpoisuuden, ja varmista, ett&auml; kyseess&auml; on
+        todella maksimi.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>Vaihe 1:</strong> Etsit&auml;&auml;n kriittiset pisteet. \(f'(x) = -4x + 8 = 0 \implies x = 2\).</p>
+          <p><strong>Vaihe 2:</strong> Mutta \(x = 2\) on m&auml;&auml;rittelyjoukkomme \([0, 1]\) ulkopuolella! Joten meid&auml;n on tarkistettava p&auml;&auml;tepisteet.</p>
+          <p>
+            \(f(0) = -3\), \(f(1) = -2 + 8 - 3 = 3\).
+          </p>
+          <p>
+            Koska \(f'(x) = -4x + 8 > 0\) kaikille \(x \in [0, 1]\) (sill&auml; \(-4x + 8 \geq -4(1) + 8 = 4 > 0\)),
+            funktio on kasvava koko v&auml;lill&auml;.
+          </p>
+          <p>
+            Maksimi v&auml;lill&auml; \([0, 1]\) on pisteess&auml; \(x = 1\), ja \(f(1) = \mathbf{3}\).
+          </p>
+          <p>
+            <strong>EGT-tulkinta:</strong> derivaatta on positiivinen kaikkialla v&auml;lill&auml; \([0,1]\), mik&auml; tarkoittaa,
+            ett&auml; t&auml;m&auml;n strategian kelpoisuus kasvaa aina oman frekvenssin my&ouml;t&auml; &mdash; tilanne, joka johtaa
+            fiksaatioon (strategia valtaa koko populaation).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 4: Osittaisderivaatat ja gradientti</div>
+      <p>
+        Kolmen strategian peliss&auml; oletetaan, ett&auml; strategian 1 kelpoisuus on
+        \(f_1(x, y) = 2x - xy + 3y^2\), miss&auml; \(x\) ja \(y\) ovat strategioiden
+        1 ja 2 frekvenssit (strategian 3 frekvenssi on \(1 - x - y\)).
+      </p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>Laske \(\frac{\partial f_1}{\partial x}\) ja \(\frac{\partial f_1}{\partial y}\).</li>
+        <li>Laske gradientti \(\nabla f_1\) pisteess&auml; \((x, y) = (0{,}3;\; 0{,}3)\).</li>
+        <li>Tulkitse gradientti strategiafrekvenssien muutosten vaikutuksena kelpoisuuteen.</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          \[
+          \frac{\partial f_1}{\partial x} = 2 - y, \quad \frac{\partial f_1}{\partial y} = -x + 6y
+          \]
+          <p><strong>(b)</strong> Pisteess&auml; \((0{,}3;\; 0{,}3)\):</p>
+          \[
+          \nabla f_1(0{,}3;\; 0{,}3) = (2 - 0{,}3;\; -0{,}3 + 6(0{,}3)) = (1{,}7;\; 1{,}5)
+          \]
+          <p><strong>(c)</strong> Gradientti kertoo meille: strategian 1 frekvenssin pieni kasvu nostaa sen kelpoisuutta noin 1,7 yksikk&ouml;&auml;, kun taas strategian 2 frekvenssin kasvu nostaa strategian 1 kelpoisuutta noin 1,5 yksikk&ouml;&auml;. Molemmat komponentit ovat positiivisia, mik&auml; tarkoittaa, ett&auml; strategia 1 hy&ouml;tyy sek&auml; oman frekvenssinsa ett&auml; strategian 2 frekvenssin kasvusta (t&auml;ss&auml; nimenomaisessa populaation tilassa).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 5: Integrointi</div>
+      <p>
+        Strategian tuottonopeus hetkell&auml; \(t\) on \(r(t) = 6t^2 - 4t + 1\). Laske kokonaistuotto,
+        joka kertyy v&auml;lill&auml; \(t = 0\) - \(t = 3\).
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Kokonaistuotto on m&auml;&auml;r&auml;tty integraali:</p>
+          \[
+          \int_0^3 (6t^2 - 4t + 1) \, dt = \left[ 2t^3 - 2t^2 + t \right]_0^3
+          \]
+          \[
+          = (2 \cdot 27 - 2 \cdot 9 + 3) - (0) = 54 - 18 + 3 = \mathbf{39}
+          \]
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 6: Ketjus&auml;&auml;nn&ouml;n soveltaminen</div>
+      <p>
+        Frekvenssiriippuvaisessa valintamallissa yhteisty&ouml;ntekij&ouml;iden kelpoisuus on
+        \(f_C(x) = e^{-\beta(1 - x)}\), miss&auml; \(x\) on yhteisty&ouml;ntekij&ouml;iden frekvenssi ja
+        \(\beta > 0\) on valinnan intensiteetti. Frekvenssi muuttuu ajan my&ouml;t&auml;: \(x = x(t)\).
+      </p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>Laske \(\frac{df_C}{dx}\) ja tulkitse sen merkki.</li>
+        <li>Ilmaise ketjus&auml;&auml;nn&ouml;n avulla \(\frac{df_C}{dt}\) derivaatan \(\frac{dx}{dt}\) avulla.</li>
+        <li>Jos replikaattoridynamiikka antaa \(\frac{dx}{dt} > 0\) (yhteisty&ouml;ntekij&auml;t lis&auml;&auml;ntyv&auml;t), mit&auml; tapahtuu yhteisty&ouml;ntekij&ouml;iden kelpoisuudelle ajan my&ouml;t&auml;?</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> K&auml;ytt&auml;en ketjus&auml;&auml;nt&ouml;&auml;, miss&auml; \(u = -\beta(1-x)\):</p>
+          \[
+          \frac{df_C}{dx} = e^{-\beta(1-x)} \cdot \beta = \beta \, e^{-\beta(1-x)}
+          \]
+          <p>Koska \(\beta > 0\) ja \(e^{(\cdot)} > 0\) aina, meill&auml; on \(\frac{df_C}{dx} > 0\). Yhteisty&ouml;ntekij&ouml;iden kelpoisuus kasvaa yhteisty&ouml;ntekij&ouml;iden frekvenssin kasvaessa &mdash; kyseess&auml; on positiivinen frekvenssiriippuvuus.</p>
+
+          <p><strong>(b)</strong> Ketjus&auml;&auml;nn&ouml;n mukaan:</p>
+          \[
+          \frac{df_C}{dt} = \frac{df_C}{dx} \cdot \frac{dx}{dt} = \beta \, e^{-\beta(1-x)} \cdot \frac{dx}{dt}
+          \]
+
+          <p><strong>(c)</strong> Jos \(\frac{dx}{dt} > 0\), niin my&ouml;s \(\frac{df_C}{dt} > 0\) (koska kaikki tekij&auml;t ovat positiivisia). Yhteisty&ouml;ntekij&ouml;iden kelpoisuus kasvaa ajan my&ouml;t&auml;. T&auml;m&auml; luo positiivisen takaisinkytkent&auml;silmukan: enemm&auml;n yhteisty&ouml;ntekij&ouml;it&auml; &rarr; suurempi yhteisty&ouml;ntekij&ouml;iden kelpoisuus &rarr; viel&auml; enemm&auml;n yhteisty&ouml;ntekij&ouml;it&auml;. T&auml;m&auml; on ominaista koordinointipeleille, joissa yhteisty&ouml; vahvistaa itse&auml;&auml;n kriittisen massan saavuttamisen j&auml;lkeen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7: Toinen derivaatta ja stabiilisuus</div>
+      <p>
+        Populaation keskim&auml;&auml;r&auml;inen kelpoisuus strategiafrekvenssin \(x\) funktiona on:
+      </p>
+      \[ \bar{f}(x) = -x^3 + 3x^2 - 2x + 1 \]
+      <ol style="list-style-type: lower-alpha;">
+        <li>Etsi kaikki funktion \(\bar{f}\) kriittiset pisteet joukossa \(\mathbb{R}\).</li>
+        <li>K&auml;yt&auml; toisen derivaatan testi&auml; kunkin kriittisen pisteen luokitteluun.</li>
+        <li>Etsi funktion \(\bar{f}\) k&auml;&auml;nt&ouml;piste.</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(\bar{f}'(x) = -3x^2 + 6x - 2\). Asetetaan nollaksi:</p>
+          \[
+          3x^2 - 6x + 2 = 0 \implies x = \frac{6 \pm \sqrt{36 - 24}}{6} = \frac{6 \pm \sqrt{12}}{6} = 1 \pm \frac{\sqrt{3}}{3}
+          \]
+          <p>Joten \(x_1 = 1 - \frac{1}{\sqrt{3}} \approx 0{,}423\) ja \(x_2 = 1 + \frac{1}{\sqrt{3}} \approx 1{,}577\).</p>
+
+          <p><strong>(b)</strong> \(\bar{f}''(x) = -6x + 6\).</p>
+          <ul>
+            <li>\(\bar{f}''(x_1) = -6(0{,}423) + 6 \approx 3{,}46 > 0\): <strong>paikallinen minimi</strong>.</li>
+            <li>\(\bar{f}''(x_2) = -6(1{,}577) + 6 \approx -3{,}46 < 0\): <strong>paikallinen maksimi</strong>.</li>
+          </ul>
+
+          <p><strong>(c)</strong> \(\bar{f}''(x) = -6x + 6 = 0 \implies x = 1\). Koska \(\bar{f}''(x)\) vaihtaa merkkia positiivisesta (kun \(x < 1\)) negatiiviseksi (kun \(x > 1\)), piste \(x = 1\) on <strong>k&auml;&auml;nt&ouml;piste</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 8 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8: Kaikki yhteen</div>
+      <p>
+        Haukka-kyyhky-peliss&auml; haukkojen kelpoisuus, kun haukkojen frekvenssi on \(x\), on:
+      </p>
+      \[ f_H(x) = x \cdot \frac{V - C}{2} + (1 - x) \cdot V \]
+      <p>miss&auml; \(V\) on resurssin arvo ja \(C\) on taistelun hinta (\(C > V > 0\)).</p>
+      <ol style="list-style-type: lower-alpha;">
+        <li>Sievenn&auml; \(f_H(x)\) ja laske \(f_H'(x)\).</li>
+        <li>Onko haukkojen kelpoisuus kasvava vai v&auml;henev&auml; muuttujan \(x\) suhteen? Tulkitse t&auml;m&auml; biologisesti.</li>
+        <li>Keskim&auml;&auml;r&auml;inen kelpoisuus on \(\bar{f}(x) = x \cdot f_H(x) + (1-x) \cdot f_D(x)\), miss&auml;
+            \(f_D(x) = x \cdot 0 + (1-x) \cdot \frac{V}{2}\) on kyyhkyjen kelpoisuus. Laske \(\bar{f}'(x)\).</li>
+      </ol>
+      <div class="spoiler">
+        <button class="spoiler-toggle" onclick="this.nextElementSibling.classList.toggle('show')">N&auml;yt&auml; ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Sievennet&auml;&auml;n:</p>
+          \[
+          f_H(x) = x \cdot \frac{V - C}{2} + V - Vx = V + x\left(\frac{V - C}{2} - V\right) = V - x \cdot \frac{V + C}{2}
+          \]
+          <p>Joten \(f_H'(x) = -\frac{V + C}{2}\).</p>
+
+          <p><strong>(b)</strong> Koska \(V > 0\) ja \(C > 0\), meill&auml; on \(f_H'(x) = -\frac{V+C}{2} < 0\). Haukkojen kelpoisuus on <em>v&auml;henev&auml;</em> muuttujan \(x\) suhteen. T&auml;m&auml; on biologisesti j&auml;rkev&auml;&auml;: mit&auml; enemm&auml;n haukkoja on, sit&auml; enemm&auml;n taisteluja esiintyy, ja taistelut ovat kalliita (koska \(C > V\)). Jokainen lis&auml;haukka populaatiossa laskee kaikkien haukkojen odotettua tuottoa.</p>
+
+          <p><strong>(c)</strong> Ensiksi sievennet&auml;&auml;n \(f_D(x) = \frac{V}{2}(1-x)\). T&auml;ll&ouml;in:</p>
+          \[
+          \bar{f}(x) = x\left[V - x\frac{V+C}{2}\right] + (1-x)\left[\frac{V}{2}(1-x)\right]
+          \]
+          \[
+          = Vx - \frac{V+C}{2}x^2 + \frac{V}{2}(1 - 2x + x^2)
+          \]
+          \[
+          = Vx - \frac{V+C}{2}x^2 + \frac{V}{2} - Vx + \frac{V}{2}x^2
+          \]
+          \[
+          = \frac{V}{2} - \frac{C}{2}x^2
+          \]
+          <p>Siis:</p>
+          \[
+          \bar{f}'(x) = -Cx
+          \]
+          <p>
+            Koska \(C > 0\) ja \(x \geq 0\), keskim&auml;&auml;r&auml;inen kelpoisuus on aina v&auml;henev&auml; (tai nolla), kun
+            haukkojen frekvenssi kasvaa. Enemm&auml;n haukkoja tarkoittaa enemm&auml;n turhaa taistelua, mik&auml; v&auml;hent&auml;&auml;
+            populaation kokonaiskelpoisuutta. T&auml;m&auml; on esimerkki sosiaalisesta dilemmasta: yksitt&auml;iset haukat
+            voivat hy&ouml;ty&auml; (kun niit&auml; on v&auml;h&auml;n), mutta yhteinen hyvinvointi v&auml;henee haukkojen lis&auml;&auml;ntyess&auml;.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- MODUULINAVIGOINTI -->
+  <!-- ================================================================== -->
+  <div class="module-nav-strip">
+    <a href="module2.html">&larr; Moduuli 2: Lineaarialgebra</a>
+    <a href="module4.html">Moduuli 4: Differentiaaliyht&auml;l&ouml;t &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Sis&auml;lt&ouml; kattaa matemaattiset perusteet EGT:n sovelluksiin yhteiskuntatieteiss&auml;.
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>
