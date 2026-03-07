@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scarcity Displacement in Anti-Rival Goods: Business Model Dynamics and Innovation Policy</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root {
+  --primary: #2c3e50;
+  --accent: #c0392b;
+  --info: #2980b9;
+  --bg: #fefefe;
+  --text: #222;
+  --text-light: #555;
+  --border: #ccc;
+  --bg-box: #f7f7f7;
+  --font-main: 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --max-width: 820px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-main); color: var(--text); background: var(--bg); line-height: 1.85; padding: 2rem 1rem; }
+.container { max-width: var(--max-width); margin: 0 auto; }
+h1 { font-size: 1.65rem; margin: 2.5rem 0 0.5rem; line-height: 1.3; color: var(--primary); }
+h2 { font-size: 1.35rem; margin: 2.2rem 0 0.6rem; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+h3 { font-size: 1.12rem; margin: 1.6rem 0 0.4rem; color: var(--primary); }
+h4 { font-size: 1.02rem; margin: 1.2rem 0 0.3rem; font-style: italic; }
+p { margin: 0.6rem 0; text-align: justify; }
+.abstract { background: var(--bg-box); border-left: 4px solid var(--primary); padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; }
+.abstract h3 { margin-top: 0; }
+.keywords { font-size: 0.9rem; color: var(--text-light); margin: 0.5rem 0 2rem; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+th, td { border: 1px solid var(--border); padding: 0.5rem 0.7rem; text-align: left; vertical-align: top; }
+th { background: var(--bg-box); font-family: var(--font-sans); font-size: 0.85rem; }
+.title-block { text-align: center; margin: 2rem 0 1rem; }
+.title-block h1 { font-size: 1.7rem; border: none; }
+.title-block .authors { font-size: 1rem; color: var(--text-light); margin: 0.5rem 0; font-style: italic; }
+.title-block .date { font-size: 0.9rem; color: var(--text-light); }
+.toc { background: var(--bg-box); padding: 1.2rem 1.5rem; margin: 1.5rem 0; border-radius: 4px; }
+.toc h3 { margin-top: 0; font-family: var(--font-sans); }
+.toc ol { padding-left: 1.5rem; }
+.toc li { margin: 0.25rem 0; font-size: 0.93rem; }
+.toc a { color: var(--info); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.footnote { font-size: 0.85rem; color: var(--text-light); }
+sup { font-size: 0.75rem; }
+.ref-list { font-size: 0.9rem; }
+.ref-list p { text-indent: -1.5rem; padding-left: 1.5rem; margin: 0.3rem 0; }
+.proposition { border-left: 4px solid #8e44ad; background: #f8f0fa; padding: 1rem 1.3rem; margin: 1.2rem 0; border-radius: 0 4px 4px 0; }
+.result-box { border-left: 4px solid var(--info); background: #f0f6fa; padding: 1rem 1.3rem; margin: 1.2rem 0; border-radius: 0 4px 4px 0; }
+.label { font-weight: bold; font-family: var(--font-sans); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+.group-header td { background: var(--bg-box); font-weight: bold; font-family: var(--font-sans); font-size: 0.82rem; letter-spacing: 0.03em; }
+.bmp-firm td { background: #fdf0ed; }
+.bmp-firm td:first-child { border-left: 4px solid #e74c3c; }
+.bmp-community td { background: #edf7ef; }
+.bmp-community td:first-child { border-left: 4px solid #27ae60; }
+.bmp-transform td { background: #edf0f7; }
+.bmp-transform td:first-child { border-left: 4px solid #2980b9; }
+.bmp-restrict td { background: #f5f5f5; }
+.bmp-restrict td:first-child { border-left: 4px solid #95a5a6; }
+.bmp-legend { font-size: 0.85rem; color: var(--text-light); margin: 0.3rem 0 0.8rem; line-height: 1.9; }
+.bmp-legend-swatch { display: inline-block; width: 14px; height: 14px; vertical-align: middle; margin-right: 3px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title-block">
+<h1>Scarcity Displacement in Anti-Rival Goods: Business Model Dynamics and Innovation Policy</h1>
+<p class="authors">Working Paper &mdash; Prepared for <em>Research Policy</em></p>
+<p class="date">March 2026</p>
+</div>
+
+<div class="abstract">
+<h3>Abstract</h3>
+<p>Digital goods that increase in value with use&mdash;anti-rival goods&mdash;create superlinear returns from sharing. Yet sharing depends on rivalrous complements (infrastructure, curation, governance) that must be paid for. We show that organizations face a binary choice: <em>restrict</em> anti-rivalry through traditional per-unit models, or <em>enhance</em> it and accept inevitable scarcity displacement. Enhancement has two paths: a firm can subsidize rival costs, creating dependency on the subsidizer (scarcity of transparency and control); or a community can collectively cover them, creating scarcity of governance labor. In either path, a coupling dial&mdash;transform&mdash;can reduce the displaced scarcity, but only by reducing the anti-rival benefit. Drawing on a systematic review of 175 business model patterns and evolutionary game theory, we formalize both enhancement paths and derive boundary conditions for viability, failure, and the divergence of private and social optima. We identify the parameter regime (intermediate anti-rivalry) where this divergence is widest and show that the most effective policy does not mandate which path ecosystems follow but ensures both paths remain viable: a credible community alternative disciplines firm opacity through market competition, while minimum transparency requirements provide a backstop. The framework yields specific, formally grounded recommendations for innovation policy, platform regulation, and governance infrastructure investment.</p>
+</div>
+
+<p class="keywords"><strong>Keywords:</strong> anti-rival goods; scarcity displacement; business model innovation; innovation policy; platform governance; institutional complexity; evolutionary game theory</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+<li><a href="#sec1">Introduction</a></li>
+<li><a href="#sec2">Theoretical Background</a></li>
+<li><a href="#sec3">A Framework for Scarcity Displacement</a></li>
+<li><a href="#sec4">Business Model Patterns in the Framework</a></li>
+<li><a href="#sec5">Phase Dynamics: When Enhancement Becomes Viable</a></li>
+<li><a href="#sec6">The Private&ndash;Social Divergence</a></li>
+<li><a href="#sec7">Policy Implications: Keeping the Playing Field Level</a></li>
+<li><a href="#sec8">Discussion</a></li>
+<li><a href="#sec9">Conclusion</a></li>
+<li><a href="#refs">References</a></li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sec1">1. Introduction</h2>
+
+<p>Digitalization has produced a class of goods that defy the logic of scarcity. Shared datasets improve with more contributors. Open-source software gains from every patch. Collaborative knowledge bases become more useful as they grow. These <em>anti-rival</em> goods&mdash;goods whose per-user value increases with the number of users (Cooper, 2006; Weber, 2004)&mdash;create value that is superlinear in participation. The economic logic points toward maximal sharing. But sharing is not free: every anti-rivalrous resource depends on rivalrous complements&mdash;server infrastructure, editorial curation, conflict resolution, maintainer attention&mdash;that must be paid for (Nikander, Eloranta, Karhu, &amp; Hiekkanen, 2020). Markets, designed to allocate rival goods through price equilibrium, fail with anti-rival goods: artificial scarcity leads to underprovision, while zero marginal cost drives compensation toward zero (Bliss &amp; Egler, 2020).</p>
+
+<p>This paper argues that organizations navigating this tension face a binary choice&mdash;<em>restrict</em> anti-rivalry or <em>enhance</em> it&mdash;and that enhancement inevitably <em>displaces</em> scarcity rather than eliminating it. Restriction treats the digital good as rival (per-unit pricing, DRM, paywalls), avoiding the rival-cost problem but forfeiting the superlinear value that anti-rivalry creates. Enhancement embraces anti-rivalry and covers rival costs through some other mechanism. But the rival costs do not disappear; they are absorbed by some entity, and whoever absorbs them gains leverage. There are exactly two entities that can absorb rival costs at scale. A <strong>firm</strong> can subsidize them, maximizing participation and extracting information rent&mdash;creating scarcity of transparency, agency, and control. A <strong>community</strong> can collectively cover them, eliminating dependency on any single firm&mdash;creating scarcity of governance labor, attention, and curation.</p>
+
+<p>This scarcity displacement is not a contingent feature of current technology or institutions. It follows from the structural interaction between anti-rival value creation and the rival costs that enable it. In either enhancement path, a <strong>coupling dial</strong> is available: transform strategies (de-transactionalization, flat-rate pricing, interface simplification) reduce the coupling between rival and anti-rival components, lowering both the anti-rival benefit and the intensity of the displaced scarcity. Transform is not a third path but a parameter within either path.</p>
+
+<p>We develop this argument in three steps. First, drawing on a systematic review of 175 business model patterns (BMPs) from the literature (Eloranta &amp; [Authors], 2026), of which 39 actively manage the rival&ndash;anti-rival tension, we map the empirical landscape of business model strategies onto the restrict&ndash;enhance framework. Second, using evolutionary game theory, we formalize the boundary conditions for each path&rsquo;s viability and failure, characterize phase transitions as anti-rivalry increases, and identify the parameter regime where private and social optima diverge. Third, we derive specific policy implications&mdash;showing that the most effective policy portfolio ensures both enhancement paths remain viable, so that a credible community alternative disciplines firm behavior through market competition rather than direct regulation.</p>
+
+<p>The paper contributes to three literatures. To the emerging discourse on anti-rival goods (Bliss &amp; Egler, 2020; Cooper, 2006; Kubiszewski, Farley, &amp; Costanza, 2010; Weber, 2004), we offer the first formal analysis of scarcity displacement&mdash;the mechanism by which anti-rival value creation redistributes rather than eliminates scarcity. To business model innovation research (Gassmann, Frankenberger, &amp; Csik, 2014; Massa, Tucci, &amp; Afuah, 2017), we provide a framework that explains why certain pattern combinations are dominated and predicts phase transitions in business model landscapes. To innovation policy (Blind, 2012; Edler &amp; Fagerberg, 2017), we identify the specific conditions under which private and social optima diverge and derive formally grounded policy levers.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec2">2. Theoretical Background</h2>
+
+<h3>2.1 Anti-rival goods and the failure of markets</h3>
+
+<p>The traditional economic taxonomy classifies goods along two dimensions: excludability and subtractability (Ostrom, 1990). Digital goods challenge this framework because they exhibit <em>negative</em> subtractability: rather than diminishing with consumption, they may increase in value when used (Weber, 2004). Cooper (2006) formalized this as <em>anti-rivalry</em>, and subsequent work has established a three-way classification: rival (value decreases with use), non-rival (value unchanged), and anti-rival (value increases with use) (Kubiszewski et al., 2010; Nikander et al., 2020).</p>
+
+<p>We capture anti-rivalry with a single parameter \(\beta\) in the per-user value function \(V(n) = V_0 \cdot n^{\beta}\), where \(n\) is the number of users. When \(\beta &lt; 0\), the good is rival; when \(\beta = 0\), non-rival; when \(\beta &gt; 0\), anti-rival. This parameterization allows us to treat anti-rivalry as a continuous spectrum rather than a binary category, and to study how business model viability changes as \(\beta\) increases&mdash;which it does secularly as technology evolves (cloud infrastructure, open APIs, AI).</p>
+
+<p>Markets allocate digital goods poorly because price-based equilibrium requires scarcity (Bliss &amp; Egler, 2020; Haeringer, 2018). Artificial scarcity (DRM, paywalls) makes the good market-compatible but leads to underprovision. Zero marginal reproduction cost drives the market-clearing price toward zero, under-compensating producers (Olleros, 2018). The increasing role of anti-rival goods in economic systems thus requires organizing structures beyond markets&mdash;what the institutional logic literature calls <em>hybrid systems</em> (Battilana &amp; Lee, 2014).</p>
+
+<h3>2.2 Institutional complexity in hybrid systems</h3>
+
+<p>Hybrid systems that combine anti-rival and rival goods face institutional complexity: the logics governing their rival and anti-rival components are fundamentally incompatible (Greenwood, Raynard, Kodeih, Micelotta, &amp; Lounsbury, 2011). Organizing rival goods is about orchestrating with the logic of scarcity for Pareto-optimal allocation, following market logic. Organizing anti-rival goods concerns the logic of abundance: marginal cost is not only zero but potentially negative (Daoud, 2018; Kubiszewski et al., 2010).</p>
+
+<p>The institutional logic literature identifies four approaches to managing this complexity (Battilana &amp; Lee, 2014; Kraatz &amp; Block, 2008): compartmentalization (structural separation of conflicting logics), defiance (forcing one logic to dominate), aggregation (negotiating coexistence), and integration (creating a new shared logic). Daoud (2018) mapped these to social strategies for managing the tension between scarcity and abundance logics, establishing a direct theoretical bridge between institutional complexity management and the anti-rival goods discourse.</p>
+
+<p>Our framework builds on this bridge. We show that the aggregation and integration approaches&mdash;those that actively seek to benefit from anti-rivalry&mdash;correspond to what we call <em>enhancement</em>, while compartmentalization and defiance correspond to <em>restriction</em>. This mapping grounds our formal framework in established institutional theory.</p>
+
+<h3>2.3 Business model patterns as the unit of analysis</h3>
+
+<p>We adopt the business model pattern (BMP) perspective, which treats business models as combinations of reproducible, configurable building blocks (Alexander, Ishikawa, &amp; Silverstein, 1977; Gassmann et al., 2014). This approach, most comprehensively developed in Gassmann, Frankenberger, and Csik&rsquo;s (2013) identification of 55 universal BMPs, allows detailed analysis of <em>how</em> organizations manage institutional complexity at the operational level (Ocasio &amp; Radoynovska, 2016; Remane, Hanelt, Tesch, &amp; Kolbe, 2017).</p>
+
+<p>An earlier study by the present authors (Eloranta &amp; [Authors], 2026) systematically reviewed BMP literature, gathering 175 patterns from 24 studies (including Gassmann et al.&rsquo;s anchor set). Of these, 39 actively manage the rival&ndash;anti-rival tension through aggregation or integration approaches. The remaining 109 use compartmentalization (76 patterns) or defiance (33 patterns)&mdash;they either ignore the interaction between anti-rival and rival components or force artificial scarcity onto digital goods. The 39 patterns that actively seek anti-rival benefit were organized into seven mechanisms and three metamechanisms, providing the empirical foundation for the framework developed here.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec3">3. A Framework for Scarcity Displacement</h2>
+
+<h3>3.1 The restrict&ndash;enhance binary</h3>
+
+<p>The first-order strategic choice for any organization dealing with anti-rival goods is binary: restrict anti-rivalry or enhance it. This is more fundamental than the choice between specific business model patterns, because it determines the entire strategy space available.</p>
+
+<p><strong>Restriction</strong> treats the anti-rival good as if it were rival. Per-unit pricing, digital rights management, paywalls, and artificial scarcity all fall under this category. These correspond to the 109 BMPs in the compartmentalization and defiance categories from the original study&mdash;they avoid the rival&ndash;anti-rival tension by suppressing anti-rivalry. The cost is clear: restriction forfeits the superlinear value that anti-rivalry creates. When \(\beta\) is small, this cost is modest; as \(\beta\) grows, it becomes prohibitive.</p>
+
+<p><strong>Enhancement</strong> embraces anti-rivalry and covers rival costs through mechanisms other than per-unit pricing. This corresponds to the 39 BMPs in the aggregation and integration categories. Enhancement creates ecosystem-level anti-rival value but inevitably displaces scarcity&mdash;the rival costs are absorbed by some entity, and the absorber gains leverage.</p>
+
+<p>We formalize the viability boundary between restriction and enhancement. Each enhancement strategy \(s\) has a standalone efficiency \(\psi_s\) (value captured from anti-rivalry even without ecosystem coordination), a cost \(c_s\), and the restrict strategy yields a baseline payoff \(R_0\). Enhancement becomes viable when anti-rivalry is strong enough that standalone benefit exceeds cost:</p>
+
+\[
+\beta > \beta_{\text{inv}}^s = \frac{c_s + R_0}{\psi_s}
+\]
+
+<p>Below this threshold, restriction is locally stable&mdash;anti-rivalry is too weak to justify the costs of enhancement. The threshold is lower for strategies with low costs and high standalone efficiency, explaining why de-transactionalized models (subscription, flat rate) typically emerge before full platform strategies.</p>
+
+<h3>3.2 Enhancement via firm subsidy: dependency scarcity</h3>
+
+<p>In the first enhancement path, a firm subsidizes rival costs, maximizes sharing, and extracts information rent. This corresponds to the metamechanism &ldquo;seeking anti-rival leverage from rival investments&rdquo; from the original BMP study, which includes the mechanisms of subsidizing sharing and shifting revenue focus toward anti-rival results. The BMPs in this category&mdash;hidden revenue, free (ad-supported), sponsorship, freemium, and social mission patterns&mdash;all share a common structure: a firm covers rival costs and captures disproportionate returns from the anti-rival value created.</p>
+
+<p>The original study identified a &ldquo;transparency challenge&rdquo; for this metamechanism: how to maintain fair and transparent practices without jeopardizing the mechanics of anti-rival leverage. Our framework formalizes this challenge. The subsidizing firm chooses a transparency level \(\tau \in [0,1]\), and user participation responds: \(n(\tau) = n_0[\alpha + (1-\alpha)\tau^{\psi}]\). The firm&rsquo;s payoff combines information rent \(I(n)\) (which requires opacity) with trust-based revenue \(T(n)\) (which requires transparency). This creates a structural tension: opacity sustains extraction but suppresses participation.</p>
+
+<p>In a population of platforms, a tipping point \(p^*\) exists in the transparent fraction. Below \(p^*\), opacity dominates; above it, transparency dominates through negative frequency dependence&mdash;opaque platforms lose users as transparent alternatives gain share. The <strong>displaced scarcity</strong> is transparency, agency, and control: the subsidizing firm decides the terms of participation, and users trade autonomy for access to anti-rival value.</p>
+
+<h3>3.3 Enhancement via community: governance scarcity</h3>
+
+<p>In the second enhancement path, the community collectively covers rival costs. This corresponds to the metamechanism &ldquo;large-scale collaboration to minimize individuals&rsquo; rival costs,&rdquo; which includes using communities to cover costs, facilitating shared ownership, and decentralized governance. The BMPs in this category&mdash;crowdsourcing, open source, community governance, stewardship, peer-to-peer, revenue sharing, and others&mdash;eliminate dependency on any single firm.</p>
+
+<p>The original study identified an &ldquo;accountability challenge&rdquo;: how to ensure active contribution and prevent free-riding. Our framework reveals a deeper problem. Within a community, participants specialize: some create anti-rival value (content), others maintain the rivalrous complement (governance). Governance is costlier than content creation (\(c_G > c_C\)). The governance contributor receives a premium \(\sigma\) for the additional cost. The critical boundary condition is:</p>
+
+<div class="result-box">
+<p class="label">Governance Trap Condition</p>
+<p>If the governance premium falls below the cost differential, \(\sigma &lt; c_G - c_C\), the governance-to-content ratio declines exponentially and the community collapses. Surface metrics (user count, content volume) remain healthy during the decline phase while governance erodes underneath. The decay rate is \(|c_G - c_C - \sigma|\).</p>
+</div>
+
+<p>The <strong>displaced scarcity</strong> is governance labor, attention, curation, and infrastructure. Unlike the firm path, where scarcity is concentrated (one entity controls access), community scarcity is diffuse&mdash;it manifests as maintainer burnout, declining moderation quality, and infrastructure decay. The original study&rsquo;s call for &ldquo;coherent and consistent accounting systems&rdquo; is thus a necessary but insufficient condition: what is needed is governance premiums (\(\sigma\)) that collectively meet the cost differential.</p>
+
+<p>The aggregate governance premium must be <em>stacked</em> from multiple sources: decision-making power (\(\sigma_{\text{power}}\)), reputational returns (\(\sigma_{\text{rep}}\)), financial compensation (\(\sigma_{\text{fin}}\)), strategic access (\(\sigma_{\text{strat}}\)), and social recognition (\(\sigma_{\text{social}}\)). Each maps to a specific governance BMP from the original study. A community relying on a single premium source is fragile; one relying on a diversified portfolio is robust.</p>
+
+<h3>3.4 The coupling dial: transform as mitigation</h3>
+
+<p>The third metamechanism from the original study&mdash;&ldquo;asset and offering transformation toward anti-rivalry&rdquo;&mdash;includes de-transactionalization, parallel offerings, and resource conversion. The original study noted that this metamechanism &ldquo;allows only limited anti-rivalry&rdquo; and creates a &ldquo;valuation dilemma.&rdquo; Our framework explains why: transform reduces the coupling between rival and anti-rival components, which simultaneously reduces both the anti-rival benefit and the displaced scarcity.</p>
+
+<p>Transform is not a third path but a <em>coupling dial</em> available within either enhancement path. Within the firm path, de-transactionalization (moving from per-use pricing to subscription or flat rate) reduces the extraction opportunity and the dependency. Within the community path, interface simplification and modularization reduce governance demands and cross-module spillovers. In both cases, the coupling parameter \(\lambda\) moves from high (full enhancement, high scarcity displacement) to low (partial enhancement, low scarcity displacement).</p>
+
+<p>We show that this dial has a fundamental constraint: on a shared interface, a firm cannot simultaneously maximize coupling (full enhancement) and minimize it (full transform). The mixed payoff is convex in the coupling parameter&mdash;any interior setting is a minimum, not a maximum. The optimum is at a corner: commit to full enhancement or full transform on any given interface. Multi-interface architectures can operate different coupling levels on separate interfaces without incurring this cost.</p>
+
+<h3>3.5 Connecting to institutional complexity theory</h3>
+
+<p>The original study distinguished between <em>symbiosis-seeking</em> approaches (which leverage institutional complexity) and <em>synergy-seeking</em> approaches (which decrease it). This distinction maps precisely onto our framework. Full enhancement (Leverage) is symbiosis-seeking: it amplifies the connection between rival and anti-rival components, creating a new shared logic through strong coupling. Transform is synergy-seeking: it minimizes bidirectional interference, pursuing controlled coexistence rather than integration.</p>
+
+<p>The original study warned that &ldquo;BMPs using different approaches to institutional complexity management&mdash;leveraging and decreasing&mdash;should be combined into a single business model only with caution.&rdquo; Our incompatibility result formalizes this warning: on a shared interface, combining symbiosis-seeking and synergy-seeking patterns is dominated by pure strategies. The magnitude of this incompatibility cost grows with \((\beta_0 \ln n)^2\)&mdash;it is negligible for weakly anti-rival goods with small user bases but substantial for strongly anti-rival platforms at scale.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec4">4. Business Model Patterns in the Framework</h2>
+
+<p>Table 1 maps the 39 BMPs from the original study (plus representative restrict patterns) onto the restrict&ndash;enhance framework. Patterns are organized by who absorbs rival costs and how, with visual coding for firm dependency (creates concentrated scarcity) versus community orientation (creates diffuse governance scarcity).</p>
+
+<p class="bmp-legend">
+<span class="bmp-legend-swatch" style="background:#e74c3c;"></span>Firm subsidy &mdash; creates dependency scarcity&ensp;
+<span class="bmp-legend-swatch" style="background:#27ae60;"></span>Community &mdash; creates governance scarcity&ensp;
+<span class="bmp-legend-swatch" style="background:#2980b9;"></span>Transform &mdash; coupling dial (either path)&ensp;
+<span class="bmp-legend-swatch" style="background:#95a5a6;"></span>Restrict &mdash; forfeits anti-rival value
+</p>
+
+<table>
+<thead>
+<tr><th style="width:20%;">Mechanism</th><th style="width:39%;">Business Model Patterns</th><th style="width:21%;">Original Metamechanism</th><th style="width:20%;">Scarcity Displaced</th></tr>
+</thead>
+<tbody>
+<tr class="group-header"><td colspan="4">Restrict &mdash; avoid anti-rivalry (compartmentalization &amp; defiance; 109 BMPs)</td></tr>
+<tr class="bmp-restrict">
+<td>Per-unit access control</td>
+<td>Proprietary licensing, DRM, Paywalls, Per-unit pricing, Artificial scarcity</td>
+<td>&mdash;</td>
+<td>None (anti-rival value forfeited)</td>
+</tr>
+
+<tr class="group-header"><td colspan="4">Enhance &mdash; firm subsidizes rival costs (8 BMPs)</td></tr>
+<tr class="bmp-firm">
+<td>Subsidize sharing</td>
+<td>Hidden revenue, Free (ad-supported), Sponsorship, Freemium, Social mission patterns, Experience broker</td>
+<td>Anti-rival leverage</td>
+<td>Transparency, agency, control</td>
+</tr>
+<tr class="bmp-firm">
+<td>Shift to anti-rival results</td>
+<td>Performance-based contracting, Guaranteed availability, Result as a service</td>
+<td>Anti-rival leverage</td>
+<td>Transparency, agency, control</td>
+</tr>
+
+<tr class="group-header"><td colspan="4">Enhance &mdash; community covers rival costs (15 BMPs)</td></tr>
+<tr class="bmp-community">
+<td>Content contribution</td>
+<td>Crowdsourcing, Open source, Crowdsourced innovation, Review system, Quality through participation, Make more of it</td>
+<td rowspan="3">Large-scale collaboration</td>
+<td rowspan="3">Governance labor, attention, curation, infrastructure</td>
+</tr>
+<tr class="bmp-community">
+<td>Governance contribution</td>
+<td>Community governance, Stewardship role, Revenue sharing, Open business model, Pay what you want</td>
+</tr>
+<tr class="bmp-community">
+<td>Infrastructure contribution</td>
+<td>Peer-to-peer, Nodes, Crowdfunding, Repurpose for society, Fractional ownership, No dividends</td>
+</tr>
+
+<tr class="group-header"><td colspan="4">Transform &mdash; coupling dial, available within either enhancement path (11 BMPs)</td></tr>
+<tr class="bmp-transform">
+<td>De-transactionalize</td>
+<td>Subscription, Flat rate, Membership, License</td>
+<td rowspan="3">Asset &amp; offering transformation</td>
+<td rowspan="3">Reduced (both benefit and scarcity lower)</td>
+</tr>
+<tr class="bmp-transform">
+<td>Parallel offerings</td>
+<td>Freemium, Dual licensing, Charging for changes, Demand-oriented platform</td>
+</tr>
+<tr class="bmp-transform">
+<td>Resource conversion</td>
+<td>Digitalization, Sharing business, Unbundling</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Governance patterns are the linchpin.</strong> In the community path, content and infrastructure patterns are insufficient without governance patterns that stack premiums to meet the minimum viable threshold \(\sigma \geq c_G - c_C\). The five governance BMPs correspond to the five premium types: community governance (power), stewardship role (reputational), revenue sharing (financial), open business model (strategic), and pay what you want (social). This is the operational content of the governance trap condition: a community that relies on only one or two premium sources is structurally vulnerable to collapse.</p>
+
+<p><strong>The coupling dial in practice.</strong> Transform patterns (blue in Table 1) can be layered onto either enhancement path. Within the firm path, subscription reduces per-transaction extraction but also dependency. Within the community path, modular architecture reduces governance scope but also cross-module anti-rival spillovers. The incompatibility result implies that on a shared interface, firms should not attempt to combine full enhancement patterns (e.g., hidden revenue, crowdsourcing) with full transform patterns (e.g., flat rate, unbundling). Multi-interface architectures can accommodate both.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec5">5. Phase Dynamics: When Enhancement Becomes Viable</h2>
+
+<p>The anti-rivalry parameter \(\beta\) is not a strategic choice&mdash;it is determined by the nature of the good and technological infrastructure. As technology evolves, \(\beta\) increases secularly: cloud computing, open APIs, and AI make sharing cheaper and more valuable. This secular increase drives phase transitions in the business model landscape.</p>
+
+<div class="result-box">
+<p class="label">Phase Transition Result</p>
+<p>Under the assumption that transform strategies invade the all-restrict equilibrium at lower \(\beta\) than full enhancement strategies (which holds when transform costs are lower relative to standalone efficiency), the landscape undergoes three phases:</p>
+<p><strong>Phase I</strong> (\(\beta\) low): Restrict is stable. Enhancement requires coordinated adoption exceeding a tipping point&mdash;a consortium, standard-setting body, or dominant platform must catalyze collective action. <em>The binding constraint is coordination.</em></p>
+<p><strong>Phase II</strong> (\(\beta\) intermediate): Transform can invade unilaterally, making all-restrict unstable. Full enhancement still requires a tipping point, but the tipping point shrinks as \(\beta\) grows. <em>Partial enhancement is available without coordination; full enhancement still requires collective action.</em></p>
+<p><strong>Phase III</strong> (\(\beta\) high): Restrict is unstable in all enhancement directions. Full enhancement dominates through standalone efficiency alone. <em>Coordination is no longer the constraint.</em></p>
+</div>
+
+<p>The practical implication is that Phase II is the critical window for policy. In Phase I, enhancement is a coordination problem; in Phase III, it is self-sustaining. In Phase II, both strategies coexist, partial enhancement is building governance capacity, and the choices made during this period shape the long-run equilibrium. The secular increase in \(\beta\) driven by technological progress means that industries move through these phases over time&mdash;what was Phase I a decade ago may be Phase II now.</p>
+
+<p><strong>Transform as stepping stone.</strong> In Phase II, transform strategies serve a critical role beyond their direct value: they bootstrap ecosystem governance. A population of transform firms creates governance infrastructure (moderation tools, community norms, shared standards) that full enhancement later requires. The transition from partial to full enhancement occurs when the standalone advantage of full enhancement, combined with the ecosystem value generated by the existing governance infrastructure, exceeds the cost differential. This suggests a deliberate strategy: adopt transform <em>with the explicit intention of transitioning</em> to full enhancement as \(\beta\) grows and governance capacity matures.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec6">6. The Private&ndash;Social Divergence</h2>
+
+<p>The formal payoffs in the evolutionary model measure <em>private fitness</em> in the firm population game. They do not account for user participation. This creates a wedge between private and social optima.</p>
+
+<p>Full enhancement (Leverage) maximizes per-user ecosystem value through tight coupling, but its information rent extraction requires opacity, which suppresses participation. Partial enhancement (Transform) creates less per-user value but, through higher transparency, attracts more users. Define the participation ratio \(P = n_T/n_L &gt; 1\) (transform attracts more users) and the per-user value ratio \(Q = E_L/E_T &gt; 1\) (full enhancement creates more per-user value). Social welfare depends on the product of participation and per-user value. The divergence condition is:</p>
+
+<div class="result-box">
+<p class="label">Private&ndash;Social Divergence</p>
+<p>Transform is socially superior despite Leverage being privately dominant when \(P &gt; Q - (c_L - c_T)/(n_L \cdot E_T)\). The structural source: private fitness weights value by <em>capture multipliers</em>; social welfare weights it by <em>participation</em>. Firms optimize for capture; welfare depends on reach.</p>
+</div>
+
+<p>The per-user value ratio \(Q\) is increasing in \(\beta\) (full enhancement becomes relatively more valuable as anti-rivalry strengthens), while the participation ratio \(P\) is independent of \(\beta\) (it depends on transparency norms, not anti-rivalry strength). This means the divergence region is concentrated at <strong>intermediate \(\beta\) (Phase II)</strong>: both strategies are viable, \(Q\) is moderate, and the widest parameter region exists where full enhancement is privately dominant but partial enhancement is socially superior.</p>
+
+<p><strong>The opacity&ndash;welfare link.</strong> The welfare cost of firm-path opacity is precisely characterized: it is proportional to the per-user value \(E_L\) and the transparency-responsive fraction of users \((1-\alpha)\). The more per-user value full enhancement creates, the larger the welfare loss from each unit of participation sacrificed to opacity. And the marginal welfare gain from increasing transparency is highest at low transparency levels&mdash;the first unit of disclosure has the largest effect.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec7">7. Policy Implications: Keeping the Playing Field Level</h2>
+
+<p>The framework yields specific, formally grounded policy recommendations. The central insight is that the most effective policy does not mandate which enhancement path ecosystems follow but ensures that both paths remain viable, so that competition between them disciplines the scarcity each creates.</p>
+
+<h3>7.1 The credible-threat mechanism</h3>
+
+<p>The baseline participation parameter \(\alpha\) in the firm-transparency game is not truly exogenous&mdash;it is conditioned on whether users have an alternative. When no community-governed alternative exists, users are captive: even opaque platforms retain high participation. When a viable community alternative exists (the governance trap condition \(\sigma \geq c_G - c_C\) is satisfied), users who would otherwise tolerate opacity can defect. This reduces the effective \(\alpha\) that opaque firms face, with three consequences:</p>
+
+<ol>
+<li><strong>The transparency tipping point drops.</strong> The tipping point \(p^*\) is increasing in \(\alpha\). Reducing \(\alpha\) through community viability means fewer transparent competitors are needed before opacity becomes self-undermining.</li>
+<li><strong>The welfare effect of transparency is amplified.</strong> The marginal welfare gain from increasing transparency is proportional to \((1-\alpha)\). Community viability increases this multiplier: each unit of transparency improvement has a larger welfare effect.</li>
+<li><strong>The competitive penalty for opacity steepens.</strong> Opaque platforms lose users faster when a viable community alternative exists, accelerating the tipping-point dynamics.</li>
+</ol>
+
+<p>The policy chain is:</p>
+
+\[
+\underbrace{\text{Lower } c_G, \text{ increase } \sigma}_{\text{governance policy}} \;\longrightarrow\; \underbrace{\sigma \geq c_G - c_C}_{\text{community viable}} \;\longrightarrow\; \underbrace{\alpha \downarrow}_{\text{outside option}} \;\longrightarrow\; \underbrace{p^* \downarrow}_{\text{tipping point drops}} \;\longrightarrow\; \underbrace{\tau_L \uparrow}_{\text{firms compete on transparency}}
+\]
+
+<p>The advantage over direct transparency regulation is that the equilibrium is <em>self-enforcing</em>: once the community alternative is viable, market competition sustains the pressure on firm transparency without ongoing regulatory enforcement.</p>
+
+<h3>7.2 Governance infrastructure as public good</h3>
+
+<p>The governance trap condition \(\sigma \geq c_G - c_C\) identifies two target parameters for policy. The first is \(c_G\): funding governance infrastructure&mdash;open-source moderation tools, shared dispute resolution systems, community management tooling, automated compliance&mdash;lowers the cost of governance labor and widens the survival margin for communities. This is analogous to funding physical infrastructure (roads, courts) that enables market competition: governance infrastructure is the rivalrous complement that community-based anti-rival ecosystems require.</p>
+
+<p>The second is \(\sigma\): creating institutional conditions for premium stacking. Tax treatment that recognizes governance labor as a contribution (not just volunteering), portability of reputation across platforms, legal frameworks for community revenue sharing, and antitrust policy that preserves strategic value of community participation&mdash;each of these increases a specific component of \(\sigma_{\text{total}}\) and widens the set of communities that clear the governance trap threshold.</p>
+
+<p><strong>A paradox of falling content costs.</strong> The governance trap condition depends on the <em>differential</em> \(c_G - c_C\). When content creation becomes easier (through AI-generated content, low-code tools), \(c_C\) falls, which <em>widens</em> the gap \(c_G - c_C\) and makes the governance trap harder to avoid. As content creation becomes frictionless, governance demands grow relative to content supply. Communities must respond by increasing \(\sigma\) or reducing \(c_G\), not by celebrating the content growth. This has immediate policy relevance: the current wave of generative AI makes governance investment more urgent, not less.</p>
+
+<h3>7.3 Transparency regulation as backstop</h3>
+
+<p>Direct transparency regulation (raising the floor on \(\tau_L\)) remains necessary as a backstop for ecosystems where the community alternative is not yet viable. The formal analysis identifies when this regulation is most productive:</p>
+
+<ul>
+<li><strong>Timing:</strong> Phase II, where extraction norms are forming and path dependence has not yet locked in opacity. In Phase III, established platforms with entrenched opacity are harder to regulate.</li>
+<li><strong>Form:</strong> Minimum disclosure requirements are more efficient than graduated mandates, because the marginal welfare gain per unit of transparency is highest at low transparency levels.</li>
+<li><strong>Targeting:</strong> Focus regulatory resources on ecosystems where per-user value from full enhancement is large (\(Q\) high) and the participation advantage of partial enhancement is close to the divergence boundary. Where \(P > Q\) already holds, the social optimum aligns with a viable private strategy and regulation may be unnecessary.</li>
+</ul>
+
+<h3>7.4 Interoperability and data portability</h3>
+
+<p>The credible-threat mechanism depends on user mobility&mdash;users must be able to migrate from the firm path to the community path. Switching costs, data lock-in, and platform-specific network effects sustain \(\alpha\) even when a community alternative exists. Interoperability requirements and data portability mandates complement the credible-threat mechanism by ensuring that users can actually exercise the outside option. Without mobility, the community alternative is notional rather than credible, and the competitive discipline is weak.</p>
+
+<h3>7.5 The policy portfolio</h3>
+
+<p>The most effective policy combines three elements as an integrated portfolio:</p>
+
+<ol>
+<li><strong>Governance infrastructure investment</strong> to ensure \(\sigma \geq c_G - c_C\) with margin&mdash;making the community path viable and the credible-threat mechanism operative. This is the primary instrument.</li>
+<li><strong>Interoperability and data portability requirements</strong> to reduce switching costs&mdash;ensuring users can exercise the outside option. This enables the credible-threat mechanism.</li>
+<li><strong>Minimum transparency floors</strong> as a backstop for Phase II ecosystems where the community path has not yet cleared the governance trap threshold. This is a transitional measure.</li>
+</ol>
+
+<p>This portfolio keeps the playing field level: it does not mandate which enhancement path ecosystems must follow but ensures that the existence of a viable community alternative disciplines firm behavior through competition rather than regulation. Competition between the two enhancement paths constrains the scarcity that each creates.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec8">8. Discussion</h2>
+
+<h3>8.1 Contributions</h3>
+
+<p><strong>To the anti-rival goods literature.</strong> We introduce scarcity displacement as the central mechanism governing anti-rival value creation. Prior work established that anti-rival goods challenge market allocation (Bliss &amp; Egler, 2020; Cooper, 2006) and identified the need for alternative organizing structures (Kubiszewski et al., 2010; Nikander et al., 2020). Our contribution is to show that these alternative structures do not eliminate scarcity but redistribute it&mdash;and to formalize the conditions under which each form of redistribution is viable, collapses, or creates welfare loss. The restrict&ndash;enhance binary and the coupling dial provide a parsimonious framework that unifies the diverse business model strategies documented in the empirical literature.</p>
+
+<p><strong>To business model innovation research.</strong> We provide the first formal explanation for why certain BMP combinations are dominated (the incompatibility result) and predict phase transitions in business model landscapes as anti-rivalry increases (the phase transition result). The framework explains the pattern-level observations from the original BMP study&mdash;why the metamechanisms differ in their opportunities and challenges, and why mixing symbiosis-seeking and synergy-seeking patterns requires caution&mdash;and grounds them in precise boundary conditions. For practitioners, the framework provides a diagnostic: estimate \(\beta\) for your ecosystem, determine your phase, and select strategy accordingly.</p>
+
+<p><strong>To innovation policy.</strong> We identify the specific conditions under which private and social optima diverge (intermediate \(\beta\), Phase II) and derive the credible-threat mechanism as a policy instrument. The key insight is that policy should target the <em>viability of both enhancement paths</em> rather than mandating one over the other. This reframes the platform regulation debate: rather than constraining firm behavior directly, ensure that community alternatives are viable and that users can move between paths. The formal analysis provides specific parameters to target (\(c_G\), \(\sigma\), \(\tau_L\), \(\alpha\)) and identifies when intervention is most productive (Phase II, low baseline transparency).</p>
+
+<h3>8.2 Competition between paths as mutual discipline</h3>
+
+<p>The two enhancement paths are not merely alternatives but mutual checks. The firm path&rsquo;s scarcity (opacity, dependency) is constrained when a viable community path exists, because the community alternative reduces the captive user base and lowers the transparency tipping point. Conversely, the community path&rsquo;s scarcity (governance labor) is partially alleviated when firm-subsidized alternatives set a quality floor that communities must match, preventing governance complacency. The healthiest ecosystem configuration is not one where either path dominates, but one where both are viable&mdash;each path&rsquo;s displaced scarcity is constrained by the credible threat of defection to the other.</p>
+
+<h3>8.3 Limitations</h3>
+
+<p>The model assumes homogeneous agents within each strategy type and exogenous \(\beta\) (in reality, firms invest in changing anti-rivalry). The functional forms (power-law value, Michaelis&ndash;Menten governance quality) are mathematically convenient but empirically unvalidated. We conjecture that the qualitative results (bistability, incompatibility, governance trap) are robust to functional form, but specific threshold values are not. The BMP analysis is literature-based and inherits the limitations of the original study&rsquo;s reliance on academic BMP descriptions. Empirical validation of the phase thresholds and governance trap dynamics in specific ecosystems is needed.</p>
+
+<p>The framework treats the firm and community paths as distinct categories. In practice, many ecosystems involve hybrid arrangements (e.g., a firm that stewards an open-source community). The framework applies to these hybrids by analyzing each interface separately: the open-source component operates on the community path, the firm&rsquo;s proprietary services on the firm path, and the incompatibility result determines when these can coexist on a shared interface versus requiring architectural separation.</p>
+
+<h3>8.4 Future research</h3>
+
+<p>Three directions are particularly promising. First, empirical estimation of \(\beta\) and the phase thresholds in specific ecosystems, using panel data on user growth and per-user value metrics. Second, endogenizing \(\beta\)&mdash;modeling firms&rsquo; investment in technologies that change the anti-rivalry of their goods, and the resulting strategic dynamics. Third, systems dynamics modeling of the governance trap in real communities, using the \(y/x\) ratio (governance-to-content) as a leading indicator and testing whether the exponential decay predicted by the model matches observed patterns in open-source projects, platform communities, and commons-based ecosystems. The original study&rsquo;s call for &ldquo;systems dynamics methods that provide tools for analyzing complex systems&rdquo; aligns precisely with this agenda.</p>
+
+<!-- ============================================================ -->
+<h2 id="sec9">9. Conclusion</h2>
+
+<p>Anti-rival goods create value that scales with use, but rival costs must be covered. The first-order choice is binary: restrict anti-rivalry or enhance it. Enhancement inevitably displaces scarcity&mdash;to transparency and control (firm path) or to governance and attention (community path). A coupling dial (transform) can mitigate the displaced scarcity, but only by reducing the anti-rival benefit; on a shared interface, full enhancement and full transform are incompatible.</p>
+
+<p>The framework, grounded in a systematic analysis of 175 business model patterns and formalized with evolutionary game theory, yields three results with direct policy relevance. First, the business model landscape undergoes phase transitions as anti-rivalry increases, and the critical window for policy intervention is Phase II&mdash;the intermediate regime where both paths coexist and extraction norms are not yet locked in. Second, private and social optima diverge precisely in this regime: firms optimize for value capture, but welfare depends on participation reach. Third, the most effective policy does not mandate which path ecosystems follow but ensures both remain viable. A credible community alternative disciplines firm opacity through market competition; governance infrastructure investment and interoperability requirements make this alternative credible; and minimum transparency floors provide a backstop where community alternatives are not yet established.</p>
+
+<p>Scarcity displacement cannot be avoided&mdash;only navigated. The choice is not whether to create scarcity but which kind, and competition between the two enhancement paths constrains the scarcity that each creates.</p>
+
+<!-- ============================================================ -->
+<h2 id="refs">References</h2>
+
+<div class="ref-list">
+<p>Alexander, C., Ishikawa, S., &amp; Silverstein, M. (1977). <em>A Pattern Language: Towns, Buildings, Construction</em>. Oxford University Press.</p>
+<p>Battilana, J., &amp; Lee, M. (2014). Advancing research on hybrid organizing: Insights from the study of social enterprises. <em>Academy of Management Annals</em>, 8(1), 397&ndash;441.</p>
+<p>Blind, K. (2012). The influence of regulations on innovation: A quantitative assessment for OECD countries. <em>Research Policy</em>, 41(2), 391&ndash;400.</p>
+<p>Bliss, S., &amp; Egler, M. (2020). Ecological economics beyond markets. <em>Ecological Economics</em>, 178, 106806.</p>
+<p>Cooper, M. (2006). From wifi to wikis and open source: The political economy of collaborative production in the digital information age. <em>Journal on Telecommunications and High Technology Law</em>, 5, 125&ndash;158.</p>
+<p>Daoud, A. (2018). Unifying studies of scarcity, abundance, and sufficiency. <em>Ecological Economics</em>, 147, 208&ndash;217.</p>
+<p>Edler, J., &amp; Fagerberg, J. (2017). Innovation policy: What, why, and how. <em>Oxford Review of Economic Policy</em>, 33(1), 2&ndash;18.</p>
+<p>Eisenmann, T., Parker, G., &amp; Van Alstyne, M. (2006). Strategies for two-sided markets. <em>Harvard Business Review</em>, 84(10), 92&ndash;101.</p>
+<p>Eloranta, V., &amp; [Authors]. (2026). Managing the complexities of digital goods&rsquo; anti-rivalry in contemporary business model innovation. <em>Working paper</em>.</p>
+<p>Eloranta, V., Ardolino, M., &amp; Saccani, N. (2021). A complexity management approach to servitization. <em>International Journal of Operations &amp; Production Management</em>, 41(5), 622&ndash;644.</p>
+<p>Gassmann, O., Frankenberger, K., &amp; Csik, M. (2013). The St. Gallen business model navigator. <em>Working Paper</em>, University of St. Gallen.</p>
+<p>Gassmann, O., Frankenberger, K., &amp; Csik, M. (2014). <em>The Business Model Navigator: 55 Models That Will Revolutionise Your Business</em>. Pearson UK.</p>
+<p>Greenwood, R., Raynard, M., Kodeih, F., Micelotta, E. R., &amp; Lounsbury, M. (2011). Institutional complexity and organizational responses. <em>Academy of Management Annals</em>, 5(1), 317&ndash;371.</p>
+<p>Haeringer, G. (2018). <em>Market Design: Auctions and Matching</em>. MIT Press.</p>
+<p>Hofbauer, J., &amp; Sigmund, K. (1998). <em>Evolutionary Games and Population Dynamics</em>. Cambridge University Press.</p>
+<p>Katz, M. L., &amp; Shapiro, C. (1985). Network externalities, competition, and compatibility. <em>American Economic Review</em>, 75(3), 424&ndash;440.</p>
+<p>Kraatz, M. S., &amp; Block, E. S. (2008). Organizational implications of institutional pluralism. In R. Greenwood, C. Oliver, K. Sahlin, &amp; R. Suddaby (Eds.), <em>The Sage Handbook of Organizational Institutionalism</em>, 243&ndash;275. Sage.</p>
+<p>Kubiszewski, I., Farley, J., &amp; Costanza, R. (2010). The production and allocation of information as a good that is enhanced with increased use. <em>Ecological Economics</em>, 69(6), 1344&ndash;1354.</p>
+<p>Massa, L., Tucci, C. L., &amp; Afuah, A. (2017). A critical assessment of business model research. <em>Academy of Management Annals</em>, 11(1), 73&ndash;104.</p>
+<p>Nikander, P., Eloranta, V., Karhu, K., &amp; Hiekkanen, K. (2020). Digitalisation, anti-rival compensation, and governance. <em>arXiv preprint</em> arXiv:2009.00923.</p>
+<p>Ocasio, W., &amp; Radoynovska, N. (2016). Strategy and commitments to institutional logics. <em>Strategic Organization</em>, 14(4), 287&ndash;309.</p>
+<p>Olleros, F. X. (2018). Antirival goods, network effects and the sharing economy. <em>First Monday</em>, 23(2).</p>
+<p>Ostrom, E. (1990). <em>Governing the Commons: The Evolution of Institutions for Collective Action</em>. Cambridge University Press.</p>
+<p>Remane, G., Hanelt, A., Tesch, J. F., &amp; Kolbe, L. M. (2017). The business model pattern database. <em>International Journal of Innovation Management</em>, 21(1), 1750004.</p>
+<p>Weber, S. (2004). <em>The Success of Open Source</em>. Harvard University Press.</p>
+</div>
+
+<hr style="margin: 3rem 0 1.5rem;">
+<p class="footnote" style="text-align: center; font-size: 0.85rem; color: #999;">
+Working paper. Prepared for <em>Research Policy</em>.
+</p>
+
+</div>
+</body>
+</html>
