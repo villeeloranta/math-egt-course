@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 7: Evoluutiopeliteoria ja replikaattoridynamiikka</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html" class="active">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 7</div>
+    <h1>Evoluutiopeliteoria ja replikaattoridynamiikka</h1>
+    <p class="module-desc">
+      Tässä kaikki yhdistyy. Hylkäämme oletuksen rationaalisista pelaajista ja kysymme sen sijaan:
+      mitä tapahtuu, kun strategiat <em>kehittyvät</em>? Replikaattoriyhtälö &mdash; evoluutiopeliteorian
+      keskeinen yhtälö &mdash; syntyy kauniista ja yksinkertaisesta periaatteesta: strategiat, jotka
+      menestyvät keskimääräistä paremmin, yleistyvät; ne, jotka menestyvät huonommin, vähenevät.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module6.html">&larr; Moduuli 6: Peliteoria</a>
+    <a href="module8.html">Moduuli 8: Sovellukset &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Tämän moduulin sisältö</h3>
+    <ol>
+      <li><a href="#sec-classical-to-evo">Klassisesta evoluutiopeliteoriaan</a></li>
+      <li><a href="#sec-populations">Populaatiot ja strategiafrekvenssit</a></li>
+      <li><a href="#sec-fitness">Kelpoisuus ja odotettu tuotto</a></li>
+      <li><a href="#sec-ess">Evolutiivisesti stabiili strategia (ESS)</a></li>
+      <li><a href="#sec-replicator">Replikaattoriyhtälö</a></li>
+      <li><a href="#sec-2strategy">2-strategian replikaattoridynamiikka</a></li>
+      <li><a href="#sec-multi">Monistrateginen replikaattoridynamiikka</a></li>
+      <li><a href="#sec-ess-replicator">ESS:n ja replikaattoridynamiikan yhteys</a></li>
+      <li><a href="#sec-stability">Stabiilisuusanalyysi replikaattoridynamiikassa</a></li>
+      <li><a href="#sec-extensions">Laajennuksia ja yleistyksiä</a></li>
+      <li><a href="#sec-viz1">Interaktiivinen: 2-strategian simulaattori</a></li>
+      <li><a href="#sec-viz2">Interaktiivinen: 3-strategian simpleksi</a></li>
+      <li><a href="#sec-exercises">Harjoitukset</a></li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: From Classical to Evolutionary Game Theory         -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-classical-to-evo">
+    <h2>1. Klassisesta evoluutiopeliteoriaan</h2>
+
+    <p>
+      Moduulissa 6 tutkimme klassista peliteoriaa: rationaalisia pelaajia, täydellistä informaatiota ja
+      hyödyn maksimointia. Nash-tasapaino vastasi kysymykseen <em>"Jos kaikki ovat täydellisen rationaalisia,
+      mitkä strategiat ovat keskenään johdonmukaisia?"</em> Mutta tällä kehikolla on syvä rajoitus: se vaatii
+      pelaajia <strong>päättelemään</strong> tiensä tasapainoon. Monissa biologisissa, sosiaalisissa ja
+      institutionaalisissa ympäristöissä tämä oletus on epärealistinen.
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Keskeinen paradigman muutos</span>
+      <p>
+        Klassinen peliteoria kysyy: <em>"Mitä rationaalisen pelaajan tulisi tehdä?"</em><br>
+        Evoluutiopeliteoria kysyy: <em>"Mitkä strategiat selviävät ja leviävät populaatiossa?"</em>
+      </p>
+      <p>
+        Pelaajien ei tarvitse olla rationaalisia &mdash; tai edes tietoisia. Strategiat, jotka sattuvat
+        tuottamaan korkeampia tuottoja, jättävät enemmän kopioita itsestään seuraavaan sukupolveen. Tämä on
+        <strong>valintaa</strong>, ei laskentaa.
+      </p>
+    </div>
+
+    <p>
+      Evolutionaarisen lähestymistavan kehittivät <strong>John Maynard Smith</strong> ja
+      <strong>George R. Price</strong> 1970-luvun alussa alun perin biologisiin sovelluksiin.
+      Mutta kehikko on paljon yleisempi. Aina kun sinulla on:
+    </p>
+
+    <ul>
+      <li><strong>Populaatio</strong> toimijoita (organismeja, yrityksiä, ihmisiä, normeja, instituutioita)</li>
+      <li>Jokainen toimija käyttää <strong>strategiaa</strong> (käyttäytymissääntöä, fenotyyppiä, konventiota)</li>
+      <li>Toimijat ovat vuorovaikutuksessa ja saavat <strong>tuottoja</strong> (kelpoisuutta, voittoa, lisääntymismenestystä)</li>
+      <li>Korkeampia tuottoja ansaitsevat strategiat <strong>leviävät</strong> (lisääntymisen, jäljittelyn tai oppimisen kautta)</li>
+    </ul>
+
+    <p>olet evoluutiopeliteorian alueella.</p>
+
+    <h3>Käsitteistön vastaavuudet</h3>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th style="width:35%">Klassinen peliteoria</th>
+        <th>Evoluutiopeliteoria</th>
+      </tr>
+      <tr><td>Hyöty / tuotto</td><td><strong>Kelpoisuus</strong></td></tr>
+      <tr><td>Rationaalinen pelaaja valitsee strategian</td><td><strong>Populaatio-osuus</strong> kutakin strategiaa käyttäen</td></tr>
+      <tr><td>Nash-tasapaino</td><td><strong>Evolutiivisesti stabiili strategia (ESS)</strong></td></tr>
+      <tr><td>Parhaan vasteen päättely</td><td><strong>Luonnonvalinta / jäljittely / oppiminen</strong></td></tr>
+      <tr><td>Yhden pelaajan sekastrategia</td><td><strong>Populaatiotila</strong> (osuus kutakin puhdasta strategiaa pelaavia)</td></tr>
+      <tr><td>Staattinen tasapainokäsite</td><td><strong>Dynaaminen prosessi</strong> (replikaattoriyhtälö)</td></tr>
+    </table>
+
+    <div class="note-box">
+      <span class="box-title">Miksi tällä on merkitystä yhteiskuntatieteille</span>
+      <p>
+        Ostromin instituutioanalyysissä (moduuli 8) yhteisöt eivät päädy yhteistoimintanormeihin
+        täydellisen rationaalisuuden kautta. Normit kehittyvät ajan myötä: menestyksekkäät konventiot
+        leviävät jäljittelyn ja kulttuurisen oppimisen kautta, kun taas epäonnistuneet hiipuvat.
+        Evoluutiopeliteoria tarjoaa matemaattisen kehikon tämän prosessin täsmälliseen mallintamiseen.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Populations and Strategy Frequencies               -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-populations">
+    <h2>2. Populaatiot ja strategiafrekvenssit</h2>
+
+    <p>
+      Yhden sekastrategiaa valitsevan pelaajan sijasta ajattelemme nyt suurta populaatiota,
+      jossa eri yksilöt käyttävät erilaisia <em>puhtaita</em> strategioita. <strong>Populaatiotila</strong>
+      kuvaa, kuinka yleinen kukin strategia on.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Populaatiotila</span>
+      <p>
+        Oletetaan, että käytettävissä on \(n\) puhdasta strategiaa. <strong>Populaatiotila</strong> on vektori
+      </p>
+      \[
+        \mathbf{x} = (x_1, x_2, \ldots, x_n)
+      \]
+      <p>
+        missä \(x_i\) on strategiaa \(i\) käyttävien osuus (suhteellinen osuus) populaatiosta. Näiden
+        osuuksien on täytettävä:
+      </p>
+      \[
+        \sum_{i=1}^{n} x_i = 1, \qquad x_i \geq 0 \quad \text{for all } i.
+      \]
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Simpleksi</span>
+      <p>
+        Kaikkien kelvollisten populaatiotilojen joukko muodostaa <strong>\((n{-}1)\)-ulotteisen simpleksin</strong>:
+      </p>
+      \[
+        \Delta^{n-1} = \left\{ \mathbf{x} \in \mathbb{R}^n \;\Big|\; \sum_{i=1}^n x_i = 1, \; x_i \geq 0 \;\text{for all } i \right\}.
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Simpleksin visualisointi</span>
+      <p><strong>2 strategiaa (\(n = 2\)):</strong> Simpleksi on jana pisteestä \((1, 0)\) pisteeseen \((0, 1)\).
+        Yksi luku \(x_1 \in [0, 1]\) kuvaa koko populaatiotilan (koska \(x_2 = 1 - x_1\)).</p>
+      <p><strong>3 strategiaa (\(n = 3\)):</strong> Simpleksi on kolmio, jonka kärjet ovat \((1,0,0)\), \((0,1,0)\)
+        ja \((0,0,1)\). Jokainen kolmion sisäpiste edustaa kaikkien kolmen strategian populaatiosekoitusta.
+        Kärjet ovat monomorfisia tiloja (kaikki pelaavat samaa strategiaa), ja sivut ovat tiloja, joissa yksi
+        strategia puuttuu.</p>
+      <p><strong>Yleinen \(n\):</strong> \((n{-}1)\)-ulotteinen geometrinen kappale. Kärjet ovat \(n\)
+        monomorfista populaatiota.</p>
+    </div>
+
+    <h3>Sisäpiste vs. reuna</h3>
+
+    <p>
+      Simpleksin <strong>sisäpisteissä</strong> \(x_i > 0\) kaikilla \(i\) &mdash; jokainen
+      strategia on edustettuna. <strong>Reunapisteissä</strong> ainakin yksi \(x_i = 0\) &mdash;
+      ainakin yksi strategia puuttuu. Kuten tulemme näkemään, replikaattoridynamiikka säilyttää tämän
+      eron: sukupuuttoon kuolleet strategiat pysyvät kuolleina.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Haukka-kyyhky-populaatio</span>
+      <p>
+        Tarkastellaan populaatiota, jossa on kaksi strategiaa: haukka (\(H\)) ja kyyhky (\(D\)). Tila
+        \(\mathbf{x} = (0.3, 0.7)\) tarkoittaa, että 30 % populaatiosta pelaa haukkaa ja 70 % kyyhkyä.
+        Simpleksi on väli \([0, 1]\), parametrisoituna \(x_H\):lla siten, että \(x_D = 1 - x_H\).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Fitness and Expected Payoff                       -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-fitness">
+    <h2>3. Kelpoisuus ja odotettu tuotto</h2>
+
+    <p>
+      Evoluutiopeliteoriassa klassisen peliteorian tuottomatriisi \(A\) tulkitaan uudelleen:
+      alkio \(a_{ij}\) on strategiaa \(i\) pelaavan yksilön <strong>kelpoisuushyöty</strong>, kun
+      se kohtaa strategiaa \(j\) pelaavan vastustajan. Koska vastustajat valitaan satunnaisesti
+      populaatiosta, laskemme odotetun kelpoisuuden.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Strategian \(i\) kelpoisuus</span>
+      <p>
+        Kun tuottomatriisi on \(A = (a_{ij})\) ja populaatiotila \(\mathbf{x}\), strategian \(i\) <strong>kelpoisuus</strong>
+        (odotettu tuotto) on:
+      </p>
+      \[
+        f_i(\mathbf{x}) = \sum_{j=1}^{n} a_{ij} x_j = (A\mathbf{x})_i
+      \]
+      <p>
+        Tämä on matriisi-vektoritulon \(A\mathbf{x}\) \(i\):s komponentti. Tiiviissä merkinnässä
+        kelpoisuusvektori on:
+      </p>
+      \[
+        \mathbf{f}(\mathbf{x}) = A\mathbf{x}
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Miksi matriisikertolasku?</span>
+      <p>
+        Strategiaa \(i\) pelaava yksilö kohtaa vastustajia satunnaisesti. Todennäköisyydellä \(x_j\)
+        vastustaja käyttää strategiaa \(j\), jolloin tuotto on \(a_{ij}\). Odotettu tuotto on siis
+        painotettu keskiarvo \(\sum_j a_{ij} x_j\) &mdash; tarkalleen \(A\):n \(i\):s rivi pistekerrottuna
+        \(\mathbf{x}\):llä. Juuri tämän matriisikertolasku laskee. Moduulin 2 lineaarialgebra osoittaa
+        nyt tarkoituksensa.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Populaation keskimääräinen kelpoisuus</span>
+      <p>
+        Koko populaation <strong>keskimääräinen kelpoisuus</strong> on yksittäisten strategioiden
+        kelpoisuuksien painotettu keskiarvo:
+      </p>
+      \[
+        \bar{f}(\mathbf{x}) = \sum_{i=1}^{n} x_i f_i(\mathbf{x}) = \sum_{i=1}^{n} x_i \sum_{j=1}^{n} a_{ij} x_j = \mathbf{x}^{\!\top} A \mathbf{x}
+      \]
+      <p>
+        Tämä on <strong>neliömuoto</strong> (moduuli 2) &mdash; yksi luku, joka tiivistää
+        populaation kokonaissuorituskyvyn.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Haukka-kyyhky-kelpoisuuslaskelma</span>
+      <p>
+        Tarkastellaan haukka-kyyhky-peliä tuottomatriisilla (missä \(V = 4\), \(C = 6\)):
+      </p>
+      \[
+        A = \begin{pmatrix} \frac{V - C}{2} & V \\ 0 & \frac{V}{2} \end{pmatrix}
+        = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}
+      \]
+      <p>
+        Rivit/sarakkeet: strategia 1 = haukka, strategia 2 = kyyhky. Olkoon \(x\) haukkojen osuus,
+        joten \(\mathbf{x} = (x, 1 - x)\).
+      </p>
+      <p><strong>Haukkojen kelpoisuus:</strong></p>
+      \[
+        f_H(x) = a_{11} x + a_{12}(1 - x) = -1 \cdot x + 4(1 - x) = 4 - 5x
+      \]
+      <p><strong>Kyyhkyjen kelpoisuus:</strong></p>
+      \[
+        f_D(x) = a_{21} x + a_{22}(1 - x) = 0 \cdot x + 2(1 - x) = 2 - 2x
+      \]
+      <p><strong>Populaation keskimääräinen kelpoisuus:</strong></p>
+      \[
+        \bar{f}(x) = x \cdot f_H(x) + (1 - x) \cdot f_D(x) = x(4 - 5x) + (1 - x)(2 - 2x)
+      \]
+      \[
+        = 4x - 5x^2 + 2 - 2x - 2x + 2x^2 = 2 - 3x^2
+      \]
+      <p>
+        Kun \(x = 0\) (kaikki kyyhkyjä): \(\bar{f} = 2\). Kun \(x = 1\) (kaikki haukkoja): \(\bar{f} = -1\).
+        Populaatio menestyy huonoiten, kun kaikki ovat aggressiivisia &mdash; sosiaalinen dilemma syntyy!
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 5</span>
+      <p>
+        Kelpoisuus \(f_i(\mathbf{x}) = \sum_j a_{ij} x_j\) on kirjaimellisesti <strong>odotusarvo</strong>.
+        Satunnaismuuttuja on "tuotto kohdattaessa satunnainen vastustaja", ja todennäköisyydet ovat
+        populaatiofrekvenssit \(x_j\). Kaikki moduulissa 5 opittu odotusarvosta pätee suoraan.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Evolutionarily Stable Strategy                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-ess">
+    <h2>4. Evolutiivisesti stabiili strategia (ESS)</h2>
+
+    <p>
+      <strong>Evolutiivisesti stabiilin strategian</strong> (ESS) käsite on yksi evoluutiobiologian
+      ja yhteiskuntatieteiden tärkeimmistä ideoista. Sen esittelivät
+      <strong>Maynard Smith ja Price (1973)</strong> vastatakseen perustavanlaatuiseen kysymykseen:
+      mitkä strategiat kestävät mutanttien tunkeutumisen?
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Tunkeutumisen ajatuskoe</span>
+      <p>
+        Kuvittele populaatio, jossa kaikki käyttävät strategiaa \(\sigma^*\). Nyt ilmestyy pieni
+        ryhmä <em>mutantteja</em>, jotka käyttävät eri strategiaa \(\sigma\). Mutantit ovat harvinaisia,
+        joten ne kohtaavat enimmäkseen hallitsevia (\(\sigma^*\)-pelaajia). Kysymys on:
+        <strong>Voivatko mutantit kasvaa, vai ajetaanko ne sukupuuttoon?</strong>
+      </p>
+      <p>
+        Jos mikään mutanttistrategia ei voi tunkeutua, \(\sigma^*\) on evolutiivisesti stabiili &mdash;
+        se on strategia, joka kerran vakiinnuttua säilyy evoluutiodynamiikan alaisuudessa.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Evolutiivisesti stabiili strategia (ESS)</span>
+      <p>
+        Strategia \(\sigma^*\) on <strong>evolutiivisesti stabiili strategia</strong>, jos jokaiselle
+        mutanttistrategialle \(\sigma \neq \sigma^*\) ainakin toinen seuraavista pätee:
+      </p>
+      <ol>
+        <li>
+          <strong>Tarkka Nash-ehto:</strong>
+          \[
+            E(\sigma^*, \sigma^*) > E(\sigma, \sigma^*)
+          \]
+          Hallitseva menestyy tarkalleen paremmin hallitsevia vastaan kuin mutantti hallitsevia vastaan.
+        </li>
+        <li>
+          <strong>Stabiilisuusehto:</strong> Jos \(E(\sigma^*, \sigma^*) = E(\sigma, \sigma^*)\), niin
+          \[
+            E(\sigma^*, \sigma) > E(\sigma, \sigma)
+          \]
+          Kun mutantti menestyy yhtä hyvin hallitsevia vastaan, <em>hallitsevan</em> on menestyttävä tarkalleen
+          paremmin <em>mutantteja</em> vastaan kuin mutantit itseään vastaan.
+        </li>
+      </ol>
+      <p>Tiiviimmin: \(\sigma^*\) on ESS, jos se on <strong>Nash-tasapaino</strong>, joka täyttää
+        lisäksi <strong>stabiilisuusehdon</strong> aina kun Nash-epäyhtälö ei ole tarkka.</p>
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">ESS on vahvempi kuin Nash-tasapaino</span>
+      <p>
+        Jokainen ESS on Nash-tasapaino, mutta <strong>jokainen Nash-tasapaino ei ole ESS</strong>.
+        Stabiilisuusehto on lisävaatimus. Itse asiassa ESS:n on oltava
+        <em>symmetrinen</em> Nash-tasapaino, joka täyttää tämän tunkeutumisenkestävyysominaisuuden.
+      </p>
+    </div>
+
+    <h3>ESS 2-strategian peleille: matriisitesti</h3>
+
+    <p>
+      2-strategian symmetriselle pelille, jonka tuottomatriisi on
+      \[
+        A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+      \]
+      voimme luonnehtia ESS:n eksplisiittisesti:
+    </p>
+
+    <ul>
+      <li><strong>Puhdas strategia 1 on ESS</strong>, jos \(a > c\), TAI jos \(a = c\) ja \(b > d\).</li>
+      <li><strong>Puhdas strategia 2 on ESS</strong>, jos \(d > b\), TAI jos \(d = b\) ja \(c > a\).</li>
+      <li><strong>Seka-ESS kohdassa \(x^*\)</strong> voi olla olemassa, kun \(a &lt; c\) ja \(d &lt; b\)
+        ("haukka-kyyhky"-tapaus). ESS-sekoitus on:
+        \[
+          x^* = \frac{d - b}{(a - c) + (d - b)}
+        \]
+      </li>
+    </ul>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; Haukka-kyyhky-pelin ESS:n löytäminen</span>
+      <p>
+        Haukka-kyyhky-matriisilla \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\):
+      </p>
+      <p><strong>Vaihe 1: Onko puhdas haukka ESS?</strong></p>
+      <p>Tarkistetaan \(a > c\): Onko \(-1 > 0\)? Ei. Joten puhdas haukka <em>ei ole</em> ESS.</p>
+      <p><strong>Vaihe 2: Onko puhdas kyyhky ESS?</strong></p>
+      <p>Tarkistetaan \(d > b\): Onko \(2 > 4\)? Ei. Joten puhdas kyyhky <em>ei ole</em> ESS.</p>
+      <p><strong>Vaihe 3: Seka-ESS?</strong></p>
+      <p>
+        Koska \(a = -1 < 0 = c\) ja \(d = 2 < 4 = b\), seka-ESS:n ehdot täyttyvät.
+        Haukkojen ESS-frekvenssi on:
+      </p>
+      \[
+        x^* = \frac{d - b}{(a - c) + (d - b)} = \frac{2 - 4}{(-1 - 0) + (2 - 4)} = \frac{-2}{-1 + (-2)} = \frac{-2}{-3} = \frac{2}{3}
+      \]
+      <p>
+        Joten ESS on populaatio, jossa \(\frac{2}{3}\) on haukkoja ja \(\frac{1}{3}\) kyyhkyjä.
+      </p>
+      <p><strong>Todentaminen:</strong> Kohdassa \(x^* = 2/3\):</p>
+      \[
+        f_H = 4 - 5 \cdot \tfrac{2}{3} = 4 - \tfrac{10}{3} = \tfrac{2}{3}, \qquad
+        f_D = 2 - 2 \cdot \tfrac{2}{3} = 2 - \tfrac{4}{3} = \tfrac{2}{3}.
+      \]
+      <p>
+        Molemmilla strategioilla on sama kelpoisuus ESS:ssä &mdash; kuten on oltava missä tahansa
+        sisäisessä tasapainossa. Kummallakaan strategialla ei ole kelpoisuusetua, joten kumpikaan ei voi tunkeutua.
+      </p>
+    </div>
+
+    <h3>Bishop-Cannings-lause</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Bishop-Cannings (1978)</span>
+      <p>
+        Jos \(\sigma^*\) on seka-ESS kantajalla \(S = \{i : \sigma^*_i > 0\}\), niin jokaisella
+        kantajan puhtaalla strategialla on <strong>sama kelpoisuus</strong> \(\sigma^*\):aa vastaan:
+      </p>
+      \[
+        f_i(\sigma^*) = f_j(\sigma^*) = \bar{f}(\sigma^*) \qquad \text{for all } i, j \in S.
+      \]
+      <p>
+        Lisäksi jokaisella puhtaalla strategialla, joka <em>ei ole</em> kantajassa, on oltava tarkalleen pienempi kelpoisuus:
+      </p>
+      \[
+        f_k(\sigma^*) < \bar{f}(\sigma^*) \qquad \text{for all } k \notin S.
+      \]
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Miksi sama kelpoisuus?</span>
+      <p>
+        Jos yhdellä sekoituksen strategialla olisi korkeampi kelpoisuus, valinta lisäisi sen frekvenssiä
+        ja vähentäisi muita. Sekoitus voi olla stabiili vain, jos millään komponentilla ei ole
+        kelpoisuusetua &mdash; ne kaikki menestyvät yhtä hyvin. Tämä on <em>indifferenssiperiaate</em>,
+        sama logiikka kuin klassisen peliteorian seka-Nash-tasapainojen taustalla (moduuli 6), mutta nyt
+        evolutionaarisella tulkinnalla.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: The Replicator Equation                           -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-replicator">
+    <h2>5. Replikaattoriyhtälö</h2>
+
+    <p>
+      Saavumme nyt <strong>evoluutiopeliteorian keskeiseen yhtälöön</strong>. ESS on
+      <em>staattinen</em> käsite &mdash; se kertoo, mikä saattaa olla stabiilia, mutta ei <em>miten</em>
+      sinne päästään. <strong>Replikaattoriyhtälö</strong> tarjoaa dynamiikan: se kertoo täsmälleen,
+      miten strategiafrekvenssit muuttuvat ajan kuluessa.
+    </p>
+
+    <h3>Johtaminen perusperiaatteista</h3>
+
+    <p>
+      Tarkastellaan suurta populaatiota, jonka koko on \(N\). Olkoon \(n_i\) strategiaa \(i\) käyttävien
+      yksilöiden lukumäärä, joten \(x_i = n_i / N\). Kukin yksilö lisääntyy (tai sitä jäljitellään)
+      kelpoisuutensa \(f_i(\mathbf{x})\) suhteessa.
+    </p>
+
+    <p><strong>Vaihe 1: Strategian \(i\) kasvu.</strong></p>
+    <p>
+      Strategiaa \(i\) käyttävien yksilöiden lukumäärä kasvaa seuraavasti:
+    </p>
+    \[
+      \dot{n}_i = f_i(\mathbf{x}) \cdot n_i
+    \]
+    <p>
+      Tämä sanoo, että kasvunopeus on verrannollinen sekä nykyiseen lukumäärään \(n_i\) että
+      kelpoisuuteen \(f_i\) &mdash; eksponentiaalityyppisen kasvun tunnusmerkki (moduuli 4).
+    </p>
+
+    <p><strong>Vaihe 2: Kokonaispopulaation kasvu.</strong></p>
+    <p>
+      Kokonaispopulaatio \(N = \sum_i n_i\) kasvaa seuraavasti:
+    </p>
+    \[
+      \dot{N} = \sum_{i=1}^{n} \dot{n}_i = \sum_{i=1}^{n} f_i(\mathbf{x}) \cdot n_i = N \sum_{i=1}^{n} f_i(\mathbf{x}) \cdot x_i = N \bar{f}(\mathbf{x})
+    \]
+
+    <p><strong>Vaihe 3: Frekvenssidynamiikan johtaminen.</strong></p>
+    <p>
+      Koska \(x_i = n_i / N\), käytämme osamääräsääntöä (moduuli 3):
+    </p>
+    \[
+      \dot{x}_i = \frac{d}{dt}\left(\frac{n_i}{N}\right) = \frac{\dot{n}_i \cdot N - n_i \cdot \dot{N}}{N^2}
+    \]
+    \[
+      = \frac{f_i n_i \cdot N - n_i \cdot N\bar{f}}{N^2} = \frac{n_i}{N}\big(f_i - \bar{f}\big) = x_i\big(f_i(\mathbf{x}) - \bar{f}(\mathbf{x})\big)
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Replikaattoriyhtälö</span>
+      <p>
+        <strong>Replikaattoriyhtälö</strong> hallitsee strategiafrekvenssien kehitystä:
+      </p>
+      <div class="eq-numbered">
+        \[
+          \boxed{\dot{x}_i = x_i \Big[ f_i(\mathbf{x}) - \bar{f}(\mathbf{x}) \Big]}
+        \]
+        <span class="eq-number">(R)</span>
+      </div>
+      <p>
+        missä \(f_i(\mathbf{x}) = (A\mathbf{x})_i\) on strategian \(i\) kelpoisuus ja
+        \(\bar{f}(\mathbf{x}) = \mathbf{x}^\top A \mathbf{x}\) on populaation keskimääräinen kelpoisuus.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Replikaattoriyhtälön lukeminen</span>
+      <p>
+        Yhtälö sanoo: <em>\(x_i\):n muutosnopeus on \(x_i\) kertaa strategian \(i\)
+        <strong>ylikelpoisuus</strong> populaation keskiarvoon nähden.</em>
+      </p>
+      <ul>
+        <li>Jos \(f_i > \bar{f}\): strategia \(i\) menestyy keskiarvoa paremmin &rarr; \(\dot{x}_i > 0\) &rarr; frekvenssi <strong>kasvaa</strong>.</li>
+        <li>Jos \(f_i < \bar{f}\): strategia \(i\) menestyy keskiarvoa huonommin &rarr; \(\dot{x}_i < 0\) &rarr; frekvenssi <strong>pienenee</strong>.</li>
+        <li>Jos \(f_i = \bar{f}\): strategia \(i\) on tasan keskiarvossa &rarr; \(\dot{x}_i = 0\) &rarr; frekvenssi on <strong>stationaarinen</strong>.</li>
+        <li>Jos \(x_i = 0\): strategia \(i\) puuttuu &rarr; \(\dot{x}_i = 0\) &rarr; <strong>sukupuuttoon kuolleet strategiat pysyvät kuolleina</strong>.</li>
+      </ul>
+    </div>
+
+    <h3>Perusominaisuudet</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Replikaattoriyhtälön ominaisuudet</span>
+      <ol>
+        <li>
+          <strong>Simpleksi-invarianssi:</strong> Jos \(\mathbf{x}(0) \in \Delta^{n-1}\), niin
+          \(\mathbf{x}(t) \in \Delta^{n-1}\) kaikilla \(t \geq 0\). Todistus: \(\sum_i \dot{x}_i = \sum_i x_i(f_i - \bar{f}) = \bar{f} - \bar{f} = 0\).
+        </li>
+        <li>
+          <strong>Reunainvarianssi:</strong> Jos \(x_i(0) = 0\), niin \(x_i(t) = 0\) kaikilla \(t\).
+          Kun strategia kuolee sukupuuttoon, se ei voi palata (perusmallissa ei ole mutaatiota).
+        </li>
+        <li>
+          <strong>Sisäpiste-invarianssi:</strong> Jos \(x_i(0) > 0\) kaikilla \(i\), niin \(x_i(t) > 0\) kaikilla
+          \(i\) ja kaikilla \(t\). Alussa esiintyvät strategiat pysyvät (vaikka ne voivat lähestyä nollaa
+          asymptoottisesti).
+        </li>
+        <li>
+          <strong>Kiintopisteet:</strong> \(\mathbf{x}^*\) on kiintopiste jos ja vain jos jokaiselle \(i\):
+          joko \(x_i^* = 0\) tai \(f_i(\mathbf{x}^*) = \bar{f}(\mathbf{x}^*)\). Sisäiset kiintopisteet
+          vaativat, että kaikilla strategioilla on sama kelpoisuus.
+        </li>
+      </ol>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Missä kaikki matematiikka yhdistyy?</span>
+      <p>
+        Replikaattoriyhtälö käyttää lähes kaikkea aiemmista moduuleista:
+      </p>
+      <ul>
+        <li><strong>Moduuli 1:</strong> Funktiot ja algebrallinen käsittely.</li>
+        <li><strong>Moduuli 2:</strong> Matriisi-vektoritulot \(f_i = (Ax)_i\):n laskemiseen, neliömuodot \(\bar{f} = \mathbf{x}^\top A \mathbf{x}\):lle.</li>
+        <li><strong>Moduuli 3:</strong> Osamääräsääntö johtamisessa, derivaatat muutosnopeuksille.</li>
+        <li><strong>Moduuli 4:</strong> Tämä <em>on</em> differentiaaliyhtälösysteemi &mdash; kiintopisteet, stabiilisuus ja vaihemuotokuvat kaikki pätevät.</li>
+        <li><strong>Moduuli 5:</strong> Kelpoisuusfunktio on odotusarvo; populaatiotila on todennäköisyysjakauma.</li>
+        <li><strong>Moduuli 6:</strong> Tuottomatriisi, Nash-tasapaino kiintopisteiden erikoistapauksena.</li>
+      </ul>
+    </div>
+
+    <h3>2-strategian yksinkertaistus</h3>
+
+    <p>
+      Kahdelle strategialle merkitään \(x = x_1\) (joten \(x_2 = 1 - x\)). Replikaattoriyhtälö
+      yksinkertaistuu yhdeksi tavalliseksi differentiaaliyhtälöksi:
+    </p>
+    \[
+      \dot{x} = x(1 - x)\big[f_1(\mathbf{x}) - f_2(\mathbf{x})\big]
+    \]
+
+    <p><strong>Johtaminen:</strong></p>
+    \[
+      \dot{x}_1 = x_1\big[f_1 - \bar{f}\big] = x_1\big[f_1 - x_1 f_1 - x_2 f_2\big]
+      = x_1\big[(1 - x_1)f_1 - x_2 f_2\big]
+      = x_1\big[x_2 f_1 - x_2 f_2\big]
+      = x_1 x_2 (f_1 - f_2)
+    \]
+    <p>
+      Koska \(x_2 = 1 - x_1\), saadaan \(\dot{x} = x(1-x)(f_1 - f_2)\).
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">2-strategiayhtälön rakenne</span>
+      <p>
+        Tekijä \(x(1-x)\) varmistaa, että \(x = 0\) ja \(x = 1\) ovat aina kiintopisteitä
+        (reunainvarianssi). Sisäistä dynamiikkaa hallitsee kokonaan \(f_1 - f_2\):n etumerkki:
+        kummalla strategialla on korkeampi kelpoisuus. Tekijä \(x(1-x)\) tarkoittaa, että muutokset
+        ovat nopeimpia välifrekvenssillä ja hitaita reunojen lähellä &mdash; logistisen kasvun
+        kaltainen malli (moduuli 4).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: 2-Strategy Replicator Dynamics                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-2strategy">
+    <h2>6. 2-strategian replikaattoridynamiikka</h2>
+
+    <p>
+      Analysoidaan nyt replikaattoridynamiikka kaikille 2&times;2-symmetristen pelien päätyypeille.
+      Tuottomatriisilla
+      \[
+        A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+      \]
+      ja \(x\) = strategiaa 1 pelaavien osuus, kelpoisuudet ovat:
+    </p>
+    \[
+      f_1(x) = ax + b(1 - x) = b + (a - b)x
+    \]
+    \[
+      f_2(x) = cx + d(1 - x) = d + (c - d)x
+    \]
+    <p>
+      Kelpoisuusero on:
+    </p>
+    \[
+      f_1 - f_2 = (b - d) + \big[(a - b) - (c - d)\big]x = (b - d) + (a - b - c + d)x
+    \]
+
+    <p>
+      Replikaattoriyhtälöllä \(\dot{x} = x(1-x)(f_1 - f_2)\) on aina kiintopisteet
+      \(x = 0\) ja \(x = 1\). Sisäinen kiintopiste \(x^* \in (0, 1)\) on olemassa, kun
+      \(f_1(x^*) = f_2(x^*)\), mistä saadaan:
+    </p>
+    \[
+      x^* = \frac{d - b}{(a - c) + (d - b)} = \frac{d - b}{a - b - c + d}
+    \]
+    <p>
+      (edellyttäen, että nimittäjä on nollasta poikkeava ja \(x^* \in (0, 1)\)).
+    </p>
+
+    <h3>Tapaus 1: Vangin dilemma &mdash; Petos dominoi</h3>
+
+    <div class="example-box">
+      <span class="box-title">Vangin dilemma: \(A = \begin{pmatrix} 3 & 0 \\ 5 & 1 \end{pmatrix}\)</span>
+      <p>
+        Strategia 1 = yhteistyö, strategia 2 = petos. Tässä \(c = 5 > a = 3\) ja \(d = 1 > b = 0\),
+        joten petos dominoi tarkalleen yhteistyötä.
+      </p>
+      <p><strong>Kelpoisuusero:</strong></p>
+      \[
+        f_C - f_D = (0 - 1) + (3 - 0 - 5 + 1)x = -1 - x
+      \]
+      <p>
+        Koska \(-1 - x < 0\) kaikilla \(x \in [0, 1]\), yhteistyön tekijöillä on <em>aina</em> alhaisempi kelpoisuus.
+      </p>
+      <p><strong>Dynamiikka:</strong> \(\dot{x} = x(1-x)(-1-x) < 0\) kaikilla \(x \in (0, 1)\).</p>
+      <p>
+        <strong>Tulos:</strong> \(x \to 0\). Yhteistyö kuolee sukupuuttoon. Ainoa stabiili tasapaino on
+        \(x = 0\) (kaikki pettävät). Tämä on evolutionaarinen tragedia &mdash; populaatio kehittyy kohti
+        yleistä petosta, vaikka molemminpuolinen yhteistyö (\(a = 3\)) antaa korkeamman tuoton kuin
+        molemminpuolinen petos (\(d = 1\)).
+      </p>
+    </div>
+
+    <h3>Tapaus 2: Haukka-kyyhky &mdash; Polymorfinen rinnakkaiselo</h3>
+
+    <div class="example-box">
+      <span class="box-title">Haukka-kyyhky: \(A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}\)</span>
+      <p>
+        Strategia 1 = haukka, strategia 2 = kyyhky. Tässä \(c = 0 > a = -1\) ja \(b = 4 > d = 2\).
+        Kumpikaan strategia ei dominoi: haukka voittaa kyyhkyn, mutta kyyhky voittaa haukan (tietyssä mielessä).
+      </p>
+      <p><strong>Kelpoisuusero:</strong></p>
+      \[
+        f_H - f_D = (4 - 2) + (-1 - 4 - 0 + 2)x = 2 - 3x
+      \]
+      <p><strong>Sisäinen kiintopiste:</strong></p>
+      \[
+        f_H = f_D \implies 2 - 3x^* = 0 \implies x^* = \frac{2}{3}
+      \]
+      <p><strong>Stabiilisuusanalyysi:</strong></p>
+      <ul>
+        <li>Kun \(x < 2/3\): \(f_H - f_D = 2 - 3x > 0\), joten \(\dot{x} > 0\) (haukat lisääntyvät).</li>
+        <li>Kun \(x > 2/3\): \(f_H - f_D = 2 - 3x < 0\), joten \(\dot{x} < 0\) (haukat vähenevät).</li>
+      </ul>
+      <p>
+        <strong>Tulos:</strong> \(x \to 2/3\) mistä tahansa sisäisestä alkutilasta. Populaatio
+        suppenee <strong>stabiiliin polymorfismiin</strong>, jossa 2/3 on haukkoja ja 1/3 kyyhkyjä. Molemmat
+        strategiat ovat rinnakkain tasapainossa, ja tämä on aiemmin laskemamme ESS.
+      </p>
+    </div>
+
+    <h3>Tapaus 3: Koordinaatiopeli &mdash; Bistabiilisuus</h3>
+
+    <div class="example-box">
+      <span class="box-title">Koordinaatio: \(A = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}\)</span>
+      <p>
+        Strategiat 1 ja 2 ovat kaksi konventiota (esim. vasemmalla vs. oikealla ajaminen). Pelaajat saavat
+        positiivisen tuoton vain koordinoidessaan <em>samaan</em> konventioon.
+        Tässä \(a = 3 > c = 0\) ja \(d = 2 > b = 0\).
+      </p>
+      <p><strong>Kelpoisuusero:</strong></p>
+      \[
+        f_1 - f_2 = (0 - 2) + (3 - 0 - 0 + 2)x = -2 + 5x
+      \]
+      <p><strong>Sisäinen kiintopiste:</strong></p>
+      \[
+        f_1 = f_2 \implies -2 + 5x^* = 0 \implies x^* = \frac{2}{5} = 0.4
+      \]
+      <p><strong>Stabiilisuusanalyysi:</strong></p>
+      <ul>
+        <li>Kun \(x < 2/5\): \(f_1 - f_2 < 0\), joten \(\dot{x} < 0\) &rarr; \(x \to 0\).</li>
+        <li>Kun \(x > 2/5\): \(f_1 - f_2 > 0\), joten \(\dot{x} > 0\) &rarr; \(x \to 1\).</li>
+      </ul>
+      <p>
+        <strong>Tulos:</strong> Sisäinen kiintopiste \(x^* = 2/5\) on <strong>epästabiili</strong>.
+        Se toimii <em>vetovoimaalueen rajana</em>. Jos strategian 1 alkufrekvenssi on yli 2/5,
+        populaatio suppenee kohti kaikkien strategia-1:tä. Jos alle 2/5, se suppenee kohti kaikkien
+        strategia-2:ta. Tämä on <strong>bistabiilisuutta</strong> &mdash; historia (alkuehdot) määrää lopputuloksen.
+      </p>
+    </div>
+
+    <h3>Yhteenveto: 2&times;2-pelien luokittelu</h3>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Ehto</th>
+        <th>Pelityyppi</th>
+        <th>Dynamiikka</th>
+        <th>Stabiilit lopputulokset</th>
+      </tr>
+      <tr>
+        <td>\(a > c, d > b\)</td>
+        <td>Koordinaatio</td>
+        <td>Bistabiili</td>
+        <td>\(x = 0\) ja \(x = 1\) stabiileja; sisäpiste epästabiili</td>
+      </tr>
+      <tr>
+        <td>\(a < c, d < b\)</td>
+        <td>Haukka-kyyhky / antikoordinaatio</td>
+        <td>Rinnakkaiselo</td>
+        <td>Sisäinen \(x^*\) stabiili; reunat epästabiileja</td>
+      </tr>
+      <tr>
+        <td>\(a > c, b > d\)</td>
+        <td>Dominanssi (S1 dominoi)</td>
+        <td>\(x \to 1\)</td>
+        <td>\(x = 1\) globaalisti stabiili</td>
+      </tr>
+      <tr>
+        <td>\(a < c, b < d\)</td>
+        <td>Dominanssi (S2 dominoi)</td>
+        <td>\(x \to 0\)</td>
+        <td>\(x = 0\) globaalisti stabiili</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Yhtenäistävä näkökulma</span>
+      <p>
+        Kaikki neljä tapausta syntyvät yhdestä yhtälöstä: \(\dot{x} = x(1-x)(f_1 - f_2)\). <em>Ainoa</em>
+        ero on \(f_1 - f_2\):n etumerkkikuvio. Kun \(f_1 - f_2\) on aina positiivinen,
+        strategia 1 dominoi. Kun se on aina negatiivinen, strategia 2 dominoi. Kun se vaihtaa etumerkkiä,
+        on olemassa sisäinen kiintopiste, ja se, onko kiintopiste stabiili vai epästabiili, antaa meille
+        haukka-kyyhky- tai koordinaatiotapauksen. Moduulin 4 matematiikka (kiintopisteet ja stabiilisuus)
+        tekee kaiken työn.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: Multi-Strategy Replicator Dynamics                -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-multi">
+    <h2>7. Monistrateginen replikaattoridynamiikka</h2>
+
+    <p>
+      Kolmella tai useammalla strategialla dynamiikasta tulee rikkaampi &mdash; ja mielenkiintoisempi.
+      Populaatiotila elää simpleksillä \(\Delta^{n-1}\), ja voimme havaita ilmiöitä, jotka ovat
+      mahdottomia 2-strategian peleissä: <strong>syklejä</strong>, <strong>heterokliinisiä ratoja</strong>
+      ja <strong>kaaosta</strong> (kun \(n \geq 4\)).
+    </p>
+
+    <h3>3-strategian tapaus: kivi-sakset-paperi</h3>
+
+    <p>
+      Tunnetuin 3-strategian peli on kivi-sakset-paperi (KSP), jonka tuottomatriisi on:
+    </p>
+    \[
+      A = \begin{pmatrix} 0 & -1 & 1 \\ 1 & 0 & -1 \\ -1 & 1 & 0 \end{pmatrix}
+    \]
+    <p>
+      missä rivit/sarakkeet edustavat K, S, P vastaavasti. Kukin strategia voittaa yhden toisen
+      (\(+1\)), häviää toiselle (\(-1\)) ja tasapelaa itsensä kanssa (\(0\)).
+    </p>
+
+    <p>
+      Olkoon \(\mathbf{x} = (x_R, x_P, x_S)\) siten, että \(x_R + x_P + x_S = 1\). Kelpoisuudet ovat:
+    </p>
+    \[
+      f_R = -x_P + x_S, \qquad f_P = x_R - x_S, \qquad f_S = -x_R + x_P
+    \]
+
+    <p><strong>Keskimääräinen kelpoisuus:</strong></p>
+    \[
+      \bar{f} = x_R f_R + x_P f_P + x_S f_S = x_R(-x_P + x_S) + x_P(x_R - x_S) + x_S(-x_R + x_P)
+    \]
+    \[
+      = -x_R x_P + x_R x_S + x_P x_R - x_P x_S - x_S x_R + x_S x_P = 0
+    \]
+    <p>
+      Keskimääräinen kelpoisuus on nolla kaikissa populaatiotiloissa &mdash; tämä johtuu siitä, että \(A\) on
+      <strong>antisymmetrinen</strong> (vinoneliöinen) matriisi (\(a_{ij} = -a_{ji}\)), joten
+      \(\mathbf{x}^\top A \mathbf{x} = 0\).
+    </p>
+
+    <p>
+      Replikaattoriyhtälöt yksinkertaistuvat muotoon:
+    </p>
+    \[
+      \dot{x}_R = x_R(-x_P + x_S), \qquad \dot{x}_P = x_P(x_R - x_S), \qquad \dot{x}_S = x_S(-x_R + x_P)
+    \]
+
+    <p><strong>Sisäinen kiintopiste:</strong> Asetetaan kaikki ylikelpoisuudet nolliksi:</p>
+    \[
+      -x_P + x_S = 0, \quad x_R - x_S = 0, \quad -x_R + x_P = 0
+    \]
+    <p>
+      Tästä saadaan \(x_R = x_P = x_S = 1/3\) &mdash; simpleksin keskipiste.
+    </p>
+
+    <h3>Syklinen dynamiikka ja säilyvä suure</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Standardin KSP:n säilyvä suure</span>
+      <p>
+        Standardille kivi-sakset-paperi-pelille antisymmetrisillä tuotoilla funktio
+      </p>
+      \[
+        H(\mathbf{x}) = x_R \cdot x_P \cdot x_S
+      \]
+      <p>
+        on <strong>liikevakio</strong> (säilyvä suure) replikaattoridynamiikan liikeradoilla.
+        Toisin sanoen \(\frac{d}{dt}H(\mathbf{x}(t)) = 0\).
+      </p>
+    </div>
+
+    <p><strong>Todistuksen hahmotelma:</strong></p>
+    \[
+      \frac{dH}{dt} = \dot{x}_R x_P x_S + x_R \dot{x}_P x_S + x_R x_P \dot{x}_S
+    \]
+    \[
+      = x_R x_P x_S \big[(-x_P + x_S) + (x_R - x_S) + (-x_R + x_P)\big] = x_R x_P x_S \cdot 0 = 0 \qquad \square
+    \]
+
+    <div class="intuition-box">
+      <span class="box-title">Mitä tämä tarkoittaa?</span>
+      <p>
+        Koska \(H = x_R x_P x_S\) säilyy, liikeradat ovat <strong>suljettuja ratoja</strong>
+        keskipisteen \((1/3, 1/3, 1/3)\) ympärillä. Systeemi kiertää loputtomasti: kivi lisääntyy,
+        sitten paperi valtaa, sitten sakset, sitten taas kivi. Sisäinen kiintopiste on <strong>neutraalisti
+        stabiili</strong> (Ljapunov-stabiili mutta ei asymptoottisesti stabiili) &mdash; liikeradat
+        kiertävät sen ympärillä mutta eivät koskaan suppene siihen.
+      </p>
+      <p>
+        Tämä eroaa perustavanlaatuisesti 2-strategian peleistä, joissa sisäiset kiintopisteet ovat
+        joko vetäviä tai hylkiviä. Kolmella tai useammalla strategialla syntyy uusia dynaamisia mahdollisuuksia.
+      </p>
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">Epäsymmetrinen KSP: spiraali sisään tai ulos</span>
+      <p>
+        Standardin KSP:n suljetut radat ovat rakenteellisesti epästabiileja &mdash; ne nojaavat tarkkaan
+        symmetriaan. Jos tuottoja häiritään edes hieman (esim. kiven voitto 1,1 yhden sijasta),
+        säilyvä suure tuhoutuu. Häiriöstä riippuen liikeradat joko <strong>spiraaloituvat sisäänpäin</strong>
+        kohti sisäistä kiintopistettä (stabiili fokus) tai <strong>spiraaloituvat ulospäin</strong> kohti
+        reunaa (epästabiili fokus, joka johtaa strategioiden sukupuuttoon). Tämä herkkyys on ekologisesti
+        tärkeä: biologisissa KSP-tyyppisissä systeemeissä pienet epäsymmetriat ratkaisevat, elävätkö lajit
+        rinnakkain vai kuolevatko ne sukupuuttoon.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: ESS and Replicator Dynamics Connection            -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-ess-replicator">
+    <h2>8. ESS:n ja replikaattoridynamiikan yhteys</h2>
+
+    <p>
+      Meillä on nyt kaksi keskeistä käsitettä &mdash; ESS (staattinen tunkeutumisenkestävyyskäsite) ja
+      replikaattoridynamiikka (dynaaminen systeemi). Miten ne liittyvät toisiinsa? Vastaus on yksi
+      evoluutiopeliteorian eleganteimmista tuloksista.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Evoluutiopeliteorian kansanlause</span>
+      <p>Seuraavat implikaatiot pätevät:</p>
+      <ol>
+        <li>
+          <strong>ESS \(\Rightarrow\) asymptoottisesti stabiili.</strong>
+          Jos \(\mathbf{x}^*\) on ESS, niin se on replikaattoridynamiikan <strong>asymptoottisesti stabiili</strong>
+          kiintopiste. Toisin sanoen läheiset liikeradat suppenevat kohti \(\mathbf{x}^*\):aa.
+        </li>
+        <li>
+          <strong>Asymptoottisesti stabiili \(\not\Rightarrow\) ESS.</strong>
+          Käänteinen ei päde: on olemassa replikaattoridynamiikan asymptoottisesti stabiileja tiloja,
+          jotka <em>eivät ole</em> ESS.
+        </li>
+        <li>
+          <strong>Nash-tasapaino \(\Leftarrow\) kiintopiste (sisäpisteessä).</strong>
+          Jokainen replikaattoridynamiikan sisäinen kiintopiste vastaa (symmetristä) Nash-tasapainoa.
+          Mutta jokainen Nash-tasapaino ei ole replikaattoridynamiikan lepopiste
+          (reunan Nash-tasapainot eivät välttämättä täytä replikaattorin kiintopiste-ehtoa
+          vaaditulla tavalla).
+        </li>
+        <li>
+          <strong>Tarkka Nash \(\Rightarrow\) asymptoottisesti stabiili.</strong>
+          Jokainen tarkka Nash-tasapaino (jonka on oltava puhdas strategia) on asymptoottisesti stabiili
+          replikaattoridynamiikassa.
+        </li>
+      </ol>
+    </div>
+
+    <p>Voimme tiivistää yhteyden implikaatioketjuna:</p>
+
+    \[
+      \text{ESS} \;\Longrightarrow\; \text{Asymptotically Stable} \;\Longrightarrow\; \text{Lyapunov Stable} \;\Longrightarrow\; \text{Nash Equilibrium}
+    \]
+
+    <p>
+      Mikään näistä nuolista ei käänny yleisessä tapauksessa. Kukin taso on tarkalleen vahvempi kuin seuraava.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Stabiili mutta ei ESS</span>
+      <p>
+        Tarkastellaan 3-strategian peliä, jossa strategioilla 1 ja 2 on identtiset tuotot kaikkea vastaan,
+        ja molemmat dominoivat strategiaa 3. Tila \((1/2, 1/2, 0)\) voi olla asymptoottisesti stabiili
+        replikaattoridynamiikassa (strategia 3 kuolee sukupuuttoon ja 1 ja 2 elävät rinnakkain neutraalisti
+        reunalla), mutta se ei täytä ESS:n stabiilisuusehtoa, koska strategia 1 ei voi "voittaa" strategian 2
+        mutanttia toisessa ehdossa &mdash; ne ovat identtisiä.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Miksi ero?</span>
+      <p>
+        ESS vaatii kestävyyttä <em>kaikkia</em> mahdollisia mutanttitunkeutumisia vastaan, mukaan lukien
+        strategioita, joita ei tällä hetkellä esiinny. Replikaattoridynamiikka seuraa vain strategioita,
+        jotka jo ovat populaatiossa. Tila voi olla dynaamisesti stabiili (läheiset häiriöt korjautuvat)
+        olematta tunkeutumisenkestävä uusia strategioita vastaan nykyisen populaation ulkopuolelta. Tällä
+        erolla on valtava merkitys biologiassa (uudet mutaatiot) ja yhteiskuntatieteissä (uudet
+        institutionaaliset innovaatiot).
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: Stability Analysis                                -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-stability">
+    <h2>9. Stabiilisuusanalyysi replikaattoridynamiikassa</h2>
+
+    <p>
+      Kiintopisteiden stabiilisuuden täsmälliseen määrittämiseen käytämme moduulin 4 tekniikoita:
+      <strong>linearisointia</strong> (Jacobin matriisi), <strong>ominaisarvoanalyysiä</strong> ja
+      <strong>Ljapunov-funktioita</strong>.
+    </p>
+
+    <h3>Replikaattoriyhtälön Jacobin matriisi</h3>
+
+    <p>
+      Replikaattoriyhtälölle \(\dot{x}_i = x_i[f_i(\mathbf{x}) - \bar{f}(\mathbf{x})]\)
+      Jacobin matriisin \(J\) alkiot ovat:
+    </p>
+    \[
+      J_{ij} = \frac{\partial \dot{x}_i}{\partial x_j}
+    \]
+
+    <p>
+      Lineaariselle kelpoisuustapaukselle \(f_i = (A\mathbf{x})_i\) osittaisderivaatat antavat:
+    </p>
+    \[
+      J_{ij} = \begin{cases}
+        x_i\Big[a_{ij} - \sum_k x_k a_{kj} - (A\mathbf{x})_j\Big] & \text{if } i \neq j \\[6pt]
+        (f_i - \bar{f}) + x_i\Big[a_{ii} - \sum_k x_k a_{ki} - (A\mathbf{x})_i\Big] & \text{if } i = j
+      \end{cases}
+    \]
+
+    <p>
+      Käytännössä 2-strategian peleissä voimme välttää koko Jacobin matriisin. Mutta kolmelle tai
+      useammalle strategialle se on välttämätön. Käydään läpi täydellinen esimerkki.
+    </p>
+
+    <h3>Ratkaistu esimerkki: haukka-kyyhkyn sisäisen kiintopisteen stabiilisuus</h3>
+
+    <div class="example-box">
+      <span class="box-title">Jacobin analyysi haukka-kyyhkylle</span>
+      <p>
+        2-strategian tapauksessa \(\dot{x} = x(1-x)(f_1 - f_2)\), merkitään \(g(x) = f_1(x) - f_2(x)\).
+        Tällöin \(\dot{x} = x(1-x)g(x)\), ja derivaatta on:
+      </p>
+      \[
+        \frac{d\dot{x}}{dx} = (1 - 2x)g(x) + x(1-x)g'(x)
+      \]
+      <p>
+        Haukka-kyyhkylle: \(g(x) = 2 - 3x\) ja \(g'(x) = -3\). Sisäisessä kiintopisteessä \(x^* = 2/3\),
+        missä \(g(x^*) = 0\):
+      </p>
+      \[
+        \left.\frac{d\dot{x}}{dx}\right|_{x^*} = (1 - 2 \cdot \tfrac{2}{3}) \cdot 0 + \tfrac{2}{3} \cdot \tfrac{1}{3} \cdot (-3) = -\frac{2}{3} < 0
+      \]
+      <p>
+        Derivaatta on <strong>negatiivinen</strong>, mikä vahvistaa, että \(x^* = 2/3\) on
+        <strong>asymptoottisesti stabiili</strong>. (Tämä on ominaisarvoanalyysin 1D-versio:
+        negatiivinen "ominaisarvo" tarkoittaa, että kiintopiste vetää puoleensa.)
+      </p>
+    </div>
+
+    <h3>Ljapunov-funktiot replikaattoriyhtälölle</h3>
+
+    <p>
+      <strong>Ljapunov-funktio</strong> (moduuli 4) on funktio, joka vähenee liikeratojen varrella
+      ja todistaa stabiilisuuden ilman ominaisarvojen laskemista. Replikaattoriyhtälöllä on useita
+      luonnollisia Ljapunov-funktioita.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Ljapunov-funktio ESS:lle</span>
+      <p>
+        Jos \(\mathbf{x}^*\) on ESS, niin funktio
+      </p>
+      \[
+        V(\mathbf{x}) = -\sum_{i=1}^{n} x_i^* \ln x_i
+      \]
+      <p>
+        on <strong>Ljapunov-funktio</strong> replikaattoridynamiikalle \(\mathbf{x}^*\):n ympäristössä.
+        Toisin sanoen \(\dot{V} \leq 0\) liikeratojen varrella, ja yhtäsuuruus pätee vain pisteessä
+        \(\mathbf{x}^*\).
+      </p>
+    </div>
+
+    <p>
+      Tämä funktio tulee informaatioteoriasta &mdash; se liittyy
+      <strong>Kullback-Leibler-divergenssiin</strong> (suhteelliseen entropiaan) pisteestä \(\mathbf{x}\)
+      pisteeseen \(\mathbf{x}^*\). Sen derivaatta replikaattoriliikeratojen varrella on:
+    </p>
+    \[
+      \dot{V} = -\sum_i x_i^* \frac{\dot{x}_i}{x_i} = -\sum_i x_i^*\big[f_i(\mathbf{x}) - \bar{f}(\mathbf{x})\big]
+      = -\left[\sum_i x_i^* f_i(\mathbf{x}) - \bar{f}(\mathbf{x})\right]
+    \]
+    \[
+      = -\big[(\mathbf{x}^*)^\top A\mathbf{x} - \mathbf{x}^\top A\mathbf{x}\big]
+      = -(\mathbf{x}^* - \mathbf{x})^\top A\mathbf{x}
+    \]
+
+    <p>
+      ESS-ehto takaa, että tämä on negatiivinen lähellä \(\mathbf{x}^*\):aa, mikä viimeistelee todistuksen.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Käytännön vinkki</span>
+      <p>
+        2-strategian peleissä ominaisarvo- (derivaatta-) analyysi on yksinkertaisin. Kolmelle tai useammalle
+        strategialle Ljapunov-funktiot ovat usein tehokkaampia kuin suora Jacobin matriisin laskenta,
+        erityisesti kun tarkkoja ominaisarvoja on vaikea laskea. Menetelmän valinta riippuu tehtävästä.
+      </p>
+    </div>
+
+    <h3>Linearisointi KSP:n sisäisessä kiintopisteessä</h3>
+
+    <div class="example-box">
+      <span class="box-title">Ominaisarvoanalyysi kivi-sakset-paperille</span>
+      <p>
+        Kiintopisteessä \(\mathbf{x}^* = (1/3, 1/3, 1/3)\) voimme laskea simpleksille rajoitetun
+        replikaattoridynamiikan Jacobin matriisin (joka pelkistyy 2D-systeemiksi). Eliminoimalla
+        yksi muuttuja käyttäen \(x_S = 1 - x_R - x_P\), 2D Jacobin matriisin ominaisarvot kiintopisteessä ovat:
+      </p>
+      \[
+        \lambda_{1,2} = \pm \frac{i}{\sqrt{3}}
+      \]
+      <p>
+        Nämä ovat <strong>puhtaasti imaginaarisia</strong> ominaisarvoja, mikä vahvistaa, että kiintopiste on
+        <strong>keskus</strong>: liikeradat kiertävät sitä suljettuina käyrinä. Linearisointi ennustaa
+        oikein syklisen käyttäytymisen, jonka päättelimme säilyvästä suureesta \(H = x_R x_P x_S\).
+      </p>
+      <p>
+        Epäsymmetriselle KSP:lle (esim. hieman häirityt tuotot) ominaisarvot saavat nollasta poikkeavan
+        reaaliosan, jolloin keskus muuttuu stabiiliksi tai epästabiiliksi spiraaliksi.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: Extensions                                       -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-extensions">
+    <h2>10. Laajennuksia ja yleistyksiä</h2>
+
+    <h3>Valinta-mutaatiodynamiikka</h3>
+
+    <p>
+      Perusreplikaattoriyhtälöllä on rajoitus: sukupuuttoon kuolleet strategiat pysyvät kuolleina.
+      Todellisuudessa uusia strategioita voi ilmestyä <strong>mutaation</strong> (biologiassa) tai
+      <strong>kokeilun</strong> (sosiaalisissa järjestelmissä) kautta.
+      <strong>Replikaattori-mutaattoriyhtälö</strong> sisällyttää tämän:
+    </p>
+    \[
+      \dot{x}_i = \sum_{j=1}^{n} x_j f_j(\mathbf{x}) \, Q_{ji} - x_i \bar{f}(\mathbf{x})
+    \]
+    <p>
+      missä \(Q_{ji}\) on todennäköisyys, että tyypin \(j\) yksilön jälkeläisestä tulee tyyppi \(i\)
+      (mutaatiomatriisi). Kun \(Q = I\) (identiteetti, ei mutaatiota), tämä pelkistyy tavalliseksi
+      replikaattoriyhtälöksi.
+    </p>
+
+    <p>
+      Mutaation myötä reuna ei ole enää invariantti &mdash; sukupuuttoon kuolleet strategiat voivat palata.
+      Tämä tyypillisesti siirtää kiintopisteitä hieman sisälle ja voi muuttaa stabiilisuusominaisuuksia.
+      Pienet mutaationopeudet tuottavat dynamiikkaa lähellä replikaattoriyhtälöä, mutta regularisoivin vaikutuksin.
+    </p>
+
+    <h3>Äärelliset populaatiot ja stokastiset vaikutukset</h3>
+
+    <p>
+      Replikaattoriyhtälö olettaa <strong>äärettömän</strong> (tai hyvin suuren) populaation. Äärellisissä
+      populaatioissa <strong>satunnaisajautumalla</strong> on tärkeä rooli:
+    </p>
+
+    <ul>
+      <li>
+        <strong>Moranin prosessi:</strong> Stokastinen malli, jossa jokaisella aika-askeleella yksi yksilö
+        valitaan lisääntymään (kelpoisuuden suhteessa) ja yksi kuolee satunnaisesti. Populaation koko pysyy
+        vakiona. Strategiafrekvenssit suorittavat satunnaiskävelyn, jonka ajautumisen kelpoisuuserot määräävät.
+      </li>
+      <li>
+        <strong>Fiksaatiotodennäköisyys:</strong> Populaatiossa, jonka koko on \(N\), todennäköisyys, että
+        yksittäinen mutantti lopulta valtaa koko populaation. Neutraalille mutantille tämä on \(1/N\).
+        Mutantille, jolla on kelpoisuusetu, Moranin prosessi antaa:
+        \[
+          \rho = \frac{1 - 1/r}{1 - 1/r^N}
+        \]
+        missä \(r\) on mutantin suhteellinen kelpoisuus.
+      </li>
+      <li>
+        <strong>Ajautuminen vs. valinta:</strong> Kun populaation koko \(N\) on pieni, satunnaisajautuminen
+        voi ylittää valinnan. Strategia, joka on hieman kelvollisempi, voi silti kuolla sukupuuttoon
+        sattumalta. Kun \(N \to \infty\), stokastinen dynamiikka suppenee deterministiseen replikaattoriyhtälöön.
+      </li>
+    </ul>
+
+    <div class="intuition-box">
+      <span class="box-title">Miksi äärelliset populaatiot ovat tärkeitä</span>
+      <p>
+        Ostromin instituutioanalyysi (moduuli 8) koskee usein <em>pieniä</em> yhteisöjä &mdash;
+        muutamasta kymmenestä muutamaan sataan yksilöön. Näissä ympäristöissä deterministinen
+        replikaattoriyhtälö on vain approksimaatio. Stokastiset vaikutukset voivat johtaa yhteistyöstrategioiden
+        sukupuuttoon, jotka selviäisivät suuremmissa populaatioissa. Tämän deterministisen ja stokastisen
+        dynamiikan välisen jännitteen ymmärtäminen on ratkaisevaa institutionaaliselle suunnittelulle.
+      </p>
+    </div>
+
+    <h3>Spatiaaliset ja verkkopelit</h3>
+
+    <p>
+      Standardireplikaattoriyhtälö olettaa <strong>hyvin sekoitettuja</strong> populaatioita: mikä tahansa
+      yksilö voi olla vuorovaikutuksessa minkä tahansa toisen kanssa. Todellisuudessa vuorovaikutukset ovat
+      usein <strong>paikallisia</strong> &mdash; yksilöt ovat vuorovaikutuksessa ensisijaisesti naapureiden
+      kanssa spatiaalisessa hilassa tai sosiaalisessa verkostossa.
+    </p>
+
+    <p>
+      Spatiaalinen rakenne voi muuttaa evolutionaarisia lopputuloksia dramaattisesti. Tunnetuimmin
+      <strong>Nowak ja May (1992)</strong> osoittivat, että yhteistyö voi selvitä spatiaalisissa vangin
+      dilemma -peleissä, vaikka se on tuomittu hyvin sekoitetuissa populaatioissa. Yhteistyön tekijät voivat
+      muodostaa klustereita, jotka suojelevat toisiaan. Tämä on yksi "viidestä yhteistyön evoluution säännöstä"
+      (Nowak, 2006): <em>spatiaalinen valinta</em>.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Mihin tämä johtaa</span>
+      <p>
+        Nämä laajennukset &mdash; mutaatio, äärelliset populaatiot, spatiaalinen rakenne &mdash; ovat
+        aktiivisia tutkimusalueita. Moduulissa 8 näemme, miten Ostromin suunnitteluperiaatteet onnistuneille
+        instituutioille liittyvät näihin matemaattisiin kehikoihin ja tarjoavat konkreettisia mekanismeja,
+        jotka mahdollistavat yhteistyön todellisissa ympäristöissä, joissa perusteoria ennustaa sen epäonnistuvan.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- VISUALIZATION 1: 2-Strategy Replicator Dynamics Simulator    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-viz1">
+    <h2>Interaktiiviset simulaatiot</h2>
+
+    <div class="interactive-container">
+      <h3>Interaktiivinen: 2-strategian replikaattoridynamiikka</h3>
+      <p>Aseta 2&times;2-tuottomatriisi ja populaation alkusekoitus ja seuraa strategioiden kehitystä ajan myötä.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Esimääritys:</label>
+          <select id="rep-preset">
+            <option value="pd">Vangin dilemma</option>
+            <option value="hawk-dove">Haukka-kyyhky</option>
+            <option value="coordination">Koordinaatiopeli</option>
+            <option value="rps-like">Taistelu (epäsymmetrinen)</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin:1rem 0">
+        <strong>Tuottomatriisi A:</strong>
+        <table class="payoff-matrix" style="margin:0.5rem 0">
+          <tr><th></th><th>S&#x2081;</th><th>S&#x2082;</th></tr>
+          <tr><td class="row-header">S&#x2081;</td><td><input type="number" id="rep-a" value="3" style="width:55px"></td><td><input type="number" id="rep-b" value="0" style="width:55px"></td></tr>
+          <tr><td class="row-header">S&#x2082;</td><td><input type="number" id="rep-c" value="5" style="width:55px"></td><td><input type="number" id="rep-d" value="1" style="width:55px"></td></tr>
+        </table>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>Alkuarvo x&#x2080; (S&#x2081;:n osuus):</label>
+          <input type="range" id="rep-x0" min="0.01" max="0.99" step="0.01" value="0.5">
+          <span class="control-value" id="rep-x0-val">0.50</span>
+        </div>
+        <button class="btn btn-primary" id="rep-play">Toista</button>
+        <button class="btn btn-outline" id="rep-reset">Nollaa</button>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+        <canvas id="rep-bar-canvas" class="viz-canvas" width="250" height="300"></canvas>
+        <canvas id="rep-time-canvas" class="viz-canvas" width="450" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- VISUALIZATION 2: 3-Strategy Simplex Plot                     -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-viz2">
+
+    <div class="interactive-container">
+      <h3>Interaktiivinen: 3-strategian replikaattoridynamiikka simpleksillä</h3>
+      <p>Visualisoi 3-strategian pelien replikaattoridynamiikkaa todennäköisyyssimpleksillä. Klikkaa lisätäksesi liikeratoja.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Peli:</label>
+          <select id="simplex-preset">
+            <option value="rps">Kivi-sakset-paperi</option>
+            <option value="rps-asym">Epäsymmetrinen KSP</option>
+            <option value="coord3">3-strategian koordinaatio</option>
+            <option value="dom">Dominoiva strategia</option>
+          </select>
+        </div>
+        <button class="btn btn-outline" id="simplex-clear">Tyhjennä liikeradat</button>
+      </div>
+      <canvas id="simplex-canvas" class="viz-canvas" width="500" height="450"></canvas>
+      <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">Klikkaa simpleksiä lisätäksesi liikeradan kyseisestä alkupisteestä (vihreä piste = alku).</p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- EXERCISES                                                    -->
+  <!-- ============================================================ -->
+  <div class="section" id="sec-exercises">
+    <h2>Harjoitukset</h2>
+
+    <!-- Harjoitus 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7.1 &mdash; Kelpoisuuslaskelma</div>
+      <p>
+        Tarkastellaan 2-strategian peliä tuottomatriisilla
+        \(A = \begin{pmatrix} 2 & 6 \\ 3 & 1 \end{pmatrix}\)
+        ja populaatiotilalla \(x = 0.4\) (40 % pelaa strategiaa 1).
+      </p>
+      <p>(a) Laske \(f_1(x)\), \(f_2(x)\) ja \(\bar{f}(x)\).</p>
+      <p>(b) Kumpi strategia on tällä hetkellä kelvollisempi? Kasvaako vai väheneekö \(x\)?</p>
+      <p>(c) Etsi sisäinen kiintopiste \(x^*\). Luokittele pelityyppi.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <p>
+            \(f_1 = 2(0.4) + 6(0.6) = 0.8 + 3.6 = 4.4\)<br>
+            \(f_2 = 3(0.4) + 1(0.6) = 1.2 + 0.6 = 1.8\)<br>
+            \(\bar{f} = 0.4(4.4) + 0.6(1.8) = 1.76 + 1.08 = 2.84\)
+          </p>
+          <p><strong>(b)</strong></p>
+          <p>
+            \(f_1 = 4.4 > 1.8 = f_2\), joten strategia 1 on kelvollisempi. Koska \(f_1 > \bar{f}\),
+            \(\dot{x} > 0\), joten \(x\) kasvaa &mdash; strategia 1 yleistyy.
+          </p>
+          <p><strong>(c)</strong></p>
+          <p>
+            \(f_1 = f_2\): \(2x + 6(1-x) = 3x + 1(1-x)\) antaa \(6 - 4x = 1 + 2x\), joten \(5 = 6x\),
+            mistä \(x^* = 5/6 \approx 0.833\).
+          </p>
+          <p>
+            Koska \(a = 2 < 3 = c\) ja \(d = 1 < 6 = b\), tämä on <strong>haukka-kyyhky</strong>-tyyppinen
+            (antikoordinaatio-) peli. Sisäinen kiintopiste \(x^* = 5/6\) on stabiili.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7.2 &mdash; ESS:n määrittäminen</div>
+      <p>
+        Määritä kunkin tuottomatriisin kaikki ESS:t:
+      </p>
+      <p>
+        (a) \(A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}\)
+      </p>
+      <p>
+        (b) \(A = \begin{pmatrix} 1 & 3 \\ 2 & 0 \end{pmatrix}\)
+      </p>
+      <p>
+        (c) \(A = \begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix}\)
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(a = 4 > 2 = c\) ja \(d = 3 > 1 = b\). Molemmat puhtaat strategiat
+            täyttävät tarkan Nash-ehdon: strategia 1 on ESS (koska \(4 > 2\)) ja strategia 2
+            on ESS (koska \(3 > 1\)). Tämä on <strong>koordinaatiopeli</strong>, jossa on kaksi puhdasta ESS:ää.
+            Epästabiili sisäinen kiintopiste on kohdassa \(x^* = (3-1)/((4-2)+(3-1)) = 2/4 = 1/2\).
+          </p>
+          <p><strong>(b)</strong> \(a = 1 < 2 = c\) ja \(d = 0 < 3 = b\). Antikoordinaatio
+            (haukka-kyyhky-tyyppi). Seka-ESS kohdassa \(x^* = (0-3)/((1-2)+(0-3)) = -3/(-1-3) = -3/-4 = 3/4\).
+            Ainoa ESS on sekastrategia \((3/4, 1/4)\).
+          </p>
+          <p><strong>(c)</strong> Kaikki tuotot ovat samat, joten jokaisella strategialla on sama kelpoisuus
+            populaatiotilasta riippumatta. Mikään strategia ei voi tarkalleen ylittää toista, joten
+            ESS-ehtoja ei koskaan täytetä tarkalleen. <strong>ESS:ää ei ole olemassa</strong> &mdash;
+            jokainen populaatiotila on kiintopiste, mutta mikään ei ole tunkeutumisenkestävä.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7.3 &mdash; Replikaattoridynamiikan johtaminen</div>
+      <p>
+        Pelille, jonka tuottomatriisi on \(A = \begin{pmatrix} 0 & 3 \\ 1 & 1 \end{pmatrix}\):
+      </p>
+      <p>(a) Kirjoita replikaattoriyhtälö \(\dot{x} = x(1-x)(f_1 - f_2)\) kokonaan pelkän \(x\):n funktiona.</p>
+      <p>(b) Etsi kaikki kiintopisteet.</p>
+      <p>(c) Määritä kunkin kiintopisteen stabiilisuus laskemalla \(\frac{d\dot{x}}{dx}\).</p>
+      <p>(d) Hahmottele vaihemuotokuva välillä \([0, 1]\) ja kuvaile pitkän aikavälin käyttäytyminen.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <p>
+            \(f_1 = 0 \cdot x + 3(1-x) = 3 - 3x\)<br>
+            \(f_2 = 1 \cdot x + 1(1-x) = 1\)<br>
+            \(f_1 - f_2 = 3 - 3x - 1 = 2 - 3x\)<br>
+            \(\dot{x} = x(1-x)(2 - 3x)\)
+          </p>
+          <p><strong>(b)</strong> Kiintopisteet: \(x = 0\), \(x = 1\) ja \(x^* = 2/3\).</p>
+          <p><strong>(c)</strong> Merkitään \(h(x) = x(1-x)(2-3x) = x(2 - 3x - 2x + 3x^2) = x(2 - 5x + 3x^2)\).</p>
+          <p>
+            \(h'(x) = (1-2x)(2-3x) + x(1-x)(-3) = (1-2x)(2-3x) - 3x(1-x)\).
+          </p>
+          <p>
+            Kun \(x=0\): \(h'(0) = 1 \cdot 2 - 0 = 2 > 0\) &rarr; <strong>epästabiili</strong>.<br>
+            Kun \(x=1\): \(h'(1) = (1-2)(2-3) - 3(0) = (-1)(-1) = 1 > 0\) &rarr; <strong>epästabiili</strong>.<br>
+            Kun \(x=2/3\): \(h'(2/3) = (1-4/3)(0) - 3(2/3)(1/3) = 0 - 2/3 = -2/3 < 0\) &rarr; <strong>stabiili</strong>.
+          </p>
+          <p><strong>(d)</strong> Tämä on antikoordinaatiopeli. Mistä tahansa sisäisestä alkupisteestä
+            populaatio suppenee kohti \(x^* = 2/3\). Reunat hylkivät: jos lähes kaikki käyttävät
+            yhtä strategiaa, toinen strategia on kelvollisempi ja yleistyy. ESS on polymorfinen tila
+            \((2/3, 1/3)\).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7.4 &mdash; KSP:n säilyvä suure</div>
+      <p>
+        Kivi-sakset-paperi-pelille tuottomatriisilla
+        \(A = \begin{pmatrix} 0 & -1 & 1 \\ 1 & 0 & -1 \\ -1 & 1 & 0 \end{pmatrix}\),
+        todenna, että \(H(\mathbf{x}) = x_R x_P x_S\) säilyy laskemalla
+        \(\frac{dH}{dt}\) suoraan. (Voit käyttää replikaattoriyhtälöitä
+        \(\dot{x}_R = x_R(x_S - x_P)\), \(\dot{x}_P = x_P(x_R - x_S)\),
+        \(\dot{x}_S = x_S(x_P - x_R)\).)
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>Tulosäännöllä:</p>
+          \[
+            \frac{dH}{dt} = \dot{x}_R x_P x_S + x_R \dot{x}_P x_S + x_R x_P \dot{x}_S
+          \]
+          <p>Sijoittamalla:</p>
+          \[
+            = x_R(x_S - x_P) \cdot x_P x_S + x_R \cdot x_P(x_R - x_S) \cdot x_S + x_R x_P \cdot x_S(x_P - x_R)
+          \]
+          \[
+            = x_R x_P x_S \Big[(x_S - x_P) + (x_R - x_S) + (x_P - x_R)\Big]
+          \]
+          \[
+            = x_R x_P x_S \cdot 0 = 0
+          \]
+          <p>
+            Hakasulkeiden termit kumoutuvat: \(x_S - x_P + x_R - x_S + x_P - x_R = 0\).
+            Siten \(H\) on vakio jokaisella liikeradalla.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7.5 &mdash; Replikaattorista ESS:ään</div>
+      <p>
+        Tosi vai epätosi? Perustele jokainen vastaus.
+      </p>
+      <p>(a) Jokainen ESS on Nash-tasapaino.</p>
+      <p>(b) Jokainen Nash-tasapaino on ESS.</p>
+      <p>(c) Jos \(\mathbf{x}^*\) on asymptoottisesti stabiili replikaattoridynamiikassa, niin se on ESS.</p>
+      <p>(d) Jos \(\mathbf{x}^*\) on ESS, niin se on asymptoottisesti stabiili replikaattoridynamiikassa.</p>
+      <p>(e) 2-strategian pelissä, jossa on dominoiva strategia, dominoiva strategia on aina ESS.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Tosi.</strong> ESS:n määritelmän ensimmäinen ehto (\(E(\sigma^*, \sigma^*) \geq E(\sigma, \sigma^*)\)) on tarkalleen Nash-tasapainoehto.</p>
+          <p><strong>(b) Epätosi.</strong> Nash-tasapaino voi olla sellainen, ettei stabiilisuusehto täyty. Esimerkiksi pelissä, jossa kaikki tuotot ovat samat, jokainen strategia on Nash-tasapaino, mutta mikään ei ole ESS.</p>
+          <p><strong>(c) Epätosi.</strong> Asymptoottinen stabiilisuus replikaattoridynamiikassa ei tarkoita ESS:ää. Vastaesimerkkejä on peleissä, joissa on 3 tai useampia strategioita (ks. luku 8).</p>
+          <p><strong>(d) Tosi.</strong> Tämä on kansanlauseen keskeinen implikaatio: ESS tarkoittaa asymptoottista stabiilisuutta replikaattoridynamiikassa.</p>
+          <p><strong>(e) Tosi.</strong> Jos strategia 1 dominoi (\(a > c\) ja \(b > d\)), niin \(E(1, 1) = a > c = E(2, 1)\), mikä täyttää tarkan Nash-ehdon. Koska tämä pätee tarkalleen, stabiilisuusehtoa ei tarvita. Joten strategia 1 on ESS.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7.6 &mdash; Institutionaalinen evoluutio (käsitteellinen)</div>
+      <p>
+        Tarkastellaan yhteisöä, joka hallinnoi jaettua resurssia (kuten kalastusta). Jäsenet voivat omaksua
+        toisen kahdesta normista: "kestävä pyynti" (S) tai "ylihyödyntäminen" (O). Kun molemmat käyttävät S:ää,
+        molemmat saavat tuoton 4. Kun toinen käyttää S:ää ja toinen O:ta, ylihyödyntäjä saa 5 ja kestävä
+        pyytäjä saa 1. Kun molemmat ylihyödyntävät, molemmat saavat 2.
+      </p>
+      <p>(a) Kirjoita tuottomatriisi.</p>
+      <p>(b) Minkä tyyppinen peli tämä on? Etsi kaikki replikaattoridynamiikan kiintopisteet.</p>
+      <p>(c) Ilman instituutioita, mitä replikaattoriyhtälö ennustaa tapahtuvan?</p>
+      <p>(d) Miten Ostromin suunnitteluperiaatteet voisivat muuttaa tuottomatriisia yhteistyön tukemiseksi? (Esikatsaus moduuliin 8.)</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \(A = \begin{pmatrix} 4 & 1 \\ 5 & 2 \end{pmatrix}\), missä rivi 1 = kestävä, rivi 2 = ylihyödyntäminen.</p>
+          <p><strong>(b)</strong> Koska \(c = 5 > a = 4\) ja \(d = 2 > b = 1\), ylihyödyntäminen dominoi kestävää. Tämä on <strong>vangin dilemma</strong>. Kiintopisteet: \(x = 0\) (kaikki ylihyödyntävät, stabiili), \(x = 1\) (kaikki kestäviä, epästabiili). Ei sisäistä kiintopistettä.</p>
+          <p><strong>(c)</strong> Replikaattoriyhtälö ennustaa \(x \to 0\): yhteisö kehittyy kohti yleistä ylihyödyntämistä, yhteismaan tragediaa.</p>
+          <p><strong>(d)</strong> Ostromin periaatteet ehdottavat: (i) valvonta ja sanktiointi voivat vähentää ylihyödyntämisen tuottoa (pienentäen \(c\):tä ja \(d\):tä), (ii) yhteisen valinnan järjestelyt voivat kasvattaa keskinäisen yhteistyön tuottoa (kasvattaen \(a\):ta). Jos sanktiot ovat tarpeeksi vahvat, niin että \(a > c\), tuottomatriisi muuttuu koordinaatiopeliksi tai yhteistyön dominanssiksi, ja replikaattoridynamiikka voi nyt tukea kestävää pyyntiä.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Module Navigation (bottom) -->
+  <div class="module-nav-strip">
+    <a href="module6.html">&larr; Moduuli 6: Peliteoria</a>
+    <a href="module8.html">Moduuli 8: Sovellukset &rarr;</a>
+  </div>
+
+</div><!-- end container -->
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Moduuli 7: Evoluutiopeliteoria ja replikaattoridynamiikka
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+
+<script>
+// Flag to prevent shared visualizations.js from double-initializing
+window._customVizInit = true;
+
+// =====================================================================
+// MODULE 7 INTERACTIVE VISUALIZATIONS
+// =====================================================================
+
+// =====================================================
+// VISUALIZATION 1: 2-Strategy Replicator Dynamics
+// =====================================================
+(function() {
+  const presetSelect = document.getElementById('rep-preset');
+  const inputA = document.getElementById('rep-a');
+  const inputB = document.getElementById('rep-b');
+  const inputC = document.getElementById('rep-c');
+  const inputD = document.getElementById('rep-d');
+  const sliderX0 = document.getElementById('rep-x0');
+  const x0ValSpan = document.getElementById('rep-x0-val');
+  const playBtn = document.getElementById('rep-play');
+  const resetBtn = document.getElementById('rep-reset');
+  const barCanvas = document.getElementById('rep-bar-canvas');
+  const timeCanvas = document.getElementById('rep-time-canvas');
+
+  if (!barCanvas || !timeCanvas) return;
+
+  const barCtx = barCanvas.getContext('2d');
+  const timeCtx = timeCanvas.getContext('2d');
+  const BW = barCanvas.width, BH = barCanvas.height;
+  const TW = timeCanvas.width, TH = timeCanvas.height;
+
+  const presets = {
+    'pd':          { a: 3, b: 0, c: 5, d: 1, label: "Prisoner's Dilemma" },
+    'hawk-dove':   { a: -1, b: 4, c: 0, d: 2, label: "Hawk-Dove" },
+    'coordination':{ a: 3, b: 0, c: 0, d: 2, label: "Coordination" },
+    'rps-like':    { a: 0, b: 3, c: 1, d: 0, label: "Battle" }
+  };
+
+  let animId = null;
+  let t = 0;
+  let x = 0.5;
+  let history = [];
+  const dt = 0.02;
+  const maxT = 15;
+
+  presetSelect.addEventListener('change', () => {
+    const p = presets[presetSelect.value];
+    if (p) {
+      inputA.value = p.a;
+      inputB.value = p.b;
+      inputC.value = p.c;
+      inputD.value = p.d;
+    }
+    doReset();
+  });
+
+  sliderX0.addEventListener('input', () => {
+    x0ValSpan.textContent = parseFloat(sliderX0.value).toFixed(2);
+    doReset();
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (animId) { cancelAnimationFrame(animId); animId = null; playBtn.textContent = 'Play'; return; }
+    playBtn.textContent = 'Pause';
+    animate();
+  });
+
+  resetBtn.addEventListener('click', doReset);
+
+  function doReset() {
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    playBtn.textContent = 'Play';
+    t = 0;
+    x = parseFloat(sliderX0.value);
+    history = [{ t: 0, x: x }];
+    drawBar(x);
+    drawTimeSeries(history);
+  }
+
+  function getMatrix() {
+    return {
+      a: parseFloat(inputA.value) || 0,
+      b: parseFloat(inputB.value) || 0,
+      c: parseFloat(inputC.value) || 0,
+      d: parseFloat(inputD.value) || 0
+    };
+  }
+
+  function replicatorStep(x, m, dt) {
+    const f1 = m.a * x + m.b * (1 - x);
+    const f2 = m.c * x + m.d * (1 - x);
+    const dx = x * (1 - x) * (f1 - f2);
+    let xNew = x + dx * dt;
+    if (xNew < 1e-12) xNew = 0;
+    if (xNew > 1 - 1e-12) xNew = 1;
+    return Math.max(0, Math.min(1, xNew));
+  }
+
+  function animate() {
+    const m = getMatrix();
+    // take multiple sub-steps per frame for smoothness
+    for (let i = 0; i < 3; i++) {
+      if (t >= maxT) { playBtn.textContent = 'Play'; animId = null; return; }
+      x = replicatorStep(x, m, dt);
+      t += dt;
+      history.push({ t: t, x: x });
+    }
+    drawBar(x);
+    drawTimeSeries(history);
+    animId = requestAnimationFrame(animate);
+  }
+
+  function drawBar(x) {
+    barCtx.clearRect(0, 0, BW, BH);
+    barCtx.fillStyle = '#fff';
+    barCtx.fillRect(0, 0, BW, BH);
+
+    const pad = 40;
+    const barW = 60;
+    const maxBarH = BH - 2 * pad - 20;
+
+    // S1 bar
+    const s1H = x * maxBarH;
+    barCtx.fillStyle = '#2980b9';
+    barCtx.fillRect(pad + 20, pad + maxBarH - s1H, barW, s1H);
+    barCtx.strokeStyle = '#2471a3';
+    barCtx.lineWidth = 1;
+    barCtx.strokeRect(pad + 20, pad + maxBarH - s1H, barW, s1H);
+
+    // S2 bar
+    const s2H = (1 - x) * maxBarH;
+    barCtx.fillStyle = '#e74c3c';
+    barCtx.fillRect(pad + 110, pad + maxBarH - s2H, barW, s2H);
+    barCtx.strokeStyle = '#c0392b';
+    barCtx.strokeRect(pad + 110, pad + maxBarH - s2H, barW, s2H);
+
+    // labels
+    barCtx.fillStyle = '#333';
+    barCtx.font = '13px sans-serif';
+    barCtx.textAlign = 'center';
+    barCtx.fillText('S\u2081', pad + 50, BH - 10);
+    barCtx.fillText('S\u2082', pad + 140, BH - 10);
+
+    // values on top
+    barCtx.font = 'bold 13px sans-serif';
+    barCtx.fillStyle = '#2980b9';
+    barCtx.fillText(x.toFixed(3), pad + 50, pad + maxBarH - s1H - 6);
+    barCtx.fillStyle = '#e74c3c';
+    barCtx.fillText((1 - x).toFixed(3), pad + 140, pad + maxBarH - s2H - 6);
+
+    // title
+    barCtx.fillStyle = '#333';
+    barCtx.font = 'bold 14px sans-serif';
+    barCtx.fillText('Population', BW / 2, 18);
+  }
+
+  function drawTimeSeries(hist) {
+    timeCtx.clearRect(0, 0, TW, TH);
+    timeCtx.fillStyle = '#fff';
+    timeCtx.fillRect(0, 0, TW, TH);
+
+    const pad = { l: 50, r: 20, t: 30, b: 40 };
+    const plotW = TW - pad.l - pad.r;
+    const plotH = TH - pad.t - pad.b;
+
+    // axes
+    timeCtx.strokeStyle = '#333';
+    timeCtx.lineWidth = 1.5;
+    timeCtx.beginPath();
+    timeCtx.moveTo(pad.l, pad.t);
+    timeCtx.lineTo(pad.l, pad.t + plotH);
+    timeCtx.lineTo(pad.l + plotW, pad.t + plotH);
+    timeCtx.stroke();
+
+    // axis labels
+    timeCtx.fillStyle = '#333';
+    timeCtx.font = '12px sans-serif';
+    timeCtx.textAlign = 'center';
+    timeCtx.fillText('Time', pad.l + plotW / 2, TH - 5);
+    timeCtx.save();
+    timeCtx.translate(14, pad.t + plotH / 2);
+    timeCtx.rotate(-Math.PI / 2);
+    timeCtx.fillText('Frequency', 0, 0);
+    timeCtx.restore();
+
+    // y ticks
+    timeCtx.font = '11px sans-serif';
+    timeCtx.textAlign = 'right';
+    for (let v = 0; v <= 1; v += 0.25) {
+      const y = pad.t + plotH * (1 - v);
+      timeCtx.fillStyle = '#999';
+      timeCtx.fillText(v.toFixed(2), pad.l - 5, y + 4);
+      timeCtx.strokeStyle = '#eee';
+      timeCtx.lineWidth = 0.5;
+      timeCtx.beginPath();
+      timeCtx.moveTo(pad.l, y);
+      timeCtx.lineTo(pad.l + plotW, y);
+      timeCtx.stroke();
+    }
+
+    // x ticks
+    timeCtx.textAlign = 'center';
+    const tMax = Math.max(maxT, hist.length > 0 ? hist[hist.length - 1].t : maxT);
+    for (let tv = 0; tv <= maxT; tv += 3) {
+      const xp = pad.l + (tv / maxT) * plotW;
+      timeCtx.fillStyle = '#999';
+      timeCtx.fillText(tv.toFixed(0), xp, pad.t + plotH + 18);
+    }
+
+    if (hist.length < 2) return;
+
+    // find interior equilibrium if exists
+    const m = getMatrix();
+    const denom = (m.a - m.b) - (m.c - m.d);
+    if (Math.abs(denom) > 1e-9) {
+      const xStar = (m.d - m.b) / ((m.a - m.c) + (m.d - m.b));
+      if (xStar > 0.01 && xStar < 0.99) {
+        const yEq = pad.t + plotH * (1 - xStar);
+        timeCtx.setLineDash([5, 5]);
+        timeCtx.strokeStyle = '#999';
+        timeCtx.lineWidth = 1;
+        timeCtx.beginPath();
+        timeCtx.moveTo(pad.l, yEq);
+        timeCtx.lineTo(pad.l + plotW, yEq);
+        timeCtx.stroke();
+        timeCtx.setLineDash([]);
+        timeCtx.fillStyle = '#999';
+        timeCtx.font = '11px sans-serif';
+        timeCtx.textAlign = 'left';
+        timeCtx.fillText('x*=' + xStar.toFixed(3), pad.l + plotW - 60, yEq - 5);
+      }
+    }
+
+    // S1 line
+    timeCtx.strokeStyle = '#2980b9';
+    timeCtx.lineWidth = 2.5;
+    timeCtx.beginPath();
+    for (let i = 0; i < hist.length; i++) {
+      const px = pad.l + (hist[i].t / maxT) * plotW;
+      const py = pad.t + plotH * (1 - hist[i].x);
+      if (i === 0) timeCtx.moveTo(px, py); else timeCtx.lineTo(px, py);
+    }
+    timeCtx.stroke();
+
+    // S2 line
+    timeCtx.strokeStyle = '#e74c3c';
+    timeCtx.lineWidth = 2.5;
+    timeCtx.beginPath();
+    for (let i = 0; i < hist.length; i++) {
+      const px = pad.l + (hist[i].t / maxT) * plotW;
+      const py = pad.t + plotH * (1 - (1 - hist[i].x));
+      if (i === 0) timeCtx.moveTo(px, py); else timeCtx.lineTo(px, py);
+    }
+    timeCtx.stroke();
+
+    // legend
+    timeCtx.font = 'bold 12px sans-serif';
+    timeCtx.textAlign = 'left';
+    timeCtx.fillStyle = '#2980b9';
+    timeCtx.fillText('S\u2081', pad.l + 10, pad.t + 16);
+    timeCtx.fillStyle = '#e74c3c';
+    timeCtx.fillText('S\u2082', pad.l + 40, pad.t + 16);
+
+    // title
+    timeCtx.fillStyle = '#333';
+    timeCtx.font = 'bold 14px sans-serif';
+    timeCtx.textAlign = 'center';
+    timeCtx.fillText('Strategy Frequencies Over Time', pad.l + plotW / 2, 16);
+  }
+
+  // Initialize
+  doReset();
+})();
+
+
+// =====================================================
+// VISUALIZATION 2: 3-Strategy Simplex Plot
+// =====================================================
+(function() {
+  const canvas = document.getElementById('simplex-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  const presetSelect = document.getElementById('simplex-preset');
+  const clearBtn = document.getElementById('simplex-clear');
+
+  const presets = {
+    'rps': {
+      label: 'Rock-Paper-Scissors',
+      A: [[0, -1, 1], [1, 0, -1], [-1, 1, 0]],
+      labels: ['R', 'P', 'S']
+    },
+    'rps-asym': {
+      label: 'Asymmetric RPS',
+      A: [[0, -1, 1.5], [1, 0, -1], [-1.5, 1, 0]],
+      labels: ['R', 'P', 'S']
+    },
+    'coord3': {
+      label: '3-Strategy Coordination',
+      A: [[3, 0, 0], [0, 2, 0], [0, 0, 1]],
+      labels: ['A', 'B', 'C']
+    },
+    'dom': {
+      label: 'Dominant Strategy',
+      A: [[3, 3, 3], [1, 1, 1], [0, 0, 0]],
+      labels: ['Dom', 'Mid', 'Low']
+    }
+  };
+
+  let currentPreset = 'rps';
+  let trajectories = [];
+
+  // Simplex geometry: equilateral triangle
+  // Vertices: strategy 1 = top, strategy 2 = bottom-left, strategy 3 = bottom-right
+  const margin = 50;
+  const triH = H - 2 * margin;
+  const triW = triH * 2 / Math.sqrt(3);
+  const cx = W / 2;
+  const topY = margin;
+
+  // Vertices in pixel coordinates
+  const v1 = { x: cx, y: topY };                           // strategy 1 (top)
+  const v2 = { x: cx - triW / 2, y: topY + triH };         // strategy 2 (bottom-left)
+  const v3 = { x: cx + triW / 2, y: topY + triH };         // strategy 3 (bottom-right)
+
+  function baryToPixel(x1, x2, x3) {
+    return {
+      x: x1 * v1.x + x2 * v2.x + x3 * v3.x,
+      y: x1 * v1.y + x2 * v2.y + x3 * v3.y
+    };
+  }
+
+  function pixelToBary(px, py) {
+    // Solve for barycentric coordinates
+    const d = (v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y);
+    const x1 = ((v2.y - v3.y) * (px - v3.x) + (v3.x - v2.x) * (py - v3.y)) / d;
+    const x2 = ((v3.y - v1.y) * (px - v3.x) + (v1.x - v3.x) * (py - v3.y)) / d;
+    const x3 = 1 - x1 - x2;
+    return { x1, x2, x3 };
+  }
+
+  function computeTrajectory(x1_0, x2_0, x3_0, A, steps, dt) {
+    let x = [x1_0, x2_0, x3_0];
+    const path = [{ x1: x[0], x2: x[1], x3: x[2] }];
+
+    for (let s = 0; s < steps; s++) {
+      // fitness
+      const f = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          f[i] += A[i][j] * x[j];
+        }
+      }
+      const fbar = x[0] * f[0] + x[1] * f[1] + x[2] * f[2];
+
+      // replicator step (RK2 midpoint method for better accuracy)
+      const dx = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        dx[i] = x[i] * (f[i] - fbar);
+      }
+
+      // midpoint
+      const xm = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        xm[i] = Math.max(0, x[i] + 0.5 * dt * dx[i]);
+      }
+      const summ = xm[0] + xm[1] + xm[2];
+      for (let i = 0; i < 3; i++) xm[i] /= summ;
+
+      const fm = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          fm[i] += A[i][j] * xm[j];
+        }
+      }
+      const fbarm = xm[0] * fm[0] + xm[1] * fm[1] + xm[2] * fm[2];
+      const dxm = [0, 0, 0];
+      for (let i = 0; i < 3; i++) {
+        dxm[i] = xm[i] * (fm[i] - fbarm);
+      }
+
+      for (let i = 0; i < 3; i++) {
+        x[i] = Math.max(0, x[i] + dt * dxm[i]);
+      }
+      const sum = x[0] + x[1] + x[2];
+      for (let i = 0; i < 3; i++) x[i] /= sum;
+
+      path.push({ x1: x[0], x2: x[1], x3: x[2] });
+
+      // early stop if converged to boundary or fixed point
+      if (x[0] < 1e-10 && x[1] < 1e-10) break;
+      if (x[0] < 1e-10 && x[2] < 1e-10) break;
+      if (x[1] < 1e-10 && x[2] < 1e-10) break;
+    }
+    return path;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, W, H);
+
+    const preset = presets[currentPreset];
+    const A = preset.A;
+
+    // Draw simplex triangle
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(v1.x, v1.y);
+    ctx.lineTo(v2.x, v2.y);
+    ctx.lineTo(v3.x, v3.y);
+    ctx.closePath();
+    ctx.fillStyle = '#f9f9f9';
+    ctx.fill();
+    ctx.stroke();
+
+    // Grid lines on simplex
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 0.5;
+    for (let k = 1; k <= 4; k++) {
+      const t = k / 5;
+      // lines parallel to each edge
+      const p1a = baryToPixel(t, 1 - t, 0);
+      const p1b = baryToPixel(t, 0, 1 - t);
+      ctx.beginPath(); ctx.moveTo(p1a.x, p1a.y); ctx.lineTo(p1b.x, p1b.y); ctx.stroke();
+
+      const p2a = baryToPixel(0, t, 1 - t);
+      const p2b = baryToPixel(1 - t, t, 0);
+      ctx.beginPath(); ctx.moveTo(p2a.x, p2a.y); ctx.lineTo(p2b.x, p2b.y); ctx.stroke();
+
+      const p3a = baryToPixel(1 - t, 0, t);
+      const p3b = baryToPixel(0, 1 - t, t);
+      ctx.beginPath(); ctx.moveTo(p3a.x, p3a.y); ctx.lineTo(p3b.x, p3b.y); ctx.stroke();
+    }
+
+    // Draw flow field (small arrows)
+    ctx.globalAlpha = 0.3;
+    const steps = 12;
+    for (let i = 1; i < steps; i++) {
+      for (let j = 1; j < steps - i; j++) {
+        const k = steps - i - j;
+        const x1 = i / steps;
+        const x2 = j / steps;
+        const x3 = k / steps;
+
+        // fitness
+        const f = [0, 0, 0];
+        for (let a = 0; a < 3; a++) {
+          for (let b = 0; b < 3; b++) {
+            f[a] += A[a][b] * [x1, x2, x3][b];
+          }
+        }
+        const fbar = x1 * f[0] + x2 * f[1] + x3 * f[2];
+
+        const dx = [
+          x1 * (f[0] - fbar),
+          x2 * (f[1] - fbar),
+          x3 * (f[2] - fbar)
+        ];
+
+        const p = baryToPixel(x1, x2, x3);
+        const scale = 2.5;
+        const pEnd = baryToPixel(x1 + dx[0] * scale, x2 + dx[1] * scale, x3 + dx[2] * scale);
+
+        const arrowLen = Math.sqrt((pEnd.x - p.x) ** 2 + (pEnd.y - p.y) ** 2);
+        if (arrowLen < 0.5) continue;
+
+        // Draw arrow
+        ctx.strokeStyle = '#555';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(pEnd.x, pEnd.y);
+        ctx.stroke();
+
+        // arrowhead
+        const angle = Math.atan2(pEnd.y - p.y, pEnd.x - p.x);
+        const headLen = Math.min(4, arrowLen * 0.4);
+        ctx.beginPath();
+        ctx.moveTo(pEnd.x, pEnd.y);
+        ctx.lineTo(pEnd.x - headLen * Math.cos(angle - 0.4), pEnd.y - headLen * Math.sin(angle - 0.4));
+        ctx.moveTo(pEnd.x, pEnd.y);
+        ctx.lineTo(pEnd.x - headLen * Math.cos(angle + 0.4), pEnd.y - headLen * Math.sin(angle + 0.4));
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1.0;
+
+    // Draw trajectories
+    const colors = ['#2980b9', '#e74c3c', '#27ae60', '#8e44ad', '#f39c12', '#1abc9c', '#d35400', '#2c3e50'];
+    trajectories.forEach((traj, idx) => {
+      const color = colors[idx % colors.length];
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let i = 0; i < traj.length; i++) {
+        const p = baryToPixel(traj[i].x1, traj[i].x2, traj[i].x3);
+        if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+
+      // start point (green)
+      const start = baryToPixel(traj[0].x1, traj[0].x2, traj[0].x3);
+      ctx.fillStyle = '#27ae60';
+      ctx.beginPath();
+      ctx.arc(start.x, start.y, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // end point (red)
+      const end = baryToPixel(traj[traj.length - 1].x1, traj[traj.length - 1].x2, traj[traj.length - 1].x3);
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(end.x, end.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Interior fixed point marker (if applicable)
+    const center = baryToPixel(1 / 3, 1 / 3, 1 / 3);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, 4, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Vertex labels
+    ctx.fillStyle = '#333';
+    ctx.font = 'bold 14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(preset.labels[0], v1.x, v1.y - 10);
+    ctx.fillText(preset.labels[1], v2.x - 12, v2.y + 18);
+    ctx.fillText(preset.labels[2], v3.x + 12, v3.y + 18);
+
+    // Title
+    ctx.fillStyle = '#333';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText(preset.label, W / 2, H - 8);
+  }
+
+  // Click handler: add trajectory from clicked point
+  canvas.addEventListener('click', function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W / rect.width);
+    const py = (e.clientY - rect.top) * (H / rect.height);
+    const bary = pixelToBary(px, py);
+
+    // Check if inside simplex
+    if (bary.x1 < 0.01 || bary.x2 < 0.01 || bary.x3 < 0.01) return;
+    if (bary.x1 > 0.99 || bary.x2 > 0.99 || bary.x3 > 0.99) return;
+
+    const preset = presets[currentPreset];
+    const traj = computeTrajectory(bary.x1, bary.x2, bary.x3, preset.A, 5000, 0.01);
+    trajectories.push(traj);
+    draw();
+  });
+
+  presetSelect.addEventListener('change', () => {
+    currentPreset = presetSelect.value;
+    trajectories = [];
+    draw();
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      trajectories = [];
+      draw();
+    });
+  }
+
+  // Initial draw
+  draw();
+})();
+</script>
+
+</body>
+</html>

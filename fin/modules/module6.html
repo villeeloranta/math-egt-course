@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 6: Peliteorian perusteet | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<!-- Navigation -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html" class="active">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Module Header -->
+<div class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 6</div>
+    <h1>Peliteorian perusteet</h1>
+    <p class="module-desc">
+      Strateginen vuorovaikutus formalisoituna: tuottomatriisit, Nash-tasapaino, dominoivat strategiat,
+      sekastrategiat ja klassiset pelit, jotka mallintavat yhteistyötä, konflikteja ja sosiaalisia dilemmoja.
+      Tämä moduuli yhdistää moduulien 1&ndash;5 matemaattiset perusteet moduulin 7 evoluutiopeliteoriaan.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module5.html">&larr; Moduuli 5: Todennäköisyys</a>
+    <a href="module7.html">Moduuli 7: EGT ja replikaattori &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Tämän moduulin sisältö</h3>
+    <ol>
+      <li><a href="#what-is-a-game">Mikä on peli?</a></li>
+      <li><a href="#payoff-matrices">Tuottomatriisit</a></li>
+      <li><a href="#classic-games">Klassiset pelit ja sosiaaliset dilemmat</a></li>
+      <li><a href="#dominant-strategies">Dominoivat strategiat</a></li>
+      <li><a href="#nash-equilibrium">Nash-tasapaino</a></li>
+      <li><a href="#mixed-strategies">Sekastrategiat</a></li>
+      <li><a href="#best-response">Parhaan vasteen funktiot</a></li>
+      <li><a href="#n-player-games">N-pelaajan pelit ja sosiaaliset dilemmat</a></li>
+      <li><a href="#repeated-games">Toistetut pelit ja yhteistyö</a></li>
+      <li><a href="#interactive-nash">Interaktiivinen: Nash-tasapainon etsijä</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: What is a Game? -->
+  <!-- ============================================================ -->
+  <div class="section" id="what-is-a-game">
+    <h2>1. Mikä on peli?</h2>
+
+    <p>
+      Arkikielessä "peli" viittaa ajanvietteeseen. Matematiikassa <strong>peli</strong> on
+      mikä tahansa tilanne, jossa kunkin osallistujan lopputulos riippuu paitsi hänen omista valinnoistaan,
+      myös muiden valinnoista. Tämä on <em>strategisen vuorovaikutuksen</em> ydin.
+    </p>
+
+    <p>
+      Peliteoria tarjoaa täsmällisen matemaattisen kehyksen tällaisten vuorovaikutustilanteiden analysointiin.
+      Alan uranuurtajia olivat John von Neumann ja Oskar Morgenstern vuoden 1944 teoksellaan <em>Theory of Games and
+      Economic Behavior</em>, ja myöhemmin John Nash kehitti teoriaa merkittävästi eteenpäin esittelemällä
+      hänen mukaansa nimetyn tasapainokäsitteen.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Peli (strateginen muoto)</span>
+      <p><strong>Peli strategisessa (normaali)muodossa</strong> koostuu kolmesta osasta:</p>
+      <ol>
+        <li><strong>Pelaajat:</strong> Äärellinen joukko päätöksentekijöitä \( N = \{1, 2, \dots, n\} \).</li>
+        <li><strong>Strategiat:</strong> Kullakin pelaajalla \( i \) on käytettävissään toimintojen joukko \( S_i \). Alkio \( s_i \in S_i \) on pelaajan \( i \) strategia.</li>
+        <li><strong>Tuotot:</strong> Kullakin pelaajalla \( i \) on tuottofunktio \( u_i : S_1 \times S_2 \times \cdots \times S_n \to \mathbb{R} \), joka antaa numeerisen lopputuloksen jokaiselle strategiayhdistelmälle.</li>
+      </ol>
+      <p>
+        <strong>Strategiaprofiili</strong> on monikko \( s = (s_1, s_2, \dots, s_n) \), joka määrittää yhden
+        strategian kullekin pelaajalle. Merkitsemme \( s_{-i} \):llä kaikkien pelaajien strategioita paitsi pelaajan \( i \).
+      </p>
+    </div>
+
+    <h3>Strateginen muoto vs. ekstensiivinen muoto</h3>
+
+    <p>
+      Pelit voidaan esittää kahdella päätavalla:
+    </p>
+
+    <div class="two-col">
+      <div>
+        <h4>Strateginen (normaali) muoto</h4>
+        <p>
+          Pelaajat valitsevat strategiansa samanaikaisesti (tai tietämättä toisen valintaa).
+          Peli esitetään <strong>tuottomatriisina</strong>. Tähän muotoon keskitymme tässä
+          moduulissa, ja se on oleellisin evoluutiopeliteorian kannalta.
+        </p>
+      </div>
+      <div>
+        <h4>Ekstensiivinen muoto</h4>
+        <p>
+          Pelaajat voivat toimia peräkkäin, ja puurakenteella kuvataan siirtojen järjestys,
+          informaatiojoukot ja päätössolmut. Hyödyllinen mallinnettaessa pelejä, joissa ajoituksella
+          ja tiedolla on merkitystä (esim. neuvottelut, shakki). Mainitsemme tämän täydellisyyden
+          vuoksi, mutta työskentelemme ensisijaisesti strategisessa muodossa.
+        </p>
+      </div>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Miksi peliteoria on tärkeää</span>
+      <p>
+        Peliteoria on tärkeää, koska yhteiskuntatieteiden, biologian ja taloustieteen merkittävimmät
+        ongelmat sisältävät <em>toisistaan riippuvaa päätöksentekoa</em>. Pitäisikö valtion aseistautua
+        vai riisua aseensa? Pitäisikö yrityksen kilpailla hinnalla vai laadulla? Pitäisikö eliön
+        taistella vai paeta? Pitäisikö yhteisön jäsenen osallistua julkishyödykkeen tuottamiseen vai
+        vapaamatkustaa?
+      </p>
+      <p>
+        Jokaisessa tapauksessa paras valinta riippuu siitä, mitä muut tekevät. Peliteoria antaa meille
+        matemaattiset työkalut näiden tilanteiden täsmälliseen analysointiin. Evoluutiopeliteorian
+        kannalta se tarjoaa strategiset rakenteet (pelit), joiden dynamiikkaa tutkimme, kun populaatioiden
+        strategiat kehittyvät ajan myötä.
+      </p>
+    </div>
+
+    <h3>Klassisen peliteorian keskeiset oletukset</h3>
+
+    <ul>
+      <li><strong>Rationaalisuus:</strong> Kukin pelaaja valitsee strategian, joka maksimoi hänen tuottonsa, ottaen huomioon uskomuksensa muiden toiminnasta.</li>
+      <li><strong>Rationaalisuuden yhteinen tieto:</strong> Kukin pelaaja tietää, että muut ovat rationaalisia, tietää, että muut tietävät tämän, ja niin edelleen.</li>
+      <li><strong>Täydellinen informaatio:</strong> (Tässä tutkimissamme peleissä) kaikki pelaajat tuntevat tuottomatriisin.</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Huomautus &mdash; Evoluutiopeliteoria lieventää näitä oletuksia</span>
+      <p>
+        Evoluutiopeliteoriassa (moduuli 7) hylkäämme rationaalisuusoletuksen kokonaan. Pelaajien
+        ei oleteta "ajattelevan" lainkaan &mdash; strategiat leviävät populaatiossa niiden
+        <em>kelpoisuuden</em> (menestyksen) perusteella. Tämä tekee evoluutiopeliteoriasta sovellettavan
+        biologisiin populaatioihin, kulttuurievoluutioon ja rajoitetusti rationaalisiin toimijoihin.
+        Pelin matemaattinen rakenne pysyy samana; vain ratkaisukäsite muuttuu.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: Payoff Matrices -->
+  <!-- ============================================================ -->
+  <div class="section" id="payoff-matrices">
+    <h2>2. Tuottomatriisit</h2>
+
+    <p>
+      Kahden pelaajan peleissä, joissa strategiajoukot ovat äärelliset, luonnollisin esitystapa on
+      <strong>tuottomatriisi</strong> (jota kutsutaan myös <strong>bimatriisiksi</strong>). Tämä on
+      peliteorian työjuhta, ja tulet käyttämään sitä jatkuvasti.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Tuottomatriisi (bimatriisi)</span>
+      <p>
+        Kahden pelaajan pelissä, jossa pelaajalla 1 on \( m \) strategiaa ja pelaajalla 2 on \( n \) strategiaa,
+        tuottomatriisi on \( m \times n \)-taulukko. Kukin solu \((i,j)\) sisältää tuottoparin
+        \((a_{ij},\, b_{ij})\), missä:
+      </p>
+      <ul>
+        <li>\( a_{ij} \) = <strong>pelaajan 1</strong> tuotto (rivipelaaja)</li>
+        <li>\( b_{ij} \) = <strong>pelaajan 2</strong> tuotto (sarakkeenpelaaja)</li>
+      </ul>
+      <p>Vastaavasti voimme kirjoittaa pelin matriisiparina \( (A, B) \), missä \( A = [a_{ij}] \) ja \( B = [b_{ij}] \).</p>
+    </div>
+
+    <h3>Tuottomatriisin lukeminen</h3>
+
+    <p>Tarkastellaan seuraavaa 2&times;2-peliä:</p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Vasen</th>
+        <th>Oikea</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Ylös</td>
+        <td>(3, 2)</td>
+        <td>(1, 4)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Alas</td>
+        <td>(0, 1)</td>
+        <td>(2, 3)</td>
+      </tr>
+    </table>
+
+    <p>Näin matriisia luetaan:</p>
+    <ul>
+      <li>Jos pelaaja 1 pelaa <strong>Ylös</strong> ja pelaaja 2 pelaa <strong>Vasen</strong>: pelaaja 1 saa 3, pelaaja 2 saa 2.</li>
+      <li>Jos pelaaja 1 pelaa <strong>Ylös</strong> ja pelaaja 2 pelaa <strong>Oikea</strong>: pelaaja 1 saa 1, pelaaja 2 saa 4.</li>
+      <li>Jos pelaaja 1 pelaa <strong>Alas</strong> ja pelaaja 2 pelaa <strong>Vasen</strong>: pelaaja 1 saa 0, pelaaja 2 saa 1.</li>
+      <li>Jos pelaaja 1 pelaa <strong>Alas</strong> ja pelaaja 2 pelaa <strong>Oikea</strong>: pelaaja 1 saa 2, pelaaja 2 saa 3.</li>
+    </ul>
+
+    <h3>Matriisinotaatio</h3>
+
+    <p>Voimme erottaa pelin kahdeksi tuottomatriisiksi:</p>
+
+    <div class="math-display">
+      \[
+        A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}, \quad
+        B = \begin{pmatrix} 2 & 4 \\ 1 & 3 \end{pmatrix}
+      \]
+    </div>
+
+    <p>
+      Alkio \( a_{ij} \) on pelaajan 1 tuotto, kun pelaaja 1 käyttää riviä \( i \) ja pelaaja 2 käyttää
+      saraketta \( j \). Alkio \( b_{ij} \) on pelaajan 2 tuotto samalle strategiaprofiilille.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Konventiohuomautus</span>
+      <p>
+        <strong>Symmetrisissä peleissä</strong> (joissa molemmilla pelaajilla on sama strategiajoukko ja
+        \( b_{ij} = a_{ji} \)) kirjoitamme usein vain yhden matriisin \( A \) sillä ymmärryksellä, että
+        pelaajan 1 tuotto saadaan matriisista \( A \) ja pelaajan 2 tuotto matriisista \( A^T \). Tämä on
+        evoluutiopeliteorian vakiokonventio: kirjoitamme <em>rivistrategian</em> tuoton
+        <em>sarakestrategiaa</em> vastaan.
+      </p>
+    </div>
+
+    <h3>Symmetriset pelit</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Symmetrinen peli</span>
+      <p>
+        Kahden pelaajan peli on <strong>symmetrinen</strong>, jos molemmilla pelaajilla on sama strategiajoukko
+        \( S_1 = S_2 = S \) ja tuotot riippuvat vain pelatuista strategioista, eivät siitä, kumpi
+        pelaaja pelaa mitäkin. Formaalisti \( u_1(s_i, s_j) = u_2(s_j, s_i) \) kaikille \( s_i, s_j \in S \).
+      </p>
+      <p>
+        Matriisimuodossa tämä tarkoittaa, että \( B = A^T \). Meidän tarvitsee määrittää vain yksi matriisi \( A \), missä
+        \( a_{ij} \) on strategiaa \( i \) käyttävän pelaajan tuotto vastustajaa vastaan, joka käyttää strategiaa \( j \).
+      </p>
+    </div>
+
+    <p>
+      Symmetriset pelit ovat evoluutiopeliteorian ytimessä, koska ne mallintavat vuorovaikutustilanteita,
+      joissa yksilöt poimitaan yhdestä populaatiosta ja pelaavat samoja rooleja. Kaikki alla esitettävät
+      klassiset pelit voidaan esittää symmetrisessä muodossa.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: Classic Games -->
+  <!-- ============================================================ -->
+  <div class="section" id="classic-games">
+    <h2>3. Klassiset pelit ja sosiaaliset dilemmat</h2>
+
+    <p>
+      Tietyt 2&times;2-pelit esiintyvät yhä uudelleen biologiassa, taloustieteessä, politiikan tutkimuksessa
+      ja yhteiskuntatieteissä, koska ne vangitsevat perustavanlaatuisia strategisia jännitteitä. Kukin alla
+      esitettävä peli edustaa erilaista sosiaalista dilemmaa. Näiden arkkityyppien ymmärtäminen on
+      olennaista evoluutiopeliteorialle ja Ostromin institutionaaliselle analyysille.
+    </p>
+
+    <!-- Prisoner's Dilemma -->
+    <h3 id="prisoners-dilemma">3.1 Vangin dilemma</h3>
+
+    <p>
+      Peliteorian kuuluisin peli. Kaksi epäiltyä pidätetään ja kuulustellaan erikseen.
+      Kumpikin voi tehdä <strong>yhteistyötä</strong> (pysyä hiljaa) tai <strong>pettää</strong>
+      (kavaltaa toisen). Tuottorakenne luo tuhoisan jännitteen yksilöllisen
+      rationaalisuuden ja yhteisen hyvinvoinnin välille.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Yhteistyö</th>
+        <th>Petos</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Yhteistyö</td>
+        <td>(R, R)</td>
+        <td>(S, T)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Petos</td>
+        <td>(T, S)</td>
+        <td>(P, P)</td>
+      </tr>
+    </table>
+
+    <p>Määrittelevä ehto on: \( T > R > P > S \), missä:</p>
+    <ul>
+      <li>\( T \) = <strong>Kiusaus</strong> pettää (pettäminen toisen tehdessä yhteistyötä)</li>
+      <li>\( R \) = <strong>Palkkio</strong> molemminpuolisesta yhteistyöstä</li>
+      <li>\( P \) = <strong>Rangaistus</strong> molemminpuolisesta petoksesta</li>
+      <li>\( S \) = <strong>Hölmön</strong> tuotto (yhteistyö toisen pettäessä)</li>
+    </ul>
+
+    <p>Tavallinen numeerinen esimerkki:</p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Yhteistyö</th>
+        <th>Petos</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Yhteistyö</td>
+        <td>(3, 3)</td>
+        <td>(0, 5)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Petos</td>
+        <td>(5, 0)</td>
+        <td>(1, 1)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Dilemma</span>
+      <p>
+        Riippumatta siitä mitä toinen pelaaja tekee, kumpikin pelaaja hyötyy petoksesta (5 &gt; 3 jos
+        toinen tekee yhteistyötä; 1 &gt; 0 jos toinen pettää). Rationaaliset pelaajat siis molemmat pettävät,
+        mikä tuottaa lopputuloksen (1, 1). Mutta molemminpuolinen yhteistyö antaisi (3, 3) &mdash; molempien
+        olisi parempi! Yksilöllinen rationaalisuus johtaa kollektiivisesti huonompaan lopputulokseen.
+        Tämä on sosiaalisten dilemmojen perusjännite.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteydet reaalimaailmaan ja Ostromiin</span>
+      <p>
+        Vangin dilemma mallintaa asevarustelua, ympäristön saastuttamista, veronkiertoa ja
+        <strong>yhteisresurssien ylikulutusta</strong>. Elinor Ostromin elämäntyö haastoi
+        pessimistisen johtopäätöksen, jonka mukaan vangin dilemman kaltaiset tilanteet johtavat
+        väistämättä petokseen. Hän osoitti, että yhteisöt voivat kehittää <em>instituutioita</em>
+        &mdash; sääntöjä, normeja ja valvontamekanismeja &mdash; jotka muuttavat tosiasiallista
+        tuottorakennetta ja ylläpitävät yhteistyötä. Palaamme tähän kohdassa 9 ja moduulissa 8.
+      </p>
+    </div>
+
+    <!-- Hawk-Dove -->
+    <h3 id="hawk-dove">3.2 Haukka-kyyhky-peli (Chicken)</h3>
+
+    <p>
+      Kaksi pelaajaa kilpailee resurssista, jonka arvo on \( V \). Kumpikin voi pelata <strong>haukkaa</strong>
+      (taistella aggressiivisesti) tai <strong>kyyhkyä</strong> (jakaa rauhallisesti). Jos molemmat pelaavat
+      haukkaa, he taistelevat ja kumpikin maksaa kustannuksen \( C \). Ratkaiseva kysymys on \( V \):n
+      ja \( C \):n välinen suhde.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Haukka</th>
+        <th>Kyyhky</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Haukka</td>
+        <td>\(\left(\frac{V-C}{2},\, \frac{V-C}{2}\right)\)</td>
+        <td>\((V,\, 0)\)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Kyyhky</td>
+        <td>\((0,\, V)\)</td>
+        <td>\(\left(\frac{V}{2},\, \frac{V}{2}\right)\)</td>
+      </tr>
+    </table>
+
+    <p>Numeerinen esimerkki arvoilla \( V = 4, C = 6 \) (joten \( C > V \)):</p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Haukka</th>
+        <th>Kyyhky</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Haukka</td>
+        <td>(&minus;1, &minus;1)</td>
+        <td>(4, 0)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Kyyhky</td>
+        <td>(0, 4)</td>
+        <td>(2, 2)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Strateginen rakenne</span>
+      <p>
+        Kun \( C > V \), paras vaste haukkaan on kyyhky, ja paras vaste kyyhkyyn on haukka. Dominoivaa
+        strategiaa ei ole. Pelillä on kaksi puhtaan strategian Nash-tasapainoa (haukka-kyyhky ja
+        kyyhky-haukka) sekä sekatasapaino. Tämä on "antikoordinaatiopeli": pelaajat haluavat tehdä
+        <em>vastakkaista</em> kuin vastustajansa.
+      </p>
+      <p>
+        Evoluutiokontekstissa (moduuli 7) haukka-kyyhky-peli oli evoluutiopeliteorian perustaesimerkki,
+        jonka Maynard Smith ja Price esittelivät (1973). Sekastrategian Nash-tasapaino vastaa
+        evoluutionaarisesti stabiilia strategiaa (ESS).
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteydet reaalimaailmaan</span>
+      <p>
+        Haukka-kyyhky-peli mallintaa biologian reviirikiistoja, kansainvälisten suhteiden
+        äärimmäistä riskinottoa ("Chicken") ja yhteisresurssien konflikteja. Ostrom huomautti, että
+        monissa yhteisresurssitilanteissa on haukka-kyyhky-tyyppinen tuottorakenne, jossa aggressiivinen
+        hyödyntäminen vahingoittaa kaikkia, mutta tuottaa lyhytaikaisen edun passiivista naapuria vastaan.
+      </p>
+    </div>
+
+    <!-- Stag Hunt -->
+    <h3 id="stag-hunt">3.3 Hirvijahti</h3>
+
+    <p>
+      Kaksi metsästäjää voi kumpikin valita <strong>hirven</strong> metsästyksen (joka vaatii molempien
+      osallistumista onnistuakseen) tai <strong>jäniksen</strong> metsästyksen (jonka voi saada yksinkin,
+      mutta se on vähemmän arvokas). Tämä mallintaa <strong>koordinaatio-ongelmia</strong>:
+      molemminpuolinen yhteistyö on paras lopputulos, mutta yhteistyö on riskialtista, jos kumppani
+      ei ehkä tee yhteistyötä.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Hirvi</th>
+        <th>Jänis</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Hirvi</td>
+        <td>(4, 4)</td>
+        <td>(0, 3)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Jänis</td>
+        <td>(3, 0)</td>
+        <td>(2, 2)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Koordinaatio ja luottamus</span>
+      <p>
+        Toisin kuin vangin dilemmassa, tässä ei ole dominoivaa strategiaa. Sekä (hirvi, hirvi) että
+        (jänis, jänis) ovat Nash-tasapainoja. Edellinen on <strong>tuottodominoiva</strong> (parempi
+        molemmille), kun taas jälkimmäinen on <strong>riskidominoiva</strong> (turvallisempi, koska
+        jäniksen metsästys takaa vähintään 2 riippumatta toisen valinnasta).
+      </p>
+      <p>
+        Keskeinen jännite ei ole itsekkyyden ja yhteistyön välillä, vaan pikemminkin <em>luottamuksen</em>
+        ja <em>varmuuden</em> välillä. Dilemma on: "Tekeekö kumppanini yhteistyötä? Jos luotan häneen
+        eikä hän tee, en saa mitään." Siksi Ostromin suunnitteluperiaatteet korostavat viestintää,
+        valvontaa ja asteittaisia sanktioita &mdash; ne rakentavat luottamusta, jota tarvitaan
+        tuottodominoivan tasapainon saavuttamiseksi.
+      </p>
+    </div>
+
+    <!-- Battle of the Sexes -->
+    <h3 id="battle-of-sexes">3.4 Sukupuolten taistelu</h3>
+
+    <p>
+      Kaksi pelaajaa haluaa koordinoida toimintansa, mutta kumpikin suosii eri koordinaatiopistettä.
+      Klassinen tarina: toinen kumppani suosii oopperaa, toinen jalkapallo-ottelua, mutta molemmat
+      mieluummin ovat yhdessä kuin erillään.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Ooppera</th>
+        <th>Jalkapallo</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Ooppera</td>
+        <td>(3, 2)</td>
+        <td>(0, 0)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Jalkapallo</td>
+        <td>(0, 0)</td>
+        <td>(2, 3)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Koordinaatio ja konflikti</span>
+      <p>
+        Kuten hirvijahdissa, tälläkin pelillä on kaksi puhdasta Nash-tasapainoa: (ooppera, ooppera) ja
+        (jalkapallo, jalkapallo). Mutta toisin kuin hirvijahdissa, pelaajat ovat <em>eri mieltä</em>
+        siitä, kumpi tasapaino on parempi. Pelaaja 1 suosii (ooppera, ooppera) -tasapainoa, kun taas
+        pelaaja 2 suosii (jalkapallo, jalkapallo) -tasapainoa. On myös sekatasapaino, mutta se tuottaa
+        matalan odotetun tuoton.
+      </p>
+      <p>
+        Tämä peli mallintaa sosiaalisia konventioita, standardien omaksumista ja institutionaalista
+        suunnittelua, jossa koordinaatio on arvokasta mutta osapuolet ovat eri mieltä siitä, minkä
+        sääntöjen ympärille koordinoidutaan &mdash; keskeinen huolenaihe Ostromin institutionaalisessa
+        analyysissa.
+      </p>
+    </div>
+
+    <!-- Matching Pennies -->
+    <h3 id="matching-pennies">3.5 Kolikonheitto</h3>
+
+    <p>
+      <strong>Nollasummapeli</strong>: toinen pelaaja voittaa täsmälleen sen, minkä toinen häviää.
+      Kumpikin pelaaja näyttää samanaikaisesti kruunaa tai klaavaa. Pelaaja 1 voittaa, jos ne
+      täsmäävät; pelaaja 2 voittaa, jos ne eroavat.
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">Pelaaja 2</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Kruuna</th>
+        <th>Klaava</th>
+      </tr>
+      <tr>
+        <td class="row-header" rowspan="2">Pelaaja 1</td>
+        <td class="row-header">Kruuna</td>
+        <td>(1, &minus;1)</td>
+        <td>(&minus;1, 1)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Klaava</td>
+        <td>(&minus;1, 1)</td>
+        <td>(1, &minus;1)</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Puhdas konflikti</span>
+      <p>
+        Puhtaan strategian Nash-tasapainoa ei ole. Jos pelaaja 1 pelaa kruunaa, pelaaja 2 haluaa
+        klaavan; mutta silloin pelaaja 1 haluaa klaavan; mutta silloin pelaaja 2 haluaa kruunan...
+        Tämä kiertäminen osoittaa, että vain <strong>sekastrategian</strong> tasapaino on olemassa:
+        kumpikin pelaaja satunnaistaa 50-50.
+      </p>
+      <p>
+        Vaikka puhtaan konfliktin pelit saattavat vaikuttaa vähemmän merkityksellisiltä sosiaalisille
+        dilemmoille, ne mallintavat saalistaja-saalis-vuorovaikutuksia, tarkastuspelejä (verotarkastukset)
+        ja kilpaurheilua. Sekastrategian käsite kehitettiin nimenomaan tällaisten pelien käsittelemiseksi.
+      </p>
+    </div>
+
+    <h3>Yhteenveto pelityypeistä</h3>
+
+    <table class="payoff-matrix" style="font-size: 0.85rem">
+      <tr>
+        <th>Peli</th>
+        <th>Keskeinen jännite</th>
+        <th>Puhtaat NT</th>
+        <th>Sosiaalisen dilemman tyyppi</th>
+      </tr>
+      <tr>
+        <td><strong>Vangin dilemma</strong></td>
+        <td>Yksilöllinen vs. kollektiivinen rationaalisuus</td>
+        <td>1 (petos, petos)</td>
+        <td>Yhteistyö / julkishyödykkeet</td>
+      </tr>
+      <tr>
+        <td><strong>Haukka-kyyhky</strong></td>
+        <td>Aggressio vs. jakaminen</td>
+        <td>2 (epäsymmetrinen)</td>
+        <td>Konflikti / resurssien jako</td>
+      </tr>
+      <tr>
+        <td><strong>Hirvijahti</strong></td>
+        <td>Turvallisuus vs. tehokkuus</td>
+        <td>2 (symmetrinen)</td>
+        <td>Koordinaatio / luottamus</td>
+      </tr>
+      <tr>
+        <td><strong>Sukupuolten taistelu</strong></td>
+        <td>Koordinaatio vs. preferenssi</td>
+        <td>2 (epäsymmetrinen)</td>
+        <td>Konventio / standardit</td>
+      </tr>
+      <tr>
+        <td><strong>Kolikonheitto</strong></td>
+        <td>Puhdas kilpailu</td>
+        <td>0</td>
+        <td>Vastakkaisasettelu / nollasumma</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: Dominant Strategies -->
+  <!-- ============================================================ -->
+  <div class="section" id="dominant-strategies">
+    <h2>4. Dominoivat strategiat</h2>
+
+    <p>
+      Yksinkertaisin tapa ratkaista peli on tarkistaa, onko jollakin pelaajalla strategia, joka on
+      aina parempi kuin hänen vaihtoehtojensa, riippumatta siitä mitä toinen pelaaja tekee. Tällaista
+      strategiaa kutsutaan <strong>dominoivaksi</strong>.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Vahva dominanssi</span>
+      <p>
+        Strategia \( s_i \) <strong>vahvasti dominoi</strong> strategiaa \( s_i' \) pelaajalle \( i \), jos:
+      </p>
+      <div class="math-display">
+        \[ u_i(s_i, s_{-i}) > u_i(s_i', s_{-i}) \quad \text{for all } s_{-i} \in S_{-i} \]
+      </div>
+      <p>
+        Sanallisesti: \( s_i \) tuottaa aidosti korkeamman tuoton kuin \( s_i' \) riippumatta siitä,
+        mitä vastustajat tekevät.
+      </p>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Heikko dominanssi</span>
+      <p>
+        Strategia \( s_i \) <strong>heikosti dominoi</strong> strategiaa \( s_i' \), jos:
+      </p>
+      <div class="math-display">
+        \[ u_i(s_i, s_{-i}) \geq u_i(s_i', s_{-i}) \quad \text{for all } s_{-i} \in S_{-i} \]
+      </div>
+      <p>ja aito epäyhtälö pätee <em>ainakin yhdelle</em> \( s_{-i} \):lle.</p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Dominoiva strategia vangin dilemmassa</span>
+      <p>Muistetaan vangin dilemman tuotot pelaajalle 1:</p>
+      <ul>
+        <li>Jos pelaaja 2 tekee yhteistyötä: petos antaa 5, yhteistyö antaa 3. Joten petos &gt; yhteistyö.</li>
+        <li>Jos pelaaja 2 pettää: petos antaa 1, yhteistyö antaa 0. Joten petos &gt; yhteistyö.</li>
+      </ul>
+      <p>
+        Petos dominoi vahvasti yhteistyötä pelaajalle 1. Symmetrian nojalla sama pätee pelaajalle 2.
+        Joten (petos, petos) on lopputulos, kun molemmat pelaajat käyttävät vahvasti dominoivia strategioitaan.
+      </p>
+    </div>
+
+    <h3>Dominoitujen strategioiden iteratiivinen eliminointi (IEDS)</h3>
+
+    <p>
+      Kun mikään yksittäinen strategia ei ole dominoiva, voimme silti yksinkertaistaa pelejä
+      poistamalla iteratiivisesti strategioita, jotka ovat dominoituja. Ajatus on, että rationaalinen
+      pelaaja ei koskaan pelaisi dominoitua strategiaa, ja jos kaikki pelaajat tietävät tämän, jotkut
+      aiemmin dominoimattomat strategiat voivat tulla dominoiduiksi.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Iteratiivinen eliminointi</span>
+      <p>Tarkastellaan seuraavaa 3&times;3-peliä (selkeyden vuoksi näytetään vain pelaajan 1 tuotot):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>L</th>
+          <th>C</th>
+          <th>R</th>
+        </tr>
+        <tr>
+          <td class="row-header">T</td>
+          <td>3</td>
+          <td>0</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td class="row-header">M</td>
+          <td>1</td>
+          <td>2</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td class="row-header">B</td>
+          <td>0</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+      </table>
+      <p><strong>Vaihe 1:</strong> B on M:n dominoima (1 &gt; 0, 2 &gt; 1, 4 &gt; 2). Eliminoidaan B.</p>
+      <p>Jäljelle jää 2&times;3-peli. Oletetaan, että pelaajan 2 tuotot (joita ei näytetä) mahdollistavat
+        lisäeliminointeja. Prosessi jatkuu, kunnes dominoituja strategioita ei enää ole.</p>
+      <p>
+        Keskeinen oivallus: IEDS säilyttää kaikki Nash-tasapainot (vahvalle dominanssille). Mikä tahansa
+        alkuperäisen pelin Nash-tasapaino säilyy eliminointiprosessissa.
+      </p>
+    </div>
+
+    <div class="warning-box">
+      <span class="box-title">Varoitus</span>
+      <p>
+        Useimmissa peleissä <em>ei ole</em> dominoivia strategioita. Vangin dilemma on tässä suhteessa
+        erityinen. Peleissä kuten haukka-kyyhky, hirvijahti ja sukupuolten taistelu paras strategia
+        riippuu siitä, mitä vastustaja tekee. Siksi tarvitsemme Nash-tasapainon käsitteen.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: Nash Equilibrium -->
+  <!-- ============================================================ -->
+  <div class="section" id="nash-equilibrium">
+    <h2>5. Nash-tasapaino</h2>
+
+    <p>
+      Nash-tasapaino on peliteorian keskeinen ratkaisukäsite. Se kuvaa vakaata tilaa, jossa
+      yhdelläkään pelaajalla ei ole kannustinta yksipuolisesti muuttaa strategiaansa &mdash;
+      molemminpuolisen parhaan vasteen pistettä.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Nash-tasapaino</span>
+      <p>
+        Strategiaprofiili \( s^* = (s_1^*, s_2^*, \dots, s_n^*) \) on <strong>Nash-tasapaino</strong>,
+        jos jokaiselle pelaajalle \( i \):
+      </p>
+      <div class="math-display">
+        \[ u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \quad \text{for all } s_i \in S_i \]
+      </div>
+      <p>
+        Vastaavasti: yksikään pelaaja ei voi <em>yksipuolisesti</em> parantaa tuottoaan vaihtamalla
+        toiseen strategiaan, kun kaikkien muiden pelaajien strategiat pidetään kiinteinä.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; "Ei katumuksia"</span>
+      <p>
+        Nash-tasapainossa, jos strategiaprofiili julkistettaisiin, yksikään pelaaja ei haluaisi
+        muuttaa strategiaansa. Kukin pelaaja tekee jo parhaansa siihen nähden, mitä muut tekevät.
+        Se on <em>molemminpuolisen johdonmukaisuuden</em> tila.
+      </p>
+      <p>
+        Huomautus: Nash-tasapaino ei ole välttämättä "hyvä" pelaajille. Vangin dilemman
+        (petos, petos) -lopputulos on Nash-tasapaino, vaikka molemmat pelaajat suosisivat
+        (yhteistyö, yhteistyö) -lopputulosta.
+      </p>
+    </div>
+
+    <h3>Nash-tasapainojen löytäminen 2&times;2-peleissä</h3>
+
+    <p>
+      Yleiselle 2&times;2-pelille tuottomatriiseilla:
+    </p>
+
+    <div class="math-display">
+      \[
+        A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}, \quad
+        B = \begin{pmatrix} b_{11} & b_{12} \\ b_{21} & b_{22} \end{pmatrix}
+      \]
+    </div>
+
+    <p>
+      löydämme puhtaan strategian Nash-tasapainot tarkistamalla kunkin neljän solun \((i,j)\):
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Menetelmä &mdash; Puhtaiden NT:n tarkistaminen 2&times;2-pelissä</span>
+      <p>
+        Solu \((i, j)\) on Nash-tasapaino, jos ja vain jos:
+      </p>
+      <ol>
+        <li>\( a_{ij} \geq a_{i'j} \) kaikille riveille \( i' \) (pelaajalla 1 ei ole kannattavaa poikkeamaa sarakkeella \( j \)), ja</li>
+        <li>\( b_{ij} \geq b_{ij'} \) kaikille sarakkeille \( j' \) (pelaajalla 2 ei ole kannattavaa poikkeamaa rivillä \( i \)).</li>
+      </ol>
+      <p>
+        Käytännössä: alleviivaa pelaajan 1 paras tuotto kussakin sarakkeessa ja pelaajan 2 paras
+        tuotto kullakin rivillä. Solut, joissa <em>molemmat</em> tuotot on alleviivattu, ovat Nash-tasapainoja.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; NT:n löytäminen hirvijahdissa</span>
+
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Hirvi</th>
+          <th>Jänis</th>
+        </tr>
+        <tr>
+          <td class="row-header">Pelaaja 1</td>
+          <td class="row-header">Hirvi</td>
+          <td>(4, 4)</td>
+          <td>(0, 3)</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="row-header">Jänis</td>
+          <td>(3, 0)</td>
+          <td>(2, 2)</td>
+        </tr>
+      </table>
+
+      <p><strong>Pelaajan 1 parhaat vasteet (tarkista kukin sarake):</strong></p>
+      <ul>
+        <li>Jos P2 pelaa hirveä: P1 saa 4 (hirvi) vs. 3 (jänis). Paras: <strong>hirvi</strong>.</li>
+        <li>Jos P2 pelaa jänistä: P1 saa 0 (hirvi) vs. 2 (jänis). Paras: <strong>jänis</strong>.</li>
+      </ul>
+
+      <p><strong>Pelaajan 2 parhaat vasteet (tarkista kukin rivi):</strong></p>
+      <ul>
+        <li>Jos P1 pelaa hirveä: P2 saa 4 (hirvi) vs. 3 (jänis). Paras: <strong>hirvi</strong>.</li>
+        <li>Jos P1 pelaa jänistä: P2 saa 0 (hirvi) vs. 2 (jänis). Paras: <strong>jänis</strong>.</li>
+      </ul>
+
+      <p><strong>Nash-tasapainot:</strong> (hirvi, hirvi) tuotoilla (4, 4) ja (jänis, jänis) tuotoilla (2, 2). Molemmat ovat NT, koska kummassakaan kumpikaan pelaaja ei halua poiketa.</p>
+    </div>
+
+    <h3>Useat tasapainot ja tasapainon valinta</h3>
+
+    <p>
+      Monissa peleissä on <strong>useita Nash-tasapainoja</strong>. Tämä herättää
+      <em>tasapainon valinnan</em> ongelman: minkä tasapainon pelaajat todellisuudessa saavuttavat?
+      Useita tarkentavia kriteerejä on olemassa:
+    </p>
+
+    <ul>
+      <li><strong>Tuottodominanssi:</strong> Suosi tasapainoa, joka antaa korkeammat tuotot kaikille pelaajille (esim. (hirvi, hirvi) yli (jänis, jänis)).</li>
+      <li><strong>Riskidominanssi:</strong> Suosi tasapainoa, joka on "turvallisempi" &mdash; vähemmän riskialtis, jos toinen pelaaja poikkeaa (esim. (jänis, jänis) hirvijahdissa).</li>
+      <li><strong>Fokuspisteet (Schelling):</strong> Kulttuuriset, kontekstuaaliset tai silmiinpistävät piirteet voivat koordinoida odotuksia.</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Huomautus &mdash; Nashin olemassaololause</span>
+      <p>
+        <strong>Lause (Nash, 1950):</strong> Jokaisessa äärellisessä pelissä (äärellinen määrä pelaajia,
+        kullakin äärellinen määrä strategioita) on vähintään yksi Nash-tasapaino, mahdollisesti
+        sekastrategioissa. Tämä on syvällinen tulos, joka todistetaan Kakutanin kiintopistelauseella.
+        Se takaa, että Nash-tasapaino on yleisesti sovellettava ratkaisukäsite.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: Mixed Strategies -->
+  <!-- ============================================================ -->
+  <div class="section" id="mixed-strategies">
+    <h2>6. Sekastrategiat</h2>
+
+    <p>
+      Joillakin peleillä (kuten kolikonheitolla) ei ole Nash-tasapainoa puhtaissa strategioissa.
+      Toisilla (kuten haukka-kyyhkyllä) on puhtaita tasapainoja mutta myös tärkeä sekatasapaino.
+      Kaikkien tasapainojen löytämiseksi tarvitsemme <strong>sekastrategian</strong> käsitteen.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Sekastrategia</span>
+      <p>
+        <strong>Sekastrategia</strong> pelaajalle \( i \) on todennäköisyysjakauma
+        \( \sigma_i \) puhtaiden strategioiden joukon \( S_i \) yli. Jos \( S_i = \{s_1, s_2, \dots, s_k\} \),
+        niin:
+      </p>
+      <div class="math-display">
+        \[ \sigma_i = (p_1, p_2, \dots, p_k) \quad \text{where } p_j \geq 0 \text{ and } \sum_{j=1}^{k} p_j = 1 \]
+      </div>
+      <p>
+        Tässä \( p_j = \sigma_i(s_j) \) on todennäköisyys, jolla pelaaja \( i \) pelaa strategiaa \( s_j \).
+        Puhdas strategia on erikoistapaus, jossa yksi \( p_j = 1 \) ja kaikki muut ovat 0.
+      </p>
+    </div>
+
+    <h3>Odotettu tuotto sekastrategioilla</h3>
+
+    <p>
+      Kun molemmat pelaajat käyttävät sekastrategioita, laskemme tuotot <strong>odotusarvoina</strong>
+      (hyödyntäen moduulia 5). Olkoon 2&times;2-peli, jossa pelaaja 1 sekoittaa todennäköisyydellä \( p \)
+      strategiaa 1 ja todennäköisyydellä \( (1-p) \) strategiaa 2, ja pelaaja 2 sekoittaa todennäköisyydellä \( q \)
+      strategiaa 1 ja todennäköisyydellä \( (1-q) \) strategiaa 2:
+    </p>
+
+    <div class="math-display">
+      \[
+        E[u_1(p, q)] = p \cdot q \cdot a_{11} + p \cdot (1-q) \cdot a_{12} + (1-p) \cdot q \cdot a_{21} + (1-p) \cdot (1-q) \cdot a_{22}
+      \]
+    </div>
+
+    <p>Matriisinotaatiolla, jos \( \mathbf{p} = (p, 1-p) \) ja \( \mathbf{q} = (q, 1-q)^T \):</p>
+
+    <div class="math-display">
+      \[
+        E[u_1] = \mathbf{p} \cdot A \cdot \mathbf{q}^T, \quad E[u_2] = \mathbf{p} \cdot B \cdot \mathbf{q}^T
+      \]
+    </div>
+
+    <h3>Seka-Nash-tasapainojen löytäminen: indifferenssiperiaate</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Indifferenssiperiaate</span>
+      <p>
+        Täydellisesti sekoitetussa Nash-tasapainossa (jossa molemmat pelaajat satunnaistavat kaikkien
+        strategioidensa yli positiivisella todennäköisyydellä) kunkin pelaajan sekastrategian on tehtävä
+        <em>toinen</em> pelaaja <strong>indifferentiksi</strong> kaikkien positiivisella todennäköisyydellä
+        pelattavien strategioiden välillä.
+      </p>
+      <p>
+        Formaalisti: jos pelaaja \( j \) pelaa sekastrategiaa \( \sigma_j^* \), niin jokaiselle puhtaalle
+        strategialle \( s_i \) pelaajan \( i \) tasapainosekoituksen tukijoukossa:
+      </p>
+      <div class="math-display">
+        \[ E[u_i(s_i, \sigma_j^*)] = E[u_i(s_i', \sigma_j^*)] \quad \text{for all } s_i, s_i' \text{ in the support} \]
+      </div>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Miksi indifferenssi?</span>
+      <p>
+        Ajattele asiaa: jos pelaajan 1 oletetaan satunnaistavan strategioiden A ja B välillä
+        tasapainossa, hänen on oltava <em>halukas</em> pelaamaan molempia. Se tarkoittaa, että hänen
+        on oltava indifferentti &mdash; molempien strategioiden on annettava sama odotettu tuotto
+        (pelaajan 2 sekoituksen perusteella). Jos toinen olisi aidosti parempi, pelaaja 1 pelaisi
+        vain sitä, mikä olisi ristiriidassa sekoitusoletuksen kanssa.
+      </p>
+    </div>
+
+    <h3>Ratkaistu esimerkki: seka-NT kolikonheitossa</h3>
+
+    <div class="example-box">
+      <span class="box-title">Täydellinen johtaminen &mdash; Kolikonheiton seka-NT</span>
+
+      <p>Tuottomatriisit:</p>
+      <div class="math-display">
+        \[
+          A = \begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix}, \quad
+          B = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}
+        \]
+      </div>
+
+      <p>
+        Olkoon pelaaja 1 pelaa kruunaa todennäköisyydellä \( p \) ja klaavaa todennäköisyydellä \( (1-p) \).
+        Olkoon pelaaja 2 pelaa kruunaa todennäköisyydellä \( q \) ja klaavaa todennäköisyydellä \( (1-q) \).
+      </p>
+
+      <p><strong>Vaihe 1: Tee pelaaja 1 indifferentiksi.</strong></p>
+      <p>Pelaajan 2 on valittava \( q \) siten, että pelaajan 1 odotettu tuotto on sama kruunasta ja klaavasta.</p>
+      <p>Pelaajan 1 odotettu tuotto kruunasta:</p>
+      <div class="math-display">
+        \[ E[u_1(\text{H})] = q \cdot 1 + (1-q) \cdot (-1) = 2q - 1 \]
+      </div>
+      <p>Pelaajan 1 odotettu tuotto klaavasta:</p>
+      <div class="math-display">
+        \[ E[u_1(\text{T})] = q \cdot (-1) + (1-q) \cdot 1 = 1 - 2q \]
+      </div>
+      <p>Asetetaan yhtäsuuriksi:</p>
+      <div class="math-display">
+        \[ 2q - 1 = 1 - 2q \implies 4q = 2 \implies q^* = \frac{1}{2} \]
+      </div>
+
+      <p><strong>Vaihe 2: Tee pelaaja 2 indifferentiksi.</strong></p>
+      <p>Pelaajan 1 on valittava \( p \) siten, että pelaajan 2 odotettu tuotto on sama kruunasta ja klaavasta.</p>
+      <p>Pelaajan 2 odotettu tuotto kruunasta:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{H})] = p \cdot (-1) + (1-p) \cdot 1 = 1 - 2p \]
+      </div>
+      <p>Pelaajan 2 odotettu tuotto klaavasta:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{T})] = p \cdot 1 + (1-p) \cdot (-1) = 2p - 1 \]
+      </div>
+      <p>Asetetaan yhtäsuuriksi:</p>
+      <div class="math-display">
+        \[ 1 - 2p = 2p - 1 \implies 4p = 2 \implies p^* = \frac{1}{2} \]
+      </div>
+
+      <p><strong>Tulos:</strong> Yksikäsitteinen Nash-tasapaino on \( (p^*, q^*) = \left(\frac{1}{2}, \frac{1}{2}\right) \). Molemmat pelaajat satunnaistavat 50-50.</p>
+      <p>
+        <strong>Odotettu tuotto tasapainossa:</strong>
+        \( E[u_1] = \frac{1}{2} \cdot (2 \cdot \frac{1}{2} - 1) + \frac{1}{2} \cdot (1 - 2 \cdot \frac{1}{2}) = 0 \).
+        Peli on reilu.
+      </p>
+    </div>
+
+    <h3>Ratkaistu esimerkki: seka-NT haukka-kyyhky-pelissä</h3>
+
+    <div class="example-box">
+      <span class="box-title">Täydellinen johtaminen &mdash; Haukka-kyyhky-pelin seka-NT</span>
+
+      <p>Käytetään numeerista haukka-kyyhky-peliä:</p>
+
+      <div class="math-display">
+        \[
+          A = \begin{pmatrix} -1 & 4 \\ 0 & 2 \end{pmatrix}
+        \]
+      </div>
+
+      <p>
+        (Koska tämä on symmetrinen peli, jossa \( B = A^T \), työskentelemme yhdellä matriisilla.)
+        Olkoon pelaaja 1 pelaa haukkaa todennäköisyydellä \( p \). Pelaajan 2 on oltava indifferentti.
+      </p>
+
+      <p>Pelaajan 2 tuotto haukasta (P1:n sekoitusta vastaan):</p>
+      <div class="math-display">
+        \[ E[u_2(\text{Hawk})] = p \cdot (-1) + (1-p) \cdot 0 = -p \]
+      </div>
+      <p>Huomautus: käytämme \( A^T \):n sarakealkioita. P1:n haukkaa vastaan P2:n haukka saa \(-1\); P1:n kyyhkyä vastaan P2:n haukka saa \(V = 4\). Hetkinen &mdash; olkaamme tarkkoja symmetrisen tuottomatriisin kanssa. Symmetrisessä muotoilussa \( a_{ij} \) on rivipelaajan tuotto sarakkeenpelaajaa vastaan. Joten pelaajan 2 tuotto haukasta P1:n sekoitusta vastaan luetaan \( A \):n <em>haukkariviltä</em>:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{Hawk})] = p \cdot a_{\text{HH}} + (1-p) \cdot a_{\text{HD}} = p(-1) + (1-p)(4) = 4 - 5p \]
+      </div>
+
+      <p>Pelaajan 2 tuotto kyyhkystä:</p>
+      <div class="math-display">
+        \[ E[u_2(\text{Dove})] = p \cdot a_{\text{DH}} + (1-p) \cdot a_{\text{DD}} = p(0) + (1-p)(2) = 2 - 2p \]
+      </div>
+
+      <p>Asetetaan yhtäsuuriksi indifferenssiä varten:</p>
+      <div class="math-display">
+        \[ 4 - 5p = 2 - 2p \implies 2 = 3p \implies p^* = \frac{2}{3} \]
+      </div>
+
+      <p>Symmetrian nojalla myös \( q^* = \frac{2}{3} \).</p>
+
+      <p>
+        <strong>Tulos:</strong> Seka-NT:ssä kumpikin pelaaja pelaa haukkaa todennäköisyydellä \( \frac{2}{3} \)
+        ja kyyhkyä todennäköisyydellä \( \frac{1}{3} \).
+      </p>
+      <p>
+        <strong>Odotettu tuotto:</strong>
+        \( E[u] = \frac{2}{3}(4 - 5 \cdot \frac{2}{3}) + \frac{1}{3}(2 - 2 \cdot \frac{2}{3})
+        = \frac{2}{3} \cdot \frac{2}{3} + \frac{1}{3} \cdot \frac{2}{3} = \frac{4}{9} + \frac{2}{9} = \frac{2}{3} \).
+      </p>
+
+      <p>
+        Evoluutiotulkinnassa (moduuli 7) seka-NT vastaa <em>polymorfista populaatiota</em>,
+        jossa \( \frac{2}{3} \) yksilöistä pelaa haukkaa ja \( \frac{1}{3} \) pelaa kyyhkyä.
+      </p>
+    </div>
+
+    <h3>Yleinen kaava 2&times;2-symmetrisille peleille</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Tulos &mdash; 2&times;2-symmetrisen pelin seka-NT</span>
+      <p>Symmetriselle 2&times;2-pelille tuottomatriisilla:</p>
+      <div class="math-display">
+        \[
+          A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+        \]
+      </div>
+      <p>
+        sisäinen sekastrategian Nash-tasapaino (jos se on olemassa) on sellainen, jossa kukin pelaaja pelaa strategiaa 1
+        todennäköisyydellä:
+      </p>
+      <div class="math-display">
+        \[
+          p^* = \frac{d - b}{(a - b) + (d - c)} = \frac{d - b}{a - b - c + d}
+        \]
+      </div>
+      <p>
+        Tämä tasapaino on olemassa sisäpisteessä (ts. \( 0 < p^* < 1 \)), kun kumpikaan strategia
+        ei ole dominoiva, mikä tapahtuu, kun \( (a - c) \):llä ja \( (d - b) \):llä on sama etumerkki.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: Best Response Functions -->
+  <!-- ============================================================ -->
+  <div class="section" id="best-response">
+    <h2>7. Parhaan vasteen funktiot</h2>
+
+    <p>
+      <strong>Parhaan vasteen</strong> käsite on perustavanlaatuinen: se kertoo, mitä pelaajan
+      tulisi tehdä tietyn uskomuksen perusteella vastustajan strategiasta.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Paras vaste</span>
+      <p>
+        Pelaajalle \( i \) <strong>parhaan vasteen vastaavuus</strong> muiden pelaajien
+        strategiaprofiilille \( \sigma_{-i} \) on:
+      </p>
+      <div class="math-display">
+        \[ BR_i(\sigma_{-i}) = \arg\max_{s_i \in S_i} \, u_i(s_i, \sigma_{-i}) \]
+      </div>
+      <p>
+        Toisin sanoen \( BR_i(\sigma_{-i}) \) on niiden strategioiden joukko, jotka maksimoivat
+        pelaajan \( i \) tuoton annettuna \( \sigma_{-i} \). Se on <em>vastaavuus</em> (joukkokuvaus),
+        koska tasatilanteita voi esiintyä.
+      </p>
+    </div>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Nash-tasapaino molemminpuolisena parhaana vasteena</span>
+      <p>
+        Strategiaprofiili \( \sigma^* = (\sigma_1^*, \sigma_2^*, \dots, \sigma_n^*) \) on
+        Nash-tasapaino <strong>jos ja vain jos</strong> kunkin pelaajan strategia on paras vaste
+        muiden strategioihin:
+      </p>
+      <div class="math-display">
+        \[ \sigma_i^* \in BR_i(\sigma_{-i}^*) \quad \text{for all } i \in N \]
+      </div>
+      <p>
+        Nash-tasapaino on yhteisen parhaan vasteen vastaavuuden <strong>kiintopiste</strong>.
+        Tämä yhdistää peliteorian moduulissa 4 kehitettyyn kiintopisteoriaan.
+      </p>
+    </div>
+
+    <h3>Parhaat vasteet 2&times;2-peleissä</h3>
+
+    <p>
+      2&times;2-pelissä pelaajan 2 sekastrategia määrittyy yhdellä parametrilla
+      \( q \in [0,1] \) (todennäköisyys pelata strategiaa 1). Pelaajan 1 parhaan vasteen funktio
+      \( BR_1(q) \) kuvaa kunkin \( q \):n optimaalisten sekoitustodennäköisyyksien joukkoon \( p \).
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Parhaat vasteet vangin dilemmassa</span>
+      <p>Arvoilla \( a_{11} = 3, a_{12} = 0, a_{21} = 5, a_{22} = 1 \):</p>
+      <p>Pelaajan 1 tuotto yhteistyöstä (strategia 1): \( E_1^C = 3q + 0(1-q) = 3q \)</p>
+      <p>Pelaajan 1 tuotto petoksesta (strategia 2): \( E_1^D = 5q + 1(1-q) = 4q + 1 \)</p>
+      <p>Vertailu: \( E_1^D - E_1^C = (4q + 1) - 3q = q + 1 > 0 \) kaikille \( q \in [0,1] \).</p>
+      <p>
+        Petos on aidosti parempi riippumatta \( q \):sta. Joten \( BR_1(q) = \{\text{Petos}\} \)
+        kaikille \( q \). Parhaan vasteen funktio on vaakasuora viiva kohdassa \( p = 0 \) (strategian
+        1 = yhteistyö pelaaminen todennäköisyydellä 0).
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Parhaat vasteet haukka-kyyhky-pelissä</span>
+      <p>Symmetrisellä tuottomatriisilla \( a_{11} = -1, a_{12} = 4, a_{21} = 0, a_{22} = 2 \):</p>
+      <p>Pelaajan 1 tuotto haukasta: \( E_1^H = (-1)q + 4(1-q) = 4 - 5q \)</p>
+      <p>Pelaajan 1 tuotto kyyhkystä: \( E_1^D = 0 \cdot q + 2(1-q) = 2 - 2q \)</p>
+      <p>Pelaaja 1 suosii haukkaa, kun \( 4 - 5q > 2 - 2q \), ts. \( 2 > 3q \), ts. \( q < \frac{2}{3} \).</p>
+      <p>Pelaaja 1 suosii kyyhkyä, kun \( q > \frac{2}{3} \).</p>
+      <p>Pelaaja 1 on indifferentti, kun \( q = \frac{2}{3} \).</p>
+      <p>Joten parhaan vasteen funktio on:</p>
+      <div class="math-display">
+        \[
+          BR_1(q) = \begin{cases}
+            \{p = 1\} & \text{if } q < \frac{2}{3} \quad (\text{pelaa haukkaa}) \\[6pt]
+            [0,1] & \text{if } q = \frac{2}{3} \quad (\text{mikä tahansa sekoitus}) \\[6pt]
+            \{p = 0\} & \text{if } q > \frac{2}{3} \quad (\text{pelaa kyyhkyä})
+          \end{cases}
+        \]
+      </div>
+      <p>
+        Symmetrian nojalla \( BR_2(p) \):llä on sama rakenne. Parhaan vasteen vastaavuudet
+        leikkaavat kolmessa pisteessä: \((1, 0)\), \((0, 1)\) ja \((\frac{2}{3}, \frac{2}{3})\)
+        &mdash; kaksi puhdasta NT:a ja seka-NT.
+      </p>
+    </div>
+
+    <h3>Graafinen esitys</h3>
+
+    <p>
+      2&times;2-peleissä voimme piirtää molemmat parhaan vasteen funktiot samaan \((p, q)\)-kaavioon,
+      missä \( p \) on pelaajan 1 todennäköisyys pelata strategiaa 1 ja \( q \) on pelaajan 2 todennäköisyys
+      pelata strategiaa 1. Nash-tasapainot ovat kahden parhaan vasteen vastaavuuden leikkauspisteet.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Graafiset mallit</span>
+      <ul>
+        <li><strong>Vangin dilemma:</strong> Molemmat PV-funktiot osoittavat samaan nurkkaan &rarr; yksi puhdas NT.</li>
+        <li><strong>Koordinaatiopelit (hirvijahti):</strong> PV-funktiot ovat "porrasmaisia" ja leikkaavat kahdessa nurkassa ja yhdessä sisäpisteessä.</li>
+        <li><strong>Antikoordinaatiopelit (haukka-kyyhky):</strong> PV-funktiot risteävät kahdessa vastakkaisessa nurkassa ja yhdessä sisäpisteessä.</li>
+        <li><strong>Nollasumma (kolikonheitto):</strong> PV-funktiot risteävät vain sisäpisteessä.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: N-Player Games and Social Dilemmas -->
+  <!-- ============================================================ -->
+  <div class="section" id="n-player-games">
+    <h2>8. N-pelaajan pelit ja sosiaaliset dilemmat</h2>
+
+    <p>
+      Todelliset sosiaaliset dilemmat harvoin koskevat vain kahta pelaajaa. Yhteisresursseja
+      hallinnoivat yhteisöt, ilmastosopimuksia neuvottelevat kansakunnat ja julkishyödykkeitä
+      tuottavat tiimit sisältävät kaikki useita toimijoita. Peliteorian laajentaminen \( N \)
+      pelaajaan on olennaista näiden tilanteiden ymmärtämiseksi.
+    </p>
+
+    <h3>Julkishyödykepelit</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Lineaarinen julkishyödykepeli</span>
+      <p>
+        Pelaajia on \( N \). Kukin pelaaja \( i \) valitsee panoksen \( c_i \in \{0, 1\} \)
+        (tai yleisemmin \( c_i \in [0, e] \), missä \( e \) on pelaajan alkuvarallisuus).
+        Panokset kerrotaan kertoimella \( r > 1 \) ja jaetaan tasan. Pelaajan \( i \) tuotto on:
+      </p>
+      <div class="math-display">
+        \[
+          u_i = e - c_i + \frac{r \sum_{j=1}^{N} c_j}{N}
+        \]
+      </div>
+      <p>
+        Dilemma syntyy, kun \( 1 < r < N \): ryhmä hyötyy panoksista (koska
+        \( r > 1 \)), mutta kunkin yksilön rajatuotto on \( r/N < 1 \), joten jokainen
+        yksilö hyötyy enemmän pitämällä alkuvarallisuutensa. Tämä on N-pelaajan vangin dilemma.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; 4-pelaajan julkishyödykepeli</span>
+      <p>
+        Olkoon \( N = 4 \), \( e = 10 \), \( r = 2 \). Kukin pelaaja voi antaa koko
+        alkuvarallisuutensa (\( c = 10 \)) tai ei mitään (\( c = 0 \)).
+      </p>
+      <ul>
+        <li><strong>Jos kaikki panostavat:</strong> \( u_i = 10 - 10 + \frac{2 \cdot 40}{4} = 0 + 20 = 20 \). Jokainen saa 20.</li>
+        <li><strong>Jos kaikki vapaamatkustavat:</strong> \( u_i = 10 - 0 + 0 = 10 \). Jokainen saa 10.</li>
+        <li><strong>Jos sinä yksin vapaamatkustat:</strong> \( u_i = 10 - 0 + \frac{2 \cdot 30}{4} = 10 + 15 = 25 \). Saat 25 (enemmän kuin 20!).</li>
+        <li><strong>Jos sinä yksin panostat:</strong> \( u_i = 10 - 10 + \frac{2 \cdot 10}{4} = 0 + 5 = 5 \). Saat vain 5.</li>
+      </ul>
+      <p>
+        Vapaamatkustaminen on aina yksilöllisesti rationaalista (\( \frac{r}{N} = \frac{1}{2} < 1 \)), joten
+        Nash-tasapaino on nollapanos, jolloin tuotto on 10 kullekin. Mutta täysi panostus
+        tuottaa 20 &mdash; sosiaalinen dilemma.
+      </p>
+    </div>
+
+    <h3>Yhteisresurssipelit</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Yhteisresurssipeli (CPR)</span>
+      <p>
+        Yhteisresurssipeli mallintaa jaettua resurssia (kalastusalue, pohjavesivaranto, metsä), jossa
+        kukin \( N \) pelaajasta valitsee hyödyntämistason \( x_i \geq 0 \). Kokonaishyödyntäminen on
+        \( X = \sum_{i=1}^{N} x_i \). Resurssin yksikköarvo vähenee kokonaishyödyntämisen kasvaessa
+        (ruuhkautuminen/ehtyminen), joten pelaajan \( i \) tuotto on:
+      </p>
+      <div class="math-display">
+        \[
+          u_i = x_i \cdot f(X) - c \cdot x_i
+        \]
+      </div>
+      <p>
+        missä \( f(X) \) on hyödyntämisen yksikkötuotto (\( X \):n suhteen vähenevä) ja \( c \) on
+        hyödyntämisen yksikkökustannus.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Ostromin panos</span>
+      <p>
+        Garrett Hardinin vuoden 1968 "Yhteismaan tragedia" ennusti, että yhteisresurssit
+        ylikulutetaan väistämättä, kuten monipelaajan vangin dilemmassa. Hänen ehdottamansa
+        ratkaisut olivat yksityistäminen tai valtiollinen kontrolli.
+      </p>
+      <p>
+        Elinor Ostrom osoitti empiirisesti ja teoreettisesti, että tämä ennuste oli liian pessimistinen.
+        Yhteisöt ympäri maailmaa ovat kehittäneet <strong>institutionaalisia järjestelyjä</strong> &mdash;
+        sääntöjä, valvontajärjestelmiä, konfliktinratkaisumekanismeja &mdash; jotka hallinnoivat
+        yhteisresursseja onnistuneesti. Hänen <strong>kahdeksan suunnitteluperiaatettaan</strong>
+        kuvaavat onnistuneiden itsehallinnollisten instituutioiden yhteiset piirteet.
+      </p>
+      <p>
+        Peliteoreettisesti instituutiot muuttavat tuottorakennetta: valvonta luo mahdollisuuden
+        pettäjien rankaisemiseen, viestintä mahdollistaa koordinoinnin tehokkaisiin tasapainoihin
+        ja asteittaiset sanktiot ylläpitävät yhteistyökannustimia. Tutkimme tätä yhteyttä
+        kokonaisuudessaan moduulissa 8.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: Repeated Games -->
+  <!-- ============================================================ -->
+  <div class="section" id="repeated-games">
+    <h2>9. Toistetut pelit ja yhteistyö</h2>
+
+    <p>
+      Vangin dilemmalla on masentava johtopäätös: rationaaliset pelaajat pettävät aina. Mutta
+      tämä olettaa, että peliä pelataan <strong>kerran</strong>. Todellisuudessa useimmat sosiaaliset
+      vuorovaikutukset ovat <em>toistuvia</em>. Mitä tapahtuu, kun samat pelaajat kohtaavat yhä uudelleen?
+    </p>
+
+    <h3>Toistettu vangin dilemma</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Äärettömästi toistettu peli</span>
+      <p>
+        <strong>Äärettömästi toistettu peli</strong> koostuu vaihepelist \( G \), jota pelataan
+        ajanhetkillä \( t = 0, 1, 2, \dots \). Jokaisen kierroksen jälkeen molemmat pelaajat
+        havaitsevat lopputuloksen. Pelaajat diskonttaavat tulevia tuottoja kertoimella
+        \( \delta \in (0,1) \), joten tuottovirran \( \pi_0, \pi_1, \pi_2, \dots \) tuotto on:
+      </p>
+      <div class="math-display">
+        \[
+          U = \sum_{t=0}^{\infty} \delta^t \pi_t = \pi_0 + \delta \pi_1 + \delta^2 \pi_2 + \cdots
+        \]
+      </div>
+      <p>Diskonttokerroin \( \delta \) voi edustaa kärsivällisyyttä tai todennäköisyyttä, että peli jatkuu.</p>
+    </div>
+
+    <h3>Strategiat toistetuissa peleissä</h3>
+
+    <p>
+      Strategia toistetussa pelissä määrittää, mitä tehdä <em>kullakin periodilla</em> koko
+      peliä edeltävän historian funktiona. Joitakin kuuluisia toistetun vangin dilemman strategioita:
+    </p>
+
+    <ul>
+      <li><strong>Petä aina (ALLD):</strong> Petä joka kierroksella historiasta riippumatta.</li>
+      <li><strong>Tee aina yhteistyötä (ALLC):</strong> Tee yhteistyötä joka kierroksella historiasta riippumatta.</li>
+      <li><strong>Silmä silmästä (TFT):</strong> Tee yhteistyötä ensimmäisellä kierroksella, kopioi sitten vastustajan edellinen toimi. (Strategia, joka voitti Axelrodin kuuluisan turnauksen.)</li>
+      <li><strong>Armoton laukaisija:</strong> Tee yhteistyötä, kunnes vastustaja pettää, ja petä sen jälkeen ikuisesti.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Voiko silmä silmästä ylläpitää yhteistyötä?</span>
+      <p>Tarkastellaan TFT vs. TFT toistetussa vangin dilemmassa tuotoilla \( T=5, R=3, P=1, S=0 \).</p>
+      <p>Molemmat tekevät yhteistyötä ikuisesti, jolloin kierroskohtainen tuotto on 3. Kokonaisdiskontattu tuotto on:</p>
+      <div class="math-display">
+        \[ U_{TFT} = 3 + 3\delta + 3\delta^2 + \cdots = \frac{3}{1-\delta} \]
+      </div>
+      <p>Jos pelaaja poikkeaa petokseen ensimmäisellä kierroksella TFT:tä vastaan:</p>
+      <ul>
+        <li>Kierros 0: Saa \( T = 5 \) (petos vastustajan tehdessä yhteistyötä)</li>
+        <li>Kierros 1: Saa \( P = 1 \) (vastustaja kostaa, molemmat pettävät)</li>
+        <li>Sen jälkeen: malli riippuu strategiasta, mutta jos pelaaja palaa yhteistyöhön, TFT antaa anteeksi jne.</li>
+      </ul>
+      <p>Kertaluontoiselle poikkeamalle (petä kerran, palaa sitten yhteistyöhön):</p>
+      <div class="math-display">
+        \[ U_{deviate} = 5 + 0\delta + 3\delta^2 + 3\delta^3 + \cdots = 5 + \frac{3\delta^2}{1-\delta} \]
+      </div>
+      <p>Yhteistyö säilyy, kun \( U_{TFT} \geq U_{deviate} \):</p>
+      <div class="math-display">
+        \[ \frac{3}{1-\delta} \geq 5 + \frac{3\delta^2}{1-\delta} \]
+      </div>
+      <div class="math-display">
+        \[ 3 \geq 5(1-\delta) + 3\delta^2 \implies 3 \geq 5 - 5\delta + 3\delta^2 \]
+      </div>
+      <p>
+        Tämä yksinkertaistuu ehdoksi \( \delta \):lle. Yhteistyö on ylläpidettävissä, kun
+        diskonttokerroin on riittävän korkea &mdash; kun pelaajat ovat riittävän kärsivällisiä
+        ja tulevaisuudella on riittävä merkitys.
+      </p>
+    </div>
+
+    <h3>Kansanlause</h3>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Kansanlause (epäformaali)</span>
+      <p>
+        Äärettömästi toistetussa pelissä riittävän kärsivällisillä pelaajilla (\( \delta \) riittävän
+        lähellä yhtä) <strong>mikä tahansa</strong> tuottoprofiili, joka antaa kullekin pelaajalle enemmän
+        kuin heidän minimaksituottonsa, voidaan ylläpitää Nash-tasapainona (tai alipelitäydellisenä
+        tasapainona) toistetussa pelissä.
+      </p>
+      <p>
+        Saavutettavien tuottoprofiilien joukkoa kutsutaan <strong>käyväksi ja yksilöllisesti
+        rationaaliseksi</strong> (FIR) joukoksi.
+      </p>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Mitä kansanlause tarkoittaa</span>
+      <p>
+        Toistaminen laajentaa dramaattisesti tasapainojen joukkoa. Kun kertaluontoisen vangin dilemman
+        ainoa Nash-tasapaino on (petos, petos), toistetussa vangin dilemmassa on <em>äärettömän monta</em>
+        tasapainoa riittävän kärsivällisille pelaajille &mdash; mukaan lukien molemminpuolinen yhteistyö!
+      </p>
+      <p>
+        Tämä on sekä voimakas että ongelmallinen. Se kertoo, että yhteistyö <em>voi</em> syntyä, mutta
+        se ei ennusta, <em>mikä</em> tasapaino syntyy. Tässä Ostromin institutionaalinen analyysi tulee
+        ratkaisevaksi: <strong>instituutiot</strong> ovat mekanismeja, jotka valitsevat toistettujen
+        sosiaalisten dilemmojen monien mahdollisten tasapainojen joukosta ja ohjaavat yhteisöjä kohti
+        yhteistyön lopputuloksia.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys Ostromin suunnitteluperiaatteisiin</span>
+      <p>Useat Ostromin suunnitteluperiaatteet vastaavat suoraan mekanismeja, jotka ylläpitävät yhteistyötä toistetuissa peleissä:</p>
+      <ul>
+        <li><strong>Valvonta:</strong> Yhteistyöstrategiat kuten TFT edellyttävät tietoa siitä, mitä toinen pelaaja teki. Ilman valvontaa ehdollinen yhteistyö on mahdotonta.</li>
+        <li><strong>Asteittaiset sanktiot:</strong> Lievät alkurangaistukset (kuten TFT:n yhden kierroksen kosto) ovat kestävämpiä kuin ankarat (kuten armottoman laukaisijan pysyvä petos).</li>
+        <li><strong>Konfliktinratkaisu:</strong> Kun virheitä tapahtuu, anteeksiantomekanismit estävät eskaloituvan koston.</li>
+        <li><strong>Selkeät rajat:</strong> Tieto siitä, kuka on "pelissä mukana", mahdollistaa kohdennetun vastavuoroisuuden.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: Interactive Nash Equilibrium Finder -->
+  <!-- ============================================================ -->
+  <div class="section" id="interactive-nash">
+    <h2>10. Interaktiivinen: Nash-tasapainon etsijä</h2>
+
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Nash-tasapainon etsijä</h3>
+      <p>Syötä tuotot 2&times;2-pelille. Kussakin solussa on kaksi arvoa: (pelaajan 1 tuotto, pelaajan 2 tuotto).</p>
+      <div id="nash-finder">
+        <table class="payoff-matrix">
+          <tr>
+            <th></th>
+            <th></th>
+            <th colspan="2">Pelaaja 2</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Strategia 1</th>
+            <th>Strategia 2</th>
+          </tr>
+          <tr>
+            <td class="row-header" rowspan="2">Pelaaja 1</td>
+            <td class="row-header">Strategia 1</td>
+            <td><input type="number" id="nash-a1" value="3" style="width:45px">, <input type="number" id="nash-a2" value="3" style="width:45px"></td>
+            <td><input type="number" id="nash-b1" value="0" style="width:45px">, <input type="number" id="nash-b2" value="5" style="width:45px"></td>
+          </tr>
+          <tr>
+            <td class="row-header">Strategia 2</td>
+            <td><input type="number" id="nash-c1" value="5" style="width:45px">, <input type="number" id="nash-c2" value="0" style="width:45px"></td>
+            <td><input type="number" id="nash-d1" value="1" style="width:45px">, <input type="number" id="nash-d2" value="1" style="width:45px"></td>
+          </tr>
+        </table>
+        <div style="margin-top:1rem">
+          <button class="btn btn-primary" onclick="findNash()">Etsi Nash-tasapainot</button>
+        </div>
+        <div id="nash-result" style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:6px; min-height:60px">
+          Klikkaa "Etsi Nash-tasapainot" analysoidaksesi pelin.
+        </div>
+        <div style="margin-top:1rem">
+          <strong>Kokeile näitä esiasennuksia:</strong>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=3;document.getElementById('nash-a2').value=3;document.getElementById('nash-b1').value=0;document.getElementById('nash-b2').value=5;document.getElementById('nash-c1').value=5;document.getElementById('nash-c2').value=0;document.getElementById('nash-d1').value=1;document.getElementById('nash-d2').value=1;findNash()">Vangin dilemma</button>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=-1;document.getElementById('nash-a2').value=-1;document.getElementById('nash-b1').value=3;document.getElementById('nash-b2').value=1;document.getElementById('nash-c1').value=1;document.getElementById('nash-c2').value=3;document.getElementById('nash-d1').value=2;document.getElementById('nash-d2').value=2;findNash()">Haukka-kyyhky</button>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=4;document.getElementById('nash-a2').value=4;document.getElementById('nash-b1').value=0;document.getElementById('nash-b2').value=3;document.getElementById('nash-c1').value=3;document.getElementById('nash-c2').value=0;document.getElementById('nash-d1').value=2;document.getElementById('nash-d2').value=2;findNash()">Hirvijahti</button>
+          <button class="btn btn-outline" onclick="document.getElementById('nash-a1').value=1;document.getElementById('nash-a2').value=-1;document.getElementById('nash-b1').value=-1;document.getElementById('nash-b2').value=1;document.getElementById('nash-c1').value=-1;document.getElementById('nash-c2').value=1;document.getElementById('nash-d1').value=1;document.getElementById('nash-d2').value=-1;findNash()">Kolikonheitto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 11: Exercises -->
+  <!-- ============================================================ -->
+  <div class="section" id="exercises">
+    <h2>Harjoitukset</h2>
+
+    <!-- Harjoitus 1 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 1: Tuottomatriisien lukeminen</div>
+      <p>Tarkastellaan seuraavaa peliä:</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>L</th>
+          <th>R</th>
+        </tr>
+        <tr>
+          <td class="row-header">U</td>
+          <td>(2, 4)</td>
+          <td>(5, 1)</td>
+        </tr>
+        <tr>
+          <td class="row-header">D</td>
+          <td>(3, 3)</td>
+          <td>(4, 2)</td>
+        </tr>
+      </table>
+      <p>(a) Mikä on pelaajan 1 tuotto, jos P1 pelaa U ja P2 pelaa R?</p>
+      <p>(b) Mikä on pelaajan 2 paras vaste U:hun? Entä D:hen?</p>
+      <p>(c) Mikä on pelaajan 1 paras vaste L:ään? Entä R:ään?</p>
+      <p>(d) Etsi kaikki puhtaan strategian Nash-tasapainot.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>(a) Pelaajan 1 tuotto kohdassa (U, R) on 5.</p>
+          <p>(b) Jos P1 pelaa U: P2 saa L:stä 4, R:stä 1. Paras vaste: <strong>L</strong>. Jos P1 pelaa D: P2 saa L:stä 3, R:stä 2. Paras vaste: <strong>L</strong>.</p>
+          <p>(c) Jos P2 pelaa L: P1 saa U:sta 2, D:stä 3. Paras vaste: <strong>D</strong>. Jos P2 pelaa R: P1 saa U:sta 5, D:stä 4. Paras vaste: <strong>U</strong>.</p>
+          <p>(d) Tarkistetaan kukin solu. (U, L): P1:n PV L:ään on D (ei U) &mdash; ei NT. (U, R): P2:n PV U:hun on L (ei R) &mdash; ei NT. (D, L): P1:n PV L:ään on D (kyllä) ja P2:n PV D:hen on L (kyllä) &mdash; <strong>NT</strong>. (D, R): P1:n PV R:ään on U (ei D) &mdash; ei NT.</p>
+          <p>Yksikäsitteinen puhtaan strategian Nash-tasapaino on <strong>(D, L)</strong> tuotoilla (3, 3).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 2 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 2: Pelityyppien tunnistaminen</div>
+      <p>Tunnista kunkin seuraavan tuottomatriisin osalta, mitä klassista pelityyppiä se eniten muistuttaa (vangin dilemma, haukka-kyyhky, hirvijahti, sukupuolten taistelu vai kolikonheitto) ja perustele vastauksesi.</p>
+      <p>(a)</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th><th>C</th><th>D</th>
+        </tr>
+        <tr><td class="row-header">C</td><td>(5, 5)</td><td>(1, 4)</td></tr>
+        <tr><td class="row-header">D</td><td>(4, 1)</td><td>(3, 3)</td></tr>
+      </table>
+      <p>(b)</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th><th>C</th><th>D</th>
+        </tr>
+        <tr><td class="row-header">C</td><td>(4, 4)</td><td>(0, 6)</td></tr>
+        <tr><td class="row-header">D</td><td>(6, 0)</td><td>(1, 1)</td></tr>
+      </table>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Hirvijahti.</strong> Sekä (C, C) että (D, D) ovat Nash-tasapainoja. Tarkistus: jos P2 pelaa C, P1 suosii C:tä (5 &gt; 4); jos P2 pelaa D, P1 suosii D:tä (3 &gt; 1). Tuottodominoiva tasapaino (5,5) vaatii luottamusta; riskidominoiva (3,3) on turvallinen. Tämä on hirvijahdin tunnusmerkki.</p>
+          <p><strong>(b) Vangin dilemma.</strong> Tarkistamme \( T > R > P > S \): \( 6 > 4 > 1 > 0 \). D dominoi vahvasti C:tä molemmille pelaajille: C:tä vastaan D antaa 6 &gt; 4; D:tä vastaan D antaa 1 &gt; 0. Yksikäsitteinen NT on (D, D) tuotolla (1, 1), vaikka (C, C) = (4, 4) olisi parempi molemmille.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 3 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 3: Seka-Nash-tasapainojen löytäminen</div>
+      <p>Etsi sekastrategian Nash-tasapaino seuraavalle symmetriselle pelille:</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>A</th>
+          <th>B</th>
+        </tr>
+        <tr>
+          <td class="row-header">A</td>
+          <td>(2, 2)</td>
+          <td>(0, 3)</td>
+        </tr>
+        <tr>
+          <td class="row-header">B</td>
+          <td>(3, 0)</td>
+          <td>(1, 1)</td>
+        </tr>
+      </table>
+      <p>(a) Etsi ensin kaikki puhtaan strategian Nash-tasapainot.</p>
+      <p>(b) Etsi sitten seka-NT. Mikä on sekoitustodennäköisyys? Mikä on odotettu tuotto?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Puhtaat NT:t:</strong> Tarkistetaan kukin solu.</p>
+          <ul>
+            <li>(A, A): P1:n PV A:han on B (3 &gt; 2). Ei NT.</li>
+            <li>(A, B): P2:n PV A:han on B (3 &gt; 2). P1:n PV B:hen on B (1 &gt; 0). Ei NT (P1 poikkeaa).</li>
+            <li>(B, A): Symmetrinen edelliseen nähden. P2 poikkeaa. Ei NT.</li>
+            <li>(B, B): P1:n PV B:hen on B (1 &gt; 0). Kyllä. P2:n PV B:hen on B (1 &gt; 0). Kyllä. <strong>NT</strong>.</li>
+          </ul>
+          <p>Hetkinen &mdash; tarkistetaan (A,A) uudelleen. P1:n PV A:han: saa 2 (A) vs 3 (B), joten PV = B. Ei NT. Tarkemmin: tällä pelillä on \(T = 3 > R = 2 > P = 1 > S = 0\). Tämä on vangin dilemma! Vain (B, B) on puhdas NT.</p>
+
+          <p><strong>(b) Seka-NT:</strong> Koska B dominoi vahvasti A:ta (3 &gt; 2 ja 1 &gt; 0), ainoa NT on \( p = 0 \) (pelaa aina B). <strong>Sisäistä seka-NT:a ei ole</strong>, koska toinen strategia dominoi vahvasti toista. Harjoitus paljastaa tärkeän opetuksen: tarkista dominanssi ennen sekatasapainojen laskemista!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 4 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 4: Seka-NT:n laskeminen</div>
+      <p>Etsi sekastrategian Nash-tasapaino tälle sukupuolten taistelun pelille:</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Ooppera</th>
+          <th>Jalkapallo</th>
+        </tr>
+        <tr>
+          <td class="row-header">Ooppera</td>
+          <td>(3, 2)</td>
+          <td>(0, 0)</td>
+        </tr>
+        <tr>
+          <td class="row-header">Jalkapallo</td>
+          <td>(0, 0)</td>
+          <td>(2, 3)</td>
+        </tr>
+      </table>
+      <p>(a) Millä todennäköisyydellä \( q \) pelaajan 2 on pelattava oopperaa tehdäkseen pelaajan 1 indifferentiksi?</p>
+      <p>(b) Millä todennäköisyydellä \( p \) pelaajan 1 on pelattava oopperaa tehdäkseen pelaajan 2 indifferentiksi?</p>
+      <p>(c) Mikä on kunkin pelaajan odotettu tuotto seka-NT:ssä?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Pelaajan 1 tuotto oopperasta: \( 3q + 0(1-q) = 3q \). Pelaajan 1 tuotto jalkapallosta: \( 0 \cdot q + 2(1-q) = 2 - 2q \). Asetetaan yhtäsuuriksi: \( 3q = 2 - 2q \implies 5q = 2 \implies q^* = \frac{2}{5} \).</p>
+          <p><strong>(b)</strong> Pelaajan 2 tuotto oopperasta: \( 2p + 0(1-p) = 2p \). Pelaajan 2 tuotto jalkapallosta: \( 0 \cdot p + 3(1-p) = 3 - 3p \). Asetetaan yhtäsuuriksi: \( 2p = 3 - 3p \implies 5p = 3 \implies p^* = \frac{3}{5} \).</p>
+          <p><strong>(c)</strong> Pelaajan 1 odotettu tuotto: \( 3q^* = 3 \cdot \frac{2}{5} = \frac{6}{5} = 1.2 \). Pelaajan 2 odotettu tuotto: \( 2p^* = 2 \cdot \frac{3}{5} = \frac{6}{5} = 1.2 \).</p>
+          <p>Huomautus: seka-NT:n tuotto (1.2) on paljon huonompi kuin kummankaan puhtaan NT:n (tuotot 3,2 tai 2,3). Tämä on tyypillistä &mdash; seka-NT koordinaatiopeleissä on yleensä tehoton, koska epäkoordinaatiota tapahtuu positiivisella todennäköisyydellä. Tämä korostaa viestinnän ja normien (instituutioiden) arvoa koordinaatiolle.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 5 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 5: Julkishyödykepeli</div>
+      <p>
+        Tarkastellaan julkishyödykepeliä, jossa on \( N = 5 \) pelaajaa, alkuvarallisuus \( e = 20 \) ja
+        kerroin \( r = 3 \). Kukin pelaaja päättää, panostaako koko alkuvarallisuutensa vai ei mitään.
+      </p>
+      <p>(a) Mikä on tuotto, jos kaikki 5 panostavat? Entä jos kukaan ei panosta?</p>
+      <p>(b) Mikä on vapaamatkustajan tuotto, kun muut 4 panostavat?</p>
+      <p>(c) Mikä on Nash-tasapaino? Onko se sosiaalisesti optimaalinen?</p>
+      <p>(d) Kuvaa institutionaalinen mekanismi (Ostromin hengessä), joka voisi muuttaa lopputulosta.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> Kaikki panostavat: \( u = 20 - 20 + \frac{3 \cdot 100}{5} = 0 + 60 = 60 \). Kukaan ei panosta: \( u = 20 - 0 + 0 = 20 \).</p>
+          <p><strong>(b)</strong> Vapaamatkustaja (4 muuta panostavat): \( u = 20 - 0 + \frac{3 \cdot 80}{5} = 20 + 48 = 68 \). Vapaamatkustaja saa 68, enemmän kuin 60 yhteistyöstä. Tämä on kiusaus pettää.</p>
+          <p><strong>(c)</strong> Panostuksen rajatuotto on \( r/N = 3/5 = 0.6 < 1 \), joten kullakin pelaajalla on dominoiva strategia vapaamatkustaa. Nash-tasapaino: nollapanos, tuotto = 20 kullekin. Tämä ei ole sosiaalisesti optimaalista &mdash; täysi panostus antaa 60, kolme kertaa enemmän.</p>
+          <p><strong>(d)</strong> Ostromin innoittamia mekanismeja: (i) Valvonta &mdash; tehdään panoksista havaittavia, jotta ehdolliset yhteistyön tekijät voivat tunnistaa vapaamatkustajat. (ii) Asteittaiset sanktiot &mdash; asetetaan sakkoja panostamatta jättäville, alkaen pienistä ja kasvaen uusijoille. (iii) Kollektiiviset valintajärjestelyt &mdash; annetaan ryhmän yhdessä päättää panostussäännöistä, mikä lisää sitoutumista. Esimerkiksi, jos ryhmä asettaa sakon \( F > e(1 - r/N) = 20 \cdot 0.4 = 8 \) panostamatta jättäville, panostamisesta tulee dominoiva strategia.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 6 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 6: Parhaan vasteen funktiot</div>
+      <p>Haukka-kyyhky-pelille arvoilla \( V = 6, C = 10 \):</p>
+      <table class="payoff-matrix">
+        <tr>
+          <th></th>
+          <th>Haukka</th>
+          <th>Kyyhky</th>
+        </tr>
+        <tr>
+          <td class="row-header">Haukka</td>
+          <td>(&minus;2, &minus;2)</td>
+          <td>(6, 0)</td>
+        </tr>
+        <tr>
+          <td class="row-header">Kyyhky</td>
+          <td>(0, 6)</td>
+          <td>(3, 3)</td>
+        </tr>
+      </table>
+      <p>(a) Kirjoita pelaajan 1 odotetut tuotot haukasta ja kyyhkystä \( q \):n funktiona (P2:n todennäköisyys pelata haukkaa).</p>
+      <p>(b) Etsi kynnysarvo \( q \):lle, jossa pelaaja 1 on indifferentti.</p>
+      <p>(c) Kirjoita parhaan vasteen funktio \( BR_1(q) \).</p>
+      <p>(d) Etsi sekastrategian Nash-tasapaino.</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong></p>
+          <p>\( E_1(\text{Hawk}) = (-2)q + 6(1-q) = 6 - 8q \)</p>
+          <p>\( E_1(\text{Dove}) = 0 \cdot q + 3(1-q) = 3 - 3q \)</p>
+          <p><strong>(b)</strong> Asetetaan yhtä suuriksi: \( 6 - 8q = 3 - 3q \implies 3 = 5q \implies q^* = \frac{3}{5} \).</p>
+          <p><strong>(c)</strong></p>
+          <p>\( BR_1(q) = \begin{cases} \text{Haukka } (p=1) & \text{if } q < 3/5 \\ \text{mikä tahansa sekoitus} & \text{if } q = 3/5 \\ \text{Kyyhky } (p=0) & \text{if } q > 3/5 \end{cases} \)</p>
+          <p><strong>(d)</strong> Symmetrian nojalla \( p^* = q^* = \frac{3}{5} \). Kumpikin pelaa haukkaa todennäköisyydellä 3/5 ja kyyhkyä todennäköisyydellä 2/5. Tämä voidaan myös vahvistaa kaavalla: \( p^* = \frac{d - b}{a - b - c + d} = \frac{3 - 6}{(-2) - 6 - 0 + 3} = \frac{-3}{-5} = \frac{3}{5} \).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Harjoitus 7 -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 7: Toistettu vangin dilemma ja yhteistyö</div>
+      <p>
+        Toistetussa vangin dilemmassa tuotoilla \( T=5, R=3, P=1, S=0 \) ja
+        diskonttokertoimella \( \delta \):
+      </p>
+      <p>(a) Mikä on diskontattu tuotto ikuisesta molemminpuolisesta yhteistyöstä?</p>
+      <p>(b) Tarkastele pelaajaa, joka kohtaa armottoman laukaisijan. Poikkeaja saa \( T \) kierroksella 0, sitten \( P \) ikuisesti. Mikä on poikkeamisen diskontattu tuotto?</p>
+      <p>(c) Millä \( \delta \):n arvoilla yhteistyö on ylläpidettävissä armoton laukaisija -strategialla?</p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a)</strong> \( U_{coop} = \sum_{t=0}^{\infty} \delta^t \cdot 3 = \frac{3}{1 - \delta} \).</p>
+          <p><strong>(b)</strong> \( U_{deviate} = 5 + \sum_{t=1}^{\infty} \delta^t \cdot 1 = 5 + \frac{\delta}{1 - \delta} \).</p>
+          <p><strong>(c)</strong> Yhteistyö säilyy, kun \( U_{coop} \geq U_{deviate} \):</p>
+          <p>\( \frac{3}{1-\delta} \geq 5 + \frac{\delta}{1-\delta} \)</p>
+          <p>\( \frac{3 - \delta}{1-\delta} \geq 5 \)</p>
+          <p>\( 3 - \delta \geq 5(1-\delta) = 5 - 5\delta \)</p>
+          <p>\( 4\delta \geq 2 \implies \delta \geq \frac{1}{2} \)</p>
+          <p>Joten yhteistyö armottomalla laukaisijalla on ylläpidettävissä, kun \( \delta \geq \frac{1}{2} \). Pelaajien on arvostettava tulevaisuutta vähintään puolella nykyhetken arvosta. Yleisesti kynnysarvo on \( \delta \geq \frac{T-R}{T-P} = \frac{5-3}{5-1} = \frac{1}{2} \).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module5.html">&larr; Moduuli 5: Todennäköisyys</a>
+    <a href="module7.html">Moduuli 7: EGT ja replikaattori &rarr;</a>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Moduuli 6: Peliteorian perusteet &mdash; Pelaajat, strategiat, tuotot, Nash-tasapaino ja sosiaaliset dilemmat.
+  </p>
+</footer>
+
+<!-- Scripts -->
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+
+<script>
+// Flag to prevent shared visualizations.js from double-initializing
+window._customVizInit = true;
+
+// =============================================
+// Nash Equilibrium Finder
+// =============================================
+function findNash() {
+  // Read payoffs from inputs
+  const a1 = parseFloat(document.getElementById('nash-a1').value);
+  const a2 = parseFloat(document.getElementById('nash-a2').value);
+  const b1 = parseFloat(document.getElementById('nash-b1').value);
+  const b2 = parseFloat(document.getElementById('nash-b2').value);
+  const c1 = parseFloat(document.getElementById('nash-c1').value);
+  const c2 = parseFloat(document.getElementById('nash-c2').value);
+  const d1 = parseFloat(document.getElementById('nash-d1').value);
+  const d2 = parseFloat(document.getElementById('nash-d2').value);
+
+  let results = [];
+  let pureNE = [];
+
+  // --- Check Pure Strategy Nash Equilibria ---
+  // Cell (S1, S1): P1 payoff = a1, P2 payoff = a2
+  // P1 BR: compare a1 vs c1 (given P2 plays S1)
+  // P2 BR: compare a2 vs b2 (given P1 plays S1)
+  if (a1 >= c1 && a2 >= b2) {
+    pureNE.push({ row: 'Strategia 1', col: 'Strategia 1', p1: a1, p2: a2 });
+  }
+
+  // Cell (S1, S2): P1 payoff = b1, P2 payoff = b2
+  // P1 BR: compare b1 vs d1 (given P2 plays S2)
+  // P2 BR: compare b2 vs a2 (given P1 plays S1)
+  if (b1 >= d1 && b2 >= a2) {
+    pureNE.push({ row: 'Strategia 1', col: 'Strategia 2', p1: b1, p2: b2 });
+  }
+
+  // Cell (S2, S1): P1 payoff = c1, P2 payoff = c2
+  // P1 BR: compare c1 vs a1 (given P2 plays S1)
+  // P2 BR: compare c2 vs d2 (given P1 plays S2)
+  if (c1 >= a1 && c2 >= d2) {
+    pureNE.push({ row: 'Strategia 2', col: 'Strategia 1', p1: c1, p2: c2 });
+  }
+
+  // Cell (S2, S2): P1 payoff = d1, P2 payoff = d2
+  // P1 BR: compare d1 vs b1 (given P2 plays S2)
+  // P2 BR: compare d2 vs c2 (given P1 plays S2)
+  if (d1 >= b1 && d2 >= c2) {
+    pureNE.push({ row: 'Strategia 2', col: 'Strategia 2', p1: d1, p2: d2 });
+  }
+
+  if (pureNE.length > 0) {
+    results.push('<strong>Puhtaan strategian Nash-tasapainot:</strong>');
+    pureNE.forEach(ne => {
+      results.push('&bull; (' + ne.row + ', ' + ne.col + ') tuotoilla (' + ne.p1 + ', ' + ne.p2 + ')');
+    });
+  } else {
+    results.push('<strong>Ei puhtaan strategian Nash-tasapainoja.</strong>');
+  }
+
+  // --- Check Mixed Strategy Nash Equilibrium ---
+  // Player 2 must make Player 1 indifferent:
+  // P1 payoff from S1: a1*q + b1*(1-q) = b1 + (a1-b1)*q
+  // P1 payoff from S2: c1*q + d1*(1-q) = d1 + (c1-d1)*q
+  // Set equal: b1 + (a1-b1)*q = d1 + (c1-d1)*q
+  // (a1-b1-c1+d1)*q = d1-b1
+  // q = (d1-b1) / (a1-b1-c1+d1)
+
+  // Player 1 must make Player 2 indifferent:
+  // P2 payoff from S1: a2*p + c2*(1-p) = c2 + (a2-c2)*p
+  // P2 payoff from S2: b2*p + d2*(1-p) = d2 + (b2-d2)*p
+  // Set equal: c2 + (a2-c2)*p = d2 + (b2-d2)*p
+  // (a2-c2-b2+d2)*p = d2-c2
+  // p = (d2-c2) / (a2-c2-b2+d2)
+
+  const denomQ = a1 - b1 - c1 + d1;
+  const denomP = a2 - c2 - b2 + d2;
+
+  results.push('');
+
+  if (Math.abs(denomQ) > 1e-10 && Math.abs(denomP) > 1e-10) {
+    const q = (d1 - b1) / denomQ;
+    const p = (d2 - c2) / denomP;
+
+    if (p > 0 && p < 1 && q > 0 && q < 1) {
+      // Compute expected payoffs at mixed NE
+      const eu1 = p * q * a1 + p * (1 - q) * b1 + (1 - p) * q * c1 + (1 - p) * (1 - q) * d1;
+      const eu2 = p * q * a2 + p * (1 - q) * b2 + (1 - p) * q * c2 + (1 - p) * (1 - q) * d2;
+
+      results.push('<strong>Sekastrategian Nash-tasapaino:</strong>');
+      results.push('&bull; Pelaaja 1 pelaa strategiaa 1 todennäköisyydellä p = ' + frac(p) + ' &asymp; ' + p.toFixed(4));
+      results.push('&bull; Pelaaja 2 pelaa strategiaa 1 todennäköisyydellä q = ' + frac(q) + ' &asymp; ' + q.toFixed(4));
+      results.push('&bull; Odotetut tuotot: (' + eu1.toFixed(4) + ', ' + eu2.toFixed(4) + ')');
+    } else if ((p === 0 || p === 1) && (q === 0 || q === 1)) {
+      results.push('<strong>Sekastrategian NT:</strong> Reunaratkaisu yhtyy puhtaaseen NT:hen.');
+    } else {
+      results.push('<strong>Ei sisäistä sekastrategian Nash-tasapainoa</strong> (sekoitustodennäköisyydet ovat välin (0,1) ulkopuolella).');
+    }
+  } else {
+    results.push('<strong>Ei sisäistä sekastrategian Nash-tasapainoa</strong> (degeneroitunut tapaus: strategia on heikosti dominoitu tai tuotot ovat yhtä suuret).');
+  }
+
+  // Game classification
+  results.push('');
+  results.push('<strong>Pelin analyysi:</strong>');
+
+  // Check for dominant strategies
+  let p1dom = '';
+  if (a1 > c1 && b1 > d1) p1dom = 'Strategia 1 dominoi tiukasti strategiaa 2 pelaajalla 1.';
+  else if (c1 > a1 && d1 > b1) p1dom = 'Strategia 2 dominoi tiukasti strategiaa 1 pelaajalla 1.';
+  else p1dom = 'Pelaajalla 1 ei ole dominoivaa strategiaa.';
+
+  let p2dom = '';
+  if (a2 > b2 && c2 > d2) p2dom = 'Strategia 1 dominoi tiukasti strategiaa 2 pelaajalla 2.';
+  else if (b2 > a2 && d2 > c2) p2dom = 'Strategia 2 dominoi tiukasti strategiaa 1 pelaajalla 2.';
+  else p2dom = 'Pelaajalla 2 ei ole dominoivaa strategiaa.';
+
+  results.push('&bull; ' + p1dom);
+  results.push('&bull; ' + p2dom);
+
+  // Check if zero-sum
+  if (Math.abs(a1 + a2) < 1e-10 && Math.abs(b1 + b2) < 1e-10 &&
+      Math.abs(c1 + c2) < 1e-10 && Math.abs(d1 + d2) < 1e-10) {
+    results.push('&bull; Tämä on <strong>nollasummapeli</strong>.');
+  }
+
+  // Check if symmetric
+  if (Math.abs(a1 - a2) < 1e-10 && Math.abs(d1 - d2) < 1e-10 &&
+      Math.abs(b1 - c2) < 1e-10 && Math.abs(c1 - b2) < 1e-10) {
+    results.push('&bull; Tämä on <strong>symmetrinen peli</strong>.');
+  }
+
+  document.getElementById('nash-result').innerHTML = results.join('<br>');
+}
+
+// Helper: try to express a decimal as a simple fraction
+function frac(x) {
+  if (Math.abs(x - Math.round(x)) < 1e-10) return Math.round(x).toString();
+  // Try denominators up to 20
+  for (let d = 2; d <= 20; d++) {
+    const n = Math.round(x * d);
+    if (Math.abs(x - n / d) < 1e-10) {
+      return n + '/' + d;
+    }
+  }
+  return x.toFixed(4);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3414 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 9: Digitaaliset yhteisresurssit, tietoyhteisresurssit ja antikilpailevuus | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html">8. Sovellukset</a></li>
+      <li><a href="module9.html" class="active">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 9</div>
+    <h1>Digitaaliset yhteisresurssit, tietoyhteisresurssit ja antikilpailevuus</h1>
+    <p class="module-desc">
+      Uusi huippumoduuli. Laajennamme koko kurssin matemaattisen viitekehyksen digitaalisten
+      ja tietoyhteisresurssien alueelle &mdash; hyödykkeisiin, jotka uhmaamvat klassisen taloustieteen
+      oletuksia. Formalisoimme <strong>antikilpailevuuden</strong> käsitteen, jossa käyttö
+      <em>lisää</em> arvoa, ja osoitamme, miten se muuttaa perustavanlaatuisesti peliteoreettista
+      dynamiikkaa, replikaattoriyhtälöitä ja institutionaalista suunnittelua.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module8.html">&larr; Moduuli 8: Sovellukset</a>
+    <a href="module10.html">Moduuli 10: Edistynyt antikilpailevuus &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Sisällysluettelo</h3>
+    <ol>
+      <li><a href="#rivalrous">Kilpailevista ei-kilpaileviin hyödykkeisiin</a></li>
+      <li><a href="#digital-commons-game">Digitaaliset yhteisresurssit pelinä</a></li>
+      <li><a href="#evo-dynamics">Kontribuution evoluutiodynamiikka</a></li>
+      <li><a href="#network-effects">Verkostovaikutukset ja kasvavat tuotot</a></li>
+      <li><a href="#anti-rivalry">Antikilpailevuus &mdash; radikaali käsite</a>
+        <ol>
+          <li><a href="#ar-what">Mitä on antikilpailevuus?</a></li>
+          <li><a href="#ar-formal">Matemaattinen formalisointi</a></li>
+          <li><a href="#ar-game-theory">Antikilpailevuus peliteoriassa</a></li>
+          <li><a href="#ar-replicator">Replikaattoridynamiikka antikilpailevuudella</a></li>
+          <li><a href="#ar-examples">Esimerkkejä käytännössä</a></li>
+          <li><a href="#ar-spectrum">Antikilpailevuuden spektri</a></li>
+        </ol>
+      </li>
+      <li><a href="#institutional-design">Digitaalisten yhteisresurssien institutionaalinen suunnittelu</a></li>
+      <li><a href="#synthesis">Synteesi &mdash; digitaaliset yhteisresurssit EGT:n näkökulmasta</a></li>
+      <li><a href="#exercises">Harjoitukset</a></li>
+      <li><a href="#reading">Suositeltava kirjallisuus</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: From Rivalrous to Non-Rivalrous Goods -->
+  <!-- ================================================================== -->
+  <div class="section" id="rivalrous">
+    <h2>1. Kilpailevista ei-kilpaileviin hyödykkeisiin</h2>
+
+    <p>
+      Tämän kurssin aikana olemme tutkineet pelejä, joissa agentit kilpailevat niukoista resursseista.
+      Moduulissa 6 analysoimme vangin dilemmaa ja julkishyödykeongelmia.
+      Moduulissa 8 tutkimme yhteisvarantoresursseja (CPR) ja Ostromin institutionaalisen suunnittelun
+      periaatteita niiden hallitsemiseksi. Kaikki nämä mallit perustuivat keskeiseen taloudelliseen
+      oletukseen: <strong>kilpailevuuteen kulutuksessa</strong>. Tässä moduulissa haastamme tämän
+      oletuksen ja tutkimme, mitä tapahtuu, kun hyödykkeet ovat ei-kilpailevia &mdash; tai jopa
+      <em>antikilpailevia</em>.
+    </p>
+
+    <h3>1.1 Hyödykkeiden klassinen luokittelu</h3>
+
+    <p>
+      Taloustieteilijät luokittelevat hyödykkeet kahden riippumattoman ulottuvuuden mukaan:
+    </p>
+
+    <ul>
+      <li><strong>Kilpailevuus:</strong> Vähentääkö yhden henkilön kulutus muiden saatavilla olevaa määrää?</li>
+      <li><strong>Poissulkevuus:</strong> Voidaanko ei-maksajat estää pääsemästä hyödykkeeseen?</li>
+    </ul>
+
+    <p>
+      Nämä kaksi binääristä erottelua tuottavat klassisen 2&times;2-matriisin hyödyketyypeistä:
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Hyödykkeiden 2&times;2-luokittelu</span>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; text-align:center;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Poissulkeva</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Ei-poissulkeva</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Kilpaileva</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Yksityishyödykkeet</strong><br>(ruoka, vaatteet, polttoaine)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Yhteisvarantoresurssit</strong><br>(kalastusalueet, metsät, pohjavesi)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Ei-kilpaileva</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Klubihyödykkeet</strong><br>(kaapeli-TV, maksulliset tiet, patentoidut lääkkeet)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Julkishyödykkeet</strong><br>(maanpuolustus, katuvalaistus, tieto)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 8</span>
+      <p>
+        Moduulissa 8 tutkimme yhteisvarantoresursseja (CPR) &mdash; oikean yläkulman solua. Ostromin
+        suunnitteluperiaatteet käsittelivät kilpailevien, ei-poissulkevien hyödykkeiden hallinnan
+        haastetta. Matematiikka oletti, että kokonaislouhinta täyttää ehdon \(\sum_{i=1}^n c_i \leq R\),
+        missä \(R\) on rajallinen resurssivaranto. Koko tämä moduuli kysyy: mitä tapahtuu, kun
+        poistamme tai käännämme tuon rajoitteen?
+      </p>
+    </div>
+
+    <h3>1.2 Kilpailevuuden matemaattinen formalisointi</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Kilpaileva hyödyke</span>
+      <p>
+        Hyödyke on <strong>kilpaileva</strong>, jos sillä on rajallinen varanto \(R > 0\) ja
+        \(n\) agentin kulutusmäärien \(c_1, c_2, \ldots, c_n\) on täytettävä <strong>resurssiehto</strong>:
+      </p>
+      \[
+        \sum_{i=1}^{n} c_i \leq R.
+      \]
+      <p>
+        Agentin \(i\) saatavilla oleva määrä kaikkien muiden kulutettua on enintään
+        \(R - \sum_{j \neq i} c_j\). Jokainen yhden agentin kuluttama yksikkö on yksikkö, joka ei ole muiden saatavilla.
+      </p>
+    </div>
+
+    <p>
+      Kilpailevuuden vallitessa agentin \(i\) hyöty kulutuksesta on:
+    </p>
+
+    \[
+      u_i = v(c_i) \quad \text{subject to} \quad c_i \leq R - \sum_{j \neq i} c_j,
+    \]
+
+    <p>
+      missä \(v(\cdot)\) on kasvava, konkaavi arvofunktio (esim. \(v(c) = c^\alpha\) kun \(0 < \alpha < 1\),
+      kuten moduulissa 3). Olennainen piirre on, että kunkin agentin <em>mahdollinen joukko</em> kutistuu,
+      kun muut kuluttavat enemmän. Tämä luo strategisen jännitteen CPR-ongelmien ytimeen.
+    </p>
+
+    <h3>1.3 Ei-kilpailevat hyödykkeet: rajoitteen poistaminen</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Ei-kilpaileva hyödyke</span>
+      <p>
+        Hyödyke on <strong>ei-kilpaileva</strong>, jos yhden agentin kulutus ei vähennä
+        minkään muun agentin saatavilla olevaa määrää. Formaalisti jokainen agentti voi kuluttaa koko hyödykkeen:
+      </p>
+      \[
+        c_i = R \quad \text{for all } i \in \{1, 2, \ldots, n\},
+      \]
+      <p>
+        riippumatta muiden agenttien toiminnasta. Agenttien kulutusta yhdistävää resurssirajoitetta ei ole.
+      </p>
+    </div>
+
+    <p>
+      Ei-kilpailevien hyödykkeiden kanonisia esimerkkejä ovat <strong>informaatiohyödykkeet</strong>:
+    </p>
+
+    <ul>
+      <li>Matemaattinen lause: se, että minä tiedän Pythagoraan lauseen, ei estä sinua tietämästä sitä.</li>
+      <li>Ohjelmisto: ohjelman kopioiminen ei heikennä alkuperäistä.</li>
+      <li>Musiikkitallenne (digitalisoituna): tiedosto voidaan kopioida lähes nollamarginaalikustannuksin.</li>
+      <li>Tieteellinen artikkeli: sen lukeminen ei kuluta sitä.</li>
+    </ul>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Miksi ei-kilpailevuus muuttaa kaiken</span>
+      <p>
+        Moduulin 8 CPR-malleissa perustavanlaatuinen ongelma oli <em>ylikäyttö</em>: jokaisella agentilla
+        oli kannustin louhia sosiaalisesti optimaalista määrää enemmän, koska he saivat kaiken hyödyn
+        louhinnastaan mutta jakoivat kustannuksen (resurssin ehtymisen) kaikkien kanssa.
+        Yhteismaan tragedia syntyy kilpailevuuden negatiivisesta ulkoisvaikutuksesta.
+      </p>
+      <p>
+        Ei-kilpailevilla hyödykkeillä ylikäyttöongelmaa ei ole &mdash; ideaa ei kirjaimellisesti voi
+        &ldquo;ylikäyttää&rdquo;. Sen sijaan ongelma siirtyy <strong>alitarjontaan</strong>:
+        kuka kantaa hyödykkeen <em>luomisen</em> kustannuksen, kun tietää, että luomisen jälkeen
+        kaikki voivat käyttää sitä ilmaiseksi?
+      </p>
+    </div>
+
+    <h3>1.4 Peliteoreettiset seuraukset</h3>
+
+    <p>
+      Vertaillaan tuottorakenteita. Kilpailevassa CPR-pelissä, jossa \(n\) agenttia louhii
+      yhteisvarannosta, jonka koko on \(R\), agentin \(i\) tuotto louhintatason \(e_i\) valinnalla on
+      (muistathan moduulin 8):
+    </p>
+
+    \[
+      \pi_i^{\text{CPR}} = p \cdot e_i \cdot \frac{R - \sum_{j=1}^n e_j}{R} - w \cdot e_i,
+    \]
+
+    <p>
+      missä \(p\) on hinta saalisyksikköä kohti ja \(w\) on kustannus panosyksikköä kohti.
+      Avainlauseke on \(\frac{R - \sum_j e_j}{R}\): kaikkien agenttien yhteispanostus heikentää
+      resurssia ja vähentää kaikkien tuottoa. Tämä luo negatiivisen ulkoisvaikutuksen &mdash;
+      muiden louhinta vahingoittaa sinua.
+    </p>
+
+    <p>
+      Ei-kilpailevan julkishyödykkeen tuottorakenne on perustavanlaatuisesti erilainen.
+      Agentti \(i\), joka valitsee kontribuutiotason \(e_i\), saa:
+    </p>
+
+    \[
+      \pi_i^{\text{PG}} = b \cdot f\!\left(\sum_{j=1}^n e_j\right) - c \cdot e_i,
+    \]
+
+    <p>
+      missä \(b\) on julkishyödykkeen rajahyöty, \(f(\cdot)\) on tuotantofunktio ja \(c\) on
+      kontribuution rajakustannus. Huomaa: mikään termi ei heikkene kokonaiskäytön myötä.
+      Kaikki hyötyvät kokonaiskontribuutioista \(\sum_j e_j\). Ongelma ei ole ylikäyttö vaan
+      vapaamatkustaminen: jokainen agentti haluaa nauttia arvosta \(b \cdot f(\sum_j e_j)\)
+      minimoiden samalla oman kustannuksensa \(c \cdot e_i\).
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 6</span>
+      <p>
+        Julkishyödykepeli on yleistetty \(n\)-pelaajan vangin dilemma. Kuten osoitimme
+        moduulissa 6, dominoiva strategia on olla kontribuoimatta (\(e_i = 0\)), vaikka
+        kaikkien positiivinen kontribuutio parantaisi kaikkien pelaajien tilannetta. Nash-tasapaino
+        on Pareto-dominoitu suhteessa sosiaaliseen optimiin. Tämä on klassinen
+        julkishyödykkeiden alitarjontaongelma.
+      </p>
+    </div>
+
+    <p>
+      Kysymys, joka ohjaa koko tätä moduulia, on: <em>kun digitaaliset hyödykkeet ovat
+      ei-kilpailevia, miksi avoin lähdekoodi, Wikipedia ja muut digitaaliset yhteisresurssit ovat
+      niin menestyksellisiä?</em> Standarditeoria ennustaa alitarjontaa. Todellisuus osoittaa runsautta.
+      Tämän pulman ratkaiseminen vaatii uusia matemaattisia työkaluja &mdash; ja antikilpailevuuden
+      käsitteen.
+    </p>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: The Digital Commons as a Game -->
+  <!-- ================================================================== -->
+  <div class="section" id="digital-commons-game">
+    <h2>2. Digitaaliset yhteisresurssit pelinä</h2>
+
+    <p>
+      <strong>Digitaalinen yhteisresurssi</strong> on jaettu informaatio- tai ohjelmistoresurssi, jonka
+      yhteisö luo, ylläpitää ja hallitsee kollektiivisesti. Keskeisiä esimerkkejä ovat:
+    </p>
+
+    <ul>
+      <li><strong>Avoin lähdekoodi:</strong> Linux, Python, Apache, Firefox, TensorFlow.</li>
+      <li><strong>Kollaboratiivinen tieto:</strong> Wikipedia, OpenStreetMap, Stack Overflow.</li>
+      <li><strong>Creative Commons -sisältö:</strong> avoimet oppikirjat, avoimet tiedelehdet, public domain -teokset.</li>
+      <li><strong>Avoin data:</strong> julkishallinnon tietoaineistot, tieteelliset tietokannat, genomitietokannat.</li>
+      <li><strong>Avoimet oppimateriaalit:</strong> MIT OpenCourseWare, Khan Academy -materiaalit, tämä kurssi.</li>
+    </ul>
+
+    <p>
+      Näitä yhdistää se, että ne ovat <em>ei-kilpailevia</em> (kopiointi on käytännössä ilmaista),
+      <em>suunnitellusti ei-poissulkevia</em> (avoimet lisenssit takaavat pääsyn) ja
+      <em>kollektiivisesti tuotettuja</em> (monia kontribuuttoreita, usein vapaaehtoisia).
+    </p>
+
+    <h3>2.1 Kontribuutiopeli</h3>
+
+    <p>
+      Tarkastellaan \(n\) agentin yhteisöä, joka voi kontribuoida digitaaliseen yhteisresurssiin.
+      Jokainen agentti \(i\) valitsee panostason \(e_i \geq 0\). Yhteisresurssin kokonaislaatu
+      määräytyy kokonaispanostukseen sovelletulla tuotantofunktiolla:
+    </p>
+
+    \[
+      Q = f\!\left(\sum_{j=1}^{n} e_j\right),
+    \]
+
+    <p>
+      missä \(f\) on kasvava ja tyypillisesti konkaavi (vähenevät rajattuotot lisäkontribuutioille).
+      Luonnollinen valinta on \(f(E) = E^\alpha\) kun \(0 < \alpha \leq 1\), missä \(E = \sum_j e_j\)
+      on kokonaispanostus.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Digitaalisten yhteisresurssien kontribuutiopeli</span>
+      <p>
+        <strong>Digitaalisten yhteisresurssien kontribuutiopeli</strong> on \(n\)-pelaajan samanaikainen peli, jossa:
+      </p>
+      <ul>
+        <li><strong>Pelaajat:</strong> \(N = \{1, 2, \ldots, n\}\)</li>
+        <li><strong>Strategiat:</strong> Jokainen pelaaja valitsee panostuksen \(e_i \in [0, \bar{e}]\)</li>
+        <li><strong>Tuotot:</strong>
+          \[
+            \pi_i = b \cdot f\!\left(\sum_{j=1}^{n} e_j\right) - c(e_i)
+          \]
+          missä \(b > 0\) on hyötyparametri, \(f\) on tuotantofunktio ja \(c(e_i)\)
+          on panostuksen \(e_i\) kontribuoimisen kustannus.
+        </li>
+      </ul>
+      <p>
+        Olennainen piirre: hyötylauseke \(b \cdot f(\sum_j e_j)\) on <em>sama jokaiselle
+        pelaajalle</em> riippumatta heidän yksilöllisestä kontribuutiostaan. Tämä johtuu siitä, että
+        hyödyke on ei-kilpaileva &mdash; jokainen saa yhteisresurssin täyden hyödyn.
+      </p>
+    </div>
+
+    <h3>2.2 Digitaalisen yhteisresurssipelin keskeiset ominaisuudet</h3>
+
+    <p>
+      Digitaalisten yhteisresurssien kontribuutiopeli eroaa klassisista julkishyödykepeleistä
+      useilla tärkeillä tavoilla:
+    </p>
+
+    <p>
+      <strong>Kontribuutioiden pysyvyys.</strong> Kertapelillisissä julkishyödykekokeissa kontribuutiot
+      kulutetaan. Digitaalisissa yhteisresursseissa kontribuutiot <em>kumuloituvat</em>. Tietovarastoon
+      lähetetty koodi pysyy siellä. Kerran kirjoitettu Wikipedia-artikkeli säilyy. Matemaattisesti
+      pelin toistetussa versiossa laatu hetkellä \(t\) on:
+    </p>
+
+    \[
+      Q_t = f\!\left(\sum_{\tau=1}^{t} \sum_{j=1}^{n} e_j^{(\tau)}\right) = f(E_t),
+    \]
+
+    <p>
+      missä \(E_t\) on kumulatiivinen kokonaispanostus hetkeen \(t\) asti. Tämä on päinvastoin kuin CPR:ssä,
+      jossa varanto \(R_t\) <em>pienenee</em> louhinnasta: \(R_t = R_0 - \sum_{\tau=1}^{t} \sum_j c_j^{(\tau)}\).
+    </p>
+
+    <p>
+      <strong>Heterogeeniset kontribuutiot.</strong> Kaikki kontribuutiot eivät ole samanarvoisia.
+      Ydinkehittäjä saattaa kontribuoida kriittisen ominaisuuden; satunnainen käyttäjä voi korjata
+      kirjoitusvirheen. Voimme mallintaa tätä tekemällä tuotantofunktiosta herkän kontribuution laadulle:
+      \(Q = f(\sum_j \omega_j e_j)\), missä \(\omega_j\) on agentin \(j\) osaamis- tai laatupaino.
+    </p>
+
+    <p>
+      <strong>Modulaarinen rakenne.</strong> Suuret digitaaliset yhteisresurssiprojektit pilkkovat työn
+      pieniin, riippumattomiin moduuleihin. Tämä vähentää dramaattisesti yksittäisen kontribuution
+      kustannusta. Yhden funktion kirjoittaminen Linuxiin on paljon halvempaa kuin koko käyttöjärjestelmän
+      rakentaminen. Matemaattisesti modulaarisuus tarkoittaa, että \(c(e_i)\) voi olla hyvin pieni
+      kunkin kontribuution osalta.
+    </p>
+
+    <h3>2.3 Nash-tasapainoanalyysi</h3>
+
+    <p>
+      Analysoidaan kontribuutiopelin Nash-tasapaino lineaarisilla kustannuksilla: \(c(e_i) = c \cdot e_i\)
+      ja konkaavilla tuotannolla: \(f(E) = E^\alpha\) kun \(0 < \alpha < 1\).
+    </p>
+
+    <p>
+      Agentti \(i\) maksimoi:
+    </p>
+
+    \[
+      \pi_i = b \cdot \left(\sum_{j=1}^{n} e_j\right)^\alpha - c \cdot e_i.
+    \]
+
+    <p>
+      Ensimmäisen kertaluvun ehto (moduuli 3):
+    </p>
+
+    \[
+      \frac{\partial \pi_i}{\partial e_i} = b \cdot \alpha \cdot \left(\sum_{j=1}^{n} e_j\right)^{\alpha - 1} - c = 0.
+    \]
+
+    <p>
+      Symmetrisessä Nash-tasapainossa \(e_i = e^*\) kaikille \(i\), joten \(\sum_j e_j = n \cdot e^*\). Sijoittamalla:
+    </p>
+
+    \[
+      b \cdot \alpha \cdot (n \cdot e^*)^{\alpha - 1} = c
+      \quad \Longrightarrow \quad
+      e^* = \frac{1}{n} \left(\frac{b \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+    \]
+
+    <p>
+      Kokonaistasapainopanostus on:
+    </p>
+
+    \[
+      E^{\text{NE}} = n \cdot e^* = \left(\frac{b \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Alitarjonta digitaalisissa yhteisresursseissa</span>
+      <p>
+        Sosiaalisesti optimaalinen kokonaispanostus \(E^{\text{SO}}\) täyttää:
+      </p>
+      \[
+        E^{\text{SO}} = \left(\frac{n \cdot b \cdot \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+      \]
+      <p>
+        Niinpä:
+      </p>
+      \[
+        \frac{E^{\text{NE}}}{E^{\text{SO}}} = \frac{1}{n^{1/(1-\alpha)}} < 1 \quad \text{for } n \geq 2.
+      \]
+      <p>
+        Nash-tasapainon kokonaispanostus on tiukasti pienempi kuin sosiaalinen optimi kertoimella,
+        joka <em>pienenee</em> ryhmän kasvaessa. Suuremmat yhteisöt alitarjoavat suhteessa optimiin
+        <em>enemmän</em>.
+      </p>
+    </div>
+
+    <details>
+      <summary>Todistus</summary>
+      <div class="proof-content">
+        <p>
+          Sosiaalinen suunnittelija maksimoi kokonaishyvinvoinnin \(W = n \cdot b \cdot E^\alpha - c \cdot E\)
+          (koska kustannukset kantavat kokonaispanostuksen \(E\) kontribuoivat agentit, ja jokainen
+          \(n\) agentista hyötyy yhteisresurssista). Ensimmäisen kertaluvun ehto on:
+        </p>
+        \[
+          \frac{dW}{dE} = n \cdot b \cdot \alpha \cdot E^{\alpha - 1} - c = 0
+          \quad \Longrightarrow \quad
+          E^{\text{SO}} = \left(\frac{n \cdot b \cdot \alpha}{c}\right)^{\frac{1}{1-\alpha}}.
+        \]
+        <p>
+          Vertaamalla arvoon \(E^{\text{NE}} = (b\alpha/c)^{1/(1-\alpha)}\):
+        </p>
+        \[
+          \frac{E^{\text{NE}}}{E^{\text{SO}}} = \left(\frac{b\alpha/c}{n \cdot b\alpha/c}\right)^{\frac{1}{1-\alpha}} = \left(\frac{1}{n}\right)^{\frac{1}{1-\alpha}} = n^{-\frac{1}{1-\alpha}}.
+        \]
+        <p>
+          Kun \(n \geq 2\) ja \(0 < \alpha < 1\), tämä suhde on tiukasti pienempi kuin 1, ja se
+          pienenee \(n\):n kasvaessa. &#9632;
+        </p>
+      </div>
+    </details>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Vapaamatkustajaongelma digitaalisissa yhteisresursseissa</span>
+      <p>
+        Jokainen yksilö saa vain \(\frac{1}{n}\) kontribuutionsa sosiaalisesta hyödystä
+        (he saavat hyödyn \(b\), mutta kokonaishyöty on \(n \cdot b\), koska kaikki \(n\)
+        agenttia hyötyvät ei-kilpailevasta hyödykkeestä). Joten jokaisen yksilön yksityinen
+        kannustin kontribuoida on vain \(\frac{1}{n}\) sosiaalisesta kannustimesta. Tämä kuilu
+        yksityisten ja sosiaalisten kannustimien välillä kasvaa ryhmän koon myötä &mdash; mistä
+        paheneva alitarjonta johtuu.
+      </p>
+      <p>
+        Silti Wikipediassa on yli 60 miljoonaa artikkelia yli 300 kielellä, ja Linux pyörii
+        käytännössä jokaisella internetin palvelimella. Jokin perusmalliin kuulumaton tekijä
+        täytyy olla vaikuttamassa. Sitä tutkimme seuraavaksi.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Pieni avoimen lähdekoodin projekti</span>
+      <p>
+        Tarkastellaan \(n = 20\) potentiaalista kontribuuttoria, joilla \(b = 10\), \(c = 2\) ja \(\alpha = 0.5\).
+      </p>
+      <p>
+        Nash-tasapainon kokonaispanostus on:
+        \[
+          E^{\text{NE}} = \left(\frac{10 \cdot 0.5}{2}\right)^{\frac{1}{0.5}} = (2.5)^2 = 6.25.
+        \]
+      </p>
+      <p>
+        Sosiaalisesti optimaalinen kokonaispanostus on:
+        \[
+          E^{\text{SO}} = \left(\frac{20 \cdot 10 \cdot 0.5}{2}\right)^{2} = (50)^2 = 2500.
+        \]
+      </p>
+      <p>
+        Suhde on \(6.25 / 2500 = 0.0025\). Nash-tasapaino tuottaa vain 0,25 % sosiaalisesti
+        optimaalisesta panostuksesta. Alitarjontaongelma on vakava.
+      </p>
+      <p>
+        Nash-tasapainon laatu on \(Q^{\text{NE}} = 6.25^{0.5} = 2.5\), kun taas sosiaalisesti
+        optimaalinen laatu on \(Q^{\text{SO}} = 2500^{0.5} = 50\). Yhteisresurssi olisi
+        20 kertaa parempi sosiaalisessa optimissa.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: Evolutionary Dynamics of Contribution -->
+  <!-- ================================================================== -->
+  <div class="section" id="evo-dynamics">
+    <h2>3. Kontribuution evoluutiodynamiikka</h2>
+
+    <p>
+      Yllä oleva Nash-tasapainoanalyysi käsittelee agentteja täysin rationaalisina optimoijina, jotka
+      pelaavat kerran. Mutta todelliset digitaaliset yhteisresurssit koostuvat suurista populaatioista,
+      jotka ovat vuorovaikutuksessa toistuvasti ajan kuluessa, ja strategiat leviävät imitaation ja
+      sosiaalisen oppimisen kautta. Tämä on juuri se ympäristö, jossa evoluutiopeliteoria
+      (moduuli 7) soveltuu.
+    </p>
+
+    <h3>3.1 Kontribuuttorit vs. vapaamatkustajat: binäärinen malli</h3>
+
+    <p>
+      Yksinkertaistamme jatkuvan panostuksen mallin binääriseksi valinnaksi. Jokainen agentti on joko
+      <strong>kontribuuttori</strong> (C), joka panostaa \(e > 0\) kustannuksella \(c\), tai
+      <strong>vapaamatkustaja</strong> (F), joka ei panosta eikä maksa. Olkoon \(x\) kontribuuttorien
+      osuus populaatiossa.
+    </p>
+
+    <p>
+      Populaatiossa, jonka koko on \(n\), kontribuuttorien määrä on likimäärin \(k = xn\).
+      Yhteisresurssin laatu on \(Q = f(k \cdot e) = f(xne)\). Koska hyödyke on ei-kilpaileva,
+      kaikki agentit nauttivat saman hyödyn \(b \cdot Q\). Tuotot ovat:
+    </p>
+
+    \[
+      \pi_C = b \cdot f(x n e) - c, \qquad \pi_F = b \cdot f(x n e).
+    \]
+
+    <p>
+      Kelpoisuusero on:
+    </p>
+
+    \[
+      \pi_C - \pi_F = -c < 0.
+    \]
+
+    <div class="warning-box">
+      <span class="box-title">Varoitus &mdash; Vapaamatkustamisen dominanssi</span>
+      <p>
+        Perusmallissa vapaamatkustaminen on <strong>tiukasti dominoiva strategia</strong>.
+        Kontribuuttorien tuotto on aina täsmälleen \(c\) pienempi kuin vapaamatkustajien tuotto
+        riippumatta populaation koostumuksesta \(x\). Replikaattoridynamiikka (moduuli 7) antaa:
+      </p>
+      \[
+        \dot{x} = x(1-x)(\pi_C - \pi_F) = x(1-x)(-c) = -cx(1-x) < 0 \quad \text{for } x \in (0,1).
+      \]
+      <p>
+        Kontribuuttorien osuus pienenee monotonisesti nollaan. Vapaamatkustajat voittavat aina.
+        Tämä on alitarjontatuloksen evoluutioanalogia.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 7</span>
+      <p>
+        Muistathan moduulista 7, että kun yksi strategia tiukasti dominoi toista, dominoitu
+        strategia kuolee sukupuuttoon replikaattoridynamiikassa. Reuna \(x = 0\) (kaikki vapaamatkustajia)
+        on globaalisti asymptoottisesti stabiili tasapaino, kun taas \(x = 1\) (kaikki kontribuuttoreita) on
+        epästabiili. Tämä on analoginen vangin dilemman dynamiikan kanssa.
+      </p>
+    </div>
+
+    <p>
+      Silti avoin lähdekoodi kukoistaa. Wikipedia kasvaa. Jokin puuttuu mallistamme.
+      Esitelkäämme nyt mekanismit, jotka ylläpitävät kontribuutiota käytännössä.
+    </p>
+
+    <h3>3.2 Mekanismi 1: Maine ja signalointi</h3>
+
+    <p>
+      Avoimen lähdekoodin projektien ja Wikipedian kontribuuttorit saavat näkyvän, todennettavan
+      maineen. GitHub-profiilit näyttävät kontribuutiohistorian. Wikipedian käyttäjäsivut dokumentoivat
+      muokkaushistorian. Tällä maineella on konkreettista arvoa &mdash; se voi johtaa työtarjouksiin,
+      konsultointimahdollisuuksiin ja sosiaaliseen statukseen yhteisön sisällä.
+    </p>
+
+    <p>
+      Mallinnammme mainetta lisätuottona \(r > 0\), jonka kontribuuttorit saavat:
+    </p>
+
+    \[
+      \pi_C = b \cdot f(xne) - c + r, \qquad \pi_F = b \cdot f(xne).
+    \]
+
+    <p>
+      Kelpoisuuseroksi tulee:
+    </p>
+
+    \[
+      \pi_C - \pi_F = r - c.
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Propositio &mdash; Maine ylläpitää kontribuutiota</span>
+      <p>
+        Jos mainehyöty ylittää kontribuoimisen kustannuksen (\(r > c\)), kontribuoimisesta
+        tulee dominoiva strategia. Replikaattoridynamiikaksi tulee:
+      </p>
+      \[
+        \dot{x} = x(1-x)(r - c) > 0 \quad \text{for } x \in (0,1),
+      \]
+      <p>
+        ja populaatio konvergoituu arvoon \(x = 1\) (kaikki kontribuuttoreita). Kynnysarvo
+        \(r^* = c\) on kriittinen mainetaso kontribuution ylläpitämiseksi.
+      </p>
+    </div>
+
+    <p>
+      Tämä tulos antaa kuitenkin vain kaksi mahdollisuutta: kaikki kontribuoivat tai kaikki
+      vapaamatkustavat. Emme voi selittää yleisesti havaittua kontribuuttorien ja vapaamatkustajien
+      rinnakkaiseloa. Rikkaampaan dynamiikkaan tarvitsemme maineen riippuvan yhteisresurssin tilasta.
+    </p>
+
+    <h3>3.3 Mekanismi 2: Sisäinen motivaatio (warm glow)</h3>
+
+    <p>
+      Monet digitaalisten yhteisresurssien kontribuuttorit kertovat kontribuoivansa, koska he
+      <em>nauttivat</em> työstä, tuntevat tyytyväisyyttä muiden auttamisesta tai saavat mielihyvää
+      ongelmien ratkaisemisesta. Taloustieteilijät kutsuvat tätä &ldquo;warm glow&rdquo; -hyödyksi.
+      Mallinnammne sen panostukseen verrannollisena terminä:
+    </p>
+
+    \[
+      U_i = \pi_i + w \cdot e_i,
+    \]
+
+    <p>
+      missä \(w > 0\) on warm glow -parametri. Kontribuuttoreille, joilla \(e_i = e\):
+    </p>
+
+    \[
+      U_C = b \cdot f(xne) - c + w \cdot e = b \cdot f(xne) - (c - we).
+    \]
+
+    <p>
+      Tämä käytännössä pienentää kustannuksen arvosta \(c\) arvoon \(c - we\). Jos \(we > c\),
+      kontribuoiminen on dominoivaa ilman mainettakin. Warm glow -malli voi selittää kontribuutiota,
+      mutta kuten vakiomainekin, se ei yksinään tuota frekvenssiriippuvaista dynamiikkaa.
+    </p>
+
+    <h3>3.4 Mekanismi 3: Verkostovaikutukset ja komplementaarisuudet</h3>
+
+    <p>
+      Monissa digitaalisissa yhteisresursseissa kontribuutiosi tulee <em>arvokkaammaksi</em>, kun muutkin
+      kontribuoivat. Kirjoittamasi Python-kirjasto tulee hyödyllisemmäksi, kun tuhansia muita
+      Python-kirjastoja täydentää sitä. Wikipedia-artikkelisi on arvokkaampi ensyklopediassa,
+      jossa on miljoonia muita artikkeleita ristiviittauksia varten. Tämä on
+      <strong>strategisen komplementaarisuuden</strong> piirre.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Supermodulaarinen peli (strategiset komplementit)</span>
+      <p>
+        Pelissä on <strong>strategisia komplementaarisuuksia</strong> (se on <strong>supermodulaarinen</strong>),
+        jos jokaisen pelaajan rajahyöty oman toimintansa lisäämisestä on kasvava muiden pelaajien
+        toimintojen suhteen. Formaalisti:
+      </p>
+      \[
+        \frac{\partial^2 \pi_i}{\partial e_i \, \partial e_j} \geq 0 \quad \text{for all } i \neq j.
+      \]
+      <p>
+        Kun muut kontribuoivat enemmän, myös sinun kannustimesi kontribuoida kasvaa.
+      </p>
+    </div>
+
+    <p>
+      Mallinnammne tätä tekemällä mainehyödystä verrannollisen yhteisresurssin laatuun:
+    </p>
+
+    \[
+      \pi_C = b \cdot Q - c + r \cdot Q, \qquad \pi_F = b \cdot Q,
+    \]
+
+    <p>
+      missä \(Q = f(xne)\) riippuu kontribuuttorien osuudesta. Nyt kelpoisuusero on:
+    </p>
+
+    \[
+      \pi_C - \pi_F = r \cdot Q - c = r \cdot f(xne) - c.
+    \]
+
+    <p>
+      Tämä on <strong>frekvenssiriippuvaista</strong>: kun kontribuuttorien osuus \(x\) kasvaa,
+      \(Q\) kasvaa, joten kontribuoimisen etu kasvaa. Tämä luo paljon rikkaampaa dynamiikkaa.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Sisätasapaino strategisilla komplementaarisuuksilla</span>
+      <p>
+        Kun maine on verrannollinen yhteisresurssin laatuun ja tuotantofunktio on \(f(E) = E^\alpha\),
+        replikaattoriyhtälö on:
+      </p>
+      \[
+        \dot{x} = x(1-x)\bigl[r \cdot (xne)^\alpha - c\bigr].
+      \]
+      <p>
+        Sisätasapaino löytyy kohdasta:
+      </p>
+      \[
+        x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}.
+      \]
+      <p>
+        Tämä tasapaino on <strong>epästabiili</strong> (kynnysarvo). Kun \(x > x^*\), populaatio
+        konvergoituu arvoon \(x = 1\) (kaikki kontribuoivat). Kun \(x < x^*\), se konvergoituu
+        arvoon \(x = 0\) (kaikki vapaamatkustavat). Peli on <strong>koordinaatiopeli</strong>.
+      </p>
+    </div>
+
+    <details>
+      <summary>Todistus</summary>
+      <div class="proof-content">
+        <p>
+          Sisätasapainossa \(\pi_C - \pi_F = 0\):
+        </p>
+        \[
+          r \cdot (x^* n e)^\alpha = c \quad \Longrightarrow \quad x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}.
+        \]
+        <p>
+          Stabiiliuden tutkimiseksi tarkastelemme kelpoisuusfunktion \(g(x) = r(xne)^\alpha - c\)
+          derivaattaa \(x\):n suhteen:
+        </p>
+        \[
+          g'(x) = r \cdot \alpha \cdot (ne)^\alpha \cdot x^{\alpha - 1} > 0 \quad \text{for } x > 0.
+        \]
+        <p>
+          Koska \(g'(x) > 0\), kontribuoimisen kelpoisuus <em>kasvaa</em> \(x\):n myötä. Tämä tarkoittaa:
+        </p>
+        <ul>
+          <li>Kun \(x < x^*\): \(g(x) < 0\), joten \(\dot{x} < 0\) (kontribuuttorit vähenevät).</li>
+          <li>Kun \(x > x^*\): \(g(x) > 0\), joten \(\dot{x} > 0\) (kontribuuttorit lisääntyvät).</li>
+        </ul>
+        <p>
+          Siksi \(x^*\) on epästabiili, ja systeemi on bistabiili kahdella stabiililla tasapainolla:
+          \(x = 0\) ja \(x = 1\). &#9632;
+        </p>
+      </div>
+    </details>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Kriittinen massa ja käännepisteet</span>
+      <p>
+        Tämä tulos selittää yleisesti havaitun kaavan: digitaaliset yhteisresurssiprojektit joko
+        <em>lähtevät lentoon</em> ja muuttuvat itseään ylläpitäviksi, tai ne <em>kuolevat</em>.
+        Jos alkuyhteisö on riittävän suuri (kynnysarvon \(x^*\) yläpuolella), projekti siirtyy
+        hyvään kehään, jossa kontribuutiot tekevät yhteisresurssista arvokkaamman, mikä houkuttelee
+        lisää kontribuutioita. Kynnysarvon alapuolella vastakkainen noidankehä johtaa projektin
+        hylkäämiseen.
+      </p>
+      <p>
+        Tämä on täsmälleen <strong>koordinaatiopelin</strong> dynamiikka moduulista 6 (hirvijahti),
+        joka nyt syntyy endogeenisesti verkostovaikutuksellisten digitaalisten yhteisresurssien rakenteesta.
+      </p>
+    </div>
+
+    <h3>3.5 Mekanismi 4: Matalat kustannukset modulaarisuuden kautta</h3>
+
+    <p>
+      Avoimen lähdekoodin projektit ja wikit pilkkovat suuret tehtävät pieniin, riippumattomiin
+      moduuleihin. Virheen korjaaminen voi kestää 30 minuuttia. Puuttuvan Wikipedia-lauseen
+      lisääminen vie muutaman minuutin. Jos kustannus \(c\) on riittävän pieni, kynnysarvo \(x^*\)
+      laskee, mikä helpottaa yhteisresurssin kriittisen massan saavuttamista:
+    </p>
+
+    \[
+      x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha} \xrightarrow{c \to 0} 0.
+    \]
+
+    <p>
+      Nollakustannuksen raja-arvossa <em>mikä tahansa</em> positiivinen alkukontribuuttoriosuus johtaa
+      kukoistavaan yhteisresurssiin. Tämä on keskeinen oivallus: digitaalisten yhteistyövälineiden
+      (versionhallinta, wikit, paketinhallintajärjestelmät) suunnittelu, joka alentaa \(c\):tä, on
+      yhtä tärkeää kuin kannustinrakenne.
+    </p>
+
+    <h3>3.6 Mekanismi 5: Valikoivat kannustimet</h3>
+
+    <p>
+      Jotkut kontribuuttorit saavat suoria taloudellisia hyötyjä, jotka ovat ehdollisia
+      kontribuoimiselle. Avoimen lähdekoodin kehittäjiä palkkaavat yritykset, jotka käyttävät
+      heidän ohjelmistojaan. Akateemiset tutkijat saavat viittauksia ja urakehitystä avoimen datan
+      julkaisemisesta. Nämä <strong>valikoivat kannustimet</strong> (Olsonin terminologiassa)
+      luovat alipopulaation, jolle \(r > c\) ilman sisäistä motivaatiotakin.
+    </p>
+
+    <p>
+      Jos populaation osuudella \(\phi\) on pääsy valikoiviin kannustimiin, joiden arvo on \(s > c\),
+      kun loppuosalla \((1-\phi)\) ei ole tällaisia kannustimia, tasapainoanalyysi monipuolistuu.
+      Populaatio kerrostuu: &ldquo;kannustettu&rdquo; osuus kontribuoi aina, kun taas
+      kannustamaton osuus vapaamatkustaa. Kontribuuttorien tasapainoosuus on vähintään \(\phi\)
+      dynamiikasta riippumatta. Jos \(\phi > x^*\), projekti lähtee lentoon, vaikka suuri yleisö
+      vapaamatkustaisi.
+    </p>
+
+    <h3>3.7 Ostromin suunnitteluperiaatteet digitaalisissa yhteisresursseissa</h3>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 8</span>
+      <p>
+        Ostromin kahdeksan suunnitteluperiaatetta yhteisresurssien hallintaan kehitettiin
+        kilpaileville yhteisvarantoresursseille. Miten ne soveltuvat digitaalisiin yhteisresursseihin?
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Ostromin periaatteet sovellettuna Linux-ytimen hallintaan</span>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Ostromin periaate</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>CPR-konteksti (moduuli 8)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Linux-ydin</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">1. Selkeät rajat</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Kuka pääsee resurssiin</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Kuka tahansa voi lukea/käyttää; commit-oikeudet ansaitaan meritokratiassa</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">2. Yhteensopivuus paikallisten olosuhteiden kanssa</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Säännöt vastaavat resurssin ominaisuuksia</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Alijärjestelmien ylläpitäjät hallinnoivat omia osaamisalueitaan</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">3. Kollektiiviset päätöksentekomenettelyt</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Käyttäjät osallistuvat sääntöjen laatimiseen</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Postituslistakeskustelut, RFC:t, patch-katselmointi</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">4. Valvonta</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Resurssin käytön tarkkailu</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Git-loki, koodikatselmointi, automaattinen testaus (CI/CD)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">5. Asteittaiset sanktiot</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Rangaistukset kasvavat toistuvista rikkomuksista</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Patchin hylkääminen, tiukkasanainen palaute, porttikielto postituslistalle</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">6. Konfliktinratkaisu</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Saavutettavat riidanratkaisumekanismit</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Alijärjestelmän ylläpitäjähierarkia, viime kädessä BDFL (Linus Torvalds)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">7. Oikeuksien tunnustaminen</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Valtio kunnioittaa paikallista hallintaa</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">GPL-lisenssi tarjoaa oikeudellisen kehyksen; Linux Foundation tarjoaa organisatorista tukea</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">8. Sisäkkäiset organisaatiot</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Monitasoinen hallinta</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Yksittäinen kehittäjä &rarr; alijärjestelmän ylläpitäjä &rarr; Linus &rarr; Linux Foundation</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: Network Effects and Increasing Returns -->
+  <!-- ================================================================== -->
+  <div class="section" id="network-effects">
+    <h2>4. Verkostovaikutukset ja kasvavat tuotot</h2>
+
+    <p>
+      Ennen antikilpailevuuden (tämän moduulin avainkäsite) esittelyä meidän on formalisoitava
+      <strong>verkostovaikutukset</strong> &mdash; ajatus siitä, että joidenkin hyödykkeiden arvo
+      kasvaa käyttäjämäärän mukana. Verkostovaikutukset ovat antikilpailevuuden edeltäjä ja siitä
+      erillinen ilmiö, ja erottelu on tärkeä ymmärtää.
+    </p>
+
+    <h3>4.1 Suorat ja epäsuorat verkostovaikutukset</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Verkostovaikutukset</span>
+      <p>
+        Hyödykkeessä esiintyy <strong>suoria verkostovaikutuksia</strong>, jos arvo jokaiselle
+        käyttäjälle kasvaa käyttäjien kokonaismäärän mukana. Formaalisti, jos \(V_i(n)\) on
+        hyödykkeen arvo käyttäjälle \(i\), kun käyttäjiä on yhteensä \(n\):
+      </p>
+      \[
+        \frac{dV_i}{dn} > 0.
+      \]
+      <p>
+        Hyödykkeessä esiintyy <strong>epäsuoria verkostovaikutuksia</strong>, jos käyttäjämäärä
+        ohjaa täydentävien hyödykkeiden tuotantoa, mikä puolestaan kasvattaa alkuperäisen
+        hyödykkeen arvoa.
+      </p>
+    </div>
+
+    <p>
+      Esimerkkejä suorista verkostovaikutuksista: puhelimet (enemmän käyttäjiä = enemmän ihmisiä
+      joille soittaa), sosiaaliset verkostot (enemmän käyttäjiä = enemmän sisältöä kulutettavaksi),
+      viestipalvelut. Esimerkkejä epäsuorista verkostovaikutuksista: käyttöjärjestelmät (enemmän
+      käyttäjiä &rarr; enemmän sovelluskehittäjiä &rarr; enemmän sovelluksia &rarr; arvokkaampi
+      käyttöjärjestelmä), pelikonsolit, luottokorttiyverkostot.
+    </p>
+
+    <h3>4.2 Metcalfen laki ja sen tarkennukset</h3>
+
+    <p>
+      Tunnetuin verkostoarvon malli on <strong>Metcalfen laki</strong>:
+    </p>
+
+    \[
+      V(n) = \kappa \cdot n^2,
+    \]
+
+    <p>
+      missä \(\kappa > 0\) on vakio. Perusteluna on, että \(n\) käyttäjän verkostossa
+      mahdollisten parivälisten yhteyksien määrä on \(\binom{n}{2} = \frac{n(n-1)}{2} \approx \frac{n^2}{2}\)
+      suurille \(n\). Jos jokaisella yhteydellä on yhtäläinen arvo, verkoston kokonaisarvo kasvaa
+      neliöllisesti.
+    </p>
+
+    <p>
+      Metcalfen lakia pidetään kuitenkin yleisesti yliarviona. Kaikki yhteydet eivät ole
+      yhtä arvokkaita &mdash; 500. Facebook-kaverisi lisää vähemmän arvoa kuin 5. kaverisi.
+      Realistisempia malleja ovat:
+    </p>
+
+    <ul>
+      <li><strong>Odlyzko-Tilly-malli:</strong> \(V(n) = n \cdot \ln(n)\), heijastaa Zipf-tyyppistä
+        vähenevää lisäyhteyksien arvoa.</li>
+      <li><strong>Potenssilakimalli:</strong> \(V(n) = \kappa \cdot n^\gamma\) kun \(1 < \gamma < 2\),
+        parametrisoitu perhe lineaarisen kasvun ja Metcalfen lain välillä.</li>
+      <li><strong>Reedin laki:</strong> Verkostoille, jotka tukevat ryhmien muodostumista, \(V(n) = 2^n\),
+        laskien mahdollisten alaryhmien määrän. Tämä on yleensä liian aggressiivinen, mutta saattaa
+        soveltua joihinkin alustadynamiikkoihin.</li>
+    </ul>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 3</span>
+      <p>
+        Näiden arvofunktioiden analysointi käyttää moduulin 3 analyysin työkaluja. Lisäkäyttäjän
+        raja-arvo on \(V'(n)\): Metcalfen laissa \(V'(n) = 2\kappa n\) (kasvava &mdash; jokainen
+        lisäkäyttäjä on <em>arvokkaampi</em>); logaritmimallissa \(V'(n) = \ln(n) + 1\) (edelleen
+        kasvava, mutta hitaasti); potenssilakimallissa \(V'(n) = \kappa \gamma n^{\gamma-1}\).
+      </p>
+    </div>
+
+    <h3>4.3 Verkostovaikutukset ja omaksumisvaikutukset</h3>
+
+    <p>
+      Verkostovaikutukset luovat luonnollisen yhteyden evoluutiopeliteoriaan. Tarkastellaan
+      populaatiota, jossa jokainen agentti valitsee, <strong>omaksuuko</strong> (A) hän
+      verkostohyödykkeen vai <strong>ei omaksu</strong> (N). Olkoon \(x\) omaksujien osuus.
+    </p>
+
+    <p>
+      Omaksumisen tuotto on:
+    </p>
+
+    \[
+      \pi_A(x) = V(xN) - p,
+    \]
+
+    <p>
+      missä \(V(xN)\) on arvo, kun populaation \(N\) jäsenestä \(xN\) käyttää hyödykettä, ja \(p\)
+      on kustannus (hinta, oppimispanostus). Ei-omaksumisen tuotto on \(\pi_N = 0\) (tai jokin
+      ulkovaihtoehdon arvo).
+    </p>
+
+    <p>
+      Metcalfen lailla \(V(xN) = \kappa(xN)^2\), joten tuottoero on:
+    </p>
+
+    \[
+      \pi_A - \pi_N = \kappa N^2 x^2 - p.
+    \]
+
+    <p>
+      Replikaattoridynamiikka antaa:
+    </p>
+
+    \[
+      \dot{x} = x(1-x)(\kappa N^2 x^2 - p).
+    \]
+
+    <p>
+      Asettamalla \(\pi_A - \pi_N = 0\) sisätasapaino on:
+    </p>
+
+    \[
+      x^* = \sqrt{\frac{p}{\kappa N^2}} = \frac{1}{N}\sqrt{\frac{p}{\kappa}}.
+    \]
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Käännepistedynamiikka verkostovaikutuksilla</span>
+      <p>
+        Verkostovaikutuksilla ja arvofunktiolla \(V(xN) = \kappa(xN)^\gamma\) kun \(\gamma > 1\):
+      </p>
+      <ol>
+        <li>Kohdassa \(x^* = \frac{1}{N}\left(\frac{p}{\kappa}\right)^{1/\gamma}\) on epästabiili
+          sisätasapaino (käännepiste).</li>
+        <li>Kun \(x < x^*\): omaksuminen vähenee kohti \(x = 0\) (hyödyke epäonnistuu).</li>
+        <li>Kun \(x > x^*\): omaksuminen kasvaa kohti \(x = 1\) (universaali omaksuminen).</li>
+      </ol>
+      <p>
+        Tämä on <strong>koordinaatiopeli</strong>, jossa on kaksi stabiilia tasapainoa (ei omaksumista ja
+        täydellinen omaksuminen), joiden välissä on epästabiili käännepiste.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 4</span>
+      <p>
+        Käännepiste \(x^*\) on differentiaaliyhtälön \(\dot{x} = x(1-x)[\kappa(xN)^\gamma - p]\)
+        <em>epästabiili kiintopiste</em>. Moduulin 4 stabiiliusanalyysin työkaluilla voimme
+        varmistaa, että ominaisarvo (oikean puolen derivaatta) pisteessä \(x^*\) on positiivinen,
+        mikä vahvistaa epästabiiliuden. Pienet häiriöt pois \(x^*\):stä vahvistuvat ja työntävät
+        systeemin toiseen kahdesta stabiilista tilasta.
+      </p>
+    </div>
+
+    <h3>4.4 Kriittinen massa ja muna-kana-ongelma</h3>
+
+    <p>
+      Käännepistetulos selittää uusien digitaalisten yhteisresurssien keskeisen haasteen:
+      <strong>muna-kana-ongelman</strong>. Uusi avoimen lähdekoodin projekti tarvitsee
+      kontribuuttoreita tullakseen arvokkaaksi, mutta kontribuuttorit houkuttelevat arvokkaat
+      projektit. Uusi sosiaalinen alusta tarvitsee käyttäjiä ollakseen hyödyllinen, mutta käyttäjät
+      liittyvät hyödyllisiin alustoihin.
+    </p>
+
+    <p>
+      Strategioita käännepisteen ylittämiseksi ovat:
+    </p>
+
+    <ul>
+      <li><strong>Tuettu varhainen omaksuminen:</strong> Pienennä \(p\) (tai tee siitä jopa
+        negatiivinen maksamalla käyttäjille) \(x^*\):n alentamiseksi. Riskipääomarahoitteiset
+        startupit usein antavat palveluja ilmaiseksi käyttäjäkannan kasvattamiseksi.</li>
+      <li><strong>Alkuyhteisön luominen:</strong> Aloita sitoutuneella varhaisilla kontribuuttoreilla,
+        jotka varmistavat, että \(x > x^*\). Linux alkoi Linus Torvaldsin ja pienen ytimen
+        hakkeriryhmän kanssa. Wikipedia sai alkusisältönsä Nupediasta.</li>
+      <li><strong>Yhteensopivuus olemassa olevien järjestelmien kanssa:</strong> Pienennä
+        vaihtamisen todellista kustannusta alentaen \(p\):tä.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Wikipedian kasvudynamiikka</span>
+      <p>
+        Kun Wikipedia lanseerattiin tammikuussa 2001, sillä oli pieni kontribuuttoriyhteisö.
+        Projekti kasvoi aluksi hitaasti (käännepisteen alapuolella laajalle omaksumiselle).
+        Mutta useat tekijät alensivat kynnystä:
+      </p>
+      <ul>
+        <li>Erittäin matala kontribuutiokustannus \(c\): kuka tahansa pystyi muokkaamaan, pätevyyksiä ei vaadittu.</li>
+        <li>Alkusisältö olemassa olevasta avoimesta sisällöstä (Nupedia, public domain -ensyklopediat).</li>
+        <li>Wiki-teknologia teki kontribuution esteestä lähes nollan.</li>
+      </ul>
+      <p>
+        Vuoden 2001 loppuun mennessä Wikipedia oli ylittänyt kriittisen massan. Positiivinen
+        palautesilmukka &mdash; enemmän sisältöä &rarr; enemmän lukijoita &rarr; enemmän toimittajia
+        &rarr; enemmän sisältöä &mdash; kiihdytti kasvua. Vuoteen 2005 mennessä sillä oli yli
+        750 000 englanninkielistä artikkelia ja siitä oli tullut itseään ylläpitävä.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: Anti-Rivalry -->
+  <!-- ================================================================== -->
+  <div class="section" id="anti-rivalry">
+    <h2>5. Antikilpailevuus &mdash; radikaali käsite</h2>
+
+    <p>
+      Saavumme nyt tämän moduulin keskeiseen käsitteeseen. Standarditaloustiede tunnistaa kaksi
+      kategoriaa: <strong>kilpailevat</strong> hyödykkeet (sinun käyttösi vähentää minun hyötyäni) ja
+      <strong>ei-kilpailevat</strong> hyödykkeet (sinun käyttösi ei vaikuta minun hyötyyyni). Esittelemme
+      kolmannen kategorian, joka muuttaa perustavanlaatuisesti digitaalisten yhteisresurssien
+      taloustiedettä ja peliteoriaa: <strong>antikilpailevat</strong> hyödykkeet, joissa sinun käyttösi
+      <em>lisää</em> arvoa minulle.
+    </p>
+
+    <!-- 5.1 What is Anti-Rivalry? -->
+    <div id="ar-what">
+      <h3>5.1 Mitä on antikilpailevuus?</h3>
+
+      <p>
+        Antikilpailevuuden käsitteen muotoili Steven Weber vuoden 2004 kirjassaan
+        <em>The Success of Open Source</em>, ja sitä ovat edelleen kehittäneet tietoyhteisresursseja,
+        avoimen lähdekoodin ekosysteemejä ja digitaalista infrastruktuuria tutkivat tutkijat.
+        Ydinoivallus on, että joistakin hyödykkeistä tulee <em>arvokkaampia</em> juuri siksi, että
+        useammat ihmiset käyttävät niitä.
+      </p>
+
+      <div class="def-box">
+        <span class="box-title">Määritelmä &mdash; Antikilpaileva hyödyke</span>
+        <p>
+          Hyödyke on <strong>antikilpaileva</strong>, jos hyödykkeen arvo jokaiselle käyttäjälle
+          kasvaa käyttäjämäärän mukana. Formaalisti, kun \(V_i(n)\) merkitsee hyödykkeen arvoa
+          käyttäjälle \(i\) kun käyttäjiä on yhteensä \(n\):
+        </p>
+        \[
+          \frac{\partial V_i}{\partial n} > 0 \quad \text{for all } i.
+        \]
+        <p>
+          Hyödyke on <strong>vahvasti antikilpaileva</strong> (kasvavat tuotot käytöstä), jos lisäksi:
+        </p>
+        \[
+          \frac{\partial^2 V_i}{\partial n^2} > 0,
+        \]
+        <p>
+          mikä tarkoittaa, että jokainen lisäkäyttäjä lisää <em>enemmän</em> arvoa kuin edellinen
+          (ainakin jollakin \(n\):n vaihteluvälillä).
+        </p>
+      </div>
+
+      <p>
+        On olennaista erottaa antikilpailevuus pelkistä verkostovaikutuksista:
+      </p>
+
+      <ul>
+        <li><strong>Verkostovaikutukset</strong> viittaavat <em>yhdistettynä olemisen</em> arvoon
+          muiden käyttäjien kanssa. Puhelin on arvokkaampi, kun useammilla ihmisillä on puhelin,
+          mutta puhelut eivät paranna itse puhelinverkkoa.</li>
+        <li><strong>Antikilpailevuus</strong> tarkoittaa, että <em>itse hyödyke paranee</em> käytön
+          myötä. Kun useammat ihmiset käyttävät ja kontribuoivat Linuxiin, ohjelmisto paranee &mdash;
+          enemmän vikoja löydetään ja korjataan, enemmän ominaisuuksia lisätään, enemmän laitteistoja
+          tuetaan. Hyödyke ei ole vain arvokkaampi yhteyksiensä vuoksi; se on
+          <em>laadullisesti parempi</em>.</li>
+      </ul>
+
+      <div class="intuition-box">
+        <span class="box-title">Intuitio &mdash; Kolme hallintamallia</span>
+        <p>
+          Ajattele kolmea erilaista hyödykettä ja mitä tapahtuu käyttäjämäärän kasvaessa:
+        </p>
+        <ul>
+          <li><strong>Kalat järvessä (kilpaileva):</strong> Enemmän kalastajia &rarr; vähemmän kalaa
+            per kalastaja. Sinun voittosi on minun tappioni. Tämä on moduulin 8 CPR-ongelma.</li>
+          <li><strong>Äänitetty kappale (ei-kilpaileva):</strong> Enemmän kuuntelijoita &rarr; ei
+            muutosta laadussa. Se, että minä kuuntelen Mozartia, ei heikennä tai paranna sinun
+            Mozart-kokemustasi.</li>
+          <li><strong>Python-ohjelmointikieli (antikilpaileva):</strong> Enemmän käyttäjiä &rarr;
+            enemmän paketteja PyPI:ssä &rarr; parempi dokumentaatio &rarr; enemmän Stack Overflow
+            -vastauksia &rarr; enemmän työpaikkoja Python-kehittäjille &rarr; enemmän ihmisiä
+            oppimassa Pythonia. Minun Python-käyttöni <em>parantaa</em> sinun
+            Python-kokemustasi.</li>
+        </ul>
+      </div>
+
+      <p>
+        Antikilpailevuuden taustamekanismi sisältää tyypillisesti jonkin yhdistelmän seuraavista:
+      </p>
+
+      <ol>
+        <li><strong>Käyttäjä kontribuuttorina:</strong> Käyttäjät eivät ole passiivisia kuluttajia.
+          He tekevät virheraportteja, kirjoittavat dokumentaatiota, luovat oppaita, vastaavat
+          kysymyksiin ja kehittävät laajennuksia. Käyttö tuottaa kontribuutioita.</li>
+        <li><strong>Kollektiivinen laadun parantaminen:</strong> Enemmän käyttäjiä tarkoittaa
+          monipuolisempia testausympäristöjä, enemmän löydettyjä reunatapauksia, enemmän
+          korjattuja virheitä.</li>
+        <li><strong>Ekosysteemin kasvu:</strong> Enemmän käyttäjiä houkuttelee lisää täydentävien
+          työkalujen kehittäjiä, luoden rikkaamman ekosysteemin.</li>
+        <li><strong>Tiedon kertyminen:</strong> Enemmän käyttäjiä tuottaa enemmän jaettua tietoa
+          (oppaita, Q&amp;A, parhaat käytännöt), joka hyödyttää kaikkia käyttäjiä.</li>
+      </ol>
+    </div>
+
+    <!-- 5.2 Mathematical Formalization -->
+    <div id="ar-formal">
+      <h3>5.2 Antikilpailevuuden matemaattinen formalisointi</h3>
+
+      <p>
+        Kehitetään antikilpailevuudelle tarkka matemaattinen viitekehys, joka kontrastoi sen
+        kilpailevuuden ja ei-kilpailevuuden kanssa. Määrittelemme <strong>arvofunktion</strong>
+        \(V(n)\), joka antaa hyödykkeen arvon käyttäjää kohti, kun käyttäjiä on \(n\).
+      </p>
+
+      <div class="def-box">
+        <span class="box-title">Määritelmä &mdash; Kilpailevuusluokittelu arvofunktion mukaan</span>
+        <p>
+          Olkoon \(V(n)\) arvo käyttäjää kohti, kun käyttäjiä on \(n \geq 1\).
+        </p>
+        <ul>
+          <li><strong>Kilpaileva:</strong> \(V'(n) < 0\). Arvo käyttäjää kohti pienenee
+            käyttäjämäärän kasvaessa. Prototyyppinen muoto: \(V(n) = \frac{R}{n}\) (kiinteä resurssi
+            jaettuna tasan).</li>
+          <li><strong>Ei-kilpaileva:</strong> \(V'(n) = 0\). Arvo käyttäjää kohti on vakio
+            käyttäjämäärästä riippumatta. Muoto: \(V(n) = V_0\).</li>
+          <li><strong>Antikilpaileva:</strong> \(V'(n) > 0\). Arvo käyttäjää kohti kasvaa
+            käyttäjämäärän kasvaessa. Hyödyke <em>paranee</em>, mitä useampi ihminen käyttää sitä.</li>
+        </ul>
+      </div>
+
+      <h4>5.2.1 Yhtenäinen viitekehys</h4>
+
+      <p>
+        Voimme kuvata kaikki kolme hallintamallia yhdellä parametrisoidulla perheellä. Määritellään:
+      </p>
+
+      \[
+        V(n) = V_0 \cdot g(n),
+      \]
+
+      <p>
+        missä \(V_0 > 0\) on perusarvo (arvo yhdellä käyttäjällä) ja \(g(n)\) on
+        <strong>kilpailevuuskerroin</strong>, jolla \(g(1) = 1\). Funktion \(g\) käyttäytyminen
+        määrittää hallintamallin:
+      </p>
+
+      <ul>
+        <li>Kilpaileva: \(g'(n) < 0\), joten \(g(n) < 1\) kun \(n > 1\).</li>
+        <li>Ei-kilpaileva: \(g'(n) = 0\), joten \(g(n) = 1\) kaikille \(n\).</li>
+        <li>Antikilpaileva: \(g'(n) > 0\), joten \(g(n) > 1\) kun \(n > 1\).</li>
+      </ul>
+
+      <h4>5.2.2 Kilpailevuuskertoimen funktionaaliset muodot</h4>
+
+      <p>
+        Useita luonnollisia valintoja funktiolle \(g(n)\) kuvaa erilaisia antikilpailevuuden kaavoja:
+      </p>
+
+      <div class="example-box">
+        <span class="box-title">Funktionaaliset muodot funktiolle \(g(n)\)</span>
+
+        <p><strong>1. Potenssilaki:</strong></p>
+        \[
+          g(n) = n^{\beta}, \quad \beta \in \mathbb{R}.
+        \]
+        <p>
+          Tämä on yksinkertaisin ja eleganttein yhdistelmä. Kun \(\beta < 0\), hyödyke on
+          kilpaileva (\(g(n)\) vähenevä); \(\beta = 0\) antaa ei-kilpailevuuden (\(g(n) = 1\));
+          \(\beta > 0\) antaa antikilpailevuuden (\(g(n)\) kasvava). Tapaus \(\beta = -1\) antaa
+          klassisen kilpailevan \(V = V_0/n\). Käytämme tätä muotoa laajasti.
+        </p>
+
+        <p><strong>2. Lineaarinen:</strong></p>
+        \[
+          g(n) = 1 + \alpha(n - 1), \quad \alpha \in \mathbb{R}.
+        \]
+        <p>
+          Jokainen lisäkäyttäjä lisää vakion \(\alpha\) arvokertoimeen. Tämä on analyyttisesti
+          käsiteltävä, mutta sallii rajattoman kasvun (tai \(\alpha < 0\):lla negatiiviset
+          arvot suurille \(n\)).
+        </p>
+
+        <p><strong>3. Logaritminen:</strong></p>
+        \[
+          g(n) = 1 + \alpha \cdot \ln(n), \quad \alpha > 0.
+        \]
+        <p>
+          Antikilpailevuus vähenevällä rajatuotolla. Jokainen uusi käyttäjä lisää arvoa, mutta
+          rajalisäys pienenee. Tämä voi olla realistinen kypsille yhteisresursseille, joissa helpot
+          parannukset on jo tehty.
+        </p>
+
+        <p><strong>4. Logistinen (rajoitettu antikilpailevuus):</strong></p>
+        \[
+          g(n) = \frac{K}{1 + (K-1)e^{-\alpha(n-1)}}, \quad \alpha > 0, \; K > 1.
+        \]
+        <p>
+          Arvokerroin kasvaa sigmoidaalisesti arvosta \(g(1) = 1\) kohti ylärajaa \(K\).
+          Tämä mallintaa <em>rajoitettua antikilpailevuutta</em>: hyödyke paranee käytöstä, mutta
+          ei voi parantua jonkin maksimilaadun yli. Suurille \(n\) \(g(n) \to K\), ja hyödyke
+          muuttuu käytännössä ei-kilpailevaksi.
+        </p>
+      </div>
+
+      <h4>5.2.3 Kokonaisarvo ja sosiaalinen hyvinvointi</h4>
+
+      <p>
+        <strong>Kokonaisarvo</strong> (sosiaalinen hyvinvointi hyödykkeestä) on arvo käyttäjää
+        kohti kertaa käyttäjämäärä:
+      </p>
+
+      \[
+        W(n) = n \cdot V(n) = n \cdot V_0 \cdot g(n).
+      \]
+
+      <p>
+        Kokonaisarvon käyttäytyminen kolmessa eri hallintamallissa on silmiinpistävän erilaista:
+      </p>
+
+      <ul>
+        <li><strong>Kilpaileva</strong> (esim. \(g(n) = n^{-1}\)):
+          \(W(n) = n \cdot V_0 \cdot n^{-1} = V_0\). Kokonaisarvo on <em>vakio</em>. Tämä on
+          nollasumma- (tai kiinteäsumma-) asetelma: käyttäjien lisääminen uudelleenjakaa mutta ei
+          luo arvoa.</li>
+        <li><strong>Ei-kilpaileva</strong> (\(g(n) = 1\)):
+          \(W(n) = n \cdot V_0\). Kokonaisarvo kasvaa <em>lineaarisesti</em> käyttäjien mukana.
+          Jokainen uusi käyttäjä saa täyden arvon vähentämättä muiden arvoa. Tämä on
+          positiivisummaista.</li>
+        <li><strong>Antikilpaileva</strong> (esim. \(g(n) = n^{\beta}\) kun \(\beta > 0\)):
+          \(W(n) = n^{1+\beta} \cdot V_0\). Kokonaisarvo kasvaa <em>superlineaarisesti</em>.
+          Jokainen uusi käyttäjä ei vain saa arvoa vaan luo arvoa olemassa oleville käyttäjille.
+          Tämä on <em>kasvavasti positiivisummaista</em>.</li>
+      </ul>
+
+      <div class="theorem-box">
+        <span class="box-title">Lause &mdash; Antikilpailevien hyödykkeiden hyvinvointiominaisuudet</span>
+        <p>
+          Hyödykkeelle, jonka arvofunktio on \(V(n) = V_0 \cdot n^\beta\):
+        </p>
+        <ol>
+          <li>Kokonaissosiaalinen arvo on \(W(n) = V_0 \cdot n^{1+\beta}\).</li>
+          <li>Lisäkäyttäjän sosiaalinen raja-arvo on
+            \(W'(n) = V_0(1+\beta)n^\beta\).</li>
+          <li>Jos \(\beta > 0\) (antikilpailevuus), niin \(W'(n)\) on <em>kasvava \(n\):n suhteen</em>,
+            mikä tarkoittaa kasvavia tuottoja omaksumiselle. Sosiaalinen suunnittelija haluaa aina
+            lisää käyttäjiä.</li>
+          <li>Jos \(\beta < 0\) (kilpailevuus), niin \(W'(n)\) on <em>vähenevä \(n\):n suhteen</em>,
+            ja kun \(\beta < -1\), \(W'(n) < 0\) &mdash; lisäkäyttäjät itse asiassa
+            <em>vähentävät</em> kokonaishyvinvointia (yliruuhkautuminen).</li>
+        </ol>
+      </div>
+
+      <details>
+        <summary>Todistus</summary>
+        <div class="proof-content">
+          <p>
+            (1) ja (2) seuraavat suoralla laskennalla:
+            \(W(n) = nV_0 n^\beta = V_0 n^{1+\beta}\), ja
+            \(W'(n) = V_0(1+\beta)n^\beta\).
+          </p>
+          <p>
+            (3) Kun \(\beta > 0\): \(W''(n) = V_0(1+\beta)\beta n^{\beta-1} > 0\), koska
+            \(\beta > 0\) ja \(1+\beta > 0\). Joten \(W'\) on kasvava &mdash; kasvavat tuotot
+            omaksumiselle.
+          </p>
+          <p>
+            (4) Kun \(\beta < 0\): \(W'(n) = V_0(1+\beta)n^\beta\). Lausekkeen \(W'(n)\) merkki
+            riippuu termistä \(1+\beta\): jos \(\beta > -1\), \(W'(n) > 0\) mutta vähenevä; jos
+            \(\beta < -1\), \(W'(n) < 0\), eli lisäkäyttäjät vähentävät kokonaishyvinvointia. &#9632;
+          </p>
+        </div>
+      </details>
+
+      <div class="intuition-box">
+        <span class="box-title">Intuitio &mdash; Miksi antikilpailevuus on taloudellisesti vallankumouksellista</span>
+        <p>
+          Klassinen taloustiede perustuu niukkuuden oletukselle: resurssit ovat rajalliset ja
+          keskeinen ongelma on allokaatio. Kilpaileville hyödykkeille tämä on oikein &mdash;
+          tehokas allokaatio on ensiarvoista, koska hukkaaminen tarkoittaa, että joku muu jää ilman.
+        </p>
+        <p>
+          Ei-kilpaileville hyödykkeille allokaatio-ongelma häviää (kaikki voivat saada koko
+          hyödykkeen), mutta tuotanto-ongelma säilyy (kuka maksaa sen luomisen kiinteät kustannukset?).
+        </p>
+        <p>
+          Antikilpaileville hyödykkeille jopa tuotanto-ongelma muuttuu: hyödyke
+          <em>paranee käytön myötä</em>. Niukka resurssi ei ole itse hyödyke vaan
+          <em>huomio ja osallistuminen</em>. Optimaalinen politiikka ei ole rajoittaa pääsyä
+          (kuten kilpailevilla hyödykkeillä) eikä tukea tuotantoa (kuten tavallisilla
+          julkishyödykkeillä), vaan <strong>maksimoida omaksuminen</strong>. Jokainen käytön este
+          &mdash; mukaan lukien immateriaalioikeuksien rajoitukset &mdash; ei ole pelkkä
+          hyvinvointitappio (kuten ei-kilpailevilla hyödykkeillä) vaan aktiivisesti
+          <em>heikentää</em> hyödykettä olemassa oleville käyttäjille.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Esimerkki &mdash; Antikilpailevuuskertoimien laskeminen</span>
+        <p>
+          Tarkastellaan ohjelmointikielen ekosysteemiä, jonka perusarvo on \(V_0 = 10\)
+          hyötyYksikköä (kielen arvo yhdelle käyttäjälle ilman yhteisöä). Oletetaan, että arvo
+          noudattaa potenssilakia parametrilla \(\beta = 0.3\).
+        </p>
+        <p>Kun \(n = 10\) käyttäjää: \(V(10) = 10 \cdot 10^{0.3} = 10 \cdot 2.00 = 20.0\).</p>
+        <p>Kun \(n = 100\) käyttäjää: \(V(100) = 10 \cdot 100^{0.3} = 10 \cdot 3.98 = 39.8\).</p>
+        <p>Kun \(n = 1{,}000\) käyttäjää: \(V(1000) = 10 \cdot 1000^{0.3} = 10 \cdot 7.94 = 79.4\).</p>
+        <p>Kun \(n = 1{,}000{,}000\) käyttäjää: \(V(10^6) = 10 \cdot (10^6)^{0.3} = 10 \cdot 63.1 = 631\).</p>
+        <p>
+          Arvo jokaiselle käyttäjälle on kasvanut 63-kertaiseksi yhteisön kasvaessa 1:stä
+          miljoonaan. Kokonaissosiaalinen arvo kasvoi arvosta \(10\) arvoon \(631{,}000{,}000\) &mdash;
+          yli 63 miljoonakertainen kasvu. Tämä on antikilpailevuuden voima.
+        </p>
+      </div>
+    </div>
+  </div>
+
+    <!-- 5.3 Anti-Rivalry in Game Theory -->
+    <div id="ar-game-theory">
+      <h3>5.3 Antikilpailevuus peliteoriassa</h3>
+
+      <p>
+        Antikilpailevuus muuttaa perustavanlaatuisesti kontribuutiopelien strategista rakennetta.
+        Ymmärtääksemme miksi, vertaillaan tuottorakenteita kolmessa kilpailevuuden hallintamallissa.
+      </p>
+
+      <h4>5.3.1 Standardin julkishyödykkeen tuotto</h4>
+
+      <p>
+        Luvun 2 standardissa (ei-kilpailevassa) julkishyödykepelissä agentin \(i\) tuotto
+        kontribuoimispäätöksestä on:
+      </p>
+
+      \[
+        \pi_i^{\text{PG}} = b \cdot Q - c \cdot e_i,
+      \]
+
+      <p>
+        missä \(Q = f(\sum_j e_j)\) on julkishyödykkeen laatu ja \(b\) on yksikkökohtainen hyöty.
+        Arvo \(b \cdot Q\) on riippumaton käyttäjämäärästä &mdash; tämä on se, mitä ei-kilpailevuus
+        tarkoittaa tuottolausekkeessa.
+      </p>
+
+      <h4>5.3.2 Antikilpaileva tuotto</h4>
+
+      <p>
+        Antikilpailevuuden vallitessa yhteisresurssin arvo jokaiselle käyttäjälle riippuu
+        <em>sekä</em> laadusta \(Q\) (kontribuutioiden määräämä) <em>että</em> aktiivisten
+        käyttäjien määrästä \(n\). Kirjoitamme:
+      </p>
+
+      \[
+        \pi_i^{\text{AR}} = b \cdot Q \cdot g(n) - c \cdot e_i,
+      \]
+
+      <p>
+        missä \(g(n)\) on antikilpailevuuskerroin luvusta 5.2. Nyt on kaksi kanavaa, joiden kautta
+        arvo kasvaa:
+      </p>
+
+      <ul>
+        <li><strong>Laatukanava:</strong> enemmän kontribuutioita kasvattaa \(Q\):ta.</li>
+        <li><strong>Antikilpailevuuskanava:</strong> enemmän käyttäjiä kasvattaa \(g(n)\):ää,
+          vahvistaen <em>minkä tahansa laatutason</em> arvoa.</li>
+      </ul>
+
+      <p>
+        Evoluutiomallissamme kontribuuttoreilla (osuus \(x\)) ja vapaamatkustajilla (osuus
+        \(1 - x\)) mallinnammne näiden kanavien vuorovaikutusta. Olkoon kokonaispopulaatio \(N\).
+        Yhteisresurssin laatu riippuu kontribuuttorien osuudesta: \(Q(x) = (xN)^\alpha\) jollakin
+        \(0 < \alpha \leq 1\). <em>Aktiivisten käyttäjien</em> määrä on \(N\) (kaikki käyttävät
+        yhteisresurssia, koska se on ei-poissulkeva ja arvokas).
+      </p>
+
+      <p>
+        Ratkaiseva mallinnusvalinta on, että kontribuuttorit saavat <em>vahvistetun</em> hyödyn
+        antikilpailevuusvaikutuksesta, koska heidän sitoutumisensa hyödykkeeseen on syvempi.
+        Python-koodia kirjoittava kontribuuttori hyötyy ekosysteemistä enemmän kuin passiivinen
+        käyttäjä. Mallinnammne tämän seuraavasti:
+      </p>
+
+      \[
+        \pi_C(x) = V(x) \cdot (1 + r) - c, \qquad \pi_F(x) = V(x),
+      \]
+
+      <p>
+        missä \(V(x) = b \cdot (1 + \beta x)\) kuvaa yhteisresurssin arvoa, joka kasvaa
+        kontribuuttorien osuuden mukana (\(\beta\) on antikilpailevuusparametri), ja \(r > 0\)
+        kuvaa kontribuuttorien vahvistettua hyötyä (maine, syvempi sitoutuminen, taitojen
+        kehittyminen). Kontribuoimisen kustannus on \(c > 0\).
+      </p>
+
+      <p>
+        Kelpoisuusero on:
+      </p>
+
+      \[
+        \Delta\pi(x) = \pi_C(x) - \pi_F(x) = r \cdot V(x) - c = r(1 + \beta x) \cdot b - c.
+      \]
+
+      <p>
+        Laajentamalla:
+      </p>
+
+      \[
+        \Delta\pi(x) = rb + rb\beta x - c = (rb - c) + rb\beta x.
+      \]
+
+      <div class="theorem-box">
+        <span class="box-title">Lause &mdash; Pelirakenteen muutos antikilpailevuuden alla</span>
+        <p>
+          Tarkastellaan digitaalisten yhteisresurssien peliä kelpoisuuserolla
+          \(\Delta\pi(x) = (rb - c) + rb\beta x\). Evoluutiopelin rakenne riippuu parametreista
+          seuraavasti:
+        </p>
+        <ol>
+          <li><strong>Jos \(rb > c\) ja \(\beta \geq 0\):</strong> \(\Delta\pi(x) > 0\) kaikilla
+            \(x \in [0,1]\). Kontribuoiminen dominoi &mdash; peli on <strong>harmoniapeli</strong>.
+            Ainoa stabiili tasapaino on \(x^* = 1\).</li>
+          <li><strong>Jos \(rb < c\) ja \(rb(1 + \beta) > c\):</strong> \(\Delta\pi(0) < 0\),
+            mutta \(\Delta\pi(1) > 0\). Sisätasapaino on kohdassa
+            \(x^* = \frac{c - rb}{rb\beta}\), ja peli on <strong>koordinaatiopeli</strong>
+            (bistabiili dynamiikka käännepisteellä).</li>
+          <li><strong>Jos \(rb(1 + \beta) < c\) ja \(\beta > 0\):</strong> \(\Delta\pi(x) < 0\) kaikilla
+            \(x \in [0,1]\). Vapaamatkustaminen dominoi &mdash; peli on <strong>vangin dilemma</strong>.
+            Antikilpailevuus on olemassa, mutta liian heikko ylläpitämään kontribuutiota.</li>
+          <li><strong>Jos \(\beta \leq 0\) ja \(rb < c\):</strong> \(\Delta\pi(x) < 0\) kaikilla
+            \(x \in [0,1]\). Tavanomainen alitarjontatulos. Kilpailevuus (\(\beta < 0\)) pahentaa
+            tilannetta entisestään.</li>
+        </ol>
+      </div>
+
+      <details>
+        <summary>Todistus</summary>
+        <div class="proof-content">
+          <p>
+            Koska \(\Delta\pi(x) = (rb - c) + rb\beta x\) on lineaarinen \(x\):n suhteen, riittää
+            tarkistaa sen merkki päätepisteissä \(x = 0\) ja \(x = 1\):
+          </p>
+          <ul>
+            <li>\(\Delta\pi(0) = rb - c\)</li>
+            <li>\(\Delta\pi(1) = rb - c + rb\beta = rb(1 + \beta) - c\)</li>
+          </ul>
+          <p>
+            Tapaus 1: \(\Delta\pi(0) > 0\) ja \(\beta \geq 0\) tarkoittaa, että
+            \(\Delta\pi(x) \geq \Delta\pi(0) > 0\) kaikilla \(x\). Kontribuoiminen on dominoiva strategia.
+          </p>
+          <p>
+            Tapaus 2: \(\Delta\pi(0) < 0\) ja \(\Delta\pi(1) > 0\). Bolzanon lauseen nojalla
+            on olemassa yksikäsitteinen \(x^* \in (0,1)\), jossa \(\Delta\pi(x^*) = 0\). Ratkaisemalla:
+            \((rb - c) + rb\beta x^* = 0\), josta \(x^* = (c - rb)/(rb\beta)\). Koska
+            \(\Delta\pi'(x) = rb\beta > 0\) (olettaen \(\beta > 0\)), kontribuoimisen kelpoisuus
+            on kasvava \(x\):n suhteen. Joten kun \(x < x^*\), vapaamatkustaminen voittaa; kun
+            \(x > x^*\), kontribuoiminen voittaa. Tämä on bistabiili (koordinaatiopeli).
+            Sisätasapaino \(x^*\) on epästabiili.
+          </p>
+          <p>
+            Tapaus 3: Sekä \(\Delta\pi(0) < 0\) että \(\Delta\pi(1) < 0\). Koska \(\Delta\pi\)
+            on lineaarinen positiivisella kulmakertoimella (\(\beta > 0\)), \(\Delta\pi(x) < 0\)
+            kaikilla \(x \in [0,1]\). Vapaamatkustaminen dominoi. &#9632;
+          </p>
+        </div>
+      </details>
+
+      <div class="intuition-box">
+        <span class="box-title">Intuitio &mdash; Antikilpailevuus pelin muuntajana</span>
+        <p>
+          Tämän tuloksen kauneus on siinä, että antikilpailevuusparametrin \(\beta\) kasvattaminen
+          voi laadullisesti muuntaa pelin:
+        </p>
+        <ul>
+          <li>Kun \(\beta = 0\) (ei-kilpaileva): peli on puhdas vangin dilemma aina kun
+            \(rb < c\). Vapaamatkustaminen dominoi.</li>
+          <li>Kriittisessä pisteessä \(\beta^* = \frac{c - rb}{rb}\): peli siirtyy vangin
+            dilemmasta koordinaatiopeliksi. Käännepiste syntyy.</li>
+          <li>Kohdassa \(\beta^{**} = \frac{c}{rb} - 1\) (joka on sama kuin \(\beta^*\) arvioituna
+            kohdassa \(x = 0\)): mutta \(\beta\):n kasvaessa edelleen \(x^*\) pienenee, tehden
+            käännepisteen saavuttamisesta helpompaa.</li>
+          <li>Kun \(\beta \to \infty\) (tai \(rb > c\)): pelistä tulee harmoniapeli, jossa
+            kontribuoiminen dominoi riippumatta muiden toiminnasta.</li>
+        </ul>
+        <p>
+          Antikilpailevuus kirjaimellisesti muuntaa sosiaaliset dilemmat koordinaatio-ongelmiksi,
+          ja riittävän vahva antikilpailevuus poistaa dilemman kokonaan.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Esimerkki &mdash; Kriittisen antikilpailevuuskynnyksen löytäminen</span>
+        <p>
+          Oletetaan, että digitaalisella yhteisresurssilla on parametrit \(b = 5\) (perushyöty),
+          \(r = 0.3\) (mainekerroin) ja \(c = 2\) (kontribuutiokustannus).
+        </p>
+        <p>
+          Ilman antikilpailevuutta (\(\beta = 0\)): \(\Delta\pi = rb - c = 0.3 \times 5 - 2 = -0.5 < 0\).
+          Vapaamatkustaminen dominoi. Yhteisresurssi ei ole kestävä.
+        </p>
+        <p>
+          Pelistä tulee koordinaatiopeli, kun \(\Delta\pi(1) > 0\):
+          \[
+            rb(1 + \beta) > c \quad \Longrightarrow \quad \beta > \frac{c}{rb} - 1 = \frac{2}{1.5} - 1 = \frac{1}{3} \approx 0.33.
+          \]
+        </p>
+        <p>
+          Kun \(\beta = 0.5\): käännepiste on kohdassa
+          \(x^* = \frac{c - rb}{rb\beta} = \frac{2 - 1.5}{1.5 \times 0.5} = \frac{0.5}{0.75} = 0.67\).
+          Jos yli 67 % populaatiosta kontribuoi, yhteisresurssi on itseään ylläpitävä.
+        </p>
+        <p>
+          Kun \(\beta = 1.0\): \(x^* = \frac{0.5}{1.5} = 0.33\). Nyt vain 33 % alkukontribuuttoreista
+          riittää. Vahvempi antikilpailevuus alentaa kynnystä.
+        </p>
+        <p>
+          Kun \(\beta = 2.0\): \(x^* = \frac{0.5}{3.0} = 0.17\). Vain 17 % riittää.
+        </p>
+        <p>
+          Kun \(rb(1 + \beta) \gg c\), käännepiste lähestyy nollaa, ja mikä tahansa positiivinen
+          kontribuuttoriosuus riittää. Tämä vastaa havaintoa, että vahvasti antikilpaileville
+          yhteisresursseille (kuten suosituille ohjelmointikielille) on lähes mahdotonta tuhoutua.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5.4 Replicator Dynamics with Anti-Rivalry -->
+    <div id="ar-replicator">
+      <h3>5.4 Replikaattoridynamiikka antikilpailevuudella</h3>
+
+      <p>
+        Kirjoitamme nyt täydellisen replikaattoriyhtälön digitaalisten yhteisresurssien pelille
+        ja analysoimme sen dynamiikkaa moduulien 4 ja 7 työkaluilla.
+      </p>
+
+      <p>
+        Luvun 5.3 tuottofunktioilla:
+      </p>
+
+      \[
+        \pi_C(x) = b(1 + \beta x)(1 + r) - c, \qquad \pi_F(x) = b(1 + \beta x),
+      \]
+
+      <p>
+        replikaattoriyhtälö (moduuli 7) on:
+      </p>
+
+      \[
+        \dot{x} = x(1-x)\bigl[\pi_C(x) - \pi_F(x)\bigr] = x(1-x)\bigl[rb(1 + \beta x) - c\bigr].
+      \]
+
+      <div class="def-box">
+        <span class="box-title">Määritelmä &mdash; Antikilpailevuuden replikaattoriyhtälö</span>
+        <p>
+          Digitaalisten yhteisresurssien replikaattoridynamiikka antikilpailevuusparametrilla \(\beta\) on:
+        </p>
+        \[
+          \dot{x} = x(1-x)\bigl[(rb - c) + rb\beta x\bigr].
+        \]
+        <p>
+          Tämä on kuutiollinen ODE \(x\):n suhteen (\(x(1-x)\)-tekijä on neliöllinen kerrottuna
+          hakasulkeissa olevalla lineaarisella tekijällä).
+        </p>
+      </div>
+
+      <h4>5.4.1 Kiintopisteet ja stabiilisuus</h4>
+
+      <p>
+        Kiintopisteet ovat:
+      </p>
+
+      <ul>
+        <li>\(x = 0\) (kaikki vapaamatkustajia)</li>
+        <li>\(x = 1\) (kaikki kontribuuttoreita)</li>
+        <li>\(x^* = \frac{c - rb}{rb\beta}\) (sisätasapaino, olemassa kun \(0 < x^* < 1\))</li>
+      </ul>
+
+      <p>
+        Stabiiliuden määrittämiseksi laskemme oikean puolen \(F(x) = x(1-x)[(rb-c) + rb\beta x]\) derivaatan:
+      </p>
+
+      \[
+        F'(x) = (1-2x)[(rb-c) + rb\beta x] + x(1-x) \cdot rb\beta.
+      \]
+
+      <p>
+        Arvioidaan kussakin kiintopisteessä:
+      </p>
+
+      <div class="theorem-box">
+        <span class="box-title">Antikilpailevuuden replikaattorin stabiiliusanalyysi</span>
+        <p><strong>Kohdassa \(x = 0\):</strong></p>
+        \[
+          F'(0) = rb - c.
+        \]
+        <p>
+          Stabiili, jos \(rb < c\) (vapaamatkustaminen dominoi matalalla kontribuuttoriosuudella).
+          Epästabiili, jos \(rb > c\).
+        </p>
+
+        <p><strong>Kohdassa \(x = 1\):</strong></p>
+        \[
+          F'(1) = -(rb - c + rb\beta) = c - rb(1 + \beta).
+        \]
+        <p>
+          Stabiili, jos \(rb(1 + \beta) > c\) (kontribuoiminen dominoi korkealla kontribuuttoriosuudella).
+          Epästabiili, jos \(rb(1 + \beta) < c\).
+        </p>
+
+        <p><strong>Kohdassa \(x^*\) (kun se on olemassa välillä \((0,1)\)):</strong></p>
+        \[
+          F'(x^*) = x^*(1 - x^*) \cdot rb\beta > 0 \quad (\text{koska } \beta > 0).
+        \]
+        <p>
+          Sisätasapaino on aina <strong>epästabiili</strong>, kun \(\beta > 0\) (antikilpailevuus).
+          Se toimii käännepisteenä, joka erottaa kahden reunatasapainon vetovoimaalueet.
+        </p>
+      </div>
+
+      <h4>5.4.2 Vaihemuotokuvat eri antikilpailevuuden vahvuuksilla</h4>
+
+      <p>
+        Kiinnitetään \(b = 5\), \(r = 0.3\), \(c = 2\) (joten \(rb = 1.5\)) ja vaihdellaan \(\beta\):aa:
+      </p>
+
+      <div class="example-box">
+        <span class="box-title">Vaihemuotokuva-analyysi</span>
+
+        <p><strong>Tapaus 1: \(\beta = 0\) (ei-kilpaileva, standardi julkishyödyke)</strong></p>
+        <p>
+          \(\Delta\pi(x) = 1.5 - 2 = -0.5 < 0\) kaikilla \(x\).
+          Virtaus on aina kohti \(x = 0\). Vapaamatkustaminen voittaa ehdoitta.
+          Tämä on vangin dilemman hallintamalli.
+        </p>
+
+        <p><strong>Tapaus 2: \(\beta = 0.5\) (kohtalainen antikilpailevuus)</strong></p>
+        <p>
+          \(\Delta\pi(x) = -0.5 + 0.75x\). Nolla kohdassa \(x^* = 0.5/0.75 = 0.667\).
+          \(\Delta\pi(0) = -0.5 < 0\), \(\Delta\pi(1) = 0.25 > 0\).
+          Tämä on koordinaatiopeli. Kun \(x^* = 0.667\) alitetaan, yhteisresurssi romahtaa;
+          sen yläpuolella yhteisresurssi kukoistaa.
+        </p>
+
+        <p><strong>Tapaus 3: \(\beta = 1.0\) (vahva antikilpailevuus)</strong></p>
+        <p>
+          \(\Delta\pi(x) = -0.5 + 1.5x\). Nolla kohdassa \(x^* = 0.333\).
+          Käännepiste on paljon matalampi. Vain kolmanneksen populaatiosta tarvitsee kontribuoida
+          aluksi, jotta yhteisresurssista tulee itseään ylläpitävä.
+        </p>
+
+        <p><strong>Tapaus 4: \(\beta = 2.0\) (erittäin vahva antikilpailevuus)</strong></p>
+        <p>
+          \(\Delta\pi(x) = -0.5 + 3.0x\). Nolla kohdassa \(x^* = 0.167\).
+          Käännepiste on nyt vain kuudesosa. Erittäin vahvan antikilpailevuuden digitaaliset
+          yhteisresurssit (kuten ohjelmointikielen ekosysteemit) voivat käynnistyä pienistä
+          yhteisöistä.
+        </p>
+      </div>
+
+      <div class="note-box">
+        <span class="box-title">Yhteys moduuliin 4</span>
+        <p>
+          Replikaattoriyhtälö \(\dot{x} = x(1-x)[(rb-c) + rb\beta x]\) on yksiulotteinen
+          ODE, jonka ratkaisua voidaan analysoida moduulin 4 vaiheviivamenetelmillä. Virtauksen
+          suunta kussakin pisteessä määräytyy funktion \(F(x)\) merkistä. Kiintopisteet jakavat
+          välin \([0,1]\) osaväleihin, joilla on yhtenäinen virtaussuunta. Epästabiili
+          sisäkiintopiste \(x^*\) toimii <em>separatriksina</em>, joka jakaa vetovoimaalueet.
+        </p>
+      </div>
+
+      <h4>5.4.3 Vertailu CPR-dynamiikkaan</h4>
+
+      <p>
+        On opettavaista verrata antikilpailevuuden replikaattoridynamiikkaa moduulin 8
+        CPR-dynamiikkaan. CPR-pelissä louhijoiden määrän kasvattaminen (kestävästi louhivat
+        yhteistyöntekijät vs. ylilouhivat vapaamatkustajat) luo <em>negatiivista</em>
+        frekvenssiriippuvuutta: enemmän vapaamatkustajia heikentää resurssia, mikä tekee
+        yhteistyöstä vähemmän houkuttelevaa. CPR-replikaattorilla on usein stabiili sisätasapaino.
+      </p>
+
+      <p>
+        Antikilpailevuuden vallitessa näemme päinvastaisen: <em>positiivisen</em>
+        frekvenssiriippuvuuden. Enemmän kontribuuttoreita tekee kontribuoimisesta
+        houkuttelevampaa (koska yhteisresurssi muuttuu arvokkaammaksi, vahvistaen syvemmän
+        sitoutumisen hyötyjä). Tämä johtaa epästabiileihin sisätasapainoihin ja bistabiiliin
+        dynamiikkaan. Nämä kaksi systeemiä ovat peilikuvia:
+      </p>
+
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; text-align:center; font-size:0.92rem;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Piirre</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>CPR (moduuli 8)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Digitaaliset yhteisresurssit (antikilpailevuus)</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Resurssidynamiikka</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Käyttö heikentää</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Käyttö vahvistaa</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Frekvenssiriippuvuus</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Negatiivinen (enemmän vapaamatkustajia &rarr; vähemmän kannustinta yhteistyöhön)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Positiivinen (enemmän kontribuuttoreita &rarr; enemmän kannustinta kontribuoida)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Sisätasapaino</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Usein stabiili (rinnakkaiselo)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Epästabiili (käännepiste)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Pitkän aikavälin tulos</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Sekapopulaatio tai tragedia</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Kaikki kontribuoivat tai kaikki vapaamatkustavat</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Politiikkahaaste</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Estää ylikäyttö</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Saavuttaa kriittinen massa</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 5.5 Examples of Anti-Rivalry in Practice -->
+    <div id="ar-examples">
+      <h3>5.5 Esimerkkejä antikilpailevuudesta käytännössä</h3>
+
+      <p>
+        Tarkastelemme konkreettisia esimerkkejä antikilpailevista hyödykkeistä ja varmistamme,
+        että ne sopivat matemaattiseen viitekehykseemme.
+      </p>
+
+      <div class="example-box">
+        <span class="box-title">Esimerkki &mdash; Avoin lähdekoodi (Linux, Python, Firefox)</span>
+        <p>
+          <strong>Mekanismi:</strong> Jokainen uusi Linuxin käyttäjä on potentiaalinen
+          vikaraporttien, dokumentaation, käännösten ja koodin kontribuuttori. Jokainen uusi
+          kontribuuttori parantaa ohjelmistoa kaikille käyttäjille. Ytimen vakaus, laitteistotuki
+          ja ominaisuusvalikoima ovat kasvaneet monotonisesti kontribuuttorikannan mukana.
+        </p>
+        <p>
+          <strong>Antikilpailevuussovitus:</strong> Olkoon \(n\) aktiivisten Linux-käyttäjien
+          määrä. Ytimen laatu (ajurituki, vikakorjaukset, tietoturvapäivitykset) on \(n\):n kasvava
+          funktio. Linusin laki toteaa: &ldquo;Riittävän monilla silmäpareilla kaikki viat ovat
+          pinnallisia.&rdquo; Formaalisti vikojen havaitsemisnopeus skaalautuu kuten
+          \(\lambda(n) = \lambda_0 \cdot n^\gamma\) jollakin \(\gamma > 0\), mikä tarkoittaa, että
+          ohjelmiston laatu \(Q = Q_{\max}(1 - e^{-\lambda(n) t})\) paranee nopeammin
+          useammilla käyttäjillä.
+        </p>
+        <p>
+          <strong>Arvioitu \(\beta\):</strong> Kohtalainen tai vahva (\(\beta \approx 0.3\text{--}0.7\)).
+          Ekosysteemi on vahvasti antikilpaileva käyttötapausten monimuotoisuuden ansiosta, mikä
+          ohjaa kattavaa testausta ja ominaisuuskehitystä.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Esimerkki &mdash; Wikipedia</span>
+        <p>
+          <strong>Mekanismi:</strong> Jokainen lukija on potentiaalinen muokkaaja. Enemmän
+          muokkaajia tuottaa enemmän artikkeleita, jotka houkuttelevat enemmän lukijoita, joista
+          tulee muokkaajia. Enemmän muokkaajia parantaa myös laatua ristiviittausten,
+          faktantarkistuksen ja aukkojen täyttämisen kautta.
+        </p>
+        <p>
+          <strong>Antikilpailevuussovitus:</strong> Minkä tahansa yksittäisen Wikipedia-artikkelin
+          arvo kasvaa, kun siihen liittyviä artikkeleita luodaan (sisäisten linkkien, kontekstin ja
+          tiedon verkostovaikutusten vuoksi). Enemmän käyttäjiä tuottaa myös enemmän käännöksiä eri
+          kielille, tehden tiedosta globaalisti saavutettavaa.
+        </p>
+        <p>
+          <strong>Arvioitu \(\beta\):</strong> Kohtalainen (\(\beta \approx 0.2\text{--}0.5\)).
+          Antikilpailevuusvaikutus on rajoitettu &mdash; tietyn muokkaajamäärän jälkeen
+          rajaparannukset lisämuokkaajaa kohti vähenevät (logistinen malli on sopiva).
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Esimerkki &mdash; Ohjelmointikielet (Python, JavaScript, R)</span>
+        <p>
+          <strong>Mekanismi:</strong> Enemmän Pythonin käyttäjiä &rarr; enemmän paketteja
+          PyPI:ssä &rarr; parempi dokumentaatio Stack Overflow'ssa &rarr; enemmän oppaita ja
+          kursseja &rarr; enemmän työnantajakysyntää &rarr; enemmän ihmisiä oppimassa Pythonia
+          &rarr; vieläkin enemmän käyttäjiä. Tämä on vahvin antikilpailevuuden palautesilmukka
+          digitaalisessa taloudessa.
+        </p>
+        <p>
+          <strong>Antikilpailevuussovitus:</strong> Arvofunktio \(V(n) = V_0 \cdot n^\beta\)
+          parametrilla \(\beta > 0\) soveltuu hyvin. Saatavilla olevien pakettien määrä kasvaa
+          likimäärin käyttäjäkannan potenssina, ja jokainen paketti lisää kaikkien käyttäjien
+          hyötyä.
+        </p>
+        <p>
+          <strong>Arvioitu \(\beta\):</strong> Vahva (\(\beta \approx 0.5\text{--}1.0\)).
+          Ohjelmointikielten ekosysteemit osoittavat yhtä vahvinta antikilpailevuutta
+          kaikista hyödykkeistä.
+        </p>
+      </div>
+
+      <div class="example-box">
+        <span class="box-title">Esimerkki &mdash; Standardit ja protokollat (TCP/IP, HTML, Unicode)</span>
+        <p>
+          <strong>Mekanismi:</strong> TCP/IP-protokollaperheen arvo kasvaa jokaisen internetiin
+          liitetyn laitteen myötä. HTML:stä tulee arvokkaampi, kun enemmän sisältöä luodaan
+          HTML:llä. Unicodesta tulee hyödyllisempi, kun enemmän ohjelmistoja tukee sitä.
+        </p>
+        <p>
+          <strong>Antikilpailevuussovitus:</strong> Standardit osoittavat erittäin vahvaa
+          antikilpailevuutta, koska omaksuminen lisää yhteensopivuutta, joka on ensisijainen
+          arvonlähde. Mitä enemmän laitteita puhuu TCP/IP:tä, sitä arvokkaampaa se on jokaiselle
+          laitteelle.
+        </p>
+        <p>
+          <strong>Arvioitu \(\beta\):</strong> Erittäin vahva (\(\beta \approx 0.7\text{--}1.5\)).
+          Suuri osa tästä on kuitenkin verkostovaikutuksia (yhdistettävyysarvo) puhtaan
+          antikilpailevuuden sijaan (itse standardi ei parane käytöstä; se paranee tarkoituksellisten
+          revisiointiprosessien kautta).
+        </p>
+      </div>
+
+      <div class="warning-box">
+        <span class="box-title">Vastaesimerkki &mdash; Elokuvatiedosto (ei-kilpaileva, mutta EI antikilpaileva)</span>
+        <p>
+          Digitaalinen elokuvatiedosto on täysin ei-kilpaileva: sen kopioiminen ei maksa mitään,
+          ja yhden henkilön katsominen ei heikennä toisen kokemusta. Se ei kuitenkaan ole
+          <em>antikilpaileva</em>: 10 miljoonan ihmisen elokuvan katsominen ei tee elokuvasta
+          yhtään parempaa. Sisältö on kiinnitetty luomishetkellä. Enemmän katsojia ei paranna
+          elokuvaa.
+        </p>
+        <p>
+          Tämä erottelu on kriittinen: <strong>ei-kilpailevuus (\(\beta = 0\)) ei ole sama kuin
+          antikilpailevuus (\(\beta > 0\))</strong>. Antikilpailevuus edellyttää, että <em>itse
+          käyttö</em> tuottaa arvon parannuksia, ei pelkästään sitä, että käyttö ei kuluta.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5.6 The Anti-Rivalry Spectrum -->
+    <div id="ar-spectrum">
+      <h3>5.6 Antikilpailevuuden spektri</h3>
+
+      <p>
+        Binäärisen luokittelun (kilpaileva vs. ei-kilpaileva) sijaan ehdotamme
+        <strong>jatkuvaa spektriä</strong>, jota parametrisoi \(\beta\):
+      </p>
+
+      \[
+        V_i(n) = V_0 \cdot n^{\beta}, \qquad \beta \in \mathbb{R}.
+      \]
+
+      <div class="def-box">
+        <span class="box-title">Määritelmä &mdash; Kilpailevuusspektri</span>
+        <p>
+          <strong>Kilpailevuusparametri</strong> \(\beta\) sijoittaa hyödykkeen jatkuvalle spektrille:
+        </p>
+        <ul>
+          <li>\(\beta \ll 0\): <strong>Vahvasti kilpaileva.</strong> Esimerkki: kalat rajallisessa
+            järvessä (\(\beta \approx -1\)). Moduulin 8 CPR-ongelma.</li>
+          <li>\(\beta \lesssim 0\): <strong>Heikosti kilpaileva.</strong> Esimerkki: ruuhkautuva
+            moottoritie. Enemmän käyttäjiä vähentää arvoa, mutta ei verrannollisesti.</li>
+          <li>\(\beta = 0\): <strong>Ei-kilpaileva.</strong> Esimerkki: äänitetty kappale,
+            elokuvatiedosto, julkaistu lause.</li>
+          <li>\(0 < \beta \lesssim 0.5\): <strong>Heikosti antikilpaileva.</strong> Esimerkki:
+            sosiaalisen median alusta, vaatimaton avoimen datan projekti.</li>
+          <li>\(\beta \gtrsim 0.5\): <strong>Vahvasti antikilpaileva.</strong> Esimerkki: avoimen
+            lähdekoodin ohjelmointikielen ekosysteemi, suuri kollaboratiivinen tietokanta kuten Wikipedia.</li>
+        </ul>
+      </div>
+
+      <h4>5.6.1 Vaihesiirtymät pelirakenteessa</h4>
+
+      <p>
+        Kilpailevuusspektrin syvällisin seuraus on, että kun \(\beta\) siirtyy negatiivisesta
+        positiiviseen, peliteoreettinen rakenne käy läpi <strong>laadullisia vaihesiirtymiä</strong>.
+        Mallissamme, jossa \(\Delta\pi(x) = (rb - c) + rb\beta x\):
+      </p>
+
+      <div class="theorem-box">
+        <span class="box-title">Lause &mdash; Vaihesiirtymät kilpailevuusspektrin varrella</span>
+        <p>
+          Kiinnitetään \(r, b, c > 0\) siten, että \(rb < c\) (jotta kontribuoiminen ei ole
+          triviaalisesti dominoiva). Kun \(\beta\) kasvaa kilpailevuusspektrin varrella:
+        </p>
+        <ol>
+          <li><strong>Vaihe I (\(\beta < 0\), kilpailevuus):</strong> \(\Delta\pi(x) < 0\) kaikilla
+            \(x \in [0,1]\) (koska sekä vakiotermi että kulmakerroin ovat negatiivisia).
+            Vapaamatkustaminen dominoi. Peli on <strong>vangin dilemma</strong>.
+            Tämä on yhteismaan tragedia.</li>
+          <li><strong>Vaihe II (\(0 \leq \beta < \beta^*\), heikko antikilpailevuus):</strong>
+            missä \(\beta^* = \frac{c - rb}{rb}\). Edelleen \(\Delta\pi(x) < 0\) kaikilla
+            \(x \in [0,1]\), koska kulmakerroin on positiivinen mutta liian loiva tekemään
+            \(\Delta\pi(1) > 0\). Vapaamatkustaminen dominoi edelleen. Antikilpailevuus on liian
+            heikko auttamaan.</li>
+          <li><strong>Vaihe III (\(\beta = \beta^*\), kriittinen piste):</strong>
+            \(\Delta\pi(1) = 0\). Peli on vangin dilemman ja koordinaatiopelin rajalla.
+            Reuna \(x = 1\) muuttuu ei-hyperboliseksi (marginaalisesti stabiiliksi) kiintopisteeksi.</li>
+          <li><strong>Vaihe IV (\(\beta > \beta^*\), vahva antikilpailevuus):</strong>
+            \(\Delta\pi(0) < 0\), mutta \(\Delta\pi(1) > 0\). Peli on
+            <strong>koordinaatiopeli</strong> käännepisteellä
+            \(x^* = \frac{c - rb}{rb\beta} \in (0,1)\). Käännepiste pienenee \(\beta\):n
+            kasvaessa.</li>
+          <li><strong>Vaihe V (\(\beta \to \infty\) tai \(rb > c\)):</strong> Käännepiste
+            \(x^* \to 0\). Peli lähestyy <strong>harmoniapeliä</strong>, jossa kontribuoiminen
+            dominoi lähes millä tahansa alkuehdolla.</li>
+        </ol>
+      </div>
+
+      <p>
+        Tämä lause osoittaa, että kilpailevuusparametri \(\beta\) toimii evoluutiodynamiikan
+        <em>bifurkaatioparametrina</em>. Kohdassa \(\beta = \beta^*\) systeemi käy läpi
+        <strong>transkriittisen bifurkaation</strong>: stabiili reunatasapaino \(x = 1\) vaihtaa
+        stabiiliuttaan sisätasapainon \(x^*\) kanssa, kun \(x^*\) tulee välille \([0,1]\)
+        yläpuolelta.
+      </p>
+
+      <div class="note-box">
+        <span class="box-title">Yhteys moduuliin 4</span>
+        <p>
+          Transkriittinen bifurkaatio on yksi kanonisista bifurkaatiotyypeistä, joita tutkitaan
+          dynaamisten systeemien teoriassa (moduuli 4). Kun parametri \(\beta\) ohittaa arvon
+          \(\beta^*\), kaksi kiintopistettä (reuna \(x = 1\) ja sisätasapaino \(x^*\))
+          törmäävät ja vaihtavat stabiiliutensa. Tämä on standardi tulos bifurkaatioteoriassa,
+          jolle annetaan nyt uusi taloudellinen tulkinta: kilpailevuusparametri määrittää,
+          voiko digitaalinen yhteisresurssi ylläpitää itseään.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: Institutional Design for Digital Commons -->
+  <!-- ================================================================== -->
+  <div class="section" id="institutional-design">
+    <h2>6. Digitaalisten yhteisresurssien institutionaalinen suunnittelu</h2>
+
+    <p>
+      Ostromin suunnitteluperiaatteet (moduuli 8) kehitettiin kilpaileville yhteisvarantoresursseille.
+      Digitaaliset yhteisresurssit ovat ei-kilpailevia tai antikilpailevia, mikä vaatii
+      institutionaalisen suunnitteluteorian merkittävää mukauttamista. Tässä luvussa analysoimme,
+      miten digitaalisten yhteisresurssien hallintorakenteet eroavat CPR-hallinnosta, ja
+      kehitämme peliteoreettisia malleja keskeisistä institutionaalisista valinnoista.
+    </p>
+
+    <h3>6.1 Perustavanlaatuinen paradoksi</h3>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Ylikäytön estämisestä kontribuution kannustamiseen</span>
+      <p>
+        Ostromin CPR-viitekehys käsittelee <em>ylikäytön</em> ongelmaa: liian monet kalastajat
+        tyhjentävät kalavedet, liian monet paimenet ylilaaiduntavat yhteismaat.
+        Suunnitteluperiaatteet luovat instituutioita, jotka <em>rajoittavat</em> pääsyä,
+        <em>valvovat</em> louhintaa ja <em>rankaisevat</em> ylikäytöstä.
+      </p>
+      <p>
+        Digitaalisissa yhteisresursseissa resurssi <em>kasvaa</em> käytön myötä.
+        Suunnitteluhaaste kääntyy: ylikäytön estämisen sijaan instituution on
+        <em>kannustettava kontribuutiota</em>, <em>ylläpidettävä laatua</em> (roskapostia ja
+        vandalismia vastaan) ja <em>ohjattava</em> kehityksen suuntaa. Niukka resurssi ei ole
+        itse yhteisresurssi vaan yhteisön <em>huomio, panostus ja koordinaatiokapasiteetti</em>.
+      </p>
+    </div>
+
+    <h3>6.2 Hallintamallit</h3>
+
+    <p>
+      Menestyneet digitaaliset yhteisresurssit ovat konvergoituneet useisiin hallintamalleihin,
+      joista jokaisella on omat peliteoreettiset ominaisuutensa:
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Digitaalisten yhteisresurssien hallinta-arkkityypit</span>
+      <ul>
+        <li><strong>BDFL (Benevolent Dictator for Life):</strong> Yhdellä henkilöllä on
+          lopullinen päätäntävalta kaikissa asioissa. Esimerkit: Linux (Linus Torvalds, vuoteen
+          2018), Python (Guido van Rossum, vuoteen 2018). Peliteoreettisesti: diktaattoripeli,
+          jossa BDFL:n uskottavuus tulee yhteisön <em>poistumismahdollisuudesta</em> (haaroittaminen).</li>
+        <li><strong>Meritokratia:</strong> Auktoriteetti ansaitaan osoitetun kontribuution kautta.
+          Esimerkki: Apache Software Foundation. Kontribuuttoreista tulee committereita, sitten
+          PMC-jäseniä, sitten säätiön jäseniä. Peliteoreettisesti: turnauspeli/signalointipeli,
+          jossa panostus palkitaan hallintavallalla.</li>
+        <li><strong>Demokraattinen/konsensusmalli:</strong> Päätökset tehdään yhteisön äänestyksellä
+          tai karkealla konsensuksella. Esimerkki: IETF (&ldquo;rough consensus and running
+          code&rdquo;), Debian. Peliteoreettisesti: äänestyspeli, johon vaikuttavat Arrow'n
+          mahdottomuuslause ja Condorcet-kierto.</li>
+        <li><strong>Yritystuettu:</strong> Yritys sponsoroi ja hallitsee projektia pitäen sen
+          nimellisesti avoimena. Esimerkit: Android (Google), React (Meta), VS Code (Microsoft).
+          Peliteoreettisesti: päämies-agentti-ongelma, jossa sponsoroiva yritys on päämies.</li>
+      </ul>
+    </div>
+
+    <h3>6.3 Lisensointi pelinä</h3>
+
+    <p>
+      Yksi merkittävimmistä institutionaalisista valinnoista digitaaliselle yhteisresurssille on
+      <strong>lisenssi</strong>. Avoimen lähdekoodin maailmassa on kaksi laajaa kategoriaa:
+    </p>
+
+    <ul>
+      <li><strong>Copyleft (esim. GPL):</strong> Minkä tahansa johdannaisteoksen on myös oltava
+        avointa lähdekoodia saman lisenssin alla. Tämä on &ldquo;viraalinen&rdquo; tai
+        &ldquo;vastavuoroinen&rdquo; lisenssi.</li>
+      <li><strong>Salliva (esim. MIT, Apache, BSD):</strong> Johdannaisteokset voivat olla
+        suljetusti lisensoituja. Käyttäjät voivat sisällyttää koodin suljetun lähdekoodin
+        tuotteisiin.</li>
+    </ul>
+
+    <p>
+      Voimme mallintaa lisenssinvalinnan pelinä. Tarkastellaan kahta yritystä, jotka kumpikin
+      tuottavat ohjelmistoa, joka voidaan julkaista avoimena tai pitää suljettuna. Kumpikin
+      yritys valitsee strategian: <strong>copyleft (CL)</strong> tai <strong>salliva (P)</strong>.
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Lisensointipeli</span>
+      <p>
+        Tarkastellaan tuottomatriisia, jossa yritykset hyötyvät jaetusta koodista mutta myös
+        suljetun koodin edusta:
+      </p>
+      <table style="width:80%; border-collapse:collapse; margin:1rem auto; text-align:center;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Yritys 2: Copyleft</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Yritys 2: Salliva</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Yritys 1: Copyleft</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s + a, \; s + a)\)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s, \; s + d)\)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem; background:#e8f0fe;"><strong>Yritys 1: Salliva</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s + d, \; s)\)</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">\((s + d/2, \; s + d/2)\)</td>
+        </tr>
+      </table>
+      <p>
+        Tässä \(s\) on jaetun koodin perusarvo, \(a\) on antikilpailevuushyöty, kun molemmat
+        käyttävät copyleftia (kontribuutioiden on palauduttava takaisin), ja \(d\) on suljetun
+        koodin etu avoimen koodin sisällyttämisestä suljettuihin tuotteisiin.
+      </p>
+      <p>
+        Jos \(a > d\): (copyleft, copyleft) on dominoivan strategian tasapaino.
+        Pakollisen jakamisen antikilpailevuushyöty ylittää suljetun koodin edun. Tämä selittää,
+        miksi Linux-ytimen ekosysteemi kokoontui GPL:n ympärille.
+      </p>
+      <p>
+        Jos \(a < d\): (salliva, salliva) dominoi. Suljetun koodin etu ylittää yhteisresurssin
+        hyödyn. Tämä selittää, miksi monet yritystuetut projektit käyttävät MIT/Apache-lisenssejä.
+      </p>
+      <p>
+        Jos \(d/2 < a < d\): Peli on vangin dilemma, jossa (copyleft, copyleft) on
+        Pareto-optimaalinen, mutta (salliva, salliva) on Nash-tasapaino.
+      </p>
+    </div>
+
+    <h3>6.4 Haaroittaminen uskottavana poistumisena</h3>
+
+    <p>
+      Avoimen lähdekoodin hallinnan ainutlaatuinen piirre on <strong>haaroittaminen</strong> (fork):
+      kuka tahansa yhteisön jäsen voi kopioida koko koodikannan ja aloittaa itsenäisen projektin.
+      Tämä on äärimmäinen <em>poistumisvaihtoehto</em> Hirschmanin Exit-Voice-Loyalty-viitekehyksessä.
+    </p>
+
+    <p>
+      Peliteoreettisesti haaroittamisen uskottava uhka kurinalaiset hallintoa. Jos BDFL tai
+      yrityssponsorit tekevät yhteisöä vahingoittavia päätöksiä, kontribuuttorit voivat
+      haaroittaa. <em>Haaroittamisen kustannus</em> sisältää:
+    </p>
+
+    <ul>
+      <li>Yhtenäisen yhteisön menetys (verkostovaikutukset ja antikilpailevuus jakautuvat haarojen välille).</li>
+      <li>Työn kaksinkertaistuminen (molempien haarojen on ylläpidettävä rinnakkaisia koodikantoja).</li>
+      <li>Brändin sekaannus ja luottamuksen menetys.</li>
+    </ul>
+
+    <p>
+      <em>Haaroittamisen hyöty</em> on pakeneminen huonosta hallinnasta. Olkoon \(G\) hallinnan
+      laatu (korkeampi on parempi), \(F\) haaroittamisen kustannus ja \(A(\beta, n)\)
+      yhteisön jakamisesta menetetty antikilpailevuusarvo. Haaroittaminen tapahtuu, kun:
+    </p>
+
+    \[
+      \text{Value under bad governance} < \text{Value of fork} - F - A(\beta, n).
+    \]
+
+    <p>
+      Kiinnostavasti <strong>antikilpailevuus tekee haaroittamisesta kalliimpaa</strong> (koska
+      käyttäjäkunnan jakaminen tuhoaa antikilpailevuusarvoa), mikä paradoksaalisesti
+      <em>kasvattaa</em> huonojen hallinnoijien valtaa. Tämä luo jännitteen: antikilpailevuus
+      sekä kasvattaa yhteisresurssin arvoa että lisää yhteisön haavoittuvuutta hallinnan
+      kaappaamiselle.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 6</span>
+      <p>
+        Haaroittamispeli on rakenteellisesti samanlainen kuin moduulin 6 uhtivaatimuspeli.
+        Hallinnoija (ehdottaja) valitsee hallintapolitiikan. Yhteisö (vastaaja) voi hyväksyä
+        tai &ldquo;hylätä&rdquo; haaroittamalla. Rationaaliset ehdottajat ennakoivat
+        haaroittamisuhan ja maltillistavat hallintoaan. Tuloksena on alipelitäydellinen
+        tasapaino, jossa hallinnan laadun alaraja määräytyy haaroittamiskynnyksen mukaan.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: Synthesis -->
+  <!-- ================================================================== -->
+  <div class="section" id="synthesis">
+    <h2>7. Synteesi &mdash; digitaaliset yhteisresurssit EGT:n näkökulmasta</h2>
+
+    <p>
+      Tämä moduuli on soveltanut kurssin koko matemaattista työkalupakkia digitaalisten
+      yhteisresurssien ja antikilpailevuuden ymmärtämiseen. Syntetisoidaan yhteydet.
+    </p>
+
+    <h3>7.1 Miten kukin moduuli kontribuoi</h3>
+
+    <div class="example-box">
+      <span class="box-title">Kurssin työkalupakki sovellettuna digitaalisiin yhteisresursseihin</span>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.9rem;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Moduuli</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Matemaattinen työkalu</strong></td>
+          <td style="border:1px solid #ccc; padding:0.5rem;"><strong>Sovellus tässä moduulissa</strong></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">1. Perusteet</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Funktiot, joukot, logiikka</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Hyödykeluokittelujen formalisointi; arvofunktioiden \(V(n)\) määrittely</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">2. Lineaarialgebra</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Matriisit, ominaisvektorit</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Lisensointipelien tuottomatriisit; verkoston vierekkäisyysmatriisit</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">3. Analyysi</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Derivaatat, optimointi</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Nash-tasapainon 1. kertaluvun ehdot; arvofunktioiden raja-analyysi; kilpailevuuden karakterisointi \(V'(n)\):n kautta</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">4. Diff.yhtälöt</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">ODE:t, stabiilisuus, bifurkaatio</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Replikaattoridynamiikka; vaihemuotokuvat; transkriittinen bifurkaatio kohdassa \(\beta^*\)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">5. Todennäköisyys</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Odotusarvo, jakaumat</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Stokastiset kontribuutiopäätökset; lisensointipelien sekastrategiatasapainot</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">6. Peliteoria</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Nash-tasapaino, dominanssi, pelityypit</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Pelin luokittelu (vangin dilemma, koordinaatio, harmonia); kontribuution Nash-analyysi; lisensointipeli; haaroittamispeli</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">7. EGT ja replikaattori</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Replikaattoriyhtälö, ESS</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Kontribuuttorien vs. vapaamatkustajien evoluutio; frekvenssiriippuvainen valinta; käännepisteet</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.5rem;">8. Sovellukset</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">SVO, Ostrom, CPR, rangaistus</td>
+          <td style="border:1px solid #ccc; padding:0.5rem;">Ostromin periaatteiden mukauttaminen; kontrasti CPR-dynamiikan kanssa; hallinnan institutionaalinen analyysi</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>7.2 Avoimet tutkimuskysymykset</h3>
+
+    <p>
+      Digitaalisten yhteisresurssien ja antikilpailevuuden tutkimus on aktiivinen ja nopeasti
+      kehittyvä tutkimusalue. Useita avoimia kysymyksiä on tutkimuksen eturintamassa:
+    </p>
+
+    <div class="intuition-box">
+      <span class="box-title">Avoimet kysymykset tutkimuksen eturintamassa</span>
+      <ol>
+        <li>
+          <strong>Tekoäly ja digitaaliset yhteisresurssit.</strong> Suurten kielimallien koulutus
+          perustuu valtaviin määriin yhteisresurssidataa (Wikipedia, avoin lähdekoodi, Stack
+          Overflow). Kontribuoivatko ne takaisin yhteisresurssiin, vai louhivatko ne arvoa
+          täydentämättä? Peliteoreettisesti tekoälyjärjestelmät saattavat olla äärimmäisiä
+          vapaamatkustajia: ne kuluttavat yhteisresurssia valtavassa mittakaavassa, mutta
+          (tällä hetkellä) eivät kontribuoi mitään takaisin. Miten tämä vaikuttaa antikilpailevien
+          yhteisresurssien kestävyyteen?
+        </li>
+        <li>
+          <strong>Alustakaappaus.</strong> Antikilpailevia yhteisresursseja voidaan
+          &ldquo;kaapata&rdquo; alustoilla, jotka rakentavat suljettuja palveluita avointen
+          resurssien päälle. GitHub (Microsoftin omistama) isännöi suurinta osaa avoimesta
+          lähdekoodista. Google hallitsee pääsyä avoimeen verkkoon. Amazon käyttää avointa
+          lähdekoodia AWS:n voimalähteenä. Kun \(\beta\) on suuri, yhteisresurssi on erittäin
+          arvokas &mdash; tehden siitä aitaamisen kohteen. Mitkä institutionaaliset mallit
+          vastustavat kaappausta?
+        </li>
+        <li>
+          <strong>Kestävyys.</strong> Monet digitaaliset yhteisresurssit nojaavat vapaaehtoistyöhön.
+          Wikipedian toimittajakanta vähenee. Avoimen lähdekoodin ylläpitäjät raportoivat
+          uupumuksesta. Onko antikilpailevuuden positiivinen palautesilmukka riittävä pitkän
+          aikavälin kestävyydelle, vai tarvitaanko lisäinstituutionaalista tukea?
+        </li>
+        <li>
+          <strong>Antikilpailevuus talouden perustana.</strong> Jos kasvava osuus taloudellisesta
+          arvosta tulee antikilpailevista hyödykkeistä (ohjelmisto, data, tieto, tekoälymallit),
+          mitkä ovat seuraukset niukkuusoletukselle rakennetulle talousteorialle? Tarvitseeko
+          kilpailevuusparametrin \(\beta\) tulla standardisyötteeksi talousmalleihin
+          perinteisten tekijöiden rinnalle?
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- INTERACTIVE ELEMENTS -->
+  <!-- ================================================================== -->
+  <div class="section" id="interactive">
+    <h2>Interaktiiviset tutkimustehtävät</h2>
+
+    <!-- Interactive 1: Digital Commons Contribution Game -->
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Digitaalisten yhteisresurssien dynamiikka</h3>
+      <p>Tutki, miten eri parametrit vaikuttavat kontribuuttorien ja vapaamatkustajien evoluutioon digitaalisissa yhteisresursseissa. Säädä antikilpailevuuden vahvuutta nähdäksesi, miten se muuntaa pelin.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Antikilpailevuuden vahvuus (&beta;):</label>
+          <input type="range" id="dc-beta" min="-1" max="2" step="0.05" value="0">
+          <span class="control-value" id="dc-beta-val">0.00</span>
+        </div>
+        <div class="control-group">
+          <label>Kontribuutiokustannus (c):</label>
+          <input type="range" id="dc-cost" min="0.1" max="3" step="0.1" value="1">
+          <span class="control-value" id="dc-cost-val">1.0</span>
+        </div>
+        <div class="control-group">
+          <label>Mainehyöty (r):</label>
+          <input type="range" id="dc-rep" min="0" max="2" step="0.1" value="0">
+          <span class="control-value" id="dc-rep-val">0.0</span>
+        </div>
+        <div class="control-group">
+          <label>Alkukontribuuttorit (x&#x2080;):</label>
+          <input type="range" id="dc-x0" min="0.01" max="0.99" step="0.01" value="0.3">
+          <span class="control-value" id="dc-x0-val">0.30</span>
+        </div>
+        <button class="btn btn-primary" id="dc-play">Toista</button>
+        <button class="btn btn-outline" id="dc-reset">Nollaa</button>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+        <canvas id="dc-time-canvas" class="viz-canvas" width="550" height="300"></canvas>
+        <div id="dc-info" style="flex:1; min-width:200px; padding:1rem; background:#f8f9fa; border-radius:6px; font-size:0.9rem;">
+          <strong>Pelianalyysi:</strong><br>
+          <span id="dc-game-type">&mdash;</span><br><br>
+          <strong>Tasapainot:</strong><br>
+          <span id="dc-equilibria">&mdash;</span><br><br>
+          <strong>Hallintamalli:</strong><br>
+          <span id="dc-regime">&mdash;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive 2: Anti-Rivalry Spectrum Visualizer -->
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Kilpailevuusspektri</h3>
+      <p>Katso, miten arvo käyttäjää kohti muuttuu käyttäjämäärän mukana kilpailevuusspektrin eri kohdissa.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Kilpailevuusparametri (&beta;):</label>
+          <input type="range" id="spectrum-beta" min="-1" max="1.5" step="0.05" value="0">
+          <span class="control-value" id="spectrum-beta-val">0.00</span>
+        </div>
+        <div class="control-group">
+          <label>Perusarvo (V&#x2080;):</label>
+          <input type="range" id="spectrum-v0" min="1" max="10" step="0.5" value="5">
+          <span class="control-value" id="spectrum-v0-val">5.0</span>
+        </div>
+      </div>
+      <canvas id="spectrum-canvas" class="viz-canvas" width="600" height="350"></canvas>
+      <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">
+        &beta; &lt; 0: Kilpaileva (arvo pienenee käyttäjien myötä) | &beta; = 0: Ei-kilpaileva (vakioarvo) | &beta; &gt; 0: Antikilpaileva (arvo kasvaa käyttäjien myötä)
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- EXERCISES -->
+  <!-- ================================================================== -->
+  <div class="section" id="exercises">
+    <h2>Harjoitukset</h2>
+
+    <!-- Harjoitus 1 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 1 &mdash; Hyödykkeiden luokittelu kilpailevuusspektrillä</span>
+      <p>
+        Arvioi kullekin seuraavista hyödykkeistä kilpailevuusparametri \(\beta\) ja perustele päättelysi:
+      </p>
+      <ol type="a">
+        <li>Yhteisöpuutarha (jaettu tontti, rajallinen tila)</li>
+        <li>Julkaistu matemaattinen todistus</li>
+        <li>Rust-ohjelmointikielen ekosysteemi</li>
+        <li>Jaettu moottoritie ruuhka-aikaan</li>
+        <li>Creative Commons -oppikirja, jossa on yhteisön virheenkorjaussivu</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Yhteisöpuutarha: \(\beta \approx -0.8\). Vahvasti kilpaileva
+            &mdash; tila ja maaperän ravinteet ovat rajallisia. Enemmän viljelijöitä tarkoittaa
+            vähemmän satoa henkilöä kohti. Lähellä klassista CPR:ää.
+          </p>
+          <p>
+            <strong>(b)</strong> Julkaistu matemaattinen todistus: \(\beta = 0\). Ei-kilpaileva.
+            Todistus on muuttumaton riippumatta siitä, kuinka moni sen lukee. Kuitenkin, jos
+            ihmiset rakentavat todistuksen päälle, laajentavat sitä, löytävät uusia sovelluksia,
+            voidaan argumentoida heikon antikilpailevuuden puolesta (\(\beta \approx 0.1\)).
+          </p>
+          <p>
+            <strong>(c)</strong> Rust-ohjelmointikieli: \(\beta \approx 0.5\text{--}0.8\).
+            Vahvasti antikilpaileva. Enemmän käyttäjiä tarkoittaa enemmän crateja (paketteja),
+            parempia työkaluja, enemmän oppimisresursseja, parempaa kääntäjäkehitystä, enemmän
+            työmahdollisuuksia. Jokainen uusi käyttäjä-kontribuuttori tekee ekosysteemistä
+            arvokkaamman kaikille.
+          </p>
+          <p>
+            <strong>(d)</strong> Jaettu moottoritie ruuhka-aikaan: \(\beta \approx -0.5\).
+            Kilpaileva ruuhkautumisen vuoksi, mutta ei niin äärimmäinen kuin \(\beta = -1\),
+            koska tietä ei &ldquo;kuluteta&rdquo; samalla tavalla kuin kaloja. Ruuhka vähentää
+            nopeutta (arvoa), mutta tie säilyy.
+          </p>
+          <p>
+            <strong>(e)</strong> Creative Commons -oppikirja virheenkorjaussivulla:
+            \(\beta \approx 0.2\text{--}0.3\). Heikosti antikilpaileva. Itse oppikirja on
+            ei-kilpaileva (\(\beta = 0\)), mutta yhteisön virheenkorjaussivu tarkoittaa, että
+            enemmän lukijoita löytää ja raportoi virheitä, parantaen tekstiä tuleville lukijoille.
+            Antikilpailevuus on kohtalaista, koska kaikki lukijat eivät kontribuoi virheenkorjauksia.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 2 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 2 &mdash; Digitaalisen yhteisresurssin Nash-tasapaino</span>
+      <p>
+        Tarkastellaan digitaalista yhteisresurssia, jossa on \(n = 50\) potentiaalista
+        kontribuuttoria, hyötyparametri \(b = 8\), kustannusparametri \(c = 3\) ja
+        tuotantofunktio \(f(E) = E^{0.4}\).
+      </p>
+      <ol type="a">
+        <li>Laske symmetrinen Nash-tasapainopanostus \(e^*\) ja kokonaispanostus \(E^{\text{NE}}\).</li>
+        <li>Laske sosiaalisesti optimaalinen kokonaispanostus \(E^{\text{SO}}\).</li>
+        <li>Mikä on suhde \(E^{\text{NE}} / E^{\text{SO}}\)? Tulkitse tulos.</li>
+        <li>Miten suhde muuttuu, jos \(n\) kasvaa arvoon 500?</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Nash-tasapainokaavasta:
+            \[
+              E^{\text{NE}} = \left(\frac{b\alpha}{c}\right)^{1/(1-\alpha)} = \left(\frac{8 \times 0.4}{3}\right)^{1/0.6} = \left(\frac{3.2}{3}\right)^{5/3} = (1.0\overline{6})^{5/3}.
+            \]
+            Lasketaan: \(1.0\overline{6}^{5/3} = e^{(5/3)\ln(1.0\overline{6})} = e^{(5/3)(0.0645)} = e^{0.1076} \approx 1.114\).
+            Joten \(E^{\text{NE}} \approx 1.114\) ja \(e^* = E^{\text{NE}}/50 \approx 0.0223\).
+          </p>
+          <p>
+            <strong>(b)</strong> Sosiaalinen optimi:
+            \[
+              E^{\text{SO}} = \left(\frac{nb\alpha}{c}\right)^{1/(1-\alpha)} = \left(\frac{50 \times 3.2}{3}\right)^{5/3} = \left(\frac{160}{3}\right)^{5/3} = (53.\overline{3})^{5/3}.
+            \]
+            Lasketaan: \(53.\overline{3}^{5/3} = e^{(5/3)\ln(53.33)} = e^{(5/3)(3.976)} = e^{6.627} \approx 756.8\).
+            Joten \(E^{\text{SO}} \approx 756.8\).
+          </p>
+          <p>
+            <strong>(c)</strong> Suhde:
+            \[
+              \frac{E^{\text{NE}}}{E^{\text{SO}}} = n^{-1/(1-\alpha)} = 50^{-5/3} = \frac{1}{50^{5/3}} \approx \frac{1}{679.6} \approx 0.00147.
+            \]
+            Nash-tasapaino tuottaa vain noin 0,15 % sosiaalisesti optimaalisesta panostuksesta.
+            Alitarjonta on äärimmäistä.
+          </p>
+          <p>
+            <strong>(d)</strong> Kun \(n = 500\):
+            \[
+              \frac{E^{\text{NE}}}{E^{\text{SO}}} = 500^{-5/3} = \frac{1}{500^{5/3}} \approx \frac{1}{31{,}498} \approx 0.0000317.
+            \]
+            10-kertaisella yhteisöllä alitarjontasuhde pieneni noin 46-kertaisesti. Suuremmat
+            yhteisöt alitarjoavat suhteellisesti enemmän.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 3 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 3 &mdash; Kontribuuttorien selviytymisen ehdot</span>
+      <p>
+        Binäärisessä kontribuuttori/vapaamatkustaja-mallissa, jossa maine on verrannollinen
+        yhteisresurssin laatuun, tuotot ovat \(\pi_C = b \cdot (xne)^\alpha - c + r \cdot (xne)^\alpha\) ja
+        \(\pi_F = b \cdot (xne)^\alpha\).
+      </p>
+      <ol type="a">
+        <li>Osoita, että sisätasapaino on \(x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}\).</li>
+        <li>Kun \(n = 100\), \(e = 1\), \(\alpha = 0.5\), \(c = 4\), etsi pienin mainehyöty
+          \(r\), jolla sisätasapaino on olemassa välillä \((0,1)\).</li>
+        <li>Onko tämä sisätasapaino stabiili vai epästabiili? Mitä tämä tarkoittaa yhteisresurssin
+          pitkän aikavälin tuloksen kannalta?</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Sisätasapainossa \(\pi_C - \pi_F = 0\):
+            \[
+              r \cdot (x^* ne)^\alpha = c \implies (x^* ne)^\alpha = \frac{c}{r} \implies x^* ne = \left(\frac{c}{r}\right)^{1/\alpha} \implies x^* = \frac{1}{ne}\left(\frac{c}{r}\right)^{1/\alpha}.
+            \]
+          </p>
+          <p>
+            <strong>(b)</strong> Jotta sisätasapaino olisi olemassa välillä \((0,1)\), tarvitaan \(0 < x^* < 1\):
+            \[
+              0 < \frac{1}{100}\left(\frac{4}{r}\right)^{2} < 1 \implies \left(\frac{4}{r}\right)^2 < 100 \implies \frac{4}{r} < 10 \implies r > 0.4.
+            \]
+            Lisäksi \(x^* > 0\) vaatii \(r > 0\), mikä on aina totta. Joten pienin
+            mainehyöty on \(r_{\min} = 0.4\).
+          </p>
+          <p>
+            Kun \(r = 0.4\): \(x^* = \frac{1}{100}(10)^2 = 1\), mikä on raja-arvo. Kun
+            \(r\) on aidosti suurempi kuin 0.4, \(x^*\) laskee alle 1:n.
+          </p>
+          <p>
+            Esimerkiksi kun \(r = 1\): \(x^* = \frac{1}{100}(4)^2 = 0.16\).
+            Kun \(r = 2\): \(x^* = \frac{1}{100}(2)^2 = 0.04\).
+          </p>
+          <p>
+            <strong>(c)</strong> Sisätasapaino on <strong>epästabiili</strong> (kuten todistettiin
+            moduulin lauseessa 3.4). Se toimii käännepisteenä. Kun \(x^*\) alitetaan, yhteisresurssi
+            romahtaa arvoon \(x = 0\); sen yläpuolella se kasvaa arvoon \(x = 1\). Pitkän aikavälin
+            tulos on binäärinen: joko yhteisresurssi kukoistaa täydellä kontribuutiolla, tai se
+            kuolee täydelliseen vapaamatkustamiseen. Stabiilia rinnakkaiseloa ei ole.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 4 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 4 &mdash; Antikilpailevuusparametri empiirisestä datasta</span>
+      <p>
+        Tutkimusryhmä mittaa avoimen data-alustan arvon käyttäjää kohti eri käyttäjämäärillä:
+      </p>
+      <table style="border-collapse:collapse; margin:0.5rem 0;">
+        <tr style="background:#e8f0fe;">
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;"><strong>Käyttäjät \(n\)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">10</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">100</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">1,000</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">10,000</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;"><strong>Arvo \(V(n)\)</strong></td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">12</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">22</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">40</td>
+          <td style="border:1px solid #ccc; padding:0.3rem 0.7rem;">75</td>
+        </tr>
+      </table>
+      <ol type="a">
+        <li>Olettaen potenssilakimallin \(V(n) = V_0 \cdot n^\beta\), arvioi \(\beta\) ja \(V_0\) käyttäen
+          datapisteitä \(n = 10\) ja \(n = 10{,}000\).</li>
+        <li>Varmista arviosi välipisteiden dataa vasten.</li>
+        <li>Onko tämä hyödyke kilpaileva, ei-kilpaileva vai antikilpaileva? Kuinka vahva vaikutus on?</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Yhtälöstä \(V(n) = V_0 n^\beta\):
+            \[
+              V(10) = V_0 \cdot 10^\beta = 12, \qquad V(10{,}000) = V_0 \cdot 10{,}000^\beta = 75.
+            \]
+            Jakamalla: \(\frac{75}{12} = \frac{10{,}000^\beta}{10^\beta} = 1000^\beta\).
+            Joten \(1000^\beta = 6.25\). Logaritmoimalla:
+            \(\beta = \frac{\ln(6.25)}{\ln(1000)} = \frac{1.8326}{6.9078} \approx 0.265\).
+          </p>
+          <p>
+            Yhtälöstä \(V_0 \cdot 10^{0.265} = 12\): \(10^{0.265} = e^{0.265 \ln 10} = e^{0.610} \approx 1.841\).
+            Joten \(V_0 = 12/1.841 \approx 6.52\).
+          </p>
+          <p>
+            <strong>(b)</strong> Välipisteiden tarkistus:
+          </p>
+          <ul>
+            <li>\(V(100) = 6.52 \times 100^{0.265} = 6.52 \times 3.388 = 22.1\). Data: 22. Erinomainen sovitus.</li>
+            <li>\(V(1000) = 6.52 \times 1000^{0.265} = 6.52 \times 6.237 = 40.7\). Data: 40. Hyvä sovitus.</li>
+          </ul>
+          <p>
+            <strong>(c)</strong> Koska \(\beta \approx 0.265 > 0\), hyödyke on <strong>antikilpaileva</strong>.
+            Vaikutus on kohtalainen &mdash; suunnilleen kollaboratiivisen tietokannan
+            (kuten Wikipedian) tasolla, jossa useammat käyttäjät parantavat laatua mutta vähenevällä
+            rajatuotolla. Se ei ole yhtä vahvasti antikilpaileva kuin ohjelmointikielen ekosysteemi
+            (\(\beta > 0.5\)), mutta selvästi enemmän kuin passiivinen ei-kilpaileva hyödyke (\(\beta = 0\)).
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 5 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 5 &mdash; CPR- vs. digitaalisten yhteisresurssien dynamiikka</span>
+      <p>
+        Vertaile kahta yhteisöä, joissa kummassakin on 100 jäsentä:
+      </p>
+      <ul>
+        <li><strong>Yhteisö A</strong> hallinnoi kalastusaluetta (CPR) replikaattoridynamiikalla
+          \(\dot{x} = x(1-x)[2 - 3x]\), missä \(x\) on &ldquo;kestävästi kalastavien&rdquo; osuus.</li>
+        <li><strong>Yhteisö B</strong> hallinnoi avoimen lähdekoodin projektia replikaattoridynamiikalla
+          \(\dot{x} = x(1-x)[-0.5 + 1.5x]\), missä \(x\) on kontribuuttorien osuus.</li>
+      </ul>
+      <ol type="a">
+        <li>Etsi molempien systeemien kaikki kiintopisteet ja määritä niiden stabiilisuus.</li>
+        <li>Piirrä molempien systeemien vaiheviivat välillä \([0,1]\).</li>
+        <li>Alkuarvolla \(x_0 = 0.5\), mikä on kunkin yhteisön pitkän aikavälin tulos?</li>
+        <li>Selitä laadullinen ero kahden systeemin välillä kilpailevuuden ja antikilpailevuuden näkökulmasta.</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p><strong>Yhteisö A (CPR):</strong></p>
+          <p>
+            Kiintopisteet: \(x = 0\), \(x = 1\) ja \(x^* = 2/3\) (yhtälöstä \(2 - 3x = 0\)).
+          </p>
+          <p>
+            Stabiilisuus: \(g(x) = 2 - 3x\), \(g'(x) = -3 < 0\). Joten \(g\) on vähenevä.
+            Kun \(x < 2/3\): \(g(x) > 0\), \(\dot{x} > 0\) (kestävästi kalastavien osuus kasvaa).
+            Kun \(x > 2/3\): \(g(x) < 0\), \(\dot{x} < 0\) (kestävästi kalastavien osuus vähenee).
+            Siten \(x^* = 2/3\) on <strong>stabiili</strong>. Lisäksi \(x = 0\) on epästabiili,
+            \(x = 1\) on epästabiili. Systeemi konvergoi sisätasapainoon.
+          </p>
+          <p><strong>Yhteisö B (digitaaliset yhteisresurssit):</strong></p>
+          <p>
+            Kiintopisteet: \(x = 0\), \(x = 1\) ja \(x^* = 0.5/1.5 = 1/3\) (yhtälöstä \(-0.5 + 1.5x = 0\)).
+          </p>
+          <p>
+            Stabiilisuus: \(g(x) = -0.5 + 1.5x\), \(g'(x) = 1.5 > 0\). Joten \(g\) on kasvava.
+            Kun \(x < 1/3\): \(g(x) < 0\), \(\dot{x} < 0\) (kontribuuttorien osuus pienenee).
+            Kun \(x > 1/3\): \(g(x) > 0\), \(\dot{x} > 0\) (kontribuuttorien osuus kasvaa).
+            Siten \(x^* = 1/3\) on <strong>epästabiili</strong>. \(x = 0\) on stabiili, \(x = 1\) on stabiili.
+            Bistabiili dynamiikka käännepisteellä.
+          </p>
+          <p>
+            <strong>(b)</strong> Vaiheviivat:
+          </p>
+          <ul>
+            <li>Yhteisö A: \(0 \xrightarrow{\rightarrow} 2/3 \xleftarrow{\leftarrow} 1\). Nuolet osoittavat kohti \(2/3\):aa molemmilta puolilta.</li>
+            <li>Yhteisö B: \(0 \xleftarrow{\leftarrow} 1/3 \xrightarrow{\rightarrow} 1\). Nuolet osoittavat pois \(1/3\):sta.</li>
+          </ul>
+          <p>
+            <strong>(c)</strong> Alkuarvolla \(x_0 = 0.5\):
+          </p>
+          <ul>
+            <li>Yhteisö A: \(0.5 < 2/3\), joten \(\dot{x} > 0\). Systeemi konvergoi arvoon \(x^* = 2/3\).
+              Kaksi kolmasosaa yhteisöstä kalastaa kestävästi; yksi kolmasosa ylikalastelee.
+              Stabiili mutta epätäydellinen lopputulos.</li>
+            <li>Yhteisö B: \(0.5 > 1/3\), joten \(\dot{x} > 0\). Systeemi konvergoi arvoon \(x = 1\).
+              Kaikki yhteisön jäsenet muuttuvat kontribuuttoreiksi. Yhteisresurssi kukoistaa.</li>
+          </ul>
+          <p>
+            <strong>(d)</strong> CPR-systeemissä on <em>negatiivinen</em> frekvenssiriippuvuus: kestävän
+            kalastuksen kelpoisuus vähenee, kun useammat tekevät niin (koska resurssi on vähemmän
+            uhattuna, mikä pienentää hillinnän suhteellista etua). Tämä
+            luo stabiilin sisätasapainon &mdash; rinnakkaiselon.
+          </p>
+          <p>
+            Digitaalisissa yhteisresursseissa on <em>positiivinen</em> frekvenssiriippuvuus (antikilpailevuus):
+            kontribuoimisen kelpoisuus kasvaa, kun useammat kontribuoivat (koska yhteisresurssi
+            muuttuu arvokkaammaksi). Tämä luo epästabiilin sisätasapainon &mdash; käännepisteen.
+            Lopputulos on kaikki-tai-ei-mitään. Tämä laadullinen ero syntyy
+            suoraan kilpailevuusparametrin \(\beta\) etumerkistä.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 6 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 6 &mdash; Antikilpailevuus muuntaa vangin dilemman harmoniapeliksi</span>
+      <p>
+        Tarkastellaan digitaalisten yhteisresurssien peliä tuotoilla:
+      </p>
+      \[
+        \pi_C(x) = b(1 + \beta x)(1 + r) - c, \qquad \pi_F(x) = b(1 + \beta x).
+      \]
+      <p>
+        Olkoon \(b = 4\), \(r = 0.4\), \(c = 2\).
+      </p>
+      <ol type="a">
+        <li>Osoita, että kun \(\beta = 0\), peli on vangin dilemma (vapaamatkustaminen dominoi).</li>
+        <li>Etsi kriittinen \(\beta^*\), jossa peli siirtyy vangin dilemmasta koordinaatiopeliksi.</li>
+        <li>Etsi \(\beta\):n arvo, jossa pelistä tulee harmoniapeli (kontribuoiminen dominoi).</li>
+        <li>Todista, että mille tahansa \(b, r, c\) kun \(rb < c\), on aina olemassa äärellinen \(\beta^*\),
+          joka muuntaa vangin dilemman koordinaatiopeliksi, kunhan \(r > 0\).</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Kun \(\beta = 0\):
+            \(\Delta\pi = rb - c = 0.4 \times 4 - 2 = 1.6 - 2 = -0.4 < 0\).
+            Kelpoisuusero on negatiivinen kaikilla \(x\). Vapaamatkustaminen dominoi.
+            Tämä on vangin dilemma.
+          </p>
+          <p>
+            <strong>(b)</strong> Pelistä tulee koordinaatiopeli, kun \(\Delta\pi(1) > 0\):
+            \[
+              rb(1 + \beta) - c > 0 \implies 1.6(1 + \beta) > 2 \implies 1 + \beta > 1.25 \implies \beta > 0.25.
+            \]
+            Joten \(\beta^* = 0.25\). Kun \(\beta = 0.25\), käännepiste on kohdassa
+            \(x^* = \frac{c - rb}{rb\beta} = \frac{0.4}{1.6 \times 0.25} = \frac{0.4}{0.4} = 1\)
+            (juuri rajalla). Kun \(\beta\) on hieman yli 0.25, käännepiste siirtyy välille \((0,1)\).
+          </p>
+          <p>
+            <strong>(c)</strong> Pelistä tulee harmoniapeli, kun \(\Delta\pi(0) > 0\):
+            \[
+              rb - c > 0 \implies 1.6 > 2.
+            \]
+            Tämä ei riipu \(\beta\):sta! Kun \(rb < c\), pelistä ei voi koskaan tulla harmoniapeliä
+            lineaarisessa mallissamme (koska \(\Delta\pi(0) = rb - c\) on riippumaton \(\beta\):sta).
+          </p>
+          <p>
+            Kuitenkin kun \(\beta \to \infty\), käännepiste \(x^* = \frac{c - rb}{rb\beta} \to 0\).
+            Pisteen \(x = 1\) vetovoimaalue kattaa lähes koko välin \((0,1)\), joten peli on
+            &ldquo;käytännössä&rdquo; harmoniapeli (mikä tahansa positiivinen alkukontribuuttoriosuus
+            johtaa täyteen kontribuutioon). Formaalisti ei ole äärellistä \(\beta\):aa, joka tekisi
+            pelistä aidon harmoniapelin tässä mallissa, mutta käytännön ero häviää.
+          </p>
+          <p>
+            <strong>(d)</strong> Yleisillä \(b, r, c\) kun \(rb < c\) ja \(r > 0\):
+            Siirtymä koordinaatiopeliksi vaatii \(rb(1 + \beta^*) = c\), mistä saadaan
+            \[
+              \beta^* = \frac{c - rb}{rb} = \frac{c}{rb} - 1.
+            \]
+            Koska \(rb < c\), on \(\beta^* > 0\). Koska \(r > 0\) ja \(b > 0\),
+            \(\beta^*\) on äärellinen. Siten mille tahansa parametriarvoille, joilla standardipeli
+            on vangin dilemma, on olemassa äärellinen antikilpailevuuden vahvuus, joka muuntaa sen
+            koordinaatiopeliksi. &#9632;
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 7 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 7 &mdash; Ostromin periaatteet sovellettuna Wikipediaan</span>
+      <p>
+        Kullekin Ostromin kahdeksasta suunnitteluperiaatteesta (ks. moduuli 8):
+      </p>
+      <ol type="a">
+        <li>Tunnista, miten Wikipedia toteuttaa (tai ei toteuta) periaatteen.</li>
+        <li>Selitä, tarvitseeko periaatetta muokata ei-kilpailevaa, antikilpailevaa
+          digitaalista yhteisresurssia varten.</li>
+        <li>Niille periaatteille, jotka tarvitsevat muokkausta, ehdota digitaalisten
+          yhteisresurssien hallintaan sopiva mukautettu versio.</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p><strong>Periaate 1 (Selkeät rajat):</strong></p>
+          <p>
+            Wikipedian toteutus: Lukeminen on avointa kaikille; muokkaaminen on avointa kenelle
+            tahansa käyttäjätilillä (tai jopa ilman). Rajat ovat suunnittelultaan hyvin löyhät.
+            Tämä on vastakohta CPR-rajoille, joissa tavoitteena on rajoittaa pääsyä.
+          </p>
+          <p>
+            Mukauttamisen tarve: Kyllä. Digitaalisissa yhteisresursseissa rajojen tulisi koskea
+            <em>kirjoitusoikeuksien laadunvalvontaa</em> pääsyn rajoittamisen sijaan. Wikipedian
+            automaattisesti vahvistettujen käyttäjien, laajennetusti vahvistettujen käyttäjien ja
+            ylläpitäjien järjestelmä luo asteittaiset kirjoitusoikeusrajat.
+          </p>
+          <p>
+            Mukautettu periaate: &ldquo;Selkeät laaturajat &mdash; määrittele, kuka voi kontribuoida
+            kullakin tasolla, minimoiden esteet alkuosallistumiselle.&rdquo;
+          </p>
+
+          <p><strong>Periaate 2 (Yhteensopivuus paikallisten olosuhteiden kanssa):</strong></p>
+          <p>
+            Wikipedia: Eri kieliversioilla on erilaiset käytännöt, jotka heijastavat kulttuurisia
+            normeja. Englanninkielisellä Wikipedialla on tiukat merkittävyysvaatimukset; muut
+            kieliversiot voivat olla sallivampia. Yksittäiset WikiProjektit asettavat
+            erikoistuneita ohjeistuksia.
+          </p>
+          <p>
+            Mukauttaminen: Vähäinen muutos tarpeen. Tämä periaate soveltuu hyvin digitaalisiin yhteisresursseihin.
+          </p>
+
+          <p><strong>Periaate 3 (Kollektiiviset päätöksentekomenettelyt):</strong></p>
+          <p>
+            Wikipedia: Käytännöt määritetään yhteisön konsensuksella keskustelusivujen,
+            RfC:iden (Requests for Comment) ja yhteisöäänestysten kautta. Kuka tahansa
+            rekisteröitynyt käyttäjä voi osallistua.
+          </p>
+          <p>
+            Mukauttaminen: Toimii hyvin digitaalisissa yhteisresursseissa. Verkko-osallistumisen
+            matalat kustannukset tekevät kollektiivisesta päätöksenteosta helpompaa kuin
+            fyysisissä CPR-ympäristöissä.
+          </p>
+
+          <p><strong>Periaate 4 (Valvonta):</strong></p>
+          <p>
+            Wikipedia: Jokainen muokkaus kirjataan. Tarkkailulistat, tuoreiden muutosten
+            partiointi ja bottivalvonta (ClueBot NG vandalismiin). Tämä on huomattavasti
+            kattavampaa kuin fyysinen CPR-valvonta.
+          </p>
+          <p>
+            Mukauttaminen: Digitaalisilla yhteisresursseilla on tässä valtava etu &mdash; kaikki
+            toiminnot kirjautuvat automaattisesti. Valvonta on lähes kustannuksetonta. Mukautettu
+            periaate: &ldquo;Hyödynnä digitaalista läpinäkyvyyttä &mdash; kaikkien kontribuutioiden
+            ja muokkausten tulisi olla automaattisesti seurattavia ja julkisesti näkyviä.&rdquo;
+          </p>
+
+          <p><strong>Periaate 5 (Asteittaiset sanktiot):</strong></p>
+          <p>
+            Wikipedia: Varoitusmallineet, kasvavan keston esto, aihekohtaiset porttikiellot,
+            sivustokohtaiset porttikiellot. Erittäin hyvin kehittynyt asteittainen sanktiojärjestelmä.
+          </p>
+          <p>
+            Mukauttaminen: Keskeinen ero on, että digitaalisten yhteisresurssien sanktiot
+            kohdistuvat ensisijaisesti <em>laadun heikentämiseen</em> (vandalismi, väärä tieto)
+            eikä <em>ylikäyttöön</em>. Mukautettu periaate: &ldquo;Asteittaiset sanktiot
+            laaturikkomuksista, ei käytöstä.&rdquo;
+          </p>
+
+          <p><strong>Periaate 6 (Konfliktinratkaisu):</strong></p>
+          <p>
+            Wikipedia: Keskustelusivut, sovittelu, välimieskomitea (ArbCom). Monitasoinen
+            riidanratkaisu.
+          </p>
+          <p>
+            Mukauttaminen: Soveltuu hyvin. Digitaaliset yhteisresurssit saattavat tarvita
+            lisämekanismeja sisältökiistoihin (jotka ovat tietoyhteisresursseille ominaisia).
+          </p>
+
+          <p><strong>Periaate 7 (Oikeuksien tunnustaminen):</strong></p>
+          <p>
+            Wikipedia: Wikimedia Foundation tarjoaa oikeudellista suojaa ja infrastruktuuria, mutta
+            ei sanele toimituspolitiikkaa. Yhteisön itsehallintoa kunnioitetaan.
+          </p>
+          <p>
+            Mukauttaminen: Digitaalisissa yhteisresursseissa tämä periaate laajenee
+            <em>lisenssivalintaan</em> &mdash; oikeudelliseen viitekehykseen (Creative Commons,
+            GPL jne.), joka suojaa yhteisresurssia aitaamiselta.
+          </p>
+
+          <p><strong>Periaate 8 (Sisäkkäiset organisaatiot):</strong></p>
+          <p>
+            Wikipedia: Yksittäiset toimittajat &rarr; WikiProjektit &rarr; kieliversiot &rarr;
+            Wikimedia Foundation. Hyvin kehittynyt sisäkkäinen hallinta.
+          </p>
+          <p>
+            Mukauttaminen: Soveltuu suoraan. Digitaalisissa yhteisresursseissa on usein
+            luonnollista sisäkkäisyyttä (alijärjestelmät, aliprojektit, sateenvarjo-organisaatiot).
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Harjoitus 8 -->
+    <div class="exercise-box">
+      <span class="box-title">Harjoitus 8 &mdash; Verkostovaikutukset ja käännepisteet</span>
+      <p>
+        Uuden avoimen lähdekoodin projektin potentiaalinen käyttäjäkanta on \(N = 1000\).
+        Omaksumisdynamiikka noudattaa replikaattoriyhtälöä Metcalfen kaltaisilla verkostovaikutuksilla:
+      </p>
+      \[
+        \dot{x} = x(1-x)\left[\kappa (xN)^{1.5} - p\right],
+      \]
+      <p>
+        missä \(\kappa = 0.001\) ja \(p = 10\) (omaksumiskustannus).
+      </p>
+      <ol type="a">
+        <li>Etsi käännepiste \(x^*\).</li>
+        <li>Jos projekti alkaa 50 käyttäjällä (\(x_0 = 0.05\)), onnistuuko vai epäonnistuuko se?</li>
+        <li>Mikä on pienin &ldquo;siemenkäyttäjien&rdquo; määrä, jotta projekti lähtee lentoon?</li>
+        <li>Jos projekti alentaa omaksumiskustannuksen arvoon \(p = 5\) (esim. paremman dokumentaation avulla),
+          miten käännepiste muuttuu?</li>
+      </ol>
+      <details>
+        <summary>Ratkaisu</summary>
+        <div class="proof-content">
+          <p>
+            <strong>(a)</strong> Asetetaan hakasulkelauseke nollaksi:
+            \[
+              \kappa(x^* N)^{1.5} = p \implies x^* = \frac{1}{N}\left(\frac{p}{\kappa}\right)^{1/1.5} = \frac{1}{1000}\left(\frac{10}{0.001}\right)^{2/3} = \frac{1}{1000}(10{,}000)^{2/3}.
+            \]
+            \((10{,}000)^{2/3} = (10^4)^{2/3} = 10^{8/3} \approx 10^{2.667} \approx 464.2\).
+            Joten \(x^* = 464.2/1000 = 0.464\).
+          </p>
+          <p>
+            <strong>(b)</strong> Alkuarvolla \(x_0 = 0.05 < 0.464 = x^*\). Koska \(x_0 < x^*\),
+            projekti on käännepisteen alapuolella. Dynamiikka työntää \(x\):n kohti 0:aa. Projekti
+            <strong>epäonnistuu</strong>.
+          </p>
+          <p>
+            <strong>(c)</strong> Pienin siemenkäyttäjien määrä on \(x^* \times N = 0.464 \times 1000 = 464\).
+            Vähintään 465 alkukäyttäjää tarvitaan, jotta projekti kääntyy itseään ylläpitävään kasvuun.
+          </p>
+          <p>
+            <strong>(d)</strong> Kun \(p = 5\):
+            \[
+              x^* = \frac{1}{1000}\left(\frac{5}{0.001}\right)^{2/3} = \frac{1}{1000}(5000)^{2/3}.
+            \]
+            \((5000)^{2/3} = e^{(2/3)\ln 5000} = e^{(2/3)(8.517)} = e^{5.678} \approx 292.4\).
+            Joten \(x^* = 292.4/1000 = 0.292\), mikä vaatii noin 293 siemenkäyttäjää.
+          </p>
+          <p>
+            Omaksumiskustannuksen puolittaminen vähensi vaadittua kriittistä massaa 465:stä 293:een
+            &mdash; 37 %:n vähennys. Tämä osoittaa, miksi dokumentaatioon, oppaisiin ja helppoon
+            asennukseen panostaminen on tehokkaita strategioita digitaalisten yhteisresurssien käynnistämiseen.
+          </p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- RECOMMENDED READING -->
+  <!-- ================================================================== -->
+  <div class="section" id="reading">
+    <h2>Suositeltua lisälukemista</h2>
+
+    <div class="def-box">
+      <span class="box-title">Ydinviitteet</span>
+      <ul style="list-style:none; padding-left:0;">
+        <li style="margin-bottom:0.8rem;">
+          <strong>Weber, S.</strong> (2004). <em>The Success of Open Source.</em> Harvard University Press.
+          &mdash; Perustavanlaatuinen teos, joka esittelee antikilpailevuuden avoimen lähdekoodin
+          kontekstissa. Weber argumentoi, että avoimen lähdekoodin &ldquo;ongelma&rdquo; ei ole perinteinen
+          julkishyödykkeen vapaamatkustajaongelma, vaan pikemminkin koordinaatio-ongelma.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Hess, C. &amp; Ostrom, E.</strong> (2007). <em>Understanding Knowledge as a Commons:
+          From Theory to Practice.</em> MIT Press. &mdash; Laajentaa Ostromin yhteisresurssiviitekehyksen
+          tieto- ja informaatiohyödykkeisiin. Olennainen ymmärtämään, miten institutionaalinen analyysi
+          soveltuu ei-kilpaileviin resursseihin.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Benkler, Y.</strong> (2006). <em>The Wealth of Networks: How Social Production
+          Transforms Markets and Freedom.</em> Yale University Press. &mdash; Kattava analyysi
+          siitä, miten verkottunut tietotuotanto (vertaistuotanto) luo arvoa perinteisten
+          markkina- ja valtiorakenteiden ulkopuolella.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Lessig, L.</strong> (2001). <em>The Future of Ideas: The Fate of the Commons in a
+          Connected World.</em> Random House. &mdash; Argumentoi, että internetin innovaatioyhteisresurssia
+          uhkaa immateriaalioikeuksien laajentuminen, ja että avoimuus on edistyksen edellytys.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Rifkin, J.</strong> (2014). <em>The Zero Marginal Cost Society: The Internet of Things,
+          the Collaborative Commons, and the Eclipse of Capitalism.</em> Palgrave Macmillan.
+          &mdash; Tutkii, miten informaatiohyödykkeiden lähes nolla rajakustannukset muuttavat
+          taloudellisia rakenteita ja synnyttävät kollaboratiivisia yhteisresursseja.
+        </li>
+      </ul>
+    </div>
+
+    <div class="def-box">
+      <span class="box-title">Lisälukemista</span>
+      <ul style="list-style:none; padding-left:0;">
+        <li style="margin-bottom:0.8rem;">
+          <strong>Ostrom, E.</strong> (1990). <em>Governing the Commons.</em> Cambridge University Press.
+          &mdash; Perustavanlaatuinen teos yhteisresurssien hallinnasta (ks. moduuli 8). Olennainen
+          taustateos ymmärtämään, miten tämä moduuli laajentaa Ostromin viitekehystä.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Benkler, Y.</strong> (2002). &ldquo;Coase&rsquo;s Penguin, or, Linux and the Nature of the Firm.&rdquo;
+          <em>Yale Law Journal</em>, 112(3), 369&ndash;446. &mdash; Peliteoreettinen analyysi siitä,
+          miksi vertaistuotanto voi päihittää sekä markkinat että yritykset tiettyjen hyödykeluokkien osalta.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Schweik, C. M. &amp; English, R. C.</strong> (2012). <em>Internet Success: A Study of
+          Open-Source Software Commons.</em> MIT Press. &mdash; Empiirinen analyysi avoimen lähdekoodin
+          projektien onnistumisesta ja epäonnistumisesta Ostromin IAD-viitekehystä käyttäen.
+        </li>
+        <li style="margin-bottom:0.8rem;">
+          <strong>Shapiro, C. &amp; Varian, H. R.</strong> (1999). <em>Information Rules: A Strategic
+          Guide to the Network Economy.</em> Harvard Business School Press. &mdash; Klassinen
+          käsittely verkostovaikutuksista ja informaatiohyödykkeistä strategisesta näkökulmasta.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module8.html">&larr; Moduuli 8: Sovellukset</a>
+    <a href="module10.html">Moduuli 10: Edistynyt antikilpailevuus &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Moduuli 9: Digitaaliset yhteisresurssit, tietoyhteisresurssit ja antikilpailevuus
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+<script>
+// Prevent shared visualizations.js from interfering
+window._customVizInit = true;
+
+(function() {
+  'use strict';
+
+  // ====================================================================
+  // INTERACTIVE 1: Digital Commons Dynamics
+  // ====================================================================
+  const dcBeta = document.getElementById('dc-beta');
+  const dcCost = document.getElementById('dc-cost');
+  const dcRep = document.getElementById('dc-rep');
+  const dcX0 = document.getElementById('dc-x0');
+  const dcBetaVal = document.getElementById('dc-beta-val');
+  const dcCostVal = document.getElementById('dc-cost-val');
+  const dcRepVal = document.getElementById('dc-rep-val');
+  const dcX0Val = document.getElementById('dc-x0-val');
+  const dcPlayBtn = document.getElementById('dc-play');
+  const dcResetBtn = document.getElementById('dc-reset');
+  const dcCanvas = document.getElementById('dc-time-canvas');
+  const dcCtx = dcCanvas.getContext('2d');
+  const dcGameType = document.getElementById('dc-game-type');
+  const dcEquilibria = document.getElementById('dc-equilibria');
+  const dcRegime = document.getElementById('dc-regime');
+
+  const b_val = 5; // fixed base benefit
+
+  let dcAnimId = null;
+  let dcData = [];
+  let dcAnimFrame = 0;
+
+  function updateDcLabels() {
+    dcBetaVal.textContent = parseFloat(dcBeta.value).toFixed(2);
+    dcCostVal.textContent = parseFloat(dcCost.value).toFixed(1);
+    dcRepVal.textContent = parseFloat(dcRep.value).toFixed(1);
+    dcX0Val.textContent = parseFloat(dcX0.value).toFixed(2);
+    analyzeDcGame();
+  }
+
+  function analyzeDcGame() {
+    const beta = parseFloat(dcBeta.value);
+    const c = parseFloat(dcCost.value);
+    const r = parseFloat(dcRep.value);
+    const rb = r * b_val;
+
+    const delta0 = rb - c;
+    const delta1 = rb * (1 + beta) - c;
+
+    let gameType = '';
+    let equilibria = '';
+    let regime = '';
+
+    if (delta0 >= 0) {
+      gameType = 'Harmony Game (contributing is dominant)';
+      equilibria = 'x = 1 (stable), x = 0 (unstable)';
+      regime = 'Full contribution regardless of initial state.';
+    } else if (delta1 > 0) {
+      const xStar = (c - rb) / (rb * beta);
+      gameType = 'Coordination Game (bistable, tipping point)';
+      equilibria = 'x = 0 (stable), x* = ' + xStar.toFixed(3) + ' (unstable), x = 1 (stable)';
+      regime = 'Below x* = ' + xStar.toFixed(3) + ': collapse. Above: thriving commons.';
+    } else {
+      gameType = "Prisoner's Dilemma (free-riding dominates)";
+      equilibria = 'x = 0 (stable), x = 1 (unstable)';
+      regime = 'Commons collapses regardless of initial state.';
+    }
+
+    dcGameType.innerHTML = gameType;
+    dcEquilibria.innerHTML = equilibria;
+    dcRegime.innerHTML = regime;
+  }
+
+  function simulateDc() {
+    const beta = parseFloat(dcBeta.value);
+    const c = parseFloat(dcCost.value);
+    const r = parseFloat(dcRep.value);
+    const x0 = parseFloat(dcX0.value);
+    const rb = r * b_val;
+
+    const dt = 0.05;
+    const steps = 400;
+    dcData = [x0];
+    let x = x0;
+
+    for (let i = 0; i < steps; i++) {
+      const fitnessDiff = (rb - c) + rb * beta * x;
+      const dxdt = x * (1 - x) * fitnessDiff;
+      x = x + dxdt * dt;
+      x = Math.max(0.0001, Math.min(0.9999, x));
+      dcData.push(x);
+    }
+  }
+
+  function drawDcFrame(frameCount) {
+    const W = dcCanvas.width;
+    const H = dcCanvas.height;
+    const pad = { top: 30, right: 20, bottom: 40, left: 55 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    dcCtx.clearRect(0, 0, W, H);
+
+    // Background
+    dcCtx.fillStyle = '#fafbfc';
+    dcCtx.fillRect(pad.left, pad.top, plotW, plotH);
+
+    // Grid
+    dcCtx.strokeStyle = '#e8e8e8';
+    dcCtx.lineWidth = 0.5;
+    for (let i = 0; i <= 10; i++) {
+      const y = pad.top + (plotH * i / 10);
+      dcCtx.beginPath();
+      dcCtx.moveTo(pad.left, y);
+      dcCtx.lineTo(pad.left + plotW, y);
+      dcCtx.stroke();
+    }
+
+    // Axes
+    dcCtx.strokeStyle = '#333';
+    dcCtx.lineWidth = 1.5;
+    dcCtx.beginPath();
+    dcCtx.moveTo(pad.left, pad.top);
+    dcCtx.lineTo(pad.left, pad.top + plotH);
+    dcCtx.lineTo(pad.left + plotW, pad.top + plotH);
+    dcCtx.stroke();
+
+    // Y-axis labels
+    dcCtx.fillStyle = '#555';
+    dcCtx.font = '11px sans-serif';
+    dcCtx.textAlign = 'right';
+    for (let i = 0; i <= 10; i += 2) {
+      const val = i / 10;
+      const y = pad.top + plotH - (plotH * val);
+      dcCtx.fillText(val.toFixed(1), pad.left - 8, y + 4);
+    }
+
+    // X-axis labels
+    dcCtx.textAlign = 'center';
+    const totalTime = dcData.length * 0.05;
+    for (let i = 0; i <= 4; i++) {
+      const frac = i / 4;
+      const x = pad.left + plotW * frac;
+      dcCtx.fillText((totalTime * frac).toFixed(0), x, pad.top + plotH + 20);
+    }
+
+    // Axis titles
+    dcCtx.fillStyle = '#333';
+    dcCtx.font = '12px sans-serif';
+    dcCtx.textAlign = 'center';
+    dcCtx.fillText('Time', pad.left + plotW / 2, pad.top + plotH + 36);
+
+    dcCtx.save();
+    dcCtx.translate(14, pad.top + plotH / 2);
+    dcCtx.rotate(-Math.PI / 2);
+    dcCtx.fillText('Fraction of Contributors (x)', 0, 0);
+    dcCtx.restore();
+
+    // Draw equilibrium lines
+    const beta = parseFloat(dcBeta.value);
+    const c = parseFloat(dcCost.value);
+    const r = parseFloat(dcRep.value);
+    const rb = r * b_val;
+    const delta0 = rb - c;
+    const delta1 = rb * (1 + beta) - c;
+
+    if (delta0 < 0 && delta1 > 0 && beta > 0) {
+      const xStar = (c - rb) / (rb * beta);
+      if (xStar > 0 && xStar < 1) {
+        const yStar = pad.top + plotH - plotH * xStar;
+        dcCtx.setLineDash([5, 5]);
+        dcCtx.strokeStyle = '#e74c3c';
+        dcCtx.lineWidth = 1;
+        dcCtx.beginPath();
+        dcCtx.moveTo(pad.left, yStar);
+        dcCtx.lineTo(pad.left + plotW, yStar);
+        dcCtx.stroke();
+        dcCtx.setLineDash([]);
+        dcCtx.fillStyle = '#e74c3c';
+        dcCtx.font = '10px sans-serif';
+        dcCtx.textAlign = 'left';
+        dcCtx.fillText('x* = ' + xStar.toFixed(2) + ' (tipping point)', pad.left + plotW - 140, yStar - 5);
+      }
+    }
+
+    // Draw data
+    const n = Math.min(frameCount, dcData.length);
+    if (n < 2) return;
+
+    dcCtx.strokeStyle = '#2563eb';
+    dcCtx.lineWidth = 2.5;
+    dcCtx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const px = pad.left + (i / (dcData.length - 1)) * plotW;
+      const py = pad.top + plotH - plotH * dcData[i];
+      if (i === 0) dcCtx.moveTo(px, py);
+      else dcCtx.lineTo(px, py);
+    }
+    dcCtx.stroke();
+
+    // Current value label
+    if (n > 0) {
+      const lastVal = dcData[n - 1];
+      const lx = pad.left + ((n - 1) / (dcData.length - 1)) * plotW;
+      const ly = pad.top + plotH - plotH * lastVal;
+      dcCtx.fillStyle = '#2563eb';
+      dcCtx.beginPath();
+      dcCtx.arc(lx, ly, 4, 0, Math.PI * 2);
+      dcCtx.fill();
+      dcCtx.fillStyle = '#2563eb';
+      dcCtx.font = 'bold 11px sans-serif';
+      dcCtx.textAlign = 'left';
+      dcCtx.fillText('x = ' + lastVal.toFixed(3), lx + 8, ly - 6);
+    }
+
+    // Title
+    dcCtx.fillStyle = '#333';
+    dcCtx.font = 'bold 13px sans-serif';
+    dcCtx.textAlign = 'center';
+    dcCtx.fillText('Contributor Fraction Over Time', pad.left + plotW / 2, pad.top - 10);
+  }
+
+  function dcAnimate() {
+    dcAnimFrame += 3;
+    drawDcFrame(dcAnimFrame);
+    if (dcAnimFrame < dcData.length) {
+      dcAnimId = requestAnimationFrame(dcAnimate);
+    }
+  }
+
+  dcPlayBtn.addEventListener('click', function() {
+    if (dcAnimId) cancelAnimationFrame(dcAnimId);
+    simulateDc();
+    dcAnimFrame = 0;
+    dcAnimate();
+  });
+
+  dcResetBtn.addEventListener('click', function() {
+    if (dcAnimId) cancelAnimationFrame(dcAnimId);
+    dcAnimId = null;
+    dcData = [];
+    dcAnimFrame = 0;
+    const W = dcCanvas.width;
+    const H = dcCanvas.height;
+    dcCtx.clearRect(0, 0, W, H);
+    dcCtx.fillStyle = '#f0f0f0';
+    dcCtx.fillRect(0, 0, W, H);
+    dcCtx.fillStyle = '#999';
+    dcCtx.font = '14px sans-serif';
+    dcCtx.textAlign = 'center';
+    dcCtx.fillText('Press Play to start simulation', W / 2, H / 2);
+    analyzeDcGame();
+  });
+
+  [dcBeta, dcCost, dcRep, dcX0].forEach(function(el) {
+    el.addEventListener('input', updateDcLabels);
+  });
+
+  // Initial state
+  updateDcLabels();
+  dcResetBtn.click();
+
+  // ====================================================================
+  // INTERACTIVE 2: Rivalry Spectrum Visualizer
+  // ====================================================================
+  const specBeta = document.getElementById('spectrum-beta');
+  const specV0 = document.getElementById('spectrum-v0');
+  const specBetaVal = document.getElementById('spectrum-beta-val');
+  const specV0Val = document.getElementById('spectrum-v0-val');
+  const specCanvas = document.getElementById('spectrum-canvas');
+  const specCtx = specCanvas.getContext('2d');
+
+  function drawSpectrum() {
+    const beta = parseFloat(specBeta.value);
+    const V0 = parseFloat(specV0.value);
+    const W = specCanvas.width;
+    const H = specCanvas.height;
+    const pad = { top: 35, right: 25, bottom: 45, left: 60 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    specCtx.clearRect(0, 0, W, H);
+
+    // Background
+    specCtx.fillStyle = '#fafbfc';
+    specCtx.fillRect(pad.left, pad.top, plotW, plotH);
+
+    // Compute data
+    const nMax = 100;
+    const points = [];
+    let maxV = 0;
+    for (let n = 1; n <= nMax; n++) {
+      const v = V0 * Math.pow(n, beta);
+      points.push({ n: n, v: v });
+      if (v > maxV) maxV = v;
+    }
+    // Ensure sensible yMax
+    let yMax = Math.max(maxV * 1.1, V0 * 1.5);
+    if (!isFinite(yMax) || yMax <= 0) yMax = V0 * 2;
+
+    // Grid
+    specCtx.strokeStyle = '#e8e8e8';
+    specCtx.lineWidth = 0.5;
+    for (let i = 0; i <= 5; i++) {
+      const y = pad.top + plotH * i / 5;
+      specCtx.beginPath();
+      specCtx.moveTo(pad.left, y);
+      specCtx.lineTo(pad.left + plotW, y);
+      specCtx.stroke();
+    }
+
+    // Axes
+    specCtx.strokeStyle = '#333';
+    specCtx.lineWidth = 1.5;
+    specCtx.beginPath();
+    specCtx.moveTo(pad.left, pad.top);
+    specCtx.lineTo(pad.left, pad.top + plotH);
+    specCtx.lineTo(pad.left + plotW, pad.top + plotH);
+    specCtx.stroke();
+
+    // Y-axis labels
+    specCtx.fillStyle = '#555';
+    specCtx.font = '11px sans-serif';
+    specCtx.textAlign = 'right';
+    for (let i = 0; i <= 5; i++) {
+      const val = yMax * (5 - i) / 5;
+      const y = pad.top + plotH * i / 5;
+      specCtx.fillText(val.toFixed(1), pad.left - 8, y + 4);
+    }
+
+    // X-axis labels
+    specCtx.textAlign = 'center';
+    for (let n = 0; n <= nMax; n += 20) {
+      const x = pad.left + (n / nMax) * plotW;
+      specCtx.fillText(n.toString(), x, pad.top + plotH + 18);
+    }
+
+    // Axis titles
+    specCtx.fillStyle = '#333';
+    specCtx.font = '12px sans-serif';
+    specCtx.textAlign = 'center';
+    specCtx.fillText('Number of Users (n)', pad.left + plotW / 2, pad.top + plotH + 38);
+
+    specCtx.save();
+    specCtx.translate(16, pad.top + plotH / 2);
+    specCtx.rotate(-Math.PI / 2);
+    specCtx.fillText('Per-User Value V(n)', 0, 0);
+    specCtx.restore();
+
+    // Non-rivalry reference line (beta = 0)
+    specCtx.setLineDash([4, 4]);
+    specCtx.strokeStyle = '#aaa';
+    specCtx.lineWidth = 1;
+    const refY = pad.top + plotH - (V0 / yMax) * plotH;
+    specCtx.beginPath();
+    specCtx.moveTo(pad.left, refY);
+    specCtx.lineTo(pad.left + plotW, refY);
+    specCtx.stroke();
+    specCtx.setLineDash([]);
+    specCtx.fillStyle = '#999';
+    specCtx.font = '10px sans-serif';
+    specCtx.textAlign = 'right';
+    specCtx.fillText('V\u2080 (non-rivalrous reference)', pad.left + plotW - 5, refY - 5);
+
+    // Choose color based on regime
+    let lineColor;
+    let regimeLabel;
+    if (beta < -0.01) {
+      lineColor = '#e74c3c'; // red for rivalrous
+      regimeLabel = 'Rivalrous (\u03B2 = ' + beta.toFixed(2) + ')';
+    } else if (beta > 0.01) {
+      lineColor = '#27ae60'; // green for anti-rivalrous
+      regimeLabel = 'Anti-rivalrous (\u03B2 = ' + beta.toFixed(2) + ')';
+    } else {
+      lineColor = '#3498db'; // blue for non-rivalrous
+      regimeLabel = 'Non-rivalrous (\u03B2 \u2248 0)';
+    }
+
+    // Draw curve
+    specCtx.strokeStyle = lineColor;
+    specCtx.lineWidth = 2.5;
+    specCtx.beginPath();
+    let started = false;
+    for (let i = 0; i < points.length; i++) {
+      const px = pad.left + (points[i].n / nMax) * plotW;
+      const py = pad.top + plotH - (points[i].v / yMax) * plotH;
+      const clampedY = Math.max(pad.top, Math.min(pad.top + plotH, py));
+      if (!started) {
+        specCtx.moveTo(px, clampedY);
+        started = true;
+      } else {
+        specCtx.lineTo(px, clampedY);
+      }
+    }
+    specCtx.stroke();
+
+    // Fill area under curve lightly
+    specCtx.globalAlpha = 0.1;
+    specCtx.fillStyle = lineColor;
+    specCtx.lineTo(pad.left + plotW, pad.top + plotH);
+    specCtx.lineTo(pad.left, pad.top + plotH);
+    specCtx.closePath();
+    specCtx.fill();
+    specCtx.globalAlpha = 1.0;
+
+    // Title
+    specCtx.fillStyle = lineColor;
+    specCtx.font = 'bold 13px sans-serif';
+    specCtx.textAlign = 'center';
+    specCtx.fillText(regimeLabel, pad.left + plotW / 2, pad.top - 10);
+
+    // Show V(100) value
+    const v100 = V0 * Math.pow(nMax, beta);
+    specCtx.fillStyle = '#555';
+    specCtx.font = '11px sans-serif';
+    specCtx.textAlign = 'left';
+    specCtx.fillText('V(1) = ' + V0.toFixed(1) + ',  V(100) = ' + v100.toFixed(1),
+      pad.left + 10, pad.top + 18);
+  }
+
+  specBeta.addEventListener('input', function() {
+    specBetaVal.textContent = parseFloat(specBeta.value).toFixed(2);
+    drawSpectrum();
+  });
+
+  specV0.addEventListener('input', function() {
+    specV0Val.textContent = parseFloat(specV0.value).toFixed(1);
+    drawSpectrum();
+  });
+
+  // Initial draw
+  specBetaVal.textContent = parseFloat(specBeta.value).toFixed(2);
+  specV0Val.textContent = parseFloat(specV0.value).toFixed(1);
+  drawSpectrum();
+
+})();
+</script>
+</body>
+</html>

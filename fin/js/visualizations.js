@@ -1090,10 +1090,10 @@ function initSVORing(canvasId) {
   const typeDisplay = document.getElementById('svo-type');
 
   function getSVOType(deg) {
-    if (deg > 57.15) return 'Altruistic';
-    if (deg > 22.45) return 'Prosocial';
-    if (deg > -12.04) return 'Individualistic';
-    return 'Competitive';
+    if (deg > 57.15) return 'Altruistinen';
+    if (deg > 22.45) return 'Prososiaalinen';
+    if (deg > -12.04) return 'Individualistinen';
+    return 'Kilpailullinen';
   }
 
   function getSVOColor(deg) {
@@ -1120,10 +1120,10 @@ function initSVORing(canvasId) {
 
     // Quadrant labels and colored arcs
     const segments = [
-      { start: -12.04, end: 22.45, color: '#f39c12', label: 'Individualistic' },
-      { start: 22.45, end: 57.15, color: '#2980b9', label: 'Prosocial' },
-      { start: 57.15, end: 90, color: '#27ae60', label: 'Altruistic' },
-      { start: -90, end: -12.04, color: '#e74c3c', label: 'Competitive' }
+      { start: -12.04, end: 22.45, color: '#f39c12', label: 'Individualistinen' },
+      { start: 22.45, end: 57.15, color: '#2980b9', label: 'Prososiaalinen' },
+      { start: 57.15, end: 90, color: '#27ae60', label: 'Altruistinen' },
+      { start: -90, end: -12.04, color: '#e74c3c', label: 'Kilpailullinen' }
     ];
 
     segments.forEach(seg => {
@@ -1159,11 +1159,11 @@ function initSVORing(canvasId) {
     ctx.fillStyle = '#666';
     ctx.font = '12px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Payoff to Self →', cx + r/2, cy + r + 45);
+    ctx.fillText('Oma tuotto →', cx + r/2, cy + r + 45);
     ctx.save();
     ctx.translate(cx - r - 45, cy);
     ctx.rotate(-Math.PI / 2);
-    ctx.fillText('Payoff to Other →', 0, 0);
+    ctx.fillText('Toisen tuotto →', 0, 0);
     ctx.restore();
 
     // SVO vector
@@ -1204,9 +1204,9 @@ function initSVORing(canvasId) {
     ctx.fillStyle = '#333';
     ctx.font = 'bold 14px sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`SVO Angle: ${fmt(angle, 1)}°`, 15, 25);
+    ctx.fillText(`SVO-kulma: ${fmt(angle, 1)}°`, 15, 25);
     ctx.fillStyle = getSVOColor(angle);
-    ctx.fillText(`Type: ${getSVOType(angle)}`, 15, 45);
+    ctx.fillText(`Tyyppi: ${getSVOType(angle)}`, 15, 45);
   }
 
   if (slider) {
@@ -1272,22 +1272,22 @@ function initCPRGame(containerId) {
     currentResource = nextResource;
 
     // Display
-    let html = `<strong>Round ${rounds.length} Results:</strong><br>`;
-    html += `Resource available: ${fmt(rounds[rounds.length-1].resource, 1)}<br>`;
-    html += `Your harvest: ${fmt(myHarvest, 1)}<br>`;
-    html += `Total harvested: ${fmt(totalHarvest, 1)}<br>`;
-    html += `Remaining: ${fmt(remaining, 1)}<br>`;
-    html += `After regrowth (${(regrowthRate*100)}%): ${fmt(nextResource, 1)}<br>`;
+    let html = `<strong>Kierros ${rounds.length} — tulokset:</strong><br>`;
+    html += `Resurssia saatavilla: ${fmt(rounds[rounds.length-1].resource, 1)}<br>`;
+    html += `Sinun korjuusi: ${fmt(myHarvest, 1)}<br>`;
+    html += `Kokonaiskorjuu: ${fmt(totalHarvest, 1)}<br>`;
+    html += `Jäljellä: ${fmt(remaining, 1)}<br>`;
+    html += `Uusiutumisen jälkeen (${(regrowthRate*100)}%): ${fmt(nextResource, 1)}<br>`;
 
     if (currentResource < 10) {
-      html += '<br><span style="color:#e74c3c;font-weight:bold">⚠ Resource nearly depleted! This is the Tragedy of the Commons.</span>';
+      html += '<br><span style="color:#e74c3c;font-weight:bold">⚠ Resurssi lähes loppunut! Tämä on yhteismaan tragedia.</span>';
     }
 
     if (resultDiv) resultDiv.innerHTML = html;
 
     // History
     if (historyDiv) {
-      let hHtml = '<table class="payoff-matrix"><tr><th>Round</th><th>Resource</th><th>Your Take</th><th>Total Take</th><th>After Regrowth</th></tr>';
+      let hHtml = '<table class="payoff-matrix"><tr><th>Kierros</th><th>Resurssi</th><th>Sinun ottosi</th><th>Kokonaisotto</th><th>Uusiutumisen jälkeen</th></tr>';
       rounds.forEach(r => {
         hHtml += `<tr><td>${r.round}</td><td>${fmt(r.resource,1)}</td><td>${fmt(r.myHarvest,1)}</td><td>${fmt(r.totalHarvest,1)}</td><td>${fmt(r.afterRegrowth,1)}</td></tr>`;
       });
@@ -1299,7 +1299,7 @@ function initCPRGame(containerId) {
   window.cprReset = function() {
     currentResource = maxResource;
     rounds = [];
-    if (resultDiv) resultDiv.innerHTML = 'Start harvesting to begin the simulation.';
+    if (resultDiv) resultDiv.innerHTML = 'Aloita korjaaminen käynnistääksesi simulaation.';
     if (historyDiv) historyDiv.innerHTML = '';
   };
 }

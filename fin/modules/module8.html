@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduuli 8: Sovellukset — SVO, Ostrom ja instituutioanalyysi | Math for EGT</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<nav class="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Math &rarr; EGT</a>
+    <button class="hamburger" aria-label="Valikko">&#9776;</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Etusivu</a></li>
+      <li><a href="module1.html">1. Perusteet</a></li>
+      <li><a href="module2.html">2. Lineaarialgebra</a></li>
+      <li><a href="module3.html">3. Analyysi</a></li>
+      <li><a href="module4.html">4. Diff.yhtälöt</a></li>
+      <li><a href="module5.html">5. Todennäköisyys</a></li>
+      <li><a href="module6.html">6. Peliteoria</a></li>
+      <li><a href="module7.html">7. EGT ja replikaattori</a></li>
+      <li><a href="module8.html" class="active">8. Sovellukset</a></li>
+      <li><a href="module9.html">9. Digitaaliset yhteisresurssit</a></li>
+      <li><a href="module10.html">10. Antikilpailevuus</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="module-header">
+  <div class="container">
+    <div class="module-number">Moduuli 8</div>
+    <h1>Sovellukset: Sosiaalinen arvo-orientaatio, Ostrom ja instituutioanalyysi</h1>
+    <p class="module-desc">
+      Huipentava moduuli. Kokoamme yhteen kaikki kurssin matemaattiset ty&ouml;kalut &mdash;
+      peliteorian, replikaattoridynamiikan, differentiaaliyht&auml;l&ouml;t ja stabiilisuusanalyysin &mdash;
+      ja sovellamme niit&auml; yhteisty&ouml;n, resurssienhallinnan ja instituutiosuunnittelun todellisiin ongelmiin.
+    </p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Module Navigation -->
+  <div class="module-nav-strip">
+    <a href="module7.html">&larr; Moduuli 7: EGT ja replikaattori</a>
+    <a href="module9.html">Moduuli 9: Digitaaliset yhteisresurssit &rarr;</a>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>Sis&auml;llysluettelo</h3>
+    <ol>
+      <li><a href="#svo">Sosiaalinen arvo-orientaatio (SVO)</a></li>
+      <li><a href="#svo-egt">SVO ja evoluutiopeliteoria</a></li>
+      <li><a href="#iad">Ostromin IAD-viitekehys</a></li>
+      <li><a href="#cpr">Yhteisvarantoresurssi (YVR) -ongelmat</a></li>
+      <li><a href="#design-principles">Ostromin suunnitteluperiaatteet pelimuunnoksina</a></li>
+      <li><a href="#institutional-evolution">Instituutioiden muodostumisen evoluutiomallit</a></li>
+      <li><a href="#public-goods-punishment">Julkishy&ouml;dykepelit rangaistuksella</a></li>
+      <li><a href="#synthesis">Kokonaiskuva</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 1: Social Value Orientations -->
+  <!-- ================================================================== -->
+  <div class="section" id="svo">
+    <h2>1. Sosiaalinen arvo-orientaatio (SVO)</h2>
+
+    <p>
+      Koko kurssin ajan olemme olettaneet, ett&auml; pelaajat maksimoivat oman tuottonsa \(\pi_{\text{self}}\).
+      Vuosikymmenten kokeellinen tutkimus osoittaa kuitenkin, ett&auml; ihmiset eroavat systemaattisesti siinä,
+      kuinka paljon painoarvoa he antavat omille tuloksilleen suhteessa muiden tuloksiin. <strong>Sosiaalisen
+      arvo-orientaation</strong> (SVO) viitekehys kuvaa t&auml;t&auml; heterogeenisuutta matemaattisesti.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Sosiaalinen arvo-orientaatio</span>
+      <p>
+        Pelaajan <strong>sosiaalinen arvo-orientaatio</strong> on pysyv&auml; preferenssi tietynlaisille
+        tulosjakaumille itsens&auml; ja muiden v&auml;lill&auml;. Se kuvaa, miten yksil&ouml; painottaa omaa
+        tuottoaan suhteessa vuorovaikutuskumppaneidensa tuottoon.
+      </p>
+    </div>
+
+    <h3>1.1 SVO-viitekehys (Van Lange, Murphy &amp; Ackermann)</h3>
+
+    <p>
+      Van Langen (1999) kehitt&auml;m&auml; ja Murphyn &amp; Ackermannin (2014) tarkentama SVO-viitekehys
+      tunnistaa nelj&auml; p&auml;&auml;orientaatiotyyppi&auml; sen perusteella, miten henkil&ouml; jakaa
+      resursseja itsens&auml; ja toisen henkil&ouml;n v&auml;lille:
+    </p>
+
+    <div class="two-col">
+      <div class="def-box">
+        <span class="box-title">Altruistinen</span>
+        <p>
+          Maksimoi <em>toisen</em> tuoton, jopa omalla kustannuksellaan. Valmis uhraamaan omia tuloksiaan
+          hy&ouml;dytt&auml;&auml;kseen muita.
+        </p>
+      </div>
+      <div class="def-box">
+        <span class="box-title">Prososiaalinen</span>
+        <p>
+          Maksimoi <em>yhteisen</em> tuoton (oma + toisen) ja tavoittelee <em>tasa-arvoa</em>. Yleisin
+          orientaatio, joka esiintyy noin 60 %:lla osallistujista.
+        </p>
+      </div>
+      <div class="def-box">
+        <span class="box-title">Individualistinen</span>
+        <p>
+          Maksimoi <em>omaa</em> tuottoaan v&auml;litt&auml;m&auml;tt&auml; toisesta. T&auml;m&auml; on klassisen
+          peliteorian &rdquo;rationaalisen toimijan&rdquo; oletus.
+        </p>
+      </div>
+      <div class="def-box">
+        <span class="box-title">Kilpailullinen</span>
+        <p>
+          Maksimoi oman ja toisen tuoton v&auml;list&auml; <em>erotusta</em>. Haluaa &rdquo;voittaa&rdquo;
+          suhteessa toiseen henkil&ouml;&ouml;n.
+        </p>
+      </div>
+    </div>
+
+    <h3>1.2 SVO-rengasmitta</h3>
+
+    <p>
+      SVO-liukumitta (Murphy, Ackermann &amp; Handgraaf, 2011) pyyt&auml;&auml; osallistujia tekemään
+      sarjan resurssienjakop&auml;&auml;t&ouml;ksi&auml;. Kukin valinta vastaa pistett&auml; ympyr&auml;ll&auml;,
+      jonka keskipiste on (50, 50) tuottoavaruudessa, miss&auml; x-akseli kuvaa omaa tuottoa ja
+      y-akseli toisen tuottoa. Osallistujan valinnat piirt&auml;v&auml;t kulman t&auml;lle renkaalle.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">SVO-kulma</span>
+      <p>
+        Kun henkil&ouml;n keskimääräinen allokaatio on \((\bar{A}_s, \bar{A}_o)\), miss&auml; \(\bar{A}_s\) on
+        keskimääräinen tuotto itselle ja \(\bar{A}_o\) keskimääräinen tuotto toiselle kaikkien valintojen yli,
+        <strong>SVO-kulma</strong> on:
+      </p>
+      <p>
+        \[
+          \theta = \arctan\!\left(\frac{\bar{A}_o - 50}{\bar{A}_s - 50}\right)
+        \]
+      </p>
+      <p>Nelj&auml; SVO-tyyppi&auml; vastaavat kulma-alueita:</p>
+      <ul>
+        <li><strong>Altruistinen:</strong> \(\theta > 57.15^\circ\)</li>
+        <li><strong>Prososiaalinen:</strong> \(22.45^\circ < \theta \leq 57.15^\circ\)</li>
+        <li><strong>Individualistinen:</strong> \(-12.04^\circ < \theta \leq 22.45^\circ\)</li>
+        <li><strong>Kilpailullinen:</strong> \(\theta \leq -12.04^\circ\)</li>
+      </ul>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio</span>
+      <p>
+        Ajattele SVO-kulmaa suuntana, johon &rdquo;nojaatte&rdquo; tuottoavaruudessa. Kulmalla \(\theta = 0^\circ\)
+        liikut puhtaasti oman tuoton akselia pitkin (individualistinen). Kulmalla \(\theta = 45^\circ\)
+        liikut yht&auml; paljon molempiin suuntiin (prososiaalinen). Kulmalla \(\theta = 90^\circ\) liikut
+        puhtaasti toisen tuoton akselia pitkin (altruistinen). Negatiivisilla kulmilla oman tuoton
+        kasvattaminen v&auml;hent&auml;&auml; toisen tuottoa (kilpailullinen).
+      </p>
+    </div>
+
+    <h3>1.3 Matemaattinen formalisointi: SVO-hy&ouml;tyfunktio</h3>
+
+    <p>
+      Keskeinen oivallus on, ett&auml; SVO voidaan formalisoida <strong>hy&ouml;tyfunktion muunnoksena</strong>.
+      Sen sijaan, ett&auml; kukin pelaaja yksinkertaisesti maksimoisi \(\pi_{\text{self}}\):a, SVO-kulman \(\theta\)
+      omaava pelaaja maksimoi:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">SVO-painotettu hy&ouml;tyfunktio</span>
+      <p>
+        \[
+          U_i(\theta_i) = \cos(\theta_i) \cdot \pi_i + \sin(\theta_i) \cdot \pi_j
+        \]
+      </p>
+      <p>
+        miss&auml; \(\pi_i\) on pelaajan \(i\) materiaalinen tuotto, \(\pi_j\) toisen pelaajan materiaalinen tuotto
+        ja \(\theta_i\) pelaajan \(i\) SVO-kulma.
+      </p>
+    </div>
+
+    <p>Varmistetaan, ett&auml; t&auml;m&auml; kaava kuvaa nelj&auml; SVO-tyyppi&auml; oikein:</p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; SVO-hy&ouml;tyfunktion tarkistus</span>
+      <ul>
+        <li>
+          <strong>Individualistinen (\(\theta = 0^\circ\)):</strong>
+          \(U = \cos(0)\cdot\pi_i + \sin(0)\cdot\pi_j = 1\cdot\pi_i + 0\cdot\pi_j = \pi_i\).
+          Puhdas oman edun tavoittelu.
+        </li>
+        <li>
+          <strong>Prososiaalinen (\(\theta = 45^\circ\)):</strong>
+          \(U = \cos(45^\circ)\cdot\pi_i + \sin(45^\circ)\cdot\pi_j = \frac{1}{\sqrt{2}}(\pi_i + \pi_j)\).
+          Maksimoi yhteisen tuoton.
+        </li>
+        <li>
+          <strong>Altruistinen (\(\theta = 90^\circ\)):</strong>
+          \(U = \cos(90^\circ)\cdot\pi_i + \sin(90^\circ)\cdot\pi_j = 0\cdot\pi_i + 1\cdot\pi_j = \pi_j\).
+          Puhdas toisen huomioiminen.
+        </li>
+        <li>
+          <strong>Kilpailullinen (\(\theta = -45^\circ\)):</strong>
+          \(U = \cos(-45^\circ)\cdot\pi_i + \sin(-45^\circ)\cdot\pi_j = \frac{1}{\sqrt{2}}(\pi_i - \pi_j)\).
+          Maksimoi suhteellisen edun.
+        </li>
+      </ul>
+    </div>
+
+    <h3>1.4 Miten SVO muuntaa tuottomatriisin</h3>
+
+    <p>
+      Tarkastellaan vakiomuotoista vangin dilemmaa materiaalisella tuottomatriisilla:
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th>Yhteisty&ouml;</th>
+        <th>Petos</th>
+      </tr>
+      <tr>
+        <td class="row-header">Yhteisty&ouml;</td>
+        <td>3, 3</td>
+        <td>0, 5</td>
+      </tr>
+      <tr>
+        <td class="row-header">Petos</td>
+        <td>5, 0</td>
+        <td>1, 1</td>
+      </tr>
+    </table>
+
+    <p>
+      Individualistiselle pelaajalle (\(\theta = 0^\circ\)) t&auml;m&auml; on tavallinen vangin dilemma ja petos dominoi.
+      Mutta prososiaaliselle pelaajalle (\(\theta = 45^\circ\)) <em>koetut</em> tuotot muuntuvat:
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Vangin dilemman prososiaalinen muunnos</span>
+      <p>
+        K&auml;ytt&auml;en \(U = \frac{1}{\sqrt{2}}(\pi_{\text{self}} + \pi_{\text{other}})\) rivipelaajan muunnettu
+        tuottomatriisi on:
+      </p>
+      <table class="payoff-matrix" style="margin:1rem auto">
+        <tr>
+          <th></th>
+          <th>C</th>
+          <th>D</th>
+        </tr>
+        <tr>
+          <td class="row-header">C</td>
+          <td>\(\frac{3+3}{\sqrt{2}} = \frac{6}{\sqrt{2}} \approx 4.24\)</td>
+          <td>\(\frac{0+5}{\sqrt{2}} = \frac{5}{\sqrt{2}} \approx 3.54\)</td>
+        </tr>
+        <tr>
+          <td class="row-header">D</td>
+          <td>\(\frac{5+0}{\sqrt{2}} = \frac{5}{\sqrt{2}} \approx 3.54\)</td>
+          <td>\(\frac{1+1}{\sqrt{2}} = \frac{2}{\sqrt{2}} \approx 1.41\)</td>
+        </tr>
+      </table>
+      <p>
+        Nyt yhteisty&ouml; on paras vastaus yhteisty&ouml;h&ouml;n (\(4.24 > 3.54\)) ja petos on paras
+        vastaus petokseen (\(1.41 < 3.54\)). Peli on muuntunut vangin dilemmasta
+        <strong>vakuutuspeliksi</strong> (hirvijahti), jossa molemminpuolinen yhteisty&ouml; on Nash-tasapaino.
+      </p>
+      <p>
+        T&auml;m&auml; on merkitt&auml;v&auml; tulos: <strong>sosiaaliset preferenssit voivat ratkaista sosiaalisia dilemmoja</strong>.
+      </p>
+    </div>
+
+    <div class="note-box">
+      <span class="box-title">Keskeinen oivallus</span>
+      <p>
+        SVO-viitekehys osoittaa, ett&auml; se, onko peli &rdquo;dilemma&rdquo;, ei riipu pelk&auml;st&auml;&auml;n
+        materiaalisen tuoton rakenteesta, vaan my&ouml;s pelaajien psykologisista orientaatioista. Sama
+        materiaalinen tuottomatriisi voi edustaa t&auml;ysin erilaisia strategisia tilanteita pelaajille,
+        joilla on eri SVO-kulmat.
+      </p>
+    </div>
+
+    <!-- SVO Ring Interactive -->
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Sosiaalisen arvo-orientaation rengas</h3>
+      <p>S&auml;&auml;d&auml; SVO-kulmaa n&auml;hd&auml;ksesi, miten eri orientaatiot painottavat omaa ja toisen tuottoa.</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>SVO-kulma (&theta;):</label>
+          <input type="range" id="svo-angle" min="-90" max="90" step="1" value="45">
+          <span class="control-value" id="svo-angle-val">45.0&deg;</span>
+        </div>
+        <div class="control-group">
+          <label>Tyyppi:</label>
+          <span id="svo-type" style="font-weight:bold; color:#2980b9">Prososiaalinen</span>
+        </div>
+      </div>
+      <canvas id="svo-canvas" class="viz-canvas" width="450" height="450"></canvas>
+    </div>
+
+    <!-- Harjoitus -->
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.1 &mdash; SVO ja haukka-kyyhky-peli</div>
+      <p>
+        Tarkastellaan haukka-kyyhky-peli&auml; tuotoilla: H vs. H tuottaa kummallekin \((V-C)/2\), H vs. K tuottaa
+        haukalle \(V\) ja kyyhkylle \(0\), ja K vs. K tuottaa kummallekin \(V/2\). Olkoon \(V = 4\) ja \(C = 6\).
+      </p>
+      <p>
+        (a) Kirjoita materiaalinen tuottomatriisi. (b) Laske prososiaalisen pelaajan (\(\theta = 45^\circ\))
+        muunnettu tuottomatriisi. (c) Muuttaako SVO-muunnos Nash-tasapainon?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p><strong>(a) Materiaalinen tuottomatriisi:</strong></p>
+          <table class="payoff-matrix">
+            <tr><th></th><th>Haukka</th><th>Kyyhky</th></tr>
+            <tr><td class="row-header">Haukka</td><td>\(-1, -1\)</td><td>\(4, 0\)</td></tr>
+            <tr><td class="row-header">Kyyhky</td><td>\(0, 4\)</td><td>\(2, 2\)</td></tr>
+          </table>
+          <p><strong>(b) Prososiaalinen muunnos</strong> k&auml;ytt&auml;en \(U = \frac{1}{\sqrt{2}}(\pi_i + \pi_j)\):</p>
+          <table class="payoff-matrix">
+            <tr><th></th><th>Haukka</th><th>Kyyhky</th></tr>
+            <tr><td class="row-header">Haukka</td><td>\(\frac{-2}{\sqrt{2}} \approx -1.41\)</td><td>\(\frac{4}{\sqrt{2}} \approx 2.83\)</td></tr>
+            <tr><td class="row-header">Kyyhky</td><td>\(\frac{4}{\sqrt{2}} \approx 2.83\)</td><td>\(\frac{4}{\sqrt{2}} \approx 2.83\)</td></tr>
+          </table>
+          <p>
+            <strong>(c)</strong> Alkuper&auml;isess&auml; peliss&auml; sekastrategian Nash-tasapainossa kukin pelaaja pelaa
+            haukkaa todenn&auml;k&ouml;isyydell&auml; \(p^* = V/C = 2/3\). Muunnetussa peliss&auml; kyyhky dominoi heikosti:
+            prososiaalinen pelaaja saa \(\approx 2.83\) kyyhkyst&auml; riippumatta vastustajan toiminnasta, mutta
+            riskeeraa \(-1.41\) haukka vs. haukka -tilanteessa. Prososiaalinen pelaaja suosii ehdottomasti
+            kyyhky&auml;. SVO-muunnos eliminoi aggressiivisen tasapainokomponentin.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 2: SVO and Evolutionary Game Theory -->
+  <!-- ================================================================== -->
+  <div class="section" id="svo-egt">
+    <h2>2. SVO ja evoluutiopeliteoria</h2>
+
+    <p>
+      Yhdist&auml;mme nyt SVO:n moduulin 7 evoluutiokehykseen. Keskeiseksi kysymykseksi nousee:
+      <em>jos ihmisill&auml; on erilaisia sosiaalisia arvo-orientaatioita, mitk&auml; orientaatiot
+      selvi&auml;v&auml;t ja leviäv&auml;t evoluutiodynamiikan kautta?</em>
+    </p>
+
+    <h3>2.1 SVO-tyypit strategioina</h3>
+
+    <p>
+      Tavallisessa evoluutiomallissa strategiat ovat toimintoja (yhteisty&ouml;, petos). SVO-evoluutiomallissa
+      &rdquo;strategia&rdquo; on pelaajan <em>orientaatio</em> &mdash; h&auml;nen SVO-kulmansa \(\theta\). Kaksi
+      pelaajaa, joilla on eri SVO-kulmat ja jotka kohtaavat saman materiaalisen pelin, käyttäytyv&auml;t
+      eri tavoin, koska he havaitsevat erilaiset tuottomatriisit.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; SVO-ehdollinen strategia</span>
+      <p>
+        SVO-kulman \(\theta\) omaava pelaaja pelaa <strong>parhaan vasteen muunnetussa peliss&auml;</strong>.
+        Materiaalisen tuottomatriisin \(A\) perusteella pelaaja havaitsee pelin tuottomatriisilla:
+      </p>
+      <p>
+        \[
+          A^{(\theta)} = \cos(\theta) \cdot A + \sin(\theta) \cdot A^T
+        \]
+      </p>
+      <p>
+        miss&auml; \(A^T\) on \(A\):n transpoosi (vastustajan tuottomatriisi symmetrisess&auml; peliss&auml;).
+      </p>
+    </div>
+
+    <h3>2.2 Replikaattoridynamiikka SVO-riippuvaisilla tuotoilla</h3>
+
+    <p>
+      Tarkastellaan populaatiota, jossa on \(k\) erillist&auml; SVO-tyyppi&auml;, kullakin kulma
+      \(\theta_1, \theta_2, \ldots, \theta_k\) ja frekvenssi \(x_1, x_2, \ldots, x_k\), miss&auml;
+      \(\sum x_i = 1\). Kukin tyyppi pelaa parhaan vasteensa havaitsemassaan peliss&auml;.
+    </p>
+
+    <p>
+      Tyypin \(i\) kelpoisuus satunnaisen vastustajan kanssa on:
+    </p>
+
+    <p>
+      \[
+        f_i = \sum_{j=1}^{k} x_j \cdot \pi\!\left(s^*(\theta_i),\, s^*(\theta_j)\right)
+      \]
+    </p>
+
+    <p>
+      miss&auml; \(s^*(\theta_i)\) on SVO-kulman \(\theta_i\) omaavan yksil&ouml;n paras vastestrategia
+      ja \(\pi(\cdot, \cdot)\) antaa <strong>materiaalisen</strong> tuoton (koska evoluutiokelpoisuus
+      riippuu materiaalisista tuloksista, ei subjektiivisesta hy&ouml;dyst&auml;).
+    </p>
+
+    <div class="warning-box">
+      <span class="box-title">Ratkaiseva ero</span>
+      <p>
+        SVO m&auml;&auml;r&auml;&auml; <em>k&auml;ytt&auml;ytymisen</em> (mik&auml; toiminto valitaan), mutta
+        <em>evoluutiokelpoisuus</em> riippuu <em>materiaalisista</em> tuotoista. Prososiaalinen pelaaja tekee
+        yhteisty&ouml;t&auml;, koska h&auml;n arvostaa yhteisi&auml; tuloksia, mutta h&auml;nen lisääntymiskelpoisuutensa
+        riippuu todellisista saaduista resursseista, ei subjektiivisesta tyydytyksest&auml;.
+      </p>
+    </div>
+
+    <h3>2.3 Milloin prososiaaliset tyypit selvi&auml;v&auml;t?</h3>
+
+    <p>
+      Tarkastellaan yksinkertaistettua mallia, jossa on kaksi SVO-tyyppi&auml; vangin dilemmassa
+      (tuotoilla \(T > R > P > S\)):
+    </p>
+
+    <ul>
+      <li><strong>Individualistinen</strong> (\(\theta = 0^\circ\)): pett&auml;&auml; aina (koska P dominoi tavallisessa vangin dilemmassa)</li>
+      <li><strong>Prososiaalinen</strong> (\(\theta = 45^\circ\)): tekee yhteisty&ouml;t&auml;, jos havaittu peli tekee Y:st&auml; parhaan vasteen</li>
+    </ul>
+
+    <p>
+      Jos prososiaaliset tyypit tekev&auml;t yhteisty&ouml;t&auml; kaikkien kanssa ja individualistiset tyypit
+      pettäv&auml;t kaikkia, materiaalisten tuottojen kelpoisuusmatriisi on:
+    </p>
+
+    <table class="payoff-matrix">
+      <tr>
+        <th></th>
+        <th>Prososiaalinen (Y)</th>
+        <th>Individualistinen (P)</th>
+      </tr>
+      <tr>
+        <td class="row-header">Prososiaalinen (Y)</td>
+        <td>\(R\)</td>
+        <td>\(S\)</td>
+      </tr>
+      <tr>
+        <td class="row-header">Individualistinen (P)</td>
+        <td>\(T\)</td>
+        <td>\(P\)</td>
+      </tr>
+    </table>
+
+    <p>
+      T&auml;m&auml; on vain alkuper&auml;inen vangin dilemma populaatiotasolla. Moduulin 7 replikaattoridynamiikka-analyysin
+      perusteella petos (individualismi) on ainoa ESS. <em>Prososiaaliset tyypit kuolevat sukupuuttoon.</em>
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Prososiaalisten tyyppien selviytymisehdot</span>
+      <p>
+        Prososiaaliset tyypit voivat selviyty&auml; replikaattoridynamiikassa, jos yksi tai useampi seuraavista ehdoista toteutuu:
+      </p>
+      <ol>
+        <li><strong>Valikoiva kohtaaminen:</strong> prososiaaliset tyypit kohtaavat todenn&auml;k&ouml;isemmin toisia
+        prososiaalisia tyyppejä (esim. verkkorakenteen, ryhm&auml;valinnan tai tunnisteperustaisen tunnistamisen kautta).</li>
+        <li><strong>Ehdolliset strategiat:</strong> prososiaaliset tyypit tekev&auml;t yhteisty&ouml;t&auml; vain muiden
+        yhteisty&ouml;ntekij&ouml;iden kanssa (muuntaen pelin vangin dilemmasta vakuutuspeliksi populaatiotasolla).</li>
+        <li><strong>Institutionaaliset mekanismit:</strong> rankaiseminen, valvonta tai mainemekanismit muuttavat
+        efektiivisen tuottomatriisin (Ostromin panos, jota kehit&auml;mme jäljempänä).</li>
+        <li><strong>Ryhm&auml;valinta:</strong> ryhm&auml;t, joissa on enem&auml;n prososiaalisia tyyppejä,
+        menestyvät paremmin kuin ryhm&auml;t, joissa heitä on v&auml;hemm&auml;n (Boydin &amp; Richersonin malli, osio 6).</li>
+      </ol>
+    </div>
+
+    <h3>2.4 Valikoiva kohtaaminen: yhteisty&ouml;n matemaattinen pelastus</h3>
+
+    <p>
+      Olkoon \(r\) <strong>valikoivuuskerroin</strong>: todenn&auml;k&ouml;isyys, ett&auml; prososiaalinen tyyppi
+      kohtaa toisen prososiaalisen tyypin <em>yli sen</em>, mit&auml; satunnainen kohtaaminen ennustaisi.
+      Valikoivalla kohtaamisella yhteisty&ouml;ntekij&auml;n (prososiaalisen) kelpoisuus populaatiossa, jossa
+      yhteisty&ouml;ntekij&ouml;iden frekvenssi on \(x\):
+    </p>
+
+    <p>
+      \[
+        f_C = \bigl[x + r(1-x)\bigr] \cdot R + \bigl[(1-x)(1-r)\bigr] \cdot S
+      \]
+    </p>
+
+    <p>
+      \[
+        f_D = \bigl[x(1-r)\bigr] \cdot T + \bigl[(1-x) + rx\bigr] \cdot P
+      \]
+    </p>
+
+    <p>
+      Yhteisty&ouml; on suotuisaa, kun \(f_C > f_D\). Rajalla \(x = 0\) (yhteisty&ouml; voi vallata) t&auml;m&auml;
+      yksinkertaistuu muotoon:
+    </p>
+
+    <p>
+      \[
+        r \cdot R + (1 - r) \cdot S > (1-r) \cdot T + r \cdot P
+      \]
+    </p>
+
+    <p>
+      Ratkaisemalla \(r\):
+    </p>
+
+    <p>
+      \[
+        r > \frac{T - S}{(T - S) + (R - P)} = \frac{T - S}{T + R - S - P}
+      \]
+    </p>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Kriittinen valikoivuus vangin dilemmassa</span>
+      <p>
+        K&auml;ytt&auml;en \(T = 5, R = 3, P = 1, S = 0\):
+      </p>
+      <p>
+        \[
+          r > \frac{5 - 0}{5 + 3 - 0 - 1} = \frac{5}{7} \approx 0.714
+        \]
+      </p>
+      <p>
+        Prososiaaliset tyypit tarvitsevat melko korkean valikoivuuden voidakseen vallata &mdash; heidän on
+        kohdattava toisia prososiaalisia v&auml;hint&auml;&auml;n 71,4 % useammin kuin satunnainen kohtaaminen ennustaisi.
+        T&auml;m&auml; on kvantitatiivinen ennuste, joka yhdist&auml;&auml; SVO-teorian populaatiorakenteeseen.
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.2 &mdash; SVO-replikaattoridynamiikka</div>
+      <p>
+        Tarkastellaan populaatiota, jossa on kolme SVO-tyyppi&auml;: prososiaalinen (yhteisty&ouml; aina),
+        individualistinen (petos aina) ja ehdollinen yhteisty&ouml;ntekijä (yhteisty&ouml;, jos vastustaja on
+        prososiaalinen, muuten petos). Materiaalisilla vangin dilemman tuotoilla \(T=5, R=3, P=1, S=0\)
+        kirjoita \(3 \times 3\) kelpoisuusmatriisi ja etsi kaikki replikaattoridynamiikan kiintopisteet.
+        Mitk&auml; kiintopisteet ovat stabiileja?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            Olkoon P = prososiaalinen, I = individualistinen, EY = ehdollinen yhteisty&ouml;ntekijä.
+            Materiaalinen kelpoisuusmatriisi (rivipelaajan tuotto sarakepelaajatyyppi&auml; vastaan):
+          </p>
+          <table class="payoff-matrix">
+            <tr><th></th><th>P</th><th>I</th><th>EY</th></tr>
+            <tr><td class="row-header">P</td><td>3</td><td>0</td><td>3</td></tr>
+            <tr><td class="row-header">I</td><td>5</td><td>1</td><td>1</td></tr>
+            <tr><td class="row-header">EY</td><td>3</td><td>1</td><td>3</td></tr>
+          </table>
+          <p>
+            Replikaattoridynamiikan kiintopisteit&auml; ovat kolme k&auml;rke&auml; (kaikki-P, kaikki-I, kaikki-EY)
+            sek&auml; mahdolliset sis&auml;pisteet, joissa kaikki kelpoisuudet ovat yht&auml; suuria.
+          </p>
+          <p>
+            <strong>Kaikki-P</strong> (\(x_P = 1\)): P:n kelpoisuus on 3, mutta valtaava I saa 5. Ep&auml;stabiili.
+          </p>
+          <p>
+            <strong>Kaikki-I</strong> (\(x_I = 1\)): I:n kelpoisuus on 1. Valtaava P saa 0 (ep&auml;onnistuu),
+            valtaava EY saa 1 (neutraali). Stabiili P:t&auml; vastaan, neutraali EY:t&auml; vastaan.
+          </p>
+          <p>
+            <strong>Kaikki-EY</strong> (\(x_{EY} = 1\)): EY:n kelpoisuus on 3. Valtaava I saa 1 (ep&auml;onnistuu),
+            valtaava P saa 3 (neutraali). <strong>Stabiili</strong> &mdash; EY on ESS:n kaltainen tila.
+          </p>
+          <p>
+            Keskeinen tulos: ehdolliset yhteisty&ouml;ntekij&auml;t voivat vastustaa pettäjien valtausta samalla kun
+            he vastaavat ehdottomien yhteisty&ouml;ntekij&ouml;iden tuottoa. T&auml;m&auml; on syy siihen, miksi
+            vastavuoroisuuteen perustuvat normit vakauttavat yhteisty&ouml;t&auml;.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 3: Ostrom's IAD Framework -->
+  <!-- ================================================================== -->
+  <div class="section" id="iad">
+    <h2>3. Ostromin IAD-viitekehys</h2>
+
+    <p>
+      Elinor Ostrom (taloustieteen Nobel-palkinto, 2009) osoitti, ett&auml; todelliset yhteis&ouml;t usein
+      <em>ratkaisevat</em> yhteismaan dilemmat ilman yksityist&auml;mist&auml; tai valtion kontrollia &mdash;
+      <strong>itseohjautuvien instituutioiden</strong> avulla. H&auml;nen kehitt&auml;m&auml;ns&auml;
+      IAD-viitekehys (Institutional Analysis and Development) tarjoaa systemaattisen tavan analysoida,
+      miten institutionaaliset s&auml;&auml;nn&ouml;t muokkaavat strategisen vuorovaikutuksen rakennetta.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; IAD-viitekehys</span>
+      <p>
+        IAD-viitekehys tunnistaa kolme eksogeenisten muuttujien kategoriaa, jotka muokkaavat
+        <strong>toiminta-areenaa</strong> (tilannetta, jossa toimijat ovat vuorovaikutuksessa):
+      </p>
+      <ol>
+        <li><strong>Biofysikaaliset olosuhteet:</strong> resurssin tai hy&ouml;dykkeen luonne (kilpaileva? poissulkeva? uusiutuva?)</li>
+        <li><strong>Yhteis&ouml;n ominaisuudet:</strong> normit, luottamus, jaettu tieto, SVO-jakauma</li>
+        <li><strong>K&auml;yt&ouml;ss&auml; olevat s&auml;&auml;nn&ouml;t:</strong> todelliset toimintas&auml;&auml;nn&ouml;t, joita osallistujat noudattavat (jotka voivat poiketa virallisista laeista)</li>
+      </ol>
+      <p>
+        N&auml;m&auml; kolme tekij&auml;&auml; m&auml;&auml;ritt&auml;v&auml;t yhdess&auml;
+        <strong>toimintatilanteen</strong>: kuka osallistuu, mitk&auml; toiminnot ovat k&auml;ytett&auml;viss&auml;,
+        mit&auml; tietoa on saatavilla, miten toiminnot kuvautuvat tuloksiin ja miten tulokset kuvautuvat tuottoihin.
+      </p>
+    </div>
+
+    <h3>3.1 IAD:n formalisointi: instituutiot pelimuunnoksina</h3>
+
+    <p>
+      Peliteoreettisesta n&auml;k&ouml;kulmasta kukin IAD-viitekehyksen elementti vastaa pelin
+      muodollista komponenttia:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th style="width:35%">IAD-komponentti</th>
+        <th>Peliteoreettinen formalisointi</th>
+      </tr>
+      <tr>
+        <td><strong>Biofysikaaliset olosuhteet</strong></td>
+        <td>M&auml;&auml;ritt&auml;&auml; tuottofunktion \(\pi(a_1, \ldots, a_n; \mathbf{R})\), miss&auml; \(\mathbf{R}\) on resurssitila</td>
+      </tr>
+      <tr>
+        <td><strong>Yhteis&ouml;n ominaisuudet (normit, SVO)</strong></td>
+        <td>M&auml;&auml;ritt&auml;&auml; hy&ouml;tymuunnoksen \(U_i = \cos(\theta_i)\pi_i + \sin(\theta_i)\pi_j\)</td>
+      </tr>
+      <tr>
+        <td><strong>S&auml;&auml;nn&ouml;t: rajaus</strong></td>
+        <td>M&auml;&auml;rittelee pelaajajoukon \(N = \{1, 2, \ldots, n\}\)</td>
+      </tr>
+      <tr>
+        <td><strong>S&auml;&auml;nn&ouml;t: valinta</strong></td>
+        <td>M&auml;&auml;rittelee kunkin pelaajan strategia-avaruuden \(S_i\)</td>
+      </tr>
+      <tr>
+        <td><strong>S&auml;&auml;nn&ouml;t: informaatio</strong></td>
+        <td>M&auml;&auml;rittelee informaatiopartition (kuka tiet&auml;&auml; mit&auml; ennen valintaa)</td>
+      </tr>
+      <tr>
+        <td><strong>S&auml;&auml;nn&ouml;t: tuotto</strong></td>
+        <td>Muokkaa tuottofunktiota (esim. lis&auml;&auml;m&auml;ll&auml; sakkoja, palkkioita)</td>
+      </tr>
+      <tr>
+        <td><strong>S&auml;&auml;nn&ouml;t: laajuus</strong></td>
+        <td>Rajoittaa sallittujen tulosten joukkoa</td>
+      </tr>
+    </table>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio</span>
+      <p>
+        Ostromin perustavanlaatuinen oivallus matemaattisesti ilmaistuna on seuraava: kun pelill&auml; on
+        sosiaalisesti ep&auml;toivottava tasapaino (kuten molemminpuolinen petos yhteismaalla), ei tarvitse
+        muuttaa <em>pelaajia</em> &mdash; voidaan muuttaa <em>peli&auml;</em>. Instituutiot ovat s&auml;&auml;nt&ouml;j&auml;,
+        jotka muuntavat pelin \(\Gamma\) uudeksi peliksi \(\Gamma'\), jolla on parempi tasapaino.
+        Matemaattiseksi kysymykseksi muodostuu: <em>mitk&auml; s&auml;&auml;nt&ouml;muutokset muuntavat tuottomatriisin
+        siten, ett&auml; yhteisty&ouml;st&auml; tulee tasapaino?</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 4: Common-Pool Resource Problems -->
+  <!-- ================================================================== -->
+  <div class="section" id="cpr">
+    <h2>4. Yhteisvarantoresurssi (YVR) -ongelmat</h2>
+
+    <p>
+      Yhteisvarantoresurssi on sellainen, joka on <strong>kilpaileva</strong> (yhden henkil&ouml;n k&auml;ytt&ouml;
+      v&auml;hent&auml;&auml; saatavuutta muilta) mutta <strong>ei-poissulkeva</strong> (p&auml;&auml;sy&auml; on vaikea
+      est&auml;&auml;). Kalastusalueet, mets&auml;t, pohjavedet ja yhteiset kasteluj&auml;rjestelm&auml;t ovat
+      klassisia esimerkkejä. Rakennamme nyt yhteisvarantoresurssipelin t&auml;ydellisen matemaattisen mallin.
+    </p>
+
+    <h3>4.1 Matemaattinen malli</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; YVR-pelin asettelu</span>
+      <p>
+        <strong>Pelaajat:</strong> \(n\) korjaajaa, indeksoituna \(i = 1, \ldots, n\).
+      </p>
+      <p>
+        <strong>Resurssi:</strong> Jaettu resurssivaranto kooltaan \(R\), maksimikantokapasiteetilla \(K\).
+      </p>
+      <p>
+        <strong>Toiminnot:</strong> Kukin pelaaja \(i\) valitsee korjuutason \(h_i \geq 0\).
+        Kokonaiskorjuu \(H = \sum_{i=1}^{n} h_i\).
+      </p>
+      <p>
+        <strong>Tuottofunktio:</strong> Korjuun yksikk&ouml;arvo riippuu kokonaisk&auml;yt&ouml;st&auml;.
+        Yleinen m&auml;&auml;rittely:
+      </p>
+      <p>
+        \[
+          v(H) = a - bH
+        \]
+      </p>
+      <p>
+        miss&auml; \(a > 0\) on perusarvo ja \(b > 0\) kuvaa ruuhkautumis-/ehtymisefektej&auml;.
+        Pelaajan \(i\) tuotto on:
+      </p>
+      <p>
+        \[
+          \pi_i(h_i, H_{-i}) = h_i \cdot v(H) = h_i(a - b(h_i + H_{-i}))
+        \]
+      </p>
+      <p>
+        miss&auml; \(H_{-i} = \sum_{j \neq i} h_j\) on kaikkien muiden pelaajien kokonaiskorjuu.
+      </p>
+    </div>
+
+    <h3>4.2 Resurssidynamiikka</h3>
+
+    <p>
+      Dynaamisessa (moniperiodisessa) mallissa resurssivaranto kehittyy seuraavasti:
+    </p>
+
+    <p>
+      \[
+        \frac{dR}{dt} = g(R) - H
+      \]
+    </p>
+
+    <p>
+      miss&auml; \(g(R)\) on luonnollinen kasvufunktio. Vakiomuotoinen logistinen kasvumalli antaa:
+    </p>
+
+    <p>
+      \[
+        g(R) = rR\!\left(1 - \frac{R}{K}\right)
+      \]
+    </p>
+
+    <p>
+      T&auml;m&auml; on juuri sellainen differentiaaliyht&auml;l&ouml;, jota tutkimme moduulissa 4. Resurssi on
+      kest&auml;v&auml;, kun \(H \leq g(R)\), eli korjuu ei ylitä luonnollista uusiutumista.
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Yhteys moduuliin 4</span>
+      <p>
+        Yht&auml;l&ouml; \(\frac{dR}{dt} = rR(1 - R/K) - H\) on muunneltu logistinen yht&auml;l&ouml;, jossa on
+        vakiokorjuutermi. Dynaamisten j&auml;rjestelmien analyysimme perusteella tiedämme, ett&auml; t&auml;ll&auml; on
+        kiintopisteet, joissa \(g(R^*) = H\), ja n&auml;m&auml; kiintopisteet voivat olla stabiileja tai eivät.
+        Jos \(H\) ylitt&auml;&auml; suurimman kest&auml;v&auml;n tuoton \(g_{\max} = rK/4\), stabiilia positiivista
+        tasapainoa ei ole &mdash; resurssi romahtaa nollaan.
+      </p>
+    </div>
+
+    <h3>4.3 Yhteismaan tragedia: Nash-tasapainoanalyysi</h3>
+
+    <p>
+      Staattisen YVR-pelin avulla l&ouml;ydämme Nash-tasapainon laskemalla kunkin pelaajan parhaan vasteen.
+      Pelaaja \(i\) maksimoi:
+    </p>
+
+    <p>
+      \[
+        \pi_i = h_i(a - b(h_i + H_{-i}))
+      \]
+    </p>
+
+    <p>
+      Ensimm&auml;isen kertaluvun ehto (moduuli 3):
+    </p>
+
+    <p>
+      \[
+        \frac{\partial \pi_i}{\partial h_i} = a - 2bh_i - bH_{-i} = 0
+      \]
+    </p>
+
+    <p>
+      Ratkaisemalla \(h_i\):
+    </p>
+
+    <p>
+      \[
+        h_i^* = \frac{a - bH_{-i}}{2b}
+      \]
+    </p>
+
+    <p>
+      Symmetrian perusteella Nash-tasapainossa kaikki pelaajat korjaavat saman m&auml;&auml;r&auml;n \(h^*\), joten
+      \(H_{-i} = (n-1)h^*\):
+    </p>
+
+    <p>
+      \[
+        h^* = \frac{a - b(n-1)h^*}{2b}
+      \]
+    </p>
+
+    <p>
+      \[
+        2bh^* = a - b(n-1)h^*
+      \]
+    </p>
+
+    <p>
+      \[
+        h^*(2b + b(n-1)) = a
+      \]
+    </p>
+
+    <p>
+      \[
+        h^* = \frac{a}{b(n+1)}
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; YVR-pelin Nash-tasapaino</span>
+      <p>
+        Symmetrisess&auml; YVR-peliss&auml;, jossa on \(n\) pelaajaa ja tuotto \(\pi_i = h_i(a - bH)\),
+        symmetrinen Nash-tasapainokorjuu on:
+      </p>
+      <p>
+        \[
+          h^*_{\text{Nash}} = \frac{a}{b(n+1)}, \qquad H^*_{\text{Nash}} = \frac{na}{b(n+1)}
+        \]
+      </p>
+      <p>
+        Kunkin pelaajan tasapainotuotto on:
+      </p>
+      <p>
+        \[
+          \pi^*_{\text{Nash}} = \frac{a^2}{b(n+1)^2}
+        \]
+      </p>
+    </div>
+
+    <h3>4.4 Sosiaalinen optimi vs. Nash-tasapaino</h3>
+
+    <p>
+      <strong>Sosiaalinen optimi</strong> maksimoi kokonaistuoton \(\Pi = \sum_i \pi_i = H(a - bH)\):
+    </p>
+
+    <p>
+      \[
+        \frac{d\Pi}{dH} = a - 2bH = 0 \implies H^*_{\text{social}} = \frac{a}{2b}
+      \]
+    </p>
+
+    <p>
+      Symmetrian perusteella kunkin pelaajan tulisi korjata \(h^*_{\text{social}} = \frac{a}{2bn}\), jolloin kukin pelaaja saa:
+    </p>
+
+    <p>
+      \[
+        \pi^*_{\text{social}} = \frac{a}{2bn} \cdot \frac{a}{2} = \frac{a^2}{4bn}
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Ylihy&ouml;dynt&auml;misen matematiikka</span>
+      <p>
+        Nash-tasapainon ja sosiaalisen optimin vertailu:
+      </p>
+      <p>
+        \[
+          \frac{H^*_{\text{Nash}}}{H^*_{\text{social}}} = \frac{na/(b(n+1))}{a/(2b)} = \frac{2n}{n+1}
+        \]
+      </p>
+      <p>
+        Kun \(n \to \infty\), t&auml;m&auml; suhde l&auml;hestyy lukua \(2\): Nash-tasapainossa korjataan
+        noin <strong>kaksinkertainen</strong> m&auml;&auml;r&auml; sosiaaliseen optimiin verrattuna.
+      </p>
+      <p>
+        Yksil&ouml;llisten tuottojen suhde:
+      </p>
+      <p>
+        \[
+          \frac{\pi^*_{\text{Nash}}}{\pi^*_{\text{social}}} = \frac{a^2/(b(n+1)^2)}{a^2/(4bn)} = \frac{4n}{(n+1)^2}
+        \]
+      </p>
+      <p>
+        Suurille \(n\) t&auml;m&auml; l&auml;hestyy arvoa \(4/n\) &mdash; kukin pelaaja ansaitsee h&auml;vi&auml;v&auml;n
+        murto-osan siit&auml;, mit&auml; he voisivat ansaita optimaalisella hallinnalla. <strong>T&auml;m&auml; on yhteismaan
+        tragedia tarkasti ilmaistuna.</strong>
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Numeerinen YVR-laskelma</span>
+      <p>
+        Olkoon \(a = 120\), \(b = 1\), \(n = 5\):
+      </p>
+      <ul>
+        <li>\(h^*_{\text{Nash}} = 120 / (1 \cdot 6) = 20\), joten \(H^*_{\text{Nash}} = 100\)</li>
+        <li>\(h^*_{\text{social}} = 120 / (2 \cdot 1 \cdot 5) = 12\), joten \(H^*_{\text{social}} = 60\)</li>
+        <li>\(\pi^*_{\text{Nash}} = 20 \cdot (120 - 100) = 400\) pelaajaa kohti</li>
+        <li>\(\pi^*_{\text{social}} = 12 \cdot (120 - 60) = 720\) pelaajaa kohti</li>
+      </ul>
+      <p>
+        Kukin pelaaja saa vain \(400/720 \approx 55{,}6\%\) optimaalisesta tuotostaan Nash-tasapainossa.
+        Kokonaisuutena ryhm&auml; menett&auml;&auml; \(5 \times (720 - 400) = 1600\) arvoyksikk&ouml;&auml; ylihy&ouml;dynt&auml;misen vuoksi.
+      </p>
+    </div>
+
+    <!-- CPR Interactive Game -->
+    <div class="interactive-container">
+      <h3>Interaktiivinen: Yhteisvarantoresurssipeli</h3>
+      <p>Olet yksi viidest&auml; korjaajasta, jotka jakavat uusiutuvan resurssin (maksimikapasiteetti: 100). Kuinka paljon otat kullakin kierroksella? Resurssi kasvaa 30 % j&auml;ljelle j&auml;&auml;neest&auml;.</p>
+      <div class="controls" id="cpr-game">
+        <div class="control-group">
+          <label>Korjuumääräsi:</label>
+          <input type="number" id="cpr-harvest" value="10" min="0" max="20" step="1" style="width:80px">
+        </div>
+        <button class="btn btn-primary" onclick="cprHarvest()">Korjaa</button>
+        <button class="btn btn-outline" onclick="cprReset()">Aloita alusta</button>
+      </div>
+      <div id="cpr-result" style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:6px; min-height:60px">
+        Aloita korjaaminen k&auml;ynnist&auml;&auml;ksesi simulaation.
+      </div>
+      <div id="cpr-history" style="margin-top:1rem; overflow-x:auto;"></div>
+      <div class="note-box" style="margin-top:1rem">
+        <span class="box-title">Pohdi</span>
+        <p>Mit&auml; tapahtuu, jos korjaat maksimim&auml;&auml;r&auml;n joka kierros? Ent&auml; jos korjaat kest&auml;v&auml;sti? T&auml;m&auml; on Ostromin tutkiman yhteismaadilemman ydin.</p>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.3 &mdash; YVR heterogeenisin kustannuksin</div>
+      <p>
+        Oletetaan, ett&auml; \(n = 3\) korjaajaa kohtaa YVR:n, jossa \(a = 60\), \(b = 1\), mutta pelaajalla 1
+        on korjuukustannus \(c_1 = 2\) yksikk&ouml;&auml; kohti, kun taas pelaajilla 2 ja 3 on \(c_2 = c_3 = 0\).
+        Tuotoiksi tulee \(\pi_i = h_i(a - bH) - c_i h_i\). Etsi Nash-tasapainokorjuu kullekin pelaajalle.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            Pelaajan \(i\) ensimm&auml;isen kertaluvun ehto: \(\frac{\partial \pi_i}{\partial h_i} = (a - c_i) - 2bh_i - bH_{-i} = 0\).
+          </p>
+          <p>
+            Joten \(h_i = \frac{(a - c_i) - bH_{-i}}{2b}\).
+          </p>
+          <p>
+            Pelaajalle 1: \(h_1 = \frac{58 - (h_2 + h_3)}{2}\).
+          </p>
+          <p>
+            Pelaajille 2, 3 (symmetriset): \(h_2 = h_3 = \frac{60 - h_1 - h_j}{2}\), miss&auml; \(j\) on toinen
+            matalakustannuspelaaja.
+          </p>
+          <p>
+            Symmetrian perusteella \(h_2 = h_3 = h\). Pelaajan 2 ensimm&auml;isen kertaluvun ehdosta: \(h = \frac{60 - h_1 - h}{2}\), joten \(3h = 60 - h_1\), mist&auml; \(h = \frac{60 - h_1}{3}\).
+          </p>
+          <p>
+            Sijoittamalla pelaajan 1 ensimm&auml;isen kertaluvun ehtoon: \(h_1 = \frac{58 - 2 \cdot \frac{60 - h_1}{3}}{2} = \frac{58 - \frac{120 - 2h_1}{3}}{2} = \frac{\frac{174 - 120 + 2h_1}{3}}{2} = \frac{54 + 2h_1}{6}\).
+          </p>
+          <p>
+            Joten \(6h_1 = 54 + 2h_1\), mist&auml; \(h_1 = 13{,}5\) ja \(h = \frac{60 - 13{,}5}{3} = 15{,}5\).
+          </p>
+          <p>
+            Korkeampikustannuksinen pelaaja korjaa v&auml;hemm&auml;n. Kokonaiskorjuu: \(H = 13{,}5 + 2(15{,}5) = 44{,}5\).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 5: Ostrom's Design Principles -->
+  <!-- ================================================================== -->
+  <div class="section" id="design-principles">
+    <h2>5. Ostromin suunnitteluperiaatteet pelimuunnoksina</h2>
+
+    <p>
+      Ostrom tunnisti kahdeksan &rdquo;suunnitteluperiaatetta&rdquo;, jotka ovat ominaisia pitk&auml;ik&auml;isille
+      yhteisvarantoresurssi-instituutioille, perustuen vertaileviin tapaustutkimuksiin, jotka kattavat
+      vuosisatoja ja mantereita. N&auml;yt&auml;mme nyt, miten kukin periaate voidaan ymmärtää tietyn&auml;
+      <em>pelirakenteen muutoksena</em>.
+    </p>
+
+    <h3>5.1 Kahdeksan periaatetta formalisoituna</h3>
+
+    <h4>Periaate 1: selke&auml;sti m&auml;&auml;ritellyt rajat</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Pelaajajoukon m&auml;&auml;rittely</span>
+      <p>
+        <strong>Laadullinen:</strong> Kenellä on oikeus ottaa resurssiyksik&ouml;it&auml;, on m&auml;&auml;ritelt&auml;v&auml;
+        selkeästi, samoin kuin itse resurssin rajat.
+      </p>
+      <p>
+        <strong>Formaali:</strong> M&auml;&auml;rittelee pelaajajoukon \(N = \{1, \ldots, n\}\) ja
+        vahvistaa poissulkevuuden. Ilman selkeit&auml; rajoja peliss&auml; on \(n \to \infty\), ja
+        YVR-analyysimme perusteella ylihy&ouml;dynt&auml;missuhde \(\frac{2n}{n+1} \to 2\) ja
+        henkil&ouml;kohtainen tuottosuhde \(\frac{4n}{(n+1)^2} \to 0\). Luvun \(n\) rajoittaminen
+        on v&auml;ltt&auml;m&auml;t&ouml;n ehto tehokkuudelle.
+      </p>
+    </div>
+
+    <h4>Periaate 2: hy&ouml;tyjen ja kustannusten suhteellinen vastaavuus</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Tuottorakenne</span>
+      <p>
+        <strong>Laadullinen:</strong> S&auml;&auml;nt&ouml;jen tulee varmistaa, ett&auml; panokset resurssin
+        yll&auml;pitoon ovat suhteessa saatuihin hy&ouml;tyihin.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Muokkaa tuottofunktiota muodosta \(\pi_i = h_i \cdot v(H)\)
+        muotoon \(\pi_i = h_i \cdot v(H) - c(h_i)\), miss&auml; kustannus \(c(h_i)\) on verrannollinen
+        korjuuseen \(h_i\). T&auml;m&auml; siirt&auml;&auml; parhaan vasteen funktiota sis&auml;&auml;np&auml;in,
+        v&auml;hent&auml;en Nash-tasapainokorjuuta kohti sosiaalista optimia.
+      </p>
+    </div>
+
+    <h4>Periaate 3: kollektiivisen valinnan j&auml;rjestelyt</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Endogeeninen s&auml;&auml;nt&ouml;jen muodostus</span>
+      <p>
+        <strong>Laadullinen:</strong> Useimmat toimintas&auml;&auml;nt&ouml;jen vaikutuksen alaiset yksil&ouml;t
+        voivat osallistua niiden muokkaamiseen.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Tuodaan mukaan <strong>perustuslaillisen tason peli</strong> \(\Gamma^C\),
+        jossa pelaajat valitsevat operatiivisen pelin \(\Gamma^O\) s&auml;&auml;nn&ouml;t. T&auml;m&auml; on
+        <strong>kaksitasoinen peli</strong>: pelaajat ensin valitsevat s&auml;&auml;nn&ouml;t ja sitten pelaavat
+        resurssipelin n&auml;iden s&auml;&auml;nt&ouml;jen mukaan. Perustuslaillinen peli voi valita tuloksena
+        olevan operatiivisen pelin tuottodominoivat tasapainot.
+      </p>
+    </div>
+
+    <h4>Periaate 4: valvonta</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Informaatiorakenne</span>
+      <p>
+        <strong>Laadullinen:</strong> Valvojat, jotka aktiivisesti tarkkailevat YVR:n tilaa ja k&auml;ytt&auml;jien
+        käyttäytymist&auml;, ovat ainakin osittain tilivelvollisia k&auml;ytt&auml;jille.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Muuntaa pelin <em>ep&auml;t&auml;ydellisest&auml; informaatiosta</em>
+        (jossa poikkeamat ovat havaitsemattomia) <em>t&auml;ydelliseen valvontaan</em> (jossa toiminnot
+        havaitaan todenn&auml;k&ouml;isyydell&auml; \(p\)). T&auml;m&auml; mahdollistaa ehdolliset strategiat.
+        Ilman valvontaa rankaiseminen on mahdotonta; valvonnan kanssa laukaisustrategiat ja asteittaiset
+        sanktiot tulevat mahdollisiksi.
+      </p>
+    </div>
+
+    <h4>Periaate 5: asteittaiset sanktiot</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Rangaistustuotot</span>
+      <p>
+        <strong>Laadullinen:</strong> Toimintas&auml;&auml;nt&ouml;j&auml; rikkovat k&auml;ytt&auml;j&auml;t saavat
+        todenn&auml;k&ouml;isesti asteittaisia sanktioita muilta k&auml;ytt&auml;jilt&auml; tai k&auml;ytt&auml;jille
+        tilivelvollisilta virkailijoilta.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Lis&auml;&auml; rangaistusfunktion \(F(h_i)\) tuottoon:
+        \(\pi_i^{\text{new}} = \pi_i^{\text{old}} - F(h_i)\), miss&auml; \(F(h_i) = 0\) jos \(h_i \leq \bar{h}\)
+        (sovittu raja) ja \(F(h_i) = \beta(h_i - \bar{h})^\alpha\) kun \(h_i > \bar{h}\),
+        miss&auml; \(\alpha \geq 1\) kuvaa sanktioiden asteittaista luonnetta.
+      </p>
+    </div>
+
+    <h4>Periaate 6: konfliktinratkaisumekanismit</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Metapeli</span>
+      <p>
+        <strong>Laadullinen:</strong> Nopea p&auml;&auml;sy edullisille paikallisille areenoille riitojen ratkaisemiseksi.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Kun s&auml;&auml;nt&ouml;rikkomusta kiistet&auml;&auml;n, riita siirtyy
+        <strong>metapeliin</strong> &mdash; peliin pelin s&auml;&auml;nt&ouml;jen tulkinnasta. Edullinen
+        konfliktinratkaisu v&auml;hent&auml;&auml; t&auml;yt&auml;nt&ouml;&ouml;npanon transaktiokustannuksia tehden
+        rankaisemisesta uskottavaa v&auml;hent&auml;m&auml;ll&auml; t&auml;yt&auml;nt&ouml;&ouml;npanijoiden
+        kustannusparametria \(\gamma\).
+      </p>
+    </div>
+
+    <h4>Periaate 7: v&auml;himm&auml;inen organisoitumisoikeuden tunnustaminen</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Ulkoinen t&auml;yt&auml;nt&ouml;&ouml;npano</span>
+      <p>
+        <strong>Laadullinen:</strong> Ulkoiset viranomaiset eivät kyseenalaista k&auml;ytt&auml;jien oikeutta
+        luoda omia instituutioitaan.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Varmistaa, ett&auml; kaksitasoinen peli (perustuslaillinen + operatiivinen)
+        on <em>sitova</em>: perustuslaillisella tasolla valitut s&auml;&auml;nn&ouml;t ovat t&auml;yt&auml;nt&ouml;&ouml;npanokelpoisia
+        eik&auml; ulkoiset pelaajat kumoa niit&auml;. Formaalisesti ulkoisten viranomaisten strategia-avaruus on rajoitettu:
+        \(S_{\text{ext}} \subseteq \{s : s \text{ does not override local rules}\}\).
+      </p>
+    </div>
+
+    <h4>Periaate 8: sis&auml;kk&auml;iset organisaatiot</h4>
+    <div class="def-box">
+      <span class="box-title">Pelimuunnos &mdash; Monitasoiset pelit</span>
+      <p>
+        <strong>Laadullinen:</strong> Hallintatoiminnot on järjestetty useiksi sis&auml;kk&auml;isten organisaatioiden tasoiksi.
+      </p>
+      <p>
+        <strong>Formaali:</strong> Kokonaispeli hajotetaan pelien hierarkiaksi:
+        \(\Gamma = \Gamma^1 \times \Gamma^2 \times \cdots \times \Gamma^L\), miss&auml; kukin taso
+        \(\Gamma^\ell\) hallitsee tason \(\ell - 1\) s&auml;&auml;nt&ouml;j&auml;. T&auml;m&auml; hierarkkinen
+        rakenne mahdollistaa erikoistumisen ja mittakaavaedut hallinnassa.
+      </p>
+    </div>
+
+    <h3>5.2 Matemaattinen analyysi: valvonta + asteittaiset sanktiot</h3>
+
+    <p>
+      N&auml;yt&auml;mme nyt tarkasti, miten periaatteet 4 ja 5 (valvonta ja asteittaiset sanktiot)
+      yhdess&auml; muuttavat Nash-tasapainon ja replikaattoridynamiikan.
+    </p>
+
+    <p>
+      Tarkastellaan YVR-peli&auml; institutionaalisella s&auml;&auml;nn&ouml;ll&auml;: kunkin pelaajan tulisi korjata
+      enintään \(\bar{h} = h^*_{\text{social}} = \frac{a}{2bn}\). Rikkomukset havaitaan
+      todenn&auml;k&ouml;isyydell&auml; \(p\) (valvonta) ja niist&auml; rangaistaan sakolla \(\beta\)
+      ylikorjuuyksikk&ouml;&auml; kohti (asteittaiset sanktiot).
+    </p>
+
+    <p>
+      Pelaajan \(i\) muunnettu tuottofunktio on:
+    </p>
+
+    <p>
+      \[
+        \pi_i^{\text{inst}} = h_i(a - bH) - p \cdot \beta \cdot \max(0, h_i - \bar{h})
+      \]
+    </p>
+
+    <p>
+      Ensimm&auml;isen kertaluvun ehto kun \(h_i > \bar{h}\):
+    </p>
+
+    <p>
+      \[
+        \frac{\partial \pi_i^{\text{inst}}}{\partial h_i} = a - 2bh_i - bH_{-i} - p\beta = 0
+      \]
+    </p>
+
+    <p>
+      Ratkaisemalla symmetrialla (\(h_i = h^*\) kaikille \(i\)):
+    </p>
+
+    <p>
+      \[
+        h^*_{\text{inst}} = \frac{a - p\beta}{b(n+1)}
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Instituutiot siirt&auml;v&auml;t Nash-tasapainoa kohti sosiaalista optimia</span>
+      <p>
+        Valvontatodenn&auml;k&ouml;isyydell&auml; \(p\) ja sakolla \(\beta\) sosiaalisen optimin noudattamisesta
+        tulee Nash-tasapaino, kun odotettu sakko tekee ylikorjuusta kannattamatonta.
+        T&auml;m&auml; vaatii:
+      </p>
+      <p>
+        \[
+          p\beta \geq a - \frac{a(n+1)}{2n} = \frac{a(n-1)}{2n}
+        \]
+      </p>
+      <p>
+        Eli odotetun sakon \(p\beta\) on oltava v&auml;hint&auml;&auml;n \(\frac{a(n-1)}{2n}\). Pelaajamäärän
+        kasvaessa vaadittu pelote l&auml;hestyy arvoa \(\frac{a}{2}\), mutta pienille ryhmille
+        vaatimus on maltillinen.
+      </p>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Esimerkki &mdash; Yhteisty&ouml;h&ouml;n vaadittu valvonta</span>
+      <p>
+        K&auml;ytt&auml;en \(a = 120\), \(b = 1\), \(n = 5\):
+      </p>
+      <p>
+        Vaaditaan: \(p\beta \geq \frac{120 \cdot 4}{10} = 48\).
+      </p>
+      <p>
+        Valvontatodenn&auml;k&ouml;isyydell&auml; \(p = 0.8\) vaadittu sakko on \(\beta \geq 60\). Kun \(p = 0.5\),
+        vaadittu sakko on \(\beta \geq 96\).
+      </p>
+      <p>
+        T&auml;m&auml; antaa Ostromin laadulliselle oivallukselle kvantitatiivisen sis&auml;ll&ouml;n: korkeampi
+        valvonta v&auml;hent&auml;&auml; tarvittavia sanktioita ja p&auml;invastoin. Yhteis&ouml;t voivat tehd&auml;
+        vaihtokauppaa valvonnan intensiteetin ja rangaistuksen ankaruuden v&auml;lill&auml;.
+      </p>
+    </div>
+
+    <h3>5.3 Replikaattoridynamiikka instituutioiden kanssa</h3>
+
+    <p>
+      Tarkastellaan nyt evoluutiomallia, jossa osa agenteista noudattaa institutionaalisia s&auml;&auml;nt&ouml;j&auml;
+      (noudattajat, N) ja osa ei (vapaamatkustajat, V). Materiaaliset tuotot riippuvat noudattajien osuudesta \(x\):
+    </p>
+
+    <p>
+      <strong>Ilman instituutioita:</strong> t&auml;m&auml; vastaa vangin dilemmaa. Vapaamatkustajilla on aina
+      korkeampi kelpoisuus, ja noudattaminen kuolee sukupuuttoon.
+    </p>
+
+    <p>
+      <strong>Valvonnan ja sanktioiden kanssa:</strong> Olkoon \(p\) vapaamatkustajan havaitsemistodenn&auml;k&ouml;isyys
+      ja \(\beta\) sakko. Muunnetut kelpoisuusfunktiot ovat:
+    </p>
+
+    <p>
+      \[
+        f_C(x) = R_C(x) \quad \text{(complier's material payoff)}
+      \]
+    </p>
+    <p>
+      \[
+        f_F(x) = R_F(x) - p\beta \quad \text{(free-rider's material payoff minus expected fine)}
+      \]
+    </p>
+
+    <p>
+      Replikaattoriyht&auml;l&ouml; noudattajien frekvenssille \(x\) on:
+    </p>
+
+    <p>
+      \[
+        \dot{x} = x(1 - x)\bigl[f_C(x) - f_F(x)\bigr] = x(1 - x)\bigl[R_C(x) - R_F(x) + p\beta\bigr]
+      \]
+    </p>
+
+    <p>
+      Jos \(p\beta\) on riitt&auml;v&auml;n suuri, niin ett&auml; \(R_C(x) - R_F(x) + p\beta > 0\) kaikille \(x\),
+      niin \(\dot{x} > 0\) aina kun \(0 < x < 1\), ja t&auml;ysi noudattaminen (\(x = 1\)) on ainoa stabiili
+      tasapaino. Valvonta ja sanktiot muuntavat dynamiikan konvergenssista kohti täytt&auml; petosta konvergenssiksi
+      kohti t&auml;ytt&auml; yhteisty&ouml;t&auml;.
+    </p>
+
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.4 &mdash; Optimaalinen valvonta</div>
+      <p>
+        Valvonta on kallista: se maksaa yhteis&ouml;lle \(c_m \cdot p\) valvontatason \(p\) yll&auml;pitämiseksi.
+        Yhteis&ouml;n instituutioiden nettohy&ouml;ty on yhteisty&ouml;st&auml; saatu hy&ouml;ty miinus valvontakustannukset.
+        YVR-peliss&auml;, jossa \(a = 120\), \(b = 1\), \(n = 5\) ja sakko \(\beta = 100\):
+      </p>
+      <p>
+        (a) Mik&auml; on pienin valvontataso \(p_{\min}\), joka yll&auml;pit&auml;&auml; yhteisty&ouml;t&auml;?
+        (b) Jos valvonta maksaa \(c_m = 200\) valvontatodennäk&ouml;isyyden yksikk&ouml;&auml; kohti, mik&auml; on
+        instituutioiden nettohy&ouml;ty kun \(p = p_{\min}\)?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            <strong>(a)</strong> Tarvitaan \(p\beta \geq \frac{a(n-1)}{2n} = \frac{120 \cdot 4}{10} = 48\).
+          </p>
+          <p>
+            Kun \(\beta = 100\): \(p_{\min} = 48/100 = 0{,}48\).
+          </p>
+          <p>
+            <strong>(b)</strong> Yhteisty&ouml;n tuoma hy&ouml;ty: pelaajkohtainen tuotto kasvaa
+            \(\pi_{\text{Nash}} = 400\):sta \(\pi_{\text{social}} = 720\):een, eli hy&ouml;ty on \(320\) pelaajaa kohti,
+            yhteens&auml; \(5 \times 320 = 1600\).
+          </p>
+          <p>
+            Valvontakustannus: \(c_m \cdot p = 200 \times 0{,}48 = 96\).
+          </p>
+          <p>
+            Nettohy&ouml;ty: \(1600 - 96 = 1504\). Instituutiot ovat eritt&auml;in kannattavia &mdash;
+            yhteisty&ouml;n tuomat hy&ouml;dyt ylitt&auml;v&auml;t selvästi valvontakustannukset.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 6: Evolutionary Models of Institutional Formation -->
+  <!-- ================================================================== -->
+  <div class="section" id="institutional-evolution">
+    <h2>6. Instituutioiden muodostumisen evoluutiomallit</h2>
+
+    <p>
+      Olemme osoittaneet, ett&auml; instituutiot <em>voivat</em> yll&auml;pit&auml;&auml; yhteisty&ouml;t&auml;, mutta
+      miten instituutiot <em>syntyv&auml;t</em> alun perin? T&auml;ss&auml; Boydin &amp; Richersonin ja muiden
+      kehitt&auml;m&auml;t kulttuurievoluution evoluutiomallit tulevat v&auml;ltt&auml;m&auml;tt&ouml;miksi.
+    </p>
+
+    <h3>6.1 Boydin &amp; Richersonin kulttuurinen ryhm&auml;valinta</h3>
+
+    <p>
+      Boyd &amp; Richerson (1985, 2005) ehdottivat, ett&auml; ihmisten yhteisty&ouml; kehittyi
+      <strong>kulttuurisen ryhm&auml;valinnan</strong> kautta: ryhm&auml;t, joilla on yhteisty&ouml;normeja,
+      menestyvät paremmin kuin ryhm&auml;t ilman niit&auml;, vaikka yhteisty&ouml; ei olisi yksil&ouml;lle
+      edullista ryhm&auml;n sis&auml;ll&auml;.
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Kulttuurisen ryhm&auml;valinnan malli</span>
+      <p>
+        Tarkastellaan \(m\) ryhm&auml;&auml;, kukin kooltaan \(n\). Kunkin ryhm&auml;n sis&auml;ll&auml; osuus \(x_k\)
+        on yhteisty&ouml;ntekij&ouml;it&auml; ja \(1 - x_k\) pett&auml;ji&auml;. Mallissa on kaksi tasoa:
+      </p>
+      <ol>
+        <li><strong>Ryhm&auml;n sis&auml;inen valinta:</strong> Pett&auml;jill&auml; on korkeampi kelpoisuus kunkin
+        ryhm&auml;n sis&auml;ll&auml; (koska yhteisty&ouml; on vangin dilemma). \(x_k\) pienenee ajan my&ouml;t&auml; kunkin ryhm&auml;n sis&auml;ll&auml;.</li>
+        <li><strong>Ryhmien v&auml;linen valinta:</strong> Ryhm&auml;t, joissa on enem&auml;n yhteisty&ouml;ntekij&ouml;it&auml;,
+        ovat tuottavampia ja kasvavat nopeammin, tai muut ryhm&auml;t j&auml;ljittelev&auml;t niit&auml;.
+        Ryhm&auml;t, joilla on korkeampi \(x_k\), leviäv&auml;t.</li>
+      </ol>
+      <p>
+        Yhteisty&ouml; s&auml;ilyy, kun ryhmien v&auml;linen valinta on riitt&auml;v&auml;n voimakasta
+        kumoamaan ryhm&auml;n sis&auml;isen valinnan.
+      </p>
+    </div>
+
+    <p>
+      Formaalisesti yhteisty&ouml;n globaalin frekvenssin \(\bar{x}\) muutos kaikkien ryhmien yli saadaan
+      <strong>Pricen yht&auml;l&ouml;st&auml;</strong> (moduulin 5 todenn&auml;k&ouml;isyysteoriasta):
+    </p>
+
+    <p>
+      \[
+        \Delta\bar{x} = \underbrace{\text{Cov}(w_k, x_k)}_{\text{between-group selection}} + \underbrace{E[w_k \Delta x_k]}_{\text{within-group selection}}
+      \]
+    </p>
+
+    <p>
+      miss&auml; \(w_k\) on ryhm&auml;n \(k\) suhteellinen kelpoisuus ja \(\Delta x_k\) on
+      yhteisty&ouml;ntekij&ouml;iden frekvenssin muutos ryhm&auml;ss&auml; \(k\). Ensimm&auml;inen termi on
+      positiivinen (ryhm&auml;t, joissa on enem&auml;n yhteisty&ouml;ntekij&ouml;it&auml;, kasvavat nopeammin),
+      ja toinen on negatiivinen (yhteisty&ouml;ntekij&ouml;iden m&auml;&auml;r&auml; v&auml;henee kunkin ryhm&auml;n sis&auml;ll&auml;).
+      Yhteisty&ouml; lis&auml;&auml;ntyy globaalisti, kun ensimm&auml;inen termi dominoi.
+    </p>
+
+    <h3>6.2 Rankaiseminen ja toisen kertaluvun vapaamatkustajaongelma</h3>
+
+    <p>
+      Keskeinen mekanismi yhteisty&ouml;n yll&auml;pit&auml;miseksi on <strong>rankaiseminen</strong>:
+      pett&auml;ji&auml; havaitsevat yksil&ouml;t aiheuttavat n&auml;ille kustannuksia. Mutta rankaiseminen on
+      itsess&auml;&auml;n kallista rankaisijalle, mik&auml; luo <strong>toisen kertaluvun vapaamatkustajaongelman</strong>:
+      miksi maksaa rankaisemisen kustannus, kun muut voivat tehd&auml; sen?
+    </p>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Toisen kertaluvun vapaamatkustajaongelma</span>
+      <p>
+        Populaatiossa, jossa on kolme tyyppi&auml; &mdash; yhteisty&ouml;ntekij&auml;t (Y), pett&auml;j&auml;t (P) ja
+        rankaisijat (R, jotka tekev&auml;t yhteisty&ouml;t&auml; ja my&ouml;s rankaisevat pett&auml;ji&auml;) &mdash;
+        rankaisijat kantavat lis&auml;kustannuksen \(\gamma\) jokaisesta rankaisemastaan pett&auml;j&auml;st&auml;,
+        kun taas ei-rankaisevat yhteisty&ouml;ntekij&auml;t hy&ouml;tyv&auml;t pelotteesta maksamatta kustannusta.
+        Ei-rankaisevat yhteisty&ouml;ntekij&auml;t vapaamatkustavat rankaisijoiden t&auml;yt&auml;nt&ouml;&ouml;npanoponnistuksilla.
+      </p>
+    </div>
+
+    <h3>6.3 Replikaattoridynamiikka yhteisty&ouml;ntekij&ouml;ill&auml;, pett&auml;jill&auml; ja rankaisijoilla</h3>
+
+    <p>
+      Tarkastellaan julkishy&ouml;dykepeli&auml; \(n\) pelaajan ryhm&auml;ss&auml;. Kunkin tyypin käyttäytyminen:
+    </p>
+    <ul>
+      <li><strong>Yhteisty&ouml;ntekij&auml; (Y):</strong> Antaa panoksen \(c\) julkishy&ouml;dykkeeseen, ei rankaise.</li>
+      <li><strong>Pett&auml;j&auml; (P):</strong> Ei anna panosta, ei rankaise.</li>
+      <li><strong>Rankaisija (R):</strong> Antaa panoksen \(c\) julkishy&ouml;dykkeeseen ja maksaa kustannuksen \(\gamma\)
+      m&auml;&auml;r&auml;t&auml;kseen sakon \(\beta\) kullekin havaitulle pett&auml;j&auml;lle.</li>
+    </ul>
+
+    <p>
+      Olkoon \(x_C, x_D, x_P\) kunkin tyypin frekvenssit (\(x_C + x_D + x_P = 1\)). Hyvin sekoittuneessa
+      populaatiossa, jossa satunnainen \(n\):n ryhm&auml; muodostetaan, odotetut tuotot ovat likimain:
+    </p>
+
+    <p>
+      \[
+        f_C = \frac{rc(x_C + x_P)n}{n} - c = rc(x_C + x_P) - c
+      \]
+    </p>
+    <p>
+      \[
+        f_D = rc(x_C + x_P) - \beta \cdot x_P \cdot n
+      \]
+    </p>
+    <p>
+      \[
+        f_P = rc(x_C + x_P) - c - \gamma \cdot x_D \cdot n
+      \]
+    </p>
+
+    <p>
+      miss&auml; \(r\) on julkishy&ouml;dykkeen kerroinluku. Replikaattoriyht&auml;l&ouml;t ovat:
+    </p>
+
+    <p>
+      \[
+        \dot{x}_C = x_C\bigl(f_C - \bar{f}\bigr), \quad
+        \dot{x}_D = x_D\bigl(f_D - \bar{f}\bigr), \quad
+        \dot{x}_P = x_P\bigl(f_P - \bar{f}\bigr)
+      \]
+    </p>
+
+    <p>
+      miss&auml; \(\bar{f} = x_C f_C + x_D f_D + x_P f_P\) on keskimääräinen kelpoisuus.
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Keskeinen tulos &mdash; Rankaisemisen dynamiikka</span>
+      <p>
+        Parittaiset kelpoisuuserot paljastavat dynamiikan:
+      </p>
+      <p>
+        \[
+          f_P - f_D = -c + \beta x_P n - \gamma x_D n + \beta x_P n = -c + \beta x_P n(1) + ...
+        \]
+      </p>
+      <p>
+        Tarkemmin:
+      </p>
+      <p>
+        \[
+          f_C - f_D = -c + \beta x_P n \quad \text{(cooperators vs defectors)}
+        \]
+      </p>
+      <p>
+        \[
+          f_P - f_D = -c + \beta x_P n - \gamma x_D n + \beta x_P n
+        \]
+      </p>
+      <p>
+        Hetkinen &mdash; olkaamme tarkempia. Lasketaan erotukset suoraan:
+      </p>
+      <p>
+        \[
+          f_C - f_D = -c + \beta x_P n
+        \]
+      </p>
+      <p>
+        \[
+          f_P - f_C = -\gamma x_D n
+        \]
+      </p>
+      <p>
+        \[
+          f_P - f_D = -c + \beta x_P n - \gamma x_D n
+        \]
+      </p>
+      <p>
+        N&auml;ist&auml; dynamiikka toimii vaiheittain:
+      </p>
+      <ol>
+        <li>Kun rankaisijoita on paljon (\(x_P\) suuri), \(f_C - f_D > 0\): yhteisty&ouml; on parempaa kuin
+        petos, koska pett&auml;ji&auml; rangaistaan.</li>
+        <li>Mutta \(f_P - f_C = -\gamma x_D n < 0\) aina: yhteisty&ouml;ntekij&auml;t, jotka eivät rankaise,
+        p&auml;rj&auml;&auml;v&auml;t aina rankaisijoita paremmin (toisen kertaluvun vapaamatkustajaongelma).</li>
+        <li>Kun pett&auml;j&auml;t on eliminoitu (\(x_D = 0\)), \(f_P = f_C\): rankaisijat ja yhteisty&ouml;ntekij&auml;t
+        ovat valikoivasti neutraaleja. Ajautuma voi sitten nakertaa rankaisijapopulaatiota, lopulta
+        sallien pett&auml;jien paluun.</li>
+      </ol>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Intuitio &mdash; Rankaisemisen sykli</span>
+      <p>
+        Rankaiseminen kohtaa perustavanlaatuisen haasteen: se toimii liian hyvin. Kun rankaisijat eliminoivat
+        pett&auml;j&auml;t, ei ole en&auml;&auml; ket&auml;&auml;n rangaistavaksi, joten rankaisijana olemisen kustannus on
+        nolla &mdash; mutta niin on my&ouml;s hy&ouml;ty. Ei-rankaisevat yhteisty&ouml;ntekij&auml;t ajautuvat populaatioon.
+        Kun rankaisijoiden osuus pienenee, pelote heikkenee ja pett&auml;j&auml;t voivat vallata uudelleen.
+        T&auml;m&auml; luo syklisen dynamiikan &auml;&auml;rellisiss&auml; populaatioissa.
+      </p>
+      <p>
+        Ostromin oivallus: todelliset instituutiot ratkaisevat t&auml;m&auml;n <em>halvalla rankaisemisella</em>
+        (asteittaiset sanktiot v&auml;hent&auml;v&auml;t \(\gamma\):aa), <em>rooliperusteisella valvonnalla</em>
+        (kaikkien ei tarvitse rangaista) ja <em>sis&auml;isell&auml; motivaatiolla</em> (prososiaaliset
+        SVO-tyypit voivat rangaista jopa ilman materiaalista kannustinta).
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.5 &mdash; Rankaisijoiden valtaus</div>
+      <p>
+        Yll&auml; olevassa Y-P-R-mallissa olkoon \(n = 10\), \(c = 2\), \(r = 3\), \(\beta = 4\), \(\gamma = 1\).
+        Voivatko rankaisijat vallata t&auml;ysin pett&auml;j&auml;populaation? Etsi ehto alkuper&auml;iselle
+        rankaisijafrekvenssille \(x_P\), jotta rankaisijoilla olisi korkeampi kelpoisuus kuin pett&auml;jill&auml;.
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            Populaatiossa, jossa on enimm&auml;kseen pett&auml;ji&auml; (\(x_D \approx 1 - x_P\), \(x_C = 0\)):
+          </p>
+          <p>
+            \(f_P - f_D = -c + \beta x_P n - \gamma x_D n = -2 + 4 \cdot 10 \cdot x_P - 1 \cdot 10 \cdot (1 - x_P)\)
+          </p>
+          <p>
+            \(= -2 + 40x_P - 10 + 10x_P = -12 + 50x_P\)
+          </p>
+          <p>
+            Jotta rankaisijoilla olisi korkeampi kelpoisuus: \(-12 + 50x_P > 0\), joten \(x_P > 12/50 = 0{,}24\).
+          </p>
+          <p>
+            Rankaisijat tarvitsevat v&auml;hint&auml;&auml;n 24 % populaatiosta onnistuakseen valtauksessa.
+            Yksitt&auml;inen mutanttirankaisija ei voi vallata &mdash; t&auml;m&auml; vaatii <strong>ryhm&auml;valtauksen</strong>,
+            mik&auml; on kulttuurisen ryhm&auml;valinnan rooli: jos rankaisijaryhmä muuttaa yhdess&auml;, he voivat
+            luoda riitt&auml;v&auml;n suuren tukikohdan k&auml;&auml;nt&auml;&auml;kseen dynamiikan yhteisty&ouml;n eduksi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 7: Public Goods Games with Punishment -->
+  <!-- ================================================================== -->
+  <div class="section" id="public-goods-punishment">
+    <h2>7. Julkishy&ouml;dykepelit rangaistuksella</h2>
+
+    <p>
+      Julkishy&ouml;dykepeli (JHP) rangaistuksella on tullut yhdeksi t&auml;rkeimmist&auml; malleista ihmisten
+      yhteisty&ouml;n tutkimuksessa. Kehit&auml;mme nyt t&auml;ydellisen matemaattisen viitekehyksen.
+    </p>
+
+    <h3>7.1 Vakiomuotoinen julkishy&ouml;dykepeli</h3>
+
+    <div class="def-box">
+      <span class="box-title">Määritelmä &mdash; Julkishy&ouml;dykepeli</span>
+      <p>
+        <strong>Pelaajat:</strong> \(n\) yksil&ouml;&auml;.
+      </p>
+      <p>
+        <strong>Alkuvarallisuus:</strong> Kullakin pelaajalla on alkuvarallisuus \(e\).
+      </p>
+      <p>
+        <strong>Toiminto:</strong> Kukin pelaaja \(i\) valitsee panoksen \(g_i \in [0, e]\).
+      </p>
+      <p>
+        <strong>Julkishy&ouml;dyke:</strong> Panokset yhteens&auml; kerrotaan luvulla \(r > 1\) ja jaetaan tasan:
+      </p>
+      <p>
+        \[
+          \pi_i = (e - g_i) + \frac{r \sum_{j=1}^n g_j}{n}
+        \]
+      </p>
+      <p>
+        Sosiaalinen dilemma syntyy, kun \(1 < r < n\): panostaminen hy&ouml;dytt&auml;&auml; ryhm&auml;&auml; (\(r > 1\)),
+        mutta maksaa yksil&ouml;lle enemmän kuin h&auml;nen osuutensa tuotosta (\(r/n < 1\)).
+      </p>
+    </div>
+
+    <p>
+      Vakiomuotoisessa JHP:ss&auml;, kun \(r < n\), dominoiva strategia on \(g_i = 0\) (&auml;l&auml; anna mitään),
+      koska \(\frac{\partial \pi_i}{\partial g_i} = -1 + r/n < 0\). Nash-tasapaino on nollapanokset,
+      vaikka sosiaalinen optimi on t&auml;ysi panostaminen.
+    </p>
+
+    <h3>7.2 Rangaistuksen lis&auml;&auml;minen</h3>
+
+    <p>
+      Kun panokset on havaittu, kukin pelaaja voi rangaista muita pelaajia. Laajennetulla pelill&auml; on
+      kaksi vaihetta:
+    </p>
+
+    <ol>
+      <li><strong>Panosvaihe:</strong> Pelaaja \(i\) antaa panoksen \(g_i\).</li>
+      <li><strong>Rangaistusvaihe:</strong> Pelaaja \(i\) voi k&auml;ytt&auml;&auml; kustannuksen \(\gamma\)
+      rangaistuspistett&auml; kohti m&auml;&auml;r&auml;t&auml;kseen sakon \(\beta\) rangaistuspistett&auml; kohti mille tahansa toiselle pelaajalle.</li>
+    </ol>
+
+    <p>
+      Kolmella strategialla (yhteisty&ouml;ntekij&auml;, pett&auml;j&auml;, rankaisija kuten osiossa 6 m&auml;&auml;ritelty),
+      tuottofunktiot hyvin sekoittuneessa populaatiossa frekvensseill&auml; \((x_C, x_D, x_P)\) ovat:
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Tuottofunktiot JHP:ss&auml; rangaistuksella</span>
+      <p>
+        Satunnaisesti muodostetulle \(n\):n kokoiselle ryhm&auml;lle suuresta populaatiosta:
+      </p>
+      <p>
+        \[
+          f_C = e - c + \frac{rc(x_C + x_P)(n-1) + rc}{n} \approx e - c + rc(x_C + x_P)
+        \]
+      </p>
+      <p>
+        \[
+          f_D = e + \frac{rc(x_C + x_P)(n-1)}{n} - \beta(n-1)x_P \approx e + rc(x_C + x_P) \cdot\frac{n-1}{n} - \beta(n-1)x_P
+        \]
+      </p>
+      <p>
+        \[
+          f_P = e - c + \frac{rc(x_C + x_P)(n-1) + rc}{n} - \gamma(n-1)x_D \approx e - c + rc(x_C + x_P) - \gamma(n-1)x_D
+        \]
+      </p>
+      <p>
+        miss&auml; k&auml;yt&auml;mme approksimaatiota suurille populaatioille. Asetamme \(e = 0\)
+        yleisyytt&auml; rajoittamatta (kaikkien tuottojen siirt&auml;minen vakiolla ei vaikuta replikaattoridynamiikkaan).
+      </p>
+    </div>
+
+    <h3>7.3 Replikaattoridynamiikan analyysi</h3>
+
+    <p>
+      Asettamalla \(e = 0\) ja kirjoittamalla \(x_C + x_P = 1 - x_D\), yksinkertaistetut parittaiset
+      kelpoisuuserot ovat:
+    </p>
+
+    <p>
+      \[
+        f_C - f_D = -c + \beta(n-1)x_P + \frac{rc}{n}
+      \]
+    </p>
+
+    <p>
+      Jotta yhteisty&ouml; olisi suotuisampaa kuin petos, tarvitaan:
+    </p>
+
+    <p>
+      \[
+        x_P > \frac{c(1 - r/n)}{\beta(n-1)} = \frac{c(n - r)}{\beta n(n-1)}
+      \]
+    </p>
+
+    <p>
+      Ja toisen kertaluvun vapaamatkustajaongelma:
+    </p>
+
+    <p>
+      \[
+        f_C - f_P = \gamma(n-1)x_D \geq 0
+      \]
+    </p>
+
+    <p>
+      T&auml;m&auml; on aina ei-negatiivinen: yhteisty&ouml;ntekij&auml;t, jotka eivät rankaise, p&auml;rj&auml;&auml;v&auml;t
+      aina heikosti rankaisijoita paremmin (ehdottomasti, kun pett&auml;ji&auml; on olemassa).
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; Milloin rankaiseminen yll&auml;pit&auml;&auml; yhteisty&ouml;t&auml;</span>
+      <p>
+        JHP:ss&auml; rangaistuksella tila, jossa kaikki ovat yhteisty&ouml;ntekij&ouml;it&auml; ja rankaisijoita
+        (\(x_D = 0\), mielivaltainen Y:n ja R:n sekoitus) on <strong>stabiili pett&auml;jien valtausta vastaan</strong>
+        jos ja vain jos:
+      </p>
+      <p>
+        \[
+          \beta(n-1)x_P > c\!\left(1 - \frac{r}{n}\right)
+        \]
+      </p>
+      <p>
+        T&auml;m&auml; tila ei kuitenkaan ole <strong>stabiili Y:n ja R:n v&auml;list&auml; ajautumaa vastaan</strong> kun \(x_D = 0\),
+        koska yhteisty&ouml;ntekij&auml;t ja rankaisijat ansaitsevat saman tuoton, kun ei ole pett&auml;ji&auml; rangaistavaksi.
+      </p>
+      <p>
+        T&auml;ysi yhteisty&ouml; vakautuu, kun:
+      </p>
+      <ol>
+        <li>Sakko-kustannussuhde \(\beta/\gamma\) on riitt&auml;v&auml;n suuri (rankaiseminen on tehokasta)</li>
+        <li>Ryhm&auml;koko \(n\) ei ole liian suuri (rankaiseminen on tehokkaampaa pienemmiss&auml; ryhmiss&auml;)</li>
+        <li>Jokin mekanismi est&auml;&auml; ajautumaa nakertamasta rankaisijapopulaatiota (esim. kulttuurinen
+        v&auml;littyminen, institutionaaliset roolit tai SVO-perusteinen sis&auml;inen motivaatio rangaista)</li>
+      </ol>
+    </div>
+
+    <div class="example-box">
+      <span class="box-title">Ratkaistu esimerkki &mdash; JHP:n rangaistustasapaino</span>
+      <p>
+        Olkoon \(n = 5\), \(c = 2\), \(r = 3\), \(\beta = 3\), \(\gamma = 1\).
+      </p>
+      <p>
+        <strong>Ilman rangaistusta</strong> (vain Y vs. P): \(f_C - f_D = -c + rc/n = -2 + 6/5 = -0{,}8 < 0\).
+        Petos dominoi. Replikaattoridynamiikka ajaa yhteisty&ouml;n sukupuuttoon.
+      </p>
+      <p>
+        <strong>Rangaistuksella</strong>: Populaatiolle, jossa on vain R:ä ja P:t&auml;, \(f_P - f_D\):ksi tulee:
+      </p>
+      <p>
+        \(f_P - f_D = -c + rc/n + \beta(n-1)x_P - \gamma(n-1)x_D\)
+      </p>
+      <p>
+        \(= -0{,}8 + 3 \cdot 4 \cdot x_P - 1 \cdot 4 \cdot (1-x_P) = -0{,}8 + 12x_P - 4 + 4x_P = -4{,}8 + 16x_P\)
+      </p>
+      <p>
+        Asettamalla \(f_P = f_D\): \(x_P^* = 4{,}8/16 = 0{,}3\). T&auml;m&auml; on sis&auml;inen kiintopiste.
+      </p>
+      <p>
+        Kun \(x_P > 0{,}3\), rankaisijat kasvavat; kun \(x_P < 0{,}3\), pett&auml;j&auml;t kasvavat.
+        Joten \(x_P = 1\) (kaikki rankaisijoita) on stabiili ja \(x_P = 0{,}3\) on ep&auml;stabiili kynnys.
+        Rankaiseminen voi yll&auml;pit&auml;&auml; yhteisty&ouml;t&auml;, mutta rankaisijoiden on aloitettava yli 30 %:n osuudella populaatiosta.
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.6 &mdash; Tehokkuussuhde</div>
+      <p>
+        M&auml;&auml;rittele &rdquo;rankaisemisen tehokkuussuhde&rdquo; muodossa \(\rho = \beta / \gamma\) (m&auml;&auml;r&auml;tty sakko
+        rankaisijan yksikk&ouml;kustannusta kohti). Osoita, ett&auml; kahden tyypin (R vs. P) mallissa kriittinen
+        rankaisijfrekvenssi valtaukseen pienenee, kun \(\rho\) kasvaa. Mit&auml; tapahtuu rajalla \(\rho \to \infty\)
+        (kustannukseton rankaiseminen)?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            Ehto \(f_P > f_D\) antaa meille (kun \(x_C = 0\), joten \(x_D = 1 - x_P\)):
+          </p>
+          <p>
+            \(-c + rc/n + \beta(n-1)x_P - \gamma(n-1)(1-x_P) > 0\)
+          </p>
+          <p>
+            \(-c(1-r/n) + (n-1)x_P(\beta + \gamma) - \gamma(n-1) > 0\)
+          </p>
+          <p>
+            \(x_P > \frac{c(1-r/n) + \gamma(n-1)}{(n-1)(\beta + \gamma)} = \frac{c(1-r/n)/\!\left((n-1)\right) + \gamma}{\beta + \gamma}\)
+          </p>
+          <p>
+            Jakamalla osoittaja ja nimitt&auml;j&auml; \(\gamma\):lla:
+          </p>
+          <p>
+            \(x_P^* = \frac{c(1-r/n)/\!\left(\gamma(n-1)\right) + 1}{\rho + 1}\)
+          </p>
+          <p>
+            Kun \(\rho \to \infty\): \(x_P^* \to 0\). Kustannuksettomalla rankaisemisella pienikin
+            rankaisijoiden osuus voi pelottaa petoksen. T&auml;m&auml; on syy siihen, miksi institutionaalinen
+            rankaiseminen (joka hy&ouml;dynt&auml;&auml; kollektiivisia resursseja v&auml;hent&auml;en henkil&ouml;kohtaista
+            kustannusta \(\gamma\)) on niin voimakasta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- SECTION 8: Bringing It All Together -->
+  <!-- ================================================================== -->
+  <div class="section" id="synthesis">
+    <h2>8. Kokonaiskuva</h2>
+
+    <p>
+      T&auml;m&auml; huipentava osio yhdist&auml;&auml; moduulin kolme p&auml;&auml;teemaa &mdash; sosiaalisen
+      arvo-orientaation, evoluutiopeliteorian ja Ostromin instituutioanalyysin &mdash; yhten&auml;iseksi
+      matemaattiseksi viitekehykseksi.
+    </p>
+
+    <h3>8.1 Integroitu malli</h3>
+
+    <p>
+      Tarkastellaan agenttipopulaatiota, joka eroaa kahdella ulottuvuudella:
+    </p>
+
+    <ol>
+      <li><strong>SVO-tyyppi</strong> (heidän kulmansa \(\theta\)): m&auml;&auml;r&auml;&auml;, miten he painottavat omaa ja toisen tuottoa</li>
+      <li><strong>Institutionaalinen strategia</strong> (noudattaminen tai vapaamatkustaminen): m&auml;&auml;r&auml;&auml; heidän käyttäytymisens&auml; YVR-peliss&auml;</li>
+    </ol>
+
+    <p>
+      Keskeinen oivallus on, ett&auml; <strong>SVO vaikuttaa institutionaalisen noudattamisen kynnykseen</strong>.
+      Prososiaalinen agentti (\(\theta = 45^\circ\)) tarvitsee pienemm&auml;n odotetun rangaistuksen
+      noudattaakseen, koska yhteisty&ouml;ll&auml; on heille jo subjektiivista arvoa:
+    </p>
+
+    <p>
+      \[
+        U_i^{\text{comply}} = \cos(\theta_i)\cdot\pi_i^{\text{comply}} + \sin(\theta_i)\cdot\pi_{-i}^{\text{comply}}
+      \]
+    </p>
+
+    <p>
+      \[
+        U_i^{\text{free-ride}} = \cos(\theta_i)\cdot\left(\pi_i^{\text{free-ride}} - p\beta\right) + \sin(\theta_i)\cdot\pi_{-i}^{\text{free-ride}}
+      \]
+    </p>
+
+    <p>
+      Agentti \(i\) noudattaa, kun \(U_i^{\text{comply}} > U_i^{\text{free-ride}}\):
+    </p>
+
+    <p>
+      \[
+        \cos(\theta_i)\left(\pi_i^C - \pi_i^F + p\beta\right) + \sin(\theta_i)\left(\pi_{-i}^C - \pi_{-i}^F\right) > 0
+      \]
+    </p>
+
+    <div class="theorem-box">
+      <span class="box-title">Lause &mdash; SVO-riippuvainen noudattamiskynnys</span>
+      <p>
+        SVO-kulman \(\theta\) omaava agentti noudattaa institutionaalisia s&auml;&auml;nt&ouml;j&auml; jopa silloin,
+        kun odotettu rangaistus yksin&auml;&auml;n on riitt&auml;m&auml;t&ouml;n (\(p\beta < \pi_i^F - \pi_i^C\)), jos:
+      </p>
+      <p>
+        \[
+          \tan(\theta) > \frac{\pi_i^F - \pi_i^C - p\beta}{\pi_{-i}^C - \pi_{-i}^F}
+        \]
+      </p>
+      <p>
+        Koska \(\pi_{-i}^C > \pi_{-i}^F\) (muut hy&ouml;tyv&auml;t noudattamisesta) ja \(\tan(\theta) > 0\)
+        prososiaalisille tyypeille, on olemassa rangaistustasojen alue, joka on riitt&auml;m&auml;t&ouml;n
+        individualisteille mutta riitt&auml;v&auml; prososiaalisille. T&auml;m&auml; tarkoittaa:
+      </p>
+      <ol>
+        <li>Yhteis&ouml;t, joissa on enem&auml;n prososiaalisia j&auml;seni&auml;, tarvitsevat v&auml;hemm&auml;n institutionaalista t&auml;yt&auml;nt&ouml;&ouml;npanoa</li>
+        <li>SVO ja instituutiot ovat <strong>komplementteja</strong>, eiv&auml;t substituutteja</li>
+        <li>Prososiaalisten tyyppien evoluutiokelpoisuus riippuu institutionaalisesta ymp&auml;rist&ouml;st&auml;</li>
+      </ol>
+    </div>
+
+    <h3>8.2 SVO:n ja instituutioiden yhteisevoluutio</h3>
+
+    <p>
+      Yleisimm&auml;ss&auml; mallissa sek&auml; SVO-tyypit ett&auml; institutionaaliset s&auml;&auml;nn&ouml;t
+      kehittyv&auml;t samanaikaisesti:
+    </p>
+
+    <ul>
+      <li><strong>Nopea dynamiikka:</strong> Kiinte&auml;ll&auml; SVO-jakaumalla ja institutionaalisilla s&auml;&auml;nn&ouml;ill&auml;
+      populaatio pelaa YVR/JHP-peli&auml; ja strategiafrekvenssit kehittyv&auml;t replikaattoridynamiikan kautta
+      (käyttäytymisdynamiikka).</li>
+      <li><strong>Keskitason dynamiikka:</strong> SVO-tyypit kehittyv&auml;t kulttuurisen oppimisen ja sosialisaation
+      kautta. Populaatioissa, joissa prososiaalista käyttäytymist&auml; palkitaan (instituutioiden ansiosta),
+      prososiaalinen SVO leviää.</li>
+      <li><strong>Hidas dynamiikka:</strong> Institutionaaliset s&auml;&auml;nn&ouml;t kehittyv&auml;t kollektiivisen
+      valinnan kautta (periaate 3). Ryhm&auml;t, joilla on paremmat instituutiot, menestyvät paremmin kuin
+      huonommin varustautuneet (kulttuurinen ryhm&auml;valinta).</li>
+    </ul>
+
+    <p>
+      T&auml;m&auml; moniaikaskaalainen j&auml;rjestelm&auml; k&auml;ytt&auml;&auml; kaikkia kurssin matemaattisia ty&ouml;kaluja:
+    </p>
+
+    <table class="payoff-matrix" style="width:100%; text-align:left">
+      <tr>
+        <th>Kurssimoduuli</th>
+        <th>Matemaattinen työkalu</th>
+        <th>Sovellus t&auml;ss&auml;</th>
+      </tr>
+      <tr>
+        <td>Moduuli 1: Perusteet</td>
+        <td>Funktiot, notaatio</td>
+        <td>Tuottofunktiot \(\pi(h, H)\), hy&ouml;ty \(U(\theta)\)</td>
+      </tr>
+      <tr>
+        <td>Moduuli 2: Lineaarialgebra</td>
+        <td>Matriisit, ominaisarvot</td>
+        <td>Tuottomatriisit, Jacobin stabiilisuusanalyysi</td>
+      </tr>
+      <tr>
+        <td>Moduuli 3: Analyysi</td>
+        <td>Optimointi</td>
+        <td>Ensimm&auml;isen kertaluvun ehdot Nash-tasapainolle, sosiaalinen optimi</td>
+      </tr>
+      <tr>
+        <td>Moduuli 4: Diff.yht&auml;l&ouml;t</td>
+        <td>Dynaamiset j&auml;rjestelm&auml;t</td>
+        <td>Replikaattoridynamiikka, resurssidynamiikka \(dR/dt\)</td>
+      </tr>
+      <tr>
+        <td>Moduuli 5: Todenn&auml;k&ouml;isyys</td>
+        <td>Odotusarvo, Pricen yht.</td>
+        <td>Odotettu kelpoisuus, ryhm&auml;valintamallit</td>
+      </tr>
+      <tr>
+        <td>Moduuli 6: Peliteoria</td>
+        <td>Nash-tas., strateginen muoto</td>
+        <td>YVR-peli, JHP, institutionaaliset pelit</td>
+      </tr>
+      <tr>
+        <td>Moduuli 7: EGT</td>
+        <td>Replikaattoriyht., ESS</td>
+        <td>SVO-tyyppien evoluutio, rankaisijadynamiikka</td>
+      </tr>
+    </table>
+
+    <h3>8.3 Tulevaisuuden suunnat ja avoimet kysymykset</h3>
+
+    <p>
+      SVO:n, EGT:n ja instituutioanalyysin yhdist&auml;minen avaa monia tutkimusrintamia:
+    </p>
+
+    <div class="note-box">
+      <span class="box-title">Avoimet tutkimuskysymykset</span>
+      <ol>
+        <li><strong>Endogeeninen SVO:</strong> Voiko SVO itsess&auml;&auml;n kehitty&auml; kulttuurisen tai geneettisen
+        evoluution kautta? Mitk&auml; kelpoisuusmaisemat suosivat prososiaalisuutta?</li>
+        <li><strong>Institutionaalinen monimuotoisuus:</strong> Miksi eri yhteis&ouml;t kehitt&auml;v&auml;t erilaisia
+        institutionaalisia ratkaisuja samaan dilemmaan? Voimmeko ennustaa instituutiomuotoja pelirakenteesta?</li>
+        <li><strong>Verkostovaikutukset:</strong> Miten populaatiorakenne (sosiaaliset verkostot) on
+        vuorovaikutuksessa SVO:n ja instituutioiden kanssa? (Osion 2.4 valikoivuusanalyysin laajennus.)</li>
+        <li><strong>Skaalasiirtym&auml;t:</strong> Miten pienten ryhmien instituutiot skaalautuvat suurempiin
+        populaatioihin? (Liittyy Ostromin periaatteeseen 8 sis&auml;kk&auml;isist&auml; organisaatioista.)</li>
+        <li><strong>Ilmastoyhteismaa:</strong> Voidaanko YVR-viitekehyst&auml; soveltaa globaaleihin yhteismaihin,
+        kuten ilmakeh&auml;&auml;n? Mitk&auml; ovat matemaattiset esteet yhteisty&ouml;lle globaalissa mittakaavassa?</li>
+        <li><strong>Digitaaliset yhteisresurssit:</strong> Miten n&auml;m&auml; mallit soveltuvat avoimen l&auml;hdekoodin
+        ohjelmistoihin, Wikipediaan ja muihin tiedon yhteisresursseihin, joissa resurssi ei ole kilpaileva?</li>
+      </ol>
+    </div>
+
+    <div class="intuition-box">
+      <span class="box-title">Kokonaiskuva</span>
+      <p>
+        Ostromin pysyv&auml; panos oli osoittaa, ett&auml; &rdquo;yhteismaan tragedia&rdquo; ei ole v&auml;ist&auml;m&auml;t&ouml;n.
+        Yhteis&ouml;t voivat ja todella luovat instituutioita, jotka ratkaisevat sosiaalisia dilemmoja.
+        Evoluutiopeliteorian matematiikka selitt&auml;&auml; <em>milloin</em> ja <em>miten</em>: instituutiot
+        toimivat muokkaamalla tuottomatriisia, muuttamalla informaatiorakennetta ja muuttamalla
+        kulttuurievoluution dynamiikkaa. Sosiaaliset arvo-orientaatiot tarjoavat yksil&ouml;tason perustan:
+        ihmiset eivät ole puhtaasti oman edun tavoittelijoita, ja juuri t&auml;m&auml; heterogeenisuus
+        mahdollistaa institutionaalisten yritt&auml;jien yhteisty&ouml;normien rakentamisen.
+      </p>
+      <p>
+        Matemaattinen ty&ouml;kalupakki, jonka olet rakentanut t&auml;ll&auml; kurssilla &mdash; algebrasta
+        differentiaaliyht&auml;l&ouml;ihin, Nash-tasapainoista replikaattoridynamiikkaan &mdash; on juuri se,
+        mit&auml; tarvitaan n&auml;iden oivallusten formalisointiin ja eteenp&auml;in viemiseen. Yht&auml;l&ouml;t eiv&auml;t ole
+        vain abstrakteja harjoituksia; ne ovat linssej&auml; yhteisty&ouml;n ja instituutioiden toiminnan
+        ymm&auml;rt&auml;miseen todellisessa maailmassa.
+      </p>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-title">Harjoitus 8.7 &mdash; Huipentava teht&auml;v&auml;</div>
+      <p>
+        Tarkastellaan \(n = 10\) kalastajan yhteis&ouml;&auml;, joka jakaa kalastusalueen, joka on mallinnettu
+        YVR-peliksi, jossa \(a = 100\), \(b = 1\). Yhteis&ouml;ss&auml; on 60 % prososiaalisia
+        (\(\theta = 45^\circ\)) ja 40 % individualistisia (\(\theta = 0^\circ\)) j&auml;seni&auml;. He harkitsevat
+        instituutiota valvontatodenn&auml;k&ouml;isyydell&auml; \(p = 0{,}5\) ja sakolla \(\beta\).
+      </p>
+      <p>
+        (a) Laske Nash-tasapainokorjuu ja sosiaalinen optimi ilman instituutioita.<br>
+        (b) Etsi pienin sakko \(\beta\), joka saa individualistiset tyypit noudattamaan.<br>
+        (c) Tarvitsevatko prososiaaliset tyypit lainkaan sakkoa tehd&auml;kseen yhteisty&ouml;t&auml;? Selitä SVO-hy&ouml;tyfunktion avulla.<br>
+        (d) Mik&auml; on instituution nettohy&ouml;ty yhteis&ouml;lle (olettaen noudattamisen)?
+      </p>
+      <div class="spoiler">
+        <button class="spoiler-toggle">Näytä ratkaisu</button>
+        <div class="spoiler-content">
+          <p>
+            <strong>(a)</strong> Nash: \(h^*_N = \frac{100}{11} \approx 9{,}09\), \(H^*_N = \frac{1000}{11} \approx 90{,}9\).
+            Sosiaalinen optimi: \(h^*_S = \frac{100}{20} = 5\), \(H^*_S = 50\).
+          </p>
+          <p>
+            \(\pi^*_N = 9{,}09 \times (100 - 90{,}9) \approx 82{,}6\) pelaajaa kohti.
+            \(\pi^*_S = 5 \times 50 = 250\) pelaajaa kohti.
+          </p>
+          <p>
+            <strong>(b)</strong> Individualistisille tyypeille (\(\theta = 0\)) noudattaminen vaatii,
+            ett&auml; sakko tekee ylikorjuusta kannattamatonta. Poikkeamisen hy&ouml;ty (korjataan
+            \(h^*_N\) eik&auml; \(h^*_S = 5\)) kun muut noudattavat:
+          </p>
+          <p>
+            Paras vaste kun \(H_{-i} = 9 \times 5 = 45\): \(h_i^{BR} = \frac{100 - 45}{2} = 27{,}5\).
+            Tuotto poiketessa: \(27{,}5 \times (100 - 72{,}5) = 756{,}25\).
+            Tuotto noudatettaessa: \(5 \times (100 - 50) = 250\).
+          </p>
+          <p>
+            Tarvittava odotettu sakko: \(p \cdot \beta \cdot (h^{BR} - \bar{h}) \geq 756{,}25 - 250\).
+            \(0{,}5 \cdot \beta \cdot 22{,}5 \geq 506{,}25\), joten \(\beta \geq 44{,}96 \approx 45\).
+          </p>
+          <p>
+            <strong>(c)</strong> Prososiaaliset tyypit (\(\theta = 45^\circ\)) arvioivat:
+            \(U = \frac{1}{\sqrt{2}}(\pi_i + \pi_{-i})\). Kun he noudattavat ja muut noudattavat:
+            \(U^C = \frac{1}{\sqrt{2}}(250 + 9 \times 250/9) = \frac{500}{\sqrt{2}} \approx 353{,}6\).
+          </p>
+          <p>
+            Jos he poikkeavat: \(\pi_i = 756{,}25\), mutta \(\pi_{-i}\) pienenee, koska kokonaiskorjuu
+            kasvaa. Kun \(H = 72{,}5\), kukin muu pelaaja saa \(5 \times (100 - 72{,}5) = 137{,}5\),
+            joten muiden kokonaistuotto \(= 9 \times 137{,}5 = 1237{,}5\).
+            \(U^D = \frac{1}{\sqrt{2}}(756{,}25 + 1237{,}5/9 \times ...) \) &mdash; tarkemmin:
+            \(U^D = \frac{1}{\sqrt{2}}(756{,}25 + \bar{\pi}_{-i})\), miss&auml; k&auml;yt&auml;mme muiden keskimääräist&auml; tuottoa \(= 137{,}5\).
+            Joten \(U^D = \frac{1}{\sqrt{2}}(756{,}25 + 137{,}5) = \frac{893{,}75}{\sqrt{2}} \approx 632{,}0\).
+          </p>
+          <p>
+            Poikkeaminen on silti kannattavaa prososiaaliselle tyypille t&auml;ss&auml; tapauksessa (632 > 354),
+            mutta <em>houkutus</em> on pienempi. Sakon kanssa: \(U^D = \frac{1}{\sqrt{2}}(756{,}25 - p\beta(22{,}5) + 137{,}5)\).
+            Prososiaalinen tyyppi tarvitsee sakon \(p\beta \cdot 22{,}5 > 893{,}75 - 500 = 393{,}75\), joten
+            \(\beta > 393{,}75 / (0{,}5 \times 22{,}5) = 35\). Pienempi kuin individualisteille tarvittava 45.
+          </p>
+          <p>
+            <strong>(d)</strong> Ilman instituutioita: kokonaistuotto = \(10 \times 82{,}6 = 826\).
+            Instituutioiden kanssa: kokonaistuotto = \(10 \times 250 = 2500\).
+            Nettohy&ouml;ty: \(2500 - 826 = 1674\).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- FINAL: Course Summary -->
+  <!-- ================================================================== -->
+  <div class="section">
+    <h2>Kurssin yhteenveto</h2>
+
+    <p>
+      Onnittelut. Olet suorittanut koko kurssin Matematiikkaa evoluutiopeliteoriaan.
+      K&auml;yd&auml;&auml;n lyhyesti l&auml;pi, mit&auml; olet oppinut:
+    </p>
+
+    <ol>
+      <li><strong>Moduuli 1:</strong> Matemaattiset perusteet &mdash; funktioiden, yht&auml;l&ouml;iden ja todistusten kieli.</li>
+      <li><strong>Moduuli 2:</strong> Lineaarialgebra &mdash; vektorit, matriisit ja ominaisarvot pelien esitt&auml;miseen ja stabiilisuuden analysointiin.</li>
+      <li><strong>Moduuli 3:</strong> Analyysi &mdash; derivaatat ja optimointi tasapainojen l&ouml;yt&auml;miseen.</li>
+      <li><strong>Moduuli 4:</strong> Differentiaaliyht&auml;l&ouml;t &mdash; dynaamiset j&auml;rjestelm&auml;t, kiintopisteet ja stabiilisuus evoluutiodynamiikan mallintamiseen.</li>
+      <li><strong>Moduuli 5:</strong> Todenn&auml;k&ouml;isyys &mdash; odotusarvot ja jakaumat sekastrategioihin ja stokastisiin malleihin.</li>
+      <li><strong>Moduuli 6:</strong> Peliteoria &mdash; strategisen muodon pelit, Nash-tasapaino ja sosiaaliset dilemmat.</li>
+      <li><strong>Moduuli 7:</strong> Evoluutiopeliteoria &mdash; replikaattoriyht&auml;l&ouml;, ESS ja populaatiodynamiikka simpleksill&auml;.</li>
+      <li><strong>Moduuli 8:</strong> Sovellukset &mdash; SVO, Ostromin instituutiot, YVR-ongelmat, rankaiseminen ja preferenssien ja instituutioiden yhteisevoluutio.</li>
+    </ol>
+
+    <p>
+      Sinulla on nyt matemaattinen ty&ouml;kalupakki evoluutiopeliteorian, instituutioanalyysin ja ihmisten
+      yhteisty&ouml;n matemaattisen mallintamisen tutkimuskirjallisuuden lukemiseen ja siihen kontribuoimiseen.
+    </p>
+  </div>
+
+  <!-- Module Navigation Bottom -->
+  <div class="module-nav-strip">
+    <a href="module7.html">&larr; Moduuli 7: EGT ja replikaattori</a>
+    <a href="module9.html">Moduuli 9: Digitaaliset yhteisresurssit &rarr;</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Matematiikkaa evoluutiopeliteoriaan &mdash; Avoin oppimateriaali</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">
+    Moduuli 8: Sovellukset &mdash; Sosiaalinen arvo-orientaatio, Ostrom ja instituutioanalyysi
+  </p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/visualizations.js"></script>
+</body>
+</html>
