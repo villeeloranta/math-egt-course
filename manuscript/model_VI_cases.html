@@ -26,10 +26,9 @@
 \]
 
 <ul>
-<li><strong>Phase I</strong> (\(\beta &lt; \beta_{\text{inv}}^T\)): All-Restrict is the unique stable equilibrium. Neither Transform nor Leverage can invade because their standalone efficiency gains are insufficient to offset costs.</li>
-<li><strong>Phase II</strong> (\(\beta_{\text{inv}}^T &lt; \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade Restrict (since \(\beta \psi_T > c_T + R_0\)) but Leverage cannot yet. Bistable: Restrict or Transform depending on history and ecosystem coordination.</li>
-<li><strong>Phase III</strong> (\(\beta_{\text{inv}}^L &lt; \beta &lt; \beta_{\max}\)): Both Leverage and Transform can invade Restrict; the landscape is multi-stable. The tipping point for Leverage decreases with \(\beta\) as the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L\) shrinks.</li>
-<li><strong>Phase IV</strong> (\(\beta &gt; \beta_{\max}\)): Leverage dominates; Restrict is unstable. The standalone efficiency \(\beta\psi_L\) alone exceeds \(c_L + R_0\), so the tipping point vanishes.</li>
+<li><strong>Phase I</strong> (\(\beta &lt; \beta_{\text{inv}}^T\)): All-Restrict is locally stable at the simplex vertex. Neither Transform nor Leverage can invade through the standalone channel. However, the \(L\)&ndash;\(R\) edge is bistable: All-Leverage is also locally stable on that edge, separated by a high tipping point.</li>
+<li><strong>Phase II</strong> (\(\beta_{\text{inv}}^T \leq \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade Restrict (since \(\beta \psi_T > c_T + R_0\)) but Leverage cannot yet invade through the standalone channel alone. The \(L\)&ndash;\(R\) edge remains bistable with a decreasing tipping point as the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L\) shrinks.</li>
+<li><strong>Phase III</strong> (\(\beta \geq \beta_{\text{inv}}^L\)): Leverage dominates; Restrict is unstable. The standalone efficiency \(\beta\psi_L\) alone exceeds \(c_L + R_0\), so the tipping point vanishes.</li>
 </ul>
 
 <!-- ========== CASE A ========== -->
@@ -37,7 +36,7 @@
 
 <div class="case">
 <p class="lb">Case Context</p>
-<p>The software industry has traversed all four phases over approximately 40 years, providing a complete longitudinal validation of the model. Each phase corresponds to a distinct technological era that shifted the intrinsic anti-rivalry of software.</p>
+<p>The software industry has traversed all three phases over approximately 40 years, providing a complete longitudinal validation of the model. Each phase corresponds to a distinct technological era that shifted the intrinsic anti-rivalry of software.</p>
 </div>
 
 <h3>Phase Mapping</h3>
@@ -46,8 +45,8 @@
 <tr><th>Phase</th><th>Era</th><th>Approx. \(\beta\)</th><th>Dominant Strategy</th><th>Exemplars</th></tr>
 <tr><td>Phase I</td><td>1980&ndash;1995 (Packaged software)</td><td>0.02&ndash;0.05</td><td>Restrict</td><td>Microsoft, Lotus, Borland, Oracle</td></tr>
 <tr><td>Phase II</td><td>1995&ndash;2005 (Early Internet)</td><td>0.05&ndash;0.15</td><td>Transform emerges</td><td>Firms begin minimizing rival-resource limitations on digital sharing (shareware decouples trial from purchase; SaaS decouples infrastructure from software access)</td></tr>
-<tr><td>Phase III</td><td>2005&ndash;2018 (Cloud/GitHub era)</td><td>0.15&ndash;0.35</td><td>Leverage emerges</td><td>Firms begin connecting rival and anti-rival sides for mutual optimization (shared code optimizes each deployer&rsquo;s infrastructure; community contributions detached from individual firms&rsquo; costs)</td></tr>
-<tr><td>Phase IV</td><td>2018&ndash;present (OSS dominance)</td><td>0.35+</td><td>Leverage dominates</td><td>Tight coupling between community development and infrastructure optimization becomes the default (Kubernetes, TensorFlow, React)</td></tr>
+<tr><td>Phase II</td><td>2005&ndash;2018 (Cloud/GitHub era)</td><td>0.15&ndash;0.35</td><td>Leverage emerges</td><td>Firms begin connecting rival and anti-rival sides for mutual optimization (shared code optimizes each deployer&rsquo;s infrastructure; community contributions detached from individual firms&rsquo; costs)</td></tr>
+<tr><td>Phase III</td><td>2018&ndash;present (OSS dominance)</td><td>0.35+</td><td>Leverage dominates</td><td>Tight coupling between community development and infrastructure optimization becomes the default (Kubernetes, TensorFlow, React)</td></tr>
 </table>
 
 <h3>What Drove \(\beta\) Upward?</h3>
@@ -88,11 +87,11 @@
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>The software industry&rsquo;s historical trajectory maps remarkably well onto the four-phase model. The key transitions correspond to identifiable technological shifts that increased \(\beta\):</p>
+<p>The software industry&rsquo;s historical trajectory maps remarkably well onto the three-phase model. The key transitions correspond to identifiable technological shifts that increased \(\beta\):</p>
 <ol>
 <li><strong>Phase I &rarr; II</strong> (early Internet, ~1995): \(\beta\) crossed the threshold for Transform viability. Firms began minimizing rival-resource limitations on software sharing (shareware decoupled trial from purchase; SaaS decoupled infrastructure from access).</li>
-<li><strong>Phase II &rarr; III</strong> (GitHub + cloud, ~2008): \(\beta\) crossed the threshold for Leverage viability. Firms began connecting community contributions to each user&rsquo;s infrastructure optimization (Red Hat IPO 1999, GitHub 2008). The dual Leverage move&mdash;detaching individual firms&rsquo; costs from community sharing while connecting shared development to resource optimization&mdash;became economically viable.</li>
-<li><strong>Phase III &rarr; IV</strong> (OSS ubiquity, ~2018): \(\beta\) crossed the threshold where Leverage dominates. The symbiosis-seeking approach&mdash;tight coupling between community development and infrastructure optimization&mdash;became the default starting point for virtually every new software project.</li>
+<li><strong>Within Phase II</strong> (GitHub + cloud, ~2008): \(\beta\) increased enough for Leverage strategies to become viable through ecosystem coordination, while standalone efficiency had not yet crossed \(\beta_{\text{inv}}^L\). Firms began connecting community contributions to each user&rsquo;s infrastructure optimization (Red Hat IPO 1999, GitHub 2008). The \(L\)&ndash;\(R\) tipping point was falling rapidly as \(\tilde{c}\) shrank.</li>
+<li><strong>Phase II &rarr; III</strong> (OSS ubiquity, ~2018): \(\beta\) crossed \(\beta_{\text{inv}}^L\) and standalone efficiency alone exceeded the cost threshold. The symbiosis-seeking approach&mdash;tight coupling between community development and infrastructure optimization&mdash;became the default starting point for virtually every new software project.</li>
 </ol>
 <p>The transitions were not instantaneous but occurred over 3&ndash;5 year windows, consistent with the model&rsquo;s prediction of tipping-point dynamics rather than gradual shifts.</p>
 </div>
@@ -102,7 +101,7 @@
 
 <div class="case">
 <p class="lb">Case Context</p>
-<p>The music industry has undergone two phase transitions (physical &rarr; digital download &rarr; streaming) but has <strong>not</strong> completed the transition to Phase IV (Leverage dominance). Music remains primarily in Phase II/III: Transform strategies dominate&mdash;Spotify and Apple Music minimize the limitations that payment (rival resource) sets for music sharing (anti-rival) through subscription de-transactionalization, while minimizing the effect of listening (anti-rival sharing) on per-play royalty costs (rival resource). Leverage strategies (community-driven creation platforms that would connect shared musical knowledge to each creator&rsquo;s production optimization) remain marginal.</p>
+<p>The music industry has undergone two phase transitions (physical &rarr; digital download &rarr; streaming) but has <strong>not</strong> completed the transition to Phase III (Leverage dominance). Music remains primarily in Phase II: Transform strategies dominate&mdash;Spotify and Apple Music minimize the limitations that payment (rival resource) sets for music sharing (anti-rival) through subscription de-transactionalization, while minimizing the effect of listening (anti-rival sharing) on per-play royalty costs (rival resource). Leverage strategies (community-driven creation platforms that would connect shared musical knowledge to each creator&rsquo;s production optimization) remain marginal.</p>
 </div>
 
 <h3>Phase Mapping</h3>
@@ -126,7 +125,7 @@
 
 <div class="finding">
 <p class="lb">Finding</p>
-<p>Music illustrates that phase transitions are <strong>not inevitable</strong>. The model identifies the institutional conditions (\(c_L\), \(\psi_L\), \(R_0\)) that determine whether a given industry can reach Phase IV. Music&rsquo;s high governance costs (copyright compliance), low standalone efficiency (\(\psi_L\)), and strong incumbent returns (\(R_0\)) place the Leverage invasion threshold at an unreachable \(\beta_{\text{inv}}^L=0.70\). Unless these institutional parameters change (through copyright reform, new licensing frameworks, or the collapse of label economics), music will remain in the Transform phase indefinitely.</p>
+<p>Music illustrates that phase transitions are <strong>not inevitable</strong>. The model identifies the institutional conditions (\(c_L\), \(\psi_L\), \(R_0\)) that determine whether a given industry can reach Phase III. Music&rsquo;s high governance costs (copyright compliance), low standalone efficiency (\(\psi_L\)), and strong incumbent returns (\(R_0\)) place the Leverage invasion threshold at an unreachable \(\beta_{\text{inv}}^L=0.70\). Unless these institutional parameters change (through copyright reform, new licensing frameworks, or the collapse of label economics), music will remain in Phase II indefinitely.</p>
 <p>Compare with software: \(\beta_{\text{inv}}^L\approx 0.25\) (achievable). The difference is entirely institutional, not technological. Software has no copyright-licensing intermediaries (no equivalent of ASCAP/BMI), much lower governance costs (Apache/MIT licensing vs complex music rights), and higher standalone efficiency from leverage practices (\(\psi_L=68\) for software vs \(\psi_L=20\) for music).</p>
 </div>
 
@@ -135,7 +134,7 @@
 
 <div class="case">
 <p class="lb">Case Context</p>
-<p>Scientific publishing is undergoing a Phase II &rarr; III transition. Traditional journals (Restrict: paywalled, publisher-controlled) are being challenged by two structurally different anti-rival approaches. <strong>Transform</strong> strategies (author-pays OA like PLOS, MDPI) minimize the limitations that publication costs (rival) set for knowledge sharing (anti-rival) by shifting payment from readers to authors, while minimizing the effect of open access on journal sustainability through article processing charges. <strong>Leverage</strong> strategies (arXiv, bioRxiv, overlay journals) detach individual researchers&rsquo; dissemination costs from knowledge sharing and connect shared preprints to each researcher&rsquo;s discovery optimization (community curation, citation networks, cross-disciplinary visibility). The field exhibits all the hallmarks of the model&rsquo;s bistable Phase III.</p>
+<p>Scientific publishing is undergoing a transition within Phase II, approaching the Phase II &rarr; III boundary. Traditional journals (Restrict: paywalled, publisher-controlled) are being challenged by two structurally different anti-rival approaches. <strong>Transform</strong> strategies (author-pays OA like PLOS, MDPI) minimize the limitations that publication costs (rival) set for knowledge sharing (anti-rival) by shifting payment from readers to authors, while minimizing the effect of open access on journal sustainability through article processing charges. <strong>Leverage</strong> strategies (arXiv, bioRxiv, overlay journals) detach individual researchers&rsquo; dissemination costs from knowledge sharing and connect shared preprints to each researcher&rsquo;s discovery optimization (community curation, citation networks, cross-disciplinary visibility). The field exhibits all the hallmarks of the model&rsquo;s bistable Phase III.</p>
 </div>
 
 <h3>Parameter Estimation</h3>
@@ -205,7 +204,7 @@ x^* = \frac{-17+\sqrt{289+4.32}}{14.4} = \frac{-17+\sqrt{293.32}}{14.4} = \frac{
 <tr><td>\(\psi_L\) (standalone efficiency)</td><td>68</td><td>20</td><td>40</td></tr>
 <tr><td>\(\beta_{\text{inv}}^L\) (Leverage invasion threshold)</td><td>0.25</td><td>0.70</td><td>0.425</td></tr>
 <tr><td>\(\beta/\beta_{\text{inv}}^L\) ratio</td><td>1.32 (above)</td><td>0.29 (far below)</td><td>0.94 (at boundary)</td></tr>
-<tr><td>Current phase</td><td>Phase IV</td><td>Phase II</td><td>Phase II/III boundary</td></tr>
+<tr><td>Current phase</td><td>Phase III</td><td>Phase II</td><td>Phase II/III boundary</td></tr>
 <tr><td>Tipping point \(x^*\)</td><td>Crossed (~2010)</td><td>Not reachable</td><td>~0.01 (crossed; institutional barriers remain)</td></tr>
 <tr><td>Transition blocker</td><td>None (completed)</td><td>Institutional (\(c_L\), \(\psi_L\), \(R_0\))</td><td>Cultural (prestige economy)</td></tr>
 </table>
