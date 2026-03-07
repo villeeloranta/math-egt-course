@@ -77,7 +77,7 @@ sup { font-size: 0.75rem; }
 
 <div class="abstract">
 <h3>Abstract</h3>
-<p>This paper develops a formal evolutionary game-theoretic (EGT) framework for analyzing the complexity management mechanisms and business model patterns (BMPs) identified in the study of anti-rival digital goods. We translate the seven complexity management mechanisms and three metamechanisms into explicit payoff functions, replicator dynamics, and stability conditions. Our formalization yields several analytical results: (i) a three-strategy replicator model with a phase transition structure: at low anti-rivalry, restrictive strategies dominate; at intermediate levels, synergy-seeking (complexity-decreasing) strategies become viable; and above a critical threshold, symbiosis-seeking (complexity-leveraging) strategies are evolutionarily stable; (ii) a formal incompatibility theorem showing that mixing leveraging and decreasing patterns within a single business model yields lower fitness than pure approaches under generic conditions; (iii) an extension of the governance trap framework to business model communities, establishing necessary conditions for sustainability of community-based mechanisms; and (iv) a phase transition analysis revealing bifurcation points at which the market-dominant business model approach shifts discontinuously as technological anti-rivalry increases. These results provide analytical depth to the qualitative findings of the original study while generating testable predictions and design prescriptions for business model innovators operating with anti-rival digital goods.</p>
+<p>This paper develops a formal evolutionary game-theoretic (EGT) framework for analyzing the complexity management mechanisms and business model patterns (BMPs) identified in the study of anti-rival digital goods. We translate the seven complexity management mechanisms and three metamechanisms into explicit payoff functions, replicator dynamics, and stability conditions. Our formalization yields several analytical results: (i) a three-strategy replicator model with a phase transition structure: at low anti-rivalry, restrictive strategies dominate; at intermediate levels, synergy-seeking (complexity-decreasing) strategies become viable; and above a critical threshold, symbiosis-seeking (complexity-leveraging) strategies are evolutionarily stable; (ii) a formal incompatibility theorem showing that mixing leveraging and decreasing patterns within a single business model yields lower fitness than pure approaches under generic conditions; (iii) an extension of the governance trap framework to business model communities, establishing necessary conditions for sustainability of community-based mechanisms; and (iv) a phase transition analysis revealing bifurcation points at which the market-dominant business model approach shifts qualitatively as technological anti-rivalry increases. These results provide analytical depth to the qualitative findings of the original study while generating testable predictions and design prescriptions for business model innovators operating with anti-rival digital goods.</p>
 </div>
 
 <p class="keywords"><strong>Keywords:</strong> evolutionary game theory; replicator dynamics; anti-rival goods; business model patterns; institutional complexity; stability analysis; phase transitions</p>
@@ -112,7 +112,7 @@ sup { font-size: 0.75rem; }
 <li>A <strong>three-strategy replicator model</strong> at the metamechanism level, establishing conditions under which leveraging versus decreasing approaches are evolutionarily stable (Section 3).</li>
 <li>An extension of the <strong>governance trap framework</strong> to community-based business model mechanisms, connecting the manuscript&rsquo;s Mechanism 1 (15 BMPs) to precise sustainability conditions (Section 4).</li>
 <li>A formal <strong>Incompatibility Theorem</strong> demonstrating that mixed leveraging&ndash;decreasing strategies are evolutionarily dominated under realistic parameter regimes (Section 7).</li>
-<li>A <strong>phase transition analysis</strong> showing how increasing technological anti-rivalry drives discontinuous shifts in the market-dominant business model configuration (Section 8).</li>
+<li>A <strong>phase transition analysis</strong> showing how increasing technological anti-rivalry drives qualitative shifts (bifurcations) in the market-dominant business model configuration (Section 8).</li>
 </ol>
 
 <p>Throughout, we maintain a critical stance toward our own formalization. Mathematical models impose structural assumptions that may not hold in practice, and we identify these assumptions explicitly, assess their plausibility, and characterize the robustness of our results to their violation.</p>
@@ -195,7 +195,7 @@ V_a(x_L, x_T) = V_0 \left(1 + a_L \cdot x_L + a_T \cdot x_T\right)^{\eta}
 \[
 a_L = \beta \cdot \lambda_L, \quad a_T = \beta \cdot \lambda_T, \qquad \lambda_L > \lambda_T > 0
 \]
-<p>where \(\lambda_L &gt; 1\) captures the amplification from Leverage&rsquo;s symbiosis-seeking approach (connecting rival and anti-rival components for mutual optimization generates stronger ecosystem effects than the intrinsic anti-rivalry alone) and \(\lambda_T &lt; \lambda_L\) captures the attenuated contribution from Transform&rsquo;s synergy-seeking approach (minimizing bidirectional interference preserves anti-rival value but at lower intensity because simplification attenuates the network effects that full coupling would amplify). Separating \(a_L, a_T\) from \(\beta\) avoids overloading the symbol \(\beta\), which is reserved throughout for the intrinsic anti-rivalry exponent in \(V(n) = V_0 \cdot n^{\beta}\).</p>
+<p>where \(\lambda_L \geq 1\): the baseline \(\lambda_L = 1\) is the conservative case where the ecosystem contribution weight equals the intrinsic anti-rivalry (no amplification beyond what the good&rsquo;s anti-rivalry alone would predict); \(\lambda_L &gt; 1\) captures additional amplification from Leverage&rsquo;s symbiosis-seeking approach (connecting rival and anti-rival components for mutual optimization generates stronger ecosystem effects than the intrinsic anti-rivalry alone) and \(\lambda_T &lt; \lambda_L\) captures the attenuated contribution from Transform&rsquo;s synergy-seeking approach (minimizing bidirectional interference preserves anti-rival value but at lower intensity because simplification attenuates the network effects that full coupling would amplify). Separating \(a_L, a_T\) from \(\beta\) avoids overloading the symbol \(\beta\), which is reserved throughout for the intrinsic anti-rivalry exponent in \(V(n) = V_0 \cdot n^{\beta}\).</p>
 </div>
 
 <p>We also incorporate the rivalrous complement through a governance quality function. Both Leverage and Transform firms contribute to ecosystem governance, but at different intensities:</p>
@@ -280,9 +280,9 @@ s_L(\beta) = \beta \cdot \psi_L, \qquad s_T(\beta) = \beta \cdot \psi_T, \qquad 
 <p class="label">Theorem 3.1 (Fixed Points of the Three-Strategy Model)</p>
 <p>The system has the following fixed points:</p>
 <ol>
-<li><strong>All-Restrict vertex</strong> \((0, 0)\): Always exists. Payoffs reduce to \(\pi_L = s_L(\beta) - c_L\), \(\pi_T = s_T(\beta) - c_T\), \(\pi_R = R_0\).</li>
-<li><strong>All-Leverage vertex</strong> \((1, 0)\): Exists. Fitness is \(\pi_L = s_L(\beta) + \varphi_L \cdot V_0(1+a_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L\).</li>
-<li><strong>All-Transform vertex</strong> \((0, 1)\): Exists. Fitness is \(\pi_T = s_T(\beta) + \varphi_T \cdot V_0(1+a_T)^{\eta} \cdot \frac{\omega}{\omega + \kappa_G} - c_T\).</li>
+<li><strong>All-Restrict vertex</strong> \((0, 0)\): Is always an equilibrium of the replicator dynamics. Payoffs reduce to \(\pi_L = s_L(\beta) - c_L\), \(\pi_T = s_T(\beta) - c_T\), \(\pi_R = R_0\).</li>
+<li><strong>All-Leverage vertex</strong> \((1, 0)\): Is an equilibrium vertex. Fitness is \(\pi_L = s_L(\beta) + \varphi_L \cdot V_0(1+a_L)^{\eta} \cdot \frac{1}{1+\kappa_G} - c_L\).</li>
+<li><strong>All-Transform vertex</strong> \((0, 1)\): Is an equilibrium vertex. Fitness is \(\pi_T = s_T(\beta) + \varphi_T \cdot V_0(1+a_T)^{\eta} \cdot \frac{\omega}{\omega + \kappa_G} - c_T\).</li>
 <li><strong>Interior fixed point</strong> \((x_L^*, x_T^*)\): Exists when \(\pi_L = \pi_T = \pi_R\), requiring specific parameter configurations.</li>
 <li><strong>Edge fixed points</strong>: On the \(L\)&ndash;\(R\), \(T\)&ndash;\(R\), and \(L\)&ndash;\(T\) edges, defined by pairwise fitness equalities.</li>
 </ol>
@@ -379,7 +379,8 @@ J(0,1) = \operatorname{diag}\!\left(\pi_L - \pi_T,\;\pi_R - \pi_T\right)\bigg|_{
 <p class="label">Theorem 3.2 (Bistability on the \(L\)&ndash;\(R\) Edge)</p>
 <p>On the \(L\)&ndash;\(R\) edge, let \(\tilde{c} = c_L + R_0 - s_L(\beta)\). The dynamics exhibit one of three regimes:</p>
 <ol>
-<li><strong>If \(\tilde{c} \leq 0\)</strong> (equivalently, \(\beta \geq (c_L + R_0)/\psi_L\)): The standalone efficiency alone exceeds the cost-plus-displacement threshold. Leverage dominates: \(\pi_L &gt; \pi_R\) for all \(x \in [0,1]\), and \(x = 1\) is globally stable.</li>
+<li><strong>If \(\tilde{c} &lt; 0\)</strong> (equivalently, \(\beta &gt; (c_L + R_0)/\psi_L\)): The standalone efficiency strictly exceeds the cost-plus-displacement threshold. \(\pi_L &gt; \pi_R\) for all \(x \in [0,1]\), \(x = 1\) is globally asymptotically stable, and \(x = 0\) is unstable.</li>
+<li><strong>If \(\tilde{c} = 0\)</strong> (equivalently, \(\beta = (c_L + R_0)/\psi_L\)): \(\pi_L - \pi_R = F(x) \geq 0\) with equality only at \(x = 0\). \(x = 1\) attracts all initial conditions in \((0,1]\). \(x = 0\) is a non-hyperbolic equilibrium (invasion fitness zero).</li>
 <li><strong>If \(\tilde{c} &gt; 0\) and \(F(1) &lt; \tilde{c}\):</strong> The ecosystem channel is too weak even at full adoption. The all-Restrict state \(x = 0\) is globally stable.</li>
 <li><strong>If \(\tilde{c} &gt; 0\) and \(F(1) &gt; \tilde{c}\):</strong> By the intermediate value theorem, there exists a unique \(x^* \in (0,1)\) such that \(F(x^*) = \tilde{c}\). The dynamics are bistable: \(x = 0\) is stable for \(x &lt; x^*\), \(x = 1\) is stable for \(x &gt; x^*\), and \(x^*\) is an unstable tipping point.</li>
 </ol>
@@ -387,7 +388,8 @@ J(0,1) = \operatorname{diag}\!\left(\pi_L - \pi_T,\;\pi_R - \pi_T\right)\bigg|_{
 
 <div class="proof-box">
 <p class="label">Proof</p>
-<p>Regime 1: When \(\tilde{c} \leq 0\), \(\pi_L - \pi_R = F(x) - \tilde{c} \geq F(x) \geq 0\) for all \(x\), with strict inequality for \(x &gt; 0\). At \(x = 0\), \(\pi_L - \pi_R = -\tilde{c} \geq 0\), with strict inequality when \(\beta &gt; (c_L + R_0)/\psi_L\). Hence \(x = 1\) is globally stable.</p>
+<p>Regime 1a (\(\tilde{c} &lt; 0\)): \(\pi_L - \pi_R = F(x) - \tilde{c} &gt; 0\) for all \(x \in [0,1]\) (since \(F(x) \geq 0\) and \(-\tilde{c} &gt; 0\)). Hence \(\dot{x} &gt; 0\) for all \(x \in (0,1)\), so \(x = 1\) is globally asymptotically stable and \(x = 0\) is unstable.</p>
+<p>Regime 1b (\(\tilde{c} = 0\)): \(\pi_L - \pi_R = F(x) \geq 0\) for all \(x\), with \(F(0) = 0\) and \(F(x) &gt; 0\) for \(x &gt; 0\). Hence \(\dot{x} &gt; 0\) for \(x \in (0,1)\), so \(x = 1\) attracts all trajectories from \((0,1]\). At \(x = 0\), the invasion fitness is zero and the linearised eigenvalue vanishes, so \(x = 0\) is a non-hyperbolic equilibrium.</p>
 <p>Regimes 2&ndash;3: When \(\tilde{c} &gt; 0\), \(F(x)\) is continuous on \([0,1]\) with \(F(0) = 0\) and strictly increasing. If \(F(1) &gt; \tilde{c}\), there exists exactly one crossing point \(x^*\) where \(F(x^*) = \tilde{c}\). For \(x &lt; x^*\), \(F(x) &lt; \tilde{c}\), so \(\pi_L - \pi_R &lt; 0\) and \(\dot{x} &lt; 0\). For \(x &gt; x^*\), \(\pi_L - \pi_R &gt; 0\) and \(\dot{x} &gt; 0\).</p>
 <p class="qed">&#9632;</p>
 </div>
@@ -441,7 +443,7 @@ J(0,1) = \operatorname{diag}\!\left(\pi_L - \pi_T,\;\pi_R - \pi_T\right)\bigg|_{
 
 <div class="theorem">
 <p class="label">Theorem 4.1 (Business Model Governance Trap)</p>
-<p>A community-based business model operating under Mechanism 1 is in a governance trap if and only if \(\sigma &lt; c_G - c_C\). When this condition holds:</p>
+<p>A community-based business model operating under Mechanism 1 enters a governance trap if \(\sigma &lt; c_G - c_C\). When this condition holds:</p>
 <ol>
 <li>The governance-to-content ratio \(y(t)/x(t)\) is monotonically decreasing: \(\frac{d}{dt}\ln(y/x) = \sigma - (c_G - c_C) &lt; 0\).</li>
 <li>The <em>absolute</em> governance share \(y(t)\) may temporarily increase (when \(\pi_G &gt; \bar{\pi}\)) before eventually declining as the ratio \(y/x \to 0\) pulls \(y\) down.</li>
@@ -464,6 +466,11 @@ J(0,1) = \operatorname{diag}\!\left(\pi_L - \pi_T,\;\pi_R - \pi_T\right)\bigg|_{
 <p>so \(y/x\) decreases exponentially at rate \(|c_G - c_C - \sigma|\). This does <em>not</em> immediately imply that \(y\) itself is monotonically decreasing. In the replicator dynamics, \(\dot{y} = y(\pi_G - \bar{\pi})\), and \(\pi_G &gt; \bar{\pi}\) is possible when the free-rider fraction is large and governance contributions are generating substantial community value. Thus \(y(t)\) may have a non-monotonic path, temporarily increasing before the declining ratio eventually forces \(y\) down.</p>
 <p>The collapse sequence is: (1)&nbsp;\(y/x\) declines exponentially; (2)&nbsp;eventually \(y\) becomes small enough that \(h(y) = y/(y+\kappa) \approx 0\); (3)&nbsp;\(V \to 0\); (4)&nbsp;content contribution becomes irrational; (5)&nbsp;convergence to \((0,0)\).</p>
 <p class="qed">&#9632;</p>
+</div>
+
+<div class="remark">
+<p class="label">Remark 4.0b (Sufficiency of the Governance Trap Condition)</p>
+<p>When \(\sigma \geq c_G - c_C\), the governance-to-content ratio \(y/x\) is non-decreasing, which is necessary for sustained governance. However, full avoidance of community collapse additionally requires the minimum community value condition (Corollary 4.1): even with adequate governance premium, the community could still fail through the value channel if \(V(x,y) &lt; c_C/(\varphi - 1)\). The condition \(\sigma &lt; c_G - c_C\) is therefore sufficient for collapse but not necessary in the strictest sense.</p>
 </div>
 
 <div class="remark">
@@ -585,6 +592,8 @@ V_a(n(\tau)) = V_0 \cdot n(\tau)^{\beta}
 n_O(p) = n_0 \cdot \alpha \cdot (1 - \lambda p), \qquad \lambda \in (0, 1)
 \]
 
+<p>We treat \(n_H\) as approximately constant: \(n_H \approx n_0[\alpha + (1-\alpha)\tau_H^{\psi}]\), reflecting that the normative shift toward transparency primarily penalises opaque platforms rather than further rewarding transparent ones.</p>
+
 <p>This creates negative frequency dependence for opaque strategies when transparency becomes the norm: opaque platforms lose users as the market becomes more transparency-conscious.</p>
 
 <p>The replicator equation for the high-transparency fraction is:</p>
@@ -685,7 +694,7 @@ n \cdot f > C_0 + c_m \cdot n^{\gamma}
 
 <div class="theorem">
 <p class="label">Theorem 7.1 (Incompatibility of Leveraging and Decreasing Patterns)</p>
-<p>Consider a firm operating a mixed business model with fraction \(w\) of Leverage patterns and fraction \((1-w)\) of Transform patterns, sharing a single interface with coupling parameter \(\theta\). The mixed payoff is:</p>
+<p>Consider a firm operating a mixed business model with fraction \(w\) of Leverage patterns and fraction \((1-w)\) of Transform patterns, sharing a single interface with coupling parameter \(\theta\). Under the shared-interface coupling-allocation model, the effective anti-rivalry experienced by each component is \(\beta_L^{\text{eff}} = \beta_0\theta\) and \(\beta_T^{\text{eff}} = \beta_0(1-\theta)\). The mixed payoff is:</p>
 \[
 \pi_{\text{mix}}(w, \theta) = w \cdot \varphi_L \cdot V_0 \cdot n^{\beta_0 \theta} \cdot h(y) + (1-w) \cdot \varphi_T \cdot V_0 \cdot n^{\beta_0(1-\theta)} \cdot h(y) - w \cdot c_L - (1-w) \cdot c_T
 \]
@@ -701,7 +710,7 @@ n \cdot f > C_0 + c_m \cdot n^{\gamma}
 <li>At \(\theta = 0\): the L-component receives \(n^0 = 1\) (dead weight&mdash;no coupling benefit).</li>
 <li>Pure strategies (\(w = 0\) or \(w = 1\)) avoid this waste: a pure-L firm chooses \(\theta = 1\) naturally, and a pure-T firm chooses \(\theta = 0\).</li>
 </ol>
-<p>The incompatibility is <em>derived</em>, not assumed. It emerges from three structural features: (i)&nbsp;the shared interface constraint (single \(\theta\) per product line), (ii)&nbsp;the convexity of the payoff in \(\theta\) (opposing effects on L and T components), and (iii)&nbsp;no scale threshold is required&mdash;the result holds for all \(n &gt; 1\).</p>
+<p>The incompatibility is <em>derived</em> within the shared-interface coupling-allocation model from three structural features: (i)&nbsp;the shared interface constraint (single \(\theta\) per product line), (ii)&nbsp;the convexity of the payoff in \(\theta\) (opposing effects on L and T components), and (iii)&nbsp;no scale threshold is required&mdash;the result holds for all \(n &gt; 1\).</p>
 </div>
 
 <div class="proof-box">
@@ -726,13 +735,13 @@ w \cdot \varphi_L \cdot n^{\beta_0 \theta} \cdot \beta_0 \ln n = (1-w) \cdot \va
 
 <div class="proposition">
 <p class="label">Proposition 7.1 (Static Dominance of Pure Strategies)</p>
-<p>In a population game with a <em>finite</em> set of strategies indexed by \(w \in \{0, w_1, w_2, \ldots, 1\}\), any interior strategy (\(w_i \in (0,1)\)) is weakly dominated by one of the pure strategies (\(w = 0\) or \(w = 1\)) for all \(n &gt; 1\). Under the generic condition \(\pi^*(0) \neq \pi^*(1)\), the dominance is strict. This follows from the joint optimisation argument: \(\pi^*(w)\) is convex in \(w\) and therefore maximised at a boundary point. The convexity gives \(\geq\) (weak dominance); the generic nondegeneracy condition \(\pi^*(0) \neq \pi^*(1)\) upgrades this to strict inequality for all interior \(w\).</p>
+<p>We treat each \(w\)-type as a reduced-form strategy whose interface parameter \(\theta\) is chosen optimally within type. In a population game with a <em>finite</em> set of strategies indexed by \(w \in \{0, w_1, w_2, \ldots, 1\}\), any interior strategy (\(w_i \in (0,1)\)) is weakly dominated by one of the pure strategies (\(w = 0\) or \(w = 1\)) for all \(n &gt; 1\). Under the generic condition \(\pi^*(0) \neq \pi^*(1)\), the dominance is strict. This follows from the joint optimisation argument: \(\pi^*(w)\) is convex in \(w\) and therefore maximised at a boundary point. The convexity gives \(\geq\) (weak dominance); the generic nondegeneracy condition \(\pi^*(0) \neq \pi^*(1)\) upgrades this to strict inequality for all interior \(w\).</p>
 </div>
 
 <div class="corollary">
 <p class="label">Corollary 7.1 (Evolutionary Implication)</p>
 <p>Under the replicator dynamics with a finite strategy set \(\{0, w_1, \ldots, 1\}\), any strictly dominated strategy is driven to extinction (Hofbauer &amp; Sigmund, 1998, Theorem 7.2.3). Under the generic condition of Proposition 7.1, the dominance is strict, so interior strategies \(w_i \in (0,1)\) vanish asymptotically.</p>
-<p><em>Technical remark:</em> Extension to a continuous strategy space \(w \in [0,1]\) requires additional structure. The strategy space is compact and payoffs are continuous in \(w\), so the static dominance result carries over by continuity: for every interior \(w\), there exists a pure strategy with strictly higher payoff. However, the evolutionary dynamics on continuous strategy spaces (adaptive dynamics or measure-valued replicators) require separate treatment and are beyond the scope of this paper.</p>
+<p><em>Technical remark:</em> Extension to a continuous strategy space \(w \in [0,1]\) requires additional structure. The strategy space is compact and payoffs are continuous in \(w\), so the static dominance result carries over by continuity: for every interior \(w\), there exists a pure strategy with higher payoff (strictly so under the generic condition of Proposition 7.1). However, the evolutionary dynamics on continuous strategy spaces (adaptive dynamics or measure-valued replicators) require separate treatment and are beyond the scope of this paper.</p>
 </div>
 
 <div class="critical">
@@ -775,9 +784,9 @@ w \cdot \varphi_L \cdot n^{\beta_0 \theta} \cdot \beta_0 \ln n = (1-w) \cdot \va
 
 <p><strong>Phase I</strong> (\(\beta &lt; \beta_{\text{inv}}^T\)): All-Restrict is locally stable at the simplex vertex (both Jacobian eigenvalues at \((0,0)\) are negative). Neither Transform nor Leverage can invade through the standalone channel. However, on the \(L\)&ndash;\(R\) edge the system is <em>bistable</em>: since \(\beta_{\text{bist}} &lt; 0\) with baseline parameters, \(F(1) &gt; \tilde{c}\) holds for all \(\beta &gt; 0\), so All-Leverage is also locally stable on that edge, separated from All-Restrict by a tipping point \(x^*\). The tipping point is high (requiring substantial ecosystem coordination).</p>
 
-<p><strong>Phase II</strong> (\(\beta_{\text{inv}}^T \leq \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade the all-Restrict state (the Jacobian eigenvalue \(\beta\psi_T - c_T - R_0 &gt; 0\) in the \(T\)-direction), so all-Restrict is a <em>saddle</em>&mdash;stable against Leverage but unstable against Transform. Transform-present states (including All-Transform, if it is locally stable) become attracting from the \(T\)-invasion direction. On the \(L\)&ndash;\(R\) edge, bistability persists but the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L\) shrinks, the tipping point \(x^*_L(\beta)\) decreases, and the basin of attraction for All-Leverage expands. Multiple locally stable states (All-Transform, All-Leverage) may coexist, with the saddle at All-Restrict mediating between them.</p>
+<p><strong>Phase II</strong> (\(\beta_{\text{inv}}^T \leq \beta &lt; \beta_{\text{inv}}^L\)): Transform can invade the all-Restrict state (the Jacobian eigenvalue \(\beta\psi_T - c_T - R_0 &gt; 0\) in the \(T\)-direction), so all-Restrict is a <em>saddle</em>&mdash;stable against Leverage but unstable against Transform. Transform-present states (including All-Transform, if it is locally stable) become attracting from the \(T\)-invasion direction. On the \(L\)&ndash;\(R\) edge, bistability persists but the effective threshold \(\tilde{c} = c_L + R_0 - \beta\psi_L\) shrinks, the tipping point \(x^*_L(\beta)\) decreases, and the basin of attraction for All-Leverage expands. Multiple stable states (All-Transform, All-Leverage) may coexist on their respective edges; full-simplex stability of each vertex additionally requires negative transverse eigenvalues (Proposition 3.2). The saddle at All-Restrict mediates between them.</p>
 
-<p><strong>Phase III</strong> (\(\beta \geq \beta_{\text{inv}}^L\)): The standalone efficiency of both strategies exceeds their respective cost thresholds. All-Restrict is unstable in both directions (both Jacobian eigenvalues positive). The \(L\)&ndash;\(R\) tipping point vanishes (\(\tilde{c} \leq 0\)). All-Leverage is locally stable and dominates through the combination of standalone efficiency and superlinear ecosystem returns. All-Transform may remain locally stable but with a shrinking basin of attraction.</p>
+<p><strong>Phase III</strong> (\(\beta \geq \beta_{\text{inv}}^L\)): The standalone efficiency of both strategies exceeds their respective cost thresholds. All-Restrict is unstable in both directions (both Jacobian eigenvalues positive). The \(L\)&ndash;\(R\) tipping point vanishes (\(\tilde{c} \leq 0\)). All-Leverage is stable on the L&ndash;R edge (and in the full simplex when the transverse T-eigenvalue at \((1,0)\) is negative; see Proposition 3.2) and dominates through the combination of standalone efficiency and superlinear ecosystem returns. All-Transform may remain stable on the T&ndash;R edge but with a shrinking basin of attraction.</p>
 </div>
 
 <div class="remark">
@@ -787,7 +796,7 @@ w \cdot \varphi_L \cdot n^{\beta_0 \theta} \cdot \beta_0 \ln n = (1-w) \cdot \va
 
 <div class="remark">
 <p class="label">Remark 8.1 (Empirical Correlates)</p>
-<p>These phases have observable empirical correlates. Phase I describes the pre-internet economy where most goods were rival: all-Restrict is locally stable at the simplex vertex, though in principle the \(L\)&ndash;\(R\) edge is already bistable (requiring prohibitively high coordinated entry). Phase II describes the current era: Transform strategies have become viable (de-transactionalizing through subscription models, digitalizing physical offerings), while Leverage strategies are emerging with decreasing tipping points as \(\beta\) grows (community-driven development where shared contributions optimize each participant&rsquo;s resource usage). Multiple equilibria coexist, with ecosystem coordination determining the outcome. Phase III describes the emerging future where anti-rivalry is strong enough that standalone efficiency alone destabilises All-Restrict, the \(L\)&ndash;\(R\) tipping point vanishes, and the symbiosis-seeking approach dominates. The transition from Phase II to Phase III is <em>discontinuous</em>&mdash;once the tipping point is reached, the shift to leverage-dominant markets is rapid.</p>
+<p>These phases have observable empirical correlates. Phase I describes the pre-internet economy where most goods were rival: all-Restrict is locally stable at the simplex vertex, though in principle the \(L\)&ndash;\(R\) edge is already bistable (requiring prohibitively high coordinated entry). Phase II describes the current era: Transform strategies have become viable (de-transactionalizing through subscription models, digitalizing physical offerings), while Leverage strategies are emerging with decreasing tipping points as \(\beta\) grows (community-driven development where shared contributions optimize each participant&rsquo;s resource usage). Multiple equilibria coexist, with ecosystem coordination determining the outcome. Phase III describes the emerging future where anti-rivalry is strong enough that standalone efficiency alone destabilises All-Restrict, the \(L\)&ndash;\(R\) tipping point vanishes, and the symbiosis-seeking approach dominates. The transition from Phase II to Phase III exhibits hysteresis when bistability is present on the L&ndash;R edge&mdash;once the tipping point is crossed, the shift to leverage-dominant markets is rapid. Stability claims in the phase theorem refer to edge dynamics and invasion eigenvalues at vertices; full-simplex local stability of each vertex depends additionally on transverse eigenvalues computed in Proposition 3.2.</p>
 </div>
 
 <h3>8.3 The Transform-to-Leverage Transition</h3>
@@ -811,7 +820,7 @@ s_L - s_T + (\varphi_L - \varphi_T) \cdot V_0(1 + a_T)^\eta \cdot \frac{\omega}{
 
 <h3>9.1 Parameterization</h3>
 
-<p>We calibrate the three-strategy model using plausible parameter ranges derived from the business model literature and the course&rsquo;s numerical examples:</p>
+<p>We illustrate the three-strategy model using a baseline parameterization derived from plausible parameter ranges in the business model literature and the course&rsquo;s numerical examples:</p>
 
 <table>
 <tr><th>Parameter</th><th>Symbol</th><th>Baseline Value</th><th>Interpretation</th></tr>
@@ -910,7 +919,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 
 <p>Our formalization yields several results that sharpen the original manuscript&rsquo;s qualitative findings:</p>
 
-<p><strong>Result 1: Phase-Dependent Stability and Critical Mass (Theorem 3.2, Theorem 8.1).</strong> The stability of the all-Restrict state depends on the anti-rivalry parameter \(\beta\). At low \(\beta\) (Phase I), all-Restrict is locally stable at the simplex vertex, but the \(L\)&ndash;\(R\) edge is already bistable: All-Leverage is also locally stable, separated by a high tipping point \(x^*\). At intermediate \(\beta\) (Phase II), Transform can invade and all-Restrict becomes a saddle; the \(L\)&ndash;\(R\) tipping point decreases as standalone efficiency grows. At high \(\beta\) (Phase III), all-Restrict is unstable in both directions and anti-rival strategies dominate. This formalizes the intuition that anti-rival business model innovation is an ecosystem-level challenge at intermediate anti-rivalry levels, while at sufficiently high anti-rivalry the transition occurs through standalone efficiency gains.</p>
+<p><strong>Result 1: Phase-Dependent Stability and Critical Mass (Theorem 3.2, Theorem 8.1).</strong> The stability of the all-Restrict state depends on the anti-rivalry parameter \(\beta\). At low \(\beta\) (Phase I), all-Restrict is locally stable at the simplex vertex, but the \(L\)&ndash;\(R\) edge is already bistable: All-Leverage is also stable on the L&ndash;R edge, separated from All-Restrict by a high tipping point \(x^*\). At intermediate \(\beta\) (Phase II), Transform can invade and all-Restrict becomes a saddle; the \(L\)&ndash;\(R\) tipping point decreases as standalone efficiency grows. At high \(\beta\) (Phase III), all-Restrict is unstable in both directions and anti-rival strategies dominate. This formalizes the intuition that anti-rival business model innovation is an ecosystem-level challenge at intermediate anti-rivalry levels, while at sufficiently high anti-rivalry the transition occurs through standalone efficiency gains.</p>
 
 <p><strong>Result 2: Governance Trap Conditions (Theorem 4.1).</strong> Community-based business models (Mechanism 1, 15 BMPs) require a governance premium exceeding the cost differential between governance and content contribution. The 5 governance-oriented BMPs in Mechanism 1 can be interpreted as mechanisms for building this premium through different channels (power, reputation, financial, strategic, social).</p>
 
