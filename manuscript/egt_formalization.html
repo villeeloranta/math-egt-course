@@ -93,9 +93,10 @@ sup { font-size: 0.75rem; }
 <li><a href="#sec6">Model IV: De-Transactionalization and Anti-Rivalry Amplification</a> &nbsp;<small>[<a href="model_IV_cases.html">Case Studies</a>]</small></li>
 <li><a href="#sec7">The Incompatibility Theorem</a> &nbsp;<small>[<a href="model_V_cases.html">Case Studies</a>]</small></li>
 <li><a href="#sec8">Phase Transitions in Business Model Landscapes</a> &nbsp;<small>[<a href="model_VI_cases.html">Case Studies</a>]</small></li>
-<li><a href="#sec9">Numerical Analysis</a></li>
-<li><a href="#sec10">Discussion</a></li>
-<li><a href="#sec11">Conclusion</a></li>
+<li><a href="#sec9">Welfare Analysis</a></li>
+<li><a href="#sec10">Numerical Analysis</a></li>
+<li><a href="#sec11">Discussion</a></li>
+<li><a href="#sec12">Conclusion</a></li>
 <li><a href="#refs">References</a></li>
 </ol>
 </div>
@@ -128,7 +129,7 @@ sup { font-size: 0.75rem; }
 V(n) = V_0 \cdot n^{\beta}
 \]
 
-<p>where \(\beta &lt; 0\) corresponds to rival goods (value decreases with use), \(\beta = 0\) to non-rival goods (value invariant to use), and \(\beta &gt; 0\) to anti-rival goods (value increases with use). The total social value \(W(n) = n \cdot V(n) = V_0 \cdot n^{1+\beta}\) is superlinear for \(\beta &gt; 0\), capturing the increasingly positive-sum nature of anti-rival goods. This parameterization, while mathematically convenient, deserves scrutiny: real goods rarely exhibit pure power-law scaling across all ranges of \(n\), and many anti-rival goods exhibit bounded anti-rivalry (logistic saturation). We address robustness to functional form in Section 10.</p>
+<p>where \(\beta &lt; 0\) corresponds to rival goods (value decreases with use), \(\beta = 0\) to non-rival goods (value invariant to use), and \(\beta &gt; 0\) to anti-rival goods (value increases with use). The total social value \(W(n) = n \cdot V(n) = V_0 \cdot n^{1+\beta}\) is superlinear for \(\beta &gt; 0\), capturing the increasingly positive-sum nature of anti-rival goods. This parameterization, while mathematically convenient, deserves scrutiny: real goods rarely exhibit pure power-law scaling across all ranges of \(n\), and many anti-rival goods exhibit bounded anti-rivalry (logistic saturation). We address robustness to functional form in Section 11.</p>
 
 <h3>2.2 The Coupled Value Function</h3>
 
@@ -819,9 +820,100 @@ s_L - s_T + (\varphi_L - \varphi_T) \cdot V_0(1 + a_T)^\eta \cdot \frac{\omega}{
 <p>This is a genuine possibility because the unified governance function allows Transform to provide baseline governance. Conversely, at the All-Leverage vertex (\(x_L = 1, x_T = 0\)), Transform can invade when the cost advantage of Transform exceeds the combined standalone and value advantages of Leverage. For strongly anti-rival goods (\(\beta\) large), the standalone difference \(s_L - s_T = \beta(\psi_L - \psi_T)\) grows and Transform cannot invade. For weakly anti-rival goods, the cost advantage dominates. This generates a <em>second bifurcation</em> within the anti-rival strategy space.</p>
 
 <!-- ============================================================ -->
-<h2 id="sec9">9. Numerical Analysis</h2>
+<h2 id="sec9">9. Welfare Analysis</h2>
 
-<h3>9.1 Parameterization</h3>
+<p>The payoff functions \(\pi_L\), \(\pi_T\), \(\pi_R\) (Definition 3.2) measure private fitness within the firm population game of Model I. They do not account for user participation. The Leverage strategy maximizes anti-rival sharing by subsidizing rival costs (Metamechanism 2), creating larger per-user ecosystem value than Transform. However, the Subsidization&ndash;Transparency model (Section 5) shows that Leverage&rsquo;s value capture mechanism depends on information rent extraction, which requires opacity. This opacity reduces user participation, creating a trade-off between per-user value and participation reach. This section bridges Models I and III to characterize when this trade-off causes private and social optima to diverge.</p>
+
+<h3>9.1 The Extraction&ndash;Participation Trade-off</h3>
+
+<p>In the original manuscript, the central tension of Metamechanism 2 is the &ldquo;transparency challenge&rdquo;: how to maintain fair and transparent business practices without jeopardizing the mechanics of anti-rival leverage. Section 5 formalizes this: platforms face a trade-off between information rent \(I(n)\), which requires opacity, and trust-based revenue \(T(n)\), which requires transparency. The privately optimal transparency \(\tau^*\) balances extraction against participation.</p>
+
+<p>Different strategies require different transparency levels. Leverage captures value through tight coupling of anti-rival and rival components, extracting information rent from the subsidized sharing; this requires lower transparency to sustain. Transform restructures offerings toward anti-rivalry without relying on information asymmetry and is compatible with higher transparency.</p>
+
+<p><strong>Definition 9.1 (Strategy-Dependent Transparency).</strong> Each vertex equilibrium \(s \in \{L, T\}\) has a characteristic transparency level \(\tau_s\) compatible with its value capture mechanism, with \(\tau_T > \tau_L\). This ordering reflects the manuscript&rsquo;s identification of the transparency challenge as specific to Metamechanism 2 (Leverage).</p>
+
+<p><strong>Definition 9.2 (Effective Participation).</strong> Under strategy \(s\) at its vertex equilibrium, user participation follows the Section 5 participation function:</p>
+
+\[
+n_s = n_0 \left[\alpha + (1 - \alpha)\,\tau_s^{\psi}\right]
+\]
+
+<p>Since \(\tau_T > \tau_L\) and the participation function is increasing in \(\tau\), we have \(n_T > n_L\): Transform ecosystems attract more users.</p>
+
+<h3>9.2 Social Welfare Function</h3>
+
+<p>At a vertex equilibrium, the firm ecosystem generates per-user anti-rival value \(E_s = V_a(\cdot) \cdot h(\cdot)\) (from Model I). For anti-rival goods, total social value scales with participation: each additional user benefits from the ecosystem value without diminishing it for others (Section 2.1, \(W(n) = n \cdot V(n)\)). Social welfare therefore multiplies per-user ecosystem value by participation.</p>
+
+<p><strong>Definition 9.3 (Social Welfare).</strong> Social welfare at vertex equilibrium \(s \in \{R, L, T\}\) is:</p>
+
+\[
+W_R = R_0, \qquad W_L = n_L \cdot E_L - c_L, \qquad W_T = n_T \cdot E_T - c_T
+\]
+
+<p>where</p>
+
+\[
+E_L = V_0 (1 + \beta \lambda_L)^\eta \cdot \frac{1}{1 + \kappa_G}, \qquad E_T = V_0 (1 + \beta \lambda_T)^\eta \cdot \frac{\omega}{\omega + \kappa_G}
+\]
+
+<p>\(E_L > E_T\) for all \(\beta > 0\) under the parametric orderings of Definition 3.2 (\(\lambda_L > \lambda_T\), \(\omega < 1\)): Leverage creates more per-user ecosystem value through tighter coupling and stronger governance. But \(n_T > n_L\): Transform attracts more users through higher transparency. Social welfare depends on the product \(n_s \cdot E_s\), so the comparison is non-trivial.</p>
+
+<p><em>Proof of ordering.</em> \(E_L / E_T = [(1 + \beta\lambda_L)/(1 + \beta\lambda_T)]^\eta \cdot (\omega + \kappa_G)/[\omega(1 + \kappa_G)]\). The first factor exceeds 1 because \(\lambda_L > \lambda_T\). The second exceeds 1 because \(\omega < 1\) implies \(\omega + \kappa_G > \omega(1 + \kappa_G)\). \(\square\)</p>
+
+<h3>9.3 The Anti-Rivalry Suppression Cost</h3>
+
+<p>The opacity required by Leverage suppresses total realized anti-rival value not by restricting access but by reducing participation. Fewer users engage with the ecosystem, so less total value is realized&mdash;even though per-user value is higher.</p>
+
+<p><strong>Definition 9.4 (Anti-Rivalry Suppression Cost).</strong> The <em>anti-rivalry suppression cost</em> is the welfare difference between the Transform and Leverage equilibria:</p>
+
+\[
+\Gamma = W_T - W_L = n_T \cdot E_T - n_L \cdot E_L + (c_L - c_T)
+\]
+
+<p>Define the <em>participation ratio</em> \(P = n_T / n_L > 1\) and the <em>per-user value ratio</em> \(Q = E_L / E_T > 1\). Then:</p>
+
+\[
+\Gamma = n_L \cdot E_T \cdot (P - Q) + (c_L - c_T)
+\]
+
+<p>When \(P > Q\), the participation advantage of Transform exceeds the per-user value advantage of Leverage, and Transform is socially superior before accounting for costs. When \(P < Q\), the cost differential \(c_L - c_T > 0\) provides a buffer: Transform can be socially superior even when its participation advantage does not fully offset Leverage&rsquo;s per-user value advantage.</p>
+
+<p><strong>Theorem 9.1 (Private&ndash;Social Optimality Divergence).</strong> Suppose both all-Leverage and all-Transform are equilibria of the replicator dynamics. Transform is socially superior (\(\Gamma > 0\)) if and only if</p>
+
+\[
+P > Q - \frac{c_L - c_T}{n_L \cdot E_T}
+\]
+
+<p>Leverage is privately dominant (\(\pi_L(1,0) > \pi_T(0,1)\)) when</p>
+
+\[
+\beta(\psi_L - \psi_T) + \varphi_L \cdot E_L - \varphi_T \cdot E_T > c_L - c_T
+\]
+
+<p>The private&ndash;social divergence occurs when both conditions hold. The structural source of the divergence is that the private comparison weights ecosystem value by value-capture multipliers (\(\varphi_L\), \(\varphi_T\)), while the welfare comparison weights it by participation (\(n_L\), \(n_T\)). Firms optimize for capture; welfare depends on reach.</p>
+
+<p><em>Proof.</em> The welfare condition: \(\Gamma = n_L E_T(P - Q) + (c_L - c_T) > 0\), rearranged to isolate \(P\). The private condition: \(\pi_L(1,0) - \pi_T(0,1) = \beta(\psi_L - \psi_T) + \varphi_L E_L - \varphi_T E_T - (c_L - c_T) > 0\), evaluating each strategy&rsquo;s payoff at its own vertex. The private comparison is independent of \(\tau_L\), \(\tau_T\), and the participation levels \(n_L\), \(n_T\): Model I does not account for the user response to transparency. \(\square\)</p>
+
+<p><strong>Corollary 9.1 (Suppression Cost and Opacity).</strong> The anti-rivalry suppression cost is strictly decreasing in Leverage transparency:</p>
+
+\[
+\frac{\partial \Gamma}{\partial \tau_L} = -E_L \cdot n_0\,(1 - \alpha)\,\psi\,\tau_L^{\psi - 1} < 0
+\]
+
+<p>As Leverage becomes more opaque (lower \(\tau_L\)), the suppression cost increases. The magnitude scales with \(E_L\): the greater the per-user value Leverage creates, the larger the welfare loss from each unit of participation sacrificed to opacity.</p>
+
+<p><strong>Proposition 9.2 (Phase II as the Critical Regime).</strong> The per-user value ratio \(Q\) is increasing in \(\beta\), approaching the finite limit \(Q_\infty = (\lambda_L / \lambda_T)^\eta \cdot (\omega + \kappa_G)/[\omega(1 + \kappa_G)]\). The participation ratio \(P\) is independent of \(\beta\). Therefore the welfare condition \(P > Q - (c_L - c_T)/(n_L E_T)\) is most easily satisfied at lower \(\beta\), where \(Q\) is closer to 1. Since the private dominance condition requires sufficient \(\beta\) (to generate the standalone efficiency advantage \(\beta(\psi_L - \psi_T)\)), the divergence region&mdash;where Leverage is privately dominant but Transform is socially superior&mdash;is concentrated at intermediate \(\beta\). In Phase I (\(\beta < \beta_{\text{inv}}^T\)), neither anti-rival equilibrium exists. In Phase III (\(\beta \geq \beta_{\text{inv}}^L\)), \(Q\) is large, narrowing the divergence region. Phase II combines both equilibria existing with a moderate \(Q\), creating the widest parameter region for divergence.</p>
+
+<h3>9.4 Policy Implications</h3>
+
+<p>Theorem 9.1 provides a formal criterion for when the privately optimal strategy is socially suboptimal. The social cost is not that Leverage restricts access to anti-rival value&mdash;the original manuscript emphasizes that Leverage <em>maximizes</em> sharing&mdash;but that the opacity required to sustain information rent extraction reduces user participation, suppressing total realized anti-rival value.</p>
+
+<p>This yields three implications. First, policy should target transparency rather than the Leverage strategy itself. Disclosure requirements, algorithmic transparency mandates, and fairness-in-extraction rules increase \(\tau_L\), raising participation \(n_L\) and reducing the suppression cost. If \(\tau_L\) can be raised enough that \(P < Q - (c_L - c_T)/(n_L E_T)\), then Leverage becomes socially as well as privately optimal: users participate at sufficient levels to realize the full benefit of Leverage&rsquo;s stronger per-user value creation. Second, the Phase II concentration of the divergence (Proposition 9.2) suggests that transparency regulation is most productive at intermediate anti-rivalry levels, where ecosystems are forming and extraction norms are not yet locked in. Third, the divergence depends on empirically estimable quantities: the transparency gap \(\tau_T - \tau_L\), user transparency sensitivity \(\psi\), and the per-user value ratio \(Q\).</p>
+
+<!-- ============================================================ -->
+<h2 id="sec10">10. Numerical Analysis</h2>
+
+<h3>10.1 Parameterization</h3>
 
 <p>We illustrate the three-strategy model using a baseline parameterization derived from plausible parameter ranges in the business model literature and the course&rsquo;s numerical examples:</p>
 
@@ -844,7 +936,7 @@ s_L - s_T + (\varphi_L - \varphi_T) \cdot V_0(1 + a_T)^\eta \cdot \frac{\omega}{
 <tr><td>Returns curvature</td><td>\(\eta\)</td><td>1</td><td>Linear returns to anti-rivalry (baseline)</td></tr>
 </table>
 
-<h3>9.2 Tipping Point Calculation</h3>
+<h3>10.2 Tipping Point Calculation</h3>
 
 <p>First, compute the phase boundaries. With \(\psi_L = 35\), \(\psi_T = 28\), \(c_L = 8\), \(c_T = 4\), \(R_0 = 6\):</p>
 
@@ -881,7 +973,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 
 <p>Expanding: \(5.75x^2 + 17.75x - 0.7875 = 0\), giving \(x^* \approx 0.044\). Still positive, so some ecosystem coordination is required, though under this baseline parameterization the threshold is quantitatively modest.</p>
 
-<h3>9.3 Sensitivity Analysis</h3>
+<h3>10.3 Sensitivity Analysis</h3>
 
 <p>The tipping point \(x^*\) responds to parameter changes as follows:</p>
 
@@ -895,7 +987,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 <tr><td>\(\kappa_G\) increases (0.15 &rarr; 0.30)</td><td>\(x^*\) increases</td><td>Harder governance requirements raise the ecosystem bar</td></tr>
 </table>
 
-<h3>9.4 Governance Trap Numerical Example</h3>
+<h3>10.4 Governance Trap Numerical Example</h3>
 
 <p>For the community governance model (Section 4), consider an open-source platform with:</p>
 
@@ -916,9 +1008,9 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 <p>The minimum governance premium to avoid the trap is \(\sigma_{\min} = c_G - c_C = 3\). Achieving this requires stacking premiums from multiple BMPs (e.g., community governance providing power \(\sigma = 1\), revenue sharing providing financial \(\sigma = 1\), stewardship providing reputational \(\sigma = 1\)).</p>
 
 <!-- ============================================================ -->
-<h2 id="sec10">10. Discussion</h2>
+<h2 id="sec11">11. Discussion</h2>
 
-<h3>10.1 Summary of Analytical Results</h3>
+<h3>11.1 Summary of Analytical Results</h3>
 
 <p>Our formalization yields several results that sharpen the original manuscript&rsquo;s qualitative findings:</p>
 
@@ -930,7 +1022,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 
 <p><strong>Result 4: Phase Transitions (Theorem 8.1).</strong> Increasing anti-rivalry \(\beta\) drives qualitative changes in the stability of equilibria. The phase structure has explicit thresholds: \(\beta_{\text{inv}}^T = (c_T + R_0)/\psi_T\) for Transform invasion and \(\beta_{\text{inv}}^L = (c_L + R_0)/\psi_L\) for Leverage invasion. Transform strategies become viable at lower thresholds than Leverage strategies because their lower costs are offset by lower standalone efficiency gains. Both approaches remain independently viable as distinct equilibria; the dominance of Leverage at high \(\beta\) reflects the combination of stronger standalone efficiency and stronger ecosystem returns from tighter coupling.</p>
 
-<h3>10.2 Prescriptive Implications</h3>
+<h3>11.2 Prescriptive Implications</h3>
 
 <p>For business model innovators, these results suggest several prescriptions:</p>
 
@@ -954,7 +1046,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 <li><strong>Diagnose your phase position before choosing strategy.</strong> The phase structure of Theorem 8.1 has qualitatively different strategic implications in each phase. In Phase I (\(\beta < \beta_{\text{inv}}^T\)), neither anti-rival strategy can invade independently, and coordination is the binding constraint. In Phase II (\(\beta_{\text{inv}}^T \leq \beta < \beta_{\text{inv}}^L\)), Transform is viable without coordination, while Leverage requires a positive but shrinking tipping point on the \(L\)&ndash;\(R\) edge. In Phase III (\(\beta \geq \beta_{\text{inv}}^L\)), standalone efficiency suffices for both strategies. Firms should identify where \(\beta\) sits relative to \(\beta_{\text{inv}}^T\) and \(\beta_{\text{inv}}^L\) to determine which constraint&mdash;coordination, governance, or neither&mdash;is binding.</li>
 </ol>
 
-<h3>10.3 Limitations and Critical Assessment</h3>
+<h3>11.3 Limitations and Critical Assessment</h3>
 
 <p>We identify several limitations that constrain the applicability of our results:</p>
 
@@ -970,7 +1062,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 
 <p><strong>Limitation 6: Measurement Challenges.</strong> The parameters \(\varphi_L\), \(\delta\), \(\kappa_G\), and \(\sigma\) are conceptually clear but empirically difficult to measure. Empirical validation of the model would require operationalizing these parameters through observable proxies, which is a non-trivial econometric challenge.</p>
 
-<h3>10.4 Connections to Existing Literature</h3>
+<h3>11.4 Connections to Existing Literature</h3>
 
 <p>Our formalization connects to several established research streams:</p>
 
@@ -982,7 +1074,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 
 <p><strong>Institutional Complexity.</strong> Our phase transition analysis provides a dynamical systems interpretation of the institutional complexity framework (Thornton et al., 2012; Battilana &amp; Lee, 2014). The coexistence of complexity-avoiding (Restrict), complexity-decreasing (Transform, synergy-seeking through interface simplification), and complexity-leveraging (Leverage, symbiosis-seeking through interface amplification) approaches&mdash;and the conditions under which each dominates&mdash;corresponds to phase transitions driven by the technological evolution of anti-rivalry.</p>
 
-<h3>10.5 Future Research Directions</h3>
+<h3>11.5 Future Research Directions</h3>
 
 <p>The formalization opens several avenues for future work:</p>
 
@@ -995,7 +1087,7 @@ x^* = \frac{-21.6 + \sqrt{466.56 + 6.96}}{16.56} = \frac{-21.6 + \sqrt{473.52}}{
 </ol>
 
 <!-- ============================================================ -->
-<h2 id="sec11">11. Conclusion</h2>
+<h2 id="sec12">12. Conclusion</h2>
 
 <p>This paper has demonstrated that the qualitative findings of the original manuscript on anti-rival business model complexity management can be placed on rigorous analytical foundations through evolutionary game theory. The formalization is not merely a mathematical re-statement of existing insights; it generates new results&mdash;the bistability of business model landscapes, the threshold conditions governing governance trap risk and sustainability, the structural incompatibility, under a shared-interface coupling-allocation model, of coupling-amplifying (Leverage) and coupling-reducing (Transform) approaches within a single product line for all \(n &gt; 1\), and the phase transition structure of market evolution&mdash;that go beyond what qualitative analysis alone can deliver.</p>
 
