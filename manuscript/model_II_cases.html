@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model II Case Studies: The Community Governance Game</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root { --primary:#2c3e50; --accent:#c0392b; --info:#2980b9; --bg:#fefefe; --text:#222; --text-light:#555; --border:#ccc; --bg-box:#f7f7f7; --font-main:'Georgia','Times New Roman',serif; --font-sans:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; --max-width:820px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font-main);color:var(--text);background:var(--bg);line-height:1.85;padding:2rem 1rem}
+.container{max-width:var(--max-width);margin:0 auto}
+h1{font-size:1.55rem;margin:2rem 0 .5rem;color:var(--primary);line-height:1.3}
+h2{font-size:1.3rem;margin:2rem 0 .6rem;color:var(--primary);border-bottom:1px solid var(--border);padding-bottom:.3rem}
+h3{font-size:1.1rem;margin:1.4rem 0 .4rem;color:var(--primary)}
+p{margin:.6rem 0;text-align:justify}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}
+th,td{border:1px solid var(--border);padding:.5rem .7rem;text-align:left}
+th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}
+.case{border-left:4px solid #16a085;background:#f0faf8;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.calc{border-left:4px solid #2980b9;background:#f0f6fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.finding{border-left:4px solid #8e44ad;background:#f8f0fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.critical{border-left:4px solid var(--accent);background:#fdf0f0;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.lb{font-weight:bold;font-family:var(--font-sans);font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem}
+.critical .lb{color:var(--accent)}
+.nav{font-size:.9rem;margin-bottom:1.5rem}
+.nav a{color:var(--info);text-decoration:none}
+.nav a:hover{text-decoration:underline}
+.subtitle{color:var(--text-light);font-size:1rem;font-style:italic;margin:.3rem 0 1.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<p class="nav">&larr; <a href="egt_formalization.html">Back to main formalization</a></p>
+
+<h1>Model II &mdash; The Community Governance Game: Case Studies</h1>
+<p class="subtitle">Companion to Section 4 of the EGT Formalization</p>
+
+<h2>Model Recap</h2>
+
+<p>Within community-based business models (Mechanism&nbsp;1), participants choose among Content contribution (\(C\)), Governance contribution (\(G\)), or Free-riding (\(F\)). With differential access \(\varphi&gt;1\):</p>
+
+\[
+\pi_C=\varphi\,V(x,y)-c_C, \quad \pi_G=\varphi\,V(x,y)-c_G+\sigma, \quad \pi_F=V(x,y)
+\]
+
+<p>where \(V(x,y)=V_0(1+\beta x)^\eta\;\frac{y}{y+\kappa}\). The governance trap condition is \(\sigma&lt;c_G-c_C\). The minimum community value for sustained contribution is \(V&gt;\frac{c_C}{\varphi-1}\).</p>
+
+<!-- ========== CASE A ========== -->
+<h2>Case A: OpenSSL / Heartbleed &mdash; The Governance Trap Realised</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>OpenSSL is a cryptographic library used by approximately two-thirds of all HTTPS servers worldwide. Before the Heartbleed vulnerability (CVE-2014-0160, disclosed April 2014), the project was maintained by a single full-time developer (Stephen Henson) with a salary of approximately $20,000/year, supplemented by sporadic volunteer contributions. The project served millions of servers but had effectively zero governance infrastructure. Heartbleed affected an estimated 17% of the internet&rsquo;s secure web servers, causing damages estimated at $500M+.</p>
+</div>
+
+<h3>Strategy Mapping</h3>
+<table>
+<tr><th>Role</th><th>Examples</th><th>Fraction (pre-2014)</th></tr>
+<tr><td>Content (C)</td><td>Volunteer patch contributors, occasional code reviewers</td><td>\(x\approx 0.001\) (a few dozen active contributors out of millions of users)</td></tr>
+<tr><td>Governance (G)</td><td>Stephen Henson (sole maintainer), sporadic security auditors</td><td>\(y\approx 0.00001\) (essentially one person)</td></tr>
+<tr><td>Free-Rider (F)</td><td>Every company and server deploying OpenSSL without contributing</td><td>\(z\approx 0.999\)</td></tr>
+</table>
+
+<h3>Parameter Estimation</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(V_0\)</td><td>15</td><td>Critical infrastructure: SSL/TLS is foundational to internet security and commerce.</td></tr>
+<tr><td>\(\beta\)</td><td>0.4</td><td>Strong anti-rivalry: every security fix, every protocol implementation benefits all users. But the anti-rivalry operates on the <em>code</em>, not on the <em>security auditing</em>&mdash;the rivalrous complement.</td></tr>
+<tr><td>\(\varphi\)</td><td>1.1</td><td>Very low differential access. Contributing to OpenSSL provided almost no reputational, financial, or career advantage. Cryptographic library development is unglamorous, poorly understood by hiring managers, and rarely acknowledged.</td></tr>
+<tr><td>\(c_C\)</td><td>2</td><td>Contributing code patches requires cryptography expertise but individual patches are small.</td></tr>
+<tr><td>\(c_G\)</td><td>10</td><td>Full governance (security auditing, CVE management, release engineering, API stability, backward compatibility testing, documentation) for a cryptographic library is extremely costly. The cognitive burden and liability are enormous.</td></tr>
+<tr><td>\(\sigma\)</td><td>0.5</td><td>Negligible governance premium. Henson received $20K/year (\(\sigma_{\text{fin}}\approx 0.3\)); minimal reputational benefit (\(\sigma_{\text{rep}}\approx 0.2\)); no decision-making power beyond necessity; no strategic advantage.</td></tr>
+<tr><td>\(\kappa\)</td><td>0.05</td><td>Low half-saturation: even a small amount of governance sustains basic function.</td></tr>
+<tr><td>\(\eta\)</td><td>1</td><td>Linear baseline.</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Governance Trap Check</p>
+\[
+\sigma = 0.5 \quad\text{vs}\quad c_G - c_C = 10 - 2 = 8
+\]
+<p><strong>The governance trap is deep:</strong> \(\sigma=0.5\ll 8=c_G-c_C\). The governance deficit is \(8-0.5=7.5\) units&mdash;governance contribution is massively underpaid relative to its cost.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Community Value at Pre-Heartbleed State</p>
+<p>With \(x\approx 0.001\) and \(y\approx 0.00001\):</p>
+\[
+V(x,y)=15\times(1+0.4\times 0.001)^1\times\frac{0.00001}{0.00001+0.05}
+\]
+\[
+=15\times 1.0004\times 0.0002 = 0.003
+\]
+<p>The community value per participant is essentially zero&mdash;the governance quality \(h(y)=0.0002\) is catastrophically low.</p>
+<p>Minimum viable value for content contribution: \(V_{\min}=\frac{c_C}{\varphi-1}=\frac{2}{0.1}=20\). Since \(V=0.003\ll 20\), content contribution is not rational either.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding: The Four-Phase Trajectory</p>
+<p><strong>Phase 1 &mdash; Growth (1998&ndash;2002):</strong> OpenSSL started as SSLeay. Early adopters contributed patches. Small community, but governance cost was low because the codebase was small.</p>
+<p><strong>Phase 2 &mdash; Success (2002&ndash;2010):</strong> OpenSSL became the de facto standard. Millions of users. Content contributions flowed in. Surface metrics (usage, downloads, protocol support) were excellent. But governance contribution \(y\) was already declining relative to the growing demands.</p>
+<p><strong>Phase 3 &mdash; Burnout (2010&ndash;2014):</strong> The sole maintainer was overwhelmed. Code review quality declined. The TLS heartbeat extension (RFC 6520) was implemented in 2012 with a bounds-checking bug. No governance infrastructure caught it. The bug persisted for two years.</p>
+<p><strong>Phase 4 &mdash; Crisis (April 2014):</strong> Heartbleed disclosed. The governance failure became visible. The entire internet security infrastructure was compromised because \(y\approx 0\).</p>
+</div>
+
+<div class="calc">
+<p class="lb">Post-Crisis Intervention: The Core Infrastructure Initiative</p>
+<p>After Heartbleed, the Linux Foundation created the Core Infrastructure Initiative (CII), later the Open Source Security Foundation (OpenSSF). The intervention directly increased \(\sigma\):</p>
+<table>
+<tr><th>Premium Type</th><th>Before</th><th>After CII</th></tr>
+<tr><td>\(\sigma_{\text{fin}}\) (financial)</td><td>0.3 ($20K)</td><td>3.0 (dedicated maintainers at market salary)</td></tr>
+<tr><td>\(\sigma_{\text{rep}}\) (reputational)</td><td>0.2</td><td>1.5 (Heartbleed made SSL security a visible, respected field)</td></tr>
+<tr><td>\(\sigma_{\text{power}}\) (decision-making)</td><td>0</td><td>1.0 (formal governance board)</td></tr>
+<tr><td>\(\sigma_{\text{strat}}\) (strategic)</td><td>0</td><td>0.5 (corporate members gain influence over security direction)</td></tr>
+<tr><td>\(\sigma_{\text{social}}\)</td><td>0</td><td>0.5 (community recognition programs)</td></tr>
+<tr><td><strong>Total \(\sigma\)</strong></td><td><strong>0.5</strong></td><td><strong>6.5</strong></td></tr>
+</table>
+<p>Post-CII: \(\sigma=6.5\) vs \(c_G-c_C=8\). The gap narrowed from 7.5 to 1.5. Still technically in the governance trap, but the deficit is manageable. Furthermore, the CII and later the migration to LibreSSL and BoringSSL effectively reduced \(c_G\) by splitting governance burden across multiple forks.</p>
+</div>
+
+<!-- ========== CASE B ========== -->
+<h2>Case B: Wikipedia &mdash; Sustained Governance Through Premium Stacking</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>Wikipedia has sustained community governance for over 20 years with no financial compensation for editors or administrators. As of 2025 it has approximately 45,000 active editors (5+ edits/month) in English Wikipedia alone, with roughly 1,100 administrators. However, administrator numbers have been declining since 2007 (peak: ~1,200), even as article count and traffic have grown. This is a partial governance trap.</p>
+</div>
+
+<h3>Parameter Estimation</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(V_0\)</td><td>12</td><td>High value: Wikipedia is the world&rsquo;s most-used reference work.</td></tr>
+<tr><td>\(\beta\)</td><td>0.35</td><td>Moderately anti-rival: articles improve with more editors (diverse perspectives, error correction, citation expansion). But diminishing returns at high editor density per article.</td></tr>
+<tr><td>\(\varphi\)</td><td>1.4</td><td>Significant differential access: active editors develop subject expertise, learn Wikipedia&rsquo;s complex policy landscape, gain community standing. This knowledge is valuable but non-transferable outside Wikipedia.</td></tr>
+<tr><td>\(c_C\)</td><td>2</td><td>Writing/editing articles requires time and expertise but individual edits are low-cost.</td></tr>
+<tr><td>\(c_G\)</td><td>7</td><td>Administrator duties are burdensome: policy enforcement, vandalism patrol (often dealing with abuse), dispute resolution (arbitration cases can take weeks), technical maintenance, protecting against legal liability.</td></tr>
+<tr><td>\(\kappa\)</td><td>0.08</td><td>Governance quality degrades gradually: Wikipedia has enough administrators to function but not to thrive.</td></tr>
+<tr><td>\(\eta\)</td><td>1</td><td>Linear baseline.</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Governance Premium Decomposition</p>
+<table>
+<tr><th>Component</th><th>Value</th><th>Mechanism</th></tr>
+<tr><td>\(\sigma_{\text{power}}\)</td><td>1.8</td><td>Admins have real power: delete pages, block users, protect articles, close discussions. This is genuine decision-making authority over a globally important resource.</td></tr>
+<tr><td>\(\sigma_{\text{rep}}\)</td><td>1.2</td><td>Wikipedia admin status is moderately prestigious within the tech/knowledge community. &ldquo;Wikipedia administrator&rdquo; appears on CVs and LinkedIn profiles.</td></tr>
+<tr><td>\(\sigma_{\text{social}}\)</td><td>0.8</td><td>Barnstars, user page recognition, community respect. The social fabric of Wikipedia provides meaningful non-monetary rewards.</td></tr>
+<tr><td>\(\sigma_{\text{fin}}\)</td><td>0</td><td>Wikimedia Foundation explicitly does not pay editors or admins. Zero financial premium.</td></tr>
+<tr><td>\(\sigma_{\text{strat}}\)</td><td>0</td><td>No strategic business advantage from admin status.</td></tr>
+<tr><td><strong>Total \(\sigma\)</strong></td><td><strong>3.8</strong></td><td></td></tr>
+</table>
+</div>
+
+<div class="calc">
+<p class="lb">Governance Trap Check</p>
+\[
+\sigma=3.8 \quad\text{vs}\quad c_G-c_C=7-2=5
+\]
+<p>Deficit: \(5-3.8=1.2\). Wikipedia is <strong>in the governance trap</strong>, but the deficit is small. This predicts a slow, chronic decline in governance contribution rather than a sudden collapse.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Empirical Validation</p>
+<p>The prediction of slow decline matches Wikipedia&rsquo;s observed trajectory precisely:</p>
+<ul>
+<li>Active administrators peaked at ~1,200 in 2007 and have declined to ~1,100 by 2025&mdash;a slow but steady erosion.</li>
+<li>Administrator elections (RfA) have become increasingly contentious, with pass rates declining from ~80% (2005) to ~50% (2020). This reflects rising \(c_G\) as the community demands more from administrators while offering no additional \(\sigma\).</li>
+<li>The Wikimedia Foundation has partially compensated by hiring paid staff for some governance functions (anti-vandalism tools, technical infrastructure), effectively outsourcing parts of the governance burden. This reduces effective \(c_G\) without changing \(\sigma\).</li>
+</ul>
+<p>The model predicts that if \(\sigma\) remains constant while \(c_G\) grows (due to increasing community size, policy complexity, and abuse), the deficit will widen and governance decline will accelerate.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Minimum Community Value</p>
+\[
+V_{\min}=\frac{c_C}{\varphi-1}=\frac{2}{0.4}=5
+\]
+<p>At current composition (\(x\approx 0.03\), \(y\approx 0.008\) for English Wikipedia):</p>
+\[
+V(0.03,\,0.008)=12\times(1.0105)\times\frac{0.008}{0.088}=12\times 1.0105\times 0.091=1.10
+\]
+<p>This is below \(V_{\min}=5\). Content contribution <em>should</em> not be rational. The persistence of content contribution despite this deficit suggests that the model underestimates the intrinsic motivation component (warm glow, learning, civic duty), which is not captured by the pure fitness-based framework.</p>
+</div>
+
+<!-- ========== CASE C ========== -->
+<h2>Case C: Redis &mdash; Escaping the Governance Trap via License Change</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>Redis, the in-memory data store, was created by Salvatore Sanfilippo in 2009 and became one of the most widely used databases, with an estimated 40%+ market share in caching use cases. Redis Labs (later Redis Inc.) was founded in 2011 to commercialise Redis. In 2018, Redis Labs added the Commons Clause to certain modules, restricting cloud providers from offering Redis-as-a-service. In 2024, the entire Redis project was re-licensed from BSD to a dual RSALv2/SSPLv2 license, effectively moving from an \(L\)-strategy to a \(T\)-strategy.</p>
+</div>
+
+<h3>Parameter Estimation (Pre-License Change, ~2017)</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(V_0\)</td><td>10</td><td>High value: Redis is critical infrastructure for millions of applications.</td></tr>
+<tr><td>\(\beta\)</td><td>0.3</td><td>Anti-rival: community modules (RedisJSON, RedisSearch, RedisGraph) add value for all users. But database engines are complex to contribute to.</td></tr>
+<tr><td>\(\varphi\)</td><td>1.2</td><td>Moderate differential access: contributing to Redis provides some skill development and reputation.</td></tr>
+<tr><td>\(c_C\)</td><td>3</td><td>Contributing patches to a C-based database requires significant expertise.</td></tr>
+<tr><td>\(c_G\)</td><td>9</td><td>Full governance of a critical database: security patches, backward compatibility, release management, cluster protocol stability, client library coordination.</td></tr>
+<tr><td>\(\sigma\) (pre-change)</td><td>1.5</td><td>\(\sigma_{\text{fin}}\approx 1.0\) (Redis Labs employed some core maintainers), \(\sigma_{\text{rep}}\approx 0.5\). Essentially all governance premium came from Redis Labs&rsquo; corporate investment.</td></tr>
+<tr><td>\(\kappa\)</td><td>0.06</td><td>Small governance team needed for basic function.</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Governance Trap Analysis</p>
+\[
+\sigma=1.5 \quad\text{vs}\quad c_G-c_C=9-3=6
+\]
+<p>Deficit: \(6-1.5=4.5\). Deep in the governance trap. Redis Labs was effectively the sole governance contributor, subsidising the entire community&rsquo;s governance costs from venture capital.</p>
+<p>The problem: AWS, Google Cloud, and Azure offered managed Redis services (ElastiCache, Memorystore, Azure Cache for Redis), capturing billions in revenue from Redis without contributing to governance. These cloud providers were free-riders (\(F\)-strategy) at industrial scale.</p>
+</div>
+
+<div class="finding">
+<p class="lb">The License Change as a Strategy Switch</p>
+<p>Redis Labs&rsquo; license change can be formally interpreted as abandoning the \(L\)-strategy (open-source leverage, community governance) in favour of a \(T\)-strategy (enclosure through restrictive licensing, monetisation through Redis Enterprise). The switch occurred because:</p>
+<ol>
+<li>The governance trap was unsustainable: Redis Labs could not indefinitely subsidise governance (\(c_G=9\)) with only \(\sigma=1.5\) in returns while cloud providers extracted the anti-rival value.</li>
+<li>The free-rider problem was extreme: the largest beneficiaries (AWS, GCP, Azure) contributed nothing to governance.</li>
+<li>Enclosure (license change) converted the model from \(\pi_L=\varphi_L V\cdot h-c_L\) to \(\pi_T=\varphi_T V\cdot h_T-c_T\), where the enclosure enables \(T\)-strategy to capture revenue directly from cloud providers (who must now license Redis commercially or build alternatives).</li>
+</ol>
+<p>This triggered the creation of the Valkey fork (maintained by the Linux Foundation with backing from AWS, Google, Oracle), which represents a new \(L\)-strategy entrant with higher \(\sigma\) (corporate-backed governance from the start).</p>
+</div>
+
+<div class="critical">
+<p class="lb">Critical Assessment</p>
+<p>The Redis case reveals a limitation of the governance game model: it treats \(\sigma\) as a property of the <em>community</em> when in practice it was a property of a <em>single corporate sponsor</em> (Redis Labs). When that sponsor&rsquo;s patience with free-riders ran out, the entire governance structure collapsed overnight. The model&rsquo;s assumption of a population of individuals making independent strategy choices does not capture the power asymmetry between a well-funded corporate maintainer and individual volunteer contributors. A more realistic model would distinguish between corporate and individual governance contributions.</p>
+</div>
+
+<!-- ========== SYNTHESIS ========== -->
+<h2>Cross-Case Synthesis</h2>
+
+<table>
+<tr><th>Metric</th><th>OpenSSL</th><th>Wikipedia</th><th>Redis</th></tr>
+<tr><td>\(\sigma\)</td><td>0.5</td><td>3.8</td><td>1.5</td></tr>
+<tr><td>\(c_G-c_C\)</td><td>8</td><td>5</td><td>6</td></tr>
+<tr><td>Deficit</td><td>7.5</td><td>1.2</td><td>4.5</td></tr>
+<tr><td>In Governance Trap?</td><td>Yes (deep)</td><td>Yes (shallow)</td><td>Yes (deep)</td></tr>
+<tr><td>Outcome</td><td>Crisis (Heartbleed), then external rescue</td><td>Slow chronic decline</td><td>License change (L→T strategy switch)</td></tr>
+<tr><td>Resolution</td><td>CII increased \(\sigma_{\text{fin}}\)</td><td>Paid staff reduced \(c_G\)</td><td>Enclosure bypassed the trap entirely</td></tr>
+</table>
+
+<div class="finding">
+<p class="lb">Key Insights</p>
+<ol>
+<li><strong>The governance trap is ubiquitous.</strong> All three cases &mdash; spanning critical infrastructure, knowledge commons, and database software &mdash; exhibit the trap. The condition \(\sigma&lt;c_G-c_C\) holds across radically different contexts, suggesting it is a structural feature of community-based business models, not an accidental property of specific projects.</li>
+<li><strong>The depth of the deficit predicts the outcome type.</strong> Deep deficits (OpenSSL: 7.5, Redis: 4.5) produce crises or strategic pivots. Shallow deficits (Wikipedia: 1.2) produce slow chronic decline. This is a testable prediction: projects with governance deficits exceeding a threshold (perhaps \(c_G-c_C-\sigma &gt; 3\)) should be classified as crisis-prone.</li>
+<li><strong>Three escape routes exist:</strong> (a)&nbsp;Increase \(\sigma\) through external funding (OpenSSL/CII); (b)&nbsp;Decrease effective \(c_G\) through paid staff or automation (Wikipedia); (c)&nbsp;Abandon the governance game entirely by switching from \(L\) to \(T\) strategy (Redis). Option (c) is irreversible and destroys anti-rival value; options (a) and (b) preserve it.</li>
+<li><strong>Premium stacking is necessary but fragile.</strong> Wikipedia&rsquo;s survival relies on stacking three premium types (power, reputation, social). Removing any one would likely push it deeper into the trap. This fragility suggests that community-based business models require continuous investment in <em>multiple</em> governance-premium mechanisms&mdash;the minimum viable governance premium is a portfolio problem, not a single-instrument problem.</li>
+</ol>
+</div>
+
+<hr style="margin:2.5rem 0 1rem">
+<p style="text-align:center;font-size:.85rem;color:#999">Companion to <a href="egt_formalization.html" style="color:#999">EGT Formalization</a>, Section 4</p>
+</div>
+</body>
+</html>

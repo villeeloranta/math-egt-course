@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model I Case Studies: Metamechanism-Level Population Dynamics</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root { --primary:#2c3e50; --accent:#c0392b; --info:#2980b9; --bg:#fefefe; --text:#222; --text-light:#555; --border:#ccc; --bg-box:#f7f7f7; --font-main:'Georgia','Times New Roman',serif; --font-sans:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; --max-width:820px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font-main);color:var(--text);background:var(--bg);line-height:1.85;padding:2rem 1rem}
+.container{max-width:var(--max-width);margin:0 auto}
+h1{font-size:1.55rem;margin:2rem 0 .5rem;color:var(--primary);line-height:1.3}
+h2{font-size:1.3rem;margin:2rem 0 .6rem;color:var(--primary);border-bottom:1px solid var(--border);padding-bottom:.3rem}
+h3{font-size:1.1rem;margin:1.4rem 0 .4rem;color:var(--primary)}
+p{margin:.6rem 0;text-align:justify}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}
+th,td{border:1px solid var(--border);padding:.5rem .7rem;text-align:left}
+th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}
+.case{border-left:4px solid #16a085;background:#f0faf8;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.calc{border-left:4px solid #2980b9;background:#f0f6fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.finding{border-left:4px solid #8e44ad;background:#f8f0fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.critical{border-left:4px solid var(--accent);background:#fdf0f0;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}
+.lb{font-weight:bold;font-family:var(--font-sans);font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem}
+.critical .lb{color:var(--accent)}
+.nav{font-size:.9rem;margin-bottom:1.5rem}
+.nav a{color:var(--info);text-decoration:none}
+.nav a:hover{text-decoration:underline}
+.subtitle{color:var(--text-light);font-size:1rem;font-style:italic;margin:.3rem 0 1.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<p class="nav">&larr; <a href="egt_formalization.html">Back to main formalization</a></p>
+
+<h1>Model I &mdash; Metamechanism-Level Population Dynamics: Case Studies</h1>
+<p class="subtitle">Companion to Section 3 of the EGT Formalization</p>
+
+<h2>Model Recap</h2>
+
+<p>Three strategies compete in a digital economy: <strong>Leverage</strong> \(L\) (symbiosis-seeking: open source, crowdsourcing, community governance), <strong>Transform</strong> \(T\) (synergy-seeking: freemium, subscription, digitalization), and <strong>Restrict</strong> \(R\) (complexity-avoiding: proprietary enclosure, DRM). The key equations:</p>
+
+\[
+V_a(x_L,x_T)=V_0(1+\beta_L x_L+\beta_T x_T)^\eta, \qquad h(x_L)=\frac{x_L}{x_L+\kappa_G}
+\]
+\[
+\pi_L=\varphi_L V_a\,h(x_L)-c_L,\quad \pi_T=\varphi_T V_a\,h_T-c_T,\quad \pi_R=R_0-\delta\,V_a\,h(x_L)
+\]
+
+<p>On the \(L\)&ndash;\(R\) edge the tipping point \(x^*\) satisfies \(F(x^*)=c_L+R_0\) where \(F(x)=(\varphi_L+\delta)\,V_0(1+\beta_L x)^\eta\;\frac{x}{x+\kappa_G}\).</p>
+
+<!-- ========== CASE A ========== -->
+<h2>Case A: Server Operating Systems &mdash; Linux vs.&nbsp;Windows&nbsp;Server</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>The server operating system market from 2000 to 2025 provides a textbook illustration of Model&nbsp;I. In 2000 Microsoft Windows Server held approximately 70% of server deployments; Linux held roughly 15%. By 2024 Linux runs on over 96% of public cloud instances and approximately 80% of all servers worldwide. This is a completed phase transition from \(R\)-dominance to \(L\)-dominance.</p>
+</div>
+
+<h3>Strategy Mapping</h3>
+<table>
+<tr><th>Strategy</th><th>Exemplars</th><th>Key Patterns</th></tr>
+<tr><td>\(L\) &mdash; Leverage</td><td>Linux (kernel.org), Red&nbsp;Hat, Canonical, SUSE</td><td>Open source, community governance, crowdsourcing, revenue sharing</td></tr>
+<tr><td>\(T\) &mdash; Transform</td><td>FreeBSD-based appliances, macOS Server (discontinued 2022)</td><td>Freemium, dual-licensing</td></tr>
+<tr><td>\(R\) &mdash; Restrict</td><td>Microsoft Windows Server, Solaris (pre-OpenSolaris), HP-UX, AIX</td><td>Proprietary licensing, DRM enforcement</td></tr>
+</table>
+
+<h3>Parameter Estimation</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(V_0\)</td><td>8</td><td>Base value of a server OS ecosystem (normalised units). A general-purpose server OS with basic networking, file systems, and process management.</td></tr>
+<tr><td>\(\beta_L\)</td><td>0.50</td><td>Linux exhibits strong anti-rivalry: each contributor&rsquo;s kernel patch, driver, or security fix benefits every other user. The shared kernel development model creates superlinear returns to adoption.</td></tr>
+<tr><td>\(\beta_T\)</td><td>0.10</td><td>Transform approaches (e.g., FreeBSD appliances) share some code but enclosure limits anti-rival benefits.</td></tr>
+<tr><td>\(\varphi_L\)</td><td>2.0</td><td>Red Hat captured $3.4B/year revenue (2018 acquisition price: $34B) from a free operating system&mdash;disproportionate value capture through community position, enterprise support, certification.</td></tr>
+<tr><td>\(\varphi_T\)</td><td>1.2</td><td>Moderate differential access from partially open systems.</td></tr>
+<tr><td>\(c_L\)</td><td>7</td><td>Maintaining a leverage strategy requires substantial investment: upstream kernel contributions (~2,000 developers contribute per release), governance participation (Linux Foundation membership: $500K/year for platinum), community management, documentation.</td></tr>
+<tr><td>\(c_T\)</td><td>3</td><td>Lower costs for maintaining a partially open offering.</td></tr>
+<tr><td>\(R_0\)</td><td>10</td><td>Microsoft&rsquo;s traditional returns were very strong circa 2000: Windows Server licensing revenue, CAL fees, ecosystem lock-in.</td></tr>
+<tr><td>\(\delta\)</td><td>0.4</td><td>Moderate displacement: availability of Linux as a free alternative erodes Windows Server&rsquo;s pricing power and market share.</td></tr>
+<tr><td>\(\kappa_G\)</td><td>0.12</td><td>Linux governance (LKML, maintainer hierarchy, Linux Foundation) requires a modest but non-trivial critical mass.</td></tr>
+<tr><td>\(\eta\)</td><td>1</td><td>Linear returns to anti-rivalry (conservative baseline).</td></tr>
+</table>
+
+<h3>Numerical Analysis</h3>
+
+<div class="calc">
+<p class="lb">Step 1: Check Bistability &mdash; Compute \(F(1)\)</p>
+\[
+F(1)=(\varphi_L+\delta)\,V_0\,(1+\beta_L)^\eta\;\frac{1}{1+\kappa_G}
+\]
+\[
+=(2.0+0.4)\times 8\times(1+0.5)^1\times\frac{1}{1+0.12}
+\]
+\[
+=2.4\times 8\times 1.5\times 0.893 = 25.72
+\]
+<p>Compare with \(c_L+R_0=7+10=17\). Since \(F(1)=25.72&gt;17\), the system is <strong>bistable</strong>. Both All-Restrict and All-Leverage are viable equilibria.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Step 2: Find the Tipping Point \(x^*\)</p>
+<p>Solve \(F(x^*)=17\):</p>
+\[
+2.4\times 8\times(1+0.5\,x^*)\times\frac{x^*}{x^*+0.12}=17
+\]
+\[
+19.2\,(1+0.5\,x^*)\,\frac{x^*}{x^*+0.12}=17
+\]
+<p>Let \(u=x^*\). Expanding:</p>
+\[
+19.2\,\frac{u+0.5\,u^2}{u+0.12}=17
+\]
+\[
+19.2\,u+9.6\,u^2=17\,u+2.04
+\]
+\[
+9.6\,u^2+2.2\,u-2.04=0
+\]
+<p>Quadratic formula: \(u=\frac{-2.2+\sqrt{4.84+4\times 9.6\times 2.04}}{2\times 9.6}=\frac{-2.2+\sqrt{4.84+78.34}}{19.2}=\frac{-2.2+9.12}{19.2}\approx 0.360\).</p>
+<p><strong>Tipping point: \(x^*\approx 0.36\), i.e., roughly 36% market share.</strong></p>
+</div>
+
+<div class="calc">
+<p class="lb">Step 3: Historical Trajectory</p>
+<table>
+<tr><th>Year</th><th>Linux Share \(x_L\) (servers)</th><th>vs \(x^*=0.36\)</th><th>Regime</th></tr>
+<tr><td>2000</td><td>~0.15</td><td>Below</td><td>Below tipping point; \(\dot{x}&lt;0\); Linux struggling</td></tr>
+<tr><td>2005</td><td>~0.25</td><td>Below</td><td>Growing but still below critical mass</td></tr>
+<tr><td>2008</td><td>~0.35</td><td>At threshold</td><td>Approaching tipping point; cloud computing emerges</td></tr>
+<tr><td>2010</td><td>~0.45</td><td>Above</td><td>Crossed tipping point; \(\dot{x}&gt;0\); self-reinforcing growth</td></tr>
+<tr><td>2015</td><td>~0.70</td><td>Well above</td><td>Rapid acceleration; Azure adds Linux support</td></tr>
+<tr><td>2020</td><td>~0.85</td><td>Dominant</td><td>Near All-Leverage equilibrium</td></tr>
+<tr><td>2024</td><td>~0.96 (cloud)</td><td>Dominant</td><td>Convergence to \(x_L=1\) in cloud segment</td></tr>
+</table>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The model predicts a tipping point at \(x^*\approx 0.36\). Empirically, the acceleration in Linux adoption became self-sustaining around 2008&ndash;2010, when Linux server share crossed approximately 35&ndash;40%. The coincidence with the rise of cloud computing (AWS launched 2006, chose Linux as default) provided the coordinated entry that pushed the ecosystem past the tipping point. This is consistent with the model&rsquo;s prediction that crossing the threshold requires ecosystem-level coordination, not just individual firm decisions.</p>
+</div>
+
+<h3>Payoff Verification at Equilibrium</h3>
+
+<div class="calc">
+<p class="lb">At \(x_L=1\) (All-Leverage)</p>
+\[
+\pi_L(1)=2.0\times 8\times 1.5\times\frac{1}{1.12}-7=21.43-7=14.43
+\]
+\[
+\pi_R(1)=10-0.4\times 8\times 1.5\times\frac{1}{1.12}=10-4.29=5.71
+\]
+<p>Since \(\pi_L(1)=14.43&gt;\pi_R(1)=5.71\), All-Leverage is stable: Restrict cannot invade.</p>
+</div>
+
+<div class="critical">
+<p class="lb">Critical Assessment</p>
+<p>The parameter \(R_0=10\) assumes Microsoft&rsquo;s traditional returns were high circa 2000, which is empirically defensible (Windows Server was a high-margin product). However, the model treats \(R_0\) as static, when in reality Microsoft adapted by partially adopting leverage strategies itself (contributing to Linux kernel, launching WSL, running Linux on Azure). This suggests that in practice, \(R\)-strategists can <em>switch</em> strategies in ways the pure replicator dynamics do not capture. The model correctly predicts the direction and approximate timing of the transition but underestimates the fluidity of corporate strategy.</p>
+</div>
+
+<!-- ========== CASE B ========== -->
+<h2>Case B: AI/ML Ecosystem &mdash; Open Models vs.&nbsp;Closed&nbsp;APIs</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>The artificial intelligence ecosystem as of 2025&ndash;2026 presents a live instance of the three-strategy competition. Hugging Face and the open-weight model community (Llama, Mistral, Stable Diffusion) represent the Leverage strategy; OpenAI and Anthropic&rsquo;s closed API model represent Restrict; and freemium AI tools (Canva AI, Grammarly, various wrappers) represent Transform.</p>
+</div>
+
+<h3>Parameter Estimation</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(V_0\)</td><td>12</td><td>High base value: AI capabilities are transformative for productivity.</td></tr>
+<tr><td>\(\beta_L\)</td><td>0.35</td><td>Open models exhibit anti-rivalry: shared fine-tuning datasets, community-developed adapters (LoRA), evaluation benchmarks all increase in value with use. However, model training itself is rivalrous (GPU costs), dampening \(\beta_L\) below the Linux case.</td></tr>
+<tr><td>\(\beta_T\)</td><td>0.10</td><td>Freemium AI tools benefit modestly from usage data but enclosure limits sharing.</td></tr>
+<tr><td>\(\varphi_L\)</td><td>1.6</td><td>Hugging Face captures disproportionate returns through Hub position, but less than Red Hat&rsquo;s capture in OS market (models are more substitutable than kernels).</td></tr>
+<tr><td>\(\varphi_T\)</td><td>1.3</td><td>Freemium AI tools (Canva, Jasper) capture moderate value.</td></tr>
+<tr><td>\(c_L\)</td><td>9</td><td>Very high costs: training large open models requires $10M&ndash;$100M+ in compute; community governance of model safety, licensing (Apache vs RAIL), responsible disclosure.</td></tr>
+<tr><td>\(c_T\)</td><td>4</td><td>Moderate costs for wrapping closed APIs into freemium products.</td></tr>
+<tr><td>\(R_0\)</td><td>15</td><td>OpenAI/Anthropic currently generate very strong returns through API access (OpenAI reportedly $3.4B ARR in 2024). The closed model + API strategy is highly profitable.</td></tr>
+<tr><td>\(\delta\)</td><td>0.3</td><td>Open models are beginning to displace closed APIs (Llama 3 approaching GPT-4 quality), but displacement is not yet strong.</td></tr>
+<tr><td>\(\kappa_G\)</td><td>0.15</td><td>AI governance (safety evaluation, licensing frameworks, compute access) requires significant coordination.</td></tr>
+<tr><td>\(\eta\)</td><td>1</td><td>Linear baseline.</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Bistability Check</p>
+\[
+F(1)=(1.6+0.3)\times 12\times(1.35)\times\frac{1}{1.15}=1.9\times 12\times 1.35\times 0.870
+\]
+\[
+=1.9\times 12\times 1.174=26.77
+\]
+<p>Compare: \(c_L+R_0=9+15=24\). Since \(F(1)=26.77&gt;24\), the system is bistable, but <strong>barely</strong>. The leverage strategy is viable at full adoption but only marginally dominates restrict.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Tipping Point</p>
+\[
+22.8\,(1+0.35\,x)\,\frac{x}{x+0.15}=24
+\]
+<p>Expanding: \(22.8x+7.98x^2=24x+3.6\), giving \(7.98x^2-1.2x-3.6=0\).</p>
+\[
+x^*=\frac{1.2+\sqrt{1.44+114.91}}{15.96}=\frac{1.2+10.79}{15.96}\approx 0.75
+\]
+<p><strong>Tipping point: \(x^*\approx 0.75\).</strong></p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The tipping point is extremely high at 75%. This means the open AI model ecosystem would need approximately three-quarters of the market before the self-reinforcing dynamics kick in. Current estimates place open-weight model adoption at roughly 20&ndash;30% of production AI deployments. The market is deep in the basin of attraction of the All-Restrict equilibrium. This explains why closed API providers (OpenAI, Anthropic, Google) continue to dominate despite the rapid growth of open alternatives: the ecosystem has not yet reached critical mass.</p>
+<p>The high tipping point stems from two factors: (1)&nbsp;very high \(R_0=15\) reflecting the strong profitability of closed APIs, and (2)&nbsp;high \(c_L=9\) reflecting the enormous compute costs of training competitive open models. If compute costs fall (Moore&rsquo;s law, algorithmic efficiency), \(c_L\) decreases and \(x^*\) drops. If open model quality stagnates relative to closed models, \(\beta_L\) effectively decreases and \(x^*\) rises further.</p>
+</div>
+
+<div class="critical">
+<p class="lb">Critical Assessment</p>
+<p>The AI case exposes a model limitation: the single anti-rivalry parameter \(\beta_L\) conflates multiple anti-rival channels (shared datasets, community fine-tuning, benchmarks, tooling) with the highly rivalrous component (GPU compute for training). A more accurate model would use the coupled value function from Section 2.2, where the rivalrous complement \(M\) (compute budget) constrains the anti-rival component. The single-parameter model overly simplifies this coupling. Furthermore, the rapid pace of AI capability improvement means \(\beta_L\) and \(R_0\) are moving targets, not static parameters.</p>
+</div>
+
+<!-- ========== CASE C ========== -->
+<h2>Case C: Web Browsers &mdash; Chromium&rsquo;s Triumph</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>The web browser market from 1995 to 2025 has undergone two complete phase transitions. First, Netscape (initially leveraging) was displaced by Internet Explorer (restrict, bundled with Windows). Then, Firefox (leverage) challenged IE, before Chromium/Chrome (leverage, backed by Google&rsquo;s subsidisation) displaced both. By 2025 Chromium-based browsers hold approximately 77% of the market.</p>
+</div>
+
+<h3>Parameter Estimation (2005&ndash;2015 Transition Period)</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(V_0\)</td><td>6</td><td>Browser as a commodity platform; value comes from web access, not the browser itself.</td></tr>
+<tr><td>\(\beta_L\)</td><td>0.45</td><td>Open browser engines exhibit strong anti-rivalry: shared rendering engines (Gecko, Blink/WebKit), web standards compliance, extension ecosystems, developer tools.</td></tr>
+<tr><td>\(\varphi_L\)</td><td>2.2</td><td>Google captures enormous disproportionate returns from Chromium: default search revenue, user data, web standards influence, PWA ecosystem control.</td></tr>
+<tr><td>\(c_L\)</td><td>5</td><td>Moderate: browser engine development is expensive but subsidised by Google (Chromium) and Mozilla Foundation (Firefox).</td></tr>
+<tr><td>\(R_0\)</td><td>4</td><td>By 2005 IE&rsquo;s traditional returns were modest: it was free, and Microsoft&rsquo;s bundling advantage was eroding under antitrust pressure.</td></tr>
+<tr><td>\(\delta\)</td><td>0.6</td><td>Strong displacement: web standards compliance of open browsers made IE&rsquo;s proprietary extensions a liability rather than an asset.</td></tr>
+<tr><td>\(\kappa_G\)</td><td>0.08</td><td>Browser governance is relatively lightweight compared to OS governance.</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Analysis</p>
+\[
+F(1)=(2.2+0.6)\times 6\times 1.45\times\frac{1}{1.08}=2.8\times 6\times 1.45\times 0.926=22.57
+\]
+\[
+c_L+R_0=5+4=9
+\]
+<p>\(F(1)=22.57\gg 9\): heavily bistable, with leverage strongly favoured at full adoption.</p>
+<p>Tipping point: \(16.8(1+0.45x)\frac{x}{x+0.08}=9\). Expanding: \(16.8x+7.56x^2=9x+0.72\), giving \(7.56x^2+7.8x-0.72=0\).</p>
+\[
+x^*=\frac{-7.8+\sqrt{60.84+21.77}}{15.12}=\frac{-7.8+9.09}{15.12}\approx 0.085
+\]
+<p><strong>Tipping point: \(x^*\approx 0.085\), i.e., about 8.5%.</strong></p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The remarkably low tipping point explains the speed of IE&rsquo;s collapse. Once Firefox reached approximately 10% market share (circa 2005&ndash;2006), the dynamics became self-reinforcing. Web developers began building standards-compliant sites, which worked better on Firefox/later Chrome, which attracted more users. The low \(R_0\) (IE generated little direct revenue for Microsoft) and high \(\delta\) (strong displacement from standards-compliant alternatives) meant that the \(R\) strategy was extremely vulnerable. Google&rsquo;s launch of Chrome in 2008 &mdash; an extremely well-resourced \(L\)-strategy entrant &mdash; provided the ecosystem coordination that accelerated the transition.</p>
+</div>
+
+<!-- ========== SYNTHESIS ========== -->
+<h2>Cross-Case Synthesis</h2>
+
+<table>
+<tr><th>Metric</th><th>Server OS</th><th>AI/ML</th><th>Browsers</th></tr>
+<tr><td>\(F(1)\) vs \(c_L+R_0\)</td><td>25.72 vs 17</td><td>26.77 vs 24</td><td>22.57 vs 9</td></tr>
+<tr><td>Margin</td><td>+51%</td><td>+12%</td><td>+151%</td></tr>
+<tr><td>Tipping \(x^*\)</td><td>0.36</td><td>0.75</td><td>0.085</td></tr>
+<tr><td>Transition Speed</td><td>~15 years</td><td>Not yet completed</td><td>~8 years</td></tr>
+<tr><td>Key Driver</td><td>Cloud computing</td><td>(Compute cost reduction)</td><td>Web standards</td></tr>
+<tr><td>Current Phase</td><td>Phase IV (L dominant)</td><td>Phase III (bistable)</td><td>Phase IV (L dominant)</td></tr>
+</table>
+
+<div class="finding">
+<p class="lb">Synthesis</p>
+<p>The three cases collectively validate the model&rsquo;s core predictions while revealing the practical determinants of the tipping point:</p>
+<ol>
+<li><strong>The tipping point is real and consequential.</strong> In all three markets, once the leverage share crossed the threshold, the transition accelerated dramatically. Below the threshold, leverage strategies struggled despite their long-term superiority.</li>
+<li><strong>The tipping point height is determined by \(R_0\) and \(c_L\).</strong> When traditional strategies are highly profitable (\(R_0\) large) or leverage costs are high (\(c_L\) large), the tipping point rises and transitions are slow or stalled. The AI case (\(x^*=0.75\)) shows that a market with very profitable incumbents can resist the transition for extended periods.</li>
+<li><strong>Ecosystem coordination events drive transitions.</strong> AWS choosing Linux, Google launching Chrome, Meta releasing Llama &mdash; these are ecosystem-level interventions that push the \(x_L\) fraction past the tipping point. The model correctly identifies this as necessary but cannot predict <em>when</em> such interventions will occur.</li>
+<li><strong>The displacement coefficient \(\delta\) matters as much as anti-rivalry.</strong> Browsers had high \(\delta\) (IE&rsquo;s proprietary extensions became a liability), producing a very low tipping point. AI has lower \(\delta\) (closed APIs still offer superior ease-of-use), producing a high tipping point.</li>
+</ol>
+</div>
+
+<div class="critical">
+<p class="lb">Limitations Across All Cases</p>
+<p>All parameter estimates are retrospective rationalisations, not predictions. The model&rsquo;s value lies in structural insight (the existence and qualitative determinants of tipping points) rather than in precise quantitative forecasting. The single largest gap is the assumption of fixed strategies: in reality, Microsoft pivoted to supporting Linux on Azure, Google used Chromium as a data-collection vehicle (blurring \(L\) and \(R\)), and AI companies constantly adjust their openness. A more realistic model would allow strategy switching, which the basic replicator dynamics do not accommodate.</p>
+</div>
+
+<hr style="margin:2.5rem 0 1rem">
+<p style="text-align:center;font-size:.85rem;color:#999">Companion to <a href="egt_formalization.html" style="color:#999">EGT Formalization</a>, Section 3</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model IV Case Studies: De-Transactionalization and Anti-Rivalry Amplification</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root { --primary:#2c3e50; --accent:#c0392b; --info:#2980b9; --bg:#fefefe; --text:#222; --text-light:#555; --border:#ccc; --bg-box:#f7f7f7; --font-main:'Georgia','Times New Roman',serif; --font-sans:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; --max-width:820px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{font-family:var(--font-main);color:var(--text);background:var(--bg);line-height:1.85;padding:2rem 1rem}.container{max-width:var(--max-width);margin:0 auto}h1{font-size:1.55rem;margin:2rem 0 .5rem;color:var(--primary);line-height:1.3}h2{font-size:1.3rem;margin:2rem 0 .6rem;color:var(--primary);border-bottom:1px solid var(--border);padding-bottom:.3rem}h3{font-size:1.1rem;margin:1.4rem 0 .4rem;color:var(--primary)}p{margin:.6rem 0;text-align:justify}table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}th,td{border:1px solid var(--border);padding:.5rem .7rem;text-align:left}th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}.case{border-left:4px solid #16a085;background:#f0faf8;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.calc{border-left:4px solid #2980b9;background:#f0f6fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.finding{border-left:4px solid #8e44ad;background:#f8f0fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.critical{border-left:4px solid var(--accent);background:#fdf0f0;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.lb{font-weight:bold;font-family:var(--font-sans);font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem}.critical .lb{color:var(--accent)}.nav{font-size:.9rem;margin-bottom:1.5rem}.nav a{color:var(--info);text-decoration:none}.nav a:hover{text-decoration:underline}.subtitle{color:var(--text-light);font-size:1rem;font-style:italic;margin:.3rem 0 1.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<p class="nav">&larr; <a href="egt_formalization.html">Back to main formalization</a></p>
+
+<h1>Model IV &mdash; De-Transactionalization and Anti-Rivalry Amplification: Case Studies</h1>
+<p class="subtitle">Companion to Section 6 of the EGT Formalization</p>
+
+<h2>Model Recap</h2>
+
+<p>Transaction-based models impose a per-use price \(p\) that dampens effective anti-rivalry:</p>
+\[
+\beta_{\text{trans}} = \beta_0 - \frac{p}{V_0}, \qquad \beta_{\text{sub}} = \beta_0
+\]
+<p>Subscription viability requires \(n_{\min} &lt; n &lt; n_{\max}\) where \(n\cdot f &gt; C_0 + c_m\,n^\gamma\).</p>
+
+<!-- ========== CASE A ========== -->
+<h2>Case A: Spotify vs iTunes &mdash; Music&rsquo;s De-Transactional Revolution</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>The music industry&rsquo;s shift from iTunes (per-track purchase at $0.99&ndash;$1.29) to Spotify (monthly subscription at $9.99 for unlimited streaming) is the canonical example of de-transactionalization enabling anti-rivalry. Under iTunes, each play was a transaction; under Spotify, consumption is decoupled from payment, enabling unrestricted sharing and discovery.</p>
+</div>
+
+<h3>Parameter Estimation</h3>
+
+<table>
+<tr><th>Parameter</th><th>iTunes (Transactional)</th><th>Spotify (Subscription)</th></tr>
+<tr><td>\(V_0\)</td><td colspan="2">5 (base value of a music library)</td></tr>
+<tr><td>\(\beta_0\)</td><td colspan="2">0.25 (intrinsic anti-rivalry: shared playlists, collaborative recommendations, social listening improve with more users)</td></tr>
+<tr><td>\(p\) (per-use price)</td><td>$1.00 per track</td><td>$0 per track</td></tr>
+<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.25 - 1.0/5 = 0.05\)</td><td>\(0.25\)</td></tr>
+<tr><td>\(f\) (subscription fee)</td><td>&mdash;</td><td>$9.99/month</td></tr>
+<tr><td>\(n\) (users, millions)</td><td>~800M accounts (2014 peak)</td><td>~640M users (2025)</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Anti-Rivalry Amplification</p>
+<p>The effective anti-rivalry shift from transactional to subscription:</p>
+\[
+\Delta\beta = \beta_{\text{sub}} - \beta_{\text{trans}} = 0.25 - 0.05 = 0.20
+\]
+<p>Per-user value comparison at \(n=500\)M users:</p>
+\[
+V_{\text{iTunes}}(500) = 5\times 500^{0.05} = 5\times e^{0.05\ln 500} = 5\times e^{0.317} = 5\times 1.373 = 6.87
+\]
+\[
+V_{\text{Spotify}}(500) = 5\times 500^{0.25} = 5\times e^{0.25\times 6.215} = 5\times e^{1.554} = 5\times 4.73 = 23.65
+\]
+<p>The de-transactionalized model delivers <strong>3.4&times; more per-user value</strong> at the same scale. This value manifests as algorithmic recommendations trained on collective listening data, collaborative playlists, artist discovery through social features, and Spotify Wrapped &mdash; all of which are anti-rival features impossible under a per-track model.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Subscription Viability Band</p>
+<p>Spotify&rsquo;s cost structure (estimated): \(C_0\approx\)$200M/month (fixed), \(c_m\approx\)$0.004 per user-month at scale (\(\gamma\approx 1.05\), slight superlinear scaling from licensing costs that increase with usage volume).</p>
+\[
+n\cdot 9.99 > 200 + 0.004\cdot n^{1.05}
+\]
+<p>At \(n=200\text{M}\): Revenue = $2.0B, Cost = $200M + $0.004\times 200^{1.05}\text{M} = $200M + $0.004\times 224\text{M} = $200M + $896M = $1.1B. Viable (revenue &gt; cost).</p>
+<p>At \(n=20\text{M}\): Revenue = $200M, Cost = $200M + $0.004\times 21.4\text{M} = $200M + $86M = $286M. Not viable. <strong>\(n_{\min}\approx 30\text{M}\).</strong></p>
+<p>Spotify was founded in 2006 and reached profitability only in 2023 with ~600M users, suggesting \(n_{\min}\) for full profitability (including content investment) was approximately 500&ndash;600M. The 17-year journey from launch to profitability illustrates the perilous nature of subscription models&rsquo; viability band.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The Spotify/iTunes transition validates the model&rsquo;s core mechanism: de-transactionalization amplifies anti-rivalry by a factor of \(\Delta\beta/\beta_{\text{trans}} = 0.20/0.05 = 4\times\), unlocking features (recommendations, social listening, discovery) that are impossible under transactional pricing. However, the model also correctly predicts the peril: the critical subscription mass is large, and the firm must survive an extended unprofitable period before reaching \(n_{\min}\). Spotify survived this gap through venture capital (\(>$4B\) raised before profitability) &mdash; a form of subsidy that the basic model does not endogenise.</p>
+</div>
+
+<!-- ========== CASE B ========== -->
+<h2>Case B: Netflix vs Blockbuster &mdash; Subscription Destroying Transactional Rivals</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>Blockbuster Video (per-rental transaction: ~$4/rental + late fees) vs Netflix (monthly subscription: $7.99&ndash;$22.99). Blockbuster filed for bankruptcy in 2010 with $900M in debt. Netflix reached 283M subscribers by 2025. The transition destroyed $6B in Blockbuster&rsquo;s peak market capitalization while Netflix&rsquo;s reached $300B+.</p>
+</div>
+
+<h3>Analysis</h3>
+
+<table>
+<tr><th>Parameter</th><th>Blockbuster</th><th>Netflix</th></tr>
+<tr><td>\(\beta_0\)</td><td colspan="2">0.20 (intrinsic anti-rivalry: shared viewing data enables better recommendations; communal viewing culture creates conversation value)</td></tr>
+<tr><td>\(p\) (per use)</td><td>$4.00/rental</td><td>$0/view</td></tr>
+<tr><td>\(V_0\)</td><td colspan="2">8 (entertainment value)</td></tr>
+<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.20 - 4/8 = -0.30\) (rival!)</td><td>\(0.20\)</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Striking Result: Transactional Pricing Makes Entertainment Rival</p>
+<p>Under Blockbuster&rsquo;s pricing, \(\beta_{\text{trans}} = 0.20 - 0.50 = -0.30\). The per-rental fee was so high relative to base value that it converted an intrinsically weakly anti-rival good into an <strong>effectively rival</strong> good. Each rental was a scarce, zero-sum transaction. Late fees further increased the rivalry: your retention of a DVD literally prevented others from watching it.</p>
+<p>Netflix&rsquo;s subscription eliminates this artificial rivalry entirely, restoring \(\beta_{\text{sub}}=0.20\). The shift from \(\beta=-0.30\) to \(\beta=+0.20\) crosses the rivalry&ndash;anti-rivalry boundary &mdash; a qualitative transformation, not merely a quantitative improvement.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The Netflix/Blockbuster case provides the strongest validation of the de-transactionalization model because the per-use price was so high that it actually <em>reversed the sign of the anti-rivalry parameter</em>. The model predicts that de-transactionalization is most disruptive when \(p/V_0\) is large enough to push \(\beta_{\text{trans}}\) below zero &mdash; converting an intrinsically anti-rival good into an effectively rival one. This is precisely what happened: physical video rental&rsquo;s transaction costs made entertainment rival, and subscription streaming made it anti-rival. The entire value proposition changed qualitatively, not just quantitatively.</p>
+</div>
+
+<!-- ========== CASE C ========== -->
+<h2>Case C: Adobe Creative Cloud &mdash; De-Transactionalization with Resistance</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>Adobe transitioned from perpetual licenses (~$2,600 for Creative Suite) to monthly subscriptions ($54.99/month for Creative Cloud) in 2013. Unlike music or video, design software&rsquo;s anti-rivalry is mediated through shared assets: templates, plugins, fonts, community tutorials, and shared project files. The transition was controversial, with significant user resistance.</p>
+</div>
+
+<h3>Analysis</h3>
+
+<table>
+<tr><th>Parameter</th><th>Perpetual License</th><th>Creative Cloud</th></tr>
+<tr><td>\(\beta_0\)</td><td colspan="2">0.15 (moderate anti-rivalry: shared templates, plugins, tutorials benefit all users, but core tool functionality is non-rival rather than anti-rival)</td></tr>
+<tr><td>\(p/V_0\)</td><td>Amortised: ~$100/month over 26 months = \(p/V_0 \approx 0.08\)</td><td>$0 per use</td></tr>
+<tr><td>\(\beta_{\text{eff}}\)</td><td>\(0.15 - 0.08 = 0.07\)</td><td>\(0.15\)</td></tr>
+<tr><td>\(\Delta\beta\)</td><td colspan="2">\(0.08\)</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Anti-Rivalry Amplification</p>
+\[
+\frac{V_{\text{CC}}}{V_{\text{perp}}} = \frac{n^{0.15}}{n^{0.07}}=n^{0.08}
+\]
+<p>At \(n=30\text{M}\) (Creative Cloud subscribers): \(30^{0.08}=e^{0.08\times 3.40}=e^{0.272}=1.31\).</p>
+<p>Only a <strong>31% improvement</strong> in per-user value &mdash; significant but not transformative. Compare with Spotify&rsquo;s 3.4&times; or Netflix&rsquo;s sign-reversal.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The Adobe case illustrates why de-transactionalization is <strong>less disruptive for weakly anti-rival goods</strong>. Design software&rsquo;s intrinsic anti-rivalry (\(\beta_0=0.15\)) is weaker than music or video because the core value proposition (image editing, layout) is non-rival, not anti-rival. The community layer (templates, plugins, tutorials) adds anti-rivalry, but it is secondary to the core tool functionality. Consequently, \(\Delta\beta=0.08\) is small, and the value amplification modest.</p>
+<p>This explains the user resistance to Creative Cloud: users paid roughly the same over time ($55/month &times; 12 = $660/year vs $2,600/26 months = $100/month) but perceived a loss of ownership (perpetual license) in exchange for a modest anti-rivalry benefit (cloud sync, collaboration features, community assets). The de-transactionalization was financially motivated by Adobe (recurring revenue is more predictable) rather than driven by unlocking anti-rival value.</p>
+</div>
+
+<div class="critical">
+<p class="lb">Critical Assessment</p>
+<p>The Adobe case challenges the model&rsquo;s assumption that de-transactionalization <em>always</em> amplifies anti-rivalry. When the good&rsquo;s core value is non-rival (tool functionality) rather than anti-rival (community effects), de-transactionalization primarily shifts the revenue model without meaningfully changing \(\beta_{\text{eff}}\). The model should distinguish between goods where anti-rivalry is primary (music, social networks) and goods where it is secondary (productivity tools). For the latter, de-transactionalization may be better understood as a financial engineering decision than an anti-rivalry amplification strategy.</p>
+</div>
+
+<!-- ========== SYNTHESIS ========== -->
+<h2>Cross-Case Synthesis</h2>
+
+<table>
+<tr><th>Metric</th><th>Spotify/iTunes</th><th>Netflix/Blockbuster</th><th>Adobe CC</th></tr>
+<tr><td>\(\beta_0\)</td><td>0.25</td><td>0.20</td><td>0.15</td></tr>
+<tr><td>\(p/V_0\)</td><td>0.20</td><td>0.50</td><td>0.08</td></tr>
+<tr><td>\(\Delta\beta\)</td><td>0.20</td><td>0.50 (sign change!)</td><td>0.08</td></tr>
+<tr><td>Value amplification at scale</td><td>3.4&times;</td><td>&infin; (rival &rarr; anti-rival)</td><td>1.3&times;</td></tr>
+<tr><td>Disruption intensity</td><td>High</td><td>Total</td><td>Moderate</td></tr>
+<tr><td>User acceptance</td><td>Enthusiastic</td><td>Enthusiastic</td><td>Resistant</td></tr>
+</table>
+
+<div class="finding">
+<p class="lb">Key Insights</p>
+<ol>
+<li><strong>De-transactionalization is most disruptive when \(p/V_0\) is large.</strong> When per-use pricing is high relative to base value, removing it produces a large \(\Delta\beta\) and potentially reverses the sign of effective anti-rivalry. Netflix/Blockbuster is the extreme case.</li>
+<li><strong>Intrinsic anti-rivalry determines the payoff.</strong> De-transactionalization only amplifies anti-rivalry that already exists. For goods with high \(\beta_0\) (music, social), the amplification is transformative. For goods with low \(\beta_0\) (productivity tools), it is marginal.</li>
+<li><strong>The viability band is the critical constraint.</strong> Subscription models must cross \(n_{\min}\) before running out of capital. Spotify took 17 years; Netflix took 10; Adobe achieved it quickly because it converted existing perpetual-license customers to subscribers (a captive conversion, not a cold start).</li>
+</ol>
+</div>
+
+<hr style="margin:2.5rem 0 1rem">
+<p style="text-align:center;font-size:.85rem;color:#999">Companion to <a href="egt_formalization.html" style="color:#999">EGT Formalization</a>, Section 6</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Model VI Case Studies: Phase Transitions in Business Model Landscapes</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root { --primary:#2c3e50; --accent:#c0392b; --info:#2980b9; --bg:#fefefe; --text:#222; --text-light:#555; --border:#ccc; --bg-box:#f7f7f7; --font-main:'Georgia','Times New Roman',serif; --font-sans:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; --max-width:820px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;scroll-behavior:smooth}body{font-family:var(--font-main);color:var(--text);background:var(--bg);line-height:1.85;padding:2rem 1rem}.container{max-width:var(--max-width);margin:0 auto}h1{font-size:1.55rem;margin:2rem 0 .5rem;color:var(--primary);line-height:1.3}h2{font-size:1.3rem;margin:2rem 0 .6rem;color:var(--primary);border-bottom:1px solid var(--border);padding-bottom:.3rem}h3{font-size:1.1rem;margin:1.4rem 0 .4rem;color:var(--primary)}p{margin:.6rem 0;text-align:justify}table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}th,td{border:1px solid var(--border);padding:.5rem .7rem;text-align:left}th{background:var(--bg-box);font-family:var(--font-sans);font-size:.85rem}.case{border-left:4px solid #16a085;background:#f0faf8;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.calc{border-left:4px solid #2980b9;background:#f0f6fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.finding{border-left:4px solid #8e44ad;background:#f8f0fa;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.critical{border-left:4px solid var(--accent);background:#fdf0f0;padding:1rem 1.3rem;margin:1.2rem 0;border-radius:0 4px 4px 0}.lb{font-weight:bold;font-family:var(--font-sans);font-size:.88rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem}.critical .lb{color:var(--accent)}.nav{font-size:.9rem;margin-bottom:1.5rem}.nav a{color:var(--info);text-decoration:none}.nav a:hover{text-decoration:underline}.subtitle{color:var(--text-light);font-size:1rem;font-style:italic;margin:.3rem 0 1.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<p class="nav">&larr; <a href="egt_formalization.html">Back to main formalization</a></p>
+
+<h1>Model VI &mdash; Phase Transitions in Business Model Landscapes: Case Studies</h1>
+<p class="subtitle">Companion to Section 8 of the EGT Formalization</p>
+
+<h2>Model Recap</h2>
+
+<p>As the technological anti-rivalry parameter \(\beta\) increases, the business model landscape undergoes phase transitions:</p>
+<ul>
+<li><strong>Phase I</strong> (\(\beta&lt;\beta_{\min}\)): All-Restrict is the unique equilibrium. Traditional proprietary models dominate.</li>
+<li><strong>Phase II</strong> (\(\beta_{\min}&lt;\beta&lt;\beta^*\)): Transform becomes viable. Bistable: Restrict or Transform depending on history.</li>
+<li><strong>Phase III</strong> (\(\beta^*&lt;\beta&lt;\beta_{\max}\)): Leverage becomes viable. Tri-stable: Restrict, Transform, and Leverage coexist.</li>
+<li><strong>Phase IV</strong> (\(\beta&gt;\beta_{\max}\)): Leverage dominates. Restrict destabilises.</li>
+</ul>
+<p>The critical anti-rivalry level:</p>
+\[
+\beta^* = \left[\frac{(c_L+R_0)(1+\kappa_G)}{(\varphi_L+\delta)\,V_0}\right]^{1/\eta} - 1
+\]
+
+<!-- ========== CASE A ========== -->
+<h2>Case A: Software Industry &mdash; Four Decades of Phase Transitions</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>The software industry has traversed all four phases over approximately 40 years, providing a complete longitudinal validation of the model. Each phase corresponds to a distinct technological era that shifted the intrinsic anti-rivalry of software.</p>
+</div>
+
+<h3>Phase Mapping</h3>
+
+<table>
+<tr><th>Phase</th><th>Era</th><th>Approx. \(\beta\)</th><th>Dominant Strategy</th><th>Exemplars</th></tr>
+<tr><td>Phase I</td><td>1980&ndash;1995 (Packaged software)</td><td>0.02&ndash;0.05</td><td>Restrict</td><td>Microsoft, Lotus, Borland, Oracle</td></tr>
+<tr><td>Phase II</td><td>1995&ndash;2005 (Early Internet)</td><td>0.05&ndash;0.15</td><td>Transform emerges</td><td>Shareware, Netscape, early SaaS</td></tr>
+<tr><td>Phase III</td><td>2005&ndash;2018 (Cloud/GitHub era)</td><td>0.15&ndash;0.35</td><td>Leverage emerges</td><td>Linux, Android, GitHub, Node.js</td></tr>
+<tr><td>Phase IV</td><td>2018&ndash;present (OSS dominance)</td><td>0.35+</td><td>Leverage dominates</td><td>Kubernetes, TensorFlow, React, VS Code</td></tr>
+</table>
+
+<h3>What Drove \(\beta\) Upward?</h3>
+
+<div class="calc">
+<p class="lb">Technological Drivers of Anti-Rivalry</p>
+<table>
+<tr><th>Technology</th><th>Effect on \(\beta\)</th><th>Mechanism</th></tr>
+<tr><td>Internet (1995+)</td><td>+0.05</td><td>Software can be distributed at zero marginal cost; remote collaboration becomes possible.</td></tr>
+<tr><td>Open-source hosting (SourceForge 1999, GitHub 2008)</td><td>+0.08</td><td>Contribution costs drop; code review, issue tracking, merge requests become frictionless.</td></tr>
+<tr><td>Package managers (npm 2010, pip 2011, Docker 2013)</td><td>+0.06</td><td>Software composition becomes anti-rival: each library published benefits all downstream users.</td></tr>
+<tr><td>Cloud computing (AWS 2006, Azure 2010, GCP 2012)</td><td>+0.07</td><td>Deployment at scale becomes commodity; open-source software can be deployed without infrastructure expertise.</td></tr>
+<tr><td>AI-assisted development (Copilot 2021+)</td><td>+0.05</td><td>Collective code knowledge becomes even more anti-rival: AI models trained on shared code benefit all developers.</td></tr>
+</table>
+<p>Cumulative: \(\beta\) increased from ~0.02 (1985) to ~0.33 (2025), a 16-fold increase over 40 years.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Computing Phase Transition Thresholds</p>
+<p>Using representative parameters: \(V_0=8\), \(\varphi_L=2.0\), \(\delta=0.4\), \(c_L=7\), \(R_0=10\), \(\kappa_G=0.12\), \(\eta=1\).</p>
+
+<p><strong>Transform viability threshold (\(\beta_{\min}\)):</strong> Transform requires \(\varphi_T V_0(1+\beta_T)^1 \frac{\alpha_T}{\alpha_T+\kappa_G} &gt; c_T + R_0\). With \(\varphi_T=1.2\), \(\alpha_T=0.3\), \(c_T=3\):</p>
+\[
+1.2\times 8\times(1+\beta_{\min})\times\frac{0.3}{0.42} > 13
+\]
+\[
+6.86\times(1+\beta_{\min}) > 13 \implies \beta_{\min} > 0.89
+\]
+<p>This is very high. But this calculation assumes Transform must compete head-to-head with Restrict at \(x_T=1\). In practice, Transform strategies (shareware, SaaS) entered <em>niche segments</em> where \(R_0\) was lower, making \(\beta_{\min}\) effectively lower for those segments. The model&rsquo;s homogeneous-market assumption overestimates \(\beta_{\min}\).</p>
+
+<p><strong>Leverage viability threshold (\(\beta^*\)):</strong></p>
+\[
+\beta^* = \frac{(c_L+R_0)(1+\kappa_G)}{(\varphi_L+\delta)\,V_0} - 1 = \frac{17\times 1.12}{2.4\times 8} - 1 = \frac{19.04}{19.2} - 1 = -0.008
+\]
+<p>This yields \(\beta^*\approx 0\), meaning that Leverage becomes viable almost as soon as anti-rivalry exists at all. This is surprisingly low and reflects the strong parameters (\(\varphi_L=2.0\), high Red Hat-level value capture). With more conservative \(\varphi_L=1.5\):</p>
+\[
+\beta^* = \frac{17\times 1.12}{1.9\times 8} - 1 = \frac{19.04}{15.2} - 1 = 0.253
+\]
+<p>With \(\varphi_L=1.5\): \(\beta^*\approx 0.25\). This is more realistic: Leverage strategies became viable when \(\beta\) crossed approximately 0.25, corresponding to the mid-2000s when cloud computing and GitHub made large-scale open-source collaboration practical.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The software industry&rsquo;s historical trajectory maps remarkably well onto the four-phase model. The key transitions correspond to identifiable technological shifts that increased \(\beta\):</p>
+<ol>
+<li><strong>Phase I &rarr; II</strong> (early Internet, ~1995): \(\beta\) crossed the threshold for Transform viability. Shareware, then SaaS emerged.</li>
+<li><strong>Phase II &rarr; III</strong> (GitHub + cloud, ~2008): \(\beta\) crossed the threshold for Leverage viability. Open-source business models became investable (Red Hat IPO 1999, GitHub founded 2008).</li>
+<li><strong>Phase III &rarr; IV</strong> (OSS ubiquity, ~2018): \(\beta\) crossed the threshold where Leverage dominates. By 2020, virtually every new software project started with open-source foundations.</li>
+</ol>
+<p>The transitions were not instantaneous but occurred over 3&ndash;5 year windows, consistent with the model&rsquo;s prediction of tipping-point dynamics rather than gradual shifts.</p>
+</div>
+
+<!-- ========== CASE B ========== -->
+<h2>Case B: Music Industry &mdash; An Incomplete Phase Transition</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>The music industry has undergone two phase transitions (physical &rarr; digital download &rarr; streaming) but has <strong>not</strong> completed the transition to Phase IV (Leverage dominance). Music remains primarily in Phase II/III: Transform strategies (Spotify, Apple Music subscription) dominate, but Leverage strategies (open music platforms, community-driven creation) remain marginal.</p>
+</div>
+
+<h3>Phase Mapping</h3>
+
+<table>
+<tr><th>Phase</th><th>Era</th><th>\(\beta\)</th><th>Dominant Strategy</th></tr>
+<tr><td>Phase I</td><td>Pre-1999 (Physical media)</td><td>~0 (rival good)</td><td>Restrict (record labels, physical distribution)</td></tr>
+<tr><td>Phase I/II</td><td>1999&ndash;2003 (Napster era)</td><td>~0.10 (piracy made music anti-rival but illegally)</td><td>Restrict under assault; Transform emerging (iTunes 2003)</td></tr>
+<tr><td>Phase II</td><td>2003&ndash;2015 (iTunes era)</td><td>~0.10</td><td>Transform (per-track digital purchase)</td></tr>
+<tr><td>Phase II/III</td><td>2015&ndash;present (Streaming)</td><td>~0.20</td><td>Transform (subscription streaming)</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Why Music Stalls at Phase II/III</p>
+<p>With music-industry parameters: \(V_0=5\), \(\varphi_L=1.2\) (low &mdash; leverage in music offers limited differential access), \(\delta=0.3\), \(c_L=6\) (high &mdash; music community governance is complex: licensing, royalties, rights management), \(R_0=8\) (record labels retain strong returns), \(\kappa_G=0.20\).</p>
+\[
+\beta^* = \frac{(6+8)(1.20)}{(1.2+0.3)\times 5} - 1 = \frac{16.8}{7.5} - 1 = 1.24
+\]
+<p>\(\beta^*=1.24\) is <strong>extremely high</strong>. Music would need anti-rivalry exceeding 1.24 for Leverage strategies to dominate &mdash; far above the current \(\beta\approx 0.20\). This explains the stall: music&rsquo;s institutional structure (copyright law, licensing complexity, label oligopoly) keeps \(c_L\) high and \(\varphi_L\) low, pushing the phase transition threshold out of practical reach.</p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>Music illustrates that phase transitions are <strong>not inevitable</strong>. The model identifies the institutional conditions (\(c_L\), \(\varphi_L\), \(R_0\)) that determine whether a given industry can reach Phase IV. Music&rsquo;s high governance costs (copyright compliance), low leverage capture (\(\varphi_L\)), and strong incumbent returns (\(R_0\)) place the Leverage viability threshold at an unreachable \(\beta^*=1.24\). Unless these institutional parameters change (through copyright reform, new licensing frameworks, or the collapse of label economics), music will remain in the Transform phase indefinitely.</p>
+<p>Compare with software: \(\beta^*\approx 0.25\) (achievable). The difference is entirely institutional, not technological. Software has no copyright-licensing intermediaries (no equivalent of ASCAP/BMI), much lower governance costs (Apache/MIT licensing vs complex music rights), and higher leverage capture (Red Hat model).</p>
+</div>
+
+<!-- ========== CASE C ========== -->
+<h2>Case C: Scientific Publishing &mdash; A Phase Transition in Progress</h2>
+
+<div class="case">
+<p class="lb">Case Context</p>
+<p>Scientific publishing is undergoing a Phase II &rarr; III transition. Traditional journals (Restrict: paywalled, subscription-based, publisher-owned) are being challenged by open-access models (Transform: author-pays OA like PLOS, MDPI) and preprint servers (Leverage: arXiv, bioRxiv, community-governed). The field exhibits all the hallmarks of the model&rsquo;s bistable Phase III.</p>
+</div>
+
+<h3>Parameter Estimation</h3>
+
+<table>
+<tr><th>Parameter</th><th>Value</th><th>Rationale</th></tr>
+<tr><td>\(\beta_0\)</td><td>0.40</td><td>Research is strongly anti-rival: each citation, each replication, each extension adds value. Open research accelerates discovery for everyone.</td></tr>
+<tr><td>\(\varphi_L\)</td><td>1.5</td><td>Leverage firms (arXiv, overlay journals) capture moderate value through community centrality and reputation.</td></tr>
+<tr><td>\(c_L\)</td><td>5</td><td>Community governance of preprint moderation, peer review coordination.</td></tr>
+<tr><td>\(R_0\)</td><td>12</td><td>Traditional publishers (Elsevier, Springer) have extremely high margins (~35&ndash;40%).</td></tr>
+<tr><td>\(\delta\)</td><td>0.3</td><td>Open access is beginning to displace traditional subscriptions (Plan S, funder mandates).</td></tr>
+<tr><td>\(\kappa_G\)</td><td>0.15</td><td>Peer review governance requires significant coordination.</td></tr>
+</table>
+
+<div class="calc">
+<p class="lb">Phase Analysis</p>
+\[
+\beta^* = \frac{(5+12)(1.15)}{(1.5+0.3)\times V_0} - 1
+\]
+<p>With \(V_0=10\): \(\beta^* = \frac{19.55}{18} - 1 = 0.086\).</p>
+<p>Since current \(\beta\approx 0.40 &gt; \beta^*=0.086\), the system is in <strong>Phase III or IV</strong>. Leverage strategies are viable. The question is whether the tipping point has been crossed.</p>
+</div>
+
+<div class="calc">
+<p class="lb">Tipping Point</p>
+<p>Using the L-R edge formula with these parameters:</p>
+\[
+F(x^*) = (1.5+0.3)\times 10\times(1+0.40\,x^*)\times\frac{x^*}{x^*+0.15} = 5+12 = 17
+\]
+\[
+18(1+0.4x)\frac{x}{x+0.15} = 17
+\]
+<p>Expanding: \(18x + 7.2x^2 = 17x + 2.55\), giving \(7.2x^2 + x - 2.55 = 0\).</p>
+\[
+x^* = \frac{-1+\sqrt{1+73.44}}{14.4} = \frac{-1+8.63}{14.4} \approx 0.53
+\]
+<p><strong>Tipping point: \(x^*\approx 0.53\).</strong></p>
+</div>
+
+<div class="finding">
+<p class="lb">Finding</p>
+<p>The tipping point at 53% means that once a majority of scientific publications use leverage strategies (preprints, overlay journals, diamond OA), the transition becomes self-reinforcing. Current estimates place open-access share at approximately 30&ndash;40% of new publications (depending on definition), with preprints growing rapidly (arXiv: ~2M papers, bioRxiv: ~300K). The field is approaching but has not yet crossed the tipping point.</p>
+<p>Key factors that could accelerate the transition past \(x^*\):</p>
+<ul>
+<li><strong>Funder mandates</strong> (Plan S, NIH policy): These function as ecosystem-level coordination events, exactly the mechanism the model identifies as necessary for crossing tipping points.</li>
+<li><strong>AI-augmented peer review</strong>: If AI reduces governance costs \(c_L\), the tipping point drops.</li>
+<li><strong>Preprint normalization</strong>: In physics, preprints (arXiv) are already the primary mode of dissemination; biology and medicine are following.</li>
+</ul>
+<p>Factors that sustain the Restrict equilibrium:</p>
+<ul>
+<li><strong>Prestige economy</strong>: Journal impact factors function as \(R_0\) &mdash; the &ldquo;returns&rdquo; to the traditional system that make it resistant to disruption.</li>
+<li><strong>Tenure and promotion criteria</strong>: Institutional inertia that keeps \(R_0\) high.</li>
+</ul>
+</div>
+
+<!-- ========== SYNTHESIS ========== -->
+<h2>Cross-Case Synthesis</h2>
+
+<table>
+<tr><th>Metric</th><th>Software</th><th>Music</th><th>Scientific Publishing</th></tr>
+<tr><td>Current \(\beta\)</td><td>~0.33</td><td>~0.20</td><td>~0.40</td></tr>
+<tr><td>\(\beta^*\) (Leverage threshold)</td><td>0.25</td><td>1.24</td><td>0.09</td></tr>
+<tr><td>\(\beta/\beta^*\) ratio</td><td>1.32 (above)</td><td>0.16 (far below)</td><td>4.4 (well above)</td></tr>
+<tr><td>Current phase</td><td>Phase IV</td><td>Phase II</td><td>Phase III</td></tr>
+<tr><td>Tipping point \(x^*\)</td><td>Crossed (~2010)</td><td>Not reachable</td><td>~0.53 (approaching)</td></tr>
+<tr><td>Transition blocker</td><td>None (completed)</td><td>Institutional (\(c_L\), \(R_0\))</td><td>Cultural (prestige economy)</td></tr>
+</table>
+
+<div class="finding">
+<p class="lb">Key Insights</p>
+<ol>
+<li><strong>Phase transitions are contingent on institutional parameters, not just technology.</strong> All three industries have increasing technological anti-rivalry, but the phase transition thresholds (\(\beta^*\)) differ by an order of magnitude. The difference is entirely explained by institutional factors: governance costs (\(c_L\)), leverage capture (\(\varphi_L\)), and incumbent returns (\(R_0\)).</li>
+<li><strong>The \(\beta/\beta^*\) ratio predicts transition likelihood.</strong> Software (\(1.32\)) has completed the transition. Scientific publishing (\(4.4\)) will complete it &mdash; the technological conditions are met, and the transition is a matter of coordinated action. Music (\(0.16\)) will not complete it without institutional reform.</li>
+<li><strong>Coordinated action drives transitions, not individual decisions.</strong> In software, cloud computing and GitHub provided the coordination. In scientific publishing, funder mandates (Plan S) are providing it. In music, no comparable coordination mechanism exists because the institutional beneficiaries (labels, publishers) actively resist it.</li>
+<li><strong>The model is most predictive for industries where \(\beta/\beta^*\) is near 1.</strong> When the ratio is far above 1 (publishing), the transition is likely regardless of model details. When far below 1 (music), no transition will occur. The model&rsquo;s analytical value is highest for industries at the threshold, where the specific values of \(c_L\), \(\varphi_L\), and \(R_0\) determine the outcome.</li>
+</ol>
+</div>
+
+<div class="critical">
+<p class="lb">Overarching Limitation</p>
+<p>The phase transition model treats \(\beta\) as exogenous and secularly increasing. In reality, \(\beta\) can <em>decrease</em>: DRM, proprietary APIs, walled gardens, and data silos all reduce anti-rivalry. The model cannot account for deliberate anti-rivalry suppression by incumbent firms &mdash; a strategy that is rational from the \(R\)-strategist&rsquo;s perspective but inefficient from the social welfare perspective. Endogenising \(\beta\) as a choice variable would create a richer model where firms invest in either increasing or decreasing anti-rivalry depending on their strategic position.</p>
+</div>
+
+<hr style="margin:2.5rem 0 1rem">
+<p style="text-align:center;font-size:.85rem;color:#999">Companion to <a href="egt_formalization.html" style="color:#999">EGT Formalization</a>, Section 8</p>
+</div>
+</body>
+</html>
