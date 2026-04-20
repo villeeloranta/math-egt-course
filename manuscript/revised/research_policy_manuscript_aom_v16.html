@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scarcity Channeling in Abundance-Generating Goods: A Business Model Analysis and Policy Framework</title>
+<style>
+body {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  line-height: 2;
+  color: #000;
+  background: #fff;
+  margin: 1in;
+  max-width: 6.5in;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1in;
+}
+h1, h2, h3 {
+  color: #000;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+/* Level 1: ALL CAPS, centered, bold */
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12pt;
+  border: none;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+/* Level 2: Title Case, flush left, bold */
+h3 {
+  text-align: left;
+  font-weight: bold;
+  font-size: 12pt;
+  font-style: normal;
+}
+p {
+  margin: 0 0 0 0;
+  text-indent: 0.5in;
+  text-align: left;
+}
+p.no-indent {
+  text-indent: 0;
+}
+.title-block {
+  text-align: center;
+  margin: 2em 0;
+}
+.title-block h1 {
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5em;
+  text-transform: none;
+}
+.title-block .authors {
+  font-size: 12pt;
+  font-style: italic;
+  margin: 0.5em 0;
+}
+.title-block .date {
+  font-size: 12pt;
+  margin: 0.5em 0;
+}
+.abstract-section {
+  margin: 2em 0;
+}
+.abstract-section .abstract-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 12pt;
+  margin-bottom: 1em;
+}
+.abstract-section .paper-title-above-abstract {
+  text-align: center;
+  font-weight: bold;
+  font-size: 12pt;
+  margin-bottom: 1em;
+  text-indent: 0;
+}
+.abstract-section p {
+  text-indent: 0;
+}
+.keywords {
+  font-size: 12pt;
+  margin: 1em 0 2em;
+  text-indent: 0;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 11pt;
+  line-height: 1.5;
+}
+th, td {
+  border: 1px solid #000;
+  padding: 0.4em 0.6em;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  font-weight: bold;
+}
+.ref-list {
+  font-size: 12pt;
+}
+.ref-list p {
+  text-indent: -0.5in;
+  padding-left: 0.5in;
+  margin: 0.3em 0;
+}
+.table-marker {
+  text-align: center;
+  margin: 2em 0;
+  text-indent: 0;
+}
+.figure-content {
+  margin: 2em 0;
+}
+.figure-content table {
+  font-size: 11pt;
+}
+</style>
+</head>
+<body>
+
+
+<div class="title-block">
+<h1>Scarcity Channeling in Abundance-Generating Goods: A Business Model Analysis and Policy Framework</h1>
+<p class="authors">Working Paper &mdash; Prepared for Research Policy</p>
+<p class="date">April 2026</p>
+</div>
+
+<div class="abstract-section">
+<p class="paper-title-above-abstract">Scarcity Channeling in Abundance-Generating Goods: A Business Model Analysis and Policy Framework</p>
+<p class="abstract-title">Abstract</p>
+<p>Abundance-generating goods&mdash;digital resources that increase in value with use&mdash;should produce boundless value through sharing, yet organizations that embrace sharing persistently generate new scarcities. We identify <em>scarcity channeling</em> as the structural mechanism underlying this paradox: any organizational arrangement engaging with abundance-generating goods must choose who bears the rival costs that sharing creates, and each choice generates a distinct scarcity. Through systematic analysis of 175 business model patterns (39 of which actively manage abundance generation) synthesized from 24 studies, we characterize a continuum of organizational responses. At one extreme, full restriction suppresses abundance generation entirely, creating artificial scarcity. At the other, unmanaged open access leaves rival complements unfunded. Between these extremes lies the analytically interesting space where organizations actively manage the tension&mdash;through transform strategies that partially restrict abundance to reduce rival cost pressure, firm subsidies (creating dependency scarcity), or community organization (creating governance scarcity). Our empirical analysis focuses on this middle space, where scarcity channeling is structural rather than contingent&mdash;better design changes which scarcity is created, not whether scarcity arises. Building on transformative innovation policy (K&ouml;nn&ouml;l&auml;, Eloranta, Turunen, &amp; Salo, 2021; Schot &amp; Steinmueller, 2018), we argue that governing digital socio-technical transitions requires resource-level theory that current TIP lacks. We identify governance infrastructure&mdash;moderation tools, dispute resolution platforms, contribution tracking systems&mdash;as a distinct public good category and develop three policy levers&mdash;governance infrastructure investment, business model transparency, and ecosystem plurality&mdash;as a scarcity-aware operationalization of TIP&rsquo;s ecosystem governance features (K&ouml;nn&ouml;l&auml; et al., 2021; Ghosh, Velasco, Chakraborty, Mguni, &amp; Yuana, 2025).</p>
+</div>
+
+<p class="keywords" style="text-indent: 0;"><strong>Keywords:</strong> abundance-generating goods; scarcity channeling; transformative innovation policy; ecosystem governance; directionality; information abundance; business model patterns; innovation policy; governance infrastructure; institutional complexity; governance trap</p>
+
+
+
+<h2>Introduction</h2>
+
+<p>In April 2014, a critical vulnerability was discovered in OpenSSL, the encryption library used by approximately two-thirds of all web servers. The software was a paradigmatic abundance-generating good: each code contribution, bug report, and security audit improved the library for all users, and its open-source nature meant that shared use produced shared improvement. Yet this maximally shared, maximally valuable piece of security infrastructure was maintained by a single full-time developer. The most widely deployed cryptographic library in the world was simultaneously the most under-resourced. The Heartbleed bug, which had gone undetected for two years, was the direct consequence. This paradox is not an anomaly. Wikipedia, the largest encyclopedia ever created through open sharing, has lost roughly half its active editors since 2007 while readership continued to grow&mdash;a pattern that has persisted and intensified in the decade since Halfaker, Geiger, Morgan, and Riedl (2013) first documented it. Android, subsidized by Google for over three billion devices, locks manufacturers into terms they cannot negotiate (European Commission, 2018). Shared datasets, open-source software, and collaborative platforms all exhibit the same pattern: the very property that makes these goods valuable&mdash;increasing returns to sharing&mdash;generates new and often hidden forms of scarcity.</p>
+
+<p>The explanation, we argue, is structural. Every abundance-generating resource depends on complementary resources that remain rivalrous: OpenSSL needed security reviewers, Wikipedia needs editors and moderators, Android needs OS maintenance and hardware compatibility testing. These rival complements&mdash;governance labor, infrastructure, curation capacity&mdash;are depleted by the same participation that creates the abundance. As more users share in the resource, its value grows, but the per-user availability of governance, moderation, and maintenance shrinks. The organization must intervene, and its response lies on a continuum. At one extreme, it can restrict access entirely, suppressing abundance generation and creating artificial scarcity. At the other, it can leave the resource fully open but unmanaged, allowing rival complements to erode. Between these extremes, organizations actively manage the tension: transform strategies can partially restrict abundance to reduce rival cost pressure, a firm can absorb the costs and extract rents (creating dependency scarcity), or a community can distribute the burden collectively (creating governance scarcity). We call the structural process by which these organizational responses generate new, characteristic forms of scarcity <em>scarcity channeling</em>. The question is not whether abundance creates scarcity, but which kind.</p>
+
+<p>Understanding scarcity channeling requires examining how organizations operationally manage the tension between abundance-generating and rival resources&mdash;which is fundamentally a business model question. An organization does not choose &ldquo;restriction&rdquo; or &ldquo;enhancement&rdquo; in the abstract; it adopts specific business model patterns&mdash;hidden revenue, freemium, open source, subscription&mdash;that implement a direction and create specific, traceable dependencies. Business model patterns are where the institutional choice becomes operationally concrete, where scarcity channeling becomes empirically observable, and where policy intervention becomes actionable. For this reason, we adopt the business model pattern (BMP) perspective (Gassmann, Frankenberger, &amp; Csik, 2014), which treats business models as combinations of reproducible building blocks, as our primary unit of analysis. This lens allows us to trace <em>how</em> scarcity is channeled through specific organizational mechanisms, to identify which pattern combinations create which scarcities, and to develop the operational specificity that innovation policy requires&mdash;moving from &ldquo;firm subsidization creates dependency&rdquo; (too abstract) to &ldquo;the hidden revenue pattern combined with platform lock-in creates opacity of data practices and unilateral terms changes&rdquo; (actionable).</p>
+
+<p>The observation that abundance creates new scarcities is not itself new. Simon (1971: 40&ndash;41) noted that &ldquo;a wealth of information creates a poverty of attention&rdquo;; Anderson (2009: 243) generalized the pattern as a business strategy maxim; Madison, Frischmann, Sanfilippo, and Strandburg (2022) argued that the sources and impacts of information abundance are interwoven with resource scarcity; and Desai and Lemley (2023) posed whether abundance will &ldquo;just create new forms of scarcity in others&rdquo; as an open research question. Yet none treated the conversion as <em>structural and inevitable</em>&mdash;a property of the coupled resource system rather than a business opportunity (Anderson, 2009) or a governance challenge amenable to institutional design (Madison et al., 2022).</p>
+
+<p>The policy conversation has moved as well. Innovation policy has developed through three generations: R&amp;D support, systems of innovation, and now transformative innovation policy (TIP), which aims to govern socio-technical transitions toward sustainability (Schot &amp; Steinmueller, 2018). TIP has articulated three pillars&mdash;directionality, experimentation, and reflexivity&mdash;and K&ouml;nn&ouml;l&auml; et al. (2021) have operationalized these at the ecosystem level through five governance features: diversity, connectivity, polycentricity, redundancy, and directionality. However, TIP has been developed primarily against physical socio-technical systems&mdash;energy, mobility, food&mdash;and has not grappled with the coupled resource structure of digital goods (Diercks, Larsen, &amp; Steward, 2019). The contemporary TIP research agenda (Ghosh et al., 2025) explicitly identifies &ldquo;knowledge infrastructure&rdquo; as under-theorized, and Fagerberg (2018) has critiqued TIP for under-theorizing the firm and business model levels. We argue that scarcity channeling provides the resource-level mechanism that TIP requires for digital socio-technical systems: it explains <em>why</em> certain digital ecosystems develop imbalances in diversity, redundancy, and polycentricity&mdash;the very features TIP seeks to govern&mdash;and it does so by tracing these imbalances to the organizational choices that channel rival-complement costs into specific scarcity types.</p>
+
+<p>Despite a half-century of recognitions, neither the literature on abundance-generating goods nor the business model literature has provided a systematic account of the <em>mechanism</em> by which abundance converts into specific scarcity types. The economic logic of abundance-generating goods&mdash;goods whose per-user value increases with the number of users (Cooper, 2006; Weber, 2004)&mdash;points toward maximal sharing, and innovation policy has accordingly moved toward openness: open access mandates, open data policies, open-source procurement requirements (Blind, 2012; Edler &amp; Fagerberg, 2017). But the literature has not explained why sharing-oriented arrangements persistently generate new scarcities rather than eliminating scarcity altogether. The literature on abundance-generating goods has established that markets fail to allocate these goods efficiently (Bliss &amp; Egler, 2020; Kubiszewski, Farley, &amp; Costanza, 2010) and that alternative organizing structures are needed (Nikander, Eloranta, Karhu, &amp; Hiekkanen, 2020), but has not identified the mechanism by which these alternatives each produce characteristic scarcities. The business model innovation literature has catalogued patterns (Gassmann et al., 2014; Remane, Hanelt, Tesch, &amp; Kolbe, 2017; Massa, Tucci, &amp; Afuah, 2017) and identified challenges associated with different approaches, but has not grounded these challenges in a unified mechanism. The institutional complexity literature has developed analytical tools for understanding how organizations manage competing logics in hybrid business models (Battilana &amp; Lee, 2014; Ocasio &amp; Radoynovska, 2016; Vaskelainen &amp; M&uuml;nzel, 2018), including the tension between scarcity and abundance logics (Daoud, 2018), but has not identified the specific scarcity that each complexity management approach creates. This gap matters because policy interventions that do not account for scarcity channeling risk merely shifting scarcity from one form to another&mdash;mandating open access without funding governance infrastructure, or regulating platform dependency without enabling community alternatives. We therefore ask: <em>through what mechanisms does abundance-driven value creation generate new scarcities, and what are the mechanisms&rsquo; implications for business model design and innovation policy?</em></p>
+
+<p>We address this question by formalizing <em>scarcity channeling</em> as the first systematic mechanism explaining <em>how</em> and <em>why</em> abundance converts into specific scarcity types&mdash;a phenomenon previously observed (Simon, 1971; Anderson, 2009) but never theorized at the mechanism level&mdash;and by deriving a scarcity-aware innovation policy framework from it. We argue that increasing returns to sharing do not eliminate scarcity but structurally channel it: any arrangement that engages with abundance-generating goods must choose who bears the rival costs that sharing creates, and each choice generates a distinct form of new scarcity. We characterize a continuum of organizational responses, from full restriction (which suppresses abundance generation) through active management strategies&mdash;partial restriction (transform), firm subsidization (creating dependency scarcity), and community organization (creating governance scarcity)&mdash;to unmanaged open access (which leaves rival complements unfunded). Drawing on a systematic analysis of 175 business model patterns synthesized from 24 studies (39 of which actively manage abundance generation) and institutional analysis, we focus on the middle space of this continuum where organizations actively utilize abundance, characterizing each strategy&rsquo;s viability conditions and welfare implications. </p>
+
+<p>The paper contributes to three literatures. First, to the literature on abundance-generating goods (Bliss &amp; Egler, 2020; Cooper, 2006; Kubiszewski et al., 2010; Weber, 2004) and the broader information economics of abundance (Raban &amp; W&#322;odarczyk, 2024), we formalize scarcity channeling as the mechanism explaining why abundance-driven value creation generates new scarcities rather than eliminating scarcity altogether&mdash;a pattern observed by Simon (1971) and elevated to a business strategy maxim by Anderson (2009), but never grounded in a resource-level model that generates specific predictions&mdash;and we characterize the distinct scarcity types this mechanism produces along a continuum from full restriction to active management of abundance. Second, to business model innovation research (Gassmann et al., 2014; Massa et al., 2017), we provide a framework explaining why certain business model pattern combinations succeed or fail, grounding the observation in scarcity channeling rather than abstract compatibility. Third, to transformative innovation policy (K&ouml;nn&ouml;l&auml; et al., 2021; Schot &amp; Steinmueller, 2018; Ghosh et al., 2025), we provide the resource-level mechanism TIP lacks for governing digital socio-technical transitions, and we identify governance infrastructure as a distinct category of public good&mdash;extending Eghbal&rsquo;s (2016) foundational argument from code to governance tools&mdash;that TIP&rsquo;s directionality principle requires but existing programs fail to fund. We develop three policy levers&mdash;governance infrastructure investment, business model transparency, and ecosystem plurality&mdash;aligned with TIP&rsquo;s ecosystem governance features.</p>
+
+<h2>Theoretical Foundations</h2>
+
+<h3>Abundance-Generating Goods and the Coupled Resource Model</h3>
+
+<p>The traditional economic taxonomy classifies goods along two dimensions: excludability and subtractability (Ostrom, 1990). Weber (2004) introduced the concept of <em>anti-rivalry</em>&mdash;negative subtractability, where a good increases in value with use rather than being depleted or unchanged&mdash;and Cooper (2006) subsequently formalized it within the economic goods taxonomy. We adopt the term <em>abundance-generating goods</em> to connect this property to the broader shift from scarcity to abundance in information economics (Raban &amp; W&#322;odarczyk, 2024). Subsequent work has established a three-way classification: rival goods decrease in value with use, non-rival goods remain unchanged, and abundance-generating goods increase in value with use (Kubiszewski et al., 2010; Nikander et al., 2020), as illustrated in Table 1.</p>
+
+<div style="margin: 1.5em 0;">
+<p class="no-indent" style="text-indent: 0;"><strong>Table 1.</strong> Rival, nonrival, and abundance-generating goods (adapted from Nikander et al., 2020).</p>
+<table>
+<thead>
+<tr><th></th><th colspan="3">Subtractability</th></tr>
+<tr><th>Excludability</th><th>Rival</th><th>Nonrival</th><th>Abundance-generating</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Excludable</td>
+<td>Private goods (e.g., coffee)</td>
+<td>Club/toll goods (e.g., museum visit)</td>
+<td>Network goods (e.g., closed data commons)</td>
+</tr>
+<tr>
+<td>Nonexcludable</td>
+<td>Common-pool goods (e.g., ocean fish)</td>
+<td>Public goods (e.g., public park)</td>
+<td>Symbiotic goods (e.g., contribution to an open-source code)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Two distinctions are essential for situating this paper&rsquo;s analysis. First, abundance generation is <em>not</em> network effects, although network effects are one mechanism through which it can arise (Katz &amp; Shapiro, 1985). Network effects describe demand-side complementarities: a telephone network becomes more useful as more people join, but the network itself is not improved by joining. Abundance generation describes a property of the good itself: each use, each modification, each instance of sharing adds value to the resource for all users. Open-source software exhibits increasing returns to sharing through code contributions and bug fixes; shared datasets exhibit it through increased statistical power and representativeness; collaborative knowledge bases exhibit it through improved coverage and cross-referencing. Second, abundance generation is not merely non-depreciation. A non-rival good (e.g., a broadcast signal) is unchanged by use; an abundance-generating good is <em>improved</em> by use. The distinction is consequential: non-rival goods face underprovision problems but not the scarcity channeling paradox we develop here.</p>
+
+<p>Abundance generation exists on a continuous spectrum. The degree to which a good increases in value with use varies across goods and contexts, and this degree tends to increase as technology evolves. Cloud infrastructure, open APIs, and generative AI all push goods further along the abundance spectrum over time, meaning that the organizational and policy challenges associated with increasing returns to sharing become progressively more pressing. Markets allocate abundance-generating goods poorly because the standard price mechanism breaks down: making such goods artificially scarce leads to underprovision, while zero-marginal-cost reproduction drives prices toward zero and producers exit the market (Bliss &amp; Egler, 2020; Weber, 2004). Under conditions of abundance, prices lose their informativeness as an allocative signal (Raban &amp; W&#322;odarczyk, 2024; Shampanier, Mazar, &amp; Ariely, 2007). This market failure has driven the development of alternative organizing structures&mdash;hybrid systems (Battilana &amp; Lee, 2014) including commons-based peer production (Benkler, 2006), open-source governance models, and public funding mandates (Kubiszewski et al., 2010)&mdash;that attempt to manage the tension of using rival resources to create and disseminate abundance-generating goods. Raban and W&#322;odarczyk (2024) argue that information abundance is now a first-order economic phenomenon requiring new theoretical models, and that the &ldquo;new imperfections&rdquo; that abundance produces &ldquo;are still not well characterized from an economic perspective&rdquo; (p. 12). The scarcity channeling concept that we develop in this paper provides such a characterization.</p>
+
+<p>The key to this characterization is that every abundance-generating resource depends on complementary resources that remain rivalrous. Open-source software requires server infrastructure and maintainer labor. Wikipedia articles require editorial review and vandalism patrol. Shared datasets require curation and quality control. The dependence of innovations on complementary assets is foundational in innovation economics: Teece (1986) established that who controls scarce complements (manufacturing, distribution, service) determines who profits from innovation. The coupling of abundant and scarce complements has been observed in business strategy&mdash;Anderson (2009) argued that firms should give away the abundant resource and monetize the scarce complement&mdash;in platform economics&mdash;Rochet and Tirole (2003) formalized how two-sided markets price across coupled resource types&mdash;and in recent work on bottleneck control in ecosystems, where actors capture value by controlling scarce positions (Jacobides, Cennamo, &amp; Gawer, 2024). The coupled resource model extends Teece&rsquo;s framework to abundance-generating goods, where the complementary assets are governance, moderation, and infrastructure rather than manufacturing and distribution. What has been missing is a <em>resource-level model</em> that explains why this coupling generates specific, predictable scarcity types rather than merely identifying it as a business opportunity. The effective value of any abundance-generating resource is determined by the interaction between its abundance potential and the availability of its rival complements. The abundance-generating component grows with participation: more users means more contributions, more bug fixes, more data, more cross-references. But the rival complements&mdash;governance labor, moderation capacity, infrastructure resources, curation effort&mdash;are depleted by participation: each additional user consumes maintainer attention, moderation capacity, and infrastructure resources. The tension is immediate: sharing-generated value rises with participation while rival complement availability falls.</p>
+
+<p>This coupled model yields a carrying capacity result: effective per-user value is maximized at an optimal community size, beyond which the strain on rival complements outpaces the abundance-driven gains. If rival complements are not replenished at the rate they are consumed, the overall quality of the resource degrades even as user numbers and content volume continue to rise&mdash;explaining why many digital commons appear thriving by standard metrics while the underlying governance infrastructure erodes. The organizational responses to this interaction lie on a continuum, from full restriction (suppressing abundance generation) through active management&mdash;partial restriction, firm subsidization, and community organization&mdash;to unmanaged open access. The coupled resource model provides the foundation for understanding why each position on this continuum produces distinct scarcity consequences.</p>
+
+<h3>Institutional Complexity as an Analytical Lens for Coupled Resource Systems</h3>
+
+<p>The coupled resource model establishes that abundance-generating goods depend on rival complements, creating a structural tension between the logic of abundance (share maximally to generate value) and the logic of scarcity (allocate finite resources efficiently). This tension is not merely economic but institutional: it confronts organizations with fundamentally misaligned value logics. The institutional complexity literature provides the analytical tools to understand how organizations navigate such misalignment.</p>
+
+<p>Institutional complexity arises when organizations operate in fields characterized by institutional plurality&mdash;multiple, only partly compatible institutional logics coexisting (Greenwood, Raynard, Kodeih, Micelotta, &amp; Lounsbury, 2011; Mair, Mayer, &amp; Lutz, 2015). For abundance-generating goods, this complexity is inherent: organizing rival goods follows what Daoud (2018) characterizes as the socioeconomic state of scarcity, oriented toward Pareto-optimal allocation under market logic, while organizing abundance-generating goods follows the logic of abundance, where value increases with sharing (Abbott, 2014; Daoud, 2018; Kubiszewski et al., 2010). We extend Daoud&rsquo;s framework by treating scarcity and abundance not merely as socioeconomic states but as competing <em>value logics</em> in the sense of Thornton et al. (2012)&mdash;an interpretive move justified by the observation that organizations engaging with coupled resource systems must simultaneously satisfy stakeholders operating under both logics, which is the defining condition of institutional complexity. Raban and W&#322;odarczyk (2024) document that this coexistence of scarcity and abundance is not transitional but persistent in information markets&mdash;scarce information coexists with abundant information even when efficient solutions are available. Organizations engaging with coupled resource systems must therefore manage both logics simultaneously, which is the defining condition of <em>institutional complexity</em> (Friedland &amp; Alford, 1991; Thornton, Ocasio, &amp; Lounsbury, 2012).</p>
+
+<p>The institutional complexity management literature identifies four archetypal approaches to managing such logic tensions (Battilana &amp; Lee, 2014; Kraatz &amp; Block, 2008; Oliver, 1991; Pache &amp; Santos, 2010; Pratt &amp; Foreman, 2000): (1) compartmentalization&mdash;decoupling the conflicting logics by structurally separating them; (2) defiance&mdash;suppressing one logic in favor of the other; (3) aggregation&mdash;negotiating a constructive compromise that maintains the coexistence of both logics; and (4) integration&mdash;devising creative solutions that discover a new shared logic between the initially conflicting positions. These approaches have been studied extensively in hybrid organizing, where organizations combine commercial and community-oriented logics (Battilana &amp; Lee, 2014; Mair et al., 2015; Ocasio &amp; Radoynovska, 2016).</p>
+
+<p>Daoud (2018) provides a theoretical bridge that directly connects these institutional complexity management approaches to the scarcity&ndash;abundance tension. He identified social strategies that actors using scarcity and abundance logics employ to deal with logic misalignment, and these strategies map systematically onto the institutional complexity management approaches (Table 2): compartmentalization and defiance correspond to &ldquo;defensive&rdquo; strategies; aggregation corresponds to &ldquo;reactive&rdquo; and &ldquo;adaptive&rdquo; strategies; and integration corresponds to &ldquo;creative&rdquo; strategies (Daoud, 2018: 214; B&aring;&aring;th &amp; Daoud, 2021).</p>
+
+<div style="margin: 1.5em 0;">
+<p class="no-indent" style="text-indent: 0;"><strong>Table 2.</strong> Institutional complexity management approaches vs. scarcity&ndash;abundance strategies (after Battilana &amp; Lee, 2014; Daoud, 2018).</p>
+<table>
+<thead>
+<tr><th>Institutional complexity management approaches (e.g., Battilana &amp; Lee, 2014)</th><th>Social strategies to overcome the conflict between the logics of scarcity and abundance (Daoud, 2018)</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Compartmentalization</td>
+<td>Defense (avoiding or attacking the conflicting logic)</td>
+</tr>
+<tr>
+<td>Defiance</td>
+<td>Defense (avoiding or attacking the conflicting logic)</td>
+</tr>
+<tr>
+<td>Aggregation</td>
+<td>Reactive (reducing the effect of the conflicting logic)</td>
+</tr>
+<tr>
+<td>Aggregation</td>
+<td>Adaptive (embracing the conflicting logic)</td>
+</tr>
+<tr>
+<td>Integration, creation of shared identities</td>
+<td>Creative (leveraging the conflicting logic)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Our framework builds on this bridge but reframes the strategic landscape in terms of a scarcity channeling continuum. At one extreme, compartmentalization and defiance approaches correspond to full <em>restriction</em>&mdash;they suppress abundance generation to avoid the institutional tension entirely. At the other extreme, unmanaged open access embraces sharing but fails to sustain rival complements. Between these extremes, aggregation and integration approaches embrace abundance generation while actively managing the rival cost tension. Within this active-management space, we identify three strategies: partial restriction (transform), which deliberately reduces abundance potential to lower rival cost pressure; firm subsidization, where a firm absorbs the rival costs and extracts disproportionate returns; and community organization, where the community collectively bears the rival costs. Each position on the continuum generates qualitatively different scarcities, as we demonstrate in the framework development section. Our empirical analysis focuses on this active-management space, where the interest lies in how abundance can be <em>utilized</em> rather than suppressed or left unmanaged. Institutional complexity management provides the analytical vocabulary for understanding <em>how</em> organizations respond to the coupled resource tension, while scarcity channeling identifies <em>what</em> each response produces.</p>
+
+<h3>Business Model Patterns as the Unit of Analysis</h3>
+
+<p>While institutional complexity management provides the analytical framework for understanding <em>how</em> organizations respond to the scarcity&ndash;abundance tension, the question remains: what is the appropriate unit of analysis for observing these responses in practice? We argue that business model patterns (BMPs) are that unit, and that the connection between institutional complexity management and business model analysis is well established. Taking a business model perspective in institutional analysis allows assessment of the ground-level implications of institutional logics in an organization&rsquo;s value creation and value-sharing governance practices (Ocasio &amp; Radoynovska, 2016). Recent work on hybrid business models has demonstrated that institutional complexity directly shapes business model design: business models in institutionally pluralistic fields become shaped by multiple logics, combining several values, beliefs, and constraints (Gregori, Wdowiak, Schwarz, &amp; Holzmann, 2019; Vaskelainen &amp; M&uuml;nzel, 2018). Business model innovators operating in such fields must cope with conflicting institutional demands through the same four approaches to institutional complexity management identified above (Battilana &amp; Lee, 2014; Ocasio &amp; Radoynovska, 2016; Pache &amp; Santos, 2013). Defensive responses (compartmentalization and defiance) frame complexity as incompatibility, whereas active responses (aggregation and integration) frame complexity as a paradox and a possibility for enhanced organizational performance (Ocasio &amp; Radoynovska, 2016). This established connection between institutional complexity management and hybrid business models validates our approach: we use institutional complexity management as the analytical lens and apply it to business model patterns as the empirical object.</p>
+
+<p>A business model can be defined in several ways (Massa et al., 2017). To allow a detailed analysis in our study, we adopted the approach closest to the institutional logic perspective: the business model as a value-creation logic of a firm (Casadesus-Masanell &amp; Ricart, 2010). From the operationalization perspective, we assessed business models from a BMP angle. The literature defines &ldquo;patterns&rdquo; as reproducible and configurable building blocks that provide a &ldquo;solution&rdquo; to a recurring &ldquo;problem&rdquo; (Alexander, Ishikawa, &amp; Silverstein, 1977: 17). Following this reasoning, BMPs aim to represent successful business models&rsquo; proven, repeatable components (Gassmann et al., 2014). Hence, business models can be perceived as combinations of different BMPs (Osterwalder &amp; Pigneur, 2010). BMPs have particular importance in business model innovation as new business models, especially ones that overcome the industry&rsquo;s dominant logic, can be efficiently envisioned by creatively combining existing patterns (Amshoff, D&uuml;lme, Echterfeld, &amp; Gausemeier, 2015; Gassmann et al., 2014).</p>
+
+<p>Scholarly interest in BMPs has increased over the past decade (e.g., Gassmann et al., 2013; L&uuml;deke-Freund, Carroux, Joyce, Massa, &amp; Breuer, 2018; Osterwalder &amp; Pigneur, 2010; Remane et al., 2017). Thus far, the most comprehensive (Remane et al., 2017) work on BMPs is authored by Gassmann et al. (2013, 2014); their approach also particularly emphasizes the reconfigurability perspective of patterns (Remane et al., 2017). Gassmann et al. (2013) analyzed 250 business models in different industries over a span of 25 years and identified 55 universal BMPs. Several studies have enhanced and augmented Gassmann et al.&rsquo;s pattern set: original models have evolved, and more models have been identified (Remane et al., 2017). However, the anchor point has remained the same.</p>
+
+<h3>Transformative Innovation Policy and the Governance of Digital Ecosystems</h3>
+
+<p>Transformative innovation policy (TIP) represents the third generation of innovation policy, moving beyond R&amp;D support (first generation) and systems of innovation (second generation) to address socio-technical transitions toward sustainability (Schot &amp; Steinmueller, 2018; Weber &amp; Rohracher, 2012). TIP is built on three pillars: <em>directionality</em>&mdash;the deliberate orientation of innovation toward societal goals; <em>experimentation</em>&mdash;the creation of protected spaces for testing novel configurations; and <em>reflexivity</em>&mdash;the capacity for ongoing monitoring and adjustment of innovation processes (Schot &amp; Steinmueller, 2018). K&ouml;nn&ouml;l&auml; et al. (2021) operationalized these principles at the ecosystem level through five governance features: diversity (variety of actors, strategies, and technologies), connectivity (linkages enabling knowledge flows), polycentricity (multiple centers of governance authority), redundancy (backup capacity against single points of failure), and directionality (alignment toward shared goals). This ecosystem-level vocabulary has become the operational framework for TIP implementation, with Ghosh et al. (2025) providing the contemporary synthesis of methods and challenges.</p>
+
+<p>TIP has been developed primarily through cases in physical socio-technical systems&mdash;energy transitions, sustainable mobility, food systems&mdash;where the resource structure is predominantly rival (Diercks et al., 2019). The extension to digital socio-technical systems is not straightforward. Digital ecosystems built on abundance-generating goods exhibit a fundamentally different resource structure: the core resource increases in value with use, but depends on rival complements whose per-user availability declines with participation. This coupled resource structure generates dynamics that TIP&rsquo;s current theoretical apparatus does not address. Specifically, TIP&rsquo;s ecosystem governance features&mdash;diversity, polycentricity, redundancy&mdash;presuppose a resource-level theory of <em>why</em> certain ecosystems develop imbalances in these features in the first place. For physical socio-technical systems, regime-level lock-in and incumbent resistance provide this explanation (Geels, 2002). For digital socio-technical systems built on abundance-generating goods, the explanation is different: it is scarcity channeling.</p>
+
+<p>Scarcity channeling provides the resource-level mechanism that bridges the coupled resource model to TIP&rsquo;s ecosystem-level features. When a firm subsidizes the rival costs of an abundance-generating good and extracts rents, the resulting dependency scarcity erodes <em>polycentricity</em> (governance authority concentrates in the subsidizing firm) and <em>diversity</em> (alternative organizational forms become unviable as the firm captures the user base). When a community bears the rival costs but the governance premium falls below the governance&ndash;content cost differential, the resulting governance scarcity erodes <em>redundancy</em> (single-maintainer vulnerability proliferates) and <em>connectivity</em> (governance bottlenecks impede knowledge flows between community nodes). And when policy pursues openness without funding governance infrastructure, it undermines TIP&rsquo;s <em>directionality</em> principle: the transition toward democratic digital infrastructure cannot be directed if the governance tools required for community-governed alternatives do not exist. The three policy levers developed later in this paper&mdash;governance infrastructure investment, business model transparency, and ecosystem plurality&mdash;are therefore not standalone recommendations derived from scarcity channeling alone, but scarcity-aware operationalizations of TIP&rsquo;s ecosystem governance features for digital goods. This reframing identifies a structural gap in how TIP has been developed and fills it with the resource-level theory that digital socio-technical transitions require.</p>
+
+<h2>Methods</h2>
+
+<p>We addressed our research question with a two-stage process: first, a literature review (to gather BMPs from studies), and second, a qualitative content analysis (targeting the gathered BMPs). The review built a foundation for our study with the composition of a comprehensive set of BMPs related to hybrid systems involving abundance-generating digital goods (Denyer &amp; Tranfield, 2009; Page et al., 2021). We then applied qualitative content analysis to the results of the review (BMPs and their descriptions) to recognize the institutional complexity management approaches, mechanisms, and metamechanisms used in the patterns to benefit from the abundance generation of digital goods (Elo &amp; Kyng&auml;s, 2008; Hsieh &amp; Shannon, 2005).</p>
+
+<h3>Literature Review</h3>
+
+<p><em>Search strategy.</em> Our review followed a predefined process to maintain transparency and rigor (Page et al., 2021), as illustrated in Figure 1. First, we conducted a literature search on existing BMP studies by using SciVerse Scopus and EBSCOhost Business Source Complete (results included until March 31, 2022). The terms &ldquo;pattern&rdquo; and &ldquo;archetype&rdquo; are used synonymously in the business model literature; hence, we used &ldquo;business model patterns&rdquo; and &ldquo;business model archetypes&rdquo; (and the same phrases in singular form), targeting the abstracts, titles, and keywords (in EBSCOhost: subject terms) of articles. We included only publications in peer-reviewed academic journals to ensure the reliability of our results. Furthermore, we included only articles written in English. The searches resulted in 73 studies from SciVerse Scopus and 47 from EBSCOhost. There were 40 duplicates.</p>
+
+<p><em>Article selection process.</em> We excluded the duplicates and screened the remaining abstracts (n = 80). Based on the abstracts, we excluded papers that clearly did not recognize BMPs (n = 13). We also excluded studies to which we had no access through our host university&rsquo;s databases or publicly available platforms (n = 5). Altogether, abstract-based screening excluded 18 articles, and we were left with 62 papers. The second screening involved full-text articles. We excluded papers that: (1) did not focus on BMPs related to digital goods at all (n = 15); (2) did analyze digital goods&ndash;related BMPs but applied them solely to rival resource contexts (e.g., digital platform used to facilitate physical product usage) (n = 7); (3) did not describe BMPs in enough detail to be further analyzed (n = 6); or (4) defined BMPs entirely differently than us (e.g., seeking holistic patterns instead of reconfigurable ones or seeking only abstract patterns) (n = 11). In total, we excluded in the second screening 39 papers and were left with 23 studies. The screening was made by two independently working researchers, and the results were compared and revised if needed (Denyer &amp; Tranfield, 2009).</p>
+
+<p>Finally, we added Gassmann et al.&rsquo;s (2013) article to the literature set. The 55-pattern set presented in that paper is the &ldquo;most comprehensive collection of business model patterns&rdquo; within the literature in the BMP research and practitioner domain (Remane et al., 2017: 7). Gassmann et al. (2013) also explicitly used the modular-combination approach to patterns that is appropriate for our study. Thus, only one seminal paper was used as an anchor point, as &ldquo;existing collections have a significant amount of overlap&rdquo; and &ldquo;applying several collections simultaneously leads to significant redundancies&rdquo; (Remane et al., 2017: 7&ndash;8). After the entire selection process, we were left with 24 articles for synthesis.</p>
+
+<div style="border: 1px solid #999; padding: 1.5em; margin: 1.5em 0; text-align: center;">
+<p class="no-indent" style="text-indent: 0;"><strong>Figure 1.</strong> Flow diagram for study selection (PRISMA).</p>
+<p class="no-indent" style="text-indent: 0; color: #666; font-style: italic;">[Figure to be inserted]</p>
+</div>
+
+<p><em>Synthesizing the results.</em> As the last stage of the literature review, each included article was further analyzed, aiming to form an overall view of the BMPs appearing in them. Altogether, we recognized 227 patterns (including duplicates). We removed potentially duplicate patterns as follows: (1) We extracted all the patterns to a table with pattern names and the author descriptions of them; and (2) we compared the results with the original patterns recognized in Gassmann et al.&rsquo;s (2013) study by reading BMP descriptions and evaluating whether they correspond to Gassmann et al.&rsquo;s (2013) patterns. Two researchers made the comparisons independently; results were compared and carefully revised as needed (Denyer &amp; Tranfield, 2009). We noted (i) patterns that were already included in (or were the same as) Gassmann et al.&rsquo;s patterns, (ii) patterns that were incrementally developed from the original Gassmann et al. patterns, and (iii) entirely new patterns. Patterns duplicating Gassmann et al.&rsquo;s (2013) (n = 46) were grouped and counted as one each. In the process, we also noted that the pattern set had duplicates with the patterns of Bocken, Short, Rana, and Evans (2014) (n = 6); those duplicates were also removed. The synthesis and removal of duplicates resulted in 175 patterns.</p>
+
+<h3>Qualitative Content Analysis</h3>
+
+<p><em>First stage.</em> We used deductive and inductive qualitative content analyses to proceed with the detailed description of the recognized BMPs (Elo &amp; Kyng&auml;s, 2008; Hsieh &amp; Shannon, 2005). Figure 2 illustrates our analysis process. We focused on how the description explains the institutional complexity management approach used in the BMP (in practice: how the BMP tries, in broad and specific levels, to benefit from the abundance generation of digital goods by managing institutional complexity).</p>
+
+<div style="border: 1px solid #999; padding: 1.5em; margin: 1.5em 0; text-align: center;">
+<p class="no-indent" style="text-indent: 0;"><strong>Figure 2.</strong> Flow of qualitative analysis.</p>
+<p class="no-indent" style="text-indent: 0; color: #666; font-style: italic;">[Figure to be inserted]</p>
+</div>
+
+<p>Our analysis began by coding all the 175 patterns with predetermined codes (Elo &amp; Kyng&auml;s, 2008). Existing theory on institutional logic alignment approaches (Battilana &amp; Lee, 2014) was used deductively to set a directed starting point (Elo &amp; Kyng&auml;s, 2008; Potter &amp; Levine-Donnerstein, 1999). The data were thus analyzed from the perspective of institutional complexity management approaches: (1) compartmentalization: strive for logic avoidance, (2) defiance: seek defiance over other logic, (3) aggregation: find an adaptive solution, and (4) integration: innovate a shared logic (Battilana &amp; Lee, 2014). All listed BMP descriptions were read through. Each pattern was assigned a code that tells the complexity management approach used with a short explanation. As our interest lies in how abundance can be <em>utilized</em> rather than suppressed, we focused on patterns in the active-management space of the continuum&mdash;those using &ldquo;aggregation&rdquo; (n = 16) or &ldquo;integration&rdquo; (n = 23) approaches. We omitted patterns at the restriction extreme: &ldquo;compartmentalization&rdquo; (not considering the interaction of abundance-generating and rival goods) (n = 76) and &ldquo;defiance&rdquo; (forcing artificial scarcity onto digital goods or not considering rival good finiteness) (n = 33). We also excluded patterns that were focused solely on non-digital goods (n = 31).</p>
+
+<p><em>Second stage.</em> We then focused on the underlying concrete mechanisms and metamechanisms (mechanism categories) that instantiate the complexity management approach used in the BMP. At this stage, we moved toward inductive content analysis, allowing the mechanisms to flow from the BMP descriptions (Elo &amp; Kyng&auml;s, 2008). We used open coding to track the mechanisms from each BMP description. Each mechanism was given a code that best describes its operation. New mechanisms similar to each other were combined. The recognized mechanisms were further grouped into metamechanisms based on how they approach the scarcity&ndash;abundance dilemma at a broad level (Coffey &amp; Atkinson, 1996; Elo &amp; Kyng&auml;s, 2008). Figure 3 visualizes the resulting data structure. Two researchers conducted the analysis, and disagreements were elaborated.</p>
+
+<div style="border: 1px solid #999; padding: 1.5em; margin: 1.5em 0; text-align: center;">
+<p class="no-indent" style="text-indent: 0;"><strong>Figure 3.</strong> Data structure.</p>
+<p class="no-indent" style="text-indent: 0; color: #666; font-style: italic;">[Figure to be inserted]</p>
+</div>
+
+<h3>Limitations</h3>
+
+<p>As in any research, our study has certain limitations. First, our reliance on the classifications and descriptions of BMPs being provided by the literature might lead to misinterpretation or oversimplification. The implementations of the identified BMPs in business contexts may include nuances not fully captured in the academic descriptions. In addition, the definition of key constructs may vary slightly between the included papers, causing inconsistency in our analysis. We have tried to mitigate these issues by being careful in analyzing how the papers define and elaborate BMPs and, in some cases, excluding studies that do not have fit with our conceptual approach or lack the needed level of detail.</p>
+
+<p>Second, our approach to identifying and categorizing institutional complexity management mechanisms and metamechanisms was inductive, relying on the depth and quality of descriptions provided in the original articles and on our subjective interpretation. This could introduce a risk that specific mechanisms may have been overlooked or misclassified. We employed multiple researchers and an iterative method in our analysis to mitigate this issue, continually revisiting and revising our interpretations and classifications throughout the research process.</p>
+
+<p>Third, as in any literature-based study, some relevant studies may have been inadvertently omitted due to our selection criteria, leading to significant BMPs not being captured in the analysis. We considered broadening the search terms beyond the ones we used (e.g., with the term &ldquo;business model template&rdquo;), but this would have introduced potential issues with construct validity. Indeed, during the review process, we had to exclude some studies due to differing definitions of BMPs (as described earlier).</p>
+
+<h2>Findings</h2>
+
+<p>In the following, we present the results of our analysis on how BMPs, as reported in the literature, strive to benefit from the abundance generation of digital goods through institutional complexity management. We describe seven identified complexity management mechanisms (and related BMPs).</p>
+
+<h3>Using Communities to Minimize Rival Costs and Maximize Abundance-Driven Value</h3>
+
+<p>Several BMPs sought abundance benefits by increasing community involvement in the digital good&rsquo;s design, production, or governance and decentralizing the necessary rival resource costs. The scope of community involvement varied from networks of individuals to networks of firms. Also, the governance structures varied from ad hoc to contractual constellations. At heart, the idea most often was to organize as indicated in the &ldquo;peer-to-peer&rdquo; (Gassmann et al., 2013) and &ldquo;nodes&rdquo; (Curtis, 2021) patterns, in which actors collectively structure for a common purpose. The &ldquo;repurpose for society&rdquo; pattern also highlighted how an existing business model can transition toward a community orientation (Bocken et al., 2014). Two patterns directly connected increased abundance-generating digital good sharing in communities to improved quality of the good: &ldquo;increase quality through participation&rdquo; (Zeleti, Ojo, &amp; Curry, 2016) and &ldquo;review system&rdquo; (Curtis, 2021) seek positive network effects through goods&rsquo; abundance-generating characteristics and consider that such effects completely outweigh the related rival resource usage.</p>
+
+<p>Further, the &ldquo;crowdsourced innovation&rdquo; pattern (Weking, St&ouml;cker, Kowalkiewicz, B&ouml;hm, &amp; Krcmar, 2020) focuses on using the power of crowds to come up with innovation-related contributions. The &ldquo;crowdsourcing&rdquo; pattern is thus more generally about relying on crowds for operational contributions (Curtis, 2021; Gassmann et al., 2013; L&uuml;deke-Freund et al., 2018; Yablonsky, 2017). &ldquo;Open source&rdquo; is a particular instantiation of crowdsourcing in technical development (Curtis, 2021; Gassmann et al., 2013; Zeleti et al., 2016), and &ldquo;crowdfunding&rdquo; (Curtis, 2021; Gassmann et al., 2013; L&uuml;deke-Freund et al., 2018) in rival resource cost decentralization.</p>
+
+<p>In turn, the &ldquo;adopt a stewardship role&rdquo; (Bocken et al., 2014) and &ldquo;community governance&rdquo; (Curtis, 2021) patterns extend the community use to decision-making related to digital goods. Such governance arrangements can give actors the possibility of defining the product&rsquo;s value themselves without inhibiting abundance generation, as the pattern &ldquo;pay what you want&rdquo; (Curtis, 2021; Gassmann et al., 2013) particularly highlights.</p>
+
+<p>In the &ldquo;open business model,&rdquo; crowd collaboration reaches the industrial level; here, cocreating companies actively seek ways to partner to extend their business (Gassmann et al., 2013). In such constellations, &ldquo;revenue sharing&rdquo; is a prevailing pattern to enhance symbiotic effects (Gassmann et al., 2013). Further, know-how and available assets are shared in line with the pattern &ldquo;make more of it&rdquo; (Gassmann et al., 2013) to seek complexity leverage.</p>
+
+<p><em>Simple example of the mechanism.</em> An online-based crowdsourced film studio that helps creators build audiences through crowdfunding. Audiences can watch movies and shows through on-demand streaming. The platform maximizes the sharing of movie ideas and experiences, while decentralizing production and maintenance costs.</p>
+
+<h3>Subsidizing Sharing-Related Rival Costs to Allow Abundance-Driven Sharing</h3>
+
+<p>In eight patterns, free sharing of abundance-generating digital goods was allowed using rival resources of some other business unit or external actor. The motivation for such subsidization is that the party giving rival resources gains disproportionate benefits from the abundance-generating digital good sharing. In the &ldquo;free as branded advertising&rdquo; (Zeleti et al., 2016), &ldquo;sponsorship&rdquo; (Zeleti et al., 2016), &ldquo;hidden revenue&rdquo; (Gassmann et al., 2013; Yablonsky, 2017), and &ldquo;free&rdquo; (Curtis, 2021) patterns, this means gaining information (an abundance-generating digital good) related to customer sentiment or to product or service usage or to building a better brand image. In the &ldquo;one-sided social mission,&rdquo; &ldquo;two-sided social mission,&rdquo; and &ldquo;commercially utilized social mission&rdquo; patterns (L&uuml;deke-Freund et al., 2018), the abundance-driven returns were connected to the social mission of the parties providing rival resources. A particular instance of these generic patterns was the &ldquo;experience broker,&rdquo; who accumulates actor know-how and mediates it to the social target groups who need such information (L&uuml;deke-Freund et al., 2018).</p>
+
+<p><em>Example.</em> A work-related social media platform that provides infrastructure for professionals to connect. Sharing of work-related content, links, and memes is maximized. The costs are subsidized with revenue coming from the intelligence gathered from the network.</p>
+
+<h3>Shifting the Revenue Focus from Rival Resource Usage to Abundance-Driven Results</h3>
+
+<p>Three patterns in our literature set manage institutional complexity by shifting the revenue source focus from the rival resource usage to the actual business benefit created (which, in these cases, is perceived as abundance-generating). Involved actors decide on what is mutually valuable; this functions as a jointly agreed metric of success. Such a logic leads to sustainable use of rival resources and allows maximizing the sharing of abundance-generating resources (as they are no longer in revenue focus). This approach was directly visible in the &ldquo;performance-based contracting&rdquo; (Gassmann et al., 2013; Yablonsky, 2017), &ldquo;guaranteed availability&rdquo; (Gassmann et al., 2013), and &ldquo;result as a service&rdquo; (Weking et al., 2020) patterns.</p>
+
+<p><em>Example.</em> An online media agency that distributes ads in a large-scale content network. Plain visibility in the network is almost free. Customers pay based on conversions (e.g., people signing up to a marketed service after clicking an online ad). The best performing ads are prioritized in the network to keep the network&rsquo;s rival resource usage sustainable.</p>
+
+<h3>Creating Parallel Offerings</h3>
+
+<p>Four BMPs aimed to decrease scarcity&ndash;abundance tension by developing parallel offerings that enable businesses to at least partially benefit from the abundance-generating nature of digital goods while supporting rival resource costs. In practice, these patterns allow businesses to offer (almost) free sharing of abundance-generating digital goods to (almost) all users while creating an additional offering with more options at an added cost to specific users.</p>
+
+<p>At a concrete level, in the &ldquo;dual-licensing&rdquo; pattern (Zeleti et al., 2016), the business offered free data for noncommercial uses, along with a limited availability of useful free data to the public while charging rival compensation for the commercial use of data (often of a higher quality and perceived value) (Zeleti et al., 2016). This pattern can leverage abundance generation through the free dissemination of some data while covering its (often infrastructural) costs through additional offerings. Also, access to data can thereby be democratized, as the pattern &ldquo;demand-oriented platform&rdquo; highlights (Zeleti et al., 2016).</p>
+
+<p>A slight variation is the &ldquo;charging for changes&rdquo; pattern, in which some basic data and data-oriented services were provided freely to all customers, while customization and changes requested by the customer were charged for (Zeleti et al., 2016: 540). More generically, the mechanism of parallel offerings is also exhibited by the &ldquo;freemium&rdquo; BMP (Gassmann et al., 2013; L&uuml;deke-Freund et al., 2018; Weinberger, Bilgeri, &amp; Fleisch, 2016; Yablonsky, 2017; Zeleti et al., 2016), in which a &ldquo;generally smaller volume of paying &lsquo;premium customers&rsquo; generate[s] the revenue, which also cross-finances the free offering&rdquo; (Gassmann et al., 2013: 7).</p>
+
+<p><em>Example.</em> A reader-funded news platform that relies on the reader&rsquo;s generosity and complementary added-value services. The outlet is available to everyone for free, but as a paid customer, one also has access to certain unique features.</p>
+
+<h3>Enabling Abundance Generation through De-Transactionalization</h3>
+
+<p>We identified four BMPs that switched from transactional (exchange) models to those that support the additive utilization (sharing) of abundance-generating digital goods. This was best elucidated by the &ldquo;flat rate&rdquo; BMP, which states that &ldquo;a single fixed fee for a product or service is charged, regardless of actual usage or time restrictions on it&rdquo; (Gassmann et al., 2013: 6). In a broadly analogous manner, the &ldquo;subscription&rdquo; pattern (Curtis, 2021; Gassmann et al., 2013; L&uuml;deke-Freund et al., 2018; Yablonsky, 2017) deploys a similar logic: users are charged a &ldquo;rolling fee typically on a monthly basis or annual basis,&rdquo; irrespective of use (L&uuml;deke-Freund et al., 2018, Appendix 1). Other BMPs that adopted this mechanism were &ldquo;membership&rdquo; (Curtis, 2021) and &ldquo;license&rdquo; (Gassmann et al., 2013).</p>
+
+<p><em>Example.</em> A platform that employs a subscription pattern wherein users pay a recurring monthly or annual fee for unrestricted access to a vast library of music, disregarding the amount of use. Similarly, a premium membership model allows premium subscribers additional benefits like ad-free listening and offline access.</p>
+
+<h3>Converting the Resource for Better Fit with Abundance Generation</h3>
+
+<p>Three BMPs addressed scarcity&ndash;abundance tensions by the conversion of assets offered by the business to enable limited (excludable) forms of sharing. In these patterns, rival assets are developed into (somewhat) shareable assets that support abundance-generating behavior. This is achieved through (1) converting physical assets into partially or entirely virtual ones and (2) providing value to users through allowing sharing, as opposed to exclusive ownership, of the assets.</p>
+
+<p>The conversion of physical assets into partial or fully virtual assets is exemplified by the &ldquo;digitalization&rdquo; pattern (Gassmann et al., 2013), which relies on an organization&rsquo;s ability &ldquo;to turn existing products or services into digital variants&rdquo; that can provide &ldquo;advantages over tangible products, e.g., easier and faster distribution&rdquo; (Gassmann et al., 2013: 6). In turn, the &ldquo;sharing business&rdquo; (L&uuml;deke-Freund et al., 2018) and &ldquo;unbundling&rdquo; (Curtis, 2021) patterns effectively highlight the possibilities of providing multi-party access to resources, and sharing them, as opposed to exclusive ownership.</p>
+
+<p><em>Example.</em> A platform that converts music production assets to easily shareable and recombinable formats, such as samples, loops, and virtual instruments. The business fosters a community of musicians who can create, collaborate, and remix using each other&rsquo;s projects, thereby promoting efficient utilization and recombination of available assets.</p>
+
+<h3>Facilitating Shared Ownership</h3>
+
+<p>The &ldquo;fractional ownership&rdquo; pattern aims to diminish rival resource constraints on abundance-driven sharing by converting the ownership of a rival asset to a shared one among a group of stakeholders (Curtis, 2021; Gassmann et al., 2013; L&uuml;deke-Freund et al., 2018; Yablonsky, 2017). The &ldquo;no dividends&rdquo; pattern (L&uuml;deke-Freund et al., 2018) also enables investing economic surplus back into the jointly developed resource base. While ownership is a rival concept, this community-based ownership approach can help avoid scarcity-oriented issues, thereby managing scarcity&ndash;abundance tensions. In this multi-stakeholder approach, the assets provided by the business are subsequently &ldquo;owned and managed by cooperative members&rdquo;&mdash;where members can, for example, &ldquo;be retail consumers, users of services, employees, suppliers, or the local community&rdquo; (L&uuml;deke-Freund et al., 2018: Appendix 1). Such a model can benefit from the abundance-generating nature of the asset in terms of sharing and utilization while potentially encouraging the different owners to collectively organize for common purposes.</p>
+
+<p><em>Example.</em> A blockchain-enabled network that allows shared ownership schemes for a decentralized technological infrastructure. The ownership is organized with digital tokens that represent a share of the network&rsquo;s valuation, tied to the utility of the network. Transferring ownership of the tokens is moderated by the network&rsquo;s code-based constitution, preventing token speculation and rent-seeking.</p>
+
+<h3>Toward Metamechanism Identification</h3>
+
+<p>The analysis revealed that the seven complexity management mechanisms embody three distinct categories, or metamechanisms, for managing the business benefits associated with the abundance-generating nature of digital goods. The first metamechanism&mdash;dubbed <em>large-scale collaboration to minimize individuals&rsquo; rival costs</em>&mdash;comprises the mechanisms &ldquo;using communities to minimize rival costs and maximize abundance-driven value&rdquo; and &ldquo;facilitating shared ownership.&rdquo; The second metamechanism, entitled <em>seeking abundance leverage from rival investments</em>, includes &ldquo;subsidizing sharing-related rival costs to allow abundance-driven sharing&rdquo; and &ldquo;shifting the focus toward abundance-driven results.&rdquo; The third category, <em>asset and offering transformation toward abundance generation</em>, consists of &ldquo;enabling abundance generation through de-transactionalization,&rdquo; &ldquo;creating parallel offerings,&rdquo; and &ldquo;converting the resource for better fit with abundance generation.&rdquo; We reflect the resulting three metamechanisms in the following.</p>
+
+<h3>Metamechanism I: Large-Scale Collaboration to Minimize Individual Rival Costs</h3>
+
+<p>The first metamechanism addresses the scarcity&ndash;abundance tension by distributing rival costs across a large community, so that each individual&rsquo;s contribution is small relative to the collective abundance benefit. The underlying institutional logic is one of collective action: if the abundance-generating resource benefits everyone, and if the rival costs of maintaining it can be parceled into individually manageable contributions, then the community as a whole can sustain what no individual could. This metamechanism encompasses the mechanisms &ldquo;using communities to minimize rival costs&rdquo; and &ldquo;facilitating shared ownership,&rdquo; comprising 16 business model patterns.</p>
+
+<p>Within this metamechanism, several patterns extend community involvement beyond content creation to the governance of the abundance-generating resource itself. The &ldquo;stewardship role&rdquo; and &ldquo;community governance&rdquo; patterns use community-based decision-making, while &ldquo;fractional ownership&rdquo; and &ldquo;no dividends&rdquo; restructure ownership so that rivalrous costs are shared by design. At the industrial level, the &ldquo;open business model&rdquo; pattern extends collaboration to inter-firm partnerships.</p>
+
+<p>The large-scale collaboration metamechanism faces a persistent accountability challenge. When the abundance benefit is available to all regardless of contribution, the community must find ways to ensure active participation and prevent free-riding. This challenge intensifies with scale: coordination overhead grows as the community expands, and the signal-to-noise ratio for governance labor declines. In TIP terms, this is a challenge of insufficient redundancy in governance labor (K&ouml;nn&ouml;l&auml; et al., 2021): single-maintainer vulnerability proliferates, and governance bottlenecks impede the connectivity between community nodes that ecosystem resilience requires.</p>
+
+<h3>Metamechanism II: Seeking Abundance Leverage from Rival Investments</h3>
+
+<p>The second metamechanism addresses the scarcity&ndash;abundance tension by having a firm invest in rivalrous complements and extract value through the abundance dimension&mdash;leveraging the increasing returns from participation to generate revenue without per-unit access fees. The underlying institutional logic is one of strategic subsidization: a firm covers the rival costs that would otherwise constrain sharing, thereby maximizing participation in the abundance-generating resource, and then extracts a return through mechanisms that are enhanced by the larger user base. This metamechanism encompasses &ldquo;subsidizing sharing-related rival costs,&rdquo; &ldquo;shifting the revenue focus to abundance-driven results,&rdquo; and &ldquo;creating parallel offerings,&rdquo; comprising 11 business model patterns.</p>
+
+<p>The firm-subsidy metamechanism faces a transparency challenge. The subsidizing firm has structural incentives to opacity, because its ability to extract value&mdash;through data monetization, algorithmic control, or lock-in&mdash;depends on users not fully understanding or being able to replicate the extraction mechanism. The tension between extraction (which requires opacity) and participation (which rewards trust) is inherent in the leverage-seeking logic. At the ecosystem level, this is the mechanism by which polycentricity and diversity erode (K&ouml;nn&ouml;l&auml; et al., 2021): as the subsidizing firm concentrates governance authority, alternative organizational forms become unviable and the ecosystem loses the variety of actors and strategies that TIP identifies as essential for adaptive capacity.</p>
+
+<h3>Metamechanism III: Asset and Offering Transformation</h3>
+
+<p>The third metamechanism addresses the scarcity&ndash;abundance tension by restructuring the relationship between the rival and abundance-generating components of the offering, reducing the coupling between them. Rather than embracing the full institutional complexity of a hybrid system, transformation strategies seek to decrease the complexity by converting the offering into a form that is more compatible with abundance generation. This metamechanism encompasses &ldquo;enabling abundance generation through de-transactionalization&rdquo; and &ldquo;converting the resource for better fit with abundance generation,&rdquo; comprising 8 business model patterns (plus 4 from &ldquo;creating parallel offerings&rdquo; which bridges Metamechanisms II and III).</p>
+
+<p>The transformation metamechanism faces a valuation dilemma. De-transactionalization reduces extraction opportunities (the firm captures less per interaction), while resource conversion may reduce the value of the rivalrous component that the firm is best positioned to provide. The organization must find a level of transformation that sustains revenue without fully suppressing the abundance benefit.</p>
+
+<p>When reflected against the institutional complexity management literature, the first two metamechanisms exhibit a symbiosis-seeking strategy that attempts to create a productive relationship between the abundance-generating and rival components of the system, while the third metamechanism exhibits a synergy-seeking strategy that decreases institutional complexity by reducing the coupling between them&mdash;in effect, moving partially along the continuum toward the restriction extreme without fully reaching it.</p>
+
+<h2>Framework Development: The Scarcity Channeling Mechanism</h2>
+
+<p>The preceding analysis identified 175 business model patterns, of which 39 actively manage abundance generation through seven mechanisms organized into three metamechanisms. Each metamechanism faces a distinctive challenge: accountability for community-based collaboration, transparency for firm-subsidy leverage, and a valuation dilemma for asset transformation (Table 4). We now draw on these empirical patterns to address our research question: <em>through what mechanisms does abundance-driven value creation generate new scarcities?</em> We develop a theoretical framework that explains <em>why</em> these challenges arise and shows that they are not independent organizational problems but expressions of a single structural mechanism. We call this mechanism <em>scarcity channeling</em>.</p>
+
+<div style="margin: 1.5em 0;">
+<p class="no-indent" style="text-indent: 0;"><strong>Table 4.</strong> Three metamechanisms for managing the scarcity&ndash;abundance tension, their constituent mechanisms, and distinctive challenges.</p>
+<table>
+<thead>
+<tr><th>Metamechanism</th><th>Mechanisms</th><th>BMPs</th><th>Distinctive Challenge</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>I. Large-scale collaboration</td>
+<td>Community cost minimization; Shared ownership</td>
+<td>16</td>
+<td>Accountability: ensuring active contribution, preventing free-riding</td>
+</tr>
+<tr>
+<td>II. Abundance leverage</td>
+<td>Subsidizing sharing; Shifting to results; Parallel offerings</td>
+<td>11</td>
+<td>Transparency: managing opacity incentives vs. participation trust</td>
+</tr>
+<tr>
+<td>III. Transformation</td>
+<td>De-transactionalization; Resource conversion</td>
+<td>8 (+4)</td>
+<td>Valuation: balancing transformation depth vs. revenue sustainability</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>The framework is built on two foundations. The first is the coupled resource model introduced in the theoretical foundations: every abundance-generating resource depends on rival complements (governance, infrastructure, curation) that are depleted by the same participation that creates the abundance. The second is the empirical pattern that emerged from the business model analysis: organizations that engage with abundance-generating goods consistently face one of three distinctive challenges, and these challenges map systematically onto three types of scarcity&mdash;accountability maps to governance scarcity, transparency maps to dependency scarcity, and valuation maps to the coupling between scarcity reduction and abundance benefit reduction. The framework synthesizes these two foundations to show that scarcity channeling is structural rather than contingent: it arises from the coupled resource system itself, not from failures of organizational design. The practical value of the framework is that it transforms the question from &ldquo;how should we organize abundance-generating goods?&rdquo; to &ldquo;which scarcity are we willing to accept?&rdquo;&mdash;a reframing with direct implications for business model design, community governance, and innovation policy.</p>
+
+<h3>The Paradox: Why Abundance Generation Creates New Scarcities</h3>
+
+<p>The intuitive expectation is that abundance-generating goods should produce unbounded value. If each user adds value for all other users, then maximal sharing should produce maximal welfare. The null hypothesis is that organizational innovation&mdash;better business models, smarter platforms, stronger communities&mdash;can fully capture abundance-driven value without creating new scarcities. This null is compelling because it aligns with the dominant narrative in digital innovation policy, which treats openness as inherently welfare-enhancing and organizational failures as contingent problems solvable through better design.</p>
+
+<p>The coupled resource model demonstrates why the null fails. As established in the theoretical foundations, the effective value of any abundance-generating resource depends on the interaction between its abundance potential and the availability of its rival complements. The null hypothesis holds only when rival complements scale at least as fast as sharing-generated value&mdash;that is, when the supply of governance, infrastructure, and curation grows commensurately with demand. In practice, this condition is generically violated. Governance costs typically grow faster than linearly with community size: Brooks&rsquo;s Law observes that coordination overhead grows quadratically with team size; content moderation demand grows faster than content volume; infrastructure costs accelerate with peak-load capacity requirements. When rival costs grow faster than sharing-generated value, the abundance-generating resource reaches a carrying capacity, and beyond that point, additional participation degrades effective value. The organization must intervene, and every intervention channels scarcity. Scarcity channeling is therefore structural, not contingent. It is not an organizational failure but a property of the coupled resource system. Benzell and Brynjolfsson (2019) provided the closest existing formal model of this dynamic, showing that digital abundance combined with inelastically supplied &ldquo;genius&rdquo; paradoxically depresses wages&mdash;but their model addresses a single macroeconomic scarcity type rather than the organizational mechanism that generates a taxonomy of scarcities depending on institutional choices. Better organizational design can change <em>which</em> scarcity is created and <em>how much</em> scarcity is created, but it cannot eliminate the channeling itself.</p>
+
+<h3>The Scarcity Channeling Continuum</h3>
+
+<p>Prior typologies have addressed types of abundance (Verzola, 2009) but not the scarcities abundance generates. Organizational responses to the coupled resource tension lie on a continuum. At one extreme, full restriction suppresses abundance generation entirely. At the other, unmanaged open access embraces sharing but leaves rival complements unfunded&mdash;the null hypothesis rejected above. Between these extremes lies the space where organizations actively manage the tension and where scarcity channeling operates. Our empirical analysis focused on this active-management space because the interest lies in how abundance can be <em>utilized</em>&mdash;not suppressed or left unmanaged. We first characterize the restriction extreme theoretically, then develop the three strategies within the active-management space: partial restriction (transform), firm subsidization, and community organization.</p>
+
+<p><em>The restriction extreme: artificial scarcity.</em> Full restriction creates artificial scarcity of the abundance-generating resource itself. Heller (1998) identified a closely related dynamic in his &ldquo;tragedy of the anticommons,&rdquo; showing how fragmented property rights create underuse of resources that could otherwise be productively shared; Boyle (2003) extended this analysis to the &ldquo;second enclosure movement,&rdquo; documenting how intellectual property expansion systematically converts open information resources into artificially scarce ones. The scarcity channeling framework provides the resource-level mechanism underlying both observations: when an organization restricts access through paywalls, DRM, proprietary licensing, or per-unit pricing, it forfeits the superlinear value that open sharing would create. The welfare loss from exclusion is superlinear: excluding users from an abundance-generating good destroys not just their direct access but the value they would have added for everyone else. This loss accelerates as the good becomes more strongly abundance-generating, because each excluded user represents a larger forgone contribution to the collective value. The welfare cost of restriction is therefore not merely the sum of individual access losses but a compounding loss that grows faster than the number of excluded users.</p>
+
+<p><em>Within the active-management space: partial restriction and reduced abundance potential.</em> The first strategy in the active-management space is partial restriction through transform. Rather than suppressing abundance generation entirely, organizations reduce the coupling between abundant and rival components through de-transactionalization (subscription, flat rate), parallel offerings (freemium, dual licensing), or resource conversion (digitalization, unbundling). This deliberately sacrifices some abundance potential in exchange for lower rival cost pressure. The scarcity created is systemic rather than concentrated: all participants experience reduced abundance benefit, but no single group bears a disproportionate burden. Partial restriction is the strategy closest to the restriction extreme while still actively utilizing abundance&mdash;it preserves some sharing-generated value while accepting that the full abundance potential will not be realized. The trade-off is direct: each unit of coupling reduction lowers both the scarcity burden and the abundance benefit proportionally.</p>
+
+<p><em>Within the active-management space: firm subsidization and dependency scarcity.</em> Moving further from the restriction extreme, organizations that accept full coupling must choose who bears the rival costs. The firm-subsidization path is fundamentally about <em>leverage</em>: the firm invests in rival complements (infrastructure, moderation, maintenance) and extracts disproportionate returns from the abundance that shared participation generates. The input is the rival cost; the output is abundance-driven value that the firm captures asymmetrically through data monetization, algorithmic control, or lock-in. This leverage dynamic creates dependency scarcity. Bauwens (2012), writing from the P2P Foundation, observed &ldquo;a delicate co-dependency between the communities, which need the capital and monetary income&rdquo; of corporate sponsors&mdash;capturing the dependency dynamic informally without theorizing it as a distinct scarcity type. Our framework formalizes this: the subsidizing firm covers the rival costs and maximizes participation, but chooses a level of transparency that balances extraction against trust. Some users are captive&mdash;they remain regardless of transparency, due to network effects or switching costs&mdash;while others respond to the firm&rsquo;s transparency level. The firm&rsquo;s profit-maximizing transparency is generically below the social optimum, because the firm does not internalize the full value that transparency creates for users and the broader ecosystem. Scarcity manifests as opacity of data practices, lock-in through switching costs, algorithmic control of user experience, and unilateral terms changes. Dependency scarcity is amplified by the market concentration dynamics that are inherent to information abundance: as Raban and W&#322;odarczyk (2024: 7) observe, exponential growth of information production induces market concentration through platformization, and dominant platforms &ldquo;tend to have little interest in the content&rdquo; itself&mdash;the quantity rather than quality of information drives profits (Ma, 2023). The same conditions that make abundance-generating goods valuable also drive the platform concentration that makes firm-subsidy extraction possible. The channeled scarcity is concentrated: one entity holds the leverage, creating an asymmetric power relationship between the subsidizing firm and the users who depend on it.</p>
+
+<p><em>Within the active-management space: community organization and governance scarcity.</em> In the community path, the rival costs are distributed across the community rather than concentrated in a firm. This path creates governance scarcity. Schweik and English (2012), in the most comprehensive empirical study of open-source commons success and failure, demonstrated that governance capacity&mdash;not programming skill or code quality&mdash;is the primary determinant of project survival. Their finding essentially discovered governance scarcity as the binding constraint without naming it as such. Our framework formalizes the mechanism: governance is costlier than content creation&mdash;reviewing a pull request is harder than writing code; moderating a discussion is harder than posting; auditing a security library is harder than using it. If the governance premium&mdash;the additional compensation, in whatever form, that governance contributors receive&mdash;falls below the cost differential between governance and content work, the governance-to-content ratio declines exponentially and the community enters a <em>governance trap</em>. Content grows and the abundance-generating resource appears healthy, but governance erodes: the rivalrous complement deteriorates while surface metrics remain positive. This dynamic has been observed under different names: Halfaker, Geiger, Morgan, and Riedl (2013) described it as &ldquo;calcification&rdquo; in Wikipedia, where the community&rsquo;s reaction to its own popularity drove away new editors; the Atlantic Council (2023) framed it as the &ldquo;success trap&rdquo; in open-source infrastructure, where projects appear healthy while harboring structural vulnerabilities; and Eghbal (2020) documented how GitHub stars and download counts mask maintainer exhaustion. Our formalization as the &ldquo;governance trap&rdquo; grounds these observations in the coupled resource model, showing that the pattern arises from a specific, identifiable condition&mdash;the governance premium falling below the governance&ndash;content cost differential&mdash;rather than from idiosyncratic organizational failures. The community collapses not when content stops growing but when governance can no longer sustain the infrastructure that content depends on. The channeled scarcity is diffuse&mdash;burnout, quality decline, and infrastructure decay&mdash;and its invisibility makes it especially dangerous. This dynamic is an instance of a general pattern identified in information economics: under conditions of information abundance, &ldquo;even if information in general is abundant, information of good quality becomes scarce&rdquo; (Raban &amp; W&#322;odarczyk, 2024: 10). As content proliferates, the capacity to curate, verify, and govern that content&mdash;to distinguish signal from noise and quality from misinformation (Stiglitz &amp; Kosenko, 2024)&mdash;becomes the binding constraint. The governance trap is the organizational mechanism through which this general abundance-quality paradox operates in specific communities.</p>
+
+<h3>Properties of the Channeled Scarcities</h3>
+
+<p>The channeled scarcities differ systematically along three dimensions that have direct implications for policy design. The first is visibility. Artificial scarcity is the most visible: users directly experience paywalls, access restrictions, and DRM limitations. Dependency scarcity is semi-visible: users experience it gradually as lock-in accumulates, alternatives diminish, and terms change unilaterally, but the causal connection to the business model pattern is often obscured. Governance scarcity is the least visible: surface metrics (user count, content volume, download statistics) remain healthy during the decline phase while governance erodes underneath. Prospect theory provides a behavioral mechanism for this asymmetry: because losses are experienced more intensely than gains of equivalent magnitude (Kahneman &amp; Tversky, 1979), the abundance-side benefits of increasing returns to sharing are quickly absorbed into the baseline expectation, while the gradual erosion of governance quality does not register as a loss until it becomes catastrophic. As Raban and W&#322;odarczyk (2024) note, this asymmetry also explains why the economics literature has focused disproportionately on scarcity: scarcity is felt, while abundance is taken for granted. The Heartbleed and left-pad cases illustrate this: the abundance-generating resources appeared maximally healthy by every standard metric right up until catastrophic failure.</p>
+
+<p>The second dimension is concentration. Artificial scarcity is distributed among excluded users. Dependency scarcity is concentrated in a single entity (the subsidizing firm), creating an asymmetric power relationship. Governance scarcity is diffuse, spread across the entire community of potential governance contributors. Concentrated scarcity is easier to regulate but harder to dislodge; diffuse scarcity is harder to identify but more amenable to institutional design interventions. The third dimension is policy amenability. Artificial scarcity can be addressed by competition policy and compulsory licensing. Dependency scarcity requires transparency mandates, interoperability requirements, and data portability standards. Governance scarcity requires public investment in governance infrastructure and institutional design that increases the governance premium. Each scarcity type requires a different policy toolkit, and mismatching the tool to the scarcity is not merely inefficient but potentially counterproductive. Partial restriction (transform) creates a distinct trade-off: reduced abundance potential distributed systemically across all participants rather than concentrated in excluded users, a dominant firm, or governance volunteers. Its visibility is moderate&mdash;users experience the reduced functionality of a free tier or the limitations of a flat-rate subscription, but the connection to foregone abundance is not immediately apparent. Policy for partial restriction centers on interoperability standards that prevent it from sliding toward full restriction.</p>
+
+<div style="border: 1px solid #999; padding: 1.5em; margin: 1.5em 0;">
+<p class="no-indent" style="text-indent: 0;"><strong>Figure 4. The scarcity channeling continuum.</strong> Abundance-generating resources are coupled with rival complements whose per-user availability declines with participation. Organizational responses lie on a continuum from full restriction to unmanaged open access. The active-management space between these extremes is where scarcity channeling operates, with three strategies: partial restriction (transform), firm subsidization, and community organization.</p>
+<div class="figure-content">
+<table style="width: 95%; margin: 0 auto; border: none; font-size: 0.85rem;">
+<tbody>
+<tr style="border: none;">
+<td colspan="4" style="border: none; text-align: center; padding: 0.8rem; font-weight: bold; font-size: 1rem;">
+Abundance-Generating Resource coupled with Rival Complements
+</td>
+</tr>
+<tr style="border: none;">
+<td colspan="4" style="border: none; text-align: center; padding: 0.3rem; font-size: 0.85rem; color: #555;">
+&#8592; RESTRICTION EXTREME &mdash;&mdash;&mdash;&mdash; ACTIVE MANAGEMENT SPACE &mdash;&mdash;&mdash;&mdash; OPEN ACCESS EXTREME &#8594;
+</td>
+</tr>
+<tr style="border: none;">
+<td style="border: none; width: 19%; vertical-align: top; padding: 0.4rem;">
+<div style="border: 1px dashed #999; padding: 0.7rem; background: #f9f9f9;">
+<strong>Full Restriction</strong><br>
+<span style="font-size: 0.8rem;">
+<em>Scarcity:</em> Artificial<br>
+<em>Visibility:</em> High<br>
+<em>Suppresses abundance</em><br>
+<em>109 BMPs excluded</em>
+</span>
+</div>
+</td>
+<td style="border: none; width: 27%; vertical-align: top; padding: 0.4rem;">
+<div style="border: 1px solid #999; padding: 0.7rem;">
+<strong>Partial Restriction (Transform)</strong><br>
+<span style="font-size: 0.8rem;">
+<em>Who bears costs:</em> All participants (reduced abundance)<br>
+<em>Scarcity:</em> Reduced abundance potential<br>
+<em>Visibility:</em> Moderate<br>
+<em>Concentration:</em> Systemic<br>
+<em>Policy:</em> Interoperability standards<br>
+<em>8 BMPs analyzed</em>
+</span>
+</div>
+</td>
+<td style="border: none; width: 27%; vertical-align: top; padding: 0.4rem;">
+<div style="border: 1px solid #999; padding: 0.7rem;">
+<strong>Firm Subsidize</strong><br>
+<span style="font-size: 0.8rem;">
+<em>Who bears costs:</em> Firm (extracts rent)<br>
+<em>Scarcity:</em> Dependency<br>
+<em>Visibility:</em> Semi-visible<br>
+<em>Concentration:</em> Concentrated<br>
+<em>Policy:</em> Transparency, interoperability<br>
+<em>11 BMPs analyzed</em>
+</span>
+</div>
+</td>
+<td style="border: none; width: 27%; vertical-align: top; padding: 0.4rem;">
+<div style="border: 1px solid #999; padding: 0.7rem;">
+<strong>Community Organize</strong><br>
+<span style="font-size: 0.8rem;">
+<em>Who bears costs:</em> Community members<br>
+<em>Scarcity:</em> Governance<br>
+<em>Visibility:</em> Low<br>
+<em>Concentration:</em> Diffuse<br>
+<em>Policy:</em> Governance infrastructure investment<br>
+<em>17 BMPs analyzed</em>
+</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<h2>Discussion</h2>
+
+<p class="no-indent">The scarcity channeling framework establishes that organizations engaging with abundance-generating goods face a structural choice along a continuum: which scarcity to create, and how much. In this section, we develop the implications of this finding along three dimensions. First, we examine the implications for business, elaborating the continuum from full restriction through the active-management space (partial restriction, firm subsidization, and community organization) and showing how scarcity channeling operates through specific business model pattern combinations. Second, we develop the implications for innovation policy, showing that the welfare-maximizing position on the continuum depends on context and proposing a three-instrument policy architecture&mdash;governance infrastructure investment, business model transparency, and ecosystem plurality&mdash;that matches instruments to scarcity types. Third, we articulate the paper&rsquo;s theoretical contributions to the literatures on abundance-generating goods, business model innovation, and innovation policy.</p>
+
+<h3>Implications for Business: How Business Model Patterns Channel Scarcity</h3>
+
+<p>The framework development section established the scarcity channeling continuum and the three strategies. Here we develop the business implications by examining how specific business model patterns operationalize these strategies, what combinatorial dynamics emerge, and what practical diagnostics the framework provides. These business-level patterns reveal the concrete problems&mdash;dependency structures, governance fragility, and transparency gaps&mdash;that the policy framework developed in the next section is designed to address.</p>
+
+<p>Table 5 maps the 39 abundance-engaging BMPs identified in our analysis onto the scarcity channeling continuum. Patterns are organized by their position in the active-management space (partial restriction, firm subsidization, or community organization), the channeled scarcity they create or mitigate, and their abundance compliance status (developed in the policy instruments subsection). The 109 restriction-extreme patterns (compartmentalization and defiance) are not included, as they suppress abundance generation rather than actively managing it.</p>
+
+<div style="margin: 1.5em 0;">
+<p class="no-indent" style="text-indent: 0;"><strong>Table 5.</strong> Abundance-engaging business model patterns mapped onto the scarcity channeling continuum.</p>
+<table>
+<thead>
+<tr><th style="width:18%;">Mechanism</th><th style="width:32%;">Business Model Patterns</th><th style="width:25%;">Scarcity Channeled</th><th style="width:25%;">Abundance Compliance</th></tr>
+</thead>
+<tbody>
+<tr><td colspan="4" style="font-weight: bold; font-size: 0.88rem;">Partial restriction &mdash; transform strategies (8 BMPs)</td></tr>
+<tr>
+<td>De-transactionalize</td>
+<td>Subscription, Flat rate, Membership, License</td>
+<td rowspan="2">Reduced abundance potential (both benefit and scarcity lower)</td>
+<td rowspan="2">Neutral: reduces abundance benefit proportionally</td>
+</tr>
+<tr>
+<td>Resource conversion</td>
+<td>Digitalization, Sharing business, Unbundling, Demand-oriented platform</td>
+</tr>
+
+<tr><td colspan="4" style="font-weight: bold; font-size: 0.88rem;">Firm subsidizes rival costs (11 BMPs)</td></tr>
+<tr>
+<td>Subsidize sharing</td>
+<td>Hidden revenue, Free (ad-supported), Sponsorship, Experience broker, Social mission patterns</td>
+<td rowspan="2">Dependency: transparency, agency, control (concentrated)</td>
+<td rowspan="2">Conditionally compliant: requires disclosure of extraction mechanism and dependency structure</td>
+</tr>
+<tr>
+<td>Shift to abundance-driven results</td>
+<td>Performance-based contracting, Guaranteed availability, Result as a service</td>
+</tr>
+<tr>
+<td>Parallel offerings</td>
+<td>Freemium, Dual licensing, Charging for changes</td>
+<td>Mixed: partial restriction + partial dependency</td>
+<td>Conditionally compliant: requires transparency about tier boundaries</td>
+</tr>
+
+<tr><td colspan="4" style="font-weight: bold; font-size: 0.88rem;">Community covers rival costs (17 BMPs)</td></tr>
+<tr>
+<td>Content contribution</td>
+<td>Crowdsourcing, Open source, Crowdsourced innovation, Review system, Quality through participation, Make more of it</td>
+<td rowspan="3">Governance: labor, attention, curation, infrastructure (diffuse)</td>
+<td rowspan="3">Compliant if governance premium meets or exceeds the cost differential and contribution accounting is transparent</td>
+</tr>
+<tr>
+<td>Governance contribution</td>
+<td>Community governance, Stewardship role, Revenue sharing, Open business model, Pay what you want</td>
+</tr>
+<tr>
+<td>Infrastructure contribution</td>
+<td>Peer-to-peer, Nodes, Crowdfunding, Repurpose for society, Fractional ownership, No dividends</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>In the community path, content and infrastructure patterns are insufficient without governance patterns that stack premiums. The five governance BMPs map to the five premium types: community governance provides decision-making power, stewardship role provides reputation, revenue sharing provides financial compensation, open business model provides strategic access, and pay what you want provides social recognition. A community that lacks diversified governance patterns is structurally vulnerable to the governance trap. The table also reveals why certain BMP combinations succeed and others fail. Combining patterns within a single direction is generally synergistic (e.g., open source combined with community governance and crowdfunding within Direction 3). Combining patterns across directions creates tension: a firm that simultaneously operates hidden revenue (Direction 2) and community governance (Direction 3) faces internal conflict between extraction and collective ownership incentives. Partial restriction (transform) can be deployed independently or layered onto either of the other strategies, but carries the commitment constraint: full enhancement and full transform on a shared interface produces worse outcomes than committing to one.</p>
+
+<p>The scarcity channeling framework also provides a diagnostic for platform operators that makes the scarcity consequences of business model choices explicit. A firm operating a hidden revenue model can use the framework to assess which dependencies it is creating, how large its captive user fraction is, and what would happen if a community alternative emerged. Concretely, a platform could use the abundance compliance criteria to audit its own business model patterns, identify the most significant dependency structures, and voluntarily adopt compliance measures that reduce dependency scarcity and increase user trust.</p>
+
+<p>For community organizers, the framework identifies the specific governance investments needed to avoid the governance trap. The governance premium stacking model provides a practical diagnostic: does the community offer decision-making power to governance contributors? Reputational returns? Financial compensation? Strategic access? Social recognition? Gaps in the premium stack are leading indicators of governance fragility, and addressing them proactively&mdash;before surface metrics begin to decline&mdash;is the key to sustainable community governance. The falling-content-cost paradox alerts community leaders that the advent of generative AI tools should trigger increased investment in governance capacity, not celebration of accelerated content growth.</p>
+
+<h3>Implications to Policy</h3>
+
+<p>The properties of the channeled scarcities&mdash;their visibility, concentration, and policy amenability&mdash;determine which policy instruments are effective for each position on the continuum. Concentrated dependency scarcity, being localized in an identifiable firm, is amenable to targeted transparency mandates and interoperability requirements. Diffuse governance scarcity, being invisible in surface metrics and spread across the community, requires proactive public investment in governance infrastructure. Artificial scarcity at the restriction extreme is addressed by competition policy and compulsory licensing. And reduced abundance potential from partial restriction requires interoperability standards that prevent sliding toward full restriction. No single position on the continuum is universally optimal; the welfare-maximizing position depends on the strength of abundance generation, the cost structure of rivalrous complements, and the availability of governance infrastructure (Raban &amp; W&#322;odarczyk, 2024). Table 7 summarizes context-dependent policy prescriptions for each position.</p>
+
+<div style="margin: 1.5em 0;">
+<p class="no-indent" style="text-indent: 0;"><strong>Table 7.</strong> Context-dependent policy prescriptions along the scarcity channeling continuum.</p>
+<table>
+<thead>
+<tr><th style="width:18%;">Position</th><th style="width:27%;">When Welfare-Maximizing</th><th style="width:27%;">Policy Action</th><th style="width:28%;">Key Risk</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Restriction extreme</td>
+<td>Weak abundance generation; expensive, non-substitutable rival complements; early-stage investment recovery</td>
+<td>Time-limited restriction; shorter patents for strongly abundance-generating goods; compulsory licensing</td>
+<td>Superlinear welfare loss as abundance generation strengthens</td>
+</tr>
+<tr>
+<td>Partial restriction (transform)</td>
+<td>Moderate abundance generation; transitional phases; commitment constraint on shared interfaces</td>
+<td>Interoperability standards; open formats; monitoring against disguised full restriction</td>
+<td>Sliding toward de facto restriction through lock-in</td>
+</tr>
+<tr>
+<td>Firm subsidization</td>
+<td>Strong abundance generation but insufficient governance capacity; scale investment needs; rapid deployment</td>
+<td>Transparency mandates; data portability; interoperability; maintaining community alternatives</td>
+<td>Concentrated dependency; extraction below social optimum</td>
+</tr>
+<tr>
+<td>Community organization</td>
+<td>Strong abundance generation with sufficient governance capacity; public-interest goods; long-term sustainability</td>
+<td>Governance infrastructure as public good; premium stacking incentives; federated governance support</td>
+<td>Governance trap; falling-content-cost paradox</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>The strength of abundance generation increases secularly as technology evolves, driving phase transitions in business model landscapes. Many digital goods are currently at intermediate levels of abundance generation, where extraction norms are forming and path dependence has not yet locked in. This is the critical policy window: private&ndash;social divergence is widest at intermediate levels, where less extractive strategies are socially superior but privately less profitable, making governance infrastructure investment the most time-sensitive policy lever.</p>
+
+<p><em>Policy instruments and institutional design.</em> Reading across the rows of Table 7, three recurring themes emerge that transcend any single position on the continuum. First, <em>governance infrastructure</em> appears explicitly in the community organization row but is also the precondition for the &ldquo;maintaining community alternatives&rdquo; action in the firm subsidization row&mdash;without viable community-governed options, the competitive discipline that constrains firm extraction does not exist. Second, <em>transparency</em> appears as transparency mandates in the firm subsidization row but also underlies the monitoring function in the partial restriction row (detecting disguised full restriction) and, more fundamentally, is the precondition for any policy that matches instruments to scarcity types&mdash;you cannot address a scarcity you cannot see. Third, <em>ecosystem plurality</em> is the meta-principle operating across every row: each position-specific prescription assumes the existence of viable alternatives at other positions, because it is the credible threat of defection that constrains the scarcity each strategy creates. These three themes converge into a coordinated policy architecture.</p>
+
+<p><em>Governance infrastructure investment</em> operationalizes TIP&rsquo;s directionality and redundancy features for digital commons. Directionality&mdash;the deliberate orientation of innovation toward societal goals (Schot &amp; Steinmueller, 2018)&mdash;requires that policy actively steer digital infrastructure development toward democratic, community-governed alternatives rather than accepting whatever organizational forms market dynamics produce. Redundancy&mdash;backup capacity against single points of failure (K&ouml;nn&ouml;l&auml; et al., 2021)&mdash;requires funding governance tools that reduce single-maintainer vulnerability and distribute governance capacity across multiple actors. Eghbal (2016) established the foundational argument that open-source software constitutes digital infrastructure deserving public investment, and Frischmann (2012) provided the theoretical grounding showing that shared resources generate social value exceeding private returns. Our contribution extends both arguments to a previously unrecognized category: <em>governance</em> infrastructure. Eghbal&rsquo;s analysis focused on code maintenance&mdash;keeping libraries updated, patching vulnerabilities, ensuring compatibility. The scarcity channeling framework reveals that the more binding constraint is not code but the governance layer that code depends on: the moderation tools, dispute resolution platforms, contribution tracking systems, compliance checking mechanisms, and coordination infrastructure that communities need to sustain abundance-generating resources. These governance tools benefit all participants but are chronically under-provided because no individual contributor captures the full social return. This under-provision is the direct cause of the governance trap, and it is worsening due to the falling-content-cost paradox. The gap is empirically visible in emerging but incomplete TIP implementations: Germany&rsquo;s Sovereign Tech Agency (approximately &euro;23.5M invested), the EU&rsquo;s NGI Zero Commons Fund, and the proposed EU Sovereign Tech Fund (&euro;350M, 2028&ndash;2035) all direct resources toward code and security, not toward governance tooling. The EU Digital Commons EDIC (December 2025) similarly covers code but not governance infrastructure. The Digital Public Goods Alliance registry categorizes digital identity, payments, and data exchange systems but not governance tooling. Policy analyses of digital public goods governance (Eaves &amp; Sandman, 2024) focus on governance <em>of</em> digital public goods, not governance tools <em>as</em> digital public goods&mdash;precisely the category our framework identifies as underfunded, and precisely the gap that Ghosh et al.&rsquo;s (2025) identification of &ldquo;knowledge infrastructure&rdquo; as under-theorized in TIP points toward. Just as governments invest in roads, bridges, and utilities because these are public goods that enable economic activity (Frischmann, 2012), governments should invest in governance infrastructure because it is the public good that enables community-governed alternatives&mdash;without which TIP&rsquo;s directionality principle cannot operate in digital domains. Federated governance deserves particular emphasis. Governance demand grows faster than linearly with community size, so splitting a community into federated sub-communities reduces total governance demand substantially. Federation, as exemplified by Mastodon, Matrix, or the Fediverse more broadly, is not merely an organizational preference but a structural response to the scaling properties of governance costs&mdash;and a direct instantiation of TIP&rsquo;s polycentricity feature. Policy that supports federation standards, interoperability between federated instances, and shared governance tooling across federated communities has a multiplier effect on governance investment.</p>
+
+<p>Recent EU policy developments partially validate this analysis while highlighting the gaps the framework identifies. The French Presidency&rsquo;s 2022 Declaration on European Digital Commons established the philosophical foundation for treating digital commons as a policy priority. The proposed EU Sovereign Tech Fund (&euro;350M, 2028&ndash;2035) and the new EDIC Digital Commons initiative (December 2025) both direct resources toward digital commons infrastructure, yet their focus remains on code and security rather than governance tooling. The EU Cyber Resilience Act (CRA, 2024) introduced &ldquo;open-source software steward&rdquo; as a legal category, beginning to formalize the relationship between commercial actors and digital commons, but stops short of requiring disclosure of how firms benefit from commons resources. GAIA-X and the &ldquo;Public Money, Public Code&rdquo; movement implicitly pursue ecosystem plurality, but neither articulates it as a standalone policy goal for constraining scarcity channeling. The framework developed here goes further than these initiatives in three respects: it identifies governance infrastructure (not just code) as the critical public good category, grounded in TIP&rsquo;s directionality and redundancy features; it proposes business model transparency as a distinct instrument operationalizing TIP&rsquo;s reflexivity principle (neither the Digital Services Act, the Digital Markets Act, nor the CRA requires disclosure of how firms benefit from digital commons); and it provides the theoretical rationale&mdash;scarcity channeling as the resource-level mechanism that TIP has lacked for digital transitions&mdash;for why ecosystem plurality should be an explicit policy objective rather than an incidental outcome.</p>
+
+<p><em>Business model transparency</em> operationalizes TIP&rsquo;s reflexivity principle&mdash;the capacity for ongoing monitoring and adjustment of innovation processes (Schot &amp; Steinmueller, 2018)&mdash;at the ecosystem level. Users, regulators, and complementors cannot assess which scarcity a given business model channels if the pattern combinations are opaque. Transparency enables the kind of formative evaluation that TIP requires (Molas-Gallart, Boni, Giachi, &amp; Schot, 2021): not summative judgments of whether a platform is &ldquo;good&rdquo; or &ldquo;bad,&rdquo; but ongoing assessment of how business model choices affect the distribution of scarcity across the ecosystem. When a user adopts a &ldquo;free&rdquo; platform, they rarely understand whether the business model is hidden revenue (data extraction creating dependency scarcity through opacity), sponsorship (third-party subsidy creating dependency on the sponsor&rsquo;s continued support), freemium (tiered access creating partial restriction), or open source with corporate backing (hybrid dependency on the backing firm&rsquo;s strategic interests). Each of these patterns creates different dependencies, different scarcities, and different risks. Paradoxically, information abundance itself deepens this asymmetry: the sheer volume of terms of service, privacy policies, and business model descriptions means that even when disclosure nominally exists, the information exceeds users&rsquo; processing capacity&mdash;precisely the condition that Raban and W&#322;odarczyk (2024) identify as the defining feature of information abundance, where rational inattention (Sims, 2003) becomes the dominant cognitive strategy. We propose that organizations employing abundance-generating goods be required to disclose three elements: pattern identification (using a standardized taxonomy such as the 175-pattern framework from the BMP literature), dependency structure (what dependencies each pattern creates), and an assessment of abundance compliance&mdash;the degree to which the business model allows the full abundance potential of the resource to be realized (Stacey, 2016, articulated similar principles informally for Creative Commons, but without formalized criteria or a grounding mechanism). Without such transparency, TIP&rsquo;s reflexivity principle is inoperative in digital ecosystems: there is no informational basis for the formative evaluation that transformative governance requires.</p>
+
+<p><em>Ecosystem plurality</em> operationalizes TIP&rsquo;s polycentricity and diversity features (K&ouml;nn&ouml;l&auml; et al., 2021). Scarcity channeling provides the mechanistic justification for why polycentric digital ecosystems matter: each organizational form channels scarcity differently, so pluralism is not merely normatively desirable but functionally necessary to avoid any single scarcity type dominating. The positions along the continuum are not merely alternatives but mutual checks, and the healthiest ecosystem is one where multiple positions remain viable. The firm path&rsquo;s dependency scarcity is constrained when viable community and partial-restriction alternatives exist, because these alternatives reduce the captive user base and lower the threshold at which users migrate away from opaque platforms. The community path&rsquo;s governance scarcity is partially alleviated when firm-subsidized and partial-restriction alternatives set a quality floor that communities must match, preventing governance complacency. Partial restriction serves a bridging role: subscription and freemium models demonstrate that reduced coupling is feasible, disciplining both firm-subsidy platforms (which must justify their extraction against a simpler alternative) and community-governed projects (which must justify their governance costs against a lower-overhead model). Even the restriction extreme serves a disciplinary role: the existence of a viable paid, per-unit path prevents all active-management strategies from taking user participation for granted. In TIP terms, ecosystem plurality is the policy that maintains the diversity and polycentricity that enable ecosystem resilience; scarcity channeling shows that these features are not incidental properties of healthy ecosystems but structural requirements arising from the resource-level dynamics of abundance-generating goods.</p>
+
+<p>Taken together, the three levers constitute the first framework for applying TIP principles to abundance-generating digital goods, grounded in a resource-level mechanism rather than transposed from physical socio-technical systems. Where TIP in energy transitions addresses regime lock-in through niche experimentation and landscape pressures, TIP in digital transitions must address scarcity channeling through governance investment, transparency, and plurality&mdash;because the resource structure that generates lock-in is fundamentally different when the core good increases in value with use.</p>
+
+<p>Policy should therefore maintain viable alternatives across the continuum, not mandate a single position. The self-reinforcing chain operates as follows: governance infrastructure investment enables community viability by lowering governance costs and raising the governance premium; community viability creates an outside option for users currently on firm-subsidized platforms; the existence of an outside option forces firms to compete on transparency because users can credibly exit; and firms competing on transparency reduces dependency scarcity across the ecosystem. The three instruments should be deployed as a coordinated package. Governance investment without transparency requirements creates viable community alternatives that users cannot easily discover or compare. Transparency requirements without governance investment create visibility into dependency structures but leave users with no viable community alternative to migrate toward. Ecosystem plurality without either investment or transparency is aspirational rather than operational. The coordination is not merely additive but synergistic: each instrument&rsquo;s effectiveness depends on the others being in place.</p>
+
+<p>For policymakers, the framework offers three actionable instruments: governance infrastructure investment as the most urgent priority, business model transparency requirements that make scarcity channeling visible, and ecosystem plurality policies that maintain viable alternatives across directions. For investors and auditors, abundance compliance provides a new dimension of risk assessment. A platform with high dependency scarcity and no credible community alternative faces regulatory, competitive, and reputational risks that standard financial metrics do not capture.</p>
+
+<p>As developed in the ecosystem plurality discussion, the positions along the continuum function as mutual checks: each position&rsquo;s channeled scarcity is constrained by the credible threat of defection to another. Business model transparency is what transforms this competition from latent to active: without visibility into the business model patterns that organizations employ, the dependencies these patterns create, and the scarcity they channel, users cannot evaluate whether the dependency scarcity they experience on a firm-subsidized platform is better or worse than the governance scarcity they would experience on a community alternative. Transparency transforms the competitive landscape from one in which scarcity channeling is hidden to one in which it is an explicit dimension of competition, and governance investment ensures that the community direction remains a credible competitor rather than a theoretical possibility.</p>
+
+<h3>Theoretical Contributions</h3>
+
+<p>This paper makes three contributions to the literature. The first and most fundamental is to the literature on abundance-generating goods (Bliss &amp; Egler, 2020; Cooper, 2006; Kubiszewski et al., 2010; Weber, 2004). Prior work in this literature established that abundance-generating goods challenge market allocation and identified the need for alternative organizing structures, but left unanswered the question of why these alternatives each produce characteristic and persistent scarcities. Our contribution is to introduce scarcity channeling as the central mechanism governing abundance-driven value creation and to show that it is structural rather than contingent. The coupled resource model demonstrates that scarcity channeling arises whenever rival complement costs scale faster than sharing-generated value&mdash;a condition that holds generically in practice, as governance, curation, and infrastructure costs typically grow superlinearly with community size. The framework characterizes a continuum of organizational responses&mdash;from full restriction through active management (partial restriction, firm subsidization, and community organization) to unmanaged open access&mdash;and identifies the distinct scarcity that each position on the continuum creates (artificial scarcity at the restriction extreme; reduced abundance potential through partial restriction, dependency scarcity through firm subsidization, and governance scarcity through community organization in the active-management space). Crucially, each scarcity has different properties regarding visibility, concentration, and policy amenability, which means that effective intervention requires correctly diagnosing which scarcity is at work and matching the policy instrument to the scarcity type.</p>
+
+<p>More broadly, scarcity channeling contributes to the information economics literature&rsquo;s effort to theorize abundance. Raban and W&#322;odarczyk (2024) frame the development of information economics through Hegel&rsquo;s dialectics&mdash;thesis (information scarcity), antithesis (information abundance), and synthesis&mdash;and argue that the synthesis of scarcity and abundance will drive the field&rsquo;s development. Scarcity channeling provides a specific form of this synthesis for the abundance-generating case: it shows that abundance does not eliminate scarcity but transforms it, and it characterizes the precise forms these transformed scarcities take. This contribution advances the discourse on abundance-generating goods in a specific direction that prior work had gestured toward but not formalized. Kubiszewski et al. (2010) noted that abundance-generating goods require institutional innovation, and Nikander et al. (2020) argued for new governance structures, but neither identified the mechanism by which institutional choices generate characteristic scarcities. The scarcity channeling framework provides this mechanism and, in doing so, transforms the question from &ldquo;how should we organize abundance-generating goods?&rdquo; to &ldquo;which scarcity are we willing to accept?&rdquo;&mdash;a reframing that has direct implications for both organizational design and policy.</p>
+
+<p>The second contribution is to business model innovation research (Gassmann et al., 2014; Massa et al., 2017). We provide a framework that explains why certain BMP combinations succeed or fail, grounding the observation in scarcity channeling rather than abstract compatibility. The framework reveals that the metamechanism-level challenges&mdash;why each metamechanism faces a distinctive challenge&mdash;are manifestations of a single underlying mechanism. The accountability challenge identified inductively in large-scale collaboration is revealed to be governance scarcity; the transparency challenge in firm-subsidy arrangements is dependency scarcity; and the valuation dilemma in transformation approaches reflects the partial restriction trade-off between scarcity reduction and abundance benefit reduction. Abundance compliance, as a design criterion, connects BMP choice to welfare outcomes and offers practitioners a diagnostic tool to identify which direction a business model occupies, understand which scarcity it creates, and assess whether the scarcity is sustainable and acceptable in context.</p>
+
+<p>The third contribution is to transformative innovation policy (K&ouml;nn&ouml;l&auml; et al., 2021; Schot &amp; Steinmueller, 2018; Ghosh et al., 2025). The scarcity channeling framework provides three elements that TIP has lacked for governing digital socio-technical transitions: (a) the resource-level mechanism explaining why digital ecosystems develop the imbalances in diversity, redundancy, and polycentricity that TIP&rsquo;s ecosystem features describe&mdash;a gap that Ghosh et al. (2025) identified in their call for better-theorized &ldquo;knowledge infrastructure&rdquo;; (b) governance infrastructure as a missing public good category (extending Eghbal, 2016, and Frischmann, 2012, from code to governance) that TIP&rsquo;s directionality principle requires but existing programs fail to fund; and (c) three concrete policy levers&mdash;governance infrastructure investment (directionality, redundancy), business model transparency (reflexivity), and ecosystem plurality (polycentricity, diversity)&mdash;aligned with TIP&rsquo;s ecosystem governance features. Fagerberg&rsquo;s (2018) critique of TIP&mdash;that it under-theorizes the firm and business model levels&mdash;is directly addressed by our business model pattern analysis, which shows how specific pattern combinations channel scarcity and thereby generate the ecosystem-level imbalances that TIP aims to correct. The scarcity channeling framework thus extends TIP in a direction it needed to go: giving it a resource-level theory for digital transitions, not merely applying TIP principles to a new domain.</p>
+
+<h3>Implications for Transformative Innovation Policy Research</h3>
+
+<p>The scarcity channeling framework has broader implications for TIP research beyond the specific policy levers developed above. First, it suggests that TIP&rsquo;s three pillars&mdash;directionality, experimentation, and reflexivity (Schot &amp; Steinmueller, 2018)&mdash;require different operationalizations for digital versus physical socio-technical systems. In physical transitions, directionality addresses the orientation of investment toward sustainable alternatives to incumbent regimes. In digital transitions, directionality must additionally address the resource-level dynamics that determine whether community-governed alternatives are viable at all&mdash;which depends on governance infrastructure investment. Similarly, reflexivity in physical transitions operates through monitoring of emissions, resource use, and technology diffusion. In digital transitions, reflexivity requires business model transparency as a precondition: without visibility into how organizational choices channel scarcity, formative evaluation (Molas-Gallart et al., 2021) has no informational basis. Second, the analysis responds to Fagerberg&rsquo;s (2018) critique that TIP under-theorizes the firm and business model levels. Our business model pattern analysis shows precisely how firm-level choices&mdash;which patterns to stack, which rival costs to absorb, which dependencies to create&mdash;generate the ecosystem-level imbalances in diversity, polycentricity, and redundancy that TIP describes but does not explain at the micro level. The scarcity channeling mechanism provides the missing link between firm-level business model design and ecosystem-level governance features. Third, the framework suggests that TIP&rsquo;s concept of &ldquo;niche experimentation&rdquo; requires rethinking for digital contexts. In physical transitions, niches are protected spaces where alternative technologies can develop. In digital transitions, the equivalent niches are organizational forms that channel scarcity differently&mdash;and their viability depends not on technological protection but on governance infrastructure that reduces the costs of collective organization.</p>
+
+<h2>Conclusion</h2>
+
+<p>Scarcity channeling&mdash;the inevitable direction of rival-complement costs into new forms of scarcity depending on the organizational path chosen&mdash;is a property of the coupled resource system, not a failure of organizational design. The choice facing organizations is not whether to create scarcity but which kind. The framework developed here, grounded in a systematic analysis of 175 business model patterns, characterizes a continuum from full restriction through active management (partial restriction, firm subsidization, community organization) to unmanaged open access, and identifies the distinct scarcity each position creates.</p>
+
+<p>The policy challenge is time-sensitive. Many digital goods are currently at intermediate levels of abundance generation&mdash;the critical window where extraction norms are forming and path dependence has not yet locked in. Governance infrastructure investment is the intervention with the highest marginal impact in this window&mdash;the most novel, most urgent, and most underappreciated policy lever for the digital commons&mdash;complemented by business model transparency that makes scarcity channeling visible and ecosystem plurality that maintains competitive discipline. The urgency is compounded by generative AI, which is widening the gap between content creation costs and governance costs and thereby expanding the governance trap across sectors.</p>
+
+<h3>Boundary Conditions and Future Research</h3>
+
+<p>The framework applies when rival complement costs scale faster than abundance-driven value&mdash;a condition that holds generically in practice but has two limiting cases: when the good is effectively non-rival (manageable through standard public goods frameworks), and when rival complements can be fully automated (a frontier that current evidence suggests remains distant for judgment-intensive governance tasks; Mindel et al., 2018). Additional boundary conditions include the assumption of homogeneous agents, the treatment of abundance generation as exogenous, and the focus on the active-management space (39 abundance-engaging BMPs), leaving the 109 restriction-extreme patterns theoretically characterized but not empirically examined. The policy instruments&mdash;particularly business model transparency&mdash;require further development of standardized taxonomies and enforcement mechanisms.</p>
+
+<p>Five research directions are particularly promising. First, empirical estimation of abundance generation strength and governance premium components in specific ecosystems, using panel data on user growth, per-user value metrics, and governance activity indicators, would test the framework&rsquo;s predictions about carrying capacity and the governance trap threshold. Second, endogenizing abundance generation&mdash;modeling how firms invest in technologies that change the abundance-generating properties of their goods, and the strategic dynamics this creates&mdash;would address a key simplification of the current framework, which treats abundance generation strength as exogenous. Third, developing standardized business model transparency frameworks through multi-stakeholder processes, analogous to the development of accounting standards, would operationalize the transparency instrument proposed here. Fourth, testing whether the governance trap&rsquo;s predicted pattern of exponential governance decline matches observed patterns in open-source projects, using the governance-to-content ratio as a leading indicator, would validate the central mechanism. Fifth, analyzing how generative AI changes the gap between governance costs and content creation costs across sectors would address the most pressing policy implication and inform the governance investments needed to prevent the resulting governance trap expansion. Due to the abstractness of our analysis, the identified mechanisms and BMPs should also be investigated in detail with empirical cases, preferably with systems dynamics methods suited to the complexity of hybrid business models.</p>
+
+<p>The central insight of this paper is that scarcity channeling cannot be avoided&mdash;it is structural. But it can be navigated, and navigation is most effective when policymakers invest in the governance infrastructure that sustains alternatives, require the transparency that makes trade-offs visible, and maintain the ecosystem plurality that disciplines all participants.</p>
+
+<h2>Acknowledgments</h2>
+
+<p class="no-indent">This research was conducted as part of the ATARCA (Accounting Technologies for Anti-Rival Coordination and Allocation) project, funded by the European Union&rsquo;s Horizon 2020 research and innovation programme (2021&ndash;2023). The ATARCA project developed the concept of anti-rival (abundance-generating) goods and produced an initial toolkit of 20 business model patterns for anti-rival coordination. The present paper advances beyond those earlier deliverables by formalizing scarcity channeling as a mechanism-level framework, extending the business model analysis to 175 patterns synthesized from 24 studies, developing the scarcity channeling continuum with its policy implications, and introducing abundance compliance as an evaluative framework. We thank the ATARCA consortium partners for their contributions to the foundational concepts on which this work builds.</p>
+
+<h2>References</h2>
+
+<div class="ref-list">
+<p>Abbott, A. 2014. The problem of excess. <strong><em>Sociological Theory</em></strong>, 32(1): 1&ndash;26.</p>
+<p>Alexander, C., Ishikawa, S., &amp; Silverstein, M. 1977. <strong><em>A Pattern Language: Towns, Buildings, Construction</em></strong>. Oxford University Press.</p>
+<p>Anderson, C. 2009. <strong><em>Free: The Future of a Radical Price</em></strong>. New York: Hyperion.</p>
+<p>Amshoff, B., D&uuml;lme, C., Echterfeld, J., &amp; Gausemeier, J. 2015. Business model patterns for disruptive technologies. <strong><em>International Journal of Innovation Management</em></strong>, 19(3): 1540002.</p>
+<p>Atlantic Council. 2023. <strong><em>Avoiding the Success Trap: Toward Policy for Open-Source Software as Infrastructure</em></strong>. Washington, DC: Atlantic Council.</p>
+<p>Arend, R. J. 2013. The business model: Present and future&mdash;beyond a skeumorph. <strong><em>Strategic Organization</em></strong>, 11(4): 390&ndash;402.</p>
+<p>Bauwens, M. 2012. The &dollar;100bn Facebook question: Will capitalism survive &ldquo;value abundance&rdquo;? <strong><em>Al Jazeera English</em></strong>, 29 February 2012.</p>
+<p>Benzell, S. G., &amp; Brynjolfsson, E. 2019. Digital abundance and scarce genius: Implications for wages, interest rates, and growth. <strong><em>NBER Working Paper</em></strong> No. 25585. Cambridge, MA: National Bureau of Economic Research.</p>
+<p>Battilana, J., &amp; Lee, M. 2014. Advancing research on hybrid organizing: Insights from the study of social enterprises. <strong><em>Academy of Management Annals</em></strong>, 8(1): 397&ndash;441.</p>
+<p>Benkler, Y. 2006. <strong><em>The Wealth of Networks: How Social Production Transforms Markets and Freedom</em></strong>. New Haven: Yale University Press.</p>
+<p>Blind, K. 2012. The influence of regulations on innovation: A quantitative assessment for OECD countries. <strong><em>Research Policy</em></strong>, 41(2): 391&ndash;400.</p>
+<p>Bliss, S., &amp; Egler, M. 2020. Ecological economics beyond markets. <strong><em>Ecological Economics</em></strong>, 178: 106806.</p>
+<p>B&aring;&aring;th, J., &amp; Daoud, A. 2021. Extending social resource exchange to events of abundance and sufficiency. In <strong><em>Dictionary of Ecological Economics</em></strong> (pp. 2015&ndash;2017). http://arxiv.org/abs/2010.02658.</p>
+<p>Boyle, J. 2003. The second enclosure movement and the construction of the public domain. <strong><em>Law and Contemporary Problems</em></strong>, 66(1&ndash;2): 33&ndash;74.</p>
+<p>Bocken, N. M., Short, S. W., Rana, P., &amp; Evans, S. 2014. A literature and practice review to develop sustainable business model archetypes. <strong><em>Journal of Cleaner Production</em></strong>, 65: 42&ndash;56.</p>
+<p>Casadesus-Masanell, R., &amp; Ricart, J. E. 2010. From strategy to business models and onto tactics. <strong><em>Long Range Planning</em></strong>, 43(2&ndash;3): 195&ndash;215.</p>
+<p>Coffey, A., &amp; Atkinson, P. 1996. <strong><em>Making Sense of Qualitative Data: Complementary Research Strategies</em></strong>. SAGE Publications.</p>
+<p>Cooper, M. 2006. From wifi to wikis and open source: The political economy of collaborative production in the digital information age. <strong><em>Journal on Telecommunications and High Technology Law</em></strong>, 5: 125&ndash;158.</p>
+<p>Curtis, S. K. 2021. Business model patterns in the sharing economy. <strong><em>Sustainable Production and Consumption</em></strong>, 27: 1650&ndash;1671.</p>
+<p>Daoud, A. 2018. Unifying studies of scarcity, abundance, and sufficiency. <strong><em>Ecological Economics</em></strong>, 147: 208&ndash;217.</p>
+<p>Denyer, D., &amp; Tranfield, D. 2009. Producing a systematic review. In D. A. Buchanan &amp; A. Bryman (Eds.), <strong><em>The SAGE Handbook of Organizational Research Methods</em></strong>, 671&ndash;689. SAGE Publications.</p>
+<p>Desai, D. R., &amp; Lemley, M. A. 2023. Scarcity, regulation, and the abundance society. <strong><em>Frontiers in Research Metrics and Analytics</em></strong>, 7: 1104460. https://doi.org/10.3389/frma.2022.1104460</p>
+<p>Diercks, G., Larsen, H., &amp; Steward, F. 2019. Transformative innovation policy: Addressing variety in an emerging policy paradigm. <strong><em>Research Policy</em></strong>, 48(4): 880&ndash;894.</p>
+<p>Edler, J., &amp; Fagerberg, J. 2017. Innovation policy: What, why, and how. <strong><em>Oxford Review of Economic Policy</em></strong>, 33(1): 2&ndash;18.</p>
+<p>Eaves, D., &amp; Sandman, J. 2024. Governing digital public goods. <strong><em>Policy Brief</em></strong>, Ash Center for Democratic Governance and Innovation, Harvard Kennedy School.</p>
+<p>Eisenmann, T., Parker, G., &amp; Van Alstyne, M. 2006. Strategies for two-sided markets. <strong><em>Harvard Business Review</em></strong>, 84(10): 92&ndash;101.</p>
+<p>Eghbal, N. 2016. <strong><em>Roads and Bridges: The Unseen Labor Behind Our Digital Infrastructure</em></strong>. New York: Ford Foundation.</p>
+<p>Eghbal, N. 2020. <strong><em>Working in Public: The Making and Maintenance of Open Source Software</em></strong>. San Francisco: Stripe Press.</p>
+<p>Elo, S., &amp; Kyng&auml;s, H. 2008. The qualitative content analysis process. <strong><em>Journal of Advanced Nursing</em></strong>, 62(1): 107&ndash;115.</p>
+<p>Eloranta, V., Ardolino, M., &amp; Saccani, N. 2021. A complexity management approach to servitization. <strong><em>International Journal of Operations &amp; Production Management</em></strong>, 41(5): 622&ndash;644.</p>
+<p>Fagerberg, J. 2018. Mobilizing innovation for sustainability transitions: A comment on transformative innovation policy. <strong><em>Research Policy</em></strong>, 47(9): 1568&ndash;1576.</p>
+<p>European Commission. 2018. Antitrust: Commission fines Google &euro;4.34 billion for illegal practices regarding Android mobile devices. Press release, 18 July 2018.</p>
+<p>Friedland, R., &amp; Alford, R. R. 1991. Bringing society back in: Symbols, practices, and institutional contradictions. In W. W. Powell &amp; P. J. DiMaggio (Eds.), <strong><em>The New Institutionalism in Organizational Analysis</em></strong>, 232&ndash;263. University of Chicago Press.</p>
+<p>Frischmann, B. M. 2012. <strong><em>Infrastructure: The Social Value of Shared Resources</em></strong>. Oxford: Oxford University Press.</p>
+<p>Gassmann, O., Frankenberger, K., &amp; Csik, M. 2013. The St. Gallen business model navigator. <strong><em>Working Paper</em></strong>, University of St. Gallen.</p>
+<p>Gassmann, O., Frankenberger, K., &amp; Csik, M. 2014. <strong><em>The Business Model Navigator: 55 Models That Will Revolutionise Your Business</em></strong>. Pearson UK.</p>
+<p>Geels, F. W. 2002. Technological transitions as evolutionary reconfiguration processes: A multi-level perspective and a case-study. <strong><em>Research Policy</em></strong>, 31(8&ndash;9): 1257&ndash;1274.</p>
+<p>Ghosh, B., Velasco, D., Chakraborty, K., Mguni, P., &amp; Yuana, S. L. 2025. Transformative innovation policy: An analytical review of key methods and challenges. <strong><em>Annual Review of Environment and Resources</em></strong>, 50: 593&ndash;623.</p>
+<p>Greenwood, R., Raynard, M., Kodeih, F., Micelotta, E. R., &amp; Lounsbury, M. 2011. Institutional complexity and organizational responses. <strong><em>Academy of Management Annals</em></strong>, 5(1): 317&ndash;371.</p>
+<p>Gregori, P., Wdowiak, M. A., Schwarz, E. J., &amp; Holzmann, P. 2019. Exploring value creation in sustainable entrepreneurship: Insights from the institutional logics perspective and the business model lens. <strong><em>Sustainability</em></strong>, 11(9): 2505.</p>
+<p>Halfaker, A., Geiger, R. S., Morgan, J. T., &amp; Riedl, J. 2013. The rise and decline of an open collaboration system: How Wikipedia&rsquo;s reaction to popularity is causing its decline. <strong><em>American Behavioral Scientist</em></strong>, 57(5): 664&ndash;688.</p>
+<p>Heller, M. A. 1998. The tragedy of the anticommons: Property in the transition from Marx to markets. <strong><em>Harvard Law Review</em></strong>, 111(3): 621&ndash;688.</p>
+<p>Hsieh, H. F., &amp; Shannon, S. E. 2005. Three approaches to qualitative content analysis. <strong><em>Qualitative Health Research</em></strong>, 15(9): 1277&ndash;1288.</p>
+<p>Jacobides, M. G., Cennamo, C., &amp; Gawer, A. 2024. Externalities and complementarities in platforms and ecosystems: From structural solutions to endogenous failures. <strong><em>Research Policy</em></strong>, 53(1): 104906.</p>
+<p>Kahneman, D., &amp; Tversky, A. 1979. Prospect theory: An analysis of decision under risk. <strong><em>Econometrica</em></strong>, 47(2): 263&ndash;291.</p>
+<p>Katz, M. L., &amp; Shapiro, C. 1985. Network externalities, competition, and compatibility. <strong><em>American Economic Review</em></strong>, 75(3): 424&ndash;440.</p>
+<p>K&ouml;nn&ouml;l&auml;, T., Eloranta, V., Turunen, T., &amp; Salo, A. 2021. Transformative governance of innovation ecosystems. <strong><em>Technological Forecasting and Social Change</em></strong>, 173: 121106.</p>
+<p>Kraatz, M. S., &amp; Block, E. S. 2008. Organizational implications of institutional pluralism. In R. Greenwood, C. Oliver, K. Sahlin, &amp; R. Suddaby (Eds.), <strong><em>The Sage Handbook of Organizational Institutionalism</em></strong>, 243&ndash;275. Sage.</p>
+<p>Kubiszewski, I., Farley, J., &amp; Costanza, R. 2010. The production and allocation of information as a good that is enhanced with increased use. <strong><em>Ecological Economics</em></strong>, 69(6): 1344&ndash;1354.</p>
+<p>Laasch, O. 2018. Beyond the purely commercial business model: Organizational value logics and the heterogeneity of sustainability business models. <strong><em>Long Range Planning</em></strong>, 51(1): 158&ndash;183.</p>
+<p>L&uuml;deke-Freund, F., Carroux, S., Joyce, A., Massa, L., &amp; Breuer, H. 2018. The sustainable business model pattern taxonomy&mdash;45 patterns to support sustainability-oriented business model innovation. <strong><em>Sustainable Production and Consumption</em></strong>, 15: 145&ndash;162.</p>
+<p>Ma, J. 2023. Information, Platformized. <strong><em>Journal of the Association for Information Science and Technology</em></strong>, 74(2): 273&ndash;282.</p>
+<p>Madison, M. J., Frischmann, B. M., Sanfilippo, M. R., &amp; Strandburg, K. J. 2022. Too much of a good thing? A governing knowledge commons review of abundance in context. <strong><em>Frontiers in Research Metrics and Analytics</em></strong>, 7: 959505. https://doi.org/10.3389/frma.2022.959505</p>
+<p>Mair, J., Mayer, J., &amp; Lutz, E. 2015. Navigating institutional plurality: Organizational governance in hybrid organizations. <strong><em>Organization Studies</em></strong>, 36(6): 713&ndash;739.</p>
+<p>Massa, L., Gianluigi, V., &amp; Tucci, C. 2018. Business models and complexity. <strong><em>Journal of Business Models</em></strong>, 6(1): 59&ndash;71.</p>
+<p>Massa, L., Tucci, C. L., &amp; Afuah, A. 2017. A critical assessment of business model research. <strong><em>Academy of Management Annals</em></strong>, 11(1): 73&ndash;104.</p>
+<p>Mindel, V., Mathiassen, L., &amp; Rai, A. 2018. The sustainability of polycentric information commons. <strong><em>MIS Quarterly</em></strong>, 42(2): 607&ndash;632.</p>
+<p>Molas-Gallart, J., Boni, A., Giachi, S., &amp; Schot, J. 2021. A formative approach to the evaluation of transformative innovation policies. <strong><em>Research Evaluation</em></strong>, 30(4): 431&ndash;442.</p>
+<p>Nikander, P., Eloranta, V., Karhu, K., &amp; Hiekkanen, K. 2020. Digitalisation, anti-rival compensation, and governance. <strong><em>arXiv preprint</em></strong> arXiv:2009.00923.</p>
+<p>Ocasio, W., &amp; Radoynovska, N. 2016. Strategy and commitments to institutional logics. <strong><em>Strategic Organization</em></strong>, 14(4): 287&ndash;309.</p>
+<p>Oliver, C. 1991. Strategic responses to institutional processes. <strong><em>Academy of Management Review</em></strong>, 16(1): 145&ndash;179.</p>
+<p>Osterwalder, A., &amp; Pigneur, Y. 2010. <strong><em>Business Model Generation: A Handbook for Visionaries, Game Changers, and Challengers</em></strong>. John Wiley &amp; Sons.</p>
+<p>Ostrom, E. 1990. <strong><em>Governing the Commons: The Evolution of Institutions for Collective Action</em></strong>. Cambridge University Press.</p>
+<p>Ostrom, E. 2009. <strong><em>Understanding Institutional Diversity</em></strong>. Princeton University Press.</p>
+<p>Pache, A.-C., &amp; Santos, F. 2010. When worlds collide: The internal dynamics of organizational responses to conflicting institutional demands. <strong><em>Academy of Management Review</em></strong>, 35(3): 455&ndash;476.</p>
+<p>Pache, A.-C., &amp; Santos, F. 2013. Inside the hybrid organization: Selective coupling as a response to competing institutional logics. <strong><em>Academy of Management Journal</em></strong>, 56(4): 972&ndash;1001.</p>
+<p>Page, M. J., McKenzie, J. E., Bossuyt, P. M., et al. 2021. The PRISMA 2020 statement: An updated guideline for reporting systematic reviews. <strong><em>Systematic Reviews</em></strong>, 10(1): 1&ndash;11.</p>
+<p>Potter, W. J., &amp; Levine-Donnerstein, D. 1999. Rethinking validity and reliability in content analysis. <strong><em>Journal of Applied Communication Research</em></strong>, 27: 258&ndash;284.</p>
+<p>Pratt, M. G., &amp; Foreman, P. O. 2000. Classifying managerial responses to multiple organizational identities. <strong><em>Academy of Management Review</em></strong>, 25(1): 18&ndash;42.</p>
+<p>Raban, D. R., &amp; W&#322;odarczyk, J. 2024. Information economics examined through scarcity and abundance. In D. R. Raban &amp; J. W&#322;odarczyk (Eds.), <strong><em>The Elgar Companion to Information Economics</em></strong> (pp. 1&ndash;19). Cheltenham, UK and Northampton, MA, USA: Edward Elgar Publishing.</p>
+<p>Rochet, J.-C., &amp; Tirole, J. 2003. Platform competition in two-sided markets. <strong><em>Journal of the European Economic Association</em></strong>, 1(4): 990&ndash;1029.</p>
+<p>Remane, G., Hanelt, A., Tesch, J. F., &amp; Kolbe, L. M. 2017. The business model pattern database. <strong><em>International Journal of Innovation Management</em></strong>, 21(1): 1750004.</p>
+<p>Shampanier, K., Mazar, N., &amp; Ariely, D. 2007. Zero as a special price: The true value of free products. <strong><em>Marketing Science</em></strong>, 26(6): 742&ndash;757.</p>
+<p>Schot, J., &amp; Steinmueller, W. E. 2018. Three frames for innovation policy: R&amp;D, systems of innovation and transformative change. <strong><em>Research Policy</em></strong>, 47(9): 1554&ndash;1567.</p>
+<p>Schweik, C. M., &amp; English, R. C. 2012. <strong><em>Internet Success: A Study of Open-Source Software Commons</em></strong>. Cambridge, MA: MIT Press.</p>
+<p>Sims, C. A. 2003. Implications of rational inattention. <strong><em>Journal of Monetary Economics</em></strong>, 50(3): 665&ndash;690.</p>
+<p>Stacey, P. 2016. The business of open. In <strong><em>Made with Creative Commons</em></strong>. San Francisco: Creative Commons.</p>
+<p>Simon, H. A. 1971. Designing organizations for an information-rich world. In M. Greenberger (Ed.), <strong><em>Computers, Communications, and the Public Interest</em></strong>: 37&ndash;72. Baltimore: Johns Hopkins Press.</p>
+<p>Teece, D. J. 1986. Profiting from technological innovation: Implications for integration, collaboration, licensing and public policy. <strong><em>Research Policy</em></strong>, 15(6): 285&ndash;305.</p>
+<p>Stiglitz, J. E., &amp; Kosenko, A. 2024. Robust theory and fragile practice: Information in a world of disinformation. In D. R. Raban &amp; J. W&#322;odarczyk (Eds.), <strong><em>The Elgar Companion to Information Economics</em></strong> (pp. 20&ndash;52). Cheltenham, UK and Northampton, MA, USA: Edward Elgar Publishing.</p>
+<p>Teece, D. J. 2010. Business models, business strategy and innovation. <strong><em>Long Range Planning</em></strong>, 43(2&ndash;3): 172&ndash;194.</p>
+<p>Thornton, P. H., Ocasio, W., &amp; Lounsbury, M. 2012. <strong><em>The Institutional Logics Perspective: A New Approach to Culture, Structure and Process</em></strong>. Oxford: OUP.</p>
+<p>T&ouml;yt&auml;ri, P., Rajala, R., &amp; Alejandro, T. B. 2015. Organizational and institutional barriers to value-based pricing in industrial relationships. <strong><em>Industrial Marketing Management</em></strong>, 47: 53&ndash;64.</p>
+<p>Vaskelainen, T., &amp; M&uuml;nzel, K. 2018. The effect of institutional logics on business model development in the sharing economy: The case of German carsharing services. <strong><em>Academy of Management Discoveries</em></strong>, 4(3): 273&ndash;293.</p>
+<p>Verzola, R. 2009. An introduction to the economics of abundance. Paper presented at P2P Foundation.</p>
+<p>Weber, S. 2004. <strong><em>The Success of Open Source</em></strong>. Harvard University Press.</p>
+<p>Weber, K. M., &amp; Rohracher, H. 2012. Legitimizing research, technology and innovation policies for transformative change. <strong><em>Research Policy</em></strong>, 41(6): 1037&ndash;1047.</p>
+<p>Weinberger, M., Bilgeri, D., &amp; Fleisch, E. 2016. IoT business models in an industrial context. <strong><em>Automatisierungstechnik</em></strong>, 64(9): 699&ndash;706.</p>
+<p>Weking, J., St&ouml;cker, M., Kowalkiewicz, M., B&ouml;hm, M., &amp; Krcmar, H. 2020. Leveraging industry 4.0&mdash;A business model pattern framework. <strong><em>International Journal of Production Economics</em></strong>, 225: 107588.</p>
+<p>Yablonsky, S. 2017. Smart wearable multi-sided fashion product platforms. In R. Rinaldi &amp; R. Baldinelli (Eds.), <strong><em>Workshop on Business Models and ICT Technologies for the Fashion Supply Chain</em></strong>, 135&ndash;150. Springer.</p>
+<p>Yoo, Y., Boland, R. J., Jr., Lyytinen, K., &amp; Majchrzak, A. 2012. Organizing for innovation in the digitized world. <strong><em>Organization Science</em></strong>, 23(5): 1398&ndash;1408.</p>
+<p>Zeleti, F. A., Ojo, A., &amp; Curry, E. 2016. Exploring the economic value of open government data. <strong><em>Government Information Quarterly</em></strong>, 33(3): 535&ndash;551.</p>
+</div>
+
+</body>
+</html>
